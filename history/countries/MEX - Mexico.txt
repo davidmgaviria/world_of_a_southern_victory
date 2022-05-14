@@ -1,0 +1,779 @@
+﻿capital = 277
+
+#-------------------------------------------------------
+#					GENERIC VALUES
+#-------------------------------------------------------
+set_fuel_ratio = 0.20
+set_stability = 0.45
+set_convoys = 50
+
+
+#-------------------------------------------------------
+#					POLITICS & ARMY
+#-------------------------------------------------------
+if = { limit = { has_start_date < 1937.1.1 }
+	set_cosmetic_tag = southamerican_gfx_nohelmet
+
+	
+	create_corps_commander={  name = "Huerta González" id=55005 portrait_path="gfx/leaders/South America/Portrait_South_America_Generic_land_3.dds" traits={   } skill=2 }
+	create_corps_commander={ name = "Blanquet Morales" id=55013 portrait_path="gfx/leaders/South America/Portrait_South_America_Generic_land_5.dds" traits={   } skill=1 }
+	create_navy_leader={  name = "Azueta De León" id=55061 portrait_path="gfx/leaders/South America/Portrait_South_America_Generic_navy_1.dds" traits={ } skill=1 }
+		
+	create_country_leader={ name = "Venustiano Carranza" desc=MEX_venustiano_carranza_DESC
+							picture="gfx/portraits/MEX/country_leaders/MEX_venustiano_carranza.dds" expire="1935.1.1" ideology=moderatism traits={  } 
+							}
+
+	create_country_leader={ name = "Victoriano Huerta" desc=MXR_victoriano_huerta_DESC
+							picture="gfx/portraits/MEX/country_leaders/MEX_victoriano_huerta.dds" expire="1935.1.1" ideology=autocracy  traits={  } 
+							}
+
+	create_country_leader={ name = "Emiliano Zapata" desc=MEX_emiliano_zapata_DESC
+							picture="gfx/portraits/MEX/country_leaders/MEX_emiliano_zapata.dds" expire="1935.1.1" ideology=marxism traits={  } 
+							}
+
+	create_country_leader={ name = "Francisco Villa" desc=MEX_pancho_villa_DESC
+							picture="gfx/portraits/MEX/country_leaders/MEX_pancho_villa.dds" expire="1935.1.1" ideology=falangism traits={  } 
+							}
+	create_country_leader={ name = "Francisco Jose II" desc=MEX_maximilian_dynasty_desc
+							picture="gfx/portraits/MEX/country_leaders/MEX_francisco_madero.dds" expire="1935.1.1" ideology=despotism traits={  } 
+						}
+
+}
+
+#==========================#==========================#==========================#==========================#==========================#
+
+
+
+
+
+1910.1.1 = {
+	oob = "MEX_1910"
+
+	create_country_leader={ name = "Francisco Jose II" desc=MEX_maximilian_dynasty_desc
+		picture="gfx/portraits/MEX/country_leaders/MEX_francisco_madero.dds" expire="1935.1.1" ideology=despotism traits={  } 
+	}
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = political_effort
+		complete_national_focus = industrial_effort
+
+		#Diplomatic
+		complete_national_focus = ww1_diplomatic_effort
+	}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		
+		tech_mountaineers = 1
+
+		# Artillery
+		light_field_gun1 = 1
+
+		# Air
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+
+		# Industry
+
+		# Naval
+		ww1_light_cruiser0 = 1
+		ww1_light_cruiser0_mtg = 1 # light_cruiser_1890 (Protected Cruiser I)
+		ww1_destroyer0 = 1
+		ww1_destroyer0_mtg = 1 # destroyer_1890 (Torpedo Boat I)
+		ww1_destroyer1 = 1
+		ww1_destroyer1_mtg = 1 # destroyer_1900 (Destroyer I)	
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1910.1.1"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 5
+	    fascism = 1
+	    communism = 1
+	    neutrality = 93
+	}
+
+	#add_ideas = {
+	#	MEX_ww1_mexico_prerevolution
+	#}
+}
+
+1914.1.1 = {
+	add_political_power = 1200
+	set_fuel_ratio = 1
+	oob = "MEX_1910"
+
+	create_country_leader={ name = "Francisco Jose II" desc=MEX_maximilian_dynasty_desc
+		picture="gfx/portraits/MEX/country_leaders/MEX_francisco_madero.dds" expire="1935.1.1" ideology=despotism traits={  } 
+	}
+
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = army_effort
+		complete_national_focus = equipment_effort
+		complete_national_focus = ww1_artillery_effort_1
+		complete_national_focus = doctrine_effort
+		complete_national_focus = ww1_trenchwarfare
+
+		#Industrial
+		complete_national_focus = industrial_effort
+		complete_national_focus = infrastructure_effort
+		complete_national_focus = construction_effort
+		complete_national_focus = production_effort
+
+		#Political
+		complete_national_focus = political_effort
+
+		#Diplomatic
+		complete_national_focus = ww1_diplomatic_effort
+		complete_national_focus = ww1_takeposition
+		complete_national_focus = ww1_supportfrance
+	}
+
+
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+		tech_mountaineers = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		bonus_artillery1 = 1
+		heavy_field_gun1 = 1
+		bonus_bertha1 = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 1
+		ww1_directfire = 1
+		ww1_rifle_ammo = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_submarine0 = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+
+		# Air
+		ww1_fighter1 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		supertech1 = 1
+		mechanical_computing = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		chemical_research = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		#ww1_camera1 = 1
+		ww1_industry1 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine1 = 2
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_mining1 = 1
+		ww1_construction1 = 1
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1912.1.1"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 5
+	    fascism = 1
+	    communism = 1
+	    neutrality = 93
+	}
+
+	create_field_marshal={  name = "Pancho Villa"  portrait_path="gfx/fieldmarshal/MEX_Villa.tga" traits={ logistics_wizard offensive_doctrine inspirational_leader fast_planner} skill= 4 }
+	create_field_marshal={  name = "Emiliano Zapata"  portrait_path="gfx/fieldmarshal/MEX_Zapata.tga" traits={  defensive_doctrine inspirational_leader } skill=3 }
+	create_corps_commander={  name = "Alvaro Obregon"  portrait_path="gfx/generals/MEX_Obregon.tga" traits={ trickster } skill=2 }
+	create_corps_commander={  name = "Pascual Orozco"  portrait_path="gfx/generals/MEX_Orozco.tga" traits={   } skill=1 }
+	create_corps_commander={  name = "Huerta, V" portrait_path="gfx/generals/MEX_huerta__v.tga" traits={ fortress_buster  } skill=2 }
+	create_corps_commander={  name = "Bernardo Reyes"  portrait_path="gfx/generals/MEX_Reyes.tga" traits={   } skill=1 }
+	create_corps_commander={  name = "Felix Diaz"  portrait_path="gfx/generals/MEX_Felix_Diaz.tga" traits={   } skill=1 }
+}
+
+
+###########################################################################################
+##################################  SECOND GREAT WAR    ###################################
+###########################################################################################
+
+1937.1.1 = {
+	set_political_power = 0
+	oob = "MEX_1937"
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1912.1.1"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 5
+	    fascism = 1
+	    communism = 1
+	    neutrality = 93
+	}
+
+	create_country_leader = {
+		name = "Salvador Abascal"
+		desc = "POLITICS_SALVADOR_ABASCAL_DESC"
+		picture = "GFX_Portrait_MEX_Salvador_Abascal"
+		expire = "1965.1.1"
+		ideology = falangism
+		traits = {
+			fascist_militia_leader
+		}
+	}
+	create_country_leader = { # Exiled until 1935 following a rebellion attempt, allowed back in by Cardenas and joined the cabinet of Avila
+		name = "Adolfo de la Huerta"
+		desc = "POLITICS_ADOLFO_DE_LA_HUERTA_DESC"
+		picture = "GFX_Portrait_MEX_Adolfo_de_la_Huerta"
+		expire = "1965.1.1"
+		ideology = conservatism
+		traits = {
+			#
+		}
+	}
+	create_country_leader = { # Stalinist, took over after assassination of Trotsky. 1940-1959
+		name = "Dionisio Encina"
+		desc = "POLITICS_DIONISIO_ENCINA_DESC"
+		picture = "GFX_Portrait_MEX_Dionisio_Encina"
+		expire = "1965.1.1"
+		ideology = stalinism
+		traits = {
+			staunch_stalinist
+		}
+	}
+	create_country_leader = { # Trotskyist, led the PCM 1929-1940
+		name = "Hernán Laborde"
+		desc = "POLITICS_HERNAN_LABORDE_DESC"
+		picture = "GFX_Portrait_MEX_Hernan_Laborde"
+		expire = "1965.1.1"
+		ideology = leninism
+		traits = {
+			devoted_trotskyist
+		}
+	}
+	create_country_leader = {
+		name = "Lázaro Cárdenas"
+		desc = "POLITICS_LAZARO_CARDENAS_DESC"
+		picture = "Portrait_Mexico_Lazaro_Cardenas.dds"
+		expire = "1965.1.1"
+		ideology = moderatism
+		traits = {
+			#
+		}
+	}
+	create_country_leader={
+		name = "Emperor Maximilian III" 
+		desc=MEX_maximilian_dynasty_des
+		picture="gfx/portraits/MEX/country_leaders/MEX_maximilian_3.dds" 
+		expire="1965.1.1" 
+		ideology=autocracy 
+		traits={  } 
+	}
+
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1infantry_weapons2 = 1
+		ww1infantry_weapons3 = 1
+		ww1_infantry_equip1 = 1
+		ww1_infantry_equip2 = 1
+		ww1_infantry_equip3 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		ww1_helmet_equip = 1
+		support_weapons3 = 1
+		support_weapons4 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		infantry_gasmask = 1
+		infantry_ww1_mortar1 = 1
+		infantry_ww1_mortar2 = 1
+		infantry_flamethrower1 = 1
+		infantry_flamethrower2 = 1
+		infantry_at_grenade = 1
+		infantry_at_rifle = 1
+		#infantry_ww1_machinegun1 = 1
+		#infantry_ww1_machinegun2 = 1
+		motorised_infantry = 1
+		#early_motorised = 1
+		#ww1_ambulance1 = 1
+		#ww1_ambulance2 = 1
+		tech_mountaineers = 1
+		marines = 1
+		tech_mountaineers2 = 1
+		marines2 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_engineers2 = 1
+		tech_engineers3 = 1
+		#tech_engineers4 = 1
+		tech_recon = 1
+		tech_recon2 = 1
+		tech_recon3 = 1
+		#tech_recon4 = 1
+		tech_maintenance_company = 1
+		tech_maintenance_company2 = 1
+		tech_maintenance_company3= 1
+		#tech_maintenance_company4 = 1
+		tech_military_police = 1
+		tech_military_police2 = 1
+		tech_military_police3 = 1
+		#tech_military_police4 = 1
+		tech_field_hospital = 1
+		tech_field_hospital2 = 1
+		tech_field_hospital3 = 1
+		#tech_field_hospital4 = 1
+		tech_logistics_company = 1
+		tech_logistics_company2 = 1
+		tech_logistics_company3 = 1
+		#tech_logistics_company4 = 1
+		tech_signal_company = 1
+		tech_signal_company2 = 1
+		tech_signal_company3 = 1
+		#tech_signal_company4 = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+		ww1_armored_car_2 = 1
+		ww1_armored_car_3 = 1
+		ww1_armored_car_4 = 1
+		ww1_light_tank = 1
+		#ww1_light_tank_b = 1
+		ww1_heavy_tank = 1
+		ww1_heavy_tank2 = 1
+		ww1_super_heavy_tank = 1
+		ww1_light_tank_interwar_1 = 1
+		#ww1_light_tank_interwar_2 = 1
+		#ww1_heavy_tank_interwar = 1
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery2 = 1
+		bonus_artillery3 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		heavy_field_gun2 = 1
+		heavy_field_gun3 = 1
+		bonus_bertha1 = 1
+		bonus_bertha2 = 1
+		bonus_bertha3 = 1
+		bonus_bertha4 = 1
+		standard_artillery = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 0
+		ww1_directfire = 0
+		ww1_rifle_ammo = 0
+		ww1_long_march = 0
+		ww1_battlefield = 0
+		ww1_mass_artillery = 0
+		ww1_target = 0
+		ww1_night = 0
+		ww1_tank = 0
+		ww1_landdoctrine_unlock_ww2 = 0
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		early_heavy_cruiser = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_battlecruiser2 = 1
+	ww1_battlecruiser2_mtg = 1
+		ww1_battlecruiser3 = 1
+	ww1_battlecruiser3_mtg = 1
+	early_battlecruiser = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_light_cruiser5 = 1
+	ww1_light_cruiser5_mtg = 1
+		early_light_cruiser = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_submarine2 = 1
+	ww1_submarine2_mtg = 1
+		ww1_coastal_submarine2 = 1
+	ww1_coastal_submarine2_mtg = 1
+	ww1_submarine3 = 1
+	ww1_submarine3_mtg = 1
+		ww1_coastal_submarine3 = 1
+	ww1_coastal_submarine3_mtg = 1
+	ww1_submarine4 = 1
+	ww1_submarine4_mtg = 1
+		ww1_coastal_submarine4 = 1
+	ww1_coastal_submarine4_mtg = 1
+	ww1_cruiser_submarine1 = 1
+	ww1_cruiser_submarine2 = 1
+	early_submarine = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_battleship5 = 1
+	ww1_battleship5_mtg = 1
+	early_battleship = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_destroyer5 = 1
+	ww1_destroyer5_mtg = 1
+		early_destroyer = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+	seaplane_carrier = 1
+	ww1_carrier = 1
+	early_carrier = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_fighter2 = 1
+		ww1_fighter3b = 1
+		ww1_fighter3 = 1
+		ww1_fighter4 = 1
+		early_fighter = 1
+		CAS1 = 1
+		cv_early_fighter = 1
+		ww1_seaplane1 = 1
+		ww1_seaplane2 = 1
+		ww1_bomber1 = 1
+		ww1_bomber2 = 1
+		#ww1_bomber3 = 1
+		early_bomber = 1
+		ww1_transport_plane = 1
+		ww1_zeppelin1 = 1
+		ww1_zeppelin2 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 0
+		ww1_airdoctrine_2 = 0
+		ww1_airdoctrine_3 = 0
+		ww1_airdoctrine_4 = 0
+		ww1_airdoctrine_5 = 0
+		ww1_airdoctrine_5b = 0
+		ww1_airdoctrine_6 = 0
+		ww1_airdoctrine_6b = 0
+		ww1_airdoctrine_7 = 0
+		ww1_airdoctrine_7b = 0
+		ww1_airdoctrine_8 = 0
+		ww1_airdoctrine_9 = 0
+		ww1_airdoctrine_9b = 0
+		ww1_airdoctrine_unlock_ww2 = 0
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 0
+		ww1_navaldoctrine_2 = 0
+		ww1_navaldoctrine_3 = 0
+		ww1_navaldoctrine_4 = 0
+		ww1_navaldoctrine_5 = 0
+		ww1_navaldoctrine_5b = 0
+		ww1_navaldoctrine_6 = 0
+		ww1_navaldoctrine_6b = 0
+		ww1_navaldoctrine_unlock_ww2 = 0
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio2 = 1
+		supertech1 = 1
+		supertech2 = 1
+		mechanical_computing = 1
+		mechanical_computing2 = 1
+		tankaircraft1 = 1
+		tankaircraft2 = 1
+		tanktrack1 = 1
+		tanktrack2 = 1
+		dingfelder_engine1 = 1
+		dingfelder_engine2 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		torpedotech2 = 1
+		torpedotech3 = 1
+		chemical_research = 1
+		chemical_research2 = 1
+		chemical_research3 = 1
+		tank_unlocker1 = 1
+		tank_unlocker2 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		ww1_tools3 = 1
+		#ww1_camera1 = 1
+		#ww1_camera2 = 1
+		#ww1_camera3 = 1
+		ww1_industry1 = 1
+		ww1_industry2 = 1
+		ww1_industry3 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine2 = 1
+		#ww1_medicine3 = 1
+		#ww1_medicine4 = 1
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_fortification3 = 1
+		ww1_fortification3b = 1
+		ww1_fortification4 = 1
+		ww1_fortification5 = 1
+		ww1_mining1 = 1
+		ww1_mining2 = 1
+		ww1_mining3 = 1
+		ww1_construction1 = 1
+		ww1_construction2 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+		ww1_oil3 = 1
+		ww1_bergiusprocess = 1
+	}
+
+	### VARIANTS ###
+	# 1936 Start #
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		create_equipment_variant = {
+			name = "Durango Class"
+			type = destroyer_1
+			upgrades = {
+				ship_anti_air_upgrade = 1
+			}
+			obsolete = yes
+		}
+		create_equipment_variant = {
+			name = "Nicolás Bravo Class"
+			type = destroyer_1
+			upgrades = {
+				ship_torpedo_upgrade = 1
+				destroyer_engine_upgrade = 1
+				ship_ASW_upgrade = 1
+				ship_anti_air_upgrade = 2
+			}
+		}
+	}
+
+	create_field_marshal = {
+		name = "Lázaro Cárdenas"
+		id = 712
+		picture = "Portrait_Mexico_Lazaro_Cardenas.dds"
+		traits = { politically_connected }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Heliodoro Charis"
+		#id = 700
+		gfx = "GFX_portrait_mex_heliodoro_charis"
+		traits = { infantry_officer } # Veteran of many assaults
+		skill = 3
+	    attack_skill = 4
+	    defense_skill = 2
+	    planning_skill = 2
+	    logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Luis Farell"
+		id = 701
+		gfx = "GFX_portrait_mex_luis_farell"
+		traits = { war_hero } # Personally piloted missions against rebels etc
+		skill = 3
+	    attack_skill = 4
+	    defense_skill = 1
+	    planning_skill = 2
+	    logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Gildardo Magaña"
+		id = 702
+		gfx = "GFX_portrait_mex_gildardo_magana"
+		traits = { media_personality } # Headed some political organisations like trade unions
+		skill = 3
+	    attack_skill = 2
+	    defense_skill = 2
+	    planning_skill = 3
+	    logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Manuel Pérez Treviño"
+		id = 703
+		gfx = "GFX_portrait_mex_manuel_perez_trevino"
+		traits = { career_officer } # Pre-Revolutionary officer training
+		skill = 3
+	    attack_skill = 2
+	    defense_skill = 3
+	    planning_skill = 2
+	    logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Abelardo L. Rodríguez"
+		id = 704
+		gfx = "GFX_portrait_mex_abelardo_rodriguez"
+		traits = { politically_connected } # President prior to Cardenas
+		skill = 3
+	    attack_skill = 3
+	    defense_skill = 2
+	    planning_skill = 3
+	    logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Manuel Ávila Camacho"
+		id = 705
+		gfx = "GFX_portrait_mex_avila_military"
+		traits = { politically_connected } # Future president
+		skill = 3
+	    attack_skill = 2
+	    defense_skill = 2
+	    planning_skill = 3
+	    logistics_skill = 3
+	}
+
+	create_navy_leader = {
+		name = "Othón P. Blanco Núñez de Cáceres"
+		id = 706
+		gfx = "GFX_portrait_mex_othon_blanco"
+		traits = { old_guard_navy }
+		skill = 2
+		attack_skill = 1
+		defense_skill = 1
+		maneuvering_skill = 2
+		coordination_skill = 3
+	}
+
+	create_navy_leader = {
+		name = "Heriberto Jara Corona"
+		id = 707
+		gfx = "GFX_portrait_mex_heriberto_corona"
+		traits = { navy_media_personality }
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+
+
+
+
+
+
+
+

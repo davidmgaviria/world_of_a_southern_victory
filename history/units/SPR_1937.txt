@@ -1,0 +1,347 @@
+﻿##### Division Templates #####
+division_template = {
+	name = "División de Infantería" 		# Regular infantry divisions, all at reserve levels in 1939
+	division_names_group = SPA_INF_01
+	# Note: Spanish divisions were 2x brigades of 2x2 rgts each, + support
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 0 y = 3 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+		infantry = { x = 1 y = 3 }
+	}
+	support = {
+		artillery = { x = 0 y = 0 }  # Spanish Arty Rgt/Bge had 2 Bn 105mm arty
+		engineer = { x = 0 y = 1 }   
+	}
+}
+division_template = {
+	name = "División de Caballería"  		# Cavalry Division semi-motorized by 1939
+	division_names_group = SPR_CAV_01
+
+	regiments = {
+		cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 0 y = 2 }
+		cavalry = { x = 0 y = 3 }
+		motorized = { x = 1 y = 0 }
+		motorized = { x = 1 y = 1 }
+		motorized = { x = 1 y = 2 }
+		motorized = { x = 1 y = 3 }
+	}
+	support = {
+		recon = { x = 0 y = 0 }
+		engineer = { x = 0 y = 1 }   
+	}
+}
+
+division_template = {
+	name = "División de Barriles" 		
+	division_names_group = SPR_ARM_01
+									
+	regiments = {
+        cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 1 y = 0 }
+        cavalry = { x = 1 y = 1 }
+        light_armor = { x = 2 y = 0 }
+		light_armor = { x = 2 y = 1 }
+	}
+	support = {
+        recon = { x = 0 y = 1 }
+        artillery = { x = 0 y = 2 }
+	}
+	priority = 2
+}
+
+division_template = {
+	name = "Fuerza Colonial" 		# Collection of Spanish Legion, native militias, and cavalry 
+	division_names_group = SPR_GAR_01
+									# Averages out to regular experience and equipment (Legion = elite, militias = low-quality)
+	regiments = {
+		infantry = { x = 0 y = 0 }	
+		infantry = { x = 0 y = 1 }	
+		infantry = { x = 0 y = 2 }	
+		infantry = { x = 1 y = 0 }		
+		cavalry = { x = 2 y = 0 }
+		cavalry = { x = 2 y = 1 }
+	}
+	priority = 0
+}
+
+
+
+###### OOB ######
+units = {
+
+	##### NAVAL UNITS #####
+	fleet = {
+		name = "Base Naval Valencia"
+		naval_base = 6906  #Valencia
+		task_force = {
+			name = "Escuadrón de Valencia"
+			location = 6906  #Valencia
+			ship = { name = "ARE República" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Méndez Núñez" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = SPR } } }
+			# Flotilla de Destructores n.4
+			ship = { name = "ARE Melilla" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Ceuta" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Huesca" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Teruel" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPR } } }
+		}
+		task_force = {
+			name = "Flotilla de Valencia"
+			location = 6906  #Valencia
+			ship = { name = "ARE Escaño" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Císcar" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Jorge Juan" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPR } } }
+			ship = { name = "ARE Ulloa" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPR } } }
+		}
+		task_force = {
+			name = "Grupo de Valencia"
+			location = 6906  #Valencia
+			# S103 Flotilla
+			ship = { name = "B1" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "B2" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "B3" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPR } } }
+			ship = { name = "B4" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPR } } }
+		}
+	}
+
+	fleet = {
+		name = "Base Naval Bilbao"
+		naval_base = 740  # Bilbao
+		task_force = {				
+			name = "Escuadrón de El Bilbao"
+			location = 740  #Bilbao
+			ship = { name = "ARE Canarias" pride_of_the_fleet = yes definition = heavy_cruiser equipment = { heavy_cruiser_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Libertad" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = SPN version_name = "Príncipe Alfonso Class" } } }
+			ship = { name = "ARE Almirante Cervera" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = SPN version_name = "Príncipe Alfonso Class" } } }
+			ship = { name = "ARE Miguel de Cervantes" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = SPN version_name = "Príncipe Alfonso Class" } } }
+			# Flotilla de Destructores de El Ferrol
+			ship = { name = "ARE Alsedo" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Velasco" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Lazaga" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = SPN } } }
+		}
+		task_force = {
+			name = "Flotilla de Bilbao n.1"
+			location = 740  #Bilbao
+			# Flotilla de Destructores n.1
+			ship = { name = "ARE Sánchez Barcáiztegui" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Alcalá Galiano" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Almirante Valdés" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Almirante Miranda" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Gravina" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+		}
+		task_force = {
+			name = "Flotilla de Bilbao n.2"
+			location = 740  #Bilbao
+			ship = { name = "ARE Churucca" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE José Luis Díez" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Lepanto" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+			ship = { name = "ARE Almirante Antequera" definition = destroyer equipment = { destroyer_2 = { amount = 1 owner = SPN } } }
+		}
+		task_force = {
+			name = "Grupo de Bilbao"
+			location = 740  #Bilbao
+			# S101 Flotilla
+			ship = { name = "C1" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPN version_name = "C Class" } } }
+			ship = { name = "C2" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPN version_name = "C Class" } } }
+			ship = { name = "C4" definition = submarine equipment = { submarine_1 = { amount = 1 owner = SPN version_name = "C Class" } } }
+		}
+	}
+	
+	#####LAND UNITS #####
+	##### Army #####
+	division = {			
+		name = "1a División de Infantería"		
+		location = 9757
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "2a División de Infantería"		
+		location = 9757
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "3a División de Infantería"		
+		location = 9757
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "4a División de Infantería"		
+		location = 950
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "5a División de Infantería"		
+		location = 950
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "6a División de Infantería"		
+		location = 6878
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "7a División de Infantería"		
+		location = 6878
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "8a División de Infantería"		
+		location = 6878
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "9a División de Infantería"		
+		location = 6878
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "10a División de Infantería"		
+		location = 3874
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "11a División de Infantería"		
+		location = 3874
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "12a División de Infantería"		
+		location = 3874
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "13a División de Infantería"		
+		location = 7183
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "14a División de Infantería"		
+		location = 7183
+		division_template = "División de Infantería"
+		start_experience_factor = 0.1
+	}
+	division = {			
+		name = "1b Fuerza Colonial"		
+		location = 13071
+		division_template = "Fuerza Colonial"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.7
+	}
+	division = {			
+		name = "2b Fuerza Colonial"		
+		location = 9945
+		division_template = "Fuerza Colonial"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.7
+	}
+	division = {			
+		name = "3b Fuerza Colonial"		
+		location = 12100
+		division_template = "Fuerza Colonial"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.7
+	}
+
+	division = {			
+		name = "4b Fuerza Colonial"		
+		location = 8038
+		division_template = "Fuerza Colonial"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.7
+	}
+	division = {			
+		name = "5b Fuerza Colonial"		
+		location = 8244
+		division_template = "Fuerza Colonial"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.7
+	}
+	division = {			
+		name = "1a División de Caballería"		
+		location = 6878
+		division_template = "División de Caballería"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.8
+	}
+	division = {			
+		name = "2a División de Caballería"		
+		location = 7183
+		division_template = "División de Caballería"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.8
+	}
+	division = {			
+		name = "3a División de Caballería"		
+		location = 3945
+		division_template = "División de Caballería"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.8
+	}
+}
+
+
+### Air Wings
+air_wings = {
+	41 = { 														# Madrid (Getafe)
+		fighter_equipment_0 = { owner = "SPR" amount = 54 }		# I/1a Región Aérea Centro -- CR.32, He 51 fighters
+		tac_bomber_equipment_0 = { owner = "SPR" amount = 24 }			# II/1a Región Aérea Centro -- BR.20, Do 17E 
+	}
+	173 = {														# Galacia
+		fighter_equipment_0 = { owner = "SPR" amount = 32 }		# I/4a Región Aérea Levante -- Bf 109B fighters
+		tac_bomber_equipment_0 = { owner = "SPR" amount = 12 }	# II/4a Región Aérea Levante -- He 111 bombers
+	}	
+}
+
+
+
+
+### Starting Production ###
+instant_effect = {
+	add_equipment_production = {
+		equipment = {
+			type = infantry_equipment_3
+			creator = "SPR"
+		}
+		requested_factories = 1
+		progress = 0.5
+		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = support_equipment_1
+			creator = "SPR"
+		}
+		requested_factories = 1
+		progress = 0.5
+		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = artillery_equipment_1
+			creator = "SPR"
+		}
+		requested_factories = 1
+		progress = 0.5
+		efficiency = 100
+	}
+}

@@ -1,0 +1,190 @@
+ideas = {
+
+	country = {
+
+		RUS_agrarian_empire = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = generic_agrarian_society
+			modifier = {
+				global_building_slots_factor = -0.25
+				local_resources_factor = -0.25
+			}
+		}
+
+		RUS_russian_staff = {
+			allowed = {
+				always = yes
+			}
+
+			removal_cost = -1
+
+			picture=russian_staff_icon
+
+			research_bonus = { land_doctrine = -0.25 }
+
+			modifier = {
+				planning_speed = -0.25
+				max_planning = -0.25
+				experience_gain_army_factor = -0.25
+			}
+		}
+
+
+		RUS_peasant_army = {
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost = -1
+			picture = generic_manpower_bonus
+			modifier = {
+				conscription = 0.02
+				training_time_factor = -0.1
+				army_org = -10
+			}
+		}
+
+
+		RUS_ww1_mixed_railways = {
+			allowed = {original_tag = RUS}
+			allowed_civil_war = {always = yes}
+			removal_cost = -1
+			modifier = {
+				army_speed_factor = -0.1
+				org_loss_when_moving = 0.1
+				attrition = 0.1
+			}
+		}
+
+
+		RUS_communist_unrest1 = {
+
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+			removal_cost=-1
+			picture = generic_communism_drift_bonus
+			
+			modifier = {
+				communism_drift = 0.1
+			}
+		}
+
+		RUS_communist_unrest2 = {
+
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+			removal_cost=-1
+			picture = generic_communism_drift_bonus
+			
+			modifier = {
+				communism_drift = 0.2
+			}
+		}
+
+		RUS_communist_unrest3 = {
+
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+			removal_cost=-1
+			picture = generic_communism_drift_bonus
+			
+			modifier = {
+				communism_drift = 0.3
+			}
+		}
+
+		RUS_lenin_returns = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+			removal_cost=-1
+			picture = socialist_science_focus
+			
+			modifier = {
+				communism_drift = 0.3
+			}
+		}
+
+
+		#####################################
+		######## SECOND GREAT WAR  ##########
+		#####################################
+		RUS_slavic_unrest = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = {
+				NOT = {
+					controls_state = 102
+					controls_state = 103
+					controls_state = 109
+					controls_state = 104
+					controls_state = 105
+					controls_state = 761
+				}
+			}
+			removal_cost=-1
+			picture = generic_unrest_icon
+			
+			modifier = {
+				resistance_damage_to_garrison = 0.1
+				political_power_gain = -0.1
+			}
+		}
+
+		RUS_romanian_unrest = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = {
+				NOT = {
+					controls_state = 79
+					controls_state = 46
+					controls_state = 81
+					controls_state = 80
+				}
+			}
+			removal_cost=-1
+			picture = generic_unrest_icon
+			
+			modifier = {
+				resistance_damage_to_garrison = 0.1
+				political_power_gain = -0.1
+			}
+		}
+
+
+		RUS_influence_country = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = FRA_national_mobilization_focus
+			
+			modifier = {
+				fascism_drift = 0.05
+				war_support_weekly = 0.003
+			}
+		}
+
+
+		RUS_railways_project_idea = {
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = generic_production_bonus
+			modifier = {
+				production_speed_infrastructure_factor = 0.1
+			}
+		}
+	}
+}

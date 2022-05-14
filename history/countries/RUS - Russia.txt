@@ -1,0 +1,1104 @@
+﻿capital = 195
+
+#-------------------------------------------------------
+#					GENERIC VALUES
+#-------------------------------------------------------
+set_fuel_ratio = 0.45
+set_research_slots = 3 #was 4
+set_stability = 0.45
+set_war_support = 0.2
+set_convoys = 100
+
+
+
+#-------------------------------------------------------
+#					POLITICS & ARMY
+#-------------------------------------------------------
+#add_namespace = { name = "unit_leader_sov" type = unit_leader }
+if = { limit = { has_start_date < 1937.1.1 }
+set_cosmetic_tag = RUS_nohelmet
+
+#LEADERS
+create_country_leader={ name = "Vladimir Lenin" desc=RUS_vladimir_ilyich_lenin_DESC picture="gfx/portraits/RUS/country_leaders/RUS_vladimir_ilyich_lenin.dds" expire="1935.1.1" ideology=leninism traits={  } }
+create_country_leader={ name = "Georgy Lvov" desc=RUS_georgy_lvov_DESC picture="gfx/portraits/RUS/country_leaders/RUS_georgy_lvov.dds" expire="1935.1.1" ideology=liberalism traits={  } }
+create_country_leader={ name = "Nikolay II" desc=RUS_nikolai_ii_DESC picture="gfx/portraits/RUS/country_leaders/RUS_nicholas_romanov.dds" expire="1935.1.1" ideology=autocracy traits={  } }
+create_country_leader={ name = "Nikolay II" desc=RUS_nikolai_ii_DESC picture="gfx/portraits/RUS/country_leaders/RUS_nicholas_romanov.dds" expire="1935.1.1" ideology=fascism_ideology traits={  } }
+create_country_leader={ name = "Aleksandr Kolchak" desc=WHR_aleksandr_kolchak_DESC picture="gfx/portraits/RUS/navy_admirals/RUS_kolchak.dds" expire="1935.1.1" ideology=fascism_ideology  traits={  } }
+
+#ARMY
+create_field_marshal={  name = "Mikhail Alexeyev" id=76321 portrait_path="gfx/portraits/RUS/army_generals/RUS_alekseyev.dds" traits={ thorough_planner } skill=3 
+	attack_skill = 3
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 2
+}			
+create_field_marshal={  name = "Nikolay Rouzski" id=76837 portrait_path="gfx/portraits/RUS/army_generals/RUS_ruzsky.dds" traits={ defensive_doctrine } skill=2 
+	attack_skill = 2
+	defense_skill = 3
+	planning_skill = 2
+	logistics_skill = 2
+}							
+create_field_marshal={  name = "Vladimir Sukhomlinov" id=76860 portrait_path="gfx/portraits/RUS/army_generals/RUS_sukhomlinov.dds" traits={ } skill=3 
+	attack_skill = 3
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+}
+				
+create_corps_commander={ name = "Nikolay Baratov" id=77711 portrait_path="gfx/portraits/RUS/army_generals/RUS_baratov.dds" traits={ } skill=2 
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 2
+}	
+create_corps_commander={ name = "Alexeï Broussilov" id=76187 portrait_path="gfx/portraits/RUS/army_generals/RUS_brusilov.dds" traits={  trickster } skill=3 
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 3
+	logistics_skill = 1
+}		
+create_corps_commander={ name = "Anton Denikin" id=76428 portrait_path="gfx/portraits/RUS/army_generals/RUS_denikin.dds" traits={ } skill=2 
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 1
+}							
+create_corps_commander={ name = "Alexei Evert" id=76431 portrait_path="gfx/portraits/RUS/army_generals/RUS_evert.dds" traits={  } skill=2 
+	attack_skill = 2
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}								
+create_corps_commander={ name = "Nikolay Iudovich Ivanov" id=76696 portrait_path="gfx/portraits/RUS/army_generals/RUS_ivanov.dds" traits={ } skill=2 
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}						
+create_corps_commander={ name = "Alexey Kaledin" id=76546 portrait_path="gfx/portraits/RUS/army_generals/RUS_kaledin.dds" traits={ trickster } skill=2 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 2
+}						
+create_corps_commander={ name = "Aleksey Kuropatkin" id=77712 portrait_path="gfx/portraits/RUS/army_generals/RUS_kuropatkin.dds" traits={ } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}	
+create_corps_commander={ name = "Platon Lechitsky" id=77713 portrait_path="gfx/portraits/RUS/army_generals/RUS_lechitsky.dds" traits={ } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}						
+create_corps_commander={ name = "Pavel Karlovitch Rennenkampf" id=77001 portrait_path="gfx/portraits/RUS/army_generals/RUS_rennenkampf.dds" traits={  } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}								
+create_corps_commander={ name = "Aleksandr Samsonov" id=77166 portrait_path="gfx/portraits/RUS/army_generals/RUS_samsonov.dds" traits={ } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}								
+create_corps_commander={ name = "Vladimir Sakharov" id=77532 portrait_path="gfx/portraits/RUS/army_generals/RUS_sakharov.dds" traits={ } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}							
+create_corps_commander={ name = "Dmitry Shcherbachev" id=77298 portrait_path="gfx/portraits/RUS/army_generals/RUS_shcherbachev.dds" traits={ trickster } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}								
+create_corps_commander={ name = "Piotr Wrangel" id=77689 portrait_path="gfx/portraits/RUS/army_generals/RUS_wrangel.dds" traits={ } skill=1
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}							
+create_corps_commander={ name = "Nikolai Yudenich" id=77714 portrait_path="gfx/portraits/RUS/army_generals/RUS_yudenich.dds" traits={  fortress_buster } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}														
+
+#NAVY
+create_navy_leader={ name = "Aleksandr Kolchak" id=76649 portrait_path="gfx/portraits/RUS/navy_admirals/RUS_kolchak.dds" traits={ blockade_runner superior_tactician } skill=4 }
+create_navy_leader={  name = "Yevgeni Ivanovich Alekseyev" id=77234 portrait_path="gfx/portraits/RUS/navy_admirals/RUS_admiral_alekseyev.dds" traits={ superior_tactician  } skill=3 }
+create_navy_leader={ name = "Andrei Eberhardt" id=76323 portrait_path="gfx/portraits/RUS/navy_admirals/RUS_eberhard.dds" traits={ ironside } skill=3 }													
+create_navy_leader={ name = "Grand Duke Alexander" id=76455 portrait_path="gfx/portraits/RUS/navy_admirals/RUS_gd_alexander.dds" traits={ spotter } skill=2 }																	
+create_navy_leader={  name = "Aleksandr Rusin" id=77235 portrait_path="gfx/portraits/RUS/navy_admirals/RUS_rusin.dds" traits={   } skill=2 }
+}
+
+1910.1.1 = {
+	oob = "RUS_1910"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		#complete_national_focus = RUS_ww1_army_effort
+		#complete_national_focus = RUS_ww1_industrial_effort
+		#complete_national_focus = RUS_ww1_naval_effort
+
+		#Diplomatic
+		#complete_national_focus = RUS_ww1_diplomatic_effort
+	}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		heavy_field_gun1 = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_submarine2 = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_coastal_submarine2 = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+
+		# Air
+		#ww1_fighter1 = 1
+		#ww1_zeppelin1 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		chemical_research = 1
+
+		# Industry
+		ww1_fortification1 = 1
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1912.9.1"
+	    election_frequency = 60
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 10
+	    fascism = 5
+	    communism = 10
+	    neutrality = 75
+	}
+
+	add_ideas = {
+		limited_conscription
+		limited_exports 
+		RUS_ww1_orthodox_church
+		RUS_ww1_tsushima_humiliation
+		RUS_ww1_mixed_railways
+		RUS_peasant_army
+		RUS_russian_staff
+		RUS_agrarian_empire
+	}
+	
+	create_equipment_variant={ name="Admiral Chichagov Class" type=battleship_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+	create_equipment_variant={ name="Charodeika Class" type=battleship_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+	create_equipment_variant={ name="Petr Veliki Class" type=battleship_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=4 ship_armor_upgrade=3 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Ekatarina II Class" type=battleship_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Imperator Alexander II Class" type=battleship_1890 parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Dvienadtsat Apostolov Class" type=battleship_1890 parent_version = 5 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Tri Svititelia Class" type=battleship_1890 parent_version = 6 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=4 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Rotislav Class" type=battleship_1890 parent_version = 7 obsolete=yes upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=5 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Kniaz Potemkin Class" type=battleship_1890 parent_version = 8 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Tsesarevich Class" type=battleship_1890 parent_version = 9 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Ioann Zlatoust Class" type=battleship_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Imperator Pavel I Class" type=battleship_1900 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Minin Class" type=heavy_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=2           } }
+	create_equipment_variant={ name="General-Admiral Class" type=heavy_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+	create_equipment_variant={ name="Pamiat Azova Class" type=heavy_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+	create_equipment_variant={ name="Bayan Class" type=heavy_cruiser_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=5 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Rurik Class" type=heavy_cruiser_1900 parent_version = 1 obsolete=no upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Admiral Kornilov Class" type=light_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Pallada Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Askold Class" type=light_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Bogatyr Class" type=light_cruiser_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Zhemchug Class" type=light_cruiser_1900 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Bditelni Class" type=destroyer_1890 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=4 } }
+	create_equipment_variant={ name="Boiki Class" type=destroyer_1890 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=4 } }
+	create_equipment_variant={ name="Grozni Class" type=destroyer_1900 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+	create_equipment_variant={ name="Z Class" type=destroyer_1900 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+	create_equipment_variant={ name="Tverdi Class" type=destroyer_1900 parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+	create_equipment_variant={ name="Lovki Class" type=destroyer_1900 parent_version = 3 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+	create_equipment_variant={ name="Bditelni Class" type=destroyer_1900 parent_version = 4 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+	create_equipment_variant={ name="Storozhevoi Class" type=destroyer_1900 parent_version = 5 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+	create_equipment_variant={ name="Ukraina Class" type=destroyer_1900 parent_version = 6 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
+	create_equipment_variant={ name="Emir Bukharski Class" type=destroyer_1900 parent_version = 7 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
+	create_equipment_variant={ name="Gaidamak Class" type=destroyer_1900 parent_version = 8 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
+	create_equipment_variant={ name="General Kondratenko Class" type=destroyer_1900 parent_version = 9 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
+	create_equipment_variant={ name="Novik Class" type=destroyer_1906 parent_version = 0 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=4    ship_torpedo_upgrade=5 } }
+	create_equipment_variant={ name="Kasatka Class" type=coastal_submarine_1900 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=5 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
+	create_equipment_variant={ name="Holland Class" type=coastal_submarine_1900 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=0 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
+	create_equipment_variant={ name="Lake Class" type=coastal_submarine_1900 parent_version = 2 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=5 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
+	create_equipment_variant={ name="Kaiman Class" type=coastal_submarine_1906 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=5 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+	create_equipment_variant={ name="Minoga Class" type=coastal_submarine_1906 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+	create_equipment_variant={ name="Pochtovy Class" type=coastal_submarine_1910 parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=1 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+
+}
+
+
+1914.1.1 = {
+	add_political_power = 1200
+	set_fuel_ratio = 1
+	oob = "RUS_1914"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = RUS_ww1_army_effort
+		
+		
+		# Industry
+		complete_national_focus = RUS_ww1_industrial_effort
+		complete_national_focus = RUS_ww1_infrastructure_effort
+		complete_national_focus = RUS_ww1_construction_effort
+		complete_national_focus = RUS_ww1_production_effort
+		
+		# Naval
+		complete_national_focus = RUS_ww1_naval_effort
+		complete_national_focus = RUS_ww1_european_seas_focus
+
+		#Political
+		complete_national_focus = RUS_ww1_discuss_tsar_authority
+
+		#Diplomatic
+		complete_national_focus = RUS_ww1_diplomatic_effort
+		complete_national_focus = RUS_ww1_BalkansPolitics
+		complete_national_focus = RUS_ww1_support_serbia
+		complete_national_focus = RUS_european_focus
+		complete_national_focus = RUS_ww1_pro_fra
+		complete_national_focus = RUS_ww1_reinforce_western_forts
+		complete_national_focus = RUS_ww1_scandinavia_focus
+		complete_national_focus = RUS_around_manchuria
+		complete_national_focus = RUS_ww1_Xinhai_Revolution_Opportunity
+		complete_national_focus = RUS_mongolian_protectorate
+		complete_national_focus = RUS_asian_focus
+		complete_national_focus = RUS_ww1_Tungsten_Nerchinsk
+	}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+		tech_mountaineers = 1
+		marines = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_maintenance_company = 1
+		tech_signal_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		bonus_bertha1 = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 1
+		ww1_directfire = 1
+		ww1_rifle_ammo = 1
+		ww1_long_march = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_zeppelin1 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 1
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 1
+		ww1_navaldoctrine_2 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		supertech1 = 1
+		mechanical_computing = 1
+		tankaircraft1 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		chemical_research = 1
+		tank_unlocker1 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		#ww1_camera1 = 1
+		ww1_industry1 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine1 = 2
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_mining1 = 1
+		ww1_construction1 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1912.9.1"
+	    election_frequency = 60
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 10
+	    fascism = 5
+	    communism = 10
+	    neutrality = 75
+	}
+
+	add_ideas = {
+		partial_economic_mobilisation
+	}
+
+	create_equipment_variant={ name="Leitenant Ilin Class" type=destroyer_1910 parent_version = 0 obsolete=no upgrades={     ship_anti_air_upgrade=5    ship_ASW_upgrade=0 destroyer_engine_upgrade=1    ship_torpedo_upgrade=5 } }
+	create_equipment_variant={ name="Morzh Class" type=submarine_1906 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=4 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+	create_equipment_variant={ name="Narval Class" type=submarine_1906 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=5 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+	create_equipment_variant={ name="Bars Class" type=submarine_1906 parent_version = 2 obsolete=no upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=5 sub_stealth_upgrade=5 sub_engine_upgrade=5  } }	
+}
+
+
+
+
+###########################################################################################
+##################################  SECOND GREAT WAR    ###################################
+###########################################################################################
+
+1937.1.1 = {
+	set_political_power = 0
+	oob = "RUS_1937"
+	load_focus_tree = rus_2_focus
+	end_puppet = MON
+	
+	set_province_name = { id = 3151   name = "Petrograd" }
+	195 = { set_state_name = "Petrograd" }
+
+	set_stability = 0.54
+	set_war_support = 0.25
+	
+	add_ideas = {
+		limited_exports
+		low_economic_mobilisation
+		#generic_bitter_losers
+	}
+	remove_ideas = {
+		RUS_ww1_tsushima_humiliation
+		RUS_russian_staff
+	}
+
+	create_country_leader = {
+		name = "Mikhail II"
+		desc = "RUS_mikhail_ii_desc"
+		picture = "gfx/portraits/RUS/country_leaders/RUS_mikhail_ii.dds"
+		expire = "1965.1.1"
+		ideology = revanchism
+		traits = {
+			
+		}
+	}
+
+	set_politics = {
+	    ruling_party = fascism
+	    last_election = "1926.6.15"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 9
+	    neutrality = 9
+	    communism = 3
+	    fascism = 79
+	}
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1infantry_weapons2 = 1
+		ww1infantry_weapons3 = 1
+		infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		ww1_infantry_equip2 = 1
+		ww1_infantry_equip3 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		ww1_helmet_equip = 1
+		support_weapons3 = 1
+		support_weapons4 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		infantry_gasmask = 1
+		infantry_ww1_mortar1 = 1
+		infantry_ww1_mortar2 = 1
+		infantry_flamethrower1 = 1
+		infantry_flamethrower2 = 1
+		infantry_at_grenade = 1
+		infantry_at_rifle = 1
+		#infantry_ww1_machinegun1 = 1
+		#infantry_ww1_machinegun2 = 1
+		#infantry_ww1_machinegun3 = 1 = 1
+		motorised_infantry = 1
+		motorised_infantry2 = 1
+		tech_mountaineers = 1
+		marines = 1
+		tech_mountaineers2 = 1
+		marines2 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_engineers2 = 1
+		tech_engineers3 = 1
+		#tech_engineers4 = 1
+		tech_recon = 1
+		tech_recon2 = 1
+		tech_recon3 = 1
+		#tech_recon4 = 1
+		tech_maintenance_company = 1
+		tech_maintenance_company2 = 1
+		tech_maintenance_company3= 1
+		#tech_maintenance_company4 = 1
+		tech_military_police = 1
+		tech_military_police2 = 1
+		tech_military_police3 = 1
+		#tech_military_police4 = 1
+		tech_field_hospital = 1
+		tech_field_hospital2 = 1
+		tech_field_hospital3 = 1
+		#tech_field_hospital4 = 1
+		tech_logistics_company = 1
+		tech_logistics_company2 = 1
+		tech_logistics_company3 = 1
+		#tech_logistics_company4 = 1
+		tech_signal_company = 1
+		tech_signal_company2 = 1
+		tech_signal_company3 = 1
+		#tech_signal_company4 = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+		ww1_armored_car_2 = 1
+		ww1_armored_car_3 = 1
+		ww1_armored_car_4 = 1
+		ww1_armored_car_5 = 1
+		ww1_light_tank = 1
+		#ww1_light_tank_b = 1
+		ww1_heavy_tank = 1
+		ww1_heavy_tank2 = 1
+		ww1_super_heavy_tank = 1
+		ww1_light_tank_interwar_1 = 1
+		#ww1_light_tank_interwar_2 = 1
+		#ww1_heavy_tank_interwar = 1
+		basic_light_tank = 1
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery2 = 1
+		bonus_artillery3 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		heavy_field_gun2 = 1
+		heavy_field_gun3 = 1
+		bonus_bertha1 = 1
+		bonus_bertha2 = 1
+		bonus_bertha3 = 1
+		bonus_bertha4 = 1
+		standard_artillery = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 0
+		ww1_directfire = 0
+		ww1_rifle_ammo = 0
+		ww1_long_march = 0
+		ww1_battlefield = 0
+		ww1_mass_artillery = 0
+		ww1_target = 0
+		ww1_night = 0
+		ww1_tank = 0
+		ww1_landdoctrine_unlock_ww2 = 0
+		mass_assault = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		early_heavy_cruiser = 1
+		basic_heavy_cruiser = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_battlecruiser2 = 1
+	ww1_battlecruiser2_mtg = 1
+		ww1_battlecruiser3 = 1
+	ww1_battlecruiser3_mtg = 1
+	early_battlecruiser = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_light_cruiser5 = 1
+	ww1_light_cruiser5_mtg = 1
+		early_light_cruiser = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_submarine2 = 1
+	ww1_submarine2_mtg = 1
+		ww1_coastal_submarine2 = 1
+	ww1_coastal_submarine2_mtg = 1
+	ww1_submarine3 = 1
+	ww1_submarine3_mtg = 1
+		ww1_coastal_submarine3 = 1
+	ww1_coastal_submarine3_mtg = 1
+	ww1_submarine4 = 1
+	ww1_submarine4_mtg = 1
+		ww1_coastal_submarine4 = 1
+	ww1_coastal_submarine4_mtg = 1
+	ww1_cruiser_submarine1 = 1
+	ww1_cruiser_submarine2 = 1
+	early_submarine = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_battleship5 = 1
+	ww1_battleship5_mtg = 1
+	early_battleship = 1
+	basic_battleship = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_destroyer5 = 1
+	ww1_destroyer5_mtg = 1
+		early_destroyer = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+	seaplane_carrier = 1
+	ww1_carrier = 1
+	early_carrier = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_fighter2 = 1
+		ww1_fighter3b = 1
+		ww1_fighter3 = 1
+		ww1_fighter4 = 1
+		early_fighter = 1
+		cv_early_fighter = 1
+		fighter1 = 1
+		ww1_seaplane1 = 1
+		ww1_seaplane2 = 1
+		naval_bomber1 = 1
+		ww1_bomber1 = 1
+		ww1_bomber2 = 1
+		#ww1_bomber3 = 1
+		early_bomber = 1
+		ww1_transport_plane = 1
+		ww1_zeppelin1 = 1
+		ww1_zeppelin2 = 1
+		strategic_bomber1 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 0
+		ww1_airdoctrine_2 = 0
+		ww1_airdoctrine_3 = 0
+		ww1_airdoctrine_4 = 0
+		ww1_airdoctrine_5 = 0
+		ww1_airdoctrine_5b = 0
+		ww1_airdoctrine_6 = 0
+		ww1_airdoctrine_6b = 0
+		ww1_airdoctrine_7 = 0
+		ww1_airdoctrine_7b = 0
+		ww1_airdoctrine_8 = 0
+		ww1_airdoctrine_9 = 0
+		ww1_airdoctrine_9b = 0
+		ww1_airdoctrine_unlock_ww2 = 0
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 0
+		ww1_navaldoctrine_2 = 0
+		ww1_navaldoctrine_3 = 0
+		ww1_navaldoctrine_4 = 0
+		ww1_navaldoctrine_5 = 0
+		ww1_navaldoctrine_5b = 0
+		ww1_navaldoctrine_6 = 0
+		ww1_navaldoctrine_6b = 0
+		ww1_navaldoctrine_unlock_ww2 = 0
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio2 = 1
+		supertech1 = 1
+		supertech2 = 1
+		mechanical_computing = 1
+		mechanical_computing2 = 1
+		tankaircraft1 = 1
+		tankaircraft2 = 1
+		tanktrack1 = 1
+		tanktrack2 = 1
+		dingfelder_engine1 = 1
+		dingfelder_engine2 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		torpedotech2 = 1
+		torpedotech3 = 1
+		chemical_research = 1
+		chemical_research2 = 1
+		chemical_research3 = 1
+		tank_unlocker1 = 1
+		tank_unlocker2 = 1
+		electronic_ww2 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		ww1_tools3 = 1
+		basic_machine_tools = 1
+		#ww1_camera1 = 1
+		#ww1_camera2 = 1
+		#ww1_camera3 = 1
+		ww1_industry1 = 1
+		ww1_industry2 = 1
+		ww1_industry3 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine2 = 1
+		#ww1_medicine3 = 1
+		#ww1_medicine4 = 1
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_fortification3 = 1
+		ww1_fortification3b = 1
+		ww1_fortification4 = 1
+		ww1_fortification5 = 1
+		ww1_mining1 = 1
+		ww1_mining2 = 1
+		ww1_mining3 = 1
+		ww1_construction1 = 1
+		ww1_construction2 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+		ww1_oil3 = 1
+		ww1_bergiusprocess = 1
+	}
+
+
+	######### Generals #########
+	
+	create_field_marshal = {
+		name = "Pyotr Wrangel"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_2.dds"
+		traits = { expert_delegator war_hero }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 3	
+	}
+	create_field_marshal = {
+		name = "Abram Dragomirov"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_1.dds"
+		traits = { old_guard offensive_doctrine }
+		skill = 1
+		id = 99995
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+	}
+	create_field_marshal = {
+		name = "Anton Denikin"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_6.dds"
+		traits = { defensive_doctrine war_hero }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2	
+	}
+	create_corps_commander = {
+		name = "Pyotr Krasnov"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_3.dds"
+		traits = { defensive_doctrine bearer_of_artillery old_guard }
+		skill = 4
+		attack_skill = 2
+		defense_skill = 5
+		planning_skill = 5
+		logistics_skill = 2			
+	}
+	create_corps_commander = {
+		name = "Carl Gustaf Emil Mannerheim"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_4.dds"
+		#id = 601	
+		traits = { fortress_buster }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 4	
+	}
+	create_corps_commander = {
+		name = "Ivan Barbovich"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_2.dds"
+		traits = { infantry_officer skilled_staffer commando}
+		skill = 4
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 5
+		logistics_skill = 4 
+		
+	}
+	create_corps_commander = {
+		name = "Grigoriy Semenov"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_5.dds"
+		traits = { cavalry_officer harsh_leader }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 3	
+	}
+	
+	create_corps_commander = {
+		name = "Ivan Belyaev"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_1.dds"
+		traits = { trait_mountaineer trait_cautious }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 3
+	}
+	
+	create_corps_commander = {
+		name = "Grand Duke Boris of Russia"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_6.dds"
+		traits = {  }
+		skill = 3
+		attack_skill = 4 
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 2
+	}
+	create_corps_commander = {
+		name = "Alexei Antonov"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_3.dds"
+		traits = { old_guard war_hero cavalry_officer }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 3	
+	}
+	create_corps_commander = {
+		name = "Mikhail Drozdovskiy"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_2.dds"
+		traits = {  }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2 
+		planning_skill = 3
+		logistics_skill = 3
+	}
+	create_corps_commander = {
+		name = "Semyon Budyonniy"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_1.dds"
+		traits = { cavalry_officer }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 4 
+		planning_skill = 2
+		logistics_skill = 3
+	}
+	create_corps_commander = {
+		name = "Leonid Govorov"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_4.dds"
+		traits = { cavalry_officer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2 
+		planning_skill = 2
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Vasily Chuikov"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_3.dds"
+		traits = { infantry_officer }
+		skill = 2
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+	create_corps_commander = {
+		name = "Vladimir Kappel"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_5.dds"
+		traits = {  }
+		skill = 2
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 1
+		logistics_skill = 1
+	}
+	create_corps_commander = {
+		name = "Andrei Shkuro"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_6.dds"
+		traits = { }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 1 
+	}
+	create_corps_commander = {
+		name = "Hayk Bzhishkyan"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_1.dds"
+		traits = { }
+		skill = 1
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 1 
+	}
+	create_corps_commander = {
+		name = "Mikhail Diterikhs"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_2.dds"
+		traits = {  }
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1 
+		
+	}
+	create_corps_commander = {
+		name = "Anatoly Pepelyayev"
+		portrait_path = "gfx/portraits/RUS/army_generals/portrait_RUS_generic_land_3.dds"
+		traits = { commando }
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1 
+	}
+	create_navy_leader = {
+		name = "Ivan Yumashev"
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_1.dds"
+		traits = { arctic_water_expert spotter }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 4
+		maneuvering_skill = 3
+		coordination_skill = 3
+	}
+	create_navy_leader = {
+		name = "Ivan Isakov"
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_3.dds"
+		traits = { navy_career_officer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		maneuvering_skill = 2
+		coordination_skill = 3
+	}
+	create_navy_leader = {
+		name = "Nikolay Kuznetsov"
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_2.dds"
+		traits = { blockade_runner spotter superior_tactician }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		maneuvering_skill = 2
+		coordination_skill = 3
+	}
+	create_navy_leader = {
+		name = "Vasily Altfater"
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_3.dds"
+		traits = { navy_career_officer bold }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 2
+		maneuvering_skill = 2
+		coordination_skill = 1
+	}
+	create_navy_leader = {
+		name = "Nestor Monastyrev"
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_1.dds"
+		traits = { seawolf }
+		skill = 2
+		attack_skill = 1
+		defense_skill = 2
+		maneuvering_skill = 2
+		coordination_skill = 2
+	}
+	create_navy_leader = {
+		name = "Georgy Stark"
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_2.dds"
+		traits = { blockade_runner }
+		skill = 2
+		attack_skill = 1
+		defense_skill = 1
+		maneuvering_skill = 3
+		coordination_skill = 2
+	}
+}

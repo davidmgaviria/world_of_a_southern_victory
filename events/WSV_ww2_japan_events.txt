@@ -1,0 +1,86 @@
+﻿add_namespace = wsv_ww2_japan
+
+#marco polo bridge incident
+news_event = {
+	id = wsv_ww2_japan.0
+	title = wsv_ww2_japan.0.t
+	desc = wsv_ww2_japan.0.d
+	picture = news_event_marco_polo_bridge
+
+	trigger = {
+		date > 1937.1.1
+		tag = JAP
+		country_exists = CHI
+		CHI = {
+			NOT = { has_war_with = JAP }
+			NOT = { is_puppet_of = JAP }
+			NOT = { is_in_faction_with = JAP }
+		}
+		NOT = { has_global_flag = marco_polo_bridge_incident }
+	}
+
+	mean_time_to_happen = {
+		days = 73  #historical date
+	}
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = marco_polo_bridge_incident
+			JAP = {
+				#add_named_threat = { threat=3  name=marco_polo_bridge_tt }
+				create_wargoal = {
+					type = puppet_wargoal_focus
+					target = CHI
+				}
+				add_state_claim = 608
+				add_state_claim = 614
+				add_state_claim = 597
+				add_state_claim = 746
+				add_state_claim = 598
+				add_state_claim = 613
+				add_state_claim = 596
+				add_state_claim = 749
+				add_state_claim = 594
+				add_state_claim = 591
+			}
+			CHI = { 
+				add_political_power = 100
+				add_ideas = generic_chinese_united_front
+				create_faction = "Chinese United Front"
+				add_to_faction = SHX
+				add_to_faction = GXC
+				add_to_faction = XSM
+				add_to_faction = YUN
+			}
+			every_country = {
+				limit = { is_in_faction_with = CHI }
+				add_ideas = generic_chinese_united_front
+			}
+		}
+	}
+
+	option = {
+		name = wsv_ww2_japan.0.a
+		trigger = { 
+			tag = JAP
+		}
+	}
+
+	option = {
+		name = wsv_ww2_japan.0.a
+		trigger = { 
+			tag = CHI
+		}
+	}
+
+	option = {
+		name = wsv_ww2_japan.0.b
+		trigger = {
+			NOT = { tag = JAP }
+			NOT = { tag = CHI }
+		}
+	} 
+}
+

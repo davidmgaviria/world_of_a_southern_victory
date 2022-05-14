@@ -1,0 +1,73 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+SER_build_up_army = {
+	enable = {
+		tag = SER
+		has_global_flag = kis_firstbalkanwar_victory
+		has_army_manpower = { size < 200000 }
+		has_war = no
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 # reduce while we build up in case of issues
+	}
+
+	ai_strategy = {
+		type = force_build_armies
+		value = 40
+	}
+}
+
+
+SER_first_balkan = {
+	enable = {
+		tag = SER
+		NOT = { has_global_flag = kis_firstbalkanwar_victory }
+		is_in_faction = yes
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 10
+	}		
+}
+
+
+SER_july_crisis = {
+	enable = {
+		tag = SER
+		has_country_flag = murder_of_franz_ferdinand
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "AUH"			
+		value = 1000
+	}
+	ai_strategy = {
+		type = protect
+		id = "MTN"			
+		value = 40
+	}
+}

@@ -1,0 +1,1134 @@
+﻿add_namespace = wsv_ww2_france
+
+
+#french german border clash
+news_event = {
+	id = wsv_ww2_france.1
+	title = wsv_ww2_france.1.t
+	desc = wsv_ww2_france.1.d
+	picture = news_event_border_clash
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+    		add_threat = 3
+	    	FRA = {
+	    		add_opinion_modifier = { 
+	    			target = GER
+	    			modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+	    		}
+	    	}
+	    	GER = {
+	    		add_opinion_modifier = { 
+	    			target = FRA
+	    			modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+	    		}
+	    	}
+	    }
+    }
+	
+	option = {
+		name = wsv_ww2_france.1.a
+		trigger = { tag = FRA }
+		army_experience = 5
+		add_opinion_modifier = { 
+			target = GER
+			modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+		}
+	}
+
+	option = {
+		name = wsv_ww2_france.1.b
+		trigger = { tag = GER }
+		army_experience = 5
+		add_opinion_modifier = { 
+			target = FRA
+			modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+		}
+	}
+
+
+	option = {
+		name = wsv_ww2_france.1.c
+		trigger = { 
+			NOT = { tag = FRA }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+
+#belgium resistance for germany
+country_event = {
+	id = wsv_ww2_france.2
+	title = wsv_ww2_france.2.t
+	desc = wsv_ww2_france.2.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+  
+	option = {
+		name = wsv_ww2_france.2.a
+	}
+}
+
+
+#############################################
+## French territories or war
+
+#france asks for plebicites 
+country_event = {
+	id = wsv_ww2_france.3
+	title = wsv_ww2_france.3.t
+	desc = wsv_ww2_france.3.d
+	#picture = 
+
+	is_triggered_only = yes
+  	
+	#no
+	option = {
+		name = wsv_ww2_france.3.a
+
+		set_global_flag = french_plebicites_rejected
+		news_event = { id = wsv_ww2_france.5  days = 1 } 
+		custom_effect_tooltip = may_result_war_france_tt
+		
+		ai_chance = {
+			factor = 80
+		}
+	}
+
+
+	#yes
+	option = {
+		name = wsv_ww2_france.3.b
+		set_global_flag = french_plebicites_agreed
+		FRA = {	
+			country_event = { id = wsv_ww2_france.4    days = 1 }
+			if = {
+				limit = { any_country = { is_in_faction_with = ROOT } }
+				leave_faction = yes
+			} 
+			diplomatic_relation = { country = GER    relation = non_aggression_pact    active = yes }
+		}
+		custom_effect_tooltip = french_plebicites_tt
+
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FRA
+				    ratio < 0.8
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					FRA = { is_in_faction_with = RUS }
+					has_war_with = RUS
+				}
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+#germany said yes to plebicites (france notification)
+country_event = {
+	id = wsv_ww2_france.4
+	title = wsv_ww2_france.4.t
+	desc = wsv_ww2_france.4.d
+	#picture = report_event_invasion
+
+	is_triggered_only = yes
+  	
+	option = {
+		name = wsv_ww2_france.4.a
+		
+	}
+}
+
+
+#alsace-lorraine plebicites rejected
+news_event = {
+	id = wsv_ww2_france.5
+	title = wsv_ww2_france.5.t
+	desc = wsv_ww2_france.5.d
+	picture = news_event_demand_refused
+
+	major = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+    	hidden_effect = {
+    		FRA = {
+    			add_named_threat = { threat = 7.5   name = french_plebicites_rejected_tt }
+    			add_war_support = 0.2
+    			create_wargoal = {
+    			    type = take_claimed_state
+    			    target = GER
+    			}
+    			create_wargoal = {
+    			    type = annex_everything
+    			    target = BEL
+    			}
+    			create_wargoal = {
+    			    type = take_claimed_state
+    			    target = HOL
+    			}
+	    	}
+    	}
+    }
+
+    option = {
+		name = wsv_ww2_france.5.a
+		trigger = { 
+			OR = { tag = FRA   is_in_faction_with = FRA }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_france.5.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_france.5.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = FRA   is_in_faction_with = FRA }
+		}
+	}
+}
+
+
+
+#alsace-lorraine plebicites are held
+news_event = {
+	id = wsv_ww2_france.6
+	title = wsv_ww2_france.6.t
+	desc = wsv_ww2_france.6.d
+	picture = news_event_wsv_gathering_protest
+
+	major = yes
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	trigger = {
+		has_global_flag = french_plebicites_agreed
+		tag = FRA
+		GER = {
+			NOT = { has_war_with = FRA }
+			controls_state = 28
+			controls_state = 828
+		}
+		NOT = { has_global_flag = french_plebicites_held }
+	}
+
+	immediate = {
+    	hidden_effect = {
+    		set_global_flag = french_plebicites_held
+    		FRA = {
+    			add_named_threat = { threat = 2.5   name = french_plebicites_held_tt }
+    			transfer_state = 828
+	    		random_list = {
+	    			60 = {
+	    				add_political_power = -25
+	    			}
+	    			30 = {
+	    				transfer_state = 28
+	    			}
+	    		}
+	    	}
+    	}
+    }
+
+    option = {
+		name = wsv_ww2_france.6.a
+		trigger = { 
+			OR = { tag = FRA   is_in_faction_with = FRA }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_france.6.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_france.6.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = FRA   is_in_faction_with = FRA }
+		}
+	}
+}
+
+
+
+#############################################
+##Istria and south tyrol for alliance
+
+country_event = {
+	id = wsv_ww2_france.7
+	title = wsv_ww2_france.7.t
+	desc = wsv_ww2_france.7.d
+	#picture = 
+
+	is_triggered_only = yes
+  	
+  	#yes
+	option = {
+		name = wsv_ww2_france.7.a
+		ITA = {
+			add_to_war = { 
+			    targeted_alliance = FRA
+			    enemy = AUH
+			    hostility_reason = asked_to_join
+			}
+		}
+		FRA = { set_country_flag = promised_italy_land }
+		hidden_effect = { news_event = wsv_ww2_france.8 }
+
+		ai_chance = {
+			factor = 30
+			modifier = {
+				add = 20
+				strength_ratio = {
+				    tag = AUH
+				    ratio > 1
+				}
+			}
+			modifier = {
+				add = 20
+				FRA = { surrender_progress < 1 }
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_france.7.b
+		FRA = { country_event = wsv_ww2_france.9 }
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				FRA = { surrender_progress > 15 }
+			}
+		}
+	}
+}
+
+
+#french italian pact
+news_event = {
+	id = wsv_ww2_france.8
+	title = wsv_ww2_france.8.t
+	desc = wsv_ww2_france.8.d
+	picture = news_event_sign_treaty
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = wsv_ww2_france.8.a
+		trigger = { OR = { tag = FRA	tag = ITA	} }
+	}
+	option = {
+		name = wsv_ww2_france.8.b
+		trigger = { NOT = { tag = FRA } 	NOT = { tag = ITA }	}
+	}
+}
+
+
+#italy said no
+country_event = {
+	id = wsv_ww2_france.9
+	title = wsv_ww2_france.9.t
+	desc = wsv_ww2_france.9.d
+	picture = report_event_walked_out
+	is_triggered_only = yes
+	option = { name = wsv_ww2_france.9.a }
+}
+
+
+###############################################################
+
+## Invite Country to Entente
+
+country_event = {
+	id = wsv_ww2_france.10
+	title = wsv_ww2_france.10.t
+	desc = wsv_ww2_france.10.d
+	#picture = 
+
+	is_triggered_only = yes
+  	
+  	#yes
+	option = {
+		name = wsv_ww2_france.10.a
+		FRA = { add_to_faction = ROOT }
+		hidden_effect = { news_event = wsv_generic.10 }
+
+
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 3
+				has_opinion = { target = FRA  value > 0 }
+			}
+
+			modifier = {
+				factor = 2
+				has_opinion = { target = FRA  value > 30 }
+			}
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_france.10.b
+		FRA = { country_event = wsv_ww2_france.11 }
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+				OR = { tag = CSA   tag = ENG   tag = RUS }
+			}
+		}
+	}
+}
+
+
+
+#they said no
+country_event = {
+	id = wsv_ww2_france.11
+	title = wsv_ww2_france.11.t
+	desc = wsv_ww2_france.11.d
+	picture = report_event_walked_out
+
+	is_triggered_only = yes
+  	
+	option = {
+		name = wsv_ww2_france.11.a
+		
+	}
+}
+
+#############################################
+
+
+#belgian revolt
+news_event = {
+	id = wsv_ww2_france.12
+	title = wsv_ww2_france.12.t
+	desc = wsv_ww2_france.12.d
+	picture = news_event_USA_mormon_revolt
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+    	hidden_effect = {
+    		BEL = { 
+    			transfer_state = 6  
+    			transfer_state = 34
+				load_oob = "BEL_revolt"
+				add_ideas = generic_defiant_spirit_idea
+				set_division_template_lock = { division_template = "Belgian Rebels"   is_locked = yes }
+				add_political_power = 500
+				set_politics = { ruling_party = democratic }
+				set_popularities = {
+					democratic = 85
+					neutrality = 5
+					fascism = 5
+					communism = 5
+				}
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment_4
+				    amount = 10000
+				    producer = FRA
+				} 
+    		}
+    		GER =  {
+    			add_equipment_to_stockpile = {
+    			    type = infantry_equipment_4
+    			    amount = -4000
+    			    producer = GER
+    			}
+    			declare_war_on = {
+    			    target = BEL
+    			    type = annex_everything
+    			}
+    		}
+    		FRA = { country_event = wsv_ww2_france.13 }
+    	}
+    }
+  	
+	option = {
+		name = wsv_ww2_france.12.a
+		trigger = { 
+			tag = GER
+		}
+	}
+
+	option = {
+		name = wsv_ww2_france.12.b
+		trigger = { 
+			NOT = { tag = GER }
+		}
+	}
+}
+
+
+
+#aid the belgians?
+country_event = {
+	id = wsv_ww2_france.13
+	title = wsv_ww2_france.13.t
+	desc = wsv_ww2_france.13.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+  	
+  	#yes
+	option = {
+		name = wsv_ww2_france.13.a
+		declare_war_on = {
+		    target = GER
+		    type = topple_government
+		}
+		news_event = wsv_ww2_france.14
+
+		ai_chance = {
+			factor = 10
+
+			modifier = {
+				factor = 6
+				strength_ratio = {
+				    tag = GER
+				    ratio > 1
+				}
+			}
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = GER
+				    ratio > 2
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_france.13.b
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+
+news_event = {
+	id = wsv_ww2_france.14
+	title = wsv_ww2_france.14.t
+	desc = wsv_ww2_france.14.d
+	picture = news_event_wsv_french_invasion
+
+	is_triggered_only = yes
+
+	immediate = { 
+		if = {
+			limit = { CSA = { has_government = fascism } }
+			hidden_effect = { CSA = { country_event = wsv_ww2_csa.29 } }
+		}
+	}
+
+	major = yes
+  	
+	option = {
+		name = wsv_ww2_france.14.a
+	}
+}
+
+######################################################
+
+### French civil war
+news_event = {
+	id = wsv_ww2_france.15
+	title = wsv_ww2_france.15.t
+	desc = wsv_ww2_france.15.d
+	picture = news_event_wsv_civil_war
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			add_named_threat = { threat=3  name=FRA_civil_war_tt }
+			FRA = {
+				start_civil_war = {
+				    ruling_party = democratic
+				    ideology = fascism
+				    size = 0.5
+				    capital = 14
+				    states = {
+				    	14 30 24 27 17 33 23 25 19 31
+				    }
+				}
+
+				###democratic side
+				set_popularities = {
+					democratic = 50
+					communism = 40
+					neutrality = 7
+					fascism = 3
+				}
+				load_oob = "FRA_civil_war_democratic"
+				set_division_template_lock = { division_template = "Volunteer Militia"  is_locked = yes }
+				set_equipment_fraction = 0.5
+				set_stability = 0.9
+				set_war_support = 0.8
+				set_political_power = 500
+
+
+				###fascist side
+				random_other_country = {
+					limit = {
+						original_tag = FRA
+						has_government = fascism
+					}
+					set_cosmetic_tag = FRA_action_neutrality
+					load_focus_tree = { tree = "france_2_focus"   keep_completed = no }
+					unlock_national_focus = FRA2_strengthen_the_french_crown
+					load_oob = "FRA_civil_war_fascism"
+					set_division_template_lock = { division_template = "Volunteer Militia"  is_locked = yes }
+					set_equipment_fraction = 0.5
+					set_stability = 0.9
+					set_war_support = 0.8
+					set_political_power = 500	
+				}	
+			}
+		}
+	}
+
+	major = yes
+  	
+	option = {
+		name = wsv_ww2_france.15.a
+	}
+}
+
+###########################################################################
+
+
+### German civil war
+news_event = {
+	id = wsv_ww2_france.16
+	title = wsv_ww2_france.16.t
+	desc = wsv_ww2_france.16.d
+	picture = news_event_wsv_civil_war
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			add_named_threat = { threat=3  name=GER_civil_war_tt }
+			GER = {
+				start_civil_war = {
+				    ideology = communism
+				    size = 0.4
+				    capital = 52
+				    states = {
+				    	50 52 53 54 55 60 826
+				    }
+				}
+				load_oob = "GER_communist_uprising_monarchist"
+				set_division_template_lock = { division_template = "Freiwillige Miliz"  is_locked = yes }
+				set_equipment_fraction = 0.6
+				set_stability = 0.8
+				set_war_support = 0.7
+			}
+			###communist side
+			random_other_country = {
+				limit = {
+					original_tag = GER
+					has_government = communism
+				}
+				load_oob = "GER_communist_uprising"
+				set_division_template_lock = { division_template = "Freiwillige Miliz"  is_locked = yes }
+				set_equipment_fraction = 0.4
+				set_stability = 0.8
+				set_war_support = 0.7
+				set_political_power = 500	
+			}
+		}
+	}
+
+	major = yes
+  	
+	option = {
+		name = wsv_ww2_france.16.a
+	}
+}
+
+
+#France occupied our land
+country_event = {
+	id = wsv_ww2_france.17
+	title = wsv_ww2_france.17.t
+	desc = wsv_ww2_france.17.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	immediate = {
+		FRA = {
+			hidden_effect = {
+				transfer_state = 28
+				transfer_state = 828
+				transfer_state = 8
+				transfer_state = 34
+				transfer_state = 6
+			}
+		}
+	}
+  	
+ 
+	#war
+	option = {
+		name = wsv_ww2_france.17.a
+		declare_war_on = {
+		    target = FRA
+		    type = topple_government
+		}
+
+		ai_chance = {
+			factor = 10
+
+			modifier = {
+				factor = 4
+				strength_ratio = {
+				    tag = FRA
+				    ratio > 1
+				}
+			}
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FRA
+				    ratio > 2
+				}
+			}
+		}
+	}
+
+
+	#do nothing
+	option = {
+		name = wsv_ww2_france.17.b
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+
+
+#France offers aid
+country_event = {
+	id = wsv_ww2_france.18
+	title = wsv_ww2_france.18.t
+	desc = wsv_ww2_france.18.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+	
+  	#help us
+	option = {
+		name = wsv_ww2_france.18.a
+
+		FRA = {
+			transfer_state = 28
+			transfer_state = 828
+			transfer_state = 8
+			transfer_state = 34
+			transfer_state = 6
+			add_to_war = {
+				targeted_alliance = ROOT 
+				enemy = GER
+				hostility_reason = asked_to_join
+			}
+			if = { limit = { is_faction_leader = yes } 	add_to_faction = ROOT }
+		}
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+
+	#we will stand alone
+	option = {
+		name = wsv_ww2_france.18.b
+		FRA = { country_event = wsv_ww2_france.19 }
+		
+		ai_chance = {
+			factor = 10
+
+			modifier = {
+				factor = 4
+				strength_ratio = {
+				    tag = FRA
+				    ratio > 1
+				}
+			}
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FRA
+				    ratio > 2
+				}
+			}
+		}
+	}
+}
+
+
+
+#commie germany refused aid
+country_event = {
+	id = wsv_ww2_france.19
+	title = wsv_ww2_france.19.t
+	desc = wsv_ww2_france.19.d
+	picture = report_event_walked_out
+
+	is_triggered_only = yes
+  	
+  	#stubborn fools
+	option = {
+		name = wsv_ww2_france.19.a
+		
+	}
+}
+
+###########################################
+
+
+
+#italy demands territory 
+country_event = {
+	id = wsv_ww2_france.20
+	title = wsv_ww2_france.20.t
+	desc = wsv_ww2_france.20.d
+	#picture = news_event_border_clash
+
+	trigger = {
+		tag = FRA
+		has_country_flag = promised_italy_land
+		NOT = { has_war_with = ITA }
+		any_country = {
+			OR = { tag = FRA   is_puppet_of = FRA }
+			OR = {
+				has_full_control_of_state = 39
+				has_full_control_of_state = 736
+				has_full_control_of_state = 163
+				has_full_control_of_state = 103
+			}
+		}
+	}
+	
+	mean_time_to_happen = {	days = 0 }
+
+	immediate = { hidden_effect = { clr_country_flag = promised_italy_land } }
+
+	#give it to them
+	option = {
+		name = wsv_ww2_france.20.a
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = FRA   is_puppet_of = FRA }
+					has_full_control_of_state = 39
+				}
+			}
+			ITA = { transfer_state = 39 }
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = FRA   is_puppet_of = FRA }
+					has_full_control_of_state = 736
+				}
+			}
+			ITA = { transfer_state = 736 }
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = FRA   is_puppet_of = FRA }
+					has_full_control_of_state = 103
+				}
+			}
+			ITA = { transfer_state = 103 }
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = FRA   is_puppet_of = FRA }
+					has_full_control_of_state = 163
+				}
+			}
+			ITA = { transfer_state = 163 }
+		}
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_france.20.b
+		ITA = {	country_event = wsv_ww2_france.21 }
+
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+
+
+#france refused territory
+country_event = {
+	id = wsv_ww2_france.21
+	title = wsv_ww2_france.21.t
+	desc = wsv_ww2_france.21.d
+	#picture = news_event_border_clash
+
+	is_triggered_only = yes
+	
+	#war
+	option = {
+		name = wsv_ww2_france.21.a
+		create_wargoal = {
+			type = take_claimed_state
+			target = FROM
+		}
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_france.21.b
+
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FROM
+				    ratio < 1
+				}
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FROM
+				    ratio < 0.5
+				}
+			}
+		}
+	}
+}
+
+#################################
+# Return quebec
+
+#France demands our submission
+country_event = {
+	id = wsv_ww2_france.22
+	title = wsv_ww2_france.22.t
+	desc = wsv_ww2_france.22.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+	
+  	#accept
+	option = {
+		name = wsv_ww2_france.22.a
+		FRA = { puppet = QUE }
+		USA = { 
+			diplomatic_relation = { country = QUE    relation = guarantee    active = no }
+			country_event = wsv_ww2_france.24 
+		}
+		custom_effect_tooltip = anger_usa_tt
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+
+
+	#tell france no
+	option = {
+		name = wsv_ww2_france.22.b
+		FRA = { country_event = wsv_ww2_france.23 }
+		custom_effect_tooltip = refuse_france_tt
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 4
+				USA = { has_war = yes }
+			}
+		}
+	}	
+}
+
+
+
+#quebec refused to join us
+country_event = {
+	id = wsv_ww2_france.23
+	title = wsv_ww2_france.23.t
+	desc = wsv_ww2_france.23.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+  	
+  	#make them submit
+	option = {
+		name = wsv_ww2_france.23.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = QUE
+		}
+		custom_effect_tooltip = war_with_usa_tt
+
+		ai_chance = {
+			factor = 2
+
+			modifier = {
+				factor = 200
+				has_war_with = USA
+			}
+		}
+	}
+
+
+	#let them go
+	option = {
+		name = wsv_ww2_france.23.b
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+
+#quebec joined france
+country_event = {
+	id = wsv_ww2_france.24
+	title = wsv_ww2_france.24.t
+	desc = wsv_ww2_france.24.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+  	
+  	#kill them
+	option = {
+		name = wsv_ww2_france.24.a
+		create_wargoal = {
+			type = annex_everything
+			target = QUE
+		}
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				threat > 25
+			}
+			modifier = {
+				factor = 2
+				threat > 50
+			}
+		}
+	}
+
+
+	#let them go
+	option = {
+		name = wsv_ww2_france.24.b
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				surrender_progress > 25
+			}
+		}
+	}
+}
+
+
+
+#belgium got land
+country_event = {
+	id = wsv_ww2_france.25
+	title = wsv_ww2_france.25.t
+	desc = wsv_ww2_france.25.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_france.25.a
+	}
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,222 @@
+﻿add_namespace = wsv_ww2_spain
+
+
+add_namespace = wsv_ww2_spain
+
+#spanish civil war
+news_event = {
+	id = wsv_ww2_spain.0
+	title = wsv_ww2_spain.0.t
+	desc = wsv_ww2_spain.0.d
+	picture = news_event_USA_mormon_revolt
+
+	trigger = {
+		date > 1937.1.1
+		tag = SPR
+		SPR = {
+			has_government = neutrality
+			has_war = no
+		}
+		NOT = { has_global_flag = spanish_civil_war }
+	}
+
+	mean_time_to_happen = {
+		days = 32  #historical date
+	}
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = spanish_civil_war
+			SPN = {
+
+				create_country_leader = {
+					name = "Francisco Franco"
+					desc = "POLITICS_FRANCISCO_FRANCO_DESC"
+					picture = "GFX_portrait_spain_francisco_franco"
+					expire = "1965.1.1"
+					ideology = fascism_ideology
+					traits = {
+					}
+				}
+				set_politics = {
+					ruling_party = fascism
+					last_election = "1936.7.26"
+					election_frequency = 60
+					elections_allowed = no
+				}
+				set_popularities = {
+					democratic = 5
+					fascism = 90
+					communism = 5
+				}
+
+				transfer_state = 743
+				transfer_state = 290
+				transfer_state = 173
+				transfer_state = 169
+				transfer_state = 170
+				transfer_state = 804
+				transfer_state = 174
+				transfer_state = 807
+				transfer_state = 176
+				transfer_state = 171
+				transfer_state = 172
+				every_owned_state = { add_core_of = SPN  remove_core_of = SPR }
+
+				load_oob = "SPR_fascist"
+				set_division_template_lock = { division_template = "Milicia Civil"  is_locked = yes }
+				set_stability = 0.9
+				set_war_support = 0.92
+				set_political_power = 500
+			}
+			SPR = {
+				set_popularities = {
+					democratic = 35
+					neutrality = 45
+					communism = 20
+				}
+				transfer_units_fraction= {
+					target = SPN
+					size = 0.55
+					stockpile_ratio = 0.55
+					army_ratio = 0.55
+					navy_ratio = 0.55
+					air_ratio = 0.55
+					keep_unit_leaders = {
+						1101 1102 1103 1107 1114 1115 1116 1117
+					}
+				}
+				load_oob = "SPR_monarchist"
+				set_division_template_lock = { division_template = "Milicia Civil"  is_locked = yes }
+				set_stability = 0.78
+				set_war_support = 0.5
+			}
+			SPN = {
+				add_named_threat = { threat=1  name=spanish_civil_war_tt }
+				declare_war_on = {
+					type = annex_everything
+					target = SPR
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_ww2_spain.0.a
+		trigger = { 
+			OR = { tag = SPR  tag = SPN }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_spain.0.b
+		trigger = {
+			NOT = { tag = SPR }
+			NOT = { tag = SPN }
+		}
+	} 
+}
+
+
+
+#fascist spain wins
+news_event = {
+	id = wsv_ww2_spain.1
+	title = wsv_ww2_spain.1.t
+	desc = wsv_ww2_spain.1.d
+    picture = news_event_end_of_civil_war
+
+	major = yes
+
+	is_triggered_only = yes
+
+    #spain
+	option = {
+		name = wsv_ww2_spain.1.a
+		trigger = { 
+			tag = SPN
+		}
+	}
+	
+	#fascist supporters
+	option = {
+		name = wsv_ww2_spain.1.b
+		trigger = { 
+			has_government = fascism
+			NOT = { tag = SPN }
+		}
+	}
+
+	#monarchist supporters
+	option = {
+		name = wsv_ww2_spain.1.c
+		trigger = { 
+			has_government = neutrality
+		}
+	}
+
+	#neutral countries
+	option = {
+		name = wsv_ww2_spain.1.e
+		trigger = { 
+			NOT = { 
+				has_government = fascism
+				has_government = neutrality
+				tag = SPN 
+			}
+		}
+	}
+}
+
+
+
+#monarchist spain wins
+news_event = {
+	id = wsv_ww2_spain.2
+	title = wsv_ww2_spain.2.t
+	desc = wsv_ww2_spain.2.d
+    picture = news_event_end_of_civil_war
+
+	major = yes
+
+	is_triggered_only = yes
+
+    #spain
+	option = {
+		name = wsv_ww2_spain.2.a
+		trigger = { 
+			tag = SPR
+		}
+	}
+	
+	#fascist supporters
+	option = {
+		name = wsv_ww2_spain.2.b
+		trigger = { 
+			has_government = fascism
+		}
+	}
+
+	#monarchist supporters
+	option = {
+		name = wsv_ww2_spain.2.c
+		trigger = { 
+			has_government = neutrality
+			NOT = { tag = SPR }
+		}
+	}
+
+	#neutral countries
+	option = {
+		name = wsv_ww2_spain.2.e
+		trigger = { 
+			NOT = { 
+				has_government = fascism
+				has_government = neutrality
+				tag = SPR
+			}
+		}
+	}
+}

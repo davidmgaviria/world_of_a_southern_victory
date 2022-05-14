@@ -1,0 +1,1580 @@
+﻿capital = 126
+
+#-------------------------------------------------------
+#					GENERIC VALUES
+#-------------------------------------------------------
+set_fuel_ratio = 0.3
+set_research_slots = 3 #was 4
+set_stability = 0.8
+set_war_support = 0.12
+set_convoys = 800
+
+# DIPLOMACY
+if = {
+	limit = {
+		has_dlc = "Together for Victory"
+	}
+
+	set_autonomy = {
+		target = RAJ
+		autonomous_state = autonomy_colony
+		freedom_level = 0.35
+	}
+	set_autonomy = {
+		target = CAN
+		autonomous_state = autonomy_dominion
+		freedom_level = 0.4
+	}
+
+	set_autonomy = {
+		target = AST
+		autonomous_state = autonomy_dominion
+		freedom_level = 0.2
+	}
+	set_autonomy = {
+		target = NZL
+		autonomous_state = autonomy_dominion
+		freedom_level = 0.2
+	}
+	else = {
+		puppet = RAJ
+		puppet = CAN
+		puppet = AST
+		puppet = NZL
+	}
+}
+give_military_access = RAJ
+
+if = { limit = { has_start_date < 1937.1.1 }
+
+set_cosmetic_tag = commonwealth_gfx_nohelmet
+
+puppet = OMA
+puppet = NEP
+puppet = BHU
+puppet = EGY
+
+give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - Treaty of London (1839)
+
+
+#-------------------------------------------------------
+#					POLITICS & ARMY
+#-------------------------------------------------------
+create_country_leader={ name = "Tom Mann" desc=ENG_tom_mann_DESC picture="gfx/portraits/ENG/country_leaders/ENG_tom_mann.dds" expire="1935.1.1" ideology=leninism traits={  } }
+create_country_leader={ name = "Gilbert Elliot-Murray-Kynynmound" desc=ENG_gilbert_elliot_murray_kynynmound_DESC picture="gfx/portraits/ENG/country_leaders/ENG_gilbert_elliot_murray_kynynmound.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+create_country_leader={ name = "Charles Hardinge" desc=ENG_charles_hardinge_DESC picture="gfx/portraits/ENG/country_leaders/ENG_charles_hardinge.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+create_country_leader={ name = "Frederic Thesiger" desc=ENG_frederic_thesiger_DESC picture="gfx/portraits/ENG/country_leaders/ENG_frederic_thesiger.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+create_country_leader={ name = "Rufus Isaacs" desc=ENG_rufus_isaacs_DESC picture="gfx/portraits/ENG/country_leaders/ENG_rufus_isaacs.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+create_country_leader={ name = "Walter Davidson" desc=ENG_walter_davidson_DESC picture="gfx/portraits/ENG/country_leaders/ENG_walter_davidson.dds" expire="1935.1.1" ideology=liberalism traits={  } }
+create_country_leader={ name = "Edward VII" desc=ENG_edward_vii_DESC picture="gfx/portraits/ENG/country_leaders/ENG_edward_vii.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+
+#create_field_marshal={  name = "French" id=28033 portrait_path="gfx/portraits/ENG/army_generals/ENG_french.tga" traits={ defensive_doctrine  } skill=2 }
+create_field_marshal={  name = "Sir Douglas Haig" id=28039 portrait_path="gfx/portraits/ENG/army_generals/ENG_haig__sir_d.tga" traits={ offensive_doctrine  } skill=4 
+	attack_skill = 4
+	defense_skill = 3
+	planning_skill = 3
+	logistics_skill = 2
+}
+create_field_marshal={  name = "Hamilton I.S.M." id=28044 portrait_path="gfx/portraits/ENG/army_generals/ENG_hamilton_ism.tga" traits={   } skill=2 
+	attack_skill = 2
+	defense_skill = 3
+	planning_skill = 2
+	logistics_skill = 3
+}
+create_field_marshal={  name = "Aylmer Hunter-Weston" id=28049 portrait_path="gfx/portraits/ENG/army_generals/ENG_hunter.tga" traits={   } skill=2 
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_field_marshal={  name = "Sir Leslie Rundle" id=28077 portrait_path="gfx/portraits/ENG/army_generals/ENG_rundle.tga" traits={ old_guard  } skill=2 
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 3
+	logistics_skill = 3
+}
+create_field_marshal={  name = "Kitchener H.H." id=28258 portrait_path="gfx/portraits/ENG/army_generals/ENG_kitchener_hh.tga" traits={ logistics_wizard organisational_leader } skill=4 
+	attack_skill = 4
+	defense_skill = 3
+	planning_skill = 2
+	logistics_skill = 2
+}
+#create_field_marshal={  name = "Lyttelton" id=28259 portrait_path="gfx/portraits/ENG/army_generals/ENG_lyttelton.tga" traits={   } skill=2 }
+
+#create_corps_commander={  name = "Aston" id=28005 portrait_path="gfx/portraits/ENG/army_generals/ENG_aston.tga" traits={ commando  } skill=2}
+create_corps_commander={  name = "Baden-Powell" id=28007 portrait_path="gfx/portraits/ENG/army_generals/ENG_baden_powell.tga" traits={   } skill=3
+	attack_skill = 2
+	defense_skill = 3
+	planning_skill = 2
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Baker-Carr" id=28008 portrait_path="gfx/portraits/ENG/army_generals/ENG_baker_carr.tga" traits={ panzer_leader  } skill=2
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Butler, Sir R.H.K" id=28015 portrait_path="gfx/portraits/ENG/army_generals/ENG_butler__sir_rhk.tga" traits={ fortress_buster  } skill=3
+	attack_skill = 2
+	defense_skill = 3
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Byng,J.H.G" id=28016 portrait_path="gfx/portraits/ENG/army_generals/ENG_byng_jhg.tga" traits={  fortress_buster } skill=3
+	attack_skill = 3
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Cavan" id=28018 portrait_path="gfx/portraits/ENG/army_generals/ENG_cavan.tga" traits={   } skill=4
+	attack_skill = 3
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Elles" id=28028 portrait_path="gfx/portraits/ENG/army_generals/ENG_elles.tga" traits={ panzer_leader  } skill=2
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Glubb" id=28034 portrait_path="gfx/portraits/ENG/army_generals/ENG_glubb.tga" traits={  winter_specialist } skill=3
+	attack_skill = 3
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Grierson" id=28038 portrait_path="gfx/portraits/ENG/army_generals/ENG_grierson.tga" traits={   } skill=4
+	attack_skill = 4
+	defense_skill = 3
+	planning_skill = 1
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Horne, Sir H." id=28047 portrait_path="gfx/portraits/ENG/army_generals/ENG_horne__sir_h.tga" traits={ fortress_buster  } skill=3
+	attack_skill = 3
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Knox" id=28055 portrait_path="gfx/portraits/ENG/army_generals/ENG_knox.tga" traits={ winter_specialist  } skill=3
+	attack_skill = 3
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Maude" id=28063 portrait_path="gfx/portraits/ENG/army_generals/ENG_maude.tga" traits={   } skill=3
+	attack_skill = 3
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Maxse, Sir I." id=28065 portrait_path="gfx/portraits/ENG/army_generals/ENG_maxse__sir_i.tga" traits={   } skill=3
+	attack_skill = 3
+	defense_skill = 3
+	planning_skill = 1
+	logistics_skill = 1
+}
+#create_corps_commander={  name = "Paris" id=28072 portrait_path="gfx/portraits/ENG/army_generals/ENG_paris.tga" traits={ commando  } skill=2}
+create_corps_commander={  name = "Plumer, H." id=28073 portrait_path="gfx/portraits/ENG/army_generals/ENG_plumer__h.tga" traits={  fortress_buster } skill=2
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Rawlinson, Sir H." id=28075 portrait_path="gfx/portraits/ENG/army_generals/ENG_rawlinson__sir_h.tga" traits={ fortress_buster  } skill=3
+	attack_skill = 2
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Snow" id=28083 portrait_path="gfx/portraits/ENG/army_generals/ENG_snow.tga" traits={ fortress_buster  } skill=2
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Hickie W.B." id=28116 portrait_path="gfx/portraits/ENG/army_generals/ENG_hickie_wb.tga" traits={ fortress_buster  } skill=2
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Capper J.E." id=28122 portrait_path="gfx/portraits/ENG/army_generals/ENG_capper_je.tga" traits={ trait_engineer  } skill=2
+	attack_skill = 2
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Nugent O.S.W." id=28129 portrait_path="gfx/portraits/ENG/army_generals/ENG_nugent_osw.tga" traits={ fortress_buster  } skill=3
+	attack_skill = 3
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 1
+}
+#create_corps_commander={  name = "Roberts" id=28261 portrait_path="gfx/portraits/ENG/army_generals/ENG_roberts.tga" traits={   } skill=4}
+create_corps_commander={  name = "Dartnell" id=28290 portrait_path="gfx/portraits/ENG/army_generals/ENG_dartnell.tga" traits={ commando  } skill=2
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Wolseley" id=28303 portrait_path="gfx/portraits/ENG/army_generals/ENG_wolseley.tga" traits={  trait_engineer } skill=3
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Willcocks" id=28550 portrait_path="gfx/portraits/ENG/army_generals/ENG_willcocks.tga" traits={ trickster  } skill=2
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Stewart" id=28557 portrait_path="gfx/portraits/ENG/army_generals/ENG_stewart.tga" traits={ commando  } skill=2
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 2
+}
+
+create_navy_leader={  name = "Bridgeman" id=28329 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_bridgeman.tga" traits={ superior_tactician  } skill=3 }
+#create_navy_leader={  name = "Scott P." id=28335 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_scott_p.tga" traits={ seawolf  } skill=3 }
+create_navy_leader={  name = "Beatty" id=28374 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_beatty.tga" traits={ spotter  } skill=3 }
+create_navy_leader={  name = "Jellicoe" id=28376 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_jellicoe.tga" traits={ superior_tactician  } skill=4 }
+create_navy_leader={  name = "Egerton" id=28384 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_egerton.tga" traits={ old_guard  } skill=3 }
+create_navy_leader={  name = "Pakenham" id=28394 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_pakenham.tga" traits={ superior_tactician  } skill=4 }
+#create_navy_leader={  name = "Hood" id=28413 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_hood.tga" traits={ old_guard  } skill=4 }
+create_navy_leader={  name = "Goodenough" id=28447 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_goodenough.tga" traits={ spotter  } skill=2 }
+create_navy_leader={  name = "Keyes" id=28461 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_keyes.tga" traits={ spotter  } skill=4 }
+create_navy_leader={  name = "Tyrwhitt" id=28485 portrait_path="gfx/portraits/ENG/navy_admirals/ENG_tyrwhitt.tga" traits={ superior_tactician spotter } skill=3 }
+}
+
+1910.1.1 = {
+	oob = "ENG_1910"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	#if = { limit = { has_start_date < 1937.1.1 }
+	#	#Army
+	#	complete_national_focus = ENG_ww1_army_effort
+	#	complete_national_focus = ENG_ww1_industrial_effort
+	#	complete_national_focus = ENG_ww1_naval_effort
+	#
+	#	#Diplomatic
+	#	complete_national_focus = ENG_ww1_diplomatic_effort
+	#}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_military_police = 1
+		tech_maintenance_company = 1
+		tech_field_hospital = 1
+		tech_logistics_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		heavy_field_gun1 = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+
+	ww1_fortification1 = 1
+
+
+		# Air
+		#ww1_fighter1 = 1
+		#ww1_zeppelin1 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		chemical_research = 1
+		tank_unlocker1 = 1
+
+		# Industry
+		ww1_fortification1 = 1
+		ww1_oil1 = 1
+	}
+
+	set_politics = {
+	    ruling_party = democratic
+	    last_election = "1910.1.15"
+	    election_frequency = 60
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 96
+	    fascism = 2
+	    communism = 1
+	    neutrality = 1
+	}
+
+	add_ideas = {
+		ww1_Scramble_for_Africa
+		stiff_upper_lip
+		volunteer_only
+		building_dreadnoughts
+		#ENG_Staff
+		#ENG_british_regulars
+	}
+
+	set_country_flag = monroe_doctrine
+
+	
+	create_equipment_variant={ name="Devastation Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=2           } }
+	create_equipment_variant={ name="Dreadnought Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=4 ship_armor_upgrade=3 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Belleisle Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=4 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Colossus Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Conqueror Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Admiral Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 5 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Victoria Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 6 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Trafalgar Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 7 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Royal Sovereign Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 8 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Hood Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 9 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Centurion Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 10 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Renown Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 11 obsolete=yes upgrades={ ship_gun_upgrade=2 ship_armor_upgrade=2 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Majestic Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 12 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=3 ship_engine_upgrade=4 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Canopus Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 13 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Formidable Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 14 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="London Class" type=battleship_1890 name_group = ENG_BB_HISTORICAL parent_version = 15 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="King Edward VII Class" type=battleship_1900 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Swiftsure Class" type=battleship_1900 name_group = ENG_BB_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=0 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Lord Nelson Class" type=battleship_1900 name_group = ENG_BB_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Bellerophon Class" type=battleship_1906 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
+	create_equipment_variant={ name="St. Vincent Class" type=battleship_1906 name_group = ENG_BB_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=1 ship_reliability_upgrade=1           } }
+	create_equipment_variant={ name="Colossus Class" type=battleship_1910 name_group = ENG_BB_HISTORICAL name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+	create_equipment_variant={ name="Orion Class" type=battleship_1910 name_group = ENG_BB_HISTORICAL name_group = ENG_BB_HISTORICAL parent_version = 1 obsolete=no upgrades={ ship_gun_upgrade=2 ship_armor_upgrade=1 ship_engine_upgrade=0 ship_reliability_upgrade=3           } }
+	create_equipment_variant={ name="Lion Class" type=battle_cruiser_1910 name_group = ENG_BC_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=4 ship_armor_upgrade=2 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Edgar Class" type=heavy_cruiser_1890 name_group = ENG_CA_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=2 ship_reliability_upgrade=2           } }
+	create_equipment_variant={ name="Powerful Class" type=heavy_cruiser_1890 name_group = ENG_CA_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Diadem Class" type=heavy_cruiser_1890 name_group = ENG_CA_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=3 ship_reliability_upgrade=3           } }
+	create_equipment_variant={ name="Cressy Class" type=heavy_cruiser_1890 name_group = ENG_CA_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=4 ship_reliability_upgrade=4           } }
+	create_equipment_variant={ name="Monmouth Class" type=heavy_cruiser_1900 name_group = ENG_CA_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=2 ship_reliability_upgrade=2           } }
+	create_equipment_variant={ name="Devonshire Class" type=heavy_cruiser_1900 name_group = ENG_CA_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=1 ship_reliability_upgrade=1           } }
+	create_equipment_variant={ name="Duke of Edinburgh Class" type=heavy_cruiser_1900 name_group = ENG_CA_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=3 ship_armor_upgrade=0 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Warrior Class" type=heavy_cruiser_1900 name_group = ENG_CA_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=3 ship_armor_upgrade=0 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Minotaur Class" type=heavy_cruiser_1900 name_group = ENG_CA_HISTORICAL parent_version = 4 obsolete=no upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=0 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Barham Class" type=light_cruiser_1890 name_group = ENG_CL_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Pearl Class" type=light_cruiser_1890 name_group = ENG_CL_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Apollo Class" type=light_cruiser_1890 name_group = ENG_CL_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=3  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Astraea Class" type=light_cruiser_1890 name_group = ENG_CL_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Eclipse Class" type=light_cruiser_1890 name_group = ENG_CL_HISTORICAL parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Hermes Class" type=light_cruiser_1900 name_group = ENG_CL_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=1 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Pelorus Class" type=light_cruiser_1900 name_group = ENG_CL_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Gem Class" type=light_cruiser_1900 name_group = ENG_CL_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=3 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Forward Class" type=light_cruiser_1906 name_group = ENG_CL_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Pathfinder Class" type=light_cruiser_1906 name_group = ENG_CL_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Sentinel Class" type=light_cruiser_1906 name_group = ENG_CL_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=1 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Boadicea Class" type=light_cruiser_1906 name_group = ENG_CL_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=1 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Blonde Class" type=light_cruiser_1906 name_group = ENG_CL_HISTORICAL parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=1  ship_engine_upgrade=0 ship_reliability_upgrade=1 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Bristol Class" type=light_cruiser_1906 name_group = ENG_CL_HISTORICAL parent_version = 5 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Active Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL name_group = ENG_CL_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=0 ship_reliability_upgrade=0 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="B Class" type=destroyer_1890 name_group = ENG_DD_HISTORICAL parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=4 } }
+	create_equipment_variant={ name="C Class" type=destroyer_1890 name_group = ENG_DD_HISTORICAL parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=4 } }
+	create_equipment_variant={ name="D Class" type=destroyer_1890 name_group = ENG_DD_HISTORICAL parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=4 } }
+	create_equipment_variant={ name="Beagle Class" type=destroyer_1906 name_group = ENG_DD_HISTORICAL parent_version = 0 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=0 } }
+	create_equipment_variant={ name="Acorn Class" type=destroyer_1906 name_group = ENG_DD_HISTORICAL parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=0 } }
+	create_equipment_variant={ name="Acheron Class" type=destroyer_1906 name_group = ENG_DD_HISTORICAL parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=0 } }
+	create_equipment_variant={ name="A Class" type=coastal_submarine_1900 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=5 sub_stealth_upgrade=5 sub_engine_upgrade=5  } }
+	create_equipment_variant={ name="B Class" type=coastal_submarine_1900 name_group = ENG_SS_HISTORICAL parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=5 sub_stealth_upgrade=5 sub_engine_upgrade=5  } }
+
+
+
+
+
+}
+1910.6.1 = {
+	create_country_leader={ name = "George V" desc=ENG_george_v_DESC picture="gfx/portraits/ENG/country_leaders/ENG_george_v.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+	set_country_flag = king_death_george
+	set_country_flag = saf_release
+}
+1914.1.1 = {
+	add_political_power = 1200
+	set_fuel_ratio = 0.5
+	oob = "ENG_1914"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = ENG_ww1_army_effort
+
+		# Industry
+		complete_national_focus = ENG_ww1_industrial_effort
+		complete_national_focus = ENG_ww1_infrastructure_effort
+		complete_national_focus = ENG_ww1_airfield_expansion_1
+		complete_national_focus = ENG_ww1_construction_effort
+		complete_national_focus = ENG_ww1_production_effort
+		complete_national_focus = ENG_ww1_dockyard_effort_1
+
+		# Naval
+		complete_national_focus = ENG_ww1_naval_effort
+		complete_national_focus = ENG_ww1_newnavalcanons_1
+		complete_national_focus = ENG_ww1_dreadnought_effort
+		complete_national_focus = ENG_ww1_newnavalcanons_2
+
+		#Political
+		complete_national_focus = ENG_ww1_political_effort
+		complete_national_focus = ENG_ww1_support_republic
+		complete_national_focus = ENG_ww1_democracy
+		complete_national_focus = ENG_ww1_freespeech
+
+		#Diplomatic
+		complete_national_focus = ENG_ww1_diplomatic_effort
+		complete_national_focus = ENG_ww1_triple_alliance
+		complete_national_focus = ENG_ww1_back_france
+		complete_national_focus = ENG_ww1_back_russia
+		complete_national_focus = ENG_ww1_send_diplomats
+		complete_national_focus = ENG_ww1_assert_position_west
+		complete_national_focus = ENG_ww1_anti_ger
+		complete_national_focus = ENG_ww1_assert_position_east
+		complete_national_focus = ENG_ww1_balkan_strategy
+		complete_national_focus = ENG_ww1_support_romania
+		complete_national_focus = ENG_ww1_nordic_countries
+		complete_national_focus = ENG_ww1_bureau_colonies
+		complete_national_focus = ENG_ww1_commonwealth_focus
+		complete_national_focus = ENG_ww1_ready_country
+	}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+		tech_mountaineers = 1
+		marines = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_maintenance_company = 1
+		tech_signal_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		bonus_bertha1 = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 1
+		ww1_directfire = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_zeppelin1 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 1
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 1
+		ww1_navaldoctrine_2 = 1
+		ww1_navaldoctrine_3 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		supertech1 = 1
+		mechanical_computing = 1
+		tankaircraft1 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		chemical_research = 1
+		tank_unlocker1 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		#ww1_camera1 = 1
+		ww1_industry1 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine1 = 2
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_mining1 = 1
+		ww1_construction1 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+	}
+
+	set_politics = {
+	    ruling_party = democratic
+	    last_election = "1910.1.15"
+	    election_frequency = 60
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 96
+	    fascism = 2
+	    communism = 1
+	    neutrality = 1
+	}
+
+	add_ideas = {
+		ww1_Scramble_for_Africa
+		stiff_upper_lip
+		#ENG_Staff
+	}
+create_equipment_variant={ name="Erin Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+create_equipment_variant={ name="Agincourt Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+create_equipment_variant={ name="Canada Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+create_equipment_variant={ name="King George V Class" type=battleship_1910 name_group = ENG_BB_HISTORICAL name_group = ENG_BB_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=2 ship_armor_upgrade=1 ship_engine_upgrade=0 ship_reliability_upgrade=3           } }
+create_equipment_variant={ name="Queen Elizabeth Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=1 ship_engine_upgrade=2 ship_reliability_upgrade=4           } }
+create_equipment_variant={ name="Tiger Class" type=battle_cruiser_1914 name_group = ENG_BC_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+create_equipment_variant={ name="Chatham Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Birmingham Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Arethusa Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=5          } }
+create_equipment_variant={ name="Caroline Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 4 obsolete=no upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=5          } }
+create_equipment_variant={ name="Laforey Class" type=destroyer_1910 name_group = ENG_DD_HISTORICAL parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=1 } }
+create_equipment_variant={ name="M Class" type=destroyer_1910 name_group = ENG_DD_HISTORICAL parent_version = 1 obsolete=no upgrades={     ship_anti_air_upgrade=5    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=1 } }
+create_equipment_variant={ name="W Class" type=coastal_submarine_1910 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+create_equipment_variant={ name="V Class" type=submarine_1910 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+create_equipment_variant={ name="G Class" type=submarine_1914 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=4 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+
+
+
+	set_country_flag = titanic
+}
+
+
+
+
+###########################################################################################
+##################################  SECOND GREAT WAR    ###################################
+###########################################################################################
+
+1937.1.1 = {
+	set_political_power = 0
+	oob = "ENG_1937"
+	set_stability = 0.75
+	set_war_support = 0.3
+	load_focus_tree = eng_2_focus
+
+	puppet=SAF
+
+	set_politics = {
+	    ruling_party = fascism
+	    last_election = "1930.11.5"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 16
+	    fascism = 72
+	    communism = 4
+	    neutrality = 8
+	}
+
+	set_party_name = { 
+	    ideology = fascism
+	    long_name = ENG_silver_shirts_long
+	    name = ENG_silver_shirts
+	}
+	
+	add_ideas = {
+		low_economic_mobilisation
+		export_focus
+		ENG_wounded_pride
+		#generic_bitter_losers
+		volunteer_only
+	}
+	remove_ideas = {
+		ww1_Scramble_for_Africa
+		stiff_upper_lip
+		ENG_british_regulars
+		building_dreadnoughts
+	}
+
+
+	create_country_leader = {
+		name = "Stanley Baldwin"
+		desc = "POLITICS_STANLEY_BALDWIN_DESC"
+		picture = "gfx//leaders//ENG//Portrait_Britain_Stanley_Baldwin.dds"
+		expire = "1937.1.1"
+		ideology = liberalism
+		traits = {
+			conservative_grandee
+		}
+	}
+
+	create_country_leader = {
+		name = "Neville Chamberlain"
+		desc = "POLITICS_NEVILLE_CHAMBERLAIN_DESC"
+		picture = "Portrait_Britain_Neville_Chamberlain.dds"
+		expire = "1965.1.1"
+		ideology = liberalism
+		traits = {
+			
+		}
+	}
+
+	create_country_leader = {
+		name = "Oswald Mosley"
+		desc = "POLITICS_OSWALD_MOSLEY_DESC"
+		picture = "Portrait_Britain_Oswald_Mosley.dds"
+		expire = "1965.1.1"
+		ideology = fascism_ideology
+		traits = {
+			champion_of_peace_1
+			economic_reformer
+		}
+	}
+
+	create_country_leader = {
+		name = "Harry Pollitt"
+		desc = "POLITICS_HARRY_POLLITT_DESC"
+		picture = "portrait_eng_harry_pollitt.dds"
+		expire = "1965.1.1"
+		ideology = leninism
+		traits = {
+			staunch_stalinist
+		}
+	}
+
+	create_country_leader = {
+		name = "Rajani Palme Dutt"
+		desc = "POLITICS_PALME_DUTT_DESC"
+		picture = "Portrait_Britain_Palme_Dutt.dds"
+		expire = "1965.1.1"
+		ideology = leninism
+		traits = {
+			
+		}
+	}
+	
+	create_country_leader = {
+		name = "Winston Churchill"
+		desc = ENG_wsv_winston_churchill_desc
+		picture = "gfx/portraits/ENG/country_leaders/ENG_winston_churchill.dds"
+		expire = "1965.1.1"
+		ideology = revanchism
+		traits = {
+			political_dancer
+		}
+	}
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1infantry_weapons2 = 1
+		ww1infantry_weapons3 = 1
+		infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		ww1_infantry_equip2 = 1
+		ww1_infantry_equip3 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		ww1_helmet_equip = 1
+		support_weapons3 = 1
+		support_weapons4 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		infantry_gasmask = 1
+		infantry_ww1_mortar1 = 1
+		infantry_ww1_mortar2 = 1
+		infantry_flamethrower1 = 1
+		infantry_flamethrower2 = 1
+		infantry_at_grenade = 1
+		infantry_at_rifle = 1
+		#infantry_ww1_machinegun1 = 1
+		#infantry_ww1_machinegun2 = 1
+		#infantry_ww1_machinegun3 = 1 = 1
+		motorised_infantry = 1
+		#early_motorised = 1
+		#ww1_ambulance1 = 1
+		#ww1_ambulance2 = 1
+		tech_mountaineers = 1
+		marines = 1
+		tech_mountaineers2 = 1
+		marines2 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_engineers2 = 1
+		tech_engineers3 = 1
+		#tech_engineers4 = 1
+		tech_recon = 1
+		tech_recon2 = 1
+		tech_recon3 = 1
+		#tech_recon4 = 1
+		tech_maintenance_company = 1
+		tech_maintenance_company2 = 1
+		tech_maintenance_company3= 1
+		#tech_maintenance_company4 = 1
+		tech_military_police = 1
+		tech_military_police2 = 1
+		tech_military_police3 = 1
+		#tech_military_police4 = 1
+		tech_field_hospital = 1
+		tech_field_hospital2 = 1
+		tech_field_hospital3 = 1
+		#tech_field_hospital4 = 1
+		tech_logistics_company = 1
+		tech_logistics_company2 = 1
+		tech_logistics_company3 = 1
+		#tech_logistics_company4 = 1
+		tech_signal_company = 1
+		tech_signal_company2 = 1
+		tech_signal_company3 = 1
+		#tech_signal_company4 = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+		ww1_armored_car_2 = 1
+		ww1_armored_car_3 = 1
+		ww1_armored_car_4 = 1
+		ww1_armored_car_5 = 1
+		ww1_light_tank = 1
+		#ww1_light_tank_b = 1
+		ww1_heavy_tank = 1
+		ww1_heavy_tank2 = 1
+		ww1_super_heavy_tank = 1
+		ww1_light_tank_interwar_1 = 1
+		#ww1_light_tank_interwar_2 = 1
+		#ww1_heavy_tank_interwar = 1
+		basic_light_tank = 1
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery2 = 1
+		bonus_artillery3 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		heavy_field_gun2 = 1
+		heavy_field_gun3 = 1
+		bonus_bertha1 = 1
+		bonus_bertha2 = 1
+		bonus_bertha3 = 1
+		bonus_bertha4 = 1
+		standard_artillery = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 0
+		ww1_directfire = 0
+		ww1_rifle_ammo = 0
+		ww1_long_march = 0
+		ww1_battlefield = 0
+		ww1_mass_artillery = 0
+		ww1_target = 0
+		ww1_night = 0
+		ww1_tank = 0
+		ww1_landdoctrine_unlock_ww2 = 0
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		early_heavy_cruiser = 1
+		basic_heavy_cruiser = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_battlecruiser2 = 1
+	ww1_battlecruiser2_mtg = 1
+		ww1_battlecruiser3 = 1
+	ww1_battlecruiser3_mtg = 1
+	early_battlecruiser = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_light_cruiser5 = 1
+	ww1_light_cruiser5_mtg = 1
+		early_light_cruiser = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_submarine2 = 1
+	ww1_submarine2_mtg = 1
+		ww1_coastal_submarine2 = 1
+	ww1_coastal_submarine2_mtg = 1
+	ww1_submarine3 = 1
+	ww1_submarine3_mtg = 1
+		ww1_coastal_submarine3 = 1
+	ww1_coastal_submarine3_mtg = 1
+	ww1_submarine4 = 1
+	ww1_submarine4_mtg = 1
+		ww1_coastal_submarine4 = 1
+	ww1_coastal_submarine4_mtg = 1
+	ww1_cruiser_submarine1 = 1
+	ww1_cruiser_submarine2 = 1
+	early_submarine = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_battleship5 = 1
+	ww1_battleship5_mtg = 1
+	early_battleship = 1
+	basic_battleship = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_destroyer5 = 1
+	ww1_destroyer5_mtg = 1
+		early_destroyer = 1
+		basic_destroyer = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+	seaplane_carrier = 1
+	ww1_carrier = 1
+	early_carrier = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_fighter2 = 1
+		ww1_fighter3b = 1
+		ww1_fighter3 = 1
+		ww1_fighter4 = 1
+		early_fighter = 1
+		cv_early_fighter = 1
+		fighter1 = 1
+		ww1_seaplane1 = 1
+		ww1_seaplane2 = 1
+		naval_bomber1 = 1
+		cv_naval_bomber1 = 1
+		ww1_bomber1 = 1
+		ww1_bomber2 = 1
+		#ww1_bomber3 = 1
+		early_bomber = 1
+		tactical_bomber1 = 1
+		ww1_transport_plane = 1
+		ww1_zeppelin1 = 1
+		ww1_zeppelin2 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 0
+		ww1_airdoctrine_2 = 0
+		ww1_airdoctrine_3 = 0
+		ww1_airdoctrine_4 = 0
+		ww1_airdoctrine_5 = 0
+		ww1_airdoctrine_5b = 0
+		ww1_airdoctrine_6 = 0
+		ww1_airdoctrine_6b = 0
+		ww1_airdoctrine_7 = 0
+		ww1_airdoctrine_7b = 0
+		ww1_airdoctrine_8 = 0
+		ww1_airdoctrine_9 = 0
+		ww1_airdoctrine_9b = 0
+		ww1_airdoctrine_unlock_ww2 = 0
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 0
+		ww1_navaldoctrine_2 = 0
+		ww1_navaldoctrine_3 = 0
+		ww1_navaldoctrine_4 = 0
+		ww1_navaldoctrine_5 = 0
+		ww1_navaldoctrine_5b = 0
+		ww1_navaldoctrine_6 = 0
+		ww1_navaldoctrine_6b = 0
+		ww1_navaldoctrine_unlock_ww2 = 0
+		fleet_in_being = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio2 = 1
+		supertech1 = 1
+		supertech2 = 1
+		mechanical_computing = 1
+		mechanical_computing2 = 1
+		tankaircraft1 = 1
+		tankaircraft2 = 1
+		tanktrack1 = 1
+		tanktrack2 = 1
+		dingfelder_engine1 = 1
+		dingfelder_engine2 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		torpedotech2 = 1
+		torpedotech3 = 1
+		chemical_research = 1
+		chemical_research2 = 1
+		chemical_research3 = 1
+		tank_unlocker1 = 1
+		tank_unlocker2 = 1
+		electronic_ww2 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		ww1_tools3 = 1
+		basic_machine_tools = 1
+		#ww1_camera1 = 1
+		#ww1_camera2 = 1
+		#ww1_camera3 = 1
+		ww1_industry1 = 1
+		ww1_industry2 = 1
+		ww1_industry3 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine2 = 1
+		#ww1_medicine3 = 1
+		#ww1_medicine4 = 1
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_fortification3 = 1
+		ww1_fortification3b = 1
+		ww1_fortification4 = 1
+		ww1_fortification5 = 1
+		ww1_mining1 = 1
+		ww1_mining2 = 1
+		ww1_mining3 = 1
+		ww1_construction1 = 1
+		ww1_construction2 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+		ww1_oil3 = 1
+		ww1_bergiusprocess = 1
+	}
+
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		### Variants ###
+		# Submarines #
+		create_equipment_variant = {
+			name = "O/P/R Class"
+			type = submarine_1
+			parent_version = 0
+			upgrades = {
+				ship_reliability_upgrade = 3
+				sub_engine_upgrade = 2
+				sub_stealth_upgrade = 2
+				sub_torpedo_upgrade = 3
+			}
+		}
+		create_equipment_variant = {
+			name = "S Class"
+			type = submarine_1
+			parent_version = 1
+			upgrades = {
+				ship_reliability_upgrade = 2
+				sub_engine_upgrade = 0
+				sub_stealth_upgrade = 2
+				sub_torpedo_upgrade = 3
+			}
+		}
+		# Destroyers #
+		create_equipment_variant = {
+			name = "A/B/C/D Class"
+			type = destroyer_1
+			parent_version = 0
+			upgrades = {
+				ship_torpedo_upgrade = 1
+				destroyer_engine_upgrade = 3
+				ship_ASW_upgrade = 2
+				ship_anti_air_upgrade = 1
+			}
+			obsolete = yes
+		}
+		# Light Cruisers #
+		create_equipment_variant = {
+			name = "Emerald Class"
+			type = light_cruiser_1
+			parent_version = 0
+			upgrades = {
+				ship_reliability_upgrade = 3
+				ship_engine_upgrade = 3
+				ship_gun_upgrade = 2
+				ship_anti_air_upgrade = 3
+			}
+			obsolete = yes
+		}
+		create_equipment_variant = {
+			name = "Amphion Class"
+			type = light_cruiser_1
+			parent_version = 1
+			upgrades = {
+				ship_reliability_upgrade = 3
+				ship_engine_upgrade = 3
+				ship_gun_upgrade = 3
+				ship_anti_air_upgrade = 3
+			}
+		}
+		# Heavy Cruisers #
+		create_equipment_variant = {
+			name = "County Class"
+			type = heavy_cruiser_1
+			parent_version = 0
+			upgrades = {
+				ship_reliability_upgrade = 2
+				ship_engine_upgrade = 3
+				ship_armor_upgrade = 3
+				ship_gun_upgrade = 3
+			}
+		}
+		# Battlecruisers #
+		create_equipment_variant = {
+			name = "Admiral Class"
+			type = battle_cruiser_1
+			parent_version = 0
+			upgrades = {
+				ship_reliability_upgrade = 3
+				ship_engine_upgrade = 2
+				ship_armor_upgrade = 3
+				ship_gun_upgrade = 2
+			}
+		}
+		# Battleships #
+		create_equipment_variant = {
+			name = "Nelson Class"
+			type = battleship_1
+			parent_version = 0
+			upgrades = {
+				ship_reliability_upgrade = 3
+				ship_engine_upgrade = 2
+				ship_armor_upgrade = 3
+				ship_gun_upgrade = 3
+			}
+		}
+		create_equipment_variant = {
+			name = "Queen Elizabeth Class"
+			type = battleship_1
+			parent_version = 0
+			upgrades = {
+				ship_reliability_upgrade = 1
+				ship_engine_upgrade = 2
+				ship_armor_upgrade = 1
+			}
+		}
+	}
+
+
+	create_field_marshal = {
+		name = "Alan Brooke" # Aristocrat
+		id = 997
+		picture = "Portrait_Britain_Alan_Brooke.dds"
+		traits = { defensive_doctrine trait_cautious career_officer }
+		skill = 5
+		attack_skill = 3
+		defense_skill = 5
+		planning_skill = 5
+		logistics_skill = 3
+	}
+
+	create_field_marshal = {
+		name = "Bernard Montgomery" # Aristocrat
+		id = 996
+		picture = "Portrait_Britain_Bernard_Montgomery.dds"
+		traits = { logistics_wizard offensive_doctrine media_personality trait_cautious inflexible_strategist organizer }
+		skill = 4 
+		attack_skill = 2
+		defense_skill = 4
+		planning_skill = 3
+		logistics_skill = 4
+	}
+
+	create_corps_commander = {
+		name = "Claude Auchinleck"
+		picture = "Portrait_Britain_Claude_Auchinleck.dds"
+		traits = { inflexible_strategist career_officer }
+		skill = 5
+		attack_skill = 3
+		defense_skill = 5
+		planning_skill = 3
+		logistics_skill = 5
+	}
+
+	create_corps_commander = {
+		name = "Neil Ritchie"
+		picture = "Portrait_Britain_Neil_Ritchie.dds"
+		traits = { inflexible_strategist armor_officer politically_connected  }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 4
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Alan Cunningham"
+		picture = "Portrait_Britain_Alan_Cunningham.dds"
+		traits = {}
+		skill = 4
+		attack_skill = 4
+		defense_skill = 1
+		planning_skill = 4
+		logistics_skill = 4
+	}
+
+	create_corps_commander = {
+		name = "William Slim"
+		picture = "Portrait_Britain_William_Slim.dds"
+		traits = { trickster war_hero }
+		skill = 5
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 5
+		logistics_skill = 5
+	}
+
+	create_corps_commander = {
+		name = "Richard O'Connor"
+		id = 999
+		picture = "Portrait_Britain_Richard_OConnor.dds"
+		traits = {  }
+		skill = 4
+		attack_skill = 2
+		defense_skill = 4
+		planning_skill = 4
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "William Platt"
+		picture = "Portrait_Britain_William_Platt.dds"
+		traits = {  }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "George Giffard"
+		picture = "Portrait_Britain_George_Giffard.dds"
+		traits = { career_officer }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Harold Alexander" # Aristocrat
+		id = 995
+		picture = "Portrait_Britain_Harold_Alexander.dds"
+		traits = { politically_connected }
+		skill = 5
+		attack_skill = 4
+		defense_skill = 4
+		planning_skill = 3
+		logistics_skill = 5
+	}
+
+	create_corps_commander = {
+		name = "Jackie Smyth"
+		picture = "Portrait_Britain_John_Jackie_Smyth.dds"
+		traits = { old_guard }
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+	}
+
+	create_corps_commander = {
+		name = "Thomas Jacomb Hutton"
+			picture = "Portrait_Britain_Thomas_Jacomb_Hutton.dds"
+		traits = { old_guard }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 1
+	}
+
+	create_corps_commander = {
+		name = "Arthur Percival"
+			picture = "Portrait_Britain_Arthur_Percival.dds"
+		traits = {  trait_cautious }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 1
+	}
+
+	create_corps_commander = {
+		name = "Merton Beckwith-Smith"
+			picture = "Portrait_Britain_Merton_Beckwith_Smith.dds"
+		traits = { commando }
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+	}
+
+	create_corps_commander = {
+		name = "Henry Pownall"
+		picture = "Portrait_Britain_Henry_Pownall.dds"
+		traits = {  trickster }
+		skill = 2
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "John Vereker Lord Gort" # Aristocrat
+		id = 994
+		picture = "Portrait_Britain_John_Vereker.dds"
+		traits = { politically_connected trait_cautious }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 4
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Henry Wilson"
+			picture = "Portrait_Britain_Henry_Maitland_Wilson.dds"
+		traits = { old_guard politically_connected }
+		skill = 4
+		attack_skill = 2
+		defense_skill = 4
+		planning_skill = 4
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "William Gott"
+			picture = "Portrait_Britain_William_Gott.dds"
+		traits = { armor_officer war_hero inflexible_strategist }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Jock Campbell"
+			picture = "Portrait_Britain_Jock_Campbell.dds"
+		traits = { armor_officer  }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 4
+	}
+
+	create_corps_commander = {
+		name = "Oliver Leese" # Aristocrat
+		id = 993
+		picture = "Portrait_Britain_Oliver_Leese.dds"
+		traits = {  armor_officer harsh_leader politically_connected }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 4
+	}
+
+	create_corps_commander = {
+		name = "Miles Dempsey"
+		picture = "Portrait_Britain_Miles_Dempsey.dds"
+		traits = { brilliant_strategist infantry_officer career_officer }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 4
+		planning_skill = 4
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Brian Horrocks"
+		picture = "Portrait_Britain_Brian_Horrocks.dds"
+		traits = {  armor_officer career_officer war_hero }
+		skill = 3
+		
+		attack_skill = 1
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Archibald Wavell" # Aristocrat
+		id = 998
+		picture = "Portrait_Britain_Archibald_Wavell.dds"
+		traits = { career_officer }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 4
+	}
+
+	create_navy_leader = {
+		name = "James Fownes Somerville" # Aristocrat
+		id = 983
+			picture = "Portrait_Britain_James_Fownes_Somerville.dds"
+		traits = { superior_tactician aviation_enthusiast navy_career_officer }
+		skill = 5
+		attack_skill = 4
+		defense_skill = 3
+		maneuvering_skill = 4
+		coordination_skill = 5
+	}
+
+	create_navy_leader = {
+		name = "Henry Harwood" # Aristocrat
+		id = 984
+			picture = "Portrait_Britain_Henry_Harwood.dds"
+		traits = { old_guard_navy bold }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		maneuvering_skill = 3
+		coordination_skill = 2
+	}
+
+	create_navy_leader = {
+		name = "Andrew Cunningham"
+		id = 985
+			picture = "Portrait_Britain_Andrew_Cunningham.dds"
+		traits = { blockade_runner superior_tactician navy_career_officer bold gunnery_expert}
+		skill = 5
+		attack_skill = 5
+		defense_skill = 4
+		maneuvering_skill = 3
+		coordination_skill = 4
+	}
+
+	create_navy_leader = {
+		name = "Bruce Fraser"
+		id = 986
+			picture = "Portrait_Britain_Bruce_Fraser.dds"
+		traits = { aviation_enthusiast naval_lineage blockade_runner }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 2
+		maneuvering_skill = 4
+		coordination_skill = 4
+	}
+
+	create_navy_leader = {
+		name = "John Tovey" # Aristocrat
+		id = 987
+			picture = "Portrait_Britain_John_Tovey.dds"
+		traits = { gentlemanly naval_lineage superior_tactician }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 3
+		maneuvering_skill = 2
+		coordination_skill = 5
+	}
+
+	create_navy_leader = {
+		name = "Bernard Rawlings" # Aristocrat
+		id = 988
+			picture = "Portrait_Britain_Bernard_Rawlings.dds"
+		traits = { gentlemanly }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		maneuvering_skill = 3
+		coordination_skill = 2
+	}
+
+	create_navy_leader = {
+		name = "John Cunningham"
+		id = 989
+			picture = "Portrait_Britain_John_Cunningham.dds"
+		traits = { navy_career_officer green_water_expert }
+		skill = 4
+		attack_skill = 2
+		defense_skill = 4
+		maneuvering_skill = 4
+		coordination_skill = 3
+	}
+
+	create_navy_leader = {
+		name = "Charles Forbes"
+		id = 990
+			picture = "Portrait_Britain_Charles_Forbes.dds"
+		traits = { gunnery_expert fly_swatter }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		maneuvering_skill = 2
+		coordination_skill = 3
+	}
+
+	create_navy_leader = {
+		name = "Algernon Willis"
+		id = 991
+			picture = "Portrait_Britain_Algernon_Willis.dds"
+		traits = { battleship_adherent spotter }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		maneuvering_skill = 3
+		coordination_skill = 2
+	}
+
+	create_navy_leader = {
+		name = "Arthur Power"
+		id = 992
+			picture = "Portrait_Britain_Arthur_Power.dds"
+		traits = { gunnery_expert }
+		skill = 2
+		attack_skill = 3
+		defense_skill = 1
+		maneuvering_skill = 1
+		coordination_skill = 2
+	}
+}

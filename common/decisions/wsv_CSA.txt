@@ -1,0 +1,50 @@
+wsv_ww2_decisions = {
+	
+	operation_blackbeard = {
+
+		icon = generic_tank
+
+		allowed = {
+			original_tag = CSA
+		}
+
+		visible = {
+			has_government = fascism
+			NOT = { has_war_with = USA }
+			NOT = { is_in_faction_with = USA }
+            has_completed_focus = CSA2_operation_blackbeard
+		}
+
+		war_with_on_complete = USA
+
+		days_remove = 7
+
+		fire_only_once = yes
+
+		remove_effect = {
+			set_global_flag = operation_blackbeard_commenced
+			CSA = { 
+				declare_war_on = {
+				    target = USA
+				    type = topple_government
+				}
+				add_timed_idea = { days = 60   idea = CSA_operation_blackbeard_idea } 
+			}
+			hidden_effect = { news_event = wsv_ww2_csa.5 }
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 100
+				GER = {
+					OR = { 
+						has_war_with = ENG
+						has_war_with = FRA
+						has_war_with = RUS
+					}
+				}
+			}
+		}
+	}
+}

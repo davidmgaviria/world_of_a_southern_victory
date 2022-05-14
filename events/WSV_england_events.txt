@@ -1,0 +1,120 @@
+﻿add_namespace = wsv_england
+
+
+#send men to canada
+country_event = {
+	id = wsv_england.1
+	title = wsv_england.1.t
+	desc = wsv_england.1.d
+	#picture = report_event_deal_made
+
+	fire_only_once = yes
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.1.a
+		
+		ENG = {
+			transfer_units_fraction= {
+				target = CAN
+				size = 0.25
+				stockpile_ratio = 0.25
+			}
+			add_ideas = ENG_canadian_expeditionary_force_sender
+			set_country_flag = england_canadian_expeditionary_force
+		}
+		CAN = { 
+			add_ideas = ENG_canadian_expeditionary_force_reciever 
+			#load_oob = "CAN_militia"
+		}
+	}
+}
+
+
+#irish revolt
+news_event = {
+	id = wsv_england.2
+	title = wsv_england.2.t
+	desc = wsv_england.2.d
+	picture = EVENT_hoi4tgw_interwar_irish_war_of_independence
+
+	major = yes
+
+     mean_time_to_happen = {	
+        days = 40 		
+    }
+
+    trigger = {
+    	tag = ENG
+        date > 1916.3.1
+       	date < 1916.7.1
+        NOT = { IRE = { has_full_control_of_state = 134   has_full_control_of_state = 135  has_full_control_of_state = 113 } } 
+        NOT = { IRE = { has_war_with = ENG } }
+        NOT = { has_global_flag = irish_revolt }
+    }
+
+    immediate = { 
+    	hidden_effect = {
+    		set_global_flag = irish_revolt
+    		IRE = {
+				transfer_state = 113
+				load_oob = "IRE_revolt"
+				add_political_power = 500
+				add_manpower = 26000
+				set_stability = 0.8
+				set_war_support = 0.5
+				add_ideas = { generic_defiant_spirit_idea }
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment_0
+				    amount = 5000
+				    producer = ENG
+				}		
+			}
+			ENG =  {
+				load_oob = "ENG_irish_revolt"
+				set_division_template_lock = { division_template = "Ireland Garrison"   is_locked = yes }
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment_0
+				    amount = -5000
+				    producer = ENG
+				}
+				remove_state_core = 135
+				remove_state_core = 134
+				remove_state_core = 113
+				remove_state_core = 19
+				declare_war_on = {
+				    target = IRE
+				    type = annex_everything
+				}
+			}		
+    	}
+   	}
+	
+	option = {
+		name = wsv_england.2.a
+		trigger = { tag = ENG }
+	}
+
+	option = {
+		name = wsv_england.2.b
+		trigger = { tag = USA }
+	}
+
+
+	option = {
+		name = wsv_england.2.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = ENG }
+		}
+	}
+}
+
+
+
+
+
+
+
+

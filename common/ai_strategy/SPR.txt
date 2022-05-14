@@ -1,0 +1,51 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+
+######################### WORLD WAR 2 ##########################
+
+
+
+SPR_defensive_war = {
+	allowed = { 
+		original_tag = SPR 
+		has_start_date > 1937.1.1
+	}
+	enable = {		
+		has_war_with = SPN
+	}
+	abort = {
+		SPN = { surrender_progress > 0.25 }
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SPN
+		priority = 50
+		ratio = 0.5
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = no
+	}
+
+	#ai_strategy = {
+	#	type = consider_weak
+	#	id = "SPN"			
+	#	value = -15
+	#}
+}
+

@@ -1,0 +1,199 @@
+ideas = {
+	
+	country = {
+
+		#################
+		###### WW2 ######
+		#################
+
+		GER_superpower_of_europe = {
+			allowed={ always=no }
+			allowed_civil_war = { always = yes }
+			removal_cost=-1
+			picture = idea_GER_superpower_of_europe
+			modifier = {
+				political_power_gain = -0.2
+				guarantee_tension = -0.5
+				send_volunteers_tension = -0.5
+				lend_lease_tension = -0.5
+			}
+		}
+
+
+		GER_belgian_resistance = {
+			allowed={ always=no }
+			allowed_civil_war = { always = yes }
+			removal_cost=-1
+			picture = generic_unrest_icon
+			cancel = { NOT = { controls_state = 6   controls_state = 34 } }
+			modifier = {
+				stability_factor = -0.05
+		    	political_power_gain = -0.1
+		    	resistance_damage_to_garrison = 0.2
+			}
+		}
+
+
+		GER_berlin_influence = {
+
+			allowed_civil_war = {
+				always = no
+			}
+
+			cancel = { 
+				NOT = { is_in_faction_with = GER }
+			}
+
+			removal_cost = -1
+
+			picture = AUH_hand_of_berlin
+
+			modifier={ 
+				political_power_gain = -0.2
+				justify_war_goal_time = 0.5
+				drift_defence_factor = 0.2
+			}
+		}
+
+
+		GER_jewish_nuclear_scientists = {
+
+			allowed_civil_war = {
+				always = no
+			}
+			removal_cost = -1
+
+			picture = GER_jewish_scientists
+
+			research_bonus = { nuclear = 0.1 }
+
+			modifier={ 
+				nuclear_production_factor = 0.1
+			}
+		}
+
+
+		GER_german_military_advisors = {
+
+			allowed_civil_war = { always = no }
+
+			removal_cost = -1
+
+			picture = generic_war_preparation
+
+			modifier={ 
+				conscription_factor = 0.05
+				army_org = 5
+				army_attack_factor = 0.05
+				experience_gain_army_factor = 0.2
+			}
+		}
+
+		GER_quenched_militarism = {
+
+			allowed_civil_war = { always = no }
+
+			removal_cost = -1
+
+			picture = GER_quenched_militarism_icon
+
+			research_bonus = { land_doctrine = -0.5 }
+			research_bonus = { air_doctrine = -0.5 }
+
+			modifier={ 
+				consumer_goods_factor = 0.1
+				army_org = -10
+				war_support_factor = -0.1
+				training_time_factor = 0.1
+				justify_war_goal_time = 0.5
+			}
+		}
+
+
+		GER_bloated_bureaucracy = {
+			allowed={ always=no }
+			allowed_civil_war = { always = yes }
+			removal_cost=-1
+			picture = generic_disjointed_gov
+			modifier = {
+				consumer_goods_factor = 0.1
+				local_resources_factor = -0.2
+				political_power_gain = -0.2
+			}
+		}
+
+
+		GER_austerity_measures = {
+
+			allowed_civil_war = { always = no }
+
+			removal_cost = -1
+
+			picture = generic_goods_red_bonus
+
+			modifier={ 
+				consumer_goods_factor = -0.05
+			}
+		}
+
+
+
+		GER_encryption_bonus = {
+
+			allowed_civil_war = { always = no }
+
+			removal_cost = -1
+
+			picture = SOV_scientist_defect
+
+			modifier={ 
+				encryption_factor = 0.2
+			}
+		}
+
+
+		GER_oppressed_baltic_slavs = {
+		    
+		    picture = generic_oppression
+		    
+		    removal_cost = -1 
+
+		    modifier = {
+		        political_power_gain = -0.2
+		        army_morale_factor = -0.1
+		        stability_factor = -0.1
+		        conscription_factor = -0.2
+		    }
+		}
+
+		GER_fur_vaterland = {
+		    
+		    picture = idea_FRA_german_menance
+
+		    cancel = { has_war = no }
+		    
+		    removal_cost = -1 
+
+		    modifier = {
+		       army_morale_factor = 0.1
+		       mobilization_speed = 0.05
+		    }
+		}
+
+		GER_kaisers_death = {
+
+			allowed_civil_war = { always = no }
+
+			removal_cost = -1
+
+			picture = GER_kaiser_dead
+
+			modifier={ 
+				army_org = -5
+				army_morale_factor = -0.1
+				stability_factor = -0.1
+				political_power_gain = -0.5
+			}
+		}
+	}
+}

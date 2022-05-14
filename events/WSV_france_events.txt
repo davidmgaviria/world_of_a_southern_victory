@@ -1,0 +1,60 @@
+﻿add_namespace = wsv_france
+
+
+#french army mutinies
+news_event = {
+	id = wsv_france.1
+	title = wsv_france.1.t
+	desc = wsv_france.1.d
+	picture = news_event_french_army_mutiny
+
+	major = yes
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	trigger = {
+		tag = FRA
+    	FRA = { 
+    		has_war_with = GER 
+    		has_stability < 0.5
+    	}
+    	GER = { surrender_progress < 0.1 }
+        NOT = { has_global_flag = french_army_mutinies }       
+    }
+
+    immediate = {
+    	hidden_effect = {
+	    	FRA = { add_timed_idea = { idea = FRA_french_army_mutiny days = 30 } }
+	    	set_global_flag = french_army_mutinies
+	    }
+    }
+	
+	option = {
+		name = wsv_france.1.a
+		trigger = { 
+			OR = {
+				tag = FRA 
+				is_in_faction_with = FRA
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.1.b
+		trigger = { 	
+			has_war_with = FRA
+		}
+	}
+
+
+	option = {
+		name = wsv_france.1.c
+		trigger = { 
+			NOT = { is_in_faction_with = FRA }
+			NOT = { has_war_with = FRA }
+			NOT = { tag = FRA }
+		}
+	}
+}

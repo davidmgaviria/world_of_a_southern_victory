@@ -1,0 +1,310 @@
+ideas = {
+
+	hidden_ideas = {
+		
+		schlieffen_ai_bonus = {
+            picture = generic_battle_plan
+            removal_cost = -1 
+
+            targeted_modifier = {
+                tag = BEL
+                attack_bonus_against = 0.5
+            }
+
+            targeted_modifier = {
+                tag = LUX
+                attack_bonus_against = 0.5
+            }
+
+            targeted_modifier = {
+                tag = FRA
+                attack_bonus_against = 0.25
+            }
+        }
+	}
+	
+	country = {
+
+		#################
+		###### WW1 ######
+		#################
+
+
+		generic_global_revolution_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_global_revolution_icon
+			
+			modifier = {
+				subversive_activites_upkeep = -0.5
+				send_volunteers_tension = -0.5
+				send_volunteer_size = 2
+				guarantee_cost = -0.5
+			}
+		}
+
+		generic_limited_ration_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=50
+			cancel = { has_war = no }
+			picture = generic_risk_of_famine
+			
+			equipment_bonus = { infantry = { instant = yes build_cost_ic = -0.05 } }
+
+			modifier = {
+				stability_weekly = -0.001
+			}
+		}
+
+		generic_harsh_ration_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=50
+			cancel = { has_war = no }
+			picture = generic_risk_of_famine
+
+			equipment_bonus = { infantry = { instant = yes build_cost_ic = -0.1 } }
+			
+			modifier = {
+				stability_weekly = -0.002
+			}
+		}
+
+		generic_defiant_spirit_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_defiant_spirit
+			
+			modifier = {
+				army_core_attack_factor = 0.1
+				army_core_defence_factor = 0.1
+				out_of_supply_factor = -0.1
+				minimum_training_level = -0.25
+				surrender_limit = 0.25
+			}
+		}
+
+		generic_neutral_complacency = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_neutral_complacency_icon
+			
+			modifier = {
+				army_org = -10
+				army_attack_factor = -0.1
+				army_defence_factor = -0.1
+				training_time_factor = 0.1
+			}
+		}
+
+
+		generic_balkan_nationalism = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_reserve_divisions
+			
+			modifier = {
+				conscription = 0.025
+				army_morale_factor = 0.05
+				consumer_goods_factor = -0.05
+			}
+		}
+
+
+		generic_liberation_of_balkans = {
+			allowed={ always=no }
+			allowed_civil_war = { always = yes }
+			cancel = { NOT = { has_war_with = TUR } }
+			removal_cost=-1
+			picture = generic_liberation_balkans
+			modifier = {
+				stability_factor = 0.1
+				war_support_factor = 0.1
+				army_morale_factor = 0.1
+			}
+		}
+
+
+		generic_poor_quality_weapons = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_poor_quality_weapons_icon
+			
+			modifier = {
+				army_attack_factor = -0.05
+				army_defence_factor = -0.05
+			}
+		}
+
+
+		generic_war_exhaustion1 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = generic_war_exhaustion1_icon
+			
+			modifier = {
+				stability_weekly = -0.001
+				war_support_weekly = -0.003
+			}
+		}
+
+		generic_war_exhaustion2 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = generic_war_exhaustion2_icon
+			
+			modifier = {
+				stability_weekly = -0.002
+				war_support_weekly = -0.005
+
+				conscription_factor = -0.1
+				army_morale_factor = -0.05
+				army_org = -5
+
+				surrender_limit = -0.25
+			}
+		}
+
+		generic_war_exhaustion3 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = generic_war_exhaustion3_icon
+			
+			modifier = {
+				stability_weekly = -0.003
+				war_support_weekly = -0.01
+
+				conscription_factor = -0.25
+				army_morale_factor = -0.1
+
+				army_org = -10
+				surrender_limit = -0.5
+			}
+		}
+		
+
+		#################
+		###### WW2 ######
+		#################
+
+
+		generic_democratic_shift = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_democratic_drift_bonus
+
+			modifier = {
+				democratic_drift = 0.1
+			}
+		}
+
+
+		generic_rebuild_the_nation = {
+		    
+		    picture = generic_production_bonus
+		    
+		    removal_cost = -1 
+
+		    modifier = {
+		        stability_weekly = 0.001
+		        industry_repair_factor = 0.2
+		        production_speed_buildings_factor = 0.2
+		    }
+		}
+
+
+		generic_recovering_from_civil_war = {
+		    
+		    picture = generic_recovering_from_civil_war_icon
+		    
+		    removal_cost = -1 
+
+		    modifier = {
+		        consumer_goods_factor = 0.1
+		        industrial_capacity_factory = -0.15
+		        industrial_capacity_dockyard = -0.15
+		        war_support_factor = -0.1
+		    }
+		}
+
+
+		generic_russian_seperatism = {
+		    
+		    picture = generic_disjointed_gov
+		    
+		    removal_cost = -1 
+
+		    modifier = {
+		    	consumer_goods_factor = 0.1
+		        political_power_gain = -0.1
+		        army_morale_factor = -0.1
+		        stability_factor = -0.1
+		    }
+		}
+
+		generic_chinese_united_front = {
+			allowed={ always=no }
+			allowed_civil_war = { always = yes }
+			cancel = { NOT = { has_war_with = JAP } }
+			removal_cost=-1
+			picture = generic_chinese_unity
+			modifier = {
+				surrender_limit = 0.25
+				war_support_factor = 0.25
+				stability_factor = 0.25
+				resistance_damage_to_garrison_on_our_occupied_states = 0.2
+			}
+		}
+
+		generic_incompetent_officers = {
+			allowed={ always=no }
+			allowed_civil_war = { always = yes }
+			removal_cost=-1
+			picture = generic_incompetent_officers_icon
+			modifier = {
+				army_org = -10
+				army_morale_factor = -0.1
+				army_attack_factor = -0.1
+			}
+		}
+
+
+		generic_tribal_regionalism = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_people
+			modifier = {
+				political_power_gain = -0.15
+				conscription = -0.01
+				stability_factor = -0.1
+			}
+		}
+
+		generic_IRE_british_threat = {
+		    
+		    picture = british_threat
+		    
+		    removal_cost = -1 
+
+		    modifier = {
+		        conscription = 0.025
+		        army_core_defence_factor = 0.1
+		        consumer_goods_factor = -0.05
+		    }
+		}
+	}
+}

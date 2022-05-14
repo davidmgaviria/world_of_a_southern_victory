@@ -1,0 +1,492 @@
+﻿add_namespace = wsv_csa
+
+country_event = {
+	id = wsv_csa.0
+	title = wsv_csa.0.t
+	desc = wsv_csa.0.d
+	#picture = report_event_deal_made
+
+	fire_only_once = yes
+
+	mean_time_to_happen = {	days = 4 }
+
+    trigger = {
+    	tag = CSA
+        date > 1915.11.1
+        date < 1916.10.10
+        CSA = {
+	        OR = {
+	        	has_government = democratic
+	        	has_government = communism
+	        }
+	        NOT = { has_country_flag = new_1916_president_csa }
+        }
+    }
+
+    #democrat
+	option = {
+		name = wsv_csa.0.a
+		custom_effect_tooltip = gabriel_becomes_president_tt
+    	hidden_effect = {
+    		retire_country_leader = yes
+    		set_politics = {
+			    ruling_party = democratic
+			    last_election = "1916.11.5"
+			    election_frequency = 72
+			    elections_allowed = yes
+			}
+	        create_country_leader = {
+	            name = "Gabriel Semmes"
+	            #desc = USA_theodore_roosevelt_DESC 
+	            picture = "gfx/portraits/HOL/country_leaders/HOL_Abraham.dds"
+	            expire = "1935.1.1"
+	            ideology = liberalism 
+	            traits = {}
+	        }
+	        if = {
+	        	limit = { democratic < 0.51 }
+	        	set_political_party = { ideology = democratic	popularity = 51	}
+	        }
+    		set_country_flag = new_1916_president_csa
+    	}
+    	
+    	ai_chance = {
+			factor = 80
+
+			modifier = {
+				factor = 0.5
+				communism > 0.5
+			}
+		}
+	}
+
+	#radical lib
+	option = {
+		name = wsv_csa.0.b
+		custom_effect_tooltip = doroteo_becomes_president_tt
+		hidden_effect = {
+			retire_country_leader = yes
+			set_politics = {
+			    ruling_party = communism
+			    last_election = "1916.11.5"
+			    election_frequency = 72
+			    elections_allowed = yes
+			}
+	        create_country_leader = { 
+				name = "Doroteo Arango" 
+				#desc = USA_eugene_v_debs_DESC 
+				picture = "gfx/portraits/AST/country_leaders/AST_r_h_william_ward.dds" 
+				expire = "1935.1.1" 
+				ideology = lincolnism 
+				traits = { } 
+			}
+			if = {
+				limit = { communism < 0.51 }
+				set_political_party = { ideology = communism	popularity = 60	}
+			}
+			set_country_flag = new_1916_president_csa
+		}
+			
+
+    	ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				communism > 0.3
+			}
+			modifier = {
+				factor = 2
+				communism > 0.5
+			}
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+		}
+	}
+}
+
+
+#fall of richmond
+news_event = {
+	id = wsv_csa.1
+	title = wsv_csa.1.t
+	desc = wsv_csa.1.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+
+	mean_time_to_happen = {
+		days = 0
+	}
+
+	trigger = {
+		tag = CSA
+    	USA = { has_war_with = CSA }
+        362 = { is_controlled_by = USA } 
+        362 = { is_owned_by = CSA }
+        NOT = { USA = { has_country_flag = richmond_taken } }
+    }
+
+    immediate = {
+    	hidden_effect = { USA = { set_country_flag = richmond_taken } }
+    }
+	
+	#country that took city and allies
+	option = {
+		name = wsv_csa.1.a
+		trigger = { 
+			has_war_with = CSA
+		}
+	}
+
+	#country that lost city and allies
+	option = {
+		name = wsv_csa.1.b
+		trigger = {
+			OR = {
+				tag = CSA
+				is_in_faction_with = CSA
+			}
+		}
+	}
+
+	#neutral countries
+	option = {
+		name = wsv_csa.2.c
+		trigger = { 
+			NOT = { is_in_faction_with = CSA }
+			NOT = { has_war_with = CSA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+#news event of black revolt
+news_event = {
+	id = wsv_csa.2
+	title = wsv_csa.2.t
+	desc = wsv_csa.2.d
+	picture = news_event_CSA_black_revolt
+
+	major = yes
+
+	mean_time_to_happen = {	
+        days = 80 	
+    }
+
+    trigger = {
+    	tag = CSA
+        date > 1915.6.1
+        date < 1916.6.1
+        has_war_with = USA
+        NOT = { has_global_flag = csa_black_revolt }
+    }
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = csa_black_revolt
+	    	CSA = {
+		    	add_timed_idea = { idea = CSA_black_rebellion_idea      days = 180 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_0
+					amount = -5000
+					producer = CSA
+				}
+				country_event = { id = wsv_csa.8    days = 180 }
+			}
+		}
+   	}
+	
+	option = {
+		name = wsv_csa.2.a
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_csa.2.b
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_csa.2.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
+#Mormon revolt aid
+country_event = {
+	id = wsv_csa.3
+	title = wsv_csa.3.t
+	desc = wsv_csa.3.d
+	#picture = report_event_smuggle_arms
+
+    mean_time_to_happen = {
+        days = 10
+    }
+
+    fire_only_once = yes
+
+    trigger = {
+    	tag = CSA
+    	has_global_flag = second_mormon_revolt
+    	DES = { has_capitulated = no }
+    }
+	
+
+	#no help
+	option = {
+		name = wsv_csa.3.a
+
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				OR = {
+					has_equipment = { infantry_equipment_0 < -5000	}
+					has_equipment = { infantry_equipment_1 < -5000	}
+				}
+			}
+
+			modifier = {
+				factor = 2
+				OR = {
+					has_equipment = { infantry_equipment_0 < -10000	}
+					has_equipment = { infantry_equipment_1 < -10000	}
+				}
+			}
+		}
+	}
+
+	#some help
+	option = {
+		name = wsv_csa.3.b
+		CSA = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_1
+			    amount = -2500
+			    producer = CSA
+			}
+		}
+		DES = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_1
+			    amount = 2000
+			    producer = CSA
+			}
+		}
+
+		ai_chance = {
+			factor = 80
+
+		}
+
+	}
+
+	
+
+	#lots of help
+	option = {
+		name = wsv_csa.3.c
+		CSA = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_1
+			    amount = -5000
+			    producer = CSA
+			}
+		}
+		DES = {
+			add_equipment_to_stockpile = {
+			    type = infantry_equipment_1
+			    amount = 4000
+			    producer = CSA
+			}
+		}
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				OR = {
+					has_equipment = { infantry_equipment_0 > 5000	}
+					has_equipment = { infantry_equipment_1 > 5000	}
+				}
+			}
+
+			modifier = {
+				factor = 2
+				OR = {
+					has_equipment = { infantry_equipment_0 > 10000	}
+					has_equipment = { infantry_equipment_1 > 10000	}
+				}
+			}
+		}
+	}
+}
+
+
+#fate of mexico (mexico is root)
+country_event = {
+	id = wsv_csa.4
+	title = wsv_csa.4.t
+	desc = wsv_csa.4.d
+	#picture = report_event_sign_paper
+
+    is_triggered_only = yes
+
+    fire_only_once = yes
+
+ 
+	#yes
+	option = {
+		name = wsv_csa.4.a
+
+		CSA = { 
+			annex_country = {
+				target = MEX
+				transfer_troops = no
+			}
+			country_event = { id = wsv_csa.5 }  
+		}
+
+
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+					tag = CSA
+					ratio < 1
+				}
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = {
+					tag = CSA
+					ratio < 0.5
+				}
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = {
+					tag = CSA
+					ratio < 0.25
+				}
+			}
+		}
+	}
+
+
+
+	#no
+	option = {
+		name = wsv_csa.4.b
+		
+		CSA = {
+			release = MEX
+			create_wargoal = {
+			    type = annex_everything
+			    target = MEX
+			}
+			country_event = { id = wsv_csa.6 }
+		}
+
+		ai_chance = {
+			factor = 60
+
+			modifier = {
+				factor = 0.5
+				strength_ratio = {
+					tag = CSA
+					ratio < 0.5
+				}
+			}
+			modifier = {
+				factor = 0.5
+				strength_ratio = {
+					tag = CSA
+					ratio < 0.25
+				}
+			}
+		}
+	}
+}
+
+
+#mexico submits
+country_event = {
+	id = wsv_csa.5
+	title = wsv_csa.5.t
+	desc = wsv_csa.5.d
+	#picture = report_event_deal_made
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_csa.5.a
+	}
+}
+
+#mexico defiant
+country_event = {
+	id = wsv_csa.6
+	title = wsv_csa.6.t
+	desc = wsv_csa.6.d
+	#picture = report_event_walked_out
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_csa.6.a
+
+	}
+}
+
+
+############################################################
+
+#CSA gets remanents of black revolt idea
+country_event = {
+	id = wsv_csa.8
+	title = wsv_csa.8.t
+	desc = wsv_csa.8.d
+	#picture = report_event_walked_out
+
+	hidden = yes
+
+    is_triggered_only = yes
+
+	immediate = {
+		CSA = {
+			if = {
+				limit = { has_country_flag = black_rebellion_extended_120_days }
+				clr_country_flag = black_rebellion_extended_120_days
+				country_event = { id = wsv_csa.8    days = 120 }
+			}
+			else_if = {
+				limit = { has_country_flag = black_rebellion_extended_60_days }
+				clr_country_flag = black_rebellion_extended_60_days
+				country_event = { id = wsv_csa.8    days = 60 }
+			}
+			else = {
+				add_ideas = CSA_black_rebellion_remanents_idea
+			}
+		}
+	}
+}
+
+
+
+
+
+

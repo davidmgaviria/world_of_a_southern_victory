@@ -1,0 +1,218 @@
+on_actions = {
+	
+	#vote for historical treaties or not
+	on_startup = {
+		effect = {
+			set_variable = { yes_vote = 0 }
+			set_variable = { no_vote = 0 }
+			set_variable = { votes_left = 0 }
+			every_country = {
+				limit = { is_ai = no }
+				add_to_variable = { global.votes_left = 1 }
+				country_event = { id = wsv_historical_treaty.0 }
+			}
+		}
+	}
+
+
+	#English men to Canada
+	#on_startup = {
+	#	effect = {
+	#		if = {
+	#			limit = {
+	#				has_start_date > 1910.1.1
+	#				has_start_date < 1914.1.1
+	#			}
+	#			ENG = {
+	#				load_oob = ENG_canadian_expeditionary_1910
+	#				set_division_template_lock = { division_template = "Canadian Expeditionary Division"   is_locked = yes }
+	#				set_country_flag = england_canadian_expeditionary_force
+	#			}
+	#		}
+	#		else_if = {
+	#			limit = {
+	#				has_start_date > 1914.1.1
+	#				has_start_date < 1937.1.1
+	#			}
+	#			ENG = {
+	#				load_oob = ENG_canadian_expeditionary_1914
+	#				set_country_flag = england_canadian_expeditionary_force
+	#				if = {
+	#					limit = { is_ai = yes }
+	#					set_division_template_lock = { division_template = "Canadian Expeditionary Division"   is_locked = yes }
+	#				}
+	#			}
+	#		}
+	#	}		
+	#}
+
+
+	#english send men to canada
+	#on_war = {
+	#	effect = {
+	#		if = {
+	#			limit = {
+	#				CAN = { 
+	#					has_war_with = USA
+	#					is_subject_of = ENG
+	#				}
+	#				ENG = {
+	#					is_ai = yes
+	#					NOT = { has_global_flag = england_canadian_expeditionary_force }
+	#				}
+	#			}
+	#			ENG = {
+	#				transfer_units_fraction= {
+	#					target = CAN
+	#					size = 0.35
+	#					stockpile_ratio = 0.35
+	#				}
+	#				add_ideas = ENG_canadian_expeditionary_force_sender
+	#				set_global_flag = england_canadian_expeditionary_force
+	#			}
+	#			CAN = { 
+	#				add_ideas = ENG_canadian_expeditionary_force_reciever 
+	#			}
+	#		}
+	#	}
+	#}
+
+
+
+
+	#what to do with mormon leaders
+	on_capitulation = {
+		effect = {
+			if = {
+				limit = { tag = DES }
+				USA = { country_event = { id = wsv_usa.10  days = 1 } }
+			}
+		}
+	}
+
+	
+	## war exhaustion controls
+	on_war = {
+		effect = { 
+			if = {
+				limit = { has_start_date < 1937.1.1 }
+				country_event = { id=wsv_war_exhaustion.1  days=360 } 
+			}
+		}
+	}
+
+
+	#end of spanish civil 
+	on_capitulation = {
+		#fascist spain wins
+		effect = {
+			if = {
+				limit = { tag = SPR }		#if loser is monarchist spain
+				every_state = {
+					limit = { is_core_of = SPR }
+					remove_core_of = SPR
+					add_core_of = SPN
+				}
+				SPN = {
+					annex_country = {
+					    target = SPR
+					    transfer_troops = no
+					}
+					set_capital = { state = 41 }
+					set_stability = 0.6
+					set_war_support = 0.25
+					delete_unit_template_and_units = {
+					    division_template = "Milicia Civil"
+					    disband = yes
+					}
+					add_ideas = {
+						limited_conscription
+						partial_economic_mobilisation
+					}
+					add_timed_idea = { idea = generic_recovering_from_civil_war   days = 720 }
+					news_event = { id = wsv_spain.1	  days = 1 }
+				}
+			}
+		}
+		#monarchist spain wins
+		effect = {
+			if = {
+				limit = { tag = SPN }		#if loser is fascist spain
+				every_state = {
+					limit = { is_core_of = SPN }
+					remove_core_of = SPN
+					add_core_of = SPR
+				}
+				SPR = {
+					annex_country = {
+					    target = SPN
+					    transfer_troops = no
+					}
+					set_capital = { state = 41 }
+					set_stability = 0.6
+					set_war_support = 0.25
+					delete_unit_template_and_units = {
+					    division_template = "Milicia Civil"
+					    disband = yes
+					}
+					add_ideas = {
+						limited_conscription
+						partial_economic_mobilisation
+					}
+					add_timed_idea = { idea = generic_recovering_from_civil_war   days = 720 }
+					news_event = { id = wsv_spain.2	    days = 1 }
+				}
+			}
+		}
+	}
+
+
+
+	#war adds neutrality idea back to china after winning the war
+	on_civil_war_end = {
+		effect = {
+			if = {
+				limit = { original_tag = QIN }
+				add_ideas = neutrality_idea
+			}
+		}
+	}
+
+
+	## war exhaustion controls
+	on_war = {
+		effect = { 
+			if = {
+				limit = { tag = CAN }
+			}
+		}
+	}
+	
+
+	#### Faction status
+	#on_join_faction = {
+	#	effect = {
+	#		if = {
+	#			limit = { OR = { is_in_faction_with = FRA  is_in_faction_with = ENG } }
+	#			set_country_flag = entente_member
+	#		}
+	#		if = {
+	#			limit = { is_in_faction_with = GER }
+	#			set_country_flag = central_power_member
+	#		}
+	#	}
+	#}
+
+	#punish German quasi-satellites if they leave faction
+	on_leave_faction = {
+		effect = {
+			if = {
+				limit = { 
+					has_idea = GER_berlin_influence
+					GER = { is_faction_leader = yes }
+				}
+				country_event = { id = wsv_ww2_germany.2  days = 2 }
+			}
+		}
+	}
+}

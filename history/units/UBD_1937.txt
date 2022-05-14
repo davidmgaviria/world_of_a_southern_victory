@@ -1,0 +1,102 @@
+﻿division_template = {
+	name = "Sicherheitskräfte"				# Infantry Division	
+	division_names_group = GER_INF_01
+	# Note: Divisions were nowhere near full strength until mobilized
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+	}
+}
+
+
+units = {
+	######## LAND OOB ########
+	##### Eesti Ülemjuhatus #####
+	division = { # "I Sicherheitskräfte"
+		division_name = {
+				is_name_ordered = yes
+				name_order = 1
+		}
+		location = 3152
+		division_template = "Sicherheitskräfte"
+		force_equipment_variants = { infantry_equipment_0 = { owner = "UBD" } }
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.35
+
+	}
+	division = { # "II Sicherheitskräfte"
+		division_name = {
+				is_name_ordered = yes
+				name_order = 2
+		}
+		location = 4640
+		division_template = "Sicherheitskräfte"
+		force_equipment_variants = { infantry_equipment_0 = { owner = "UBD" } }
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.35
+
+	}
+	division = { # "III Sicherheitskräfte"
+		division_name = {
+				is_name_ordered = yes
+				name_order = 3
+		}
+		location = 6099
+		division_template = "Sicherheitskräfte"
+		force_equipment_variants = { infantry_equipment_0 = { owner = "UBD" } }
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.35
+	}
+
+	##### Lietuva Aukaèiausiosios Vadaviete #####
+	division = { # "IV Sicherheitskräfte"
+		division_name = {
+				is_name_ordered = yes
+				name_order = 4
+		}
+		location = 9340
+		division_template = "Sicherheitskräfte"
+		force_equipment_variants = { infantry_equipment_0 = { owner = "UBD" } }
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.35
+
+	}
+	division = { # "V Sicherheitskräfte"
+		division_name = {
+				is_name_ordered = yes
+				name_order = 5
+		}
+		location = 9340
+		division_template = "Sicherheitskräfte"
+		force_equipment_variants = { infantry_equipment_0 = { owner = "UBD" } }
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.35
+
+	}
+}
+
+air_wings = {
+	### Eesti Ohuvägi
+	13 = {
+		# Hävitajate Grupp -- Bristol Bulldogs, GL 22.B3s
+		fighter_equipment_0 =  {
+			owner = "UBD" 
+			amount = 18
+		}
+	}
+}
+
+### Starting Production ###
+instant_effect = {
+	add_equipment_production = {
+		equipment = {
+			type = infantry_equipment_1
+			creator = "UBD"
+		}
+		requested_factories = 1
+		progress = 0.4
+		efficiency = 100
+	}
+}

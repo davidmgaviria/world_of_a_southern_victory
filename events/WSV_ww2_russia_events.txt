@@ -1,0 +1,769 @@
+﻿add_namespace = wsv_ww2_russia
+
+
+#ukraine civil war
+news_event = {
+	id = wsv_ww2_russia.0
+	title = wsv_ww2_russia.0.t
+	desc = wsv_ww2_russia.0.d
+	picture = news_event_russian_soldiers_ruins
+
+	major = yes
+
+	trigger = {
+		country_exists = UKR
+		RUS = {	
+			has_completed_focus = RUS2_ukrainian_seperatists
+			has_war_with = UKR 
+		}
+		NOT = { has_global_flag = ukraine_rebellion }
+		NOT = { has_global_flag = eastern_plebicites_held }
+	}
+
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = ukraine_rebellion
+	    	UKR = {
+	    		start_civil_war = {
+	    		    ideology = fascism
+	    		    size = 0.5
+	    		    capital = 227
+	    		    states = {
+	    		    	227
+	    		    }
+	    		}
+	    		
+	    		###German side
+				load_oob = "UKR_rebellion_german"
+				set_division_template_lock = { division_template = "Dobrovolʹcha Militsiya"  is_locked = yes }
+				set_equipment_fraction = 0.5
+				set_stability = 0.9
+				set_war_support = 0.8
+
+
+				###Russian side
+				random_other_country = {
+					limit = {
+						original_tag = UKR
+						has_government = fascism
+					}
+
+					set_province_controller = 6474
+					set_province_controller = 3421
+					set_province_controller = 6420
+					set_province_controller = 11405
+					set_province_controller = 6596
+					set_province_controller = 588
+					set_province_controller = 3686
+					set_province_controller = 6704
+					set_province_controller = 511
+					set_province_controller = 6578
+					set_province_controller = 11557
+					set_province_controller = 9543
+					set_province_controller = 582
+
+					set_cosmetic_tag = UKR_russain_seperatists
+					load_oob = "UKR_rebellion_russian"
+					set_division_template_lock = { division_template = "Dobrovolʹcha Militsiya"  is_locked = yes }
+					set_equipment_fraction = 0.5
+					set_stability = 0.9
+					set_war_support = 0.8
+					RUS = {
+						add_to_war = {
+							targeted_alliance = PREV
+							enemy = UKR
+							hostility_reason = asked_to_join
+						}
+					}
+				}
+	    	}
+		}
+    }
+	
+	option = {
+		name = wsv_ww2_russia.0.a
+		trigger = { 
+			OR = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.0.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.0.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+}
+
+
+##################################################################
+
+#demand swedish steel
+country_event = {
+	id = wsv_ww2_russia.1
+	title = wsv_ww2_russia.1.t
+	desc = wsv_ww2_russia.1.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.1.a
+		give_resource_rights = { receiver = RUS   state = 666 }
+		give_resource_rights = { receiver = RUS   state = 38 }
+		RUS = { give_guarantee = SWE   country_event = wsv_ww2_russia.2 }
+
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = RUS
+				    ratio < 0.5
+				}
+			}
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+			modifier = {
+				factor = 0.5
+				RUS = { has_war = yes }
+			}
+		}
+	}
+
+	#refuse
+	option = {
+		name = wsv_ww2_russia.1.b
+		RUS = { 
+			add_state_claim = 666
+			add_state_claim = 38
+			country_event = wsv_ww2_russia.3 
+		}
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				is_in_faction = yes
+			}
+			modifier = {
+				factor = 4
+				strength_ratio = {
+				    tag = RUS
+				    ratio > 1
+				}
+			}
+		}
+	}
+}
+
+
+
+#sweden accepts
+country_event = {
+	id = wsv_ww2_russia.2
+	title = wsv_ww2_russia.2.t
+	desc = wsv_ww2_russia.2.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_ww2_russia.2.a
+		SWE = {
+			give_resource_rights = { receiver = RUS   state = 666 }
+			give_resource_rights = { receiver = RUS   state = 38 }
+		}
+	}
+}
+
+
+#sweden refuses
+country_event = {
+	id = wsv_ww2_russia.3
+	title = wsv_ww2_russia.3.t
+	desc = wsv_ww2_russia.3.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_ww2_russia.3.a
+		add_state_claim = 666
+		add_state_claim = 38
+		create_wargoal = {
+		    type = take_claimed_state
+		    target = SWE
+		}
+	}
+}
+
+
+#################################################################
+###################### EASTERN PLEBICITES #######################
+#################################################################
+
+
+#############################################
+## French territories or war
+
+#russia asks for eastern plebicites (german notifaction)
+country_event = {
+	id = wsv_ww2_russia.4
+	title = wsv_ww2_russia.4.t
+	desc = wsv_ww2_russia.4.d
+	#picture = 
+
+	is_triggered_only = yes
+
+
+	#refuse
+	option = {
+		name = wsv_ww2_russia.4.a
+
+		set_global_flag = eastern_plebicites_rejected
+		news_event = { id = wsv_ww2_russia.6   days = 1 }  
+		custom_effect_tooltip = may_result_war_russia_tt
+		
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				NOT = { is_in_faction_with = AUH }
+			}
+		}
+	}
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.4.b
+		set_global_flag = eastern_plebicites_agreed
+		RUS = {	
+			country_event = { id = wsv_ww2_russia.5    days = 1 } 
+			if = {
+				limit = { any_country = { is_in_faction_with = ROOT } }
+				leave_faction = yes
+			} 
+			diplomatic_relation = { country = GER    relation = non_aggression_pact    active = yes }
+		}
+		custom_effect_tooltip = eastern_plebicites_tt	
+
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = RUS
+				    ratio < 0.8
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					RUS = { is_in_faction_with = FRA }
+					has_war_with = FRA
+				}
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}	
+	}
+}
+
+
+#germany accepts (russian notification)
+country_event = {
+	id = wsv_ww2_russia.5
+	title = wsv_ww2_russia.5.t
+	desc = wsv_ww2_russia.5.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_ww2_russia.5.a
+		
+	}
+}
+
+
+#eastern plebicites rejected news event (news event but not trigger for war)
+news_event = {
+	id = wsv_ww2_russia.6
+	title = wsv_ww2_russia.6.t
+	desc = wsv_ww2_russia.6.d
+	picture = news_event_demand_refused
+
+	major = yes
+
+	is_triggered_only = yes
+
+	 immediate = {
+    	hidden_effect = {
+	    	RUS = {
+	    		add_named_threat = { threat = 7.5   name = eastern_plebicites_rejected_tt }
+	    		add_war_support = 0.2
+	    		create_wargoal = {
+	    		    type = topple_government
+	    		    target = GER
+	    		}
+	    		create_wargoal = {
+	    		    type = annex_everything
+	    		    target = UBD
+	    		}
+	    		create_wargoal = {
+	    		    type = annex_everything
+	    		    target = LIT
+	    		}
+	    		create_wargoal = {
+	    		    type = annex_everything
+	    		    target = UKR
+	    		}
+	    		create_wargoal = {
+	    		    type = annex_everything
+	    		    target = POL
+	    		}
+	    	}
+	    }
+	}
+	
+	option = {
+		name = wsv_ww2_russia.6.a
+		trigger = { 
+			OR = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.6.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.6.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+}
+
+
+
+#eastern plebicites (news event, end 1 of eastern plebicites)
+news_event = {
+	id = wsv_ww2_russia.7
+	title = wsv_ww2_russia.7.t
+	desc = wsv_ww2_russia.7.d
+	picture = news_event_wsv_gathering_protest
+
+	major = yes
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	trigger = {
+		tag = RUS
+		has_global_flag = eastern_plebicites_agreed
+		country_exists = RUS
+		country_exists = UBD
+		country_exists = LIT
+		country_exists = POL
+		country_exists = UKR
+		RUS = {
+			NOT = { 
+				has_war_with = GER
+				has_war_with = POL
+				has_war_with = UBD
+				has_war_with = LIT
+				has_war_with = UKR
+			}
+		}
+		NOT = { has_global_flag = eastern_plebicites_held }
+	}
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = eastern_plebicites_held
+	    	RUS = { add_named_threat = { threat = 2.5   name = eastern_plebicites_held_tt } }
+	    	#baltics
+	    	if = {
+	    		limit = { RUS = { has_completed_focus = RUS2_baltic_unrest } }
+		    	random_list = {
+		    		#least territory gained
+		    		15 = {
+		    			RUS = { add_political_power = -25 }
+		    		}
+		    		#medium territory gained
+		    		25 = {
+		    			RUS = { transfer_state = 191 }
+		    		}
+		    		#most territory gained
+		    		10 = {
+		    			EST = { transfer_state = 13  load_oob = "EST_1939" }
+		    			LAT = { transfer_state = 12  transfer_state = 190   load_oob = "LAT_1939" }
+		    			RUS = { transfer_state = 191  puppet = EST  puppet = LAT }
+		    		}
+		    	}
+		    	#lithuania
+		    	random_list = {
+		    		#least territory gained
+		    		15 = {
+		    			RUS = { add_political_power = -25 }
+		    		}
+		    		#medium territory gained
+		    		35 = {
+		    			RUS = { transfer_state = 95  transfer_state = 835 }
+		    		}
+		    		#most territory gained
+		    		25 = {
+		    			RUS = { transfer_state = 95  transfer_state = 835  transfer_state = 784 }
+		    		}
+		    	}
+		    }
+	    	#ukraine
+	    	if = {
+	    		limit = { RUS = { has_completed_focus = RUS2_ukrainian_seperatists } }
+		    	random_list = {
+		    		#least territory gained
+		    		25 = {
+		    			RUS = { transfer_state = 227  transfer_state = 228 }
+		    		}
+		    		#medium territory gained
+		    		30 = {
+		    			RUS = { transfer_state = 227  transfer_state = 228  transfer_state = 137 }
+		    		}
+		    		#most territory gained
+		    		10 = {
+		    			RUS = { 
+		    				transfer_state = 227  transfer_state = 228  transfer_state = 137  
+		    				transfer_state = 200  transfer_state = 196 
+		    			}
+		    		}
+		    	}
+		    	#northwest ukraine/belarussia
+		    	if = {
+		    		limit = { RUS = { owns_state = 95 } }
+	    			random_list = {
+	    				10 = {
+	    					RUS = { add_political_power = -5 }
+	    				}
+	    				25 = {
+	    					RUS = { transfer_state = 94  transfer_state = 194 }
+	    				}
+		    		}
+		    	}
+		    }
+	    }
+    }
+	
+	option = {
+		name = wsv_ww2_russia.7.a
+		trigger = { 
+			OR = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.7.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.7.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+}
+
+
+
+#################################################################
+
+#call romania to war
+country_event = {
+	id = wsv_ww2_russia.8
+	title = wsv_ww2_russia.8.t
+	desc = wsv_ww2_russia.8.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.8.a
+		set_country_flag = romania_promised_transylvania
+		add_to_war = { 
+		    targeted_alliance = PREV 
+		    enemy = AUH 
+		    hostility_reason = asked_to_join
+		}
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				RUS = {
+					strength_ratio = {
+					    tag = AUH
+					    ratio > 1
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_army_manpower = {
+				    size > 249999
+				}
+			}
+		}	
+	}
+
+	#refuse
+	option = {
+		name = wsv_ww2_russia.8.b
+		PREV = { country_event = { id = wsv_ww2_russia.9    days = 1 } }
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_army_manpower = {
+				    size < 150001
+				}
+			}
+		}
+	}
+}
+
+
+#romania refuses
+country_event = {
+	id = wsv_ww2_russia.9
+	title = wsv_ww2_russia.9.t
+	desc = wsv_ww2_russia.9.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.9.a
+		
+	}
+}
+
+
+#romania get territory
+country_event = {
+	id = wsv_ww2_russia.10
+	title = wsv_ww2_russia.10.t
+	desc = wsv_ww2_russia.10.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.10.a
+		
+	}
+}
+
+
+##################################################
+
+
+#polish coup
+news_event = {
+	id = wsv_ww2_russia.11
+	title = wsv_ww2_russia.11.t
+	desc = wsv_ww2_russia.11.d
+	picture = news_event_polish_coup
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = polish_coup_occured
+	    	set_global_flag = poland_promised_german_land_by_russia
+	    	set_global_flag = poland_promised_auh_land_by_russia
+	    	POL = {
+	    		set_capital = { state = 87 }
+
+	    		start_civil_war = {
+	    		    ideology = fascism
+	    		    size = 0.25
+	    		    capital = 10
+	    		    states = {
+	    		    	10
+	    		    }
+	    		}
+	    		
+	    		###German side
+				load_oob = "POL_coup_german"
+				set_division_template_lock = { division_template = "Milicja Ochotnicza"  is_locked = yes }
+				set_equipment_fraction = 0.75
+				set_stability = 0.85
+				set_war_support = 0.6
+				set_province_controller = 402
+
+				###Russian side
+				random_other_country = {
+					limit = {
+						original_tag = POL
+						has_government = fascism
+					}
+					set_cosmetic_tag = POL_russain_seperatists
+					load_oob = "POL_coup_russian"
+					set_division_template_lock = { division_template = "Milicja Ochotnicza"  is_locked = yes }
+					set_equipment_fraction = 0.25
+					set_stability = 0.9
+					set_war_support = 0.8
+					set_political_power = 250
+					RUS = { puppet = PREV }
+				}
+	    	}
+		}
+    }
+
+    option = {
+		name = wsv_ww2_russia.11.a
+		trigger = { 
+			OR = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.11.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.11.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+}
+
+
+#########################################################
+#poland get territory
+country_event = {
+	id = wsv_ww2_russia.12
+	title = wsv_ww2_russia.12.t
+	desc = wsv_ww2_russia.12.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.12.a
+		
+	}
+}
+country_event = {
+	id = wsv_ww2_russia.13
+	title = wsv_ww2_russia.13.t
+	desc = wsv_ww2_russia.13.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#accept
+	option = {
+		name = wsv_ww2_russia.13.a
+		
+	}
+}
+
+
+#unrest in eastern europe
+news_event = {
+	id = wsv_ww2_russia.14
+	title = wsv_ww2_russia.14.t
+	desc = wsv_ww2_russia.14.d
+	picture = news_event_generic_riot
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+		hidden_effect = { RUS = { add_threat = 2 } }
+	}
+
+	option = {
+		name = wsv_ww2_russia.14.a
+		trigger = { 
+			OR = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.14.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.14.c
+		trigger = { 
+			NOT = { tag = RUS   is_in_faction_with = RUS }
+			NOT = { tag = GER   is_in_faction_with = GER }
+		}
+	} 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

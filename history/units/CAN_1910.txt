@@ -1,0 +1,198 @@
+﻿
+###################################################################
+
+division_template = {
+	name = "Canadian Royal Infantry Division"
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+	}
+	support = {
+		engineer = { x = 0 y = 0 }
+		artillery = { x = 0 y = 1 }
+	}
+	priority = 1
+}
+
+
+division_template = {
+	name = "Canadian Home Guard"
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+	}
+}
+
+
+division_template = {
+	name = "Canadian Mounted Police"
+	regiments = {
+		cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 0 y = 2 }
+		cavalry = { x = 1 y = 0 }
+	}
+	priority = 0
+}
+
+
+
+
+
+
+
+
+
+units = {
+
+fleet = {
+	name = "Royal Canadian Navy Fleet"
+	naval_base = 7361 # Halifax
+	task_force = {
+		name = "Royal Canadian Navy"
+		location = 7361 # Halifax
+		ship = { name = "HMS Niobe" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = ENG version_name = "Diadem Class" } } }
+		ship = { name = "HMS Rainbow" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = ENG version_name = "Apollo Class" } } }
+	}
+}
+
+	division= { 
+			name = "1st Canadian Infantry Div."
+			location=3778 # Ottawa
+			division_template="Canadian Royal Infantry Division"
+			start_experience_factor=0.3
+			}	
+	division= { 
+			name = "2nd Canadian Infantry Div."
+			location=3778 # Ottawa
+			division_template="Canadian Royal Infantry Division"
+			start_experience_factor=0.3
+			}
+	division= { 
+			name = "3rd Canadian Infantry Div."
+			location=3775 # Toronto
+			division_template="Canadian Royal Infantry Division"
+			start_experience_factor=0.3
+		}
+	division= { 
+			name = "1st Canadian Mounted Police"
+			location=1262
+			division_template="Canadian Mounted Police"
+			start_experience_factor=0.1
+		}
+	division= { 
+			name = "2nd Canadian Mounted Police"
+			location=12603
+			division_template="Canadian Mounted Police"
+			start_experience_factor=0.1
+		}
+	division= { 
+			name = "3rd Canadian Mounted Police"
+			location=12603
+			division_template="Canadian Mounted Police"
+			start_experience_factor=0.1
+		}
+	division= { 
+			name = "4th Canadian Mounted Police"
+			location=4666 #Northwetern Canada
+			division_template="Canadian Mounted Police"
+			start_experience_factor=0.1
+		}
+	
+	division= { 
+			name = "1st Canadian Home Guard"
+			location=7361 #Halifax
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+			}	
+	division= { 
+			name = "2nd Canadian Home Guard"
+			location=4285 #New Brunswick
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+			}
+	division= { 
+			name = "3rd Canadian Home Guard"
+			location=4666 #Northwetern Canada
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "4th Canadian Home Guard"
+			location=4362
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "5th Canadian Home Guard"
+			location=3010
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "6th Canadian Home Guard"
+			location= 7875
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "7th Canadian Home Guard"
+			location= 1408 #Vancouver
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "8th Canadian Home Guard"
+			location= 9711
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "9th Canadian Home Guard"
+			location= 10230
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	division= { 
+			name = "10th Canadian Home Guard"
+			location= 6510
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+		division= { 
+			name = "11th Canadian Home Guard"
+			location=7361 #Halifax
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}	
+	division= { 
+			name = "12th Canadian Home Guard"
+			location=4285 #New Brunswick
+			division_template="Canadian Home Guard"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.55
+		}
+	
+
+}
+
+instant_effect = {
+add_equipment_production = { equipment = { type = infantry_equipment_0 creator = "CAN" } requested_factories = 1 progress = 0.1 efficiency = 50}
+	}

@@ -1,0 +1,80 @@
+﻿add_namespace = wsv_war_exhaustion
+
+###################################################################
+
+#war exhaustion alert
+country_event = {
+	id = wsv_war_exhaustion.0
+	title = wsv_war_exhaustion.0.t
+	desc = wsv_war_exhaustion.0.d
+	#picture = report_event_sign_paper
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_war_exhaustion.0.a
+	}
+}
+
+#first war exhaustion
+country_event = {
+	id = wsv_war_exhaustion.1
+	title = wsv_war_exhaustion.1.t
+	desc = wsv_war_exhaustion.1.d
+	#picture = report_event_sign_paper
+	is_triggered_only = yes
+	hidden = yes
+	immediate = {
+		if = {
+			limit = { has_war = yes }
+			add_ideas = generic_war_exhaustion1
+			if = { limit = { tag = RUS }  add_ideas = RUS_communist_unrest1 }
+			country_event = {id=wsv_war_exhaustion.2  days=360 }
+			country_event = wsv_war_exhaustion.0
+		}
+	}
+}
+
+#second war exhaustion
+country_event = {
+	id = wsv_war_exhaustion.2
+	title = wsv_war_exhaustion.2.t
+	desc = wsv_war_exhaustion.2.d
+	#picture = report_event_sign_paper
+	is_triggered_only = yes
+	hidden = yes
+	immediate = {
+		if = {
+			limit = { has_war = yes    has_idea = generic_war_exhaustion1 }
+			remove_ideas = generic_war_exhaustion1
+			add_ideas = generic_war_exhaustion2
+			if = { limit = { tag = RUS }  remove_ideas=RUS_communist_unrest1  add_ideas=RUS_communist_unrest2 }
+			country_event = {id=wsv_war_exhaustion.3  days=360 }
+			country_event = wsv_war_exhaustion.0
+		}
+	}
+}
+
+#third war exhaustion
+country_event = {
+	id = wsv_war_exhaustion.3
+	title = wsv_war_exhaustion.3.t
+	desc = wsv_war_exhaustion.3.d
+	#picture = report_event_sign_paper
+	is_triggered_only = yes
+	hidden = yes
+	immediate = {
+		if = {
+			limit = { has_war = yes    has_idea = generic_war_exhaustion2 }
+			remove_ideas = generic_war_exhaustion2
+			add_ideas = generic_war_exhaustion3
+			if = { limit = { tag = RUS }  remove_ideas=RUS_communist_unrest2  add_ideas=RUS_communist_unrest3 }
+			country_event = wsv_war_exhaustion.0
+		}
+	}
+}
+
+
+
+
+
+

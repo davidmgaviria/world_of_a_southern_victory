@@ -1,0 +1,103 @@
+﻿add_namespace = wsv_canada
+
+#peace with usa (usa is root)
+country_event = {
+	id = wsv_canada.1
+	title = wsv_canada.1.t
+	desc = wsv_canada.1.d
+	picture = report_event_sign_paper
+
+    is_triggered_only = yes
+
+    fire_only_once = yes
+
+ 
+	#yes
+	option = {
+		name = wsv_canada.1.a
+
+		diplomatic_relation = {
+		    country = CAN
+		    relation = non_aggression_pact
+		    active = yes
+		}
+		transfer_state = 465
+		transfer_state = 464
+		CAN = { country_event = { id = wsv_canada.2 } } 
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = CAN
+					value > 49
+				}
+			}
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_canada.1.b
+		
+		CAN = { 
+			add_opinion_modifier = { 
+				target = USA
+				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+			}
+			country_event = { id = wsv_canada.3 }
+		}
+
+		ai_chance = {
+			factor = 20  
+
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = CAN
+					value < 0
+				}
+			}
+		}
+	}
+}
+
+
+#usa said yes
+country_event = {
+	id = wsv_canada.2
+	title = wsv_canada.2.t
+	desc = wsv_canada.2.d
+	#picture = report_event_deal_made
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_canada.2.a
+		ENG = { 
+			end_puppet = CAN
+			add_opinion_modifier = {
+				target = CAN
+				modifier = faction_traitor
+			}
+			country_event = { id = wsv_generic.7 } 
+		}
+	}
+}
+
+#usa said no
+country_event = {
+	id = wsv_canada.3
+	title = wsv_canada.3.t
+	desc = wsv_canada.3.d
+	#picture = report_event_walked_out
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_canada.3.a
+	}
+}

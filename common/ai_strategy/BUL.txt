@@ -1,0 +1,191 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+BUL_dont_join_ger = {
+	enable = {
+		tag = BUL
+		NOT = { is_in_faction_with = GER }
+		date < 1915.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = -1000
+	}
+}
+
+
+BUL_build_up_army = {
+	enable = {
+		tag = BUL
+		has_global_flag = kis_firstbalkanwar_victory
+		has_army_manpower = { size < 250000 }
+		has_war = no
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 # reduce while we build up in case of issues
+	}
+
+	ai_strategy = {
+		type = force_build_armies
+		value = 40
+	}
+}
+
+
+BUL_first_balkan = {
+	enable = {
+		tag = BUL
+		NOT = { has_global_flag = kis_firstbalkanwar_victory }
+		is_in_faction_with = SER
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 10
+	}	
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "TUR"			
+		value = 40
+	}	
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 788	
+		state = 756	
+		state = 341	
+		value = 100
+	}
+}
+
+
+
+BUL_second_balkan = {
+	enable = {
+		tag = BUL
+		SER = { exists = yes }
+		NOT = { is_in_faction_with = SER }
+		has_completed_focus = BUL_ww1_balkan_war_propaganda
+		NOT = { has_global_flag = kis_secondbalkanwar_victory }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "SER"			
+		value = 400
+	}
+	ai_strategy = {
+		type = conquer
+		id = "SER"			
+		value = 600
+	}
+	ai_strategy = {
+		type = conquer
+		id = "GRE"			
+		value = 400
+	}
+}
+
+
+
+#world war 1
+BUL_world_war_1_serbia = {
+	enable = {
+		tag = BUL
+		SER = { exists = yes }
+		NOT = { is_in_faction_with = SER }
+		date > 1915.1.1
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "SER"			
+		value = 600
+	}
+	
+	ai_strategy = {
+		type = conquer
+		id = "SER"			
+		value = 600
+	}	
+
+	ai_strategy = {
+		type = front_control
+		tag = SER
+		ratio = 0.1
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
+
+#world war 1
+BUL_world_war_1_greece = {
+	enable = {
+		tag = BUL
+		SER = { has_capitulated = yes }
+		NOT = { is_in_faction_with = SER }
+		date > 1915.1.1
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = conquer
+		id = "GRE"			
+		value = 800
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GRE"			
+		value = 800
+	}	
+
+	ai_strategy = {
+		type = front_control
+		state = 184
+		ratio = 0.1
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
+
+
+

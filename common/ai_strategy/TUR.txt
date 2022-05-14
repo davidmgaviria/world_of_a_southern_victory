@@ -1,0 +1,113 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+TUR_build_up_army = {
+	enable = {
+		tag = TUR
+		has_global_flag = kis_firstbalkanwar_victory
+		has_army_manpower = { size < 350000 }
+		has_war = no
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 # reduce while we build up in case of issues
+	}
+
+	ai_strategy = {
+		type = force_build_armies
+		value = 60
+	}
+}
+
+
+
+TUR_balkan_buffers = {
+	enable = {
+		tag = TUR
+		NOT = { has_global_flag = kis_firstbalkanwar_victory }
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			106
+			44
+			184
+			731
+			758
+			756
+			788
+			341
+		}
+
+		ratio = 0.25
+		subtract_invasions_from_need = yes
+	}	
+}
+
+
+
+TUR_garrison_anatolia = {
+	enable = {
+		tag = TUR
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			341
+			340
+			342
+			345
+			344
+			356
+			355
+			354
+		}
+		ratio = 0.1
+		subtract_invasions_from_need = yes
+	}	
+}
+
+
+TUR_garrison_middle_east = {
+	enable = {
+		tag = TUR
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			657
+			553
+			454
+			291
+		}
+		ratio = 0.05
+		subtract_invasions_from_need = yes
+	}	
+}
+

@@ -1,0 +1,201 @@
+on_actions = {
+	
+	on_peaceconference_ended = {
+		##swedens territory
+		effect = {
+			if = {
+				limit = {
+					tag=SWE
+					has_country_flag = promised_russian_finland
+					FROM = {tag =RUS} 
+				}
+				transfer_state = 148
+				transfer_state = 149
+				transfer_state = 111
+				transfer_state = 150
+				transfer_state = 147
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_germany.12
+				}
+				clr_country_flag = promised_russian_finland
+			}
+		}
+
+		##spains territory
+		effect = {
+			if = {
+				limit = {
+					tag=SPR
+					has_country_flag = promised_gibraltar
+					FROM = {tag =ENG} 
+				}
+				transfer_state = 118
+				clr_country_flag = promised_gibraltar
+				GER = { country_event = wsv_ww2_germany.15 }
+			}
+			if = {
+				limit = {
+					tag=SPR
+					has_country_flag = promised_french_africa
+					FROM = {tag =FRA} 
+				}
+				transfer_state = 459
+				transfer_state = 460
+				transfer_state = 513
+				transfer_state = 514
+				transfer_state = 782
+				transfer_state = 786
+				clr_country_flag = promised_french_africa
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_germany.16
+				}
+			}
+		}
+
+		##italys territory
+		effect = {
+			if = {
+				limit = {
+					tag=ITA
+					has_country_flag = french_land_promised
+					FROM = {tag = FRA } 
+				}
+				transfer_state = 1
+				transfer_state = 735
+				transfer_state = 458
+				transfer_state = 665
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_germany.19
+				}
+				clr_country_flag = french_land_promised
+			}
+		}
+
+
+		##bulgaria's territory
+		effect = {
+			if = {
+				limit = {
+					tag=BUL
+					is_in_faction_with = AUH
+					has_country_flag = bulgaria_promised_macedonia
+					FROM = { tag = SER } 
+				}
+				transfer_state = 818
+				transfer_state = 106
+				transfer_state = 759
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = ww1_germany.100
+				}
+				clr_country_flag = bulgaria_promised_macedonia
+			}
+		}
+
+		##bruders war
+		effect = {
+			if = {
+				limit = {
+					tag=GER
+					has_global_flag = bruders_war
+					FROM = { tag =AUH } 
+				}
+				country_event = wsv_ww2_germany.24
+			}
+		}
+
+		##romania's territory
+		effect = {
+			if = {
+				limit = {
+					tag=ROM
+					is_in_faction_with = RUS
+					has_country_flag = romania_promised_transylvania
+					FROM = { tag = AUH } 
+				}
+				transfer_state = 84
+				transfer_state = 76
+				transfer_state = 83
+				transfer_state = 82
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_russia.10
+				}
+				clr_country_flag = romania_promised_transylvania
+			}
+		}
+
+
+		##polands's territory
+		effect = {
+			if = {
+				limit = {
+					tag=POL
+					is_in_faction_with = RUS
+					has_country_flag = poland_promised_german_land_by_russia
+					FROM = { tag = GER } 
+				}
+				transfer_state = 85
+				transfer_state = 86
+				transfer_state = 67
+				transfer_state = 762
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_russia.12
+				}
+				clr_country_flag = poland_promised_german_land_by_russia
+			}
+			if = {
+				limit = {
+					tag=POL
+					is_in_faction_with = RUS
+					has_country_flag = poland_promised_auh_land_by_russia
+					FROM = { tag = AUH } 
+				}
+				transfer_state = 88
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_russia.13
+				}
+				clr_country_flag = poland_promised_auh_land_by_russia
+			}
+		}
+
+		##belgian independence
+		effect = {
+			if = {
+				limit = {
+					tag=FRA
+					has_country_flag = promised_belgian_independence
+					FROM = { tag = GER } 
+				}
+				BEL = {
+					end_puppet = yes
+					drop_cosmetic_tag = yes
+					transfer_state = 6
+					transfer_state = 34
+					set_politics = {
+					    ruling_party = democratic
+					    last_election = "1940.1.1"
+					    election_frequency = 24
+					    elections_allowed = yes
+					}
+					set_popularities = {
+					    democratic = 85
+					    fascism = 10
+					    communism = 5
+					    neutrality = 0
+					}
+				}
+				every_other_country = {
+					limit = { is_in_faction_with = ROOT   is_ai = no }
+					country_event = wsv_ww2_france.25
+				}
+				clr_country_flag = promised_belgian_independence
+			}
+		}
+	}
+}

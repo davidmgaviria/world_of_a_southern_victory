@@ -1,0 +1,2310 @@
+focus_tree = {
+	id = rus_2_focus
+	country={ factor=0 modifier={ add=10 original_tag=RUS } modifier={ factor=10 has_start_date>1937.1.1 } }
+	
+	initial_show_position = {
+		focus = RUS2_modernize_russia 
+	}
+
+
+	focus = {
+		id = RUS2_army_effort
+		icon = GFX_goal_generic_axis_build_infantry
+		x = 2
+		y = 0
+		cost = 10
+
+		ai_will_do = { factor = 40 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 20
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_equipment_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = RUS2_army_effort }
+		x = -1
+		y = 1
+		relative_position_id = RUS2_army_effort
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		ai_will_do = { factor = 30 }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_motorization_effort
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = RUS2_army_effort }
+		x = 1
+		y = 1
+		relative_position_id = RUS2_army_effort
+		cost = 10
+		
+		available_if_capitulated = no
+
+		ai_will_do = { factor = 15 }
+
+		completion_reward = {
+			add_tech_bonus = {
+				ahead_reduction = 1
+				uses = 1
+				category = motorized_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_doctrine_effort
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = RUS2_army_effort }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_army_effort
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		ai_will_do = { factor = 30 }
+
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_equipment_effort_2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = RUS2_equipment_effort }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_equipment_effort
+		cost = 10
+
+		ai_will_do = { factor = 15 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_mechanization_effort
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = RUS2_motorization_effort }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_motorization_effort
+		cost = 10
+		
+		ai_will_do = { factor = 15 }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = motorized_bonus
+				ahead_reduction = 2
+				uses = 1
+				category = motorized_equipment
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_doctrine_effort_2
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = RUS2_doctrine_effort }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_doctrine_effort
+		cost = 10
+
+		ai_will_do = { factor = 20 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_equipment_effort_3
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = RUS2_equipment_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_equipment_effort_2
+		cost = 10
+
+		ai_will_do = { factor = 15 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				ahead_reduction = 2
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_armor_effort
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = RUS2_mechanization_effort }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_mechanization_effort
+		cost = 10
+
+		ai_will_do = { factor = 20 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = armor_bonus
+				bonus = 1.0
+				uses = 2
+				category = armor
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = RUS2_equipment_effort_3 }
+		prerequisite = { focus = RUS2_doctrine_effort_2 }
+		prerequisite = { focus = RUS2_armor_effort }
+		x = 1
+		y = 1
+		relative_position_id = RUS2_equipment_effort_3
+		cost = 10
+
+		ai_will_do = { factor = 10 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_ideas = special_forces
+			add_tech_bonus = {
+				name = RUS2_special_forces_bonus
+				bonus = 1.0
+				uses = 1
+				category = marine_tech
+				category = para_tech
+				category = mountaineers_tech
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_aviation_effort
+		icon = GFX_goal_generic_build_airforce
+		x = 6
+		y = 0
+		cost = 10
+		
+		ai_will_do = { factor = 20 }
+
+		available_if_capitulated = yes
+
+
+		complete_tooltip = {
+			air_experience = 25
+			if = { limit = { has_country_flag = RUS2_aviation_effort_AB }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}			
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}			
+		}
+
+		completion_reward = {
+			air_experience = 25
+
+			if = {
+				limit = {
+					capital_scope = {
+						NOT = {
+							free_building_slots = {
+								building = air_base
+								size > 1
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = RUS2_aviation_effort_AB }
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = RUS2_aviation_effort_AB }
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_fighter_focus
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = RUS2_aviation_effort }
+		mutually_exclusive = { focus = RUS2_bomber_focus }
+		x = -1
+		y = 1
+		relative_position_id = RUS2_aviation_effort
+		cost = 10
+
+		ai_will_do = { factor = 15 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 1.0
+				uses = 2
+				category = light_fighter
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_bomber_focus
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = RUS2_aviation_effort }
+		mutually_exclusive = { focus = RUS2_fighter_focus }
+		x = 1
+		y = 1
+		relative_position_id = RUS2_aviation_effort
+		cost = 10
+
+		ai_will_do = { factor = 20 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 2
+				category = cat_strategic_bomber
+				category = tactical_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_aviation_effort_2
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = RUS2_bomber_focus focus = RUS2_fighter_focus }
+		x = -1
+		y = 1
+		relative_position_id = RUS2_bomber_focus
+		cost = 10
+
+		ai_will_do = { factor = 15 }
+		
+		available_if_capitulated = yes
+
+
+		complete_tooltip = {
+			air_experience = 25
+			if = { limit = { has_country_flag = RUS2_aviation_effort_2_AB }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name =  air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+		}
+		completion_reward = {
+			air_experience = 25
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							NOT = { is_controlled_by = ROOT }
+							NOT = {
+								free_building_slots = {
+									building = air_base
+									size > 1
+								}
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = RUS2_aviation_effort_2_AB }
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						is_controlled_by = ROOT
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}				
+					ROOT = { set_country_flag = RUS2_aviation_effort_2_AB }
+				}
+			}
+			add_tech_bonus = {
+				name =  air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_CAS_effort
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = RUS2_aviation_effort_2 }
+		x = -1
+		y = 1
+		relative_position_id = RUS2_aviation_effort_2
+		cost = 10
+
+		ai_will_do = { factor = 5 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = CAS_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = cas_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_rocket_effort
+		icon = GFX_focus_rocketry
+		prerequisite = { focus = RUS2_aviation_effort_2 }
+		x = 0
+		y = 2
+		relative_position_id = RUS2_aviation_effort_2
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = jet_rocket_bonus
+				ahead_reduction = 2
+				uses = 2
+				category = rocketry
+				category = jet_technology
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.25
+				always = yes
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_NAV_effort
+		icon = GFX_goal_generic_air_naval_bomber
+		prerequisite = { focus = RUS2_aviation_effort_2 }
+		x = 1
+		y = 1
+		relative_position_id = RUS2_aviation_effort_2
+		cost = 10
+
+		ai_will_do = { factor = 5 }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = nav_bomber_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = naval_bomber
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_naval_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 10
+		y = 0
+		cost = 10
+
+		ai_will_do = { factor = 5 }
+		
+		available_if_capitulated = yes
+
+
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+
+		complete_tooltip = {
+			navy_experience = 25
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = dockyard
+				level = 3
+				instant_build = yes
+			}
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+					}
+					any_owned_state = {
+						is_coastal = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				set_country_flag = RUS2_naval_effort_built
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = RUS2_naval_effort_built }
+					any_owned_state = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				set_country_flag = RUS2_naval_effort_built
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = RUS2_naval_effort_built }
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_state = {
+					limit = {
+						controller = { tag = ROOT }
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+			}			
+		}
+	}
+
+	focus = {
+		id = RUS2_flexible_navy
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = RUS2_naval_effort }
+		mutually_exclusive = { focus = RUS2_large_navy }
+		x = -1
+		y = 1
+		relative_position_id = RUS2_naval_effort
+		cost = 10
+		
+		ai_will_do = { factor = 5 }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = sub_op_bonus
+				bonus = 1.0
+				uses = 2
+				technology = convoy_interdiction_ti
+				technology = unrestricted_submarine_warfare
+				technology = wolfpacks
+				technology = advanced_submarine_warfare
+				technology = combined_operations_raiding
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_large_navy
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = RUS2_naval_effort }
+		mutually_exclusive = { focus = RUS2_flexible_navy }
+		x = 1
+		y = 1
+		relative_position_id = RUS2_naval_effort
+		cost = 10
+		
+		ai_will_do = { factor = 2 }
+
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = fleet_in_being_bonus
+				bonus = 1.0
+				uses = 2
+				category = fleet_in_being_tree
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = RUS2_flexible_navy focus = RUS2_large_navy }
+		x = 0
+		y = 1
+		relative_position_id = RUS2_flexible_navy
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		ai_will_do = { factor = 2 }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ss_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = ss_tech
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_cruiser_effort
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = RUS2_large_navy focus = RUS2_flexible_navy }
+		x = 0
+		y = 1
+		relative_position_id = RUS2_large_navy
+		cost = 10
+		
+		ai_will_do = { factor = 2 }
+
+		available_if_capitulated = yes
+
+		ai_will_do = { factor = 2 }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = cr_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_destroyer_effort
+		icon = GFX_goal_generic_wolf_pack
+		prerequisite = { focus = RUS2_submarine_effort }
+		x = 0
+		y = 1
+		relative_position_id = RUS2_submarine_effort
+		cost = 10
+		
+		available_if_capitulated = yes
+
+		ai_will_do = { factor = 2 }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = dd_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = dd_tech
+			}
+		}
+	}
+
+	focus = {
+		id = RUS2_capital_ships_effort
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = RUS2_cruiser_effort }
+		x = 0
+		y = 1
+		relative_position_id = RUS2_cruiser_effort
+		cost = 10
+
+		
+		available_if_capitulated = yes
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+				category = cv_tech
+			}
+		}
+	}
+
+
+
+
+	########################################################################
+	### Expansion Tree
+	########################################################################
+	focus = {
+		id = RUS2_modernize_russia
+		icon = GFX_goal_generic_production
+		x = 17
+		y = 0
+		cost = 10
+		
+		available_if_capitulated = no
+
+		ai_will_do = { factor = 40 }
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 1.0
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_construction_effort
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = RUS2_modernize_russia }
+		x = -3
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_modernize_russia
+
+		ai_will_do = { factor = 15 }
+		
+		available_if_capitulated = no
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_construction_effort_2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = RUS2_construction_effort }
+		x = 0
+		y = 2
+		cost = 10
+		relative_position_id = RUS2_construction_effort
+
+		ai_will_do = { factor = 10 }
+		
+		available_if_capitulated = no
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = industrial_complex
+				level = 2
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = industrial_complex
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_infrastructure_effort
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = RUS2_modernize_russia }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_modernize_russia
+
+		ai_will_do = { factor = 25 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_ideas = RUS_railways_project_idea 
+		}
+	}
+
+
+
+	focus = {
+		id = RUS2_western_roads
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = RUS2_infrastructure_effort }
+		x = -1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_infrastructure_effort
+
+		ai_will_do = { factor = 20 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = western_roads_tt
+			hidden_effect = {
+				every_owned_state = {
+					limit = { is_on_continent = europe }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_eastern_roads
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = RUS2_infrastructure_effort }
+		x = 1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_infrastructure_effort
+
+		ai_will_do = { factor = 20 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			custom_effect_tooltip = eastern_roads_tt
+			hidden_effect = {
+				every_owned_state = {
+					limit = { is_on_continent = asia }
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}
+	}
+
+
+
+	focus = {
+		id = RUS2_standardized_infrastructure
+		icon = GFX_goal_generic_production2
+		prerequisite = { focus = RUS2_eastern_roads }
+		prerequisite = { focus = RUS2_western_roads }
+		x = -1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_eastern_roads
+
+		ai_will_do = { factor = 25 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			remove_ideas = RUS_ww1_mixed_railways
+		}
+	}
+
+
+	focus = {
+		id = RUS2_armament_effort
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = RUS2_modernize_russia }
+		x = 3
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_modernize_russia
+
+		ai_will_do = { factor = 15 }
+		
+		available_if_capitulated = no
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_armament_effort_2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = RUS2_armament_effort }
+		x = 0
+		y = 2
+		cost = 10
+		relative_position_id = RUS2_armament_effort
+
+		ai_will_do = { factor = 10 }
+		
+		available_if_capitulated = no
+
+		complete_tooltip = {
+			add_extra_state_shared_building_slots = 2
+			add_building_construction = {
+				type = arms_factory
+				level = 2
+				instant_build = yes
+			}			
+		}
+
+		completion_reward = {
+			random_owned_controlled_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+					OR = {
+						is_in_home_area = yes
+						NOT = {
+							owner = {
+								any_owned_state = {
+									free_building_slots = {
+										building = arms_factory
+										size > 0
+										include_locked = yes
+									}
+									is_in_home_area = yes
+								}
+							}
+						}
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_research_effort
+		icon = GFX_focus_research
+		prerequisite = { focus = RUS2_standardized_infrastructure }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_standardized_infrastructure
+
+		ai_will_do = { factor = 10 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+
+	focus = {
+		id = RUS2_nuclear_effort
+		icon = GFX_focus_wonderweapons
+		prerequisite = { focus = RUS2_research_effort }
+		x = -1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_research_effort
+
+		ai_will_do = { factor = 10 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = nuclear_bonus
+				ahead_reduction = 2
+				category = nuclear
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_secret_effort
+		icon = GFX_goal_generic_secret_weapon
+		prerequisite = { focus = RUS2_research_effort }
+		x = 1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_research_effort
+
+		ai_will_do = { factor = 5 }
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = secret_bonus
+				bonus = 1.0
+				uses = 4
+				category = electronics
+				category = nuclear
+				category = rocketry
+			}
+		}
+	}
+
+
+
+
+	########################################################################
+	### Expansion Tree
+	########################################################################
+	focus = {
+		id = RUS2_glory_to_tsar
+		icon = GFX_focus_RUS_glory_to_tsar
+		x = 33
+		y = 0
+		cost = 10
+		
+		available_if_capitulated = no
+
+		ai_will_do = { factor = 60 }
+
+		completion_reward = {
+			add_political_power = 120
+		}
+	}
+
+
+	focus = {
+		id = RUS2_southward_expansion
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = RUS2_glory_to_tsar }
+		x = -5
+		y = 1
+		cost = 5
+		relative_position_id = RUS2_glory_to_tsar
+
+		ai_will_do = { 
+			factor = 45
+		}
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+
+
+	focus = {
+		id = RUS2_balkan_brothers
+		icon = GFX_focus_RUS_balkan_brothers
+		prerequisite = { focus = RUS2_southward_expansion }
+		x = -3
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_southward_expansion
+
+		ai_will_do = { 
+			factor = 25
+		}
+		
+		available_if_capitulated = no
+
+		available = {
+			OR = {
+				AND = { country_exists = SER  NOT = { has_war_with = SER } }
+				AND = { country_exists = ROM  NOT = { has_war_with = ROM } }
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = { country_exists = SER }
+				add_opinion_modifier = { 
+					target = SER
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}	
+			}
+			if = {
+				limit = { country_exists = ROM }
+				add_opinion_modifier = { 
+					target = ROM
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}	
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_serbian_seperatists
+		icon = GFX_focus_prc_infiltration
+		prerequisite = { focus = RUS2_balkan_brothers }
+		x = -2
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_balkan_brothers
+
+		ai_will_do = { 
+			factor = 20
+		}
+		
+		available_if_capitulated = no
+
+		available = {
+			SER = {
+				NOT = { controls_state = 108 }
+				NOT = { controls_state = 104 }
+			}
+		}
+
+		completion_reward = {
+			108 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=BUL }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 75
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			104 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=AUH }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 75 
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_influence_romania
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = RUS2_balkan_brothers }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_balkan_brothers
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 10
+			modifier = {
+				factor = 4
+				has_war_with = AUH
+			}
+		}
+
+		available = {
+			country_exists = ROM
+			ROM = { is_puppet = no }
+			NOT = { has_war_with = ROM }
+		}
+
+		bypass = { is_in_faction_with = ROM }
+
+		completion_reward = {
+			ROM = {
+				add_opinion_modifier = { 
+					target = RUS
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+				add_timed_idea = { idea = RUS_influence_country   days = 360 }
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_call_romania_to_war
+		icon = GFX_focus_generic_befriend_romania
+		prerequisite = { focus = RUS2_influence_romania }
+		x = 0
+		y = 1
+		cost = 1
+		relative_position_id = RUS2_influence_romania
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 100
+		}
+
+		available = {
+			any_neighbor_country = { tag = ROM }
+			NOT = { has_war_with = ROM }
+			ROM = { is_in_faction = no }
+			ROM = { is_puppet = no }
+			AUH = {
+				controls_state = 76
+				controls_state = 84
+				controls_state = 82
+				controls_state = 83
+				controls_state = 80
+			}
+		}
+
+		bypass = { 
+			OR = {
+				is_in_faction_with = ROM
+				ROM = { has_war_with = AUH }
+			}
+		}
+
+		completion_reward = {
+			ROM = {	country_event = { id = wsv_ww2_russia.8    days = 1 } }
+			custom_effect_tooltip = promise_romania_land_tt
+		}
+	}
+
+
+	focus = {
+		id = RUS2_stolen_ukraine
+		icon = GFX_focus_RUS_stolen_ukraine
+		prerequisite = { focus = RUS2_southward_expansion }
+		x = 3
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_southward_expansion
+
+		ai_will_do = { 
+			factor = 35
+		}
+		
+		available_if_capitulated = no
+
+		available = {
+			country_exists = UKR
+			NOT = { is_in_faction_with = UKR }
+			NOT = { has_war_with = UKR }	
+		}
+
+		completion_reward = {
+			add_war_support = 0.1
+			custom_effect_tooltip = claim_ukraine_states_tt
+			hidden_effect = {
+				every_state = {	
+					limit = { is_core_of = UKR	is_owned_by = UKR }
+					add_claim_by = RUS
+				}
+			}
+			137 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=UKR add_core_of = RUS }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25 
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			228 = {
+				if = { 
+					limit = { has_resistance = no   NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=UKR  add_core_of = RUS }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+		}
+	}
+
+
+
+	focus = {
+		id = RUS2_ukrainian_seperatists
+		icon = GFX_focus_RUS_ukraine_civil_war
+		prerequisite = { focus = RUS2_stolen_ukraine }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_stolen_ukraine
+
+		ai_will_do = { 
+			factor = 35
+		}
+		
+		available_if_capitulated = no
+
+		available = {
+			country_exists = UKR
+			NOT = { is_in_faction_with = UKR }
+			NOT = { has_war_with = UKR }
+			NOT = { controls_state = 227 }
+			NOT = { controls_state = 225 }
+		}
+
+		completion_reward = {
+			227 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=UKR add_core_of = RUS }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25 
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			225 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=UKR  add_core_of = RUS }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			hidden_effect = {
+				#GER = { country_event = { id = wsv_ww2_germany.30  days = 7  random = 14 } }
+				news_event = wsv_ww2_russia.14
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_turkish_menance
+		icon = GFX_focus_anti_turkey
+		prerequisite = { focus = RUS2_southward_expansion }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_southward_expansion
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 15
+		}
+
+		available = {
+			country_exists = TUR
+			NOT = { is_in_faction_with = TUR }
+		}
+
+		bypass = { has_war_with = TUR }
+
+		completion_reward = {
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1
+				category = mountaineers_tech
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_caucaus_unrest
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = RUS2_turkish_menance }
+		x = -1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_turkish_menance
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 15
+		}
+
+		available = {
+			NOT = { country_exists = GEO }
+			NOT = { country_exists = ARM }
+		}
+
+		completion_reward = {
+			230 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=TUR }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25 
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			231 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=TUR }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25 
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_strengthen_black_sea_fleet
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = RUS2_turkish_menance }
+		x = 1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_turkish_menance
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 15
+		}
+
+		available = { has_full_control_of_state = 234 }
+
+		completion_reward = {
+			navy_experience = 50
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				category = cl_tech
+				category = ca_tech
+				category = dd_tech
+			}
+			234 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_take_constantinople
+		icon = GFX_focus_attack_ottomans
+		prerequisite = { focus = RUS2_caucaus_unrest }
+		prerequisite = { focus = RUS2_strengthen_black_sea_fleet }
+		x = 1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_caucaus_unrest
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 10
+		}
+
+		available = {
+			country_exists = TUR
+			NOT = { is_in_faction_with = TUR }
+		}
+
+		bypass = { has_war_with = TUR }
+
+		completion_reward = {
+			create_wargoal = {
+				type = take_state
+				target = TUR
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_integrate_ukraine
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = RUS2_ukrainian_seperatists }
+		x = 0
+		y = 2
+		cost = 10
+		relative_position_id = RUS2_ukrainian_seperatists
+
+		ai_will_do = { 
+			factor = 35
+		}
+		
+		available_if_capitulated = no
+
+		available = {
+			has_war = no
+			any_country = {
+				original_tag = UKR
+				is_puppet_of = RUS
+			}
+		}
+
+		ai_will_do = { factor = 50 }
+
+		completion_reward = {
+			custom_effect_tooltip = integrate_ukraine_tt
+			hidden_effect = {
+				random_country = {
+					limit = { original_tag = UKR   is_puppet_of = RUS }
+					RUS = {	annex_country = { target = PREV   transfer_troops = yes } }
+				} 
+			}
+		}
+	}
+
+
+
+	focus = {
+		id = RUS2_rejoin_entente
+		icon = GFX_focus_join_france
+		prerequisite = { focus = RUS2_glory_to_tsar }
+		x = 0
+		y = 1
+		cost = 4
+		relative_position_id = RUS2_glory_to_tsar
+
+		available = { 
+			country_exists = FRA
+			is_in_faction = no
+			FRA = { is_faction_leader = yes }
+			NOT = { has_war_with = FRA }
+		}
+
+		ai_will_do = { 
+			factor = 10
+			modifier = {
+				factor = 4
+				date > 1939.1.1
+			} 
+		}
+		
+		available_if_capitulated = no
+
+		completion_reward = {
+			FRA = { add_to_faction = ROOT }
+			hidden_effect = { news_event = wsv_generic.10 }
+		}
+
+		bypass = { is_in_faction_with = FRA }
+	}
+
+
+	focus = {
+		id = RUS2_demand_eastern_plebicites
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = RUS2_rejoin_entente }
+		prerequisite = { focus = RUS2_ukrainian_seperatists }
+		prerequisite = { focus = RUS2_baltic_unrest }
+		x = 0
+		y = 3
+		cost = 10
+		relative_position_id = RUS2_rejoin_entente
+		
+		available_if_capitulated = no
+
+		ai_will_do = {
+			factor = 60
+		}
+
+		available = {
+			GER = {
+				exists = yes
+				is_in_faction_with = UBD
+	    		is_in_faction_with = LIT
+	    		is_in_faction_with = UKR
+			}
+			NOT = { is_in_faction_with = GER }
+			has_army_manpower = { size > 1999999 }
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = eastern_plebicites_unlocked_tt
+		}
+	}
+
+
+	focus = {
+		id = RUS2_northward_expansion
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = RUS2_glory_to_tsar }
+		x = 5
+		y = 1
+		cost = 5
+		relative_position_id = RUS2_glory_to_tsar
+		
+		available_if_capitulated = no
+
+		ai_will_do = { factor = 40 }
+
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+
+
+
+	focus = {
+		id = RUS2_baltic_slavs
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = RUS2_northward_expansion }
+		x = -3
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_northward_expansion
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 30
+			modifier = {
+				factor = 2
+				date > 1940.1.1
+			}
+		}
+
+		available = {
+			NOT = { country_exists = EST }
+			NOT = { country_exists = LAT }
+			NOT = {
+				controls_state = 13
+				controls_state = 12
+				controls_state = 190
+			}
+		}
+
+		completion_reward = {
+			add_war_support = 0.1
+			GER = {
+				add_opinion_modifier = { 
+					target = RUS
+					modifier = WSV_dislikes_country
+				}
+			}
+			custom_effect_tooltip = claim_baltic_states_tt
+			hidden_effect = {
+				every_state = {	
+					limit = { is_core_of = UBD	is_owned_by = UBD }
+					add_claim_by = RUS
+				}
+			}
+			custom_effect_tooltip = claim_lit_states_tt
+			hidden_effect = {
+				every_state = {	
+					limit = { is_core_of = LIT	is_owned_by = LIT }
+					add_claim_by = RUS
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_baltic_unrest
+		icon = GFX_focus_RUS_baltic_unrest
+		prerequisite = { focus = RUS2_baltic_slavs }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_baltic_slavs
+		
+		available_if_capitulated = no
+
+		available = {
+			NOT = { country_exists = EST }
+			NOT = { country_exists = LAT }
+			NOT = {
+				controls_state = 13
+				controls_state = 12
+				controls_state = 190
+			}
+		}
+
+		ai_will_do = { 
+			factor = 30
+			modifier = {
+				factor = 2
+				date > 1940.1.1
+			}
+		}
+
+		completion_reward = {
+			191 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=UBD }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25  
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			95 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} } 
+					hidden_effect = { remove_core_of=LIT  add_core_of = RUS }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 25 
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			hidden_effect = {
+				#GER = { country_event = { id = wsv_ww2_germany.28  days = 7  random = 14 } }
+				#GER = { country_event = { id = wsv_ww2_germany.29  days = 7  random = 14 } }
+				news_event = wsv_ww2_russia.14
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_polish_question
+		icon = GFX_focus_RUS_polish_question
+		prerequisite = { focus = RUS2_northward_expansion }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_northward_expansion
+
+		available = {
+			country_exists = POL	
+			NOT = { has_war_with = POL }
+			NOT = { is_in_faction_with = POL }
+		}
+		
+		available_if_capitulated = no
+
+		ai_will_do = { factor = 30 }
+
+		completion_reward = {
+			add_political_power = 50
+		}
+	}
+
+
+
+	focus = {
+		id = RUS2_affirm_polish_independence
+		icon = GFX_focus_RUS_recognize_poland
+		prerequisite = { focus = RUS2_polish_question }
+		mutually_exclusive = { focus = RUS2_denounce_polish_independence }
+		x = 1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_polish_question
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+
+		available = {
+			country_exists = POL	
+			NOT = { has_war_with = POL }
+			NOT = { is_in_faction_with = POL }
+		}
+
+		completion_reward = {
+			add_opinion_modifier = { 
+				target = POL
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+			POL = {
+				add_opinion_modifier = { 
+					target = RUS
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_outreach_to_poland
+		icon = GFX_goal_generic_dangerous_deal
+		prerequisite = { focus = RUS2_affirm_polish_independence }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_affirm_polish_independence
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 20
+		}
+
+		available = {
+			country_exists = POL	
+			NOT = { has_war_with = POL }
+			NOT = { is_in_faction_with = POL }
+		}
+
+		completion_reward = {
+			add_opinion_modifier = { 
+				target = POL
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+			POL = {
+				add_opinion_modifier = { 
+					target = RUS
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_promise_poland_land
+		icon = GFX_focus_generic_strike_at_democracy1
+		prerequisite = { focus = RUS2_outreach_to_poland }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_outreach_to_poland
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 20
+		}
+
+		available = {
+			country_exists = POL
+			has_war_with = POL
+			POL = { controls_state = 10 has_civil_war = no }
+		}
+
+		completion_reward = {
+			news_event = wsv_ww2_russia.11
+			custom_effect_tooltip = promise_poland_ethnic_land_tt
+		}
+	}
+
+
+	focus = {
+		id = RUS2_denounce_polish_independence
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = RUS2_polish_question }
+		mutually_exclusive = { focus = RUS2_affirm_polish_independence }
+		x = -1
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_polish_question
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 20
+		}
+
+		available = {
+			country_exists = POL	
+			NOT = { has_war_with = POL }
+			NOT = { is_in_faction_with = POL }
+		}
+
+		completion_reward = {
+			custom_effect_tooltip = claim_polish_states_tt
+			hidden_effect = {
+				every_state = {	
+					limit = { is_core_of = POL	is_owned_by = POL }
+					add_claim_by = RUS
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_fund_polish_rebels
+		icon = GFX_focus_RUS_polish_unrest
+		prerequisite = { focus = RUS2_denounce_polish_independence }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_denounce_polish_independence
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 20
+		}
+
+		available = {
+			POL = {
+				NOT = { controls_state = 85 }
+				NOT = { controls_state = 86 }	
+			}
+		}
+
+		completion_reward = {
+			85 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=GER }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 65  
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+			86 = {
+				if = { 
+					limit = { has_resistance = no    NOT = {is_controlled_by = ROOT} }
+					hidden_effect = { remove_core_of=GER }
+					start_resistance = yes
+					set_resistance = 10
+					set_compliance = 65  
+				}
+				else = {
+					add_resistance = 10
+					add_compliance = -10 
+				}
+				add_resistance_target = 20 
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_influence_sweden
+		icon = GFX_focus_generic_befriend_sweden
+		prerequisite = { focus = RUS2_northward_expansion }
+		x = 3
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_northward_expansion
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+		
+		available_if_capitulated = no
+
+		available = {
+			country_exists = SWE
+			NOT = { has_war_with = SWE }
+			NOT = { is_in_faction_with = SWE }
+		}
+
+		completion_reward = {
+			add_opinion_modifier = { 
+				target = SWE
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+			SWE = {
+				add_opinion_modifier = { 
+					target = RUS
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS2_swedish_ore_or_war
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = RUS2_influence_sweden }
+		x = 0
+		y = 1
+		cost = 10
+		relative_position_id = RUS2_influence_sweden
+		
+		available_if_capitulated = no
+
+		ai_will_do = { 
+			factor = 25
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+
+		available = {
+			country_exists = SWE
+			NOT = { has_war_with = SWE }
+			NOT = { is_in_faction_with = SWE }
+			SWE = {
+				NOT = {
+					is_in_faction_with = GER 
+					is_guaranteed_by = GER
+				}
+			}
+		}
+
+		completion_reward = {
+			SWE = { country_event = wsv_ww2_russia.1 }
+		}
+	}
+}

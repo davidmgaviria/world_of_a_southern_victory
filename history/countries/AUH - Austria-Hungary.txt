@@ -1,0 +1,960 @@
+﻿capital = 4
+
+#-------------------------------------------------------
+#					GENERIC VALUES
+#-------------------------------------------------------
+set_fuel_ratio = 0.3
+set_research_slots = 3 #was 4
+set_stability = 0.65
+set_war_support = 0.4
+set_convoys = 200
+
+
+
+#-------------------------------------------------------
+#					POLITICS & ARMY
+#-------------------------------------------------------
+if = { limit = { has_start_date < 1937.1.1 }
+set_cosmetic_tag = AUH_nohelmet
+#LEADERS
+create_country_leader={ name = "Viktor Adler" desc=AUH_viktor_adler_DESC picture="gfx/portraits/AUH/country_leaders/AUH_viktor_adler.dds" expire="1935.1.1" ideology=marxism traits={  } }
+create_country_leader={ name = "Franz Ferdinand" desc=AUH_franz_ferdinand_DESC picture="gfx/portraits/AUH/country_leaders/AUH_franz_ferdinand.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+#create_country_leader={ name = "Karl I" desc=AUH_karl_i_DESC picture="gfx/portraits/AUH/country_leaders/AUH_karl_i.dds" expire="1935.1.1" ideology=autocracy  traits={  } }
+create_country_leader={ name = "Franz Joseph I" desc=AUH_franz_joseph_i_DESC picture="gfx/portraits/AUH/country_leaders/AUH_franz_joseph_i.dds" expire="1935.1.1" ideology=autocracy traits={  } }
+
+#ARMY
+create_field_marshal={  name = "Conrad von Hötzendorf" id=6137 portrait_path="gfx/portraits/AUH/army_generals/AUH_von_Hotzendorf.dds" traits={ offensive_doctrine  } skill=2 
+	attack_skill = 2
+	defense_skill = 1
+	planning_skill = 2
+	logistics_skill = 1
+}
+create_field_marshal={  name = "Arthur von Bolfras" id=6386 portrait_path="gfx/portraits/AUH/army_generals/AUH_von_Bolfras.dds" traits={   } skill=2 
+	attack_skill = 2
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 1
+}
+
+create_corps_commander={  name = "Stöger-Steiner von Steinstätten" id=6401 portrait_path="gfx/portraits/AUH/army_generals/AUH_von_Steinstatten.dds" traits={   } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Svetozar Borojević von Bojna" id=6010 portrait_path="gfx/portraits/AUH/army_generals/AUH_von_Bojna.dds" traits={   } skill=2 
+	attack_skill = 1
+	defense_skill = 2
+	planning_skill = 1
+	logistics_skill = 2
+}
+create_corps_commander={  name = "Karl von Pflanzer-Baltin" id=6111 portrait_path="gfx/portraits/AUH/army_generals/AUH_von_Pflanzer_Baltin.dds" traits={   } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Viktor Dankl von Krasnik" id=6139 portrait_path="gfx/portraits/AUH/army_generals/AUH_Dankl_von_Krasnik.dds" traits={   } skill=1
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}
+create_corps_commander={  name = "Hermann Kövess von Kövessháza" id=6396 portrait_path="gfx/portraits/AUH/army_generals/AUH_von_Kovesshaza.dds" traits={  fortress_buster } skill=1 
+	attack_skill = 1
+	defense_skill = 1
+	planning_skill = 1
+	logistics_skill = 1
+}
+
+#NAVY
+create_navy_leader={  name = "Anton Haus" id=6162 portrait_path="gfx/portraits/AUH/navy_admirals/AUH_haus.dds" traits={ superior_tactician  } skill=3 }
+create_navy_leader={  name = "Hermann von Spaun" id=6234 portrait_path="gfx/portraits/AUH/navy_admirals/AUH_von_Spaun.dds" traits={   } skill=3 }
+create_navy_leader={  name = "Miklós Horthy" id=6394 portrait_path="gfx/portraits/AUH/navy_admirals/AUH_horthy.dds" traits={ superior_tactician  } skill=3 }
+}
+
+
+1910.1.1 = {
+
+	puppet = BOS
+
+	# SPECIAL_DLC Together for Victory
+	if = { limit = { has_dlc = "Together for Victory" }
+
+		#IF-----------------------------------------
+		set_autonomy = {
+			target = BOS
+			autonomous_state = autonomy_integrated_puppet
+		}
+		#-------------------------------------------
+
+		#ELSE---------------------------------------
+		else = {
+			# WORK IN PROGRESS #
+		}
+		#-------------------------------------------
+	}
+
+
+	oob = "AUH_1910"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = AUH_ww1_army_effort
+		complete_national_focus = AUH_ww1_industrial_effort
+		complete_national_focus = AUH_ww1_naval_effort
+
+		#Diplomatic
+		complete_national_focus = AUH_ww1_diplomatic_effort
+	}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+		tech_mountaineers = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_military_police = 1
+		tech_maintenance_company = 1
+		tech_field_hospital = 1
+		tech_logistics_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		heavy_field_gun1 = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_submarine2 = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_coastal_submarine2 = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+
+		# Air
+		#ww1_fighter1 = 1
+		#ww1_zeppelin1 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		chemical_research = 1
+		tank_unlocker1 = 1
+
+		# Industry
+		ww1_fortification1 = 1
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1867.6.8"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 5
+	    fascism = 5
+	    communism = 5
+	    neutrality = 85
+	}
+
+	add_ideas = {
+		AUH_ww1_House_Habsburg_Lorraine
+		AUH_ww1_Multinational_State
+		AUH_ww1_multinational_army
+		limited_conscription
+		AUH_austrian_staff
+	}
+	
+	create_equipment_variant={ name="Kronprinz Erzherzogin Rudolf Class" type=battleship_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=1 ship_reliability_upgrade=3           } }
+	create_equipment_variant={ name="Monarch Class" type=battleship_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=1 ship_engine_upgrade=4 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Habsburg Class" type=battleship_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Radetzky Class" type=battleship_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
+	create_equipment_variant={ name="Sankt Georg Class" type=heavy_cruiser_1900 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=1 ship_reliability_upgrade=1           } }
+	create_equipment_variant={ name="Panther Class" type=light_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=3 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Tiger Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=3 ship_reliability_upgrade=3 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Kaiser Franz Joseph I Class" type=light_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+	create_equipment_variant={ name="Blitz Class" type=destroyer_1890 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=3 } }
+	create_equipment_variant={ name="U3 Class" type=coastal_submarine_1906 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+
+}
+
+
+1914.1.1 = {
+	add_political_power = 1200
+	set_fuel_ratio = 1
+	set_stability = 0.72
+	set_war_support = 0.53
+	oob = "AUH_1914"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = AUH_ww1_army_effort	
+
+		# Industry
+		complete_national_focus = AUH_ww1_industrial_effort
+		complete_national_focus = AUH_ww1_infrastructure_effort
+
+		# Naval
+		complete_national_focus = AUH_ww1_naval_effort	
+
+		#Political
+		complete_national_focus = AUH_ww1_political_effort
+		complete_national_focus = AUH_ww1_support_kaiser
+		complete_national_focus = AUH_ww1_militarism
+		complete_national_focus = AUH_ww1_centralizedpower
+
+		#Diplomatic
+		complete_national_focus = AUH_ww1_diplomatic_effort
+		complete_national_focus = AUH_ww1_triple_alliance
+		complete_national_focus = AUH_ww1_back_ger
+		complete_national_focus = AUH_ww1_military_advisors
+		complete_national_focus = AUH_ww1_assert_position_east
+		complete_national_focus = AUH_ww1_anti_ru
+		complete_national_focus = AUH_ww1_anti_ru_limit_trade
+		complete_national_focus = AUH_ww1_balkans_policy
+		complete_national_focus = AUH_ww1_balkans_policy_intervene
+		complete_national_focus = AUH_ww1_balkans_bulgaria_friend
+		complete_national_focus = AUH_ww1_balkans_serbian_expansion
+		complete_national_focus = AUH_ww1_balkans_bulgaria_send_troops
+		complete_national_focus = AUH_ww1_fortify_bosnia_borders
+		complete_national_focus = AUH_ww1_annex_BOS
+	}
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+		tech_mountaineers = 1
+		marines = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_maintenance_company = 1
+		tech_signal_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		bonus_bertha1 = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 1
+		ww1_directfire = 1
+		ww1_rifle_ammo = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_zeppelin1 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 1
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 1
+		ww1_navaldoctrine_2 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		supertech1 = 1
+		mechanical_computing = 1
+		tankaircraft1 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		chemical_research = 1
+		tank_unlocker1 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		#ww1_camera1 = 1
+		ww1_industry1 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine1 = 2
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_mining1 = 1
+		ww1_construction1 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1867.6.8"
+	    election_frequency = 48
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 5
+	    fascism = 5
+	    communism = 5
+	    neutrality = 85
+	}
+
+	add_ideas = {
+		AUH_ww1_House_Habsburg_Lorraine
+		AUH_ww1_Multinational_State
+		limited_conscription
+		partial_economic_mobilisation
+		#Austrian_staff
+	}
+	
+	create_equipment_variant={ name="U10 Class" type=coastal_submarine_1910 parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+
+}
+
+
+###########################################################################################
+##################################  SECOND GREAT WAR    ###################################
+###########################################################################################
+
+1937.1.1 = {
+	set_political_power = 0
+	oob = "AUH_1937"
+	puppet = SER
+	puppet = ALB
+	load_focus_tree = auh_2_focus
+
+	set_stability = 0.59
+	set_war_support = 0.2
+	set_research_slots = 3 #was 4
+
+	add_ideas = {
+		civilian_economy
+		limited_exports
+		AUH_ww1_multinational_army_german
+		AUH_ww1_multinational_state_german
+		GER_berlin_influence
+		GER_jewish_nuclear_scientists
+		AUH_appeasement_economy
+	}
+	remove_ideas = { 
+		AUH_ww1_multinational_army
+		AUH_ww1_Multinational_State
+		AUH_austrian_staff
+	}
+
+	create_country_leader = {
+		name = "Karl I"
+		desc = "AUH_karl_i_desc"
+		picture = "gfx/portraits/AUH/country_leaders/AUH_karl_i_old.dds"
+		expire = "1965.1.1"
+		ideology = autocracy
+		traits = {
+			
+		}
+	}
+
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1867.6.8"
+	    election_frequency = 48
+	    elections_allowed = no
+	}
+	set_popularities = {
+	    democratic = 7
+	    fascism = 14
+	    communism = 11
+	    neutrality = 68
+	}
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1infantry_weapons2 = 1
+		ww1infantry_weapons3 = 1
+		ww1_infantry_equip1 = 1
+		ww1_infantry_equip2 = 1
+		ww1_infantry_equip3 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		ww1_helmet_equip = 1
+		support_weapons3 = 1
+		support_weapons4 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		infantry_gasmask = 1
+		infantry_ww1_mortar1 = 1
+		infantry_ww1_mortar2 = 1
+		infantry_flamethrower1 = 1
+		infantry_flamethrower2 = 1
+		infantry_at_grenade = 1
+		infantry_at_rifle = 1
+		#infantry_ww1_machinegun1 = 1
+		#infantry_ww1_machinegun2 = 1
+		#infantry_ww1_machinegun3 = 1 = 1
+		motorised_infantry = 1
+		#early_motorised = 1
+		#ww1_ambulance1 = 1
+		#ww1_ambulance2 = 1
+		tech_mountaineers = 1
+		marines = 1
+		tech_mountaineers2 = 1
+		marines2 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_engineers2 = 1
+		tech_engineers3 = 1
+		#tech_engineers4 = 1
+		tech_recon = 1
+		tech_recon2 = 1
+		tech_recon3 = 1
+		#tech_recon4 = 1
+		tech_maintenance_company = 1
+		tech_maintenance_company2 = 1
+		tech_maintenance_company3= 1
+		#tech_maintenance_company4 = 1
+		tech_military_police = 1
+		tech_military_police2 = 1
+		tech_military_police3 = 1
+		#tech_military_police4 = 1
+		tech_field_hospital = 1
+		tech_field_hospital2 = 1
+		tech_field_hospital3 = 1
+		#tech_field_hospital4 = 1
+		tech_logistics_company = 1
+		tech_logistics_company2 = 1
+		tech_logistics_company3 = 1
+		#tech_logistics_company4 = 1
+		tech_signal_company = 1
+		tech_signal_company2 = 1
+		tech_signal_company3 = 1
+		#tech_signal_company4 = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+		ww1_armored_car_2 = 1
+		ww1_armored_car_3 = 1
+		ww1_armored_car_4 = 1
+		ww1_armored_car_5 = 1
+		ww1_light_tank = 1
+		#ww1_light_tank_b = 1
+		ww1_heavy_tank = 1
+		ww1_heavy_tank2 = 1
+		ww1_super_heavy_tank = 1
+		ww1_light_tank_interwar_1 = 1
+		#ww1_light_tank_interwar_2 = 1
+		#ww1_heavy_tank_interwar = 1
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery2 = 1
+		bonus_artillery3 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		heavy_field_gun2 = 1
+		heavy_field_gun3 = 1
+		bonus_bertha1 = 1
+		bonus_bertha2 = 1
+		bonus_bertha3 = 1
+		bonus_bertha4 = 1
+		standard_artillery = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 0
+		ww1_directfire = 0
+		ww1_rifle_ammo = 0
+		ww1_long_march = 0
+		ww1_battlefield = 0
+		ww1_mass_artillery = 0
+		ww1_target = 0
+		ww1_night = 0
+		ww1_tank = 0
+		ww1_landdoctrine_unlock_ww2 = 0
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		early_heavy_cruiser = 1
+		basic_heavy_cruiser = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_battlecruiser2 = 1
+	ww1_battlecruiser2_mtg = 1
+		ww1_battlecruiser3 = 1
+	ww1_battlecruiser3_mtg = 1
+	early_battlecruiser = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_light_cruiser5 = 1
+	ww1_light_cruiser5_mtg = 1
+		early_light_cruiser = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_submarine2 = 1
+	ww1_submarine2_mtg = 1
+		ww1_coastal_submarine2 = 1
+	ww1_coastal_submarine2_mtg = 1
+	ww1_submarine3 = 1
+	ww1_submarine3_mtg = 1
+		ww1_coastal_submarine3 = 1
+	ww1_coastal_submarine3_mtg = 1
+	ww1_submarine4 = 1
+	ww1_submarine4_mtg = 1
+		ww1_coastal_submarine4 = 1
+	ww1_coastal_submarine4_mtg = 1
+	ww1_cruiser_submarine1 = 1
+	ww1_cruiser_submarine2 = 1
+	early_submarine = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_battleship5 = 1
+	ww1_battleship5_mtg = 1
+	early_battleship = 1
+	basic_battleship = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_destroyer5 = 1
+	ww1_destroyer5_mtg = 1
+		early_destroyer = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+	seaplane_carrier = 1
+	ww1_carrier = 1
+	early_carrier = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_fighter2 = 1
+		ww1_fighter3b = 1
+		ww1_fighter3 = 1
+		ww1_fighter4 = 1
+		early_fighter = 1
+		cv_early_fighter = 1
+		fighter1 = 1
+		ww1_seaplane1 = 1
+		ww1_seaplane2 = 1
+		ww1_bomber1 = 1
+		ww1_bomber2 = 1
+		#ww1_bomber3 = 1
+		early_bomber = 1
+		ww1_transport_plane = 1
+		ww1_zeppelin1 = 1
+		ww1_zeppelin2 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 0
+		ww1_airdoctrine_2 = 0
+		ww1_airdoctrine_3 = 0
+		ww1_airdoctrine_4 = 0
+		ww1_airdoctrine_5 = 0
+		ww1_airdoctrine_5b = 0
+		ww1_airdoctrine_6 = 0
+		ww1_airdoctrine_6b = 0
+		ww1_airdoctrine_7 = 0
+		ww1_airdoctrine_7b = 0
+		ww1_airdoctrine_8 = 0
+		ww1_airdoctrine_9 = 0
+		ww1_airdoctrine_9b = 0
+		ww1_airdoctrine_unlock_ww2 = 0
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 0
+		ww1_navaldoctrine_2 = 0
+		ww1_navaldoctrine_3 = 0
+		ww1_navaldoctrine_4 = 0
+		ww1_navaldoctrine_5 = 0
+		ww1_navaldoctrine_5b = 0
+		ww1_navaldoctrine_6 = 0
+		ww1_navaldoctrine_6b = 0
+		ww1_navaldoctrine_unlock_ww2 = 0
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio2 = 1
+		supertech1 = 1
+		supertech2 = 1
+		mechanical_computing = 1
+		mechanical_computing2 = 1
+		tankaircraft1 = 1
+		tankaircraft2 = 1
+		tanktrack1 = 1
+		tanktrack2 = 1
+		dingfelder_engine1 = 1
+		dingfelder_engine2 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		torpedotech2 = 1
+		torpedotech3 = 1
+		chemical_research = 1
+		chemical_research2 = 1
+		chemical_research3 = 1
+		tank_unlocker1 = 1
+		tank_unlocker2 = 1
+		
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		ww1_tools3 = 1
+		#ww1_camera1 = 1
+		#ww1_camera2 = 1
+		#ww1_camera3 = 1
+		ww1_industry1 = 1
+		ww1_industry2 = 1
+		ww1_industry3 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine2 = 1
+		#ww1_medicine3 = 1
+		#ww1_medicine4 = 1
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_fortification3 = 1
+		ww1_fortification3b = 1
+		ww1_fortification4 = 1
+		ww1_fortification5 = 1
+		ww1_mining1 = 1
+		ww1_mining2 = 1
+		ww1_mining3 = 1
+		ww1_construction1 = 1
+		ww1_construction2 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+		ww1_oil3 = 1
+		ww1_bergiusprocess = 1
+	}
+
+
+	create_field_marshal = { #resigned under German pressure because he prepared the defense of Austria against a German invasion
+		name = "Alfred Jansa"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_Alfred_Jansa.dds"
+		traits = { defensive_doctrine trait_mountaineer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 2
+		id = 1223
+	}
+
+	create_field_marshal = {
+		name = "Franz Böhme"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_franz_bohme.dds"
+		traits = { trickster }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 4
+		logistics_skill = 2
+		id = 1224
+	}
+
+	create_field_marshal = {
+		name = "Ferenc Feketehalmy-Czeydner"
+		gfx = GFX_Portrait_hungary_ferenc_feketehalmy_czeydner
+		traits = { }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = { #stats are placeholder, should not be included into the German army after the Anschluss. Homeland connoisseur doesn't really A-H
+		name = "Eduard Barger"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_Eduard_Barger.dds"
+		traits = { trait_mountaineer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+		id = 1225
+	}
+
+	create_corps_commander = {
+		name = "Karl Eglseer"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_karl_eglseer.dds"
+		traits = { trait_mountaineer trickster }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+		id = 1226
+	}
+
+	create_corps_commander = {
+		name = "Lothar Rendulic"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_lothar_rendulic.dds"
+		traits = { trait_mountaineer trickster }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 3
+		id = 1227
+	}
+
+	create_corps_commander = {
+		name = "Julius Ringel"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_julius_ringel.dds"
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+		id = 1228
+	}
+
+	create_corps_commander = {
+		name = "Anton Kienbauer"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_Anton_Kienbauer.dds"
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+		id = 1229
+	}
+
+	create_corps_commander = {
+		name = "Wilhelm Zehner"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_wilhelm_zehner.dds"
+		skill = 2
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 3
+		id = 1230
+	}
+
+	create_corps_commander = {
+		name = "Sigismund Schilhawsky"
+	  portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_sigismund_schilhawsky.dds"
+		skill = 3
+	  attack_skill = 2
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+		id = 1232
+	}
+
+	create_corps_commander = {
+		name = "Eduard von Böhm-Ermolli"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_eduard_bohm_ermolli.dds"
+		skill = 3
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+		id = 1233
+	}
+
+	create_corps_commander = {
+		name = "Géza Lakatos"
+		gfx = GFX_Portrait_hungary_geza_lakatos
+		traits = {  }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Iván Hindy"
+		gfx = GFX_Portrait_hungary_ivan_hindy
+		traits = {  trickster }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 4
+	}
+
+	create_corps_commander = {
+		name = "Károly Beregfy"
+		gfx = GFX_Portrait_hungary_karoly_beregfy
+		traits = { }
+		skill = 1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+	}
+
+	create_corps_commander = {
+		name = "Lajos Veress"
+		gfx = GFX_Portrait_hungary_lajos_veress
+		traits = { armor_officer }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_navy_leader = {
+		name = "Georg von Trapp"
+		portrait_path = "gfx/portraits/AUH/army_generals/r56_portrait_AUS_Georg_von_Trapp.dds"
+		traits = { seawolf }
+		skill = 4
+		attack_skill = 3
+		defense_skill = 4
+		maneuvering_skill = 3
+		coordination_skill = 4
+		id = 1231
+	}
+}
+
+
+

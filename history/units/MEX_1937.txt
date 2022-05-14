@@ -1,0 +1,324 @@
+﻿division_template = {
+	name = "División de Infanteria"
+
+	division_names_group = SPAN_INF_01
+
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+		infantry = { x = 2 y = 2 }
+	}
+	support = {
+       	artillery = { x = 0 y = 0 }
+	}
+}
+
+division_template = {
+	name = "Brigada Agrarista"
+
+	division_names_group = MEX_INF_02
+
+	#is_locked = yes
+
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+	}
+	priority = 0
+}
+
+division_template = {
+	name = "División de Caballería"
+
+	division_names_group = SPAN_CAV_01
+
+	regiments = {
+		cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 0 y = 2 }
+		cavalry = { x = 1 y = 0 }
+		cavalry = { x = 1 y = 1 }
+		cavalry = { x = 1 y = 2 }
+	}
+	support = {
+       	artillery = { x = 0 y = 0 }
+	}
+}
+
+units = {
+
+	##### NAVAL UNITS #####
+	fleet = {
+		name = "Armada de México"
+		naval_base = 12810 # Veracruz
+		task_force = {				
+			name = "Armada de México"
+			location = 12810 # Veracruz
+		#	ship = { name = "ARM Anáhuac" definition = heavy_cruiser equipment = { heavy_cruiser_1 = { amount = 1 owner = MEX } } } # Brazilian pre-WW1 coastal battleship, scrapped in 1938
+		#	ship = { name = "ARM Progreso" definition = light_cruiser equipment = { light_cruiser_1 = { amount = 1 owner = MEX } } } # Italian pre-WW1 merchant cruiser
+			ship = { name = "ARM Nicolás Bravo" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX version_name = "Nicolás Bravo Class" } } } # Italian pre-WW1 torpedo gunboat
+			ship = { name = "ARM Durango" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX version_name = "Durango Class" } } } # Spanish 1935 export gunboat
+			ship = { name = "ARM Guanajuato" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Spanish 1934 export gunboat
+			ship = { name = "ARM Querétaro" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Spanish 1934 export gunboat
+			ship = { name = "ARM Potosí" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Spanish 1934 export gunboat
+		#	ship = { name = "ARM Acapulco" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Canadian pre-WW1 armed trawler
+		#	ship = { name = "ARM Mazatlán" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Canadian pre-WW1 armed trawler
+		#	ship = { name = "ARM Tampico" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Canadian pre-WW1 armed trawler
+		#	ship = { name = "ARM Veracruz" definition = destroyer equipment = { destroyer_1 = { amount = 1 owner = MEX } } } # Canadian pre-WW1 armed trawler
+		}
+	}
+	
+	
+	##### Ejército Mexicano #####
+	division= {	# "1a División de Infantería"
+		division_name = {
+			is_name_ordered = yes
+			name_order = 1
+		}
+		location = 1965 # Mexico City
+		division_template = "División de Infanteria"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.7
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division= {	# "2a División de Infantería"
+		division_name = {
+			is_name_ordered = yes
+			name_order = 2
+		}
+		location = 1892 # Baja
+		division_template = "División de Infanteria"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.7
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division= {	# "3a División de Infantería"
+		division_name = {
+			is_name_ordered = yes
+			name_order = 3
+		}
+		location = 13089 # Guadalajara
+		division_template = "División de Infanteria"
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.7
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division= {	
+		name = "Estado Mayor Presidencial"
+		location = 1965 # Mexico City
+		division_template = "División de Infanteria"
+		start_experience_factor = 0.3
+		force_equipment_variants = { infantry_equipment_1 = { owner = "USA" } }
+	}
+
+	division= {	# "1a División de Caballería"
+		division_name = {
+			is_name_ordered = yes
+			name_order = 1
+		}
+		location = 1965 # Mexico City
+		division_template = "División de Caballería"
+		start_experience_factor = 0.3
+		start_equipment_factor = 0.75
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+	division = {	# "2a División de Caballería"
+		division_name = {
+			is_name_ordered = yes
+			name_order = 2
+		}
+		location = 4904 # Compeche
+		division_template = "División de Caballería"
+		start_experience_factor = 0.3
+		start_equipment_factor = 0.75
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 1965 # Mexico City
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 1965 # Mexico City
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 1965 # Mexico City
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 1900
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 2021
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 10889
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 12715
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 8032
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "GER" } }
+	}
+
+	division = {
+		location = 12461
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 10871
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 10871
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 10871
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 10730
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 2051
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+
+	division = {
+		location = 5015
+		division_template = "Brigada Agrarista"
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.6
+		force_equipment_variants = { infantry_equipment_0 = { owner = "USA" } }
+	}
+}
+
+air_wings = {
+	### Fuerza Aérea Mexicana -- Mexico City
+	277 = {
+		# CAS Air Group -- de Haviland DH-4Bs
+		CAS_equipment_1 =  {
+			owner = "MEX" 
+			amount = 12
+		}
+		fighter_equipment_0 =  {
+			owner = "MEX"
+			amount = 6
+		}
+		tac_bomber_equipment_0 =  {
+			owner = "MEX"
+			amount = 6
+		}
+	}
+}
+
+instant_effect = {
+	add_equipment_production = {
+		equipment = {
+			type = infantry_equipment_0
+			creator = "MEX"
+		}
+		requested_factories = 1
+		progress = 0.20
+		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = artillery_equipment_1
+			creator = "MEX"
+		}
+		requested_factories = 1
+		progress = 0.20
+		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = CAS_equipment_1
+			creator = "MEX" 
+		}
+		requested_factories = 1
+		progress = 0.20
+		efficiency = 100
+	}
+	add_equipment_production = {
+		equipment = {
+			type = convoy_1
+			creator = "MEX" 
+		}
+		requested_factories = 2
+		progress = 0.20
+		efficiency = 100
+	}
+}

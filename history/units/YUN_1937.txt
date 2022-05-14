@@ -1,0 +1,89 @@
+﻿division_template = {
+	name = "Sanjiao Jun"		# Represents: German-trained divisions (better equipment than rest),
+	division_names_group = XSM_INF_01								# 	as well as two-division infantry corps (generally poorly-equipped militias),
+	regiments = {					#	and local militia groups.
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+	}
+}
+
+division_template = {
+	name = "Qibing Jun"		# Represents three-division cavalry corps (generally poorly-equipped)
+	division_names_group = XSM_CAV_01
+	regiments = {
+		cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 1 y = 0 }
+		cavalry = { x = 1 y = 1 }
+	}
+}
+
+
+units = {
+	division = {
+		name = "Kunming Jingbei"
+		location = 10776
+		division_template = "Sanjiao Jun"		# Provincial militia unit (poor equipment and training)
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Yunnan Baoan Ke"
+		location = 1522
+		division_template = "Sanjiao Jun"		# Provincial militia unit (poor equipment and training)
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Dali Baoan Ke"
+		location = 1114
+		division_template = "Sanjiao Jun"		# Provincial militia unit (poor equipment and training)
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Xian Baoan Ke"
+		location = 1196
+		division_template = "Sanjiao Jun"		# Provincial militia unit (poor equipment and training)
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+
+	division = {
+		name = "1a Qibing Jun"
+		location = 1319
+		division_template = "Qibing Jun"		
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+	division = {
+		name = "2a Qibing Jun"
+		location = 1319
+		division_template = "Qibing Jun"		
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+	division = {
+		name = "3a Qibing Jun"
+		location = 1319
+		division_template = "Qibing Jun"		
+		start_experience_factor = 0.1
+		start_equipment_factor = 0.55
+	}
+}
+
+instant_effect = {
+	add_equipment_production = {
+		equipment = {
+			type = infantry_equipment_0
+			creator = "YUN"
+		}
+		requested_factories = 1
+		progress = 0.48
+		efficiency = 100
+	}
+}

@@ -1,0 +1,746 @@
+﻿capital = 613
+
+#-------------------------------------------------------
+#					GENERIC VALUES
+#-------------------------------------------------------
+set_fuel_ratio = 0.20
+set_stability = 0.75
+set_convoys = 40
+
+if = { limit = { has_start_date < 1937.1.1 }
+set_cosmetic_tag =  asian_gfx_nohelmet
+}
+
+#-------------------------------------------------------
+#					POLITICS & ARMY
+#-------------------------------------------------------
+if = { limit = { has_start_date < 1937.1.1 }
+		create_country_leader={
+			name="Sun Wen"
+			desc=PRC_sun_wen_DESC
+			picture="gfx/portraits/PRC/country_leaders/PRC_sun_wen.dds"
+			expire="1935.1.1"
+			ideology=conservatism
+			traits={
+				}
+			}
+
+
+	create_country_leader={ name = "Hsuan Tung" desc=CHI_hsuan_tung_DESC picture="gfx/portraits/CHI/country_leaders/CHI_hsuan_tung.dds" expire="1935.1.1" ideology=nazism traits={  } }
+	create_country_leader={ name = "Ts'ao K'un" desc=CHI_ts_ao_k_un_DESC picture="gfx/portraits/CHI/country_leaders/CHI_ts_ao_k_un.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+	create_country_leader={ name = "Chang Tso-lin" desc=CHI_chang_tso_lin_DESC picture="gfx/portraits/CHI/country_leaders/CHI_chang_tso_lin.dds" expire="1935.1.1" ideology=fascism_ideology traits={  } }
+	create_country_leader={ name = "Wu P'ei-fu" desc=CHI_wu_p_ei_fu_DESC picture="gfx/portraits/CHI/country_leaders/CHI_wu_p_ei_fu.dds" expire="1935.1.1" ideology=fascism_ideology traits={  } }
+	create_country_leader={ name = "Feng Kuo-chang" desc=CHI_feng_kuo_chang_DESC picture="gfx/portraits/CHI/country_leaders/CHI_feng_kuo_chang.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+	create_country_leader={ name = "Hung Hsien" desc=CHI_hung_hsien_DESC picture="gfx/portraits/CHI/country_leaders/CHI_hung_hsien.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+	create_country_leader={ name = "Li Yuan-hung" desc=CHI_li_yuan_hung_DESC picture="gfx/portraits/CHI/country_leaders/CHI_li_yuan_hung.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+	create_country_leader={ name = "Li Yuanhong" desc=CHI_li_yuanhong_DESC picture="gfx/portraits/CHI/country_leaders/CHI_li_yuanhong.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+	create_country_leader={ name = "Yuan Shikai" desc=CHI_yuan_shikai_DESC picture="gfx/portraits/CHI/country_leaders/CHI_yuan_shikai.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+
+
+	create_field_marshal={  name = "Huang Xing"  portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_land_1.dds" traits={ defensive_doctrine } skill= 3 }
+	create_corps_commander={  name = "Song Jiaoren" portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_land_2.dds" traits={ fortress_buster  } skill=1 }
+	create_corps_commander={  name = "Li Yuanhong"  portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_land_3.dds" traits={   } skill=1 }
+	create_corps_commander={  name = "Xu Shichang" id=15044 portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_land_4.dds" traits={ old_guard  } skill=1 }
+	create_corps_commander={  name = "Wang Shizen" id=15055 portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_land_5.dds" traits={ old_guard  } skill=1 }
+	create_navy_leader={  name = "Lian Jianshu" id=15091 portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_navy_2.dds" traits={   } skill=1 }
+	create_navy_leader={  name = "Wu Ren-li" id=15099 portrait_path="gfx/leaders/Asia/Portrait_Asia_Generic_navy_3.dds" traits={   } skill=1 }
+
+}
+
+set_technology = {
+	# Navy
+	ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+	
+	ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+	
+	###ww1_battleship2 = 0 #  ww1_battleship_1906 (Dreadnought I)
+	###ww1_battleship3 = 0 #  ww1_battleship_1910 (Dreadnought II)
+	###ww1_battleship4 = 0 #  ww1_battleship_1914 (Dreadnought III)
+
+	###ww1_battlecruiser1 = 0 # ww1_battlecruiser_1906 (Battlecruiser I)
+	###ww1_battlecruiser2 = 0 # ww1_battlecruiser_1910 (Battlecruiser II)
+	###ww1_battlecruiser3 = 0 # ww1_battlecruiser_1910 (Battlecruiser III)
+
+	ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1 # heavy_cruiser_1890 (Armored Cruiser I)
+	ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1 # heavy_cruiser_1900 (Armored Cruiser II)
+
+	ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1 # light_cruiser_1890 (Protected Cruiser I)
+	ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1 # light_cruiser_1900 (Protected Cruiser II)
+	###ww1_light_cruiser2 = 0 # light_cruiser_1906 (Light Cruiser I)
+	###ww1_light_cruiser3 = 0 # light_cruiser_1910 (Light Cruiser II)
+	###ww1_light_cruiser4 = 0 # light_cruiser_1914 (Light Cruiser III)
+
+	ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1 # destroyer_1890 (Torpedo Boat I)
+	ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1 # destroyer_1900 (Destroyer I)
+	ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1 # destroyer_1906 (Destroyer II)
+	ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1 # destroyer_1910 (Destroyer III)
+	###ww1_destroyer4 = 0 # destroyer_1914 (Destroyer IV)	
+
+	ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+
+	ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1 # coastal_submarine_1900 (Coastal Submarine 1900, first available Submarine)
+	ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1 # submarine_1906 (Submarine I)
+	###ww1_submarine2 = 0 # submarine_1910 (Submarine II)
+	###ww1_submarine3 = 0 # submarine_1914 (Submarine III)
+
+	transport = 1
+	transport_mtg = 1 # Naval Transport
+
+	ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_coastal_submarine2 = 1
+}
+
+set_politics = {
+    ruling_party = neutrality
+    last_election = "1910.1.1"
+    election_frequency = 48
+    elections_allowed = no
+}
+set_popularities = {
+    democratic = 0
+    fascism = 0
+    communism = 0
+    neutrality = 100
+}
+
+1910.1.1 = {
+	oob = "CHI_1910"
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		#motorised_infantry = 1
+		#ww1_ambulance1 = 1
+
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		#tech_military_police = 1
+		#tech_maintenance_company = 1
+		#tech_field_hospital = 1
+		#tech_logistics_company = 1
+
+		# Armor
+
+		# Artillery
+		light_field_gun1 = 1
+		heavy_field_gun1 = 1
+
+		# Air
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+
+		# Industry
+	}
+
+	
+create_equipment_variant={ name="Fu Po Class" type=light_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=0 ship_reliability_upgrade=0 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Hai Ching Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=0 ship_reliability_upgrade=0 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Nan Tan Class" type=light_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Pao Min Class" type=light_cruiser_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=4  ship_engine_upgrade=0 ship_reliability_upgrade=4 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Tung Chi Class" type=light_cruiser_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=0 ship_reliability_upgrade=0 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Hai Yung Class" type=light_cruiser_1900 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+create_equipment_variant={ name="Hai Tien Class" type=light_cruiser_1900 parent_version = 2 obsolete=no upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
+}
+
+1914.1.1 = {
+	add_political_power = 1200
+	oob = "CHI_1914"
+
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+
+	#Army
+	complete_national_focus = army_effort
+	complete_national_focus = equipment_effort
+	complete_national_focus = ww1_artillery_effort_1
+	complete_national_focus = doctrine_effort
+	complete_national_focus = ww1_trenchwarfare
+
+	#Industrial
+	complete_national_focus = industrial_effort
+	complete_national_focus = infrastructure_effort
+
+	#Political
+	complete_national_focus = political_effort
+
+	#Diplomatic
+	complete_national_focus = ww1_diplomatic_effort
+	complete_national_focus = neutrality_focus
+	complete_national_focus = ww1_military_reserve
+
+
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		#motorised_infantry = 1
+		#ww1_ambulance1 = 1
+
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_military_police = 1
+		tech_maintenance_company = 1
+		tech_field_hospital = 1
+		tech_logistics_company = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		bonus_artillery1 = 1
+		heavy_field_gun1 = 1
+		bonus_bertha1 = 1
+
+		# Air
+		ww1_fighter1 = 1
+
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+
+		# Industry
+	}
+}
+
+
+###########################################################################################
+##################################  SECOND GREAT WAR    ###################################
+###########################################################################################
+
+1937.1.1 = {
+	set_political_power = 0
+
+	oob = "CHI_1937"
+	load_focus_tree = "generic_2_focus"
+	set_war_support = 0.35
+	set_stability = 0.5
+	set_convoys = 60
+	set_research_slots = 2 #was 3
+
+	add_ideas = {
+		german_advisors
+		low_economic_mobilisation
+		limited_conscription
+		closed_economy
+		generic_incompetent_officers
+	}
+
+	#if = {
+	#	limit = {
+	#		has_dlc = "Waking the Tiger"
+	#	}
+	#	add_ideas = {
+	#		CHI_hyper_inflation_1
+	#		CHI_nine_power_treaty
+	#		CHI_army_corruption_2
+	#		CHI_ineffective_bureaucracy
+	#		CHI_incompetent_officers
+	#	}
+	#}
+
+
+	set_politics = {
+		ruling_party = neutrality
+		last_election = "1936.1.1"
+		election_frequency = 48
+		elections_allowed = no
+	}
+
+	set_popularities = {
+		neutrality = 100
+	}
+
+	create_country_leader = {
+		name = "Zhang Guotao"
+		desc = "POLITICS_ZHANG_GUOTAO_DESC"
+		picture = "gfx/leaders/Asia/Portrait_Asia_Generic_land_4.dds"
+		expire = "1965.1.1"
+		ideology = leninism
+		traits = {
+			cornered_fox
+		}
+	}
+	create_country_leader = {
+		name = "Wang Jingwei"
+		desc = "POLITICS_WANG_JINGWEI_DESC"
+		picture = "GFX_portrait_chi_wang_jingwei"
+		expire = "1965.1.1"
+		ideology = fascism_ideology
+		traits = {
+			#
+		}
+	}
+	create_country_leader = {
+		name = "Weng Wenhao" 
+		desc = "POLITICS_ZHANG_LAN_DESC"
+		picture = "GFX_portrait_chi_weng_wenhao"
+		expire = "1965.1.1"
+		ideology = marxism
+		traits = {
+			#
+		}
+	}
+	create_country_leader = {
+		name = "Chiang Kai-Shek"
+		desc = "POLITICS_CHIANG_KAI-SHEK_DESC"
+		picture = "Portrait_China_Chiang_Kai_Shek.dds"
+		expire = "1965.1.1"
+		ideology = despotism
+		traits = {
+			generallissimo
+		}
+	}
+
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1infantry_weapons2 = 1
+		ww1infantry_weapons3 = 1
+		ww1_infantry_equip1 = 1
+		ww1_infantry_equip2 = 1
+		ww1_infantry_equip3 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		ww1_helmet_equip = 1
+		support_weapons3 = 1
+		support_weapons4 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		infantry_gasmask = 1
+		infantry_ww1_mortar1 = 1
+		infantry_ww1_mortar2 = 1
+		infantry_flamethrower1 = 1
+		infantry_flamethrower2 = 1
+		infantry_at_grenade = 1
+		infantry_at_rifle = 1
+		#infantry_ww1_machinegun1 = 1
+		#infantry_ww1_machinegun2 = 1
+		motorised_infantry = 1
+		#early_motorised = 1
+		#ww1_ambulance1 = 1
+		#ww1_ambulance2 = 1
+		tech_mountaineers = 1
+		marines = 1
+		tech_mountaineers2 = 1
+		marines2 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_engineers2 = 1
+		tech_engineers3 = 1
+		#tech_engineers4 = 1
+		tech_recon = 1
+		tech_recon2 = 1
+		tech_recon3 = 1
+		#tech_recon4 = 1
+		tech_maintenance_company = 1
+		tech_maintenance_company2 = 1
+		tech_maintenance_company3= 1
+		#tech_maintenance_company4 = 1
+		tech_military_police = 1
+		tech_military_police2 = 1
+		tech_military_police3 = 1
+		#tech_military_police4 = 1
+		tech_field_hospital = 1
+		tech_field_hospital2 = 1
+		tech_field_hospital3 = 1
+		#tech_field_hospital4 = 1
+		tech_logistics_company = 1
+		tech_logistics_company2 = 1
+		tech_logistics_company3 = 1
+		#tech_logistics_company4 = 1
+		tech_signal_company = 1
+		tech_signal_company2 = 1
+		tech_signal_company3 = 1
+		#tech_signal_company4 = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+		ww1_armored_car_2 = 1
+		ww1_armored_car_3 = 1
+		ww1_armored_car_4 = 1
+		ww1_light_tank = 1
+		#ww1_light_tank_b = 1
+		ww1_heavy_tank = 1
+		ww1_heavy_tank2 = 1
+		ww1_super_heavy_tank = 1
+		ww1_light_tank_interwar_1 = 1
+		#ww1_light_tank_interwar_2 = 1
+		#ww1_heavy_tank_interwar = 1
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery2 = 1
+		bonus_artillery3 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		heavy_field_gun2 = 1
+		heavy_field_gun3 = 1
+		bonus_bertha1 = 1
+		bonus_bertha2 = 1
+		bonus_bertha3 = 1
+		bonus_bertha4 = 1
+		standard_artillery = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 0
+		ww1_directfire = 0
+		ww1_rifle_ammo = 0
+		ww1_long_march = 0
+		ww1_battlefield = 0
+		ww1_mass_artillery = 0
+		ww1_target = 0
+		ww1_night = 0
+		ww1_tank = 0
+		ww1_landdoctrine_unlock_ww2 = 0
+		mass_assault = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		early_heavy_cruiser = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_battlecruiser2 = 1
+	ww1_battlecruiser2_mtg = 1
+		ww1_battlecruiser3 = 1
+	ww1_battlecruiser3_mtg = 1
+	early_battlecruiser = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_light_cruiser5 = 1
+	ww1_light_cruiser5_mtg = 1
+		early_light_cruiser = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_submarine2 = 1
+	ww1_submarine2_mtg = 1
+		ww1_coastal_submarine2 = 1
+	ww1_coastal_submarine2_mtg = 1
+	ww1_submarine3 = 1
+	ww1_submarine3_mtg = 1
+		ww1_coastal_submarine3 = 1
+	ww1_coastal_submarine3_mtg = 1
+	ww1_submarine4 = 1
+	ww1_submarine4_mtg = 1
+		ww1_coastal_submarine4 = 1
+	ww1_coastal_submarine4_mtg = 1
+	ww1_cruiser_submarine1 = 1
+	ww1_cruiser_submarine2 = 1
+	early_submarine = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_battleship5 = 1
+	ww1_battleship5_mtg = 1
+	early_battleship = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_destroyer5 = 1
+	ww1_destroyer5_mtg = 1
+		early_destroyer = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+	seaplane_carrier = 1
+	ww1_carrier = 1
+	early_carrier = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_fighter2 = 1
+		ww1_fighter3b = 1
+		ww1_fighter3 = 1
+		ww1_fighter4 = 1
+		early_fighter = 1
+		cv_early_fighter = 1
+		ww1_seaplane1 = 1
+		ww1_seaplane2 = 1
+		ww1_bomber1 = 1
+		ww1_bomber2 = 1
+		#ww1_bomber3 = 1
+		early_bomber = 1
+		ww1_transport_plane = 1
+		ww1_zeppelin1 = 1
+		ww1_zeppelin2 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 0
+		ww1_airdoctrine_2 = 0
+		ww1_airdoctrine_3 = 0
+		ww1_airdoctrine_4 = 0
+		ww1_airdoctrine_5 = 0
+		ww1_airdoctrine_5b = 0
+		ww1_airdoctrine_6 = 0
+		ww1_airdoctrine_6b = 0
+		ww1_airdoctrine_7 = 0
+		ww1_airdoctrine_7b = 0
+		ww1_airdoctrine_8 = 0
+		ww1_airdoctrine_9 = 0
+		ww1_airdoctrine_9b = 0
+		ww1_airdoctrine_unlock_ww2 = 0
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 0
+		ww1_navaldoctrine_2 = 0
+		ww1_navaldoctrine_3 = 0
+		ww1_navaldoctrine_4 = 0
+		ww1_navaldoctrine_5 = 0
+		ww1_navaldoctrine_5b = 0
+		ww1_navaldoctrine_6 = 0
+		ww1_navaldoctrine_6b = 0
+		ww1_navaldoctrine_unlock_ww2 = 0
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio2 = 1
+		supertech1 = 1
+		supertech2 = 1
+		mechanical_computing = 1
+		mechanical_computing2 = 1
+		tankaircraft1 = 1
+		tankaircraft2 = 1
+		tanktrack1 = 1
+		tanktrack2 = 1
+		dingfelder_engine1 = 1
+		dingfelder_engine2 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		torpedotech2 = 1
+		torpedotech3 = 1
+		chemical_research = 1
+		chemical_research2 = 1
+		chemical_research3 = 1
+		tank_unlocker1 = 1
+		tank_unlocker2 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		ww1_tools3 = 1
+		#ww1_camera1 = 1
+		#ww1_camera2 = 1
+		#ww1_camera3 = 1
+		ww1_industry1 = 1
+		ww1_industry2 = 1
+		ww1_industry3 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine2 = 1
+		#ww1_medicine3 = 1
+		#ww1_medicine4 = 1
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_fortification3 = 1
+		ww1_fortification3b = 1
+		ww1_fortification4 = 1
+		ww1_fortification5 = 1
+		ww1_mining1 = 1
+		ww1_mining2 = 1
+		ww1_mining3 = 1
+		ww1_construction1 = 1
+		ww1_construction2 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+		ww1_oil3 = 1
+		ww1_bergiusprocess = 1
+	}
+	
+
+	create_field_marshal = {
+		name = "Tu Yu-ming"
+		gfx = "GFX_portrait_chi_du_yuming"
+		traits = { defensive_doctrine trait_cautious armor_officer harsh_leader }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 3
+	}
+
+	create_field_marshal = {
+		name = "Hsueh Yueh"
+		gfx = "GFX_portrait_chi_xue_yue"
+		traits = { offensive_doctrine trait_reckless brilliant_strategist war_hero }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 1
+		logistics_skill = 3
+	}
+
+	create_field_marshal = {
+		name = "Tai An-lan"
+		gfx = "GFX_portrait_chi_tai_an_lan"
+		traits = {  offensive_doctrine trait_reckless career_officer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 1
+	}
+
+	create_field_marshal = {
+		name = "Wang Yao-wu"
+		gfx = "GFX_portrait_chi_wang_yaowu"
+		traits = { defensive_doctrine trait_cautious infantry_officer }
+		skill = 2
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Sun Li Jen"
+		gfx = "GFX_portrait_chi_sun_li_jen"
+		traits = { brilliant_strategist }
+		skill = 4
+		attack_skill = 5
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Hu Zongnan"
+		gfx = "GFX_portrait_chi_hu_zongnan"
+		traits = { politically_connected }
+		skill = 4
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {
+		name = "Gu Zhutong"
+		gfx = "GFX_portrait_chi_gu_zhutong"
+		traits = { career_officer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Wei Lihuang"
+		gfx = "GFX_portrait_chi_wei_lihuang"
+		traits = { infantry_officer }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {
+		name = "Fu Zuoyi"
+		gfx = "GFX_portrait_chi_fu_zuoyi"
+		traits = { }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_field_marshal = {
+		name = "Zhang Xueliang"
+		gfx = "GFX_portrait_chi_zhang_xueliang"
+		traits = { }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 2
+	}
+}
+

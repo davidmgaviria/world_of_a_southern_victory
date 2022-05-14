@@ -1,0 +1,1521 @@
+﻿capital = 840
+
+#-------------------------------------------------------
+#					GENERIC VALUES
+#-------------------------------------------------------
+set_fuel_ratio = 0.45
+set_research_slots = 3 #was 4
+set_stability = 0.6
+set_war_support = 0.15
+set_convoys = 350
+
+#-------------------------------------------------------
+#					POLITICS & ARMY
+#-------------------------------------------------------
+
+
+
+if = { limit = { has_start_date < 1937.1.1 }
+	set_cosmetic_tag = USA_nohelmet
+	add_opinion_modifier = {  target = GER   modifier = WSV_american-german_alliance }
+	add_opinion_modifier = {  target = CSA   modifier = WSV_bitter_enemies }
+	add_opinion_modifier = {  target = CAN   modifier = WSV_old_wounds }
+	add_opinion_modifier = {  target = ENG   modifier = WSV_old_wounds }
+	add_opinion_modifier = {  target = FRA   modifier = WSV_old_wounds }
+
+	create_country_leader = { 
+		name = "Leonard Wood" 
+		desc = USA_leonard_wood_DESC 
+		picture = "gfx/portraits/USA/country_leaders/USA_leonard_wood.dds" 
+		expire = "1935.1.1" 
+		ideology = despotism  
+		traits = {  }
+	}
+		
+	create_country_leader = { 
+		name = "Alton B. Parker" 
+		desc = USA_alton_b_parker_DESC 
+		picture = "gfx/portraits/USA/country_leaders/USA_alton_b_parker.dds" 
+		expire = "1935.1.1" 
+		ideology = liberalism 
+		traits = {  }
+	}
+	create_country_leader = { 
+		name = "Eugene V. Debs" 
+		desc = USA_eugene_v_debs_DESC 
+		picture = "gfx/portraits/USA/country_leaders/USA_eugene_v_debs.dds" 
+		expire = "1935.1.1" 
+		ideology = marxism 
+		traits = {  } 
+	}
+	create_country_leader = {
+		name = "Warren G. Harding" 
+		desc = USA_warren_g_harding_DESC 
+		picture = "gfx/portraits/USA/country_leaders/USA_warren_g_harding.dds" 
+		expire = "1935.1.1" 
+		ideology = liberalism 
+		traits = {  } 
+	}
+	create_country_leader = {
+		name = "Charles Evans Hughes"
+		desc = USA_charles_evans_hughes_DESC
+		picture = "gfx/portraits/USA/country_leaders/USA_charles_evans_hughes.dds"
+		expire = "1935.1.1"
+		ideology = liberalism 
+		traits = {  }
+	}
+
+
+	#####################################
+	######### Field Mashals #############
+	#####################################
+
+
+	create_field_marshal = {  
+		name = "John J. Pershing" 
+		id = 93552 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_John_Pershing.dds" 
+		traits = { 
+			offensive_doctrine 
+			thorough_planner 
+			} 
+		skill = 4
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 4
+		logistics_skill = 3 
+	}
+
+	create_field_marshal = { 
+		name = "Francis C. Marshall" 
+		id = 42004 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Francis_Marshall.dds" 
+		traits = { } 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+	}
+
+	create_field_marshal = {  
+		name = "Enoch H. Crowder" 
+		id = 42002 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Enoch_Crowder.dds" 
+		traits = {   } 
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 3 
+	}
+
+	create_field_marshal = {  
+		name = "Clarence R. Edwards" 
+		id = 42007 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Clarence_Edwards.dds" 
+		traits = {   } 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 2
+	}
+
+
+	#####################################
+	######## Corps Commanders ###########
+	#####################################
+
+	create_corps_commander = {  
+		name = "George A. Custer" 
+		#id = 42000 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_George_Custer.dds" 
+		traits = { 
+			trait_reckless
+			old_guard 
+			cavalry_expert
+		} 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "Hunter Liggett" 
+		id = 93006 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Hunter_Liggett.dds" 
+		traits = { 
+			fortress_buster  
+			} 
+		skill = 4
+		attack_skill = 4
+		defense_skill = 4
+		planning_skill = 3
+		logistics_skill = 3 
+	}
+
+	create_corps_commander = {  
+		name = "Joseph T. Dickman" 
+		id = 93009 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Joseph_Dickman.dds" 
+		traits = { 
+			winter_specialist
+		}
+		 skill = 4 
+		 attack_skill = 3
+		 defense_skill = 3
+		 planning_skill = 4
+		 logistics_skill = 4
+	}
+	create_corps_commander = {  
+		name = "Frederick Funston" 
+		id = 93010 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Frederick_Funston.dds" 
+		traits = { 
+			commando 
+			} 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+	}
+
+
+	create_corps_commander = {  
+		name = "William Crozier" 
+		id = 93045 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_William_Crozier.dds" 
+		traits = {   } 
+		skill = 3
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {  
+		name = "Thomas B. Dugan" 
+		id = 42003 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Thomas_Dugan.dds" 
+		traits = { panzer_leader }
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {  
+		name = "Frank Parker" 
+		id = 93296 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Frank_Parker.dds" 
+		traits = { 
+			commando  
+			} 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {  
+		name = "Daniel MacArthur" 
+		id = 93020 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Douglas_MacArthur.dds" 
+		traits = { trait_engineer } 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "Paul Malone" 
+		id = 42005 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Paul_Malone.dds" 
+		traits = { trait_engineer } 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 3
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "Ulysses Grant McAlexander" 
+		id = 42006 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Ulysses_McAlexander.dds" 
+		traits = { trait_engineer } 
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {  
+		name = "Lucius L. Durfee" 
+		id = 42008 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Lucius_Durfee.dds" 
+		traits = { trait_engineer } 
+		skill = 3
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 3
+	}
+
+	create_corps_commander = {  
+		name = "Hanson E. Ely" 
+		id = 42010 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Hanson_Ely.dds" 
+		traits = { trait_engineer } 
+		skill = 2 
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "John W. Heavey" 
+		id = 42011 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_John_Heavey.dds" 
+		traits = { trait_engineer } 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 1
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "Henry J. Hatch" 
+		id = 42012 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Henry_Hatch.dds" 
+		traits = { trait_engineer } 
+		skill = 2 
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "Oliver Edwards" 
+		id = 42013 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Oliver_Edwards.dds" 
+		traits = { trait_engineer } 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 2
+		logistics_skill = 1
+		planning_skill = 1
+	}
+
+	create_corps_commander = {  
+		name = "Charles A. Hedekin" 
+		id = 42014 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Charles_Hedekin.dds" 
+		traits = { trait_engineer } 
+		skill = 2 
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 2
+	}
+
+	create_corps_commander = {  
+		name = "Stuart Heintzelman" 
+		id = 42015 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_Stuart_Heintzelman.dds" 
+		traits = { trait_engineer } 
+		skill = 2
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 1 
+	}
+
+	create_corps_commander = {  
+		name = "William M. Wright" 
+		id = 42016 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_William_Wright.dds" 
+		traits = { trait_engineer } 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+
+	#####################################
+	####### Navy Commanders #############
+	#####################################
+
+	create_navy_leader = {  
+		name = "William S. Sims" 
+		id = 93117 
+		portrait_path = "gfx/portraits/USA/navy_admirals/USA_William_Sims.dds" 
+		traits = { blockade_runner superior_tactician } 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 3
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+	create_navy_leader = {  
+		name = "Victor H. Metcalf" 
+		id = 93112
+		portrait_path = "gfx/portraits/USA/navy_admirals/USA_William_Benson.dds" 
+		traits = { superior_tactician  } 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 2
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+	create_navy_leader = { 
+		name = "Henry T. Mayo" 
+		id = 93116 
+		portrait_path = "gfx/portraits/USA/navy_admirals/USA_Henry_Mayo.dds" 
+		traits = { superior_tactician  } 
+		skill = 4 
+		attack_skill = 4
+		defense_skill = 4
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+
+
+	create_navy_leader = {  
+		name = "William B. Caperton" 
+		id = 93407 
+		portrait_path = "gfx/portraits/USA/navy_admirals/USA_William_Caperton.dds" 
+		traits = { 
+			blockade_runner 
+			spotter 
+			} 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 3
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+
+
+	create_navy_leader = {  
+		name = "Frank F. Fletcher" 
+		id = 93121 
+		portrait_path = "gfx/portraits/USA/navy_admirals/USA_Frank_Fletcher.dds" 
+		traits = {
+			superior_tactician
+		}
+		skill = 4
+		attack_skill = 4
+		defense_skill = 4
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+
+
+	create_navy_leader = {
+		name = "Richmond P. Hobson"
+		id = 93396 
+		portrait_path = "gfx/portraits/USA/navy_admirals/USA_Richmond_Hobson.dds" 
+		traits = {
+			spotter
+		}
+		skill = 3
+		attack_skill = 3
+		defense_skill = 3
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+}
+
+
+
+1910.1.1 = {
+	oob = "USA_1910"
+
+	create_country_leader = {
+		name = "Charles J. Hexamer"
+		#desc = USA_charles_evans_hughes_DESC
+		picture = "gfx/portraits/USA/country_leaders/USA_Charles_John_Hexamer.dds"
+		expire = "1935.1.1"
+		ideology = conservatism
+		traits = {  }
+	}
+
+	give_guarantee = HAI
+
+
+	#-------------------------------------------------------
+	#							NF
+	#-------------------------------------------------------
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = USA_ww1_army_effort
+		complete_national_focus = USA_ww1_industrial_effort
+		complete_national_focus = USA_ww1_naval_effort
+
+		#Diplomatic
+	}
+
+	
+	#-------------------------------------------------------
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		support_weapons = 1
+		infantry_binoculars = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_military_police = 1
+		tech_maintenance_company = 1
+		tech_field_hospital = 1
+		tech_logistics_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		heavy_field_gun1 = 1
+
+		#Land Doctrine
+		ww1_landdoctrine = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_submarine2 = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_coastal_submarine2 = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+
+		# Air
+		#ww1_fighter1 = 1
+		#ww1_zeppelin1 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		chemical_research = 1
+
+		# Industry
+		ww1_fortification1 = 1
+		ww1_oil1 = 1
+	}
+
+	set_politics = {
+	    ruling_party = democratic
+	    last_election = "1908.11.5"
+	    election_frequency = 48
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 81
+	    fascism = 2
+	    communism = 17
+	    neutrality = 0
+	}
+
+	add_ideas = {
+		USA_remembrance_day
+		USA_democrat_dynasty
+		USA_prussian_model
+		limited_conscription
+		low_economic_mobilisation
+		export_focus 
+	}
+}
+
+
+1914.1.1 = {
+	add_political_power = 1200
+	set_fuel_ratio = 1
+	oob = "USA_1914"
+	set_global_flag = usa_joined_centralpowers
+
+	create_country_leader = { name = "Theodore Roosevelt" desc=USA_theodore_roosevelt_DESC picture="gfx/portraits/USA/country_leaders/USA_theodore_roosevelt.dds" expire="1935.1.1" ideology=liberalism traits={  } }
+
+	if = { limit = { has_start_date < 1937.1.1 }
+		#Army
+		complete_national_focus = USA_ww1_army_effort
+
+		# Air
+		complete_national_focus = USA_ww1_aviation_effort
+		# Industry
+		complete_national_focus = USA_ww1_industrial_effort
+
+		# Naval
+		complete_national_focus = USA_ww1_naval_effort
+		complete_national_focus = USA_ww1_newnavalcanons_1
+		complete_national_focus = USA_ww1_dreadnought_effort
+
+		#Political
+		complete_national_focus = USA_solidify_dems
+		complete_national_focus = USA_ww1_UnderwoodTariffAct
+		complete_national_focus = USA_break_the_trusts
+		complete_national_focus = USA_increase_military_budget
+		complete_national_focus = USA_fortify_the_potomac
+		complete_national_focus = USA_strengthen_german_ties
+		complete_national_focus = USA_strengthen_austro-hungarian_ties
+		complete_national_focus = USA_join_central_powers
+		complete_national_focus = USA_position_north
+		complete_national_focus = USA_anti-canada_policy
+		complete_national_focus = USA_anti-british_policy
+		complete_national_focus = USA_claim_british_islands
+		complete_national_focus = USA_position_south
+		complete_national_focus = USA_anti-csa_policy
+		complete_national_focus = USA_prepare_for_war 
+	}
+
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1_infantry_equip1 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		motorised_infantry = 1
+		#ww1_ambulance1 = 1
+		tech_mountaineers = 1
+		marines = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_maintenance_company = 1
+		tech_signal_company = 1
+
+		# Armor
+		gwtank=1 # 1910 Armored Car
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		bonus_bertha1 = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 1
+		ww1_directfire = 1
+		ww1_rifle_ammo = 1
+		ww1_long_march = 1
+		ww1_battlefield = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_zeppelin1 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 1
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 1
+		ww1_navaldoctrine_2 = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		supertech1 = 1
+		mechanical_computing = 1
+		tankaircraft1 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		chemical_research = 1
+		tank_unlocker1 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		#ww1_camera1 = 1
+		ww1_industry1 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine1 = 2
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_mining1 = 1
+		ww1_construction1 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+	}
+
+	set_politics = {
+	    ruling_party = democratic
+	    last_election = "1912.11.5"
+	    election_frequency = 48
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 81
+	    fascism = 2
+	    communism = 17
+	    neutrality = 0
+	}
+
+	add_ideas = {
+		USA_remembrance_day
+		USA_democrat_dynasty
+		USA_prussian_model
+		limited_conscription
+		partial_economic_mobilisation
+	}
+}
+
+
+###########################################################################################
+##################################  SECOND GREAT WAR    ###################################
+###########################################################################################
+
+1937.1.1 = {
+	set_political_power = 0
+	oob = "USA_1937"
+	give_guarantee = QUE
+	give_guarantee = IRE
+	load_focus_tree = "usa_2_focus"
+	
+	set_convoys = 450
+	set_stability = 0.5
+
+	create_faction = "American Empire"
+	add_to_faction = QUE
+
+	create_country_leader = {
+		name = "Al Smith"
+		desc = USA_al_smith_desc
+		picture = "gfx/portraits/USA/country_leaders/USA_al_smith.dds"
+		expire = "1965.1.1"
+		ideology = lincolnism
+		traits = {
+			appeaser
+		}
+	}
+
+	set_politics = {
+	    ruling_party = communism
+	    last_election = "1936.11.5"
+	    election_frequency = 48
+	    elections_allowed = yes
+	}
+	set_popularities = {
+	    democratic = 41
+	    fascism = 3
+	    communism = 56
+	    neutrality = 0
+	}
+
+	add_ideas = {
+		limited_conscription
+		civilian_economy
+
+		USA_socialist_policies
+		USA_victor_of_great_war
+		#USA_lessons_of_the_japanese_war
+		USA_american_empire
+		USA_great_depression_1
+		USA_utah_occupation
+		USA_underfunded_military
+	}
+	remove_ideas = {
+		USA_remembrance_day
+		USA_democrat_dynasty
+		USA_prussian_model
+	}
+
+	############### RESISTANCE ##############
+
+	### AMERICA ###
+	#utah
+	380 = {	start_resistance = yes 	set_compliance = 9	set_resistance = 19	 add_resistance_target = 25  }
+	#houston
+	815 = {	start_resistance = yes	set_compliance = 7	set_resistance = 13   add_resistance_target = 10 }
+	#sequoyah
+	374 = {	start_resistance = yes	set_compliance = 11  set_resistance = 9  add_resistance_target = 5 }
+	#kentucky
+	369 = {	start_resistance = yes	set_compliance = 14  set_resistance = 8  add_resistance_target = 10 }
+	#arlington
+	814 = {	start_resistance = yes	set_compliance = 6	set_resistance = 12   add_resistance_target = 5 }
+	#sonora tip
+	816 = {	start_resistance = yes	set_compliance = 8	set_resistance = 4	add_resistance_target = 5   }	
+	#arkansas tip	
+	817 = {	start_resistance = yes	set_compliance = 5 set_resistance = 8	add_resistance_target = 5   }		
+
+	######### CANADA
+	739 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	740 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	471 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	473 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	470 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	469 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	467 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	682 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	683 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	276 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	465 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	464 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 add_resistance_target = 5   }
+	331 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12	 }
+	332 = {	start_resistance = yes 	 set_compliance = 14    set_resistance = 12  }
+	
+	#########################################
+
+
+	set_technology = {
+
+		# Infantry
+		infantry_weapons = 1
+		ww1infantry_weapons1 = 1
+		ww1infantry_weapons2 = 1
+		ww1infantry_weapons3 = 1
+		ww1_infantry_equip1 = 1
+		ww1_infantry_equip2 = 1
+		ww1_infantry_equip3 = 1
+		support_weapons = 1
+		support_weapons2 = 1
+		ww1_helmet_equip = 1
+		support_weapons3 = 1
+		support_weapons4 = 1
+		infantry_binoculars = 1
+		infantry_grenade = 1
+		infantry_gasmask = 1
+		infantry_ww1_mortar1 = 1
+		infantry_ww1_mortar2 = 1
+		infantry_flamethrower1 = 1
+		infantry_flamethrower2 = 1
+		infantry_at_grenade = 1
+		infantry_at_rifle = 1
+		#infantry_ww1_machinegun1 = 1
+		#infantry_ww1_machinegun2 = 1
+		motorised_infantry = 1
+		#early_motorised = 1
+		#ww1_ambulance1 = 1
+		#ww1_ambulance2 = 1
+		tech_mountaineers = 1
+		marines = 1
+		tech_mountaineers2 = 1
+		marines2 = 1
+
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_engineers2 = 1
+		tech_engineers3 = 1
+		#tech_engineers4 = 1
+		tech_recon = 1
+		tech_recon2 = 1
+		tech_recon3 = 1
+		#tech_recon4 = 1
+		tech_maintenance_company = 1
+		tech_maintenance_company2 = 1
+		tech_maintenance_company3= 1
+		#tech_maintenance_company4 = 1
+		tech_military_police = 1
+		tech_military_police2 = 1
+		tech_military_police3 = 1
+		#tech_military_police4 = 1
+		tech_field_hospital = 1
+		tech_field_hospital2 = 1
+		tech_field_hospital3 = 1
+		#tech_field_hospital4 = 1
+		tech_logistics_company = 1
+		tech_logistics_company2 = 1
+		tech_logistics_company3 = 1
+		#tech_logistics_company4 = 1
+		tech_signal_company = 1
+		tech_signal_company2 = 1
+		tech_signal_company3 = 1
+		#tech_signal_company4 = 1
+
+		# Armor
+		gwtank = 1 # 1910 Armored Car
+		ww1_armored_car_2 = 1
+		ww1_armored_car_3 = 1
+		ww1_armored_car_4 = 1
+		ww1_light_tank = 1
+		#ww1_light_tank_b = 1
+		ww1_heavy_tank = 1
+		ww1_heavy_tank2 = 1
+		ww1_super_heavy_tank = 1
+		ww1_light_tank_interwar_1 = 1
+
+		# Artillery
+		light_field_gun1 = 1
+		light_field_gun2 = 1
+		bonus_artillery1 = 1
+		bonus_artillery2 = 1
+		bonus_artillery3 = 1
+		bonus_artillery4 = 1
+		heavy_field_gun1 = 1
+		heavy_field_gun2 = 1
+		heavy_field_gun3 = 1
+		bonus_bertha1 = 1
+		bonus_bertha2 = 1
+		bonus_bertha3 = 1
+		bonus_bertha4 = 1
+		standard_artillery = 1
+
+		# Land Doctrine
+		ww1_landdoctrine = 0
+		ww1_directfire = 0
+		ww1_rifle_ammo = 0
+		ww1_long_march = 0
+		ww1_battlefield = 0
+		ww1_mass_artillery = 0
+		ww1_target = 0
+		ww1_night = 0
+		ww1_tank = 0
+		ww1_landdoctrine_unlock_ww2 = 0
+		trench_warfare = 1
+
+		# Navy
+		ww1_heavy_cruiser0 = 1
+	ww1_heavy_cruiser0_mtg = 1
+		ww1_heavy_cruiser1 = 1
+	ww1_heavy_cruiser1_mtg = 1
+		early_heavy_cruiser = 1
+		basic_heavy_cruiser = 1
+		ww1_battlecruiser0 = 1
+	ww1_battlecruiser0_mtg = 1
+		ww1_battlecruiser1 = 1
+	ww1_battlecruiser1_mtg = 1
+		ww1_battlecruiser2 = 1
+	ww1_battlecruiser2_mtg = 1
+		ww1_battlecruiser3 = 1
+	ww1_battlecruiser3_mtg = 1
+	early_battlecruiser = 1
+		ww1_light_cruiser0 = 1
+	ww1_light_cruiser0_mtg = 1
+		ww1_light_cruiser1 = 1
+	ww1_light_cruiser1_mtg = 1
+		ww1_light_cruiser2 = 1
+	ww1_light_cruiser2_mtg = 1
+		ww1_light_cruiser3 = 1
+	ww1_light_cruiser3_mtg = 1
+		ww1_light_cruiser4 = 1
+	ww1_light_cruiser4_mtg = 1
+		ww1_light_cruiser5 = 1
+	ww1_light_cruiser5_mtg = 1
+		early_light_cruiser = 1
+		ww1_submarine0 = 1
+	ww1_submarine0_mtg = 1
+		ww1_submarine1 = 1
+	ww1_submarine1_mtg = 1
+		ww1_coastal_submarine1 = 1
+	ww1_coastal_submarine1_mtg = 1
+	ww1_submarine2 = 1
+	ww1_submarine2_mtg = 1
+		ww1_coastal_submarine2 = 1
+	ww1_coastal_submarine2_mtg = 1
+	ww1_submarine3 = 1
+	ww1_submarine3_mtg = 1
+		ww1_coastal_submarine3 = 1
+	ww1_coastal_submarine3_mtg = 1
+	ww1_submarine4 = 1
+	ww1_submarine4_mtg = 1
+		ww1_coastal_submarine4 = 1
+	ww1_coastal_submarine4_mtg = 1
+	ww1_cruiser_submarine1 = 1
+	ww1_cruiser_submarine2 = 1
+	early_submarine = 1
+		ww1_battleship0 = 1
+	ww1_battleship0_mtg = 1
+		ww1_battleship1 = 1
+	ww1_battleship1_mtg = 1
+		ww1_battleship2 = 1
+	ww1_battleship2_mtg = 1
+		ww1_battleship3 = 1
+	ww1_battleship3_mtg = 1
+	ww1_battleship4 = 1
+	ww1_battleship4_mtg = 1
+		ww1_battleship5 = 1
+	ww1_battleship5_mtg = 1
+	early_battleship = 1
+	basic_battleship = 1
+		ww1_destroyer0 = 1
+	ww1_destroyer0_mtg = 1
+		ww1_destroyer1 = 1
+	ww1_destroyer1_mtg = 1
+		ww1_destroyer2 = 1
+	ww1_destroyer2_mtg = 1
+		ww1_destroyer3 = 1
+	ww1_destroyer3_mtg = 1
+		ww1_destroyer4 = 1
+	ww1_destroyer4_mtg = 1
+		ww1_destroyer5 = 1
+	ww1_destroyer5_mtg = 1
+		early_destroyer = 1
+		ww1_moduleMTG_mines = 1
+	ww1_moduleMTG_mines_mtg = 1 # Mines
+		transport = 1
+	transport_mtg = 1
+	ww1_smoke_generator = 1
+	seaplane_carrier = 1
+	ww1_carrier = 1
+	early_carrier = 1
+	basic_carrier = 1
+
+		# Air
+		ww1_fighter1 = 1
+		#ww1_fighter1b = 1
+		ww1_fighter2 = 1
+		ww1_fighter3b = 1
+		ww1_fighter3 = 1
+		ww1_fighter4 = 1
+		early_fighter = 1
+		cv_early_fighter = 1
+		ww1_seaplane1 = 1
+		ww1_seaplane2 = 1
+		naval_bomber1 = 1
+		cv_naval_bomber1 = 1
+		ww1_bomber1 = 1
+		ww1_bomber2 = 1
+		#ww1_bomber3 = 1
+		early_bomber = 1
+		ww1_transport_plane = 1
+		ww1_zeppelin1 = 1
+		ww1_zeppelin2 = 1
+
+		# Air Doctrine
+		ww1_airdoctrine = 0
+		ww1_airdoctrine_2 = 0
+		ww1_airdoctrine_3 = 0
+		ww1_airdoctrine_4 = 0
+		ww1_airdoctrine_5 = 0
+		ww1_airdoctrine_5b = 0
+		ww1_airdoctrine_6 = 0
+		ww1_airdoctrine_6b = 0
+		ww1_airdoctrine_7 = 0
+		ww1_airdoctrine_7b = 0
+		ww1_airdoctrine_8 = 0
+		ww1_airdoctrine_9 = 0
+		ww1_airdoctrine_9b = 0
+		ww1_airdoctrine_unlock_ww2 = 0
+
+		# Navy Doctrine
+		ww1_navaldoctrine = 0
+		ww1_navaldoctrine_2 = 0
+		ww1_navaldoctrine_3 = 0
+		ww1_navaldoctrine_4 = 0
+		ww1_navaldoctrine_5 = 0
+		ww1_navaldoctrine_5b = 0
+		ww1_navaldoctrine_6 = 0
+		ww1_navaldoctrine_6b = 0
+		ww1_navaldoctrine_unlock_ww2 = 0
+		base_strike = 1
+
+		# Engineering
+		electronic_mechanical_engineering = 1
+		radio = 1
+		radio2 = 1
+		supertech1 = 1
+		supertech2 = 1
+		mechanical_computing = 1
+		mechanical_computing2 = 1
+		tankaircraft1 = 1
+		tankaircraft2 = 1
+		tanktrack1 = 1
+		tanktrack2 = 1
+		dingfelder_engine1 = 1
+		dingfelder_engine2 = 1
+		hoi4tgw_decryption = 1
+		hoi4tgw_encryption = 1
+		torpedotech1 = 1
+		subhulltech1 = 1
+		torpedotech2 = 1
+		torpedotech3 = 1
+		chemical_research = 1
+		chemical_research2 = 1
+		chemical_research3 = 1
+		tank_unlocker1 = 1
+		tank_unlocker2 = 1
+		electronic_ww2 = 1
+
+		# Industry
+		ww1_tools1 = 1
+		ww1_tools2 = 1
+		ww1_tools3 = 1
+		#ww1_camera1 = 1
+		#ww1_camera2 = 1
+		#ww1_camera3 = 1
+		ww1_industry1 = 1
+		ww1_industry2 = 1
+		ww1_industry3 = 1
+		#ww1_medicine1 = 1
+		#ww1_medicine2 = 1
+		#ww1_medicine3 = 1
+		#ww1_medicine4 = 1
+		ww1_fortification1 = 1
+		ww1_fortification2 = 1
+		ww1_fortification3 = 1
+		ww1_fortification3b = 1
+		ww1_fortification4 = 1
+		ww1_fortification5 = 1
+		ww1_mining1 = 1
+		ww1_mining2 = 1
+		ww1_mining3 = 1
+		ww1_construction1 = 1
+		ww1_construction2 = 1
+		ww1_oil1 = 1
+		ww1_oil2 = 1
+		ww1_oil3 = 1
+		ww1_bergiusprocess = 1
+	}
+
+
+	### VARIANTS ###
+	# 1936 Start #
+	if = {
+		limit = { not = { has_dlc = "Man the Guns" } }
+		### Ship Variants ###
+		create_equipment_variant = {
+			name = "Barracuda Class"
+			type = submarine_1
+			upgrades = {
+				ship_reliability_upgrade = 1
+				sub_engine_upgrade = 1
+				sub_stealth_upgrade = 1
+				sub_torpedo_upgrade = 1
+			}
+			obsolete = yes
+		}
+
+		create_equipment_variant = {
+			name = "Farragut Class"
+			type = destroyer_1
+			upgrades = {
+				ship_torpedo_upgrade = 3
+				destroyer_engine_upgrade = 3
+				ship_ASW_upgrade = 3
+				ship_anti_air_upgrade = 3
+			}
+		}
+
+		create_equipment_variant = {
+			name = "Portland Class"
+			type = heavy_cruiser_1
+			upgrades = {
+				ship_reliability_upgrade = 2
+				ship_engine_upgrade = 2
+				ship_armor_upgrade = 2
+				ship_gun_upgrade = 2
+			}
+		}
+
+		create_equipment_variant = {
+			name = "Pennsylvania Class"
+			type = battleship_1
+			upgrades = {
+				ship_reliability_upgrade = 1
+				ship_engine_upgrade = 1
+				ship_armor_upgrade = 1
+				ship_gun_upgrade = 1
+			}
+			obsolete = yes
+		}
+
+		create_equipment_variant = {
+			name = "New Mexico Class"
+			type = battleship_1
+			upgrades = {
+				ship_reliability_upgrade = 2
+				ship_engine_upgrade = 2
+				ship_armor_upgrade = 2
+				ship_gun_upgrade = 2
+			}
+		}
+
+		create_equipment_variant = {
+			name = "Colorado Class"
+			type = battleship_1
+			upgrades = {
+				ship_reliability_upgrade = 3
+				ship_engine_upgrade = 3
+				ship_armor_upgrade = 3
+				ship_gun_upgrade = 4
+			}
+		}
+
+		create_equipment_variant = {
+			name = "Yorktown Class"
+			type = carrier_2
+			upgrades = {
+				ship_deckspace_upgrade = 1
+				carrier_armor_upgrade = 1
+				ship_engine_upgrade = 1
+				ship_reliability_upgrade = 1
+			}
+		}
+	}
+
+
+	create_field_marshal = {  
+		name = "John Abell" 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_john_abell.dds" 
+		traits = { 
+			thorough_planner
+			politically_connected 
+		} 
+		skill = 4
+		attack_skill = 4
+		defense_skill = 4
+		planning_skill = 4
+		logistics_skill = 4 
+	}
+	create_field_marshal = {  
+		name = "Warren Clark" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_1.dds" 
+		traits = { 
+			offensive_doctrine
+			old_guard
+		} 
+		skill = 3
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2 
+	}
+	create_field_marshal = {  
+		name = "Jim Thornton" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_2.dds" 
+		traits = { 
+			defensive_doctrine
+		} 
+		skill = 3
+		attack_skill = 3
+		defense_skill = 4
+		planning_skill = 2
+		logistics_skill = 3 
+	}
+	create_corps_commander = {  
+		name = "Abner Dowling" 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_abner_dowling.dds" 
+		traits = { trait_cautious	old_guard    career_officer } 
+		skill = 3 
+		attack_skill = 2
+		defense_skill = 4
+		planning_skill = 3
+		logistics_skill = 3
+	}
+	create_corps_commander = {  
+		name = "Daniel MacArthur" 
+		picture = "Portrait_USA_Douglas_MacArthur.dds"
+		traits = { infantry_officer  media_personality  career_officer  trait_reckless } 
+		skill = 3 
+		attack_skill = 4
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 3
+	}
+	create_corps_commander = {  
+		name = "Dwight Ironhewer" 
+		picture = "Portrait_USA_Dwight_D_Eisenhower.dds"
+		traits = { infantry_officer  trait_engineer  career_officer } 
+		skill = 3 
+		attack_skill = 3
+		defense_skill = 3
+		planning_skill = 4
+		logistics_skill = 3
+	}
+	create_corps_commander = {  
+		name = "Irwing Morrell" 
+		portrait_path = "gfx/portraits/USA/army_generals/USA_irwing_morrell.dds"
+		traits = { trickster brilliant_strategist panzer_leader armor_officer career_officer }
+		skill = 4 
+		attack_skill = 4
+		defense_skill = 4
+		planning_skill = 4
+		logistics_skill = 3
+	}
+	create_corps_commander = {  
+		name = "Orville Sutton" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_3.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 3
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+	create_corps_commander = {  
+		name = "Leo Perez" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_4.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 3
+		logistics_skill = 2
+	}
+	create_corps_commander = {  
+		name = "Ralph Hines" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_5.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 2
+		planning_skill = 1
+		logistics_skill = 2
+	}
+	create_corps_commander = {  
+		name = "Herman Stanley" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_13.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 2
+	}
+	create_corps_commander = {  
+		name = "Will Carlson" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_19.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 1
+	}
+	create_corps_commander = {  
+		name = "Earnest Underwood" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_1.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 2
+	}
+	create_corps_commander = {  
+		name = "Ted Riddle" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_3.dds"
+		traits = { 
+		} 
+		skill = 2 
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+	create_corps_commander = {  
+		name = "Gerald Marsh" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_4.dds"
+		traits = { 
+		} 
+		skill = 1 
+		attack_skill = 2
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+	}
+	create_corps_commander = {  
+		name = "Benjamin Griffith" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_2.dds"
+		traits = { 
+		} 
+		skill = 1 
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 1
+		logistics_skill = 1
+	}
+	create_corps_commander = {  
+		name = "Willard Ziegler" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_5.dds"
+		traits = { 
+		} 
+		skill = 1 
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 2
+		logistics_skill = 1
+	}
+	create_corps_commander = {  
+		name = "Louis McCann" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_land_1.dds"
+		traits = { 
+		} 
+		skill = 1 
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 1
+	}
+
+
+	create_navy_leader = {
+		name = "Chester W. Nimitz"
+			picture = "Portrait_USA_Chester_W_Nimitz.dds"
+		traits = { gentlemanly blue_water_expert naval_lineage superior_tactician spotter }
+		skill = 5
+		attack_skill = 3
+		defense_skill = 3
+		maneuvering_skill = 5
+		coordination_skill = 5
+	}
+	create_navy_leader = {
+		name = "William Halsey, Jr."
+			picture = "Portrait_USA_William_Halsey_Jr.dds"
+		traits = { bold aviation_enthusiast superior_tactician spotter }
+		skill = 4
+		attack_skill = 5
+		defense_skill = 3
+		maneuvering_skill = 3
+		coordination_skill = 2
+	}
+	create_navy_leader = {
+		name = "Frank Jack Fletcher"
+			picture = "Portrait_USA_Frank_Jack_Fletcher.dds"
+		traits = { gunnery_expert superior_tactician spotter }
+		skill = 3
+		attack_skill = 2
+		defense_skill = 2
+		maneuvering_skill = 3
+		coordination_skill = 3
+	}
+	create_navy_leader = {  
+		name = "Sam Carsten"  
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_1.dds" 
+		traits = { gunnery_expert  air_controller } 
+		skill = 2 
+		attack_skill = 2
+		defense_skill = 2
+		maneuvering_skill = 1
+		coordination_skill = 1
+	}
+	create_navy_leader = {  
+		name = "Ernest Reid" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_2.dds" 
+		traits = { } 
+		skill = 2 
+		attack_skill = 1
+		defense_skill = 2
+		maneuvering_skill = 2
+		coordination_skill = 1
+	}
+	create_navy_leader = {  
+		name = "Victor Morrow" 
+		portrait_path = "gfx/leaders/Europe/Portrait_Europe_Generic_navy_3.dds" 
+		traits = { } 
+		skill = 2
+		attack_skill = 1
+		defense_skill = 2
+		maneuvering_skill = 1
+		coordination_skill = 2
+	}
+
+
+	
+}
+
+
+
+
+

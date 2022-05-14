@@ -1,0 +1,1658 @@
+﻿add_namespace = wsv_ww2_csa
+
+#seven words repealed
+news_event = {
+	id = wsv_ww2_csa.0
+	title = wsv_ww2_csa.0.t
+	desc = wsv_ww2_csa.0.d
+	picture = news_event_generic_speech
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			CSA = {
+				set_politics = {
+				    ruling_party = fascism
+				    last_election = "1933.11.5"
+				    election_frequency = 72
+				    elections_allowed = no
+				}
+				add_named_threat = { threat=1  name=featherstone_dictator_tt }
+			}
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.0.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.0.b
+		trigger = {
+			NOT = { tag = CSA }
+		}
+	} 
+}
+
+###############################  RICHMOND AGREEMENT
+
+#demand plebicites
+country_event = {
+	id = wsv_ww2_csa.1
+	title = wsv_ww2_csa.1.t
+	desc = wsv_ww2_csa.1.d
+	picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#agree to  plebcites
+	option = {
+		name = wsv_ww2_csa.1.a
+		news_event = { id = wsv_ww2_csa.2 }
+		custom_effect_tooltip = richmond_agreement_desc_tt
+		
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_government = communism
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.1.b
+		CSA = {	country_event = { id = wsv_ww2_csa.3 } }
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				has_government = democratic
+			}
+
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	} 
+}
+
+
+
+#plebcites accepted
+news_event = {
+	id = wsv_ww2_csa.2
+	title = wsv_ww2_csa.2.t
+	desc = wsv_ww2_csa.2.d
+	picture = news_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			CSA = { add_named_threat = { threat=5  name=richmond_agreement_threat_tt } }
+			if = { 
+				limit = { USA = { has_full_control_of_state = 369 } }
+				CSA = { transfer_state = 369 }
+				369 = { set_demilitarized_zone = yes }
+			}
+			if = { 
+				limit = { USA = { has_full_control_of_state = 815 } }
+				CSA = { transfer_state = 815 }
+				815 = { set_demilitarized_zone = yes }
+			}
+			if = { 
+				limit = { USA = { has_full_control_of_state = 374 } }
+				add_state_core = 374
+			}
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.2.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.2.b
+		trigger = { 
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.2.c
+		trigger = {
+			NOT = { tag = CSA }
+			NOT = { tag = USA }
+		}
+	}
+} 
+
+
+#plebcite rejected
+country_event = {
+	id = wsv_ww2_csa.3
+	title = wsv_ww2_csa.3.t
+	desc = wsv_ww2_csa.3.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.3.a
+		add_state_claim = 369
+		add_state_claim = 374
+		add_state_claim = 815
+		hidden_effect = { set_country_flag = plebcites_rejected }
+		add_war_support = 0.2 
+	}
+}
+
+
+###################################################################
+
+
+#csa militarizes states
+news_event = {
+	id = wsv_ww2_csa.4
+	title = wsv_ww2_csa.4.t
+	desc = wsv_ww2_csa.4.d
+	picture = news_event_wsv_soldiers_marching
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			369 = { set_demilitarized_zone = no }
+			815 = { set_demilitarized_zone = no }
+			USA = { 
+				add_war_support = 0.2 
+				add_opinion_modifier = {
+				    target = CSA
+				    modifier = protest_action_strong
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = CSA_richmond_agreement_broken }	}
+				set_global_flag = CSA_richmond_agreement_broken
+				add_named_threat = { threat=10  name=CSA_richmond_broken_tt }
+			}
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.4.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.4.b
+		trigger = { 
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.4.c
+		trigger = {
+			NOT = { tag = CSA }
+			NOT = { tag = USA }
+		}
+	}
+}
+
+
+
+#csa attacks usa
+news_event = {
+	id = wsv_ww2_csa.5
+	title = wsv_ww2_csa.5.t
+	desc = wsv_ww2_csa.5.d
+	picture = news_event_wsv_csa_attacks
+
+	is_triggered_only = yes
+
+	major = yes
+
+	option = {
+		name = wsv_ww2_csa.5.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.5.b
+		trigger = { 
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.5.c
+		trigger = {
+			NOT = { tag = CSA }
+			NOT = { tag = USA }
+		}
+	}
+}
+
+
+###################################################
+#Havana award
+
+#demand haiti
+country_event = {
+	id = wsv_ww2_csa.6
+	title = wsv_ww2_csa.6.t
+	desc = wsv_ww2_csa.6.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.6.a
+		diplomatic_relation = {
+		    country = HAI
+		    relation = guarantee
+		    active = no
+		}
+		CSA = {
+			create_wargoal = {
+				target = HAI
+				type = annex_everything
+			}
+		}
+		news_event = { id = wsv_ww2_csa.7 }
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				has_war_support < 40 
+			}
+
+			modifier = {
+				factor = 2
+				has_war_support < 20
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.6.b
+		CSA = {	country_event = { id = wsv_ww2_csa.8 } }
+		custom_effect_tooltip = csa_gets_wargoal_on_haiti_tt
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				has_war_support > 50 
+			}
+			modifier = {
+				factor = 2
+				has_war_support > 75
+			}
+		}
+	} 
+}
+
+
+#havana award
+news_event = {
+	id = wsv_ww2_csa.7
+	title = wsv_ww2_csa.7.t
+	desc = wsv_ww2_csa.7.d
+	picture = news_event_sign_treaty
+
+	is_triggered_only = yes
+
+	major = yes
+
+	option = {
+		name = wsv_ww2_csa.7.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.7.b
+		trigger = { 
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.7.c
+		trigger = {
+			tag = HAI
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.7.d
+		trigger = {
+			NOT = { tag = CSA }
+			NOT = { tag = HAI }
+			NOT = { tag = USA }
+		}
+	}
+}
+
+
+#usa refused
+country_event = {
+	id = wsv_ww2_csa.8
+	title = wsv_ww2_csa.8.t
+	desc = wsv_ww2_csa.8.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.8.a
+	
+		create_wargoal = {
+			target = HAI
+			type = annex_everything
+		}
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = USA
+				    ratio > 1
+				}
+			}
+		}
+	} 
+
+
+	option = {
+		name = wsv_ww2_csa.8.b
+		
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = USA
+				    ratio< 0.5
+				}
+			}
+		}
+	} 
+}
+
+
+##################################################
+
+#purchase puerto rico
+country_event = {
+	id = wsv_ww2_csa.9
+	title = wsv_ww2_csa.9.t
+	desc = wsv_ww2_csa.9.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.9.a
+		CSA = { 
+			send_equipment = {
+			    equipment = infantry_equipment
+			    amount = 6000
+			    target = SPR
+			}
+			add_political_power = -100
+			transfer_state = 686
+			hidden_effect = { country_event = wsv_ww2_csa.10 }
+		}
+		SPR = {	add_political_power = 100 }
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.9.b
+		CSA = { country_event = wsv_ww2_csa.11 }
+
+		ai_chance = {
+			factor = 20
+		}
+	} 
+}
+
+
+#spain accepted
+country_event = {
+	id = wsv_ww2_csa.10
+	title = wsv_ww2_csa.10.t
+	desc = wsv_ww2_csa.10.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.10.a
+	}
+}
+
+
+#spain refused
+country_event = {
+	id = wsv_ww2_csa.11
+	title = wsv_ww2_csa.11.t
+	desc = wsv_ww2_csa.11.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.11.a
+	}
+}
+
+
+
+
+##################################
+
+##CSA Demands Remainder territory
+
+#demand plebicites
+country_event = {
+	id = wsv_ww2_csa.12
+	title = wsv_ww2_csa.12.t
+	desc = wsv_ww2_csa.12.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { NOT = { has_global_flag = CSA_richmond_agreement_broken }	}
+			set_global_flag = CSA_richmond_agreement_broken
+			add_named_threat = { threat=10  name=CSA_richmond_broken_tt }
+		}
+	} 
+
+	#agree
+	option = {
+		name = wsv_ww2_csa.12.a
+
+		CSA = {
+			transfer_state = 814
+			transfer_state = 817
+			transfer_state = 816
+			country_event = { id = wsv_ww2_csa.13 }
+		}
+		add_war_support = -0.1
+		add_political_power = -50
+		
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0.5
+				CSA = { has_completed_focus = CSA2_remilitarize_plebiscite_states }
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_csa.12.b
+		CSA = {	country_event = { id = wsv_ww2_csa.14 } }
+		add_war_support = 0.1
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				has_government = democratic
+			}
+		}
+	} 
+}
+
+
+
+#usa said yes
+country_event = {
+	id = wsv_ww2_csa.13
+	title = wsv_ww2_csa.13.t
+	desc = wsv_ww2_csa.13.d
+	picture = report_event_deal_made
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.13.a
+		
+	}
+} 
+
+
+#usa said no
+country_event = {
+	id = wsv_ww2_csa.14
+	title = wsv_ww2_csa.14.t
+	desc = wsv_ww2_csa.14.d
+	picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.14.a
+		add_state_claim = 814
+		add_state_claim = 816
+		add_state_claim = 817
+		hidden_effect = { set_country_flag = rest_of_territory_denied }
+		add_war_support = 0.2
+	}
+}
+
+###########################################
+
+
+### CSA Demands yucatan
+
+country_event = {
+	id = wsv_ww2_csa.15
+	title = wsv_ww2_csa.15.t
+	desc = wsv_ww2_csa.15.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#yes
+	option = {
+		name = wsv_ww2_csa.15.a
+
+		CSA = {
+			transfer_state = 474
+			country_event = { id = wsv_ww2_csa.16 }
+		}
+		
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 1
+				}
+			}
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 2
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.15.b
+		CSA = {	
+			end_puppet = MEX
+			add_state_claim = 474
+			create_wargoal = {
+				type = take_claimed_state
+				target = MEX
+			} 
+			hidden_effect = { country_event = { id = wsv_ww2_csa.17 } }
+		}
+
+		ai_chance = {
+			factor = 40
+		}
+	} 
+}
+
+
+
+#mexico said yes
+country_event = {
+	id = wsv_ww2_csa.16
+	title = wsv_ww2_csa.16.t
+	desc = wsv_ww2_csa.16.d
+	picture = report_event_deal_made
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.16.a
+		
+	}
+} 
+
+
+# mexico said no
+country_event = {
+	id = wsv_ww2_csa.17
+	title = wsv_ww2_csa.17.t
+	desc = wsv_ww2_csa.17.d
+	picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.17.a
+		add_state_claim = 474 
+	}
+}
+
+
+###########################################
+
+### CSA Demands baja california
+
+country_event = {
+	id = wsv_ww2_csa.18
+	title = wsv_ww2_csa.18.t
+	desc = wsv_ww2_csa.18.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#yes
+	option = {
+		name = wsv_ww2_csa.18.a
+
+		CSA = {
+			transfer_state = 484
+			country_event = { id = wsv_ww2_csa.19 }
+		}
+		
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 1
+				}
+			}
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 2
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.18.b
+		CSA = {	
+			end_puppet = MEX
+			add_state_claim = 484 
+			create_wargoal = {
+			    type = take_claimed_state
+			    target = MEX
+			}
+			country_event = { id = wsv_ww2_csa.20 }
+		}
+
+		ai_chance = {
+			factor = 40
+		}
+	} 
+}
+
+
+#mexico said yes
+country_event = {
+	id = wsv_ww2_csa.19
+	title = wsv_ww2_csa.19.t
+	desc = wsv_ww2_csa.19.d
+	picture = report_event_deal_made
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.19.a
+		
+	}
+} 
+
+# mexico said no
+country_event = {
+	id = wsv_ww2_csa.20
+	title = wsv_ww2_csa.20.t
+	desc = wsv_ww2_csa.20.d
+	picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.20.a
+		add_state_claim = 484 
+	}
+}
+
+#####################################################
+
+
+### Old Mexico for Yucatan
+
+country_event = {
+	id = wsv_ww2_csa.21
+	title = wsv_ww2_csa.21.t
+	desc = wsv_ww2_csa.21.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#yes
+	option = {
+		name = wsv_ww2_csa.21.a
+		CSA = {
+			transfer_state = 474
+			country_event = { id = wsv_ww2_csa.22 }
+		}
+		MEX = {
+			transfer_state = 482
+			transfer_state = 483
+			hidden_effect = { add_state_core = 482  add_state_core = 483 }
+		}
+		
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.21.b
+		CSA = {	
+			add_state_claim = 474 
+			country_event = { id = wsv_ww2_csa.23 }
+		}
+
+		ai_chance = {
+			factor = 20
+		}
+	} 
+}
+
+
+#mexico said yes
+country_event = {
+	id = wsv_ww2_csa.22
+	title = wsv_ww2_csa.22.t
+	desc = wsv_ww2_csa.22.d
+	picture = report_event_deal_made
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.22.a
+		
+	}
+} 
+
+# mexico said no
+country_event = {
+	id = wsv_ww2_csa.23
+	title = wsv_ww2_csa.23.t
+	desc = wsv_ww2_csa.23.d
+	picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.23.a
+		add_state_claim = 474 
+	}
+}
+
+
+
+#####################################################
+
+
+### Align mexico
+
+country_event = {
+	id = wsv_ww2_csa.24
+	title = wsv_ww2_csa.24.t
+	desc = wsv_ww2_csa.24.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#bow to csa
+	option = {
+		name = wsv_ww2_csa.24.a
+		CSA = { puppet = MEX }
+		MEX = {
+			set_politics = {
+			    ruling_party = neutrality
+			    last_election = "1912.1.1"
+			    election_frequency = 48
+			    elections_allowed = no
+			}
+			set_popularities = {
+			    democratic = 3
+			    fascism = 7
+			    communism = 6
+			    neutrality = 84
+			}
+		}
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				add = 20
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 1
+				}
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 1.5
+				}
+			}
+			modifier = {
+				add = 20
+				strength_ratio = {
+				    tag = CSA
+				    ratio < 0.5
+				}
+			}
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_csa.24.b
+		CSA = {	country_event = { id = wsv_ww2_csa.26 }	}
+		custom_effect_tooltip = mexico_refuses_to_bow_tt
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = CSA
+				    ratio > 1
+				}
+			}
+		}
+	} 
+}
+
+
+#mexico bowed
+country_event = {
+	id = wsv_ww2_csa.25
+	title = wsv_ww2_csa.25.t
+	desc = wsv_ww2_csa.25.d
+	#picture = report_event_deal_made
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.25.a
+
+	}
+} 
+
+# mexico refused
+country_event = {
+	id = wsv_ww2_csa.26
+	title = wsv_ww2_csa.26.t
+	desc = wsv_ww2_csa.26.d
+	#picture = report_event_walked_out
+
+	is_triggered_only = yes
+
+	#war then
+	option = {
+		name = wsv_ww2_csa.26.a
+		create_wargoal = {
+			target = MEX
+			type = puppet_wargoal_focus
+		}
+		ai_chance = {
+			factor = 40
+		}
+	}
+
+	#let them go
+	option = {
+		name = wsv_ww2_csa.26.b
+		ai_chance = {
+			factor = 20
+		}
+	}
+}
+
+
+# kentucky resistance for usa
+country_event = {
+	id = wsv_ww2_csa.27
+	title = wsv_ww2_csa.27.t
+	desc = wsv_ww2_csa.27.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.27.a
+	}
+}
+
+
+# houston resistance for usa
+country_event = {
+	id = wsv_ww2_csa.28
+	title = wsv_ww2_csa.28.t
+	desc = wsv_ww2_csa.28.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.28.a
+	}
+}
+
+
+# invade usa?
+country_event = {
+	id = wsv_ww2_csa.29
+	title = wsv_ww2_csa.29.t
+	desc = wsv_ww2_csa.29.d
+	#picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	#yes
+	option = {
+		name = wsv_ww2_csa.29.a
+		news_event = wsv_ww2_csa.5
+
+		ai_chance = {
+			factor = 10
+
+			modifier = {
+				factor = 6
+				strength_ratio = {
+				    tag = USA
+				    ratio > 1
+				}
+			}
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = USA
+				    ratio > 2
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.29.b
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+
+
+# csa nukes philli
+news_event = {
+	id = wsv_ww2_csa.30
+	title = wsv_ww2_csa.30.t
+	desc = wsv_ww2_csa.30.d
+	picture = news_event_nuke
+
+	major = yes
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.30.a
+		trigger = { tag = CSA }
+	}
+	option = {
+		name = wsv_ww2_csa.30.b
+		trigger = { tag = USA }
+	}
+	option = {
+		name = wsv_ww2_csa.30.c
+		trigger = { NOT = { OR = { tag = CSA  tag = USA } } }
+	}
+}
+
+
+
+# demand divisions
+country_event = {
+	id = wsv_ww2_csa.31
+	title = wsv_ww2_csa.31.t
+	desc = wsv_ww2_csa.31.d
+	#picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.31.a
+		add_manpower = -80000
+		hidden_effect = { CSA = { add_manpower = 80000 } }
+	}
+}
+
+
+###################################################33
+#csa civil war
+news_event = {
+	id = wsv_ww2_csa.32
+	title = wsv_ww2_csa.32.t
+	desc = wsv_ww2_csa.32.d
+	picture = news_event_wsv_civil_war
+
+	trigger = {
+		date > 1939.11.5
+		CSA = { has_idea = CSA_constitutional_crisis }
+		NOT = { has_global_flag = csa_civil_war }
+	}
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = csa_civil_war
+			add_named_threat = { threat=3  name=CSA_civil_war_tt }
+			CSA = {
+				remove_ideas = CSA_constitutional_crisis
+				set_capital = { state = 375 }
+				start_civil_war = {
+					ruling_party = democratic
+				    ideology = fascism
+				    size = 0.5
+				    capital = 362
+				    states = {
+				    	362 363 364 365 368 367 370
+				    }
+				}
+
+				###democratic side
+				set_popularities = {
+					democratic = 55
+					communism = 35
+					neutrality = 7
+					fascism = 3
+				}
+				load_oob = "CSA_civil_war_democratic"
+				set_division_template_lock = { division_template = "Volunteer Militia"  is_locked = yes }
+				set_equipment_fraction = 0.5
+				set_stability = 0.9
+				set_war_support = 0.8
+				set_political_power = 500
+				set_cosmetic_tag = CSA_freedom_party_civ_war
+
+
+				###fascist side
+				random_other_country = {
+					limit = {
+						original_tag = CSA
+						has_government = fascism
+					}
+					load_focus_tree = { tree = "csa_2_focus"   keep_completed = no }
+					unlock_national_focus = CSA2_repeal_seven_words
+					load_oob = "CSA_civil_war_fascism"
+					set_division_template_lock = { division_template = "Volunteer Militia"  is_locked = yes }
+					set_equipment_fraction = 0.5
+					set_stability = 0.9
+					set_war_support = 0.8
+					set_political_power = 500
+					
+				}	
+			}
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.32.a
+	
+	}
+}
+####################################################################
+
+
+#purchase belieze
+country_event = {
+	id = wsv_ww2_csa.33
+	title = wsv_ww2_csa.33.t
+	desc = wsv_ww2_csa.33.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.33.a
+		CSA = { 
+			send_equipment = {
+			    equipment = infantry_equipment
+			    amount = 10000
+			    target = ENG
+			}
+			add_political_power = -100
+			transfer_state = 311
+			hidden_effect = { country_event = wsv_ww2_csa.34 }
+		}
+		ENG = {	add_political_power = 100 }
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.33.b
+		CSA = { country_event = wsv_ww2_csa.35 }
+
+		ai_chance = {
+			factor = 20
+		}
+	} 
+}
+
+
+#england accepted
+country_event = {
+	id = wsv_ww2_csa.34
+	title = wsv_ww2_csa.34.t
+	desc = wsv_ww2_csa.34.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.34.a
+	}
+}
+
+
+#england refused
+country_event = {
+	id = wsv_ww2_csa.35
+	title = wsv_ww2_csa.35.t
+	desc = wsv_ww2_csa.35.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.35.a
+	}
+}
+
+############################################################
+#partition guatemala
+
+#offer partition
+country_event = {
+	id = wsv_ww2_csa.36
+	title = wsv_ww2_csa.36.t
+	desc = wsv_ww2_csa.36.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#yes
+	option = {
+		name = wsv_ww2_csa.36.a
+		CSA = { 
+			set_country_flag = guatemala_partition 
+			country_event = wsv_ww2_csa.37
+		}
+
+		ai_chance = {
+			factor = 80
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_csa.36.b
+		CSA = { country_event = wsv_ww2_csa.38 }
+
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 4
+				has_war = yes
+			}
+			modifier = {
+				factor = 0
+				is_puppet_of = CSA
+			}
+		}
+	} 
+}
+
+
+#mexico accepts
+country_event = {
+	id = wsv_ww2_csa.37
+	title = wsv_ww2_csa.37.t
+	desc = wsv_ww2_csa.37.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.37.a
+		declare_war_on = {
+			target = GUA
+			type = take_state_focus
+		}
+		MEX = {
+			add_to_war = { 
+			    targeted_alliance = CSA
+			    enemy = GUA
+			    hostility_reason = asked_to_join
+			}
+		}
+	}
+}
+
+
+#mexico refused
+country_event = {
+	id = wsv_ww2_csa.38
+	title = wsv_ww2_csa.38.t
+	desc = wsv_ww2_csa.38.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	#give it to them
+	option = {
+		name = wsv_ww2_csa.38.a
+		create_wargoal = {
+			target = GUA
+			type = annex_everything
+		}
+	}
+}
+
+
+#mexico gets territory
+country_event = {
+	id = wsv_ww2_csa.39
+	title = wsv_ww2_csa.39.t
+	desc = wsv_ww2_csa.39.d
+	#picture = report_event_wsv_gathering_protest
+
+	trigger = {
+		tag = CSA
+		CSA = {
+			controls_state = 313
+			has_country_flag = guatemala_partition 
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			CSA = { clr_country_flag = guatemala_partition }
+			MEX = {	transfer_state = 313 }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.39.a
+		
+	}
+}
+
+
+####################################################################
+
+#csa begins rearmament
+news_event = {
+	id = wsv_ww2_csa.40
+	title = wsv_ww2_csa.40.t
+	desc = wsv_ww2_csa.40.d
+	picture = news_event_csa_troops_marching
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			CSA = { add_named_threat = { threat=3  name=csa_conscription_tt } }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.40.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.40.b
+		trigger = {
+			NOT = { tag = CSA }
+		}
+	} 
+}
+
+
+##################################################################
+
+#texas secedes
+news_event = {
+	id = wsv_ww2_csa.41
+	title = wsv_ww2_csa.41.t
+	desc = wsv_ww2_csa.41.d
+	picture = news_event_texas_secedes
+
+	trigger = {
+		has_start_date > 1937.1.1
+		USA = { controls_state = 815 }
+		CSA = { 
+			has_war_with = USA
+			surrender_progress > 0.75
+		}
+		NOT = { country_exists = TXS }
+	}
+
+	immediate = {
+		hidden_effect = {
+			TXS = {
+				transfer_state = 375
+				add_state_core = 375
+				load_oob = "TXS_secession"
+				set_division_template_lock = { division_template = "Texas Rangers"  is_locked = yes }
+				set_stability = 0.6
+				set_war_support = 0.2
+				set_political_power = 250
+			}
+			CSA = {
+				remove_state_core = 375
+				add_opinion_modifier = {
+				    target = TXS
+				    modifier = faction_traitor
+				}
+				country_event = { days = 1  id = wsv_ww2_csa.42 }
+			}
+			USA = {
+				country_event = { days = 1  id = wsv_ww2_csa.43 }
+			}
+		}
+	}
+
+	#csa attacks
+	option = {
+		name = wsv_ww2_csa.41.a
+		trigger = { 
+			tag = CSA
+		}
+	}
+
+	#csa lets go
+	option = {
+		name = wsv_ww2_csa.41.b
+		trigger = {
+			NOT = { tag = CSA }
+		}
+	}  
+}
+
+
+#csa informed of texas secession
+country_event = {
+	id = wsv_ww2_csa.42
+	title = wsv_ww2_csa.42.t
+	desc = wsv_ww2_csa.42.d
+	#picture = report_event_wsv_gathering_protest
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.42.a
+		create_wargoal = {
+			target = TXS
+			type = annex_everything
+		}
+		ai_chance = { factor = 0 }
+	}
+
+	option = {
+		name = wsv_ww2_csa.42.b
+		ai_chance = { factor = 100 }
+	}
+}
+
+
+#usa informed of texas secession
+country_event = {
+	id = wsv_ww2_csa.43
+	title = wsv_ww2_csa.43.t
+	desc = wsv_ww2_csa.43.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_csa.43.a
+		diplomatic_relation = {
+		    country = TXS
+		    relation = non_aggression_pact
+		    active = yes
+		}
+		TXS = { give_military_access = USA }
+		ai_chance = { factor = 60 }
+	}
+
+	option = {
+		name = wsv_ww2_csa.43.b
+		create_wargoal = {
+			target = TXS
+			type = annex_everything
+		}
+		TXS = { add_state_claim = 815 }
+		ai_chance = { 
+			factor = 40
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			} 
+		}
+	}
+}
+
+####################################################################
+#willy knight assassination attempt
+news_event = {
+	id = wsv_ww2_csa.44
+	title = wsv_ww2_csa.44.t
+	desc = wsv_ww2_csa.44.d
+	picture = news_event_attempt_on_featherstone
+
+	trigger = {
+		date > 1938.12.1
+		date < 1939.2.1
+		tag = CSA
+		CSA = { 
+			has_government = fascism
+			has_completed_focus = CSA2_repeal_seven_words
+			NOT = { has_civil_war = yes }
+			NOT = { has_country_flag = attempt_on_featherstone }
+		}
+	}
+
+	major = no
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = attempt_on_featherstone
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.44.a
+		add_political_power = -100
+	} 
+}
+
+
+####################################################################
+#featherstone is killed
+news_event = {
+	id = wsv_ww2_csa.45
+	title = wsv_ww2_csa.45.t
+	desc = wsv_ww2_csa.45.d
+	picture = news_event_wsv_civil_war
+
+	trigger = {
+		tag = CSA
+		CSA = { 
+			has_country_leader = {
+			    name = "Jake Featherstone"
+			    ruling_only = yes
+			}
+			surrender_progress > 0.9
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			kill_country_leader = yes
+			create_country_leader = {
+	        	name = "Don Partridge"
+	        	picture = "gfx/leaders/Europe/Portrait_Europe_Generic_2.dds"
+	        	expire = "1965.1.1"
+	        	ideology = white_supremacy
+	        } 
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.45.a
+		trigger = { tag = CSA }
+		add_war_support = -0.45
+	} 
+
+	option = {
+		name = wsv_ww2_csa.45.b
+		trigger = { NOT = { tag = CSA } }
+	} 
+}
+
+
+###################################################################
+
+
+#unrest in us
+news_event = {
+	id = wsv_ww2_csa.46
+	title = wsv_ww2_csa.46.t
+	desc = wsv_ww2_csa.46.d
+	picture = news_event_generic_riot
+
+	is_triggered_only = yes
+
+	major = yes
+
+	immediate = {
+		hidden_effect = { CSA = { add_threat = 2 } }
+	}
+
+	option = {
+		name = wsv_ww2_csa.46.a
+		trigger = { 
+			OR = { tag = CSA   is_in_faction_with = CSA }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.46.b
+		trigger = { 
+			OR = { tag = USA   is_in_faction_with = USA }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_csa.46.c
+		trigger = { 
+			NOT = { tag = CSA   is_in_faction_with = CSA }
+			NOT = { tag = USA   is_in_faction_with = USA }
+		}
+	} 
+}

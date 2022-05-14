@@ -1,0 +1,160 @@
+﻿division_template = {
+	name = "Juntuán"				
+	division_names_group = GXC_INF_01
+
+	regiments = {					
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+	}
+
+	support = {
+		artillery = { x = 0 y = 0 }
+		engineer = { x = 0 y = 1 }
+	}
+}
+
+
+division_template = {
+	name = "Sanjiao Jun"				# Represents local militia groups (generally poorly-equipped )
+	division_names_group = SHX_INF_01
+
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+	}
+}
+
+division_template = {
+	name = "Qibing Jun"		# Represents three-division cavalry corps (generally poorly-equipped)
+	division_names_group = XSM_CAV_01
+	regiments = {
+		cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 1 y = 0 }
+		cavalry = { x = 1 y = 1 }
+	}
+}
+
+
+### OOB ###
+units = {
+
+	### Good inf #####
+
+	division = {
+		name = "1a Juntuán"
+		location = 1519
+		division_template = "Juntuán"		
+		start_experience_factor = 0.3
+	}
+	division = {
+		name = "2a Juntuán"
+		location = 1519
+		division_template = "Juntuán"		
+		start_experience_factor = 0.3
+	}
+		
+
+	### Provincial Forces ###
+	division = {
+		name = "Suiyuan Jingbei"
+		location = 10880
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Chahar Jingbei"
+		location = 12356
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Suiyuan Jingbei II"
+		location = 7208
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Chahar Jingbei II"
+		location = 5007
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Dagen Jingbei"
+		location = 8049
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}	
+	division = {
+		name = "Dagen Jingbei II"
+		location = 8049
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Varigen Jingbei"
+		location = 7418
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "Varigen Jingbei II"
+		location = 7418
+		division_template = "Sanjiao Jun"
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+
+	division = {
+		name = "1a Qibing Jun"
+		location = 8049
+		division_template = "Qibing Jun"		# Provincial militia unit (poor equipment and training)
+		force_equipment_variants = { infantry_equipment_1 = { owner = "SHX" } }
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "2a Qibing Jun"
+		location = 8049
+		division_template = "Qibing Jun"		# Provincial militia unit (poor equipment and training)
+		force_equipment_variants = { infantry_equipment_1 = { owner = "SHX" } }
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+	division = {
+		name = "3a Qibing Jun"
+		location = 8049
+		division_template = "Qibing Jun"		# Provincial militia unit (poor equipment and training)
+		force_equipment_variants = { infantry_equipment_1 = { owner = "SHX" } }
+        start_experience_factor = 0.1
+        start_equipment_factor = 0.55
+	}
+}
+
+
+### STARTING PRODUCTION ###
+instant_effect = {
+	add_equipment_production = {
+		equipment = {
+			type = infantry_equipment_0
+			creator = "SHX"
+		}
+		requested_factories = 1
+		progress = 0.78
+		efficiency = 100
+	}
+}

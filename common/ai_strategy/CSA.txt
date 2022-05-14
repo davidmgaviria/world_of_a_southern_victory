@@ -1,0 +1,1019 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+########################## GENERIC ##########################
+
+CSA_area_priority = {
+	enable = {
+		original_tag = CSA
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = 10
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 110
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = 50
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = 75
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = suez
+		value = 50
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = 300
+	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 80
+	}
+}
+
+
+
+CSA_france_ally = {
+	allowed = {
+		original_tag = CSA		
+	}
+	enable = {
+		country_exists = FRA
+		NOT = { has_war_with = FRA }
+		OR = {
+			threat > 0.3
+			has_completed_focus = CSA2_rejoin_entente
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = befriend
+		id = "FRA"			
+		value = 100
+	}
+	ai_strategy = {
+		type = alliance
+		id = "FRA"			
+		value = 100
+	}		
+}
+
+
+CSA_ignore_europe = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		OR = {
+			is_in_faction_with = ENG
+			is_in_faction_with = FRA
+		}
+	}
+	abort = {
+		USA = { has_capitulated = yes }
+	}
+
+
+	ai_strategy = {
+		type = front_unit_request
+		area = europe		
+		value = -1000
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = ENG
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FRA
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = BEL
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = LUX
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = SER
+		value = 100
+	}				
+}
+
+CSA_ignore_russia = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		is_in_faction_with = RUS
+	}
+	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = RUS
+		value = 100
+	}		
+}
+
+
+########################## GREAT WAR ##########################
+
+
+CSA_gw_unit_production = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armored_car
+		value = 1
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 70 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 10
+	}
+	
+	#Air unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = scout_plane
+		value = 2
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 50
+	}	
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 0
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 2
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 1
+	}
+	
+	# Naval unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
+		value = 10
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = submarine
+		value = 20
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 35
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = convoy
+		value = 20
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 30
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 45
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 20
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 5
+	}
+}
+
+
+CSA_ww1_focus_on_usa = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		NOT = { is_in_faction_with = USA }	
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "USA"
+		value = 60
+	}
+
+	#protect richmond
+	ai_strategy = {
+		type = front_unit_request
+		state = 362
+		state = 360
+		state = 361
+		state = 814
+		state = 813
+		value = 75
+	}
+
+	#sonora
+	ai_strategy = {
+		type = front_unit_request
+		state = 377
+		state = 837
+		value = -30
+	}
+}	
+
+
+
+CSA_take_dc = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		USA = { exists = yes }
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.1
+			casualties > 150000
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		state = 361
+		state = 360
+		state = 840
+		priority = 100
+		ratio = 0.7
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	#more troops east
+	ai_strategy = {
+		type = front_unit_request
+		state = 840
+		state = 360
+		state = 361
+		value = 250
+	}
+}
+
+
+
+
+
+
+
+########################## WW2 ##########################
+
+
+CSA_unit_production = {
+	allowed = {
+		original_tag = CSA
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = paratroopers
+		value = 0
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 1
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry 
+		value = -100
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = mechanized
+		value = 2
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -5
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 75 
+	}
+	#Air unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 100
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 5
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = -10
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = naval_bomber
+		value = 2
+	}
+	# Naval unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
+		value = 10
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = submarine
+		value = 10
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 40
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = convoy
+		value = 15
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 160
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 45
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = naval_bomber
+		value = -120
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = strategic_bomber
+		value = -200
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 15 #30 to 50
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 45 #20 to 40
+	} 
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = -10
+	} 
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = -30
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = artillery
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = fighter
+		value = 4
+	}
+	ai_strategy = {
+		type = equipment_production_min_factories
+		id = cas
+		value = 2
+	}
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = strat_bomber_equipment
+		value = -100
+	}
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = support_equipment
+		value = 40
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 20
+	}
+	ai_strategy = {
+		type = air_factory_balance
+		value = 125
+	}
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 20
+	}
+}
+
+
+
+#CSA before 1942
+DEFAULT_template_design = {
+	allowed = {
+		has_start_date > 1937.1.1
+	}
+	enable = {	
+		date < 1943.1.1	
+		original_tag = CSA
+		has_government = fascism		
+	}
+	abort = { 
+		date > 1942.1.1
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 15
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = cavalry
+		value = -100
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 40
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 30
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = heavy_armor
+		value = -50
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = paratroopers
+		value = -50
+	}
+	
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 40
+	}
+}
+
+
+CSA_stockpile_less_early_game = {
+	allowed = { 
+		original_tag = CSA 
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+	}
+	abort = {
+		has_army_manpower = { size > 1000000 }
+	}
+
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 # reduce while we build up in case of issues
+	}
+}
+
+
+CSA_armored_production = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		date > 140.1.1
+		ai_wants_divisions > 24 #Decreasing the amount of tanks the AI wants
+	}
+	abort = {
+		ai_wants_divisions < 25 #Decreasing the amount of tanks the AI wants
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 10
+	}
+}
+
+
+CSA_halt_light_armor_production_in_transitioning = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		has_template_majority_unit = medium_armor
+		OR = {
+			has_equipment = { light_tank_equipment > 600 }
+			date > 1940.1.1
+		}		
+	}
+	abort = {
+		# once we start we never go back to light armor
+	}
+
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = light_tank_equipment
+		value = -100
+	}
+}
+
+
+
+CSA_highered_armored_production = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		num_of_military_factories > 109
+	}
+	abort = {
+		num_of_military_factories < 110
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 20
+	}
+}
+
+
+CSA_dont_waste_xp_until_medium_armor = {
+	allowed = {
+		original_tag = CSA		
+	}
+	enable = {
+		always = yes
+	}
+	abort = {	
+		has_template_majority_unit = medium_armor
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = paratrooper
+		value = -100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = mountaineers
+		value = -100
+	}
+}
+
+
+CSA_super_boost_light_for_med_armor = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		has_tech = basic_medium_tank
+		NOT = { has_template_ai_majority_unit = medium_armor }
+	}
+
+	abort = {	
+		has_template_ai_majority_unit = medium_armor
+	}
+
+	# lets do changes more often during this period too
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = division_template
+		value = 100
+	}
+
+	# this is gateway
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 150
+	}
+	
+}
+
+
+CSA_super_boost_light_for_modern_armor = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		has_tech = main_battle_tank
+		NOT = { has_template_ai_majority_unit = modern_armor }
+	}
+
+	abort = {	
+		has_template_ai_majority_unit = modern_armor
+	}
+
+	# lets do changes more often during this period too
+	ai_strategy = {
+		type = land_xp_spend_priority
+		id = division_template
+		value = 100
+	}
+
+	# this is gateway
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 100
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = modern_armor
+		value = 150
+	}
+}
+
+
+## WW2 US Plans
+
+CSA_dont_fight_germany_yet = { # Reverse strategy
+	reversed = yes
+
+	enable = {
+		NOT = { tag = CSA }
+		date > 1937.1.1
+		country_exists = USA
+		CSA = {
+			OR = {
+				is_in_faction_with = FRA
+				is_in_faction_with = ENG
+			}
+		}
+	}
+
+	abort = {
+		CSA = {
+			OR = {
+				has_non_aggression_pact_with = USA
+				is_in_faction_with = USA
+				has_war_with = USA
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = diplo_action_desire
+		id = "CSA"
+		target = join_allies
+		value = -99999
+	}
+
+	ai_strategy = {
+		type = diplo_action_acceptance
+		id = "CSA"
+		target = call_allies
+		value = -99999
+	}
+}
+
+
+
+CSA_no_one_gets_our_troops = {
+	allowed = {
+		original_tag = CSA
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		is_historical_focus_on = yes
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "FRA"
+		value = -999
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "RUS"
+		value = -999
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "ENG"
+		value = -999
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "AST"
+		value = -999
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "SAF"
+		value = -999
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "RAJ"
+		value = -999
+	}
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "NZL"
+		value = -999
+	}
+}
+
+
+
+CSA_attack_usa_ww2 = {
+	allowed = { 
+		original_tag = CSA 
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		country_exists = USA
+		NOT = { is_in_faction_with = USA }
+		has_completed_focus = CSA2_remilitarize_plebiscite_states
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = conquer
+		id = "USA"			
+		value = 50
+	}
+	ai_strategy = {
+		type = invade
+		id = "QUE"
+		value = -1000
+	}
+
+	#southwest america
+	ai_strategy = {
+		type = front_unit_request
+		state = 378
+		state = 377
+		state = 816
+		value = -70
+	}
+}
+
+
+
+CSA_operation_blackbeard = {
+	allowed = {
+		original_tag = CSA
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		USA = {
+			exists = yes
+			NOT = { is_in_faction_with = CSA }
+		}
+		has_completed_focus = CSA2_remilitarize_plebiscite_states
+		controls_state = 369
+	}
+	abort = {
+		OR = {
+			controls_state = 261
+			casualties > 350000
+			surrender_progress > 0.1
+		}
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_america
+		value = 50
+	}
+
+	
+	#through ohio
+	ai_strategy = {
+		type = front_control
+		state = 261
+		priority = 100
+		ratio = 0.3	
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 261
+		value = 250
+	}
+}
+
+
+
+## Other plans
+
+CSA_invade_dr = {
+	allowed = { 
+		original_tag = CSA 
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		OR = { country_exists = DOM    country_exists = HAI }
+		focus_progress = {  focus = CSA2_fate_of_hispanola	 progress > 0.1 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "DOM"			
+		value = 20
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "HAI"			
+		value = 20
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

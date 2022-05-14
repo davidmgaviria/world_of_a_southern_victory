@@ -1,0 +1,363 @@
+add_namespace = wsv_ww2_eng
+
+
+#north irish troubles
+country_event = {
+	id = wsv_ww2_eng.1
+	title = wsv_ww2_eng.1.t
+	desc = wsv_ww2_eng.1.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+	
+	#tighten grip
+	option = {
+		name = wsv_ww2_eng.1.a
+
+		add_timed_idea = { idea = ENG_north_irish_troubles  days = 360	}
+		hidden_effect = {	119 = {	start_resistance = yes	set_compliance = 3	set_resistance = 25	} }
+
+		ai_chance = {
+			factor = 80
+		}
+	}
+
+
+	#let them go
+	option = {
+		name = wsv_ww2_eng.1.b
+		ENG = { 
+			transfer_state = 119
+			hidden_effect = { country_event = wsv_ww2_eng.2 }
+		}
+
+		ai_chance = {
+			factor = 10
+
+		}
+	}
+}
+
+
+#ireland returned us northern ireland
+country_event = {
+	id = wsv_ww2_eng.2
+	title = wsv_ww2_eng.2.t
+	desc = wsv_ww2_eng.2.d
+	#picture = report_event_wsv_csa_japan_talks
+	is_triggered_only = yes
+	option = {	name = wsv_ww2_eng.2.a }
+}
+
+
+#canada rebellious
+country_event = {
+	id = wsv_ww2_eng.3
+	title = wsv_ww2_eng.3.t
+	desc = wsv_ww2_eng.3.d
+	picture = report_event_local_resistance
+	is_triggered_only = yes
+	option = {	name = wsv_ww2_eng.3.a }
+}
+
+
+
+
+#############################################
+##Istria and south tyrol for alliance
+
+country_event = {
+	id = wsv_ww2_eng.4
+	title = wsv_ww2_eng.4.t
+	desc = wsv_ww2_eng.4.d
+	#picture = 
+
+	is_triggered_only = yes
+  	
+  	#yes
+	option = {
+		name = wsv_ww2_eng.4.a
+		ITA = {
+			add_to_war = { 
+			    targeted_alliance = ENG
+			    enemy = AUH
+			    hostility_reason = asked_to_join
+			}
+		}
+		ENG = { set_country_flag = promised_italy_land }
+		hidden_effect = { news_event = wsv_ww2_eng.5 }
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				add = 20
+				strength_ratio = {
+				    tag = AUH
+				    ratio > 1
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_eng.4.b
+		ENG = { country_event = wsv_ww2_eng.6 }
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 2
+				ENG = { surrender_progress > 15 }
+			}
+		}
+	}
+}
+
+
+#english italian pact
+news_event = {
+	id = wsv_ww2_eng.5
+	title = wsv_ww2_eng.5.t
+	desc = wsv_ww2_eng.5.d
+	picture = news_event_sign_treaty
+	is_triggered_only = yes
+	major = yes
+	option = {
+		name = wsv_ww2_eng.5.a
+		trigger = { OR = { tag = ENG	tag = ITA	} }
+	}
+	option = {
+		name = wsv_ww2_eng.5.b
+		trigger = { NOT = { tag = ENG }  NOT = { tag = ITA } }
+	}
+}
+
+
+#italy said no
+country_event = {
+	id = wsv_ww2_eng.6
+	title = wsv_ww2_eng.6.t
+	desc = wsv_ww2_eng.6.d
+	picture = report_event_walked_out
+	is_triggered_only = yes
+	option = { name = wsv_ww2_eng.6.a }
+}
+
+
+#italy demands territory 
+country_event = {
+	id = wsv_ww2_eng.7
+	title = wsv_ww2_eng.7.t
+	desc = wsv_ww2_eng.7.d
+	#picture = news_event_border_clash
+
+	trigger = {
+		tag = ENG
+		has_country_flag = promised_italy_land
+		NOT = { has_war_with = ITA }
+		any_country = {
+			OR = { tag = ENG   is_puppet_of = ENG }
+			OR = {
+				has_full_control_of_state = 39
+				has_full_control_of_state = 736
+				has_full_control_of_state = 103
+				has_full_control_of_state = 163
+			}
+		}
+	}
+	
+	mean_time_to_happen = {	days = 0 }
+
+	immediate = { hidden_effect = { clr_country_flag = promised_italy_land } }
+
+	#give it to them
+	option = {
+		name = wsv_ww2_eng.7.a
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = ENG  is_puppet_of = ENG }
+					has_full_control_of_state = 39
+				}
+			}
+			ITA = { transfer_state = 39 }
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = ENG   is_puppet_of = ENG }
+					has_full_control_of_state = 736
+				}
+			}
+			ITA = { transfer_state = 736 }
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = ENG   is_puppet_of = ENG }
+					has_full_control_of_state = 103
+				}
+			}
+			ITA = { transfer_state = 103 }
+		}
+		if = {
+			limit = {
+				any_country = {
+					OR = { tag = ENG   is_puppet_of = ENG }
+					has_full_control_of_state = 163
+				}
+			}
+			ITA = { transfer_state = 163 }
+		}
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_eng.7.b
+		ITA = {	country_event = wsv_ww2_eng.8 }
+
+		ai_chance = {
+			factor = 10
+		}
+	}
+}
+
+
+
+#england refused territory
+country_event = {
+	id = wsv_ww2_eng.8
+	title = wsv_ww2_eng.8.t
+	desc = wsv_ww2_eng.8.d
+	#picture = news_event_border_clash
+
+	is_triggered_only = yes
+	
+	#war
+	option = {
+		name = wsv_ww2_eng.8.a
+		create_wargoal = {
+			type = take_claimed_state
+			target = FROM
+		}
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+
+
+	#no
+	option = {
+		name = wsv_ww2_eng.8.b
+
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FROM
+				    ratio < 1
+				}
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = {
+				    tag = FROM
+				    ratio < 0.5
+				}
+			}
+		}
+	}
+}
+
+
+
+#canadian uprising
+news_event = {
+	id = wsv_ww2_eng.9
+	title = wsv_ww2_eng.9.t
+	desc = wsv_ww2_eng.9.d
+	picture = news_event_USA_mormon_revolt
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = canadian_uprising
+	    	CAN = {
+				transfer_state = 276
+				transfer_state = 467
+				load_oob = "CAN_uprising"
+				set_division_template_lock = { division_template = "Canadian Militia"   is_locked = yes }
+				delete_unit_template_and_units = { division_template = "Infantry Division" }
+				delete_unit_template_and_units = { division_template = "Siege Division" }
+				delete_unit_template_and_units = { division_template = "National Guard" }
+				delete_unit_template_and_units = { division_template = "Dragoon Division" }
+				add_political_power = 500
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment_0
+				    amount = 10000
+				    producer = ENG
+				}
+				add_ideas = generic_defiant_spirit_idea
+			}
+			
+			USA = {
+				## Winnipeg ##
+				set_province_controller = 7782	 set_province_controller = 13223	 set_province_controller = 6728
+				set_province_controller = 9615   set_province_controller = 12636	 set_province_controller = 4218
+				set_province_controller = 3721	 set_province_controller = 1848 	 set_province_controller = 12145  set_province_controller = 4790   set_province_controller = 1873
+				## Toronto & Ottowa ##
+				set_province_controller = 6676   set_province_controller = 11602	 set_province_controller = 3640
+				set_province_controller = 11728	 set_province_controller = 6662		 set_province_controller = 9634
+				set_province_controller = 11585	 set_province_controller = 3661		 set_province_controller = 1585
+				set_province_controller = 11569	 set_province_controller = 605		 set_province_controller = 9580
+				set_province_controller = 11567	 set_province_controller = 3605		 set_province_controller = 9585
+				set_province_controller = 779    set_province_controller = 774		 set_province_controller = 6610
+				set_province_controller = 9743	 set_province_controller = 11725	 set_province_controller = 9711
+				set_province_controller = 9667	 set_province_controller = 722		 set_province_controller = 11695
+				set_province_controller = 749
+
+				declare_war_on = {
+				    target = CAN
+				    type = annex_everything
+				}
+				load_oob = "USA_canadian_revolt`"
+				set_division_template_lock = { division_template = "State Troopers"   is_locked = yes }
+			}
+		}
+    }
+	
+	option = {
+		name = wsv_ww2_eng.9.a
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_ww2_eng.9.b
+		trigger = { OR = { tag = CAN  tag = ENG } }
+	}
+
+	option = {
+		name = wsv_ww2_eng.9.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CAN }
+			NOT = { tag = ENG }
+		}
+	}
+}
+
+
+

@@ -1,0 +1,1238 @@
+﻿add_namespace = wsv_ww2_germany
+
+
+#kaiser wilhelm 2 dies!
+news_event = {
+	id = wsv_ww2_germany.1
+	title = wsv_ww2_germany.1.t
+	desc = wsv_ww2_germany.1.d
+	picture = news_event_wilhelm2_dead
+
+	major = yes
+
+	mean_time_to_happen = {
+        days = 4
+    }
+
+	trigger = {
+		tag = GER
+		GER = { has_government = neutrality }
+        NOT = { has_global_flag = kaiser_wilhelm_ii_dead }
+        date > 1941.6.1
+	}
+
+    immediate = {
+    	hidden_effect = {
+    		set_global_flag = kaiser_wilhelm_ii_dead
+	    	GER = {
+	    		kill_country_leader = yes
+	    		create_country_leader = {
+					name = "Wilhelm III"
+					desc = "GER_wilhelm_iii_desc"
+					picture = "gfx/portraits/GER/country_leaders/GER_wilhelm_iii.dds"
+					expire = "1965.1.1"
+					ideology = autocracy
+					traits = {
+					}
+				}
+				add_named_threat = { threat = 1   name = kaiser_wilhelm_dead_tt }
+				add_timed_idea = { idea = GER_kaisers_death   days = 90 }
+	    	}
+	    }
+    }
+	
+	option = {
+		name = wsv_ww2_germany.1.a
+		trigger = { 
+			tag = GER
+		}
+	}
+
+	option = {
+		name = wsv_ww2_germany.1.b
+		trigger = { 
+			tag = FRA 
+		}
+	}
+
+
+	option = {
+		name = wsv_ww2_germany.1.c
+		trigger = { 
+			NOT = { tag = FRA }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+
+
+#a quasi-statellite state left the central powers, germany demands return (ROOT is state that left)
+country_event = {
+	id = wsv_ww2_germany.2
+	title = wsv_ww2_germany.2.t
+	desc = wsv_ww2_germany.2.d
+	#picture = report_event_local_resistance
+
+	is_triggered_only = yes
+	
+	#rejoin central powers
+	option = {
+		name = wsv_ww2_germany.2.a
+		GER = { add_to_faction = ROOT }
+		add_ideas = GER_berlin_influence
+		ai_chance = { factor = 100 }
+	}
+
+	#face war
+	option = {
+		name = wsv_ww2_germany.2.b
+		GER = { country_event = wsv_ww2_germany.3 }
+		custom_effect_tooltip = refuse_to_rejoin_risk_tt
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+
+#germany considers going to war (FROM is state that left)
+country_event = {
+	id = wsv_ww2_germany.3
+	title = wsv_ww2_germany.3.t
+	desc = wsv_ww2_germany.3.d
+	#picture = report_event_local_resistance
+
+	is_triggered_only = yes
+	
+	#war
+	option = {
+		name = wsv_ww2_germany.3.a
+		create_wargoal = {
+		    type = puppet_wargoal_focus
+		    target = FROM
+		}
+		ai_chance = { factor = 60 }
+	}
+
+	#let them go
+	option = {
+		name = wsv_ww2_germany.3.b
+		add_opinion_modifier = {
+		    target = FROM
+		    modifier = faction_traitor
+		}
+		FROM = {
+			if = { 
+				limit = { has_idea = GER_berlin_influence } 
+				remove_ideas = GER_berlin_influence
+			}
+		}
+		ai_chance = { 
+			factor = 10 
+			modifier = {
+				factor = 10
+				has_war = yes
+			}
+			modifier = {
+				factor = 4
+				strength_ratio = {
+				    tag = FROM
+				    ratio < 1
+				}
+			}
+			modifier = {
+				factor = 4
+				strength_ratio = {
+				    tag = FROM
+				    ratio < 0.5
+				}
+			}
+		}
+	}
+}
+
+#####################################################
+############# NORWAY ARC 
+
+#england considers intervening in norway
+country_event = {
+	id = wsv_ww2_germany.4
+	title = wsv_ww2_germany.4.t
+	desc = wsv_ww2_germany.4.d
+	picture = report_event_generic_battleships
+
+	is_triggered_only = yes
+	
+	#protect norway
+	option = {
+		name = wsv_ww2_germany.4.a
+		if = { 
+			limit = { NOR = { has_war_with = GER } }
+			add_to_war = { 
+			    targeted_alliance = NOR
+			    enemy = GER
+			    hostility_reason = asked_to_join
+			}
+			hidden_effect = { news_event = wsv_ww2_germany.6 }
+		}
+		else = { 
+			give_guarantee = NOR 
+			GER = { country_event = wsv_ww2_germany.5 }
+		}
+		
+
+		ai_chance = { 
+			factor = 40 
+			modifier = {
+				add = 20
+				threat > 0.3
+			}
+			modifier = {
+				add = 20
+				threat > 0.5
+			}
+		}
+	}
+
+	#let it go
+	option = {
+		name = wsv_ww2_germany.4.b
+		
+		ai_chance = { 
+			factor = 40 
+			modifier = {
+				factor = 2
+				NOT = { has_government = fascism }
+			}
+		}
+	}
+}
+
+
+
+#england moves to defend norway
+country_event = {
+	id = wsv_ww2_germany.5
+	title = wsv_ww2_germany.5.t
+	desc = wsv_ww2_germany.5.d
+	picture = report_event_generic_battleships
+
+	is_triggered_only = yes
+	
+	#protect norway
+	option = {
+		name = wsv_ww2_germany.5.a
+	}
+}
+
+
+news_event = {
+	id = wsv_ww2_germany.6
+	title = wsv_ww2_germany.6.t
+	desc = wsv_ww2_germany.6.d
+	picture = news_event_generic_battleships
+
+	major = yes
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_ww2_germany.6.a
+		trigger = { 
+			tag = GER
+		}
+	}
+
+	option = {
+		name = wsv_ww2_germany.6.b
+		trigger = { 
+			tag = ENG 
+		}
+	}
+
+	option = {
+		name = wsv_ww2_germany.6.c
+		trigger = { 
+			tag = NOR 
+		}
+	}
+
+	option = {
+		name = wsv_ww2_germany.6.d
+		trigger = { 
+			NOT = { tag = ENG }
+			NOT = { tag = GER }
+			NOT = { tag = NOR }
+		}
+	}
+}
+
+#####################################################
+
+#request access to swedish iron
+country_event = {
+	id = wsv_ww2_germany.7
+	title = wsv_ww2_germany.7.t
+	desc = wsv_ww2_germany.7.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#yes
+	option = {
+		name = wsv_ww2_germany.7.a
+		give_resource_rights = { receiver = GER   state = 666 }
+		give_resource_rights = { receiver = GER   state = 38 }
+		GER = { give_guarantee = SWE   country_event = wsv_ww2_germany.8 }
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				GER = { OR = { controls_state=99  is_in_faction_with=DEN } }
+			}
+			modifier = {
+				factor = 2
+				GER = { OR = { controls_state=142  is_in_faction_with=NOR } }
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_germany.7.b
+		GER = { 
+			country_event = wsv_ww2_germany.9
+			custom_effect_tooltip = embargo_sweden_tt
+		}
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+
+#sweden agrees
+country_event = {
+	id = wsv_ww2_germany.8
+	title = wsv_ww2_germany.8.t
+	desc = wsv_ww2_germany.8.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.8.a
+	}
+}
+
+
+#sweden refuses
+country_event = {
+	id = wsv_ww2_germany.9
+	title = wsv_ww2_germany.9.t
+	desc = wsv_ww2_germany.9.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#embargo
+	option = {
+		name = wsv_ww2_germany.9.a
+		add_opinion_modifier = { target = SWE modifier = sanctions_relations } 
+		add_opinion_modifier = { target = SWE modifier = embargo }
+		ai_chance = { factor = 10 }
+	}
+
+	#no embargo
+	option = {
+		name = wsv_ww2_germany.9.b
+		ai_chance = { factor = 40 }
+	}
+}
+
+#######################################################
+####### Finland for Alliance Arc
+
+#offer finland for alliance
+country_event = {
+	id = wsv_ww2_germany.10
+	title = wsv_ww2_germany.10.t
+	desc = wsv_ww2_germany.10.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#yes
+	option = {
+		name = wsv_ww2_germany.10.a
+		set_country_flag = promised_russian_finland
+		GER = { add_to_faction = SWE }
+		add_to_war = { 
+		    targeted_alliance = GER 
+		    enemy = RUS 
+		    hostility_reason = asked_to_join
+		}
+		hidden_effect = {
+			add_state_claim = 148
+			add_state_claim = 149
+			add_state_claim = 111
+			add_state_claim = 150
+			add_state_claim = 147
+		}
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				GER = {
+					strength_ratio = {
+					    tag = RUS
+					    ratio > 1
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				GER = {
+					strength_ratio = {
+					    tag = RUS
+					    ratio > 1.5
+					}
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_germany.10.b
+		GER = { country_event = wsv_ww2_germany.11 }
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -29
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -49
+				}
+			}
+		}
+	}
+}
+
+
+#sweden refuses
+country_event = {
+	id = wsv_ww2_germany.11
+	title = wsv_ww2_germany.11.t
+	desc = wsv_ww2_germany.11.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.11.a
+	}
+}
+
+
+
+#sweden annexes land
+country_event = {
+	id = wsv_ww2_germany.12
+	title = wsv_ww2_germany.12.t
+	desc = wsv_ww2_germany.12.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.12.a
+	}
+}
+
+
+#######################################################
+####### Spain Alliance
+
+#offer land for alliance
+country_event = {
+	id = wsv_ww2_germany.13
+	title = wsv_ww2_germany.13.t
+	desc = wsv_ww2_germany.13.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#yes
+	option = {
+		name = wsv_ww2_germany.13.a
+		if = {
+			limit = { GER = { has_war_with = ENG } }
+			add_to_war = { 
+			    targeted_alliance = GER 
+			    enemy = ENG
+			    hostility_reason = asked_to_join
+			}
+			set_country_flag = promised_gibraltar
+		}
+		if = {
+			limit = { GER = { has_war_with = FRA } }
+			add_to_war = { 
+			    targeted_alliance = GER 
+			    enemy = FRA
+			    hostility_reason = asked_to_join
+			}
+			hidden_effect = {
+				add_state_claim = 459
+				add_state_claim = 460
+				add_state_claim = 513
+				add_state_claim = 514
+				add_state_claim = 782
+				add_state_claim = 786
+			}
+			set_country_flag = promised_french_africa
+		}
+		GER = { add_to_faction = SPR }
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				OR = {	
+					strength_ratio = { tag = FRA     ratio > 0.75 }
+					strength_ratio = { tag = ENG     ratio > 0.75 }
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {	
+					strength_ratio = { tag = FRA     ratio > 1 }
+					strength_ratio = { tag = ENG     ratio > 1 }
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_germany.13.b
+		GER = { country_event = wsv_ww2_germany.14 }
+		
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -29
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -49
+				}
+			}
+		}
+	}
+}
+
+
+#spain refuses
+country_event = {
+	id = wsv_ww2_germany.14
+	title = wsv_ww2_germany.14.t
+	desc = wsv_ww2_germany.14.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.14.a
+	}
+}
+
+
+#spain annexes gibraltar
+country_event = {
+	id = wsv_ww2_germany.15
+	title = wsv_ww2_germany.15.t
+	desc = wsv_ww2_germany.15.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.15.a
+	}
+}
+
+
+#spain annexes french africa
+country_event = {
+	id = wsv_ww2_germany.16
+	title = wsv_ww2_germany.16.t
+	desc = wsv_ww2_germany.16.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.16.a
+	}
+}
+
+
+#######################################################
+####### Italy alliance arc
+
+#offer italian alliance
+country_event = {
+	id = wsv_ww2_germany.17
+	title = wsv_ww2_germany.17.t
+	desc = wsv_ww2_germany.17.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#yes
+	option = {
+		name = wsv_ww2_germany.17.a
+		ITA = {
+			transfer_state = 39
+			remove_state_core = 736
+			remove_state_core = 163
+			hidden_effect = {
+				add_state_claim = 1
+				add_state_claim = 735
+				add_state_claim = 458
+				add_state_claim = 665
+			}
+			set_country_flag = french_land_promised
+		}
+		GER = { add_to_faction = ITA }
+		add_to_war = { 
+		    targeted_alliance = GER 
+		    enemy = FRA
+		    hostility_reason = asked_to_join
+		}
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				strength_ratio = { 
+					tag = FRA     
+					ratio > 0.75 
+				}
+			}
+			modifier = {
+				factor = 2
+				strength_ratio = { 
+					tag = FRA     
+					ratio > 1 
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_germany.17.b
+		GER = {	country_event = wsv_ww2_germany.18 }
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -29
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -49
+				}
+			}
+		}
+	}
+}
+
+
+#italy refuses
+country_event = {
+	id = wsv_ww2_germany.18
+	title = wsv_ww2_germany.18.t
+	desc = wsv_ww2_germany.18.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.18.a
+	}
+}
+
+
+#italy takes land
+country_event = {
+	id = wsv_ww2_germany.19
+	title = wsv_ww2_germany.19.t
+	desc = wsv_ww2_germany.19.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.19.a
+	}
+}
+
+
+#######################################################
+########### carve up austria arc
+
+#talk to country
+country_event = {
+	id = wsv_ww2_germany.20
+	title = wsv_ww2_germany.20.t
+	desc = wsv_ww2_germany.20.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#yes
+	option = {
+		name = wsv_ww2_germany.20.a
+		set_country_flag = aid_germany_in_austria_plot
+		if = {
+			limit = { tag = ITA }
+			add_state_claim = 103
+		}
+		else_if = {
+			limit = { tag = SER }
+			add_state_claim = 109
+			add_state_claim = 104
+			add_state_claim = 105
+			add_state_claim = 761
+		}
+
+		GER = { country_event = wsv_ww2_germany.21 }
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				add = 20
+				GER = {
+					strength_ratio = {
+					    tag = AUH
+					    ratio > 1
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				GER = {
+					strength_ratio = {
+					    tag = AUH
+					    ratio > 1.5
+					}
+				}
+			}
+			modifier = {
+				add = 20
+				is_in_faction_with = GER
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_germany.20.b
+		GER = {	country_event = wsv_ww2_germany.22 }
+		if = {
+			limit = { is_in_faction_with = GER }
+			leave_faction = yes
+		}
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -29
+				}
+			}
+			modifier = {
+				factor = 2
+				has_opinion = {
+					target = GER
+					value < -49
+				}
+			}
+		}
+	}
+}
+
+
+#country agrees
+country_event = {
+	id = wsv_ww2_germany.21
+	title = wsv_ww2_germany.21.t
+	desc = wsv_ww2_germany.21.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.21.a
+	}
+}
+
+
+#country refuses
+country_event = {
+	id = wsv_ww2_germany.22
+	title = wsv_ww2_germany.22.t
+	desc = wsv_ww2_germany.22.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.22.a
+	}
+}
+
+
+
+news_event = {
+	id = wsv_ww2_germany.23
+	title = wsv_ww2_germany.23.t
+	desc = wsv_ww2_germany.23.d
+	picture = news_event_wsv_civil_war
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+    		set_global_flag = bruders_war
+	    	GER = {
+	    		declare_war_on = {
+	    			target = AUH
+	    			type = topple_government
+	    		}
+	    	}
+	    	every_country = {
+	    		limit = {
+	    			has_country_flag = aid_germany_in_austria_plot 
+	    			OR = { 
+	    				is_in_faction = no 
+	    				is_in_faction_with = GER
+	    			}
+	    		}
+	    		add_to_war = { 
+	    		    targeted_alliance = GER 
+	    		    enemy = AUH 
+	    		    hostility_reason = asked_to_join
+	    		}
+	    	}
+	    }
+    }
+	
+	option = {
+		name = wsv_ww2_germany.23.a
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_germany.23.b
+		trigger = { 
+			OR = { tag = AUH   is_in_faction_with = AUH }
+		}
+	}
+
+
+	option = {
+		name = wsv_ww2_germany.23.c
+		trigger = { 
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = AUH   is_in_faction_with = AUH }
+		}
+	}
+}
+
+
+#balkan occupation zones
+country_event = {
+	id = wsv_ww2_germany.24
+	title = wsv_ww2_germany.24.t
+	desc = wsv_ww2_germany.24.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	immediate = {
+    	hidden_effect = {
+    		if = {
+    			limit = { TAG = ger }
+    			POL = {
+    				transfer_state = 88
+    				transfer_state = 72
+    			}
+    			UKR = {
+    				transfer_state = 91
+    				transfer_state = 89
+    				transfer_state = 80
+    				transfer_state = 73
+    			}
+    			CZE = {
+    				transfer_state = 9
+    				transfer_state = 75
+    				transfer_state = 70
+    				transfer_state = 71
+    			}
+    			HUN = {
+    				transfer_state = 155
+    				transfer_state = 154
+    				transfer_state = 43
+    				transfer_state = 76
+    				transfer_state = 664
+    				transfer_state = 45
+    				transfer_state = 764
+    				transfer_state = 84
+			    	transfer_state = 82
+	    			transfer_state = 83 
+    			}
+    			SER = {
+    				transfer_state = 105
+	    			transfer_state = 761
+    			}
+    			transfer_state = 69
+    			transfer_state = 74
+    			transfer_state = 4
+    			transfer_state = 152
+    			transfer_state = 153
+    			transfer_state = 102
+    			transfer_state = 736
+    			transfer_state = 39
+    			transfer_state = 599
+    			puppet = HUN
+    			puppet = CZE
+    		}
+    		ROM = {
+	    		if = {
+	    			limit = { has_country_flag = aid_germany_in_austria_plot }
+			    	transfer_state = 80
+			    	transfer_state = 84
+			    	transfer_state = 82
+	    			transfer_state = 83 
+	    			clr_country_flag = aid_germany_in_austria_plot
+	    		}
+	    	}
+	    	ITA = {
+	    		if = {
+	    			limit = { has_country_flag = aid_germany_in_austria_plot }
+			    	transfer_state = 39  
+    				transfer_state = 736 
+    				transfer_state = 103
+    				transfer_state = 163  
+	    			clr_country_flag = aid_germany_in_austria_plot
+	    		}
+	    	}
+	    	SER = {
+	    		if = {
+	    			limit = { has_country_flag = aid_germany_in_austria_plot }
+			    	transfer_state = 104
+    				transfer_state = 109 
+    				transfer_state = 105
+    				transfer_state = 761 
+	    			clr_country_flag = aid_germany_in_austria_plot
+	    		}
+	    		else = {
+	    			CRO = {
+	    				transfer_state = 103
+	    				transfer_state = 163
+	    				transfer_state = 109 
+	    			}
+	    			BOS = {
+	    				transfer_state = 104
+	    			}
+	    			GER = { puppet = SER }
+	    		}
+	    	}
+    		clr_country_flag = bruders_war
+    	}
+    }
+
+	option = {
+		name = wsv_ww2_germany.24.a
+	}
+}
+
+
+#########################################################################
+
+#finnish uprising
+news_event = {
+	id = wsv_ww2_germany.25
+	title = wsv_ww2_germany.25.t
+	desc = wsv_ww2_germany.25.d
+	picture = news_event_winter_war
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+    		set_global_flag = finnish_rebellion
+	    	FIN = {
+	    		transfer_state = 111
+	    		transfer_state = 149
+	    		transfer_state = 150
+
+	    		set_politics = { ruling_party = neutrality }
+	    		set_popularities = {
+	    			democratic = 5
+	    			neutrality = 65
+	    			fascism = 25
+	    			communism = 5
+	    		}
+	    		add_equipment_to_stockpile = {
+	    		    type = infantry_equipment_4
+	    		    amount = 5000
+	    		    producer = GER
+	    		}
+	    		load_oob = "FIN_rebellion"
+	    		set_division_template_lock = { division_template = "Vapaaehtoinen Miliisi"  is_locked = yes }
+	    		set_stability = 0.9
+	    		set_war_support = 0.8
+	    		set_political_power = 500
+	    	}
+	    	RUS = {
+	    		declare_war_on = {
+	    			target = FIN
+	    			type = annex_everything
+	    		}
+	    	}
+	    	GER = { add_to_faction = FIN }
+	    }
+    }
+	
+	option = {
+		name = wsv_ww2_germany.25.a
+		trigger = { 
+			OR = { tag = GER  tag = FIN }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_germany.25.b
+		trigger = { 
+			tag = RUS 
+		}
+	}
+
+
+	option = {
+		name = wsv_ww2_germany.25.c
+		trigger = { 
+			NOT = { tag = GER }
+			NOT = { tag = FIN }
+			NOT = { tag = RUS }
+		}
+	}
+}
+
+
+#######################################################
+
+# Join central powers
+country_event = {
+	id = wsv_ww2_germany.26
+	title = wsv_ww2_germany.26.t
+	desc = wsv_ww2_germany.26.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	#yes
+	option = {
+		name = wsv_ww2_germany.26.a
+		GER = { add_to_faction = ROOT }
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				add = 20
+				OR = {
+					has_opinion = { target = ENG  value <-24 }
+					has_opinion = { target = FRA  value <-24 }
+					has_opinion = { target = RUS  value <-24 }
+				}
+			}
+			modifier = {
+				add = 20
+				OR = {
+					has_opinion = { target = ENG  value <-49 }
+					has_opinion = { target = FRA  value <-49 }
+					has_opinion = { target = RUS  value <-49 }
+				}
+			}
+			modifier = {
+				add = 40
+				any_neighbor_country = {
+					OR = { tag = GER   is_in_faction_with = GER  }
+					strength_ratio = { tag = ROOT    ratio > 2 }
+				}
+			}
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_ww2_germany.26.b
+		GER = {	country_event = wsv_ww2_germany.27 }
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				add = 20
+				has_opinion = { target = GER  value <-24 }
+			}
+			modifier = {
+				add = 20
+				has_opinion = { target = GER  value <-49 }
+			}
+		}
+	}
+}
+
+
+#country refused
+country_event = {
+	id = wsv_ww2_germany.27
+	title = wsv_ww2_germany.27.t
+	desc = wsv_ww2_germany.27.d
+	#picture = 
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.27.a
+	}
+}
+
+
+######################################################################
+################ Resistance in allied territory ######################
+
+#baltic resistance
+country_event = {
+	id = wsv_ww2_germany.28
+	title = wsv_ww2_germany.28.t
+	desc = wsv_ww2_germany.28.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.28.a
+		add_manpower = -20000
+		hidden_effect = { UBD = { country_event = wsv_ww2_germany.31 } }
+	}
+}
+
+
+#lithuanian resistance
+country_event = {
+	id = wsv_ww2_germany.29
+	title = wsv_ww2_germany.29.t
+	desc = wsv_ww2_germany.29.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.29.a
+		add_manpower = -35000
+		hidden_effect = { LIT = { country_event = wsv_ww2_germany.31 } }
+	}
+}
+
+
+#ukraine resistance
+country_event = {
+	id = wsv_ww2_germany.30
+	title = wsv_ww2_germany.30.t
+	desc = wsv_ww2_germany.30.d
+	picture = report_event_local_resistance
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.30.a
+		add_manpower = -65000
+		hidden_effect = { UKR = { country_event = wsv_ww2_germany.31 } }
+	}
+}
+
+
+#germany sends aid
+country_event = {
+	id = wsv_ww2_germany.31
+	title = wsv_ww2_germany.31.t
+	desc = wsv_ww2_germany.31.d
+	picture = report_event_german_troops
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_ww2_germany.31.a
+		if = {
+			limit = { tag = UBD }
+			add_manpower = 20000
+		}
+		else_if = {
+			limit = { tag = LIT }
+			add_manpower = 35000
+		}
+		else_if = {
+			limit = { tag = UKR }
+			add_manpower = 65000
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
