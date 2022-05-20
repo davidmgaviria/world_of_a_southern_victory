@@ -5,8 +5,12 @@ technologies = {
 	ww1_fortification1 = {
 	
 		enable_building = {
-			building = trench
-			level = 2
+			building = bunker
+			level = 1
+		}
+		enable_building = {
+			building = coastal_bunker
+			level = 1
 		}
 		
 		path = {
@@ -14,7 +18,7 @@ technologies = {
 			research_cost_coeff = 1
 		}
 	
-		research_cost = 1.5
+		research_cost = 1.2
 		start_year = 1900
 
 		folder = {
@@ -27,17 +31,25 @@ technologies = {
 		}
 		
 		categories = {
-			industry
+			fortification
 		}
 	}
 
 	ww1_fortification2 = {
 	
 		enable_building = {
-			building = trench
-			level = 6
+			building = bunker
+			level = 3
+		}
+		enable_building = {
+			building = coastal_bunker
+			level = 3
 		}
 		
+		#path = {
+		#	leads_to_tech = ww1_fortification_upgrade1
+		#	research_cost_coeff = 1
+		#}
 		path = {
 			leads_to_tech = ww1_fortification3
 			research_cost_coeff = 1
@@ -56,88 +68,64 @@ technologies = {
 		}
 		
 		categories = {
-			industry
+			fortification
 		}
 	}
 
+	#ww1_fortification_upgrade1 = {
+	#
+	#	production_speed_bunker_factor = 0.15 
+	#	production_speed_coastal_bunker_factor = 0.15 
+	#
+	#	path = {
+	#		leads_to_tech = ww1_fortification3
+	#		research_cost_coeff = 1
+	#	}
+	#
+	#	research_cost = 1.2
+	#	start_year = 1914
+	#
+	#	folder = {
+	#		name = industry_folder
+	#		position = { x = 4 y = 4 }
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#	
+	#	categories = {
+	#		fortification
+	#	}
+	#}
+
+
 	ww1_fortification3 = {
 	
-		production_speed_buildings_factor = 0.01
-
 		enable_building = {
-			building = trench
-			level = 10
+			building = bunker
+			level = 5
+		}
+		enable_building = {
+			building = coastal_bunker
+			level = 5
 		}
 
+		#path = {
+		#	leads_to_tech = ww1_fortification_upgrade2
+		#	research_cost_coeff = 1
+		#}
 		path = {
 			leads_to_tech = ww1_fortification4
 			research_cost_coeff = 1
 		}
 		path = {
-			leads_to_tech = ww1_fortification3b
-			research_cost_coeff = 1
-		}
-	
-		research_cost = 2
-		start_year = 1914
-
-		folder = {
-			name = industry_folder
-			position = { x = 4 y = 4 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-		
-		categories = {
-			industry
-		}
-	}
-
-	ww1_fortification3b = {
-	
-		enable_building = {
-			building = bunker
-			level = 3
-		}
-
-		path = {
-			leads_to_tech = ww1_fortification5
+			leads_to_tech = ww1_airdefense1
 			research_cost_coeff = 1
 		}
 	
 		research_cost = 1.5
-		start_year = 1914
-
-		folder = {
-			name = industry_folder
-			position = { x = 6 y = 4 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-		
-		categories = {
-			industry
-		}
-	}
-
-	ww1_fortification4 = {
-
-		path = {
-			leads_to_tech = ww1_fortification4b
-			research_cost_coeff = 1
-		}
-	
-		enable_building = {
-			building = anti_air_building
-			level = 3
-		}
-	
-		research_cost = 1.5
-		start_year = 1917
+		start_year = 1916
 
 		folder = {
 			name = industry_folder
@@ -149,53 +137,26 @@ technologies = {
 		}
 		
 		categories = {
-			industry
+			fortification
 		}
 	}
 
-	ww1_fortification4b = {
 
-		path = {
-			leads_to_tech = ww1_fortification4c
-			research_cost_coeff = 1
-		}
+
+	ww1_airdefense1 = {
 	
 		enable_building = {
 			building = anti_air_building
-			level = 5
+			level = 3
 		}
-	
-		research_cost = 1.5
-		start_year = 1937
 
-		folder = {
-			name = industry_folder
-			position = { x = 4 y = 8 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-		
-		categories = {
-			industry
-		}
-	}
-
-	ww1_fortification5 = {
-	
 		path = {
-			leads_to_tech = ww1_fortification6
+			leads_to_tech = ww1_airdefense2
 			research_cost_coeff = 1
 		}
-
-		enable_building = {
-			building = bunker
-			level = 5
-		}
 	
-		research_cost = 1.5
-		start_year = 1917
+		research_cost = 1.2
+		start_year = 1916
 
 		folder = {
 			name = industry_folder
@@ -207,23 +168,53 @@ technologies = {
 		}
 		
 		categories = {
-			industry
+			fortification
 		}
 	}
 
-	ww1_fortification6 = {
+
+
+	#ww1_fortification_upgrade2 = {
+	#
+	#	production_speed_bunker_factor = 0.15 
+	#	production_speed_coastal_bunker_factor = 0.15 
+	#
+	#	path = {
+	#		leads_to_tech = ww1_fortification4
+	#		research_cost_coeff = 1
+	#	}
+	#
+	#	research_cost = 1.2
+	#	start_year = 1937
+	#
+	#	folder = {
+	#		name = industry_folder
+	#		position = { x = 4 y = 8 }
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#	
+	#	categories = {
+	#		fortification
+	#	}
+	#}
+
+
+	ww1_airdefense2 = {
 	
-		path = {
-			leads_to_tech = ww1_fortification7
-			research_cost_coeff = 1
+		enable_building = {
+			building = anti_air_building
+			level = 5
 		}
 
-		enable_building = {
-			building = bunker
-			level = 8
+		path = {
+			leads_to_tech = ww1_airdefense2
+			research_cost_coeff = 1
 		}
 	
-		research_cost = 1.5
+		research_cost = 1.3
 		start_year = 1937
 
 		folder = {
@@ -236,14 +227,19 @@ technologies = {
 		}
 		
 		categories = {
-			industry
+			fortification
 		}
 	}
 
-	ww1_fortification7 = {
-	
+
+	ww1_fortification4 = {
+
 		enable_building = {
 			building = bunker
+			level = 10
+		}
+		enable_building = {
+			building = coastal_bunker
 			level = 10
 		}
 	
@@ -252,7 +248,7 @@ technologies = {
 
 		folder = {
 			name = industry_folder
-			position = { x = 6 y = 10 }
+			position = { x = 4 y = 10 }
 		}
 		
 		ai_will_do = {
@@ -260,9 +256,11 @@ technologies = {
 		}
 		
 		categories = {
-			industry
+			fortification
 		}
 	}
+
+
 
 
 #======================================================================
@@ -428,7 +426,7 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1916
 		
 		folder = {
 			name = industry_folder
@@ -587,7 +585,7 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1916
 		
 		categories = {
 			industry
@@ -1199,7 +1197,7 @@ technologies = {
 		fuel_gain_factor_from_states = 0.1
 		
 		research_cost = 2
-		start_year = 1917
+		start_year = 1916
 
 		path = {
 			leads_to_tech = fuel_refining
