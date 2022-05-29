@@ -1,367 +1,61 @@
 capital = 362
-set_major = yes
 
 
-#-------------------------------------------------------
-#					GENERIC VALUES
-#-------------------------------------------------------
 set_fuel_ratio = 0.35
 set_research_slots = 3 #was 4
 set_stability = 0.55
 set_war_support = 0.21
 set_convoys = 200
+set_major = yes		#gotta make sure its a major
 
 
-#-------------------------------------------------------
-#					POLITICS & ARMY
-#-------------------------------------------------------
 
-
-add_opinion_modifier = {  target = USA   modifier = WSV_bitter_enemies }
-
-if = { limit = { has_start_date < 1937.1.1 }
-
-set_cosmetic_tag = CSA_nohelmet
-
-puppet = MEX
-
-create_country_leader = { 
-	name = "Woodrow Wilson" 
-	#desc=CSA_woodrow_wilson_DESC 
-	picture="gfx/portraits/CSA/country_leaders/CSA_woodrow_wilson.dds" 
-	expire="1935.1.1" 
-	ideology=liberalism 
-	traits={  } 
-}
-
-
-##############################
-####### FIELD MARSHALS #######
-##############################
-create_field_marshal = {
-	name = "J.E.B. Stuart Jr" 
-	id = 42019
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_JEB_Stuart_Jr.dds"
-	traits = { offensive_doctrine }
-	skill = 3
-	attack_skill = 3
-	defense_skill = 2
-	planning_skill = 3
-	logistics_skill = 2
-}
-
-#Weird one
-create_field_marshal = {
-	name = "William H. Hay" 
-	#id = 32019
-	portrait_path = "gfx/portraits/USA/army_generals/USA_William_Hay.dds" 
-	traits = { defensive_doctrine old_guard }
-	skill = 3
-	attack_skill = 3
-	defense_skill = 3
-	planning_skill = 2
-	logistics_skill = 2
-}
-
-#Weird one
-create_field_marshal = {
-	name = "Tasker H. Bliss" 
-	#id = 93552
-	portrait_path = "gfx/portraits/USA/army_generals/USA_Tasker_Bliss.dds"
-	traits = { offensive_doctrine }
-	skill = 3
-	attack_skill = 3
-	defense_skill = 3
-	planning_skill = 2
-	logistics_skill = 2
-}
-
-create_field_marshal = {
-	name = "Charles Pelot Summerall" 
-	id = 93065
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_Charles_Pelot_Summerall.dds" 
-	traits = { offensive_doctrine }
-	skill = 3
-	attack_skill = 3
-	defense_skill = 3
-	planning_skill = 3
-	logistics_skill = 2
-}
-
-########################
-### CORPS COMMANDERS ###
-########################
-
-create_corps_commander = {
-	name = "James McRea" 
-	id = 42024
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_James_McRea.dds"
-	traits = {
-		fortress_buster  
-	}
-	skill = 3
-	attack_skill = 3
-	defense_skill = 2
-	planning_skill = 2
-	logistics_skill = 2
-}
-
-create_corps_commander = {
-	name = "Mason Patrick" 
-	id = 42021
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_Mason Patrick.dds"
-	traits = {
-		trickster  
-	}
-	skill = 3
-	attack_skill = 2
-	defense_skill = 3
-	planning_skill = 2
-	logistics_skill = 2
-}
-
-create_corps_commander = {
-	name = "Robert L. Bullard"
-	id = 93007
-	portrait_path = "gfx/portraits/USA/army_generals/USA_Robert_Bullard.dds"
-	traits = {
-		commando  
-	}
-	skill = 3
-	attack_skill = 2
-	defense_skill = 3
-	planning_skill = 1
-	logistics_skill = 2
-}
-
-create_corps_commander = {
-	name = "William L. Sibert"
-	id = 42022
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_William_Sibert.dds"
-	traits = {
-		fortress_buster
-	}
-	skill = 3
-	attack_skill = 3
-	defense_skill = 2
-	planning_skill = 2
-	logistics_skill = 1
-}
-
-create_corps_commander = {
-	name = "Ewing E. Booth" 
-	id = 42020
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_Ewing_Booth.dds"
-	traits = {
-		fortress_buster  
-	}
-	skill = 2
-	attack_skill = 2
-	defense_skill = 1
-	planning_skill = 2
-	logistics_skill = 2
-}
-
-create_corps_commander = {
-	name = "Samuel Rockenbach" 
-	id = 93012
-	portrait_path = "gfx/portraits/USA/army_generals/USA_Samuel_Rockenbach.dds"
-	traits = {
-
-	}
-	skill = 2
-	attack_skill = 2
-	defense_skill = 1
-	planning_skill = 2
-	logistics_skill = 1
-}
-
-###Weird one
-create_corps_commander = {
-	name = "Samson L. Faison"
-	#id = 93045
-	portrait_path = "gfx/portraits/USA/army_generals/USA_Samson_Faison.dds"
-	traits = {
-		 trickster
-	}
-	skill = 2
-	attack_skill = 2
-	defense_skill = 2
-	planning_skill = 2
-	logistics_skill = 1
-}
-
-###Weird one
-create_corps_commander = {
-	name = "William R. Smith"
-	#id = 93296
-	portrait_path = "fx/portraits/CSA/army_generals/CSA_William_R_Smith.dds"
-	traits = {
-		commando
-	}
-	skill = 2
-	attack_skill = 2
-	defense_skill = 1
-	planning_skill = 1
-	logistics_skill = 2
-}
-
-create_corps_commander = {
-	name = "Guy V. Henry Jr"
-	id = 42018
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_Guy_Henry.dds"
-	traits = {
-
-	}
-	skill = 2
-	attack_skill = 2
-	defense_skill = 2
-	planning_skill = 1
-	logistics_skill = 1
-}
-
-create_corps_commander = {
-	name = "George B. Duncan"
-	id = 42017
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_George_B_Duncan.dds"
-	traits = {
-		fortress_buster
-	}
-	skill = 2
-	attack_skill = 1
-	defense_skill = 2
-	planning_skill = 2
-	logistics_skill = 1
-}
-
-create_corps_commander = {
-	name = "Clint C. Hearn"
-	id = 42025
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_Clint_Hearn.dds"
-	traits = {
-
-	}
-	skill = 1
-	attack_skill = 1
-	defense_skill = 1
-	planning_skill = 2
-	logistics_skill = 1
-}
-
-create_corps_commander = {
-	name = "Meriwether Walker" 
-	id = 42026
-	portrait_path = "gfx/portraits/CSA/army_generals/CSA_Meriwether_Walker.dds"
-	traits = {
-
-	}
-	skill = 1
-	attack_skill = 2
-	defense_skill = 1
-	planning_skill = 1
-	logistics_skill = 1
-}
-
-########################
-#### NAVY LEADERS ######
-########################
-
-create_navy_leader = {
-	name = "J.R. Cash"
-	portrait_path = "gfx/portraits/USA/navy_admirals/USA_William_Sims.dds"
-	traits = {
-		blockade_runner superior_tactician seawolf
-	}
-		skill = 3
-		attack_skill = 2 #temp values
-		defense_skill = 2
-		maneuvering_skill = 1
-		coordination_skill = 1
-}
-create_navy_leader = {
-	name = "William S. Benson"
-	portrait_path = "gfx/portraits/USA/navy_admirals/USA_William_Benson.dds"
-	traits = {
-		superior_tactician
-	}
-	skill = 4
-	attack_skill = 2 #temp values
-	defense_skill = 2
-	maneuvering_skill = 1
-	coordination_skill = 1
-	}
-create_navy_leader = {
-	name = "Hiram King Williams"
-	portrait_path = "gfx/portraits/USA/navy_admirals/USA_Henry_Mayo.dds"
-	traits = {
-		seawolf blockade_runner
-	}
-	skill = 4
-	attack_skill = 2 #temp values
-	defense_skill = 2
-	maneuvering_skill = 1
-	coordination_skill = 1
-	}
-create_navy_leader = {
-	name = "Steve F. Earl"
-	portrait_path = "gfx/portraits/USA/navy_admirals/USA_William_Caperton.dds" 
-	traits = {
-		blockade_runner seawolf
-	}
-	skill = 3
-	attack_skill = 2 #temp values
-	defense_skill = 2
-	maneuvering_skill = 1
-	coordination_skill = 1
-	}
-create_navy_leader = { 
-	name = "Levon Helm" 
-	portrait_path = "gfx/portraits/USA/navy_admirals/USA_Frank_Fletcher.dds" 
-	traits = {
-		superior_tactician
-	}
-	skill = 3
-	attack_skill = 2 #temp values
-	defense_skill = 2
-	maneuvering_skill = 1
-	coordination_skill = 1
-	}
-create_navy_leader = { 
-	name = "Earl E. Scruggs" 
-	portrait_path = "gfx/portraits/USA/navy_admirals/USA_Richmond_Hobson.dds" 
-	traits = {
-		blockade_runner seawolf
-	}
-	skill = 3
-	attack_skill = 2 #temp values
-	defense_skill = 2
-	maneuvering_skill = 1
-	coordination_skill = 1
-}
-#create_navy_leader = {
-#	name = "Jacob B. Burnside"
-#	portrait_path = "gfx/admiral/USA_eberle.tga"
-#	traits = {
-#
-#	}
-#	skill = 3
-#	attack_skill = 2 #temp values
-#	defense_skill = 2
-#	maneuvering_skill = 1
-#	coordination_skill = 1
-#}
-}
 
 1910.1.1 = {
 	oob = "CSA_1910"
+
+	puppet = MEX
+	add_opinion_modifier = {  target = USA   modifier = WSV_bitter_enemies }
 	
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
-	#-------------------------------------------------------
+	
+	#---------------- CHARACTERS ----------------#
+	# Active Leader
+	recruit_character = CSA_woodrow_wilson
 
+	# Civil Advisors
+	recruit_character = CSA_robert_sloss
+	recruit_character = CSA_martin_ensley
+	recruit_character = CSA_albert_h_roberts
+	recruit_character = CSA_thomas_m_campbell
 
+	# Generals
+	recruit_character = CSA_j.e.b._stuart_jr
+	recruit_character = CSA_william_h._hay
+	recruit_character = CSA_tasker_h._bliss
+	recruit_character = CSA_ewing_e._booth
+	recruit_character = CSA_samuel_rockenbach
+	recruit_character = CSA_samson_l._faison
+	recruit_character = CSA_james_mcrea
+	recruit_character = CSA_robert_l._bullard
+	recruit_character = CSA_william_l._sibert
+	recruit_character = CSA_william_r._smith
+	recruit_character = CSA_guy_v._henry_jr
+	recruit_character = CSA_george_b._duncan
+	recruit_character = CSA_clint_c._hearn
+	recruit_character = CSA_meriwether_walker
 
+	# Admirals
+	recruit_character = CSA_hiram_king_williams
+	recruit_character = CSA_levon_helm
+	recruit_character = CSA_earl_e._scruggs
+
+	# Military Advisors
+	recruit_character = CSA_edward_p_alexander
+	recruit_character = CSA_henry_p_mccain
+	recruit_character = CSA_anson_pendleton
+	recruit_character = recruit_character = CSA_robert_k_evans
+
+	#---------------- POLITICS ----------------#
 	set_politics = {
 	    ruling_party = democratic
 	    last_election = "1909.11.5"
@@ -384,7 +78,7 @@ create_navy_leader = {
 		free_trade 
 	}
 
-
+	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
 		# Infantry
 		infantry_weapons = 1
