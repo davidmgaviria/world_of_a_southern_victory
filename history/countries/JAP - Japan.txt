@@ -1,160 +1,67 @@
 ﻿capital = 282
 
-#-------------------------------------------------------
-#					GENERIC VALUES
-#-------------------------------------------------------
 set_fuel_ratio = 0.20
 set_research_slots = 3
 set_stability = 0.8
 set_war_support = 0.25
 set_convoys = 400
-create_import = { resource = oil amount = 12 exporter = USA }
-puppet = KOR
 
-
-
-#-------------------------------------------------------
-#					POLITICS & ARMY
-#-------------------------------------------------------
-if = { limit = { has_start_date < 1937.1.1 }
-set_cosmetic_tag = JAP_nohelmet
-
-create_country_leader={ name = "Yoshihito" desc=JAP_yoshihito_DESC picture="gfx/portraits/JAP/country_leaders/JAP_yoshihito.dds" expire="1937.1.1" ideology=marxism traits={  } }
-create_country_leader={ name = "Yoshihito" desc=JAP_yoshihito_DESC picture="gfx/portraits/JAP/country_leaders/JAP_yoshihito.dds" expire="1939.1.1" ideology=despotism traits={  } }
-create_country_leader={ name = "Yoshihito" desc=JAP_yoshihito_DESC picture="gfx/portraits/JAP/country_leaders/JAP_yoshihito.dds" expire="1940.1.1" ideology=liberalism traits={  } }
-create_country_leader={ name = "Emperor Meiji" desc=JAP_emperor_meiji_DESC picture="gfx/portraits/JAP/country_leaders/JAP_emperor_meiji.dds" expire="1912.5.1" ideology=autocracy traits={  } }
-
-create_corps_commander={  name = "Fukushima" id=47004 portrait_path="gfx/generals/JAP_fukushima.tga" traits={  old_guard } skill=2 }
-create_corps_commander={  name = "Hishikari" id=47005 portrait_path="gfx/generals/JAP_hishikari.tga" traits={   } skill=1 }
-create_corps_commander={  name = "Ishimoto" id=47012 portrait_path="gfx/generals/JAP_ishimoto.tga" traits={ winter_specialist  } skill=2 }
-create_corps_commander={  name = "Katsura" id=47016 portrait_path="gfx/generals/JAP_katsura.tga" traits={   } skill=1 }
-create_corps_commander={  name = "Kawamura K." id=47018 portrait_path="gfx/generals/JAP_kawamura_k.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Kigoshi" id=47019 portrait_path="gfx/generals/JAP_kigoshi.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Kodama" id=47022 portrait_path="gfx/generals/JAP_kodama.tga" traits={  trickster } skill=3 }
-create_corps_commander={  name = "Kuroki" id=47024 portrait_path="gfx/generals/JAP_kuroki.tga" traits={   } skill=3 }
-create_corps_commander={  name = "Matsuishi" id=47029 portrait_path="gfx/generals/JAP_matsuishi.tga" traits={   } skill=1 }
-create_corps_commander={  name = "Matsukawa" id=47030 portrait_path="gfx/generals/JAP_matsukawa.tga" traits={ winter_specialist  } skill=2 }
-create_corps_commander={  name = "Miura" id=47031 portrait_path="gfx/generals/JAP_miura.tga" traits={ trickster old_guard } skill=2 }
-create_corps_commander={  name = "Murata" id=47033 portrait_path="gfx/generals/JAP_murata.tga" traits={ trait_engineer old_guard } skill=2 }
-create_corps_commander={  name = "Nagaoka" id=47035 portrait_path="gfx/generals/JAP_nagaoka.tga" traits={   } skill=3 }
-create_corps_commander={  name = "Nambu" id=47037 portrait_path="gfx/generals/JAP_nambu.tga" traits={ trait_engineer  } skill=2 }
-create_corps_commander={  name = "Nitahara" id=47039 portrait_path="gfx/generals/JAP_nitahara.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Nogi" id=47040 portrait_path="gfx/generals/JAP_nogi.tga" traits={   } skill=3 }
-create_corps_commander={  name = "Nozu" id=47041 portrait_path="gfx/generals/JAP_nozu.tga" traits={ winter_specialist old_guard } skill=3 }
-create_corps_commander={  name = "Oku" id=47046 portrait_path="gfx/generals/JAP_oku.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Osako N." id=47049 portrait_path="gfx/generals/JAP_osako_n.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Oyama" id=47053 portrait_path="gfx/generals/JAP_oyama.tga" traits={   } skill=3 }
-create_corps_commander={  name = "Shimakawa" id=47061 portrait_path="gfx/generals/JAP_shimakawa.tga" traits={   } skill=1 }
-create_corps_commander={  name = "Shioden" id=47062 portrait_path="gfx/generals/JAP_shioden.tga" traits={ trait_engineer  } skill=1 }
-create_corps_commander={  name = "Tanaka G." id=47069 portrait_path="gfx/generals/JAP_tanaka_g.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Tanaka K." id=47070 portrait_path="gfx/generals/JAP_tanaka_k.tga" traits={ winter_specialist  } skill=1 }
-create_corps_commander={  name = "Ueda K." id=47077 portrait_path="gfx/generals/JAP_ueda_k.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Uehara" id=47078 portrait_path="gfx/generals/JAP_uehara.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Yamanashi" id=47081 portrait_path="gfx/generals/JAP_yamanashi.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Yui" id=47082 portrait_path="gfx/generals/JAP_yui.tga" traits={   } skill=2 }
-create_field_marshal={  name = "Kamio" id=47014 portrait_path="gfx/portraits/JAP/army_generals/JAP_kamio.tga" traits={ thorough_planner  } skill=3 }
-create_field_marshal={  name = "Okazawa" id=47045 portrait_path="gfx/portraits/JAP/army_generals/JAP_okazawa.tga" traits={   } skill=1 }
-create_navy_leader={  name = "Inoue Y." id=47093 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_inoue_y.tga" traits={ old_guard  } skill=2 }
-create_navy_leader={  name = "Kato K." id=47097 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_kato_k.tga" traits={ spotter  } skill=2 }
-create_navy_leader={  name = "Kato T." id=47099 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_kato_t.tga" traits={ superior_tactician  } skill=3 }
-create_navy_leader={  name = "Prince Arisugawa" id=47111 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_prince_arisugawa.tga" traits={ spotter  } skill=1 }
-create_navy_leader={  name = "Sakurai" id=47114 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_sakurai.tga" traits={ blockade_runner  } skill=2 }
-create_navy_leader={  name = "Shibayama" id=47115 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_shibayama.tga" traits={ superior_tactician  } skill=1 }
-create_navy_leader={  name = "Takeshita" id=47118 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_takeshita.tga" traits={ spotter  } skill=3 }
-create_navy_leader={  name = "Togo H." id=47121 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_togo_h.tga" traits={ superior_tactician spotter } skill=4 }
-create_navy_leader={  name = "Yamamoto G." id=47127 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_yamamoto_g.tga" traits={ superior_tactician  } skill=3 }
-create_navy_leader={  name = "Yoshimi" id=47132 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_yoshimi.tga" traits={ superior_tactician  } skill=2 }
-create_navy_leader={  name = "Chisaka" id=47133 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_chisaka.tga" traits={ seawolf  } skill=2 }
-create_navy_leader={  name = "Prince Fushimi H." id=47178 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_prince_fushimi_h.tga" traits={   } skill=2 }
-}
 
 
 1910.1.1 = {
 	oob = "JAP_1910"
 
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
+	puppet = KOR
 
-	#-------------------------------------------------------
+	create_country_leader={ name = "Yoshihito" desc=JAP_yoshihito_DESC picture="gfx/portraits/JAP/country_leaders/JAP_yoshihito.dds" expire="1937.1.1" ideology=marxism traits={  } }
+	create_country_leader={ name = "Yoshihito" desc=JAP_yoshihito_DESC picture="gfx/portraits/JAP/country_leaders/JAP_yoshihito.dds" expire="1939.1.1" ideology=despotism traits={  } }
+	create_country_leader={ name = "Yoshihito" desc=JAP_yoshihito_DESC picture="gfx/portraits/JAP/country_leaders/JAP_yoshihito.dds" expire="1940.1.1" ideology=liberalism traits={  } }
+	create_country_leader={ name = "Emperor Meiji" desc=JAP_emperor_meiji_DESC picture="gfx/portraits/JAP/country_leaders/JAP_emperor_meiji.dds" expire="1912.5.1" ideology=autocracy traits={  } }
 
-	set_technology = {
-
-		# Infantry
-		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		support_weapons = 1
-		infantry_binoculars = 1
-		motorised_infantry = 1
-		#ww1_ambulance1 = 1
-
-		# Support
-		tech_support = 1
-		tech_engineers = 1
-		tech_recon = 1
-		#tech_military_police = 1
-		#tech_maintenance_company = 1
-		#tech_field_hospital = 1
-		#tech_logistics_company = 1
-
-		# Armor
-		gwtank=1 # 1910 Armored Car
-
-		# Artillery
-		light_field_gun1 = 1
-		heavy_field_gun1 = 1
-
-		# Navy
-		ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1
-		ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1
-		ww1_battlecruiser0 = 1
-	ww1_battlecruiser0_mtg = 1
-		ww1_battlecruiser1 = 1
-	ww1_battlecruiser1_mtg = 1
-		ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1
-		ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1
-		ww1_light_cruiser2 = 1
-	ww1_light_cruiser2_mtg = 1
-		ww1_light_cruiser3 = 1
-	ww1_light_cruiser3_mtg = 1
-		ww1_submarine0 = 1
-	ww1_submarine0_mtg = 1
-		ww1_submarine1 = 1
-	ww1_submarine1_mtg = 1
-		ww1_coastal_submarine1 = 1
-	ww1_coastal_submarine1_mtg = 1
-		ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-		ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-		ww1_battleship2 = 1
-	ww1_battleship2_mtg = 1
-		ww1_battleship3 = 1
-	ww1_battleship3_mtg = 1
-		ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1
-		ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1
-		ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
-		transport = 1
-	transport_mtg = 1
-
-		# Air
-		#ww1_fighter1 = 1
-		#ww1_zeppelin1 = 1
-
-		# Engineering
-		electronic_mechanical_engineering = 1
-		chemical_research = 1
-
-		# Industry
-		ww1_fortification1 = 1
+	create_corps_commander={  name = "Fukushima" id=47004 portrait_path="gfx/generals/JAP_fukushima.tga" traits={  old_guard } skill=2 }
+	create_corps_commander={  name = "Hishikari" id=47005 portrait_path="gfx/generals/JAP_hishikari.tga" traits={   } skill=1 }
+	create_corps_commander={  name = "Ishimoto" id=47012 portrait_path="gfx/generals/JAP_ishimoto.tga" traits={ winter_specialist  } skill=2 }
+	create_corps_commander={  name = "Katsura" id=47016 portrait_path="gfx/generals/JAP_katsura.tga" traits={   } skill=1 }
+	create_corps_commander={  name = "Kawamura K." id=47018 portrait_path="gfx/generals/JAP_kawamura_k.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Kigoshi" id=47019 portrait_path="gfx/generals/JAP_kigoshi.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Kodama" id=47022 portrait_path="gfx/generals/JAP_kodama.tga" traits={  trickster } skill=3 }
+	create_corps_commander={  name = "Kuroki" id=47024 portrait_path="gfx/generals/JAP_kuroki.tga" traits={   } skill=3 }
+	create_corps_commander={  name = "Matsuishi" id=47029 portrait_path="gfx/generals/JAP_matsuishi.tga" traits={   } skill=1 }
+	create_corps_commander={  name = "Matsukawa" id=47030 portrait_path="gfx/generals/JAP_matsukawa.tga" traits={ winter_specialist  } skill=2 }
+	create_corps_commander={  name = "Miura" id=47031 portrait_path="gfx/generals/JAP_miura.tga" traits={ trickster old_guard } skill=2 }
+	create_corps_commander={  name = "Murata" id=47033 portrait_path="gfx/generals/JAP_murata.tga" traits={ trait_engineer old_guard } skill=2 }
+	create_corps_commander={  name = "Nagaoka" id=47035 portrait_path="gfx/generals/JAP_nagaoka.tga" traits={   } skill=3 }
+	create_corps_commander={  name = "Nambu" id=47037 portrait_path="gfx/generals/JAP_nambu.tga" traits={ trait_engineer  } skill=2 }
+	create_corps_commander={  name = "Nitahara" id=47039 portrait_path="gfx/generals/JAP_nitahara.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Nogi" id=47040 portrait_path="gfx/generals/JAP_nogi.tga" traits={   } skill=3 }
+	create_corps_commander={  name = "Nozu" id=47041 portrait_path="gfx/generals/JAP_nozu.tga" traits={ winter_specialist old_guard } skill=3 }
+	create_corps_commander={  name = "Oku" id=47046 portrait_path="gfx/generals/JAP_oku.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Osako N." id=47049 portrait_path="gfx/generals/JAP_osako_n.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Oyama" id=47053 portrait_path="gfx/generals/JAP_oyama.tga" traits={   } skill=3 }
+	create_corps_commander={  name = "Shimakawa" id=47061 portrait_path="gfx/generals/JAP_shimakawa.tga" traits={   } skill=1 }
+	create_corps_commander={  name = "Shioden" id=47062 portrait_path="gfx/generals/JAP_shioden.tga" traits={ trait_engineer  } skill=1 }
+	create_corps_commander={  name = "Tanaka G." id=47069 portrait_path="gfx/generals/JAP_tanaka_g.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Tanaka K." id=47070 portrait_path="gfx/generals/JAP_tanaka_k.tga" traits={ winter_specialist  } skill=1 }
+	create_corps_commander={  name = "Ueda K." id=47077 portrait_path="gfx/generals/JAP_ueda_k.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Uehara" id=47078 portrait_path="gfx/generals/JAP_uehara.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Yamanashi" id=47081 portrait_path="gfx/generals/JAP_yamanashi.tga" traits={   } skill=2 }
+	create_corps_commander={  name = "Yui" id=47082 portrait_path="gfx/generals/JAP_yui.tga" traits={   } skill=2 }
+	create_field_marshal={  name = "Kamio" id=47014 portrait_path="gfx/portraits/JAP/army_generals/JAP_kamio.tga" traits={ thorough_planner  } skill=3 }
+	create_field_marshal={  name = "Okazawa" id=47045 portrait_path="gfx/portraits/JAP/army_generals/JAP_okazawa.tga" traits={   } skill=1 }
+	create_navy_leader={  name = "Inoue Y." id=47093 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_inoue_y.tga" traits={ old_guard  } skill=2 }
+	create_navy_leader={  name = "Kato K." id=47097 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_kato_k.tga" traits={ spotter  } skill=2 }
+	create_navy_leader={  name = "Kato T." id=47099 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_kato_t.tga" traits={ superior_tactician  } skill=3 }
+	create_navy_leader={  name = "Prince Arisugawa" id=47111 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_prince_arisugawa.tga" traits={ spotter  } skill=1 }
+	create_navy_leader={  name = "Sakurai" id=47114 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_sakurai.tga" traits={ blockade_runner  } skill=2 }
+	create_navy_leader={  name = "Shibayama" id=47115 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_shibayama.tga" traits={ superior_tactician  } skill=1 }
+	create_navy_leader={  name = "Takeshita" id=47118 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_takeshita.tga" traits={ spotter  } skill=3 }
+	create_navy_leader={  name = "Togo H." id=47121 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_togo_h.tga" traits={ superior_tactician spotter } skill=4 }
+	create_navy_leader={  name = "Yamamoto G." id=47127 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_yamamoto_g.tga" traits={ superior_tactician  } skill=3 }
+	create_navy_leader={  name = "Yoshimi" id=47132 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_yoshimi.tga" traits={ superior_tactician  } skill=2 }
+	create_navy_leader={  name = "Chisaka" id=47133 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_chisaka.tga" traits={ seawolf  } skill=2 }
+	create_navy_leader={  name = "Prince Fushimi H." id=47178 portrait_path="gfx/portraits/JAP/navy_admirals/JAP_prince_fushimi_h.tga" traits={   } skill=2 }
 	}
+
 
 	set_politics = {
 	    ruling_party = neutrality
@@ -175,201 +82,37 @@ create_navy_leader={  name = "Prince Fushimi H." id=47178 portrait_path="gfx/por
 		state_shintoism
 		JAP_warrior_traditions_idea
 	}
-	
-	create_equipment_variant={ name="Admiral Ushakov Class" type=battleship_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=2 ship_reliability_upgrade=2           } }
-	create_equipment_variant={ name="Chin Yen Class" type=battleship_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=3 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Fuji Class" type=battleship_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Shikishima Class" type=battleship_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=0 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Mikasa Class" type=battleship_1890 parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Peresviet Class" type=battleship_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=2           } }
-	create_equipment_variant={ name="Retvisan Class" type=battleship_1900 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=3 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Petroplavsk Class" type=battleship_1900 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=3 ship_armor_upgrade=5 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Imperator Alexander II Class" type=battleship_1900 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Kashima Class" type=battleship_1900 parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Satsuma Class" type=battleship_1900 parent_version = 5 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Asama Class" type=heavy_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=4 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Yakumo Class" type=heavy_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Adzumo Class" type=heavy_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=2 ship_reliability_upgrade=4           } }
-	create_equipment_variant={ name="Bayan Class" type=heavy_cruiser_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=5 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Tsukuba Class" type=heavy_cruiser_1900 parent_version = 1 obsolete=no upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Matshushima Class" type=light_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=1 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Akitsushima Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Suma Class" type=light_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=4  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Chitose Class" type=light_cruiser_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Otowa Class" type=light_cruiser_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Pallada Class" type=light_cruiser_1900 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Varyag Class" type=light_cruiser_1900 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Novik Class" type=light_cruiser_1900 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Tone Class" type=light_cruiser_1906 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Murakumo Class" type=destroyer_1890 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=4 } }
-	create_equipment_variant={ name="Akatsuki Class" type=destroyer_1890 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=3    ship_torpedo_upgrade=4 } }
-	create_equipment_variant={ name="Shirakumo Class" type=destroyer_1890 parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=3    ship_torpedo_upgrade=4 } }
-	create_equipment_variant={ name="Harusame Class" type=destroyer_1890 parent_version = 3 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=1    ship_torpedo_upgrade=4 } }
-	create_equipment_variant={ name="Boiki Class" type=destroyer_1900 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Asakaze Class" type=destroyer_1900 parent_version = 1 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=1    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Kaigun-Holland Class" type=coastal_submarine_1900 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=1 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }	
-}
 
-
-1912.1.1 = {
-create_country_leader={ name = "Emperor Taishō " desc=JAP_emperor_taisho_DESC picture="gfx/portraits/JAP/country_leaders/JAP_emperor_taisho.dds" expire="1940.1.1" ideology=autocracy traits={  } }
-}
-
-
-
-1914.1.1 = {
-	add_political_power = 1200
-	oob = "JAP_1914"
-	create_country_leader={ name = "Emperor Taishō " desc=JAP_emperor_taisho_DESC picture="gfx/portraits/JAP/country_leaders/JAP_emperor_taisho.dds" expire="1940.1.1" ideology=autocracy traits={  } }
-
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
-	if = { limit = { has_start_date < 1937.1.1 }
-		#Army
-		complete_national_focus = JAP_ww1_army_effort
-
-		# Air
-		complete_national_focus = JAP_ww1_aviation_effort
-		complete_national_focus = JAP_ww1_aviation_effort_2
-
-		# Industry
-		complete_national_focus = JAP_ww1_industrial_effort
-		complete_national_focus = JAP_ww1_infrastructure_effort
-		complete_national_focus = JAP_ww1_airfield_expansion_1
-		complete_national_focus = JAP_ww1_construction_effort
-		complete_national_focus = JAP_ww1_production_effort
-		complete_national_focus = JAP_ww1_dockyard_effort_1
-
-		# Naval
-		complete_national_focus = JAP_ww1_naval_effort
-		complete_national_focus = JAP_ww1_newnavalcanons_1
-		complete_national_focus = JAP_ww1_dreadnought_effort
-
-		#Political
-		complete_national_focus = JAP_ww1_political_effort
-		complete_national_focus = JAP_ww1_support_republic
-		complete_national_focus = spiritual_mobilization_focus
-
-		#Diplomatic
-		complete_national_focus = JAP_ww1_diplomatic_effort
-		unlock_national_focus = JAP_ww1_Japan_Korea_Treaty
-		complete_national_focus = JAP_ww1_Japanese_Expansionism
-		complete_national_focus = JAP_ww1_Xinhai_Revolution_Opportunity
-	}
-	#-------------------------------------------------------
 
 	set_technology = {
-
 		# Infantry
 		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		ww1_infantry_equip1 = 1
 		support_weapons = 1
-		support_weapons2 = 1
 		infantry_binoculars = 1
-		infantry_grenade = 1
-		motorised_infantry = 1
-		#ww1_ambulance1 = 1
-		tech_mountaineers = 1
 
 		# Support
 		tech_support = 1
 		tech_engineers = 1
-		tech_recon = 1
-
-		# Armor
-		gwtank = 1 # 1910 Armored Car
-
+		
 		# Artillery
 		light_field_gun1 = 1
-		bonus_artillery1 = 1
-		heavy_field_gun1 = 1
-		bonus_bertha1 = 1
 
-		# Land Doctrine
-		ww1_landdoctrine = 1
-		ww1_directfire = 1
-		ww1_rifle_ammo = 1
-
-		# Navy
-		ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1
-		ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1
-		ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1
-		ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1
-		ww1_submarine0 = 1
-		ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-		ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-		ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1
+		# Naval
 		ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1
-		ww1_destroyer2 = 1
-	ww1_destroyer2_mtg = 1
-		ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
+		ww1_light_cruiser1 = 1
+		ww1_heavy_cruiser1 = 1
+		ww1_battleship1 = 1
+		ww1_battleship2 = 1
+		ww1_battlecruiser0 = 1
+		ww1_submarine1 = 1
 		transport = 1
-	transport_mtg = 1
-
-		# Air
-		ww1_fighter1 = 1
-
-		# Air Doctrine
-		ww1_airdoctrine = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
-		radio = 1
-		supertech1 = 1
-		mechanical_computing = 1
-		hoi4tgw_decryption = 1
-		hoi4tgw_encryption = 1
-		torpedotech1 = 1
-		chemical_research = 1
 
 		# Industry
-		ww1_tools1 = 1
-		ww1_tools2 = 1
-		#ww1_camera1 = 1
-		ww1_industry1 = 1
-		#ww1_medicine1 = 1
-		#ww1_medicine1 = 2
 		ww1_fortification1 = 1
-		ww1_fortification2 = 1
-		ww1_mining1 = 1
-		ww1_construction1 = 1
 	}
-
-	set_politics = {
-	    ruling_party = neutrality
-	    last_election = "1912.5.15"
-	    election_frequency = 48
-	    elections_allowed = no
-	}
-	set_popularities = {
-	    democratic = 5
-	    fascism = 10
-	    communism = 0
-	    neutrality = 85
-	}
-
-	add_ideas = {
-		limited_conscription
-		partial_economic_mobilisation
-		state_shintoism
-	}
-
-	set_global_flag = kis_japankorea_annexation
-	set_country_flag = Meiji_dead
-	
-	create_equipment_variant={ name="Kaba Class" type=destroyer_1910 parent_version = 0 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=0 } }
-
 }
 
 
@@ -469,317 +212,6 @@ create_country_leader={ name = "Emperor Taishō " desc=JAP_emperor_taisho_DESC p
 		#id = 700 #Hirohito
 	}
 
-
-	set_technology = {
-
-		# Infantry
-		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		ww1infantry_weapons2 = 1
-		ww1infantry_weapons3 = 1
-		infantry_weapons1 = 1
-		ww1_infantry_equip1 = 1
-		ww1_infantry_equip2 = 1
-		ww1_infantry_equip3 = 1
-		support_weapons = 1
-		support_weapons2 = 1
-		ww1_helmet_equip = 1
-		support_weapons3 = 1
-		support_weapons4 = 1
-		infantry_binoculars = 1
-		infantry_grenade = 1
-		infantry_gasmask = 1
-		infantry_ww1_mortar1 = 1
-		infantry_ww1_mortar2 = 1
-		infantry_flamethrower1 = 1
-		infantry_flamethrower2 = 1
-		infantry_at_grenade = 1
-		infantry_at_rifle = 1
-		#infantry_ww1_machinegun1 = 1
-		#infantry_ww1_machinegun2 = 1
-		#infantry_ww1_machinegun3 = 1
-		ww1infantry_weapons3 = 1
-		motorised_infantry = 1
-		#early_motorised = 1
-		#ww1_ambulance1 = 1
-		#ww1_ambulance2 = 1
-		#motorised_infantry2 = 1
-		tech_mountaineers = 1
-		marines = 1
-		tech_mountaineers2 = 1
-		marines2 = 1
-
-		# Support
-		tech_support = 1
-		tech_engineers = 1
-		tech_engineers2 = 1
-		tech_engineers3 = 1
-		#tech_engineers4 = 1
-		tech_recon = 1
-		tech_recon2 = 1
-		tech_recon3 = 1
-		#tech_recon4 = 1
-		tech_maintenance_company = 1
-		tech_maintenance_company2 = 1
-		tech_maintenance_company3= 1
-		#tech_maintenance_company4 = 1
-		tech_military_police = 1
-		tech_military_police2 = 1
-		tech_military_police3 = 1
-		#tech_military_police4 = 1
-		tech_field_hospital = 1
-		tech_field_hospital2 = 1
-		tech_field_hospital3 = 1
-		#tech_field_hospital4 = 1
-		tech_logistics_company = 1
-		tech_logistics_company2 = 1
-		tech_logistics_company3 = 1
-		#tech_logistics_company4 = 1
-		tech_signal_company = 1
-		tech_signal_company2 = 1
-		tech_signal_company3 = 1
-		#tech_signal_company4 = 1
-
-		# Armor
-		gwtank = 1 # 1910 Armored Car
-		ww1_armored_car_2 = 1
-		ww1_armored_car_3 = 1
-		ww1_armored_car_4 = 1
-		ww1_armored_car_5 = 1
-		ww1_light_tank = 1
-		#ww1_light_tank_b = 1
-		ww1_heavy_tank = 1
-		ww1_heavy_tank2 = 1
-		ww1_super_heavy_tank = 1
-		ww1_light_tank_interwar_1 = 1
-		#ww1_light_tank_interwar_2 = 1
-		#ww1_heavy_tank_interwar = 1
-
-		# Artillery
-		light_field_gun1 = 1
-		light_field_gun2 = 1
-		bonus_artillery1 = 1
-		bonus_artillery2 = 1
-		bonus_artillery3 = 1
-		bonus_artillery4 = 1
-		heavy_field_gun1 = 1
-		heavy_field_gun2 = 1
-		heavy_field_gun3 = 1
-		bonus_bertha1 = 1
-		bonus_bertha2 = 1
-		bonus_bertha3 = 1
-		bonus_bertha4 = 1
-		standard_artillery = 1
-
-		# Land Doctrine
-		ww1_landdoctrine = 0
-		ww1_directfire = 0
-		ww1_rifle_ammo = 0
-		ww1_long_march = 0
-		ww1_battlefield = 0
-		ww1_mass_artillery = 0
-		ww1_target = 0
-		ww1_night = 0
-		ww1_tank = 0
-		ww1_landdoctrine_unlock_ww2 = 0
-		trench_warfare = 1
-		#grand_battle_plan = 1
-
-		# Navy
-		ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1
-		ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1
-		early_heavy_cruiser = 1
-		basic_heavy_cruiser = 1
-		ww1_battlecruiser0 = 1
-	ww1_battlecruiser0_mtg = 1
-		ww1_battlecruiser1 = 1
-	ww1_battlecruiser1_mtg = 1
-		ww1_battlecruiser2 = 1
-	ww1_battlecruiser2_mtg = 1
-		ww1_battlecruiser3 = 1
-	ww1_battlecruiser3_mtg = 1
-	early_battlecruiser = 1
-		ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1
-		ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1
-		ww1_light_cruiser2 = 1
-	ww1_light_cruiser2_mtg = 1
-		ww1_light_cruiser3 = 1
-	ww1_light_cruiser3_mtg = 1
-		ww1_light_cruiser4 = 1
-	ww1_light_cruiser4_mtg = 1
-		ww1_light_cruiser5 = 1
-	ww1_light_cruiser5_mtg = 1
-		early_light_cruiser = 1
-		ww1_submarine0 = 1
-	ww1_submarine0_mtg = 1
-		ww1_submarine1 = 1
-	ww1_submarine1_mtg = 1
-		ww1_coastal_submarine1 = 1
-	ww1_coastal_submarine1_mtg = 1
-	ww1_submarine2 = 1
-	ww1_submarine2_mtg = 1
-		ww1_coastal_submarine2 = 1
-	ww1_coastal_submarine2_mtg = 1
-	ww1_submarine3 = 1
-	ww1_submarine3_mtg = 1
-		ww1_coastal_submarine3 = 1
-	ww1_coastal_submarine3_mtg = 1
-	ww1_submarine4 = 1
-	ww1_submarine4_mtg = 1
-		ww1_coastal_submarine4 = 1
-	ww1_coastal_submarine4_mtg = 1
-	ww1_cruiser_submarine1 = 1
-	ww1_cruiser_submarine2 = 1
-	early_submarine = 1
-		ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-		ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-		ww1_battleship2 = 1
-	ww1_battleship2_mtg = 1
-		ww1_battleship3 = 1
-	ww1_battleship3_mtg = 1
-	ww1_battleship4 = 1
-	ww1_battleship4_mtg = 1
-		ww1_battleship5 = 1
-	ww1_battleship5_mtg = 1
-	early_battleship = 1
-	basic_battleship = 1
-		ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1
-		ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1
-		ww1_destroyer2 = 1
-	ww1_destroyer2_mtg = 1
-		ww1_destroyer3 = 1
-	ww1_destroyer3_mtg = 1
-		ww1_destroyer4 = 1
-	ww1_destroyer4_mtg = 1
-		ww1_destroyer5 = 1
-	ww1_destroyer5_mtg = 1
-		early_destroyer = 1
-		ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
-		transport = 1
-	transport_mtg = 1
-	ww1_smoke_generator = 1
-	seaplane_carrier = 1
-	ww1_carrier = 1
-	early_carrier = 1
-
-		# Air
-		ww1_fighter1 = 1
-		#ww1_fighter1b = 1
-		ww1_fighter2 = 1
-		ww1_fighter3b = 1
-		ww1_fighter3 = 1
-		ww1_fighter4 = 1
-		early_fighter = 1
-		cv_early_fighter = 1
-		fighter1 = 1
-		CAS1 = 1
-		cv_CAS1 = 1
-		cv_naval_bomber1 = 1
-		ww1_seaplane1 = 1
-		ww1_seaplane2 = 1
-		ww1_bomber1 = 1
-		ww1_bomber2 = 1
-		#ww1_bomber3 = 1
-		early_bomber = 1
-		ww1_transport_plane = 1
-		ww1_zeppelin1 = 1
-		ww1_zeppelin2 = 1
-
-		# Air Doctrine
-		ww1_airdoctrine = 0
-		ww1_airdoctrine_2 = 0
-		ww1_airdoctrine_3 = 0
-		ww1_airdoctrine_4 = 0
-		ww1_airdoctrine_5 = 0
-		ww1_airdoctrine_5b = 0
-		ww1_airdoctrine_6 = 0
-		ww1_airdoctrine_6b = 0
-		ww1_airdoctrine_7 = 0
-		ww1_airdoctrine_7b = 0
-		ww1_airdoctrine_8 = 0
-		ww1_airdoctrine_9 = 0
-		ww1_airdoctrine_9b = 0
-		ww1_airdoctrine_unlock_ww2 = 0
-
-		# Navy Doctrine
-		ww1_navaldoctrine = 0
-		ww1_navaldoctrine_2 = 0
-		ww1_navaldoctrine_3 = 0
-		ww1_navaldoctrine_4 = 0
-		ww1_navaldoctrine_5 = 0
-		ww1_navaldoctrine_5b = 0
-		ww1_navaldoctrine_6 = 0
-		ww1_navaldoctrine_6b = 0
-		ww1_navaldoctrine_unlock_ww2 = 0
-		fleet_in_being = 1
-
-		# Engineering
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio2 = 1
-		supertech1 = 1
-		supertech2 = 1
-		mechanical_computing = 1
-		mechanical_computing2 = 1
-		tankaircraft1 = 1
-		tankaircraft2 = 1
-		tanktrack1 = 1
-		tanktrack2 = 1
-		dingfelder_engine1 = 1
-		dingfelder_engine2 = 1
-		hoi4tgw_decryption = 1
-		hoi4tgw_encryption = 1
-		torpedotech1 = 1
-		subhulltech1 = 1
-		torpedotech2 = 1
-		torpedotech3 = 1
-		chemical_research = 1
-		chemical_research2 = 1
-		chemical_research3 = 1
-		tank_unlocker1 = 1
-		tank_unlocker2 = 1
-		electronic_ww2 = 1
-
-		# Industry
-		ww1_tools1 = 1
-		ww1_tools2 = 1
-		ww1_tools3 = 1
-		basic_machine_tools = 1
-		#ww1_camera1 = 1
-		#ww1_camera2 = 1
-		#ww1_camera3 = 1
-		ww1_industry1 = 1
-		ww1_industry2 = 1
-		ww1_industry3 = 1
-		#ww1_medicine1 = 1
-		#ww1_medicine2 = 1
-		#ww1_medicine3 = 1
-		#ww1_medicine4 = 1
-		ww1_fortification1 = 1
-		ww1_fortification2 = 1
-		ww1_fortification3 = 1
-		#ww1_fortification3b = 1
-		ww1_fortification4 = 1
-		#ww1_fortification5 = 1
-		ww1_mining1 = 1
-		ww1_mining2 = 1
-		ww1_mining3 = 1
-		ww1_construction1 = 1
-		ww1_construction2 = 1
-		ww1_oil1 = 1
-		ww1_oil2 = 1
-		ww1_oil3 = 1
-		ww1_bergiusprocess = 1
-	}
 
 	if = {
 		limit = {

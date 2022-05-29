@@ -1,154 +1,53 @@
 ﻿capital = 276
 
-#-------------------------------------------------------
-#					GENERIC VALUES
-#-------------------------------------------------------
 set_fuel_ratio = 0.20
 set_research_slots = 2 #was 3
 set_stability = 0.7
 set_convoys = 100
 
-if = { limit = { has_start_date < 1937.1.1 }
-	set_cosmetic_tag = commonwealth_gfx_nohelmet
-}
-
-#-------------------------------------------------------
-#					POLITICS & ARMY
-#-------------------------------------------------------
-create_country_leader={ name = "Wilfrid Laurier" desc=CAN_wilfrid_laurier_DESC picture="gfx/portraits/CAN/country_leaders/CAN_wilfrid_laurier.dds" expire="1935.1.1" ideology=liberalism traits={  } }
 
 
-
-create_field_marshal={  name = "Arthur Carrie"  portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_3.dds" traits={ unyielding_defender  adaptable } skill=3 
-	attack_skill = 2
-	defense_skill = 3
-	planning_skill = 2
-	logistics_skill = 3
-}
-create_field_marshal={  name = "Edward Clayton"  portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_4.dds" traits={  defensive_doctrine  winter_expert } skill=2 
-	attack_skill = 1
-	defense_skill = 2
-	planning_skill = 2
-	logistics_skill = 2
-}
-create_corps_commander={  name = "Clark Molson" portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_1.dds" traits={ trickster } skill=2
-	attack_skill = 1
-	defense_skill = 2
-	planning_skill = 1
-	logistics_skill = 2
-}
-
-create_corps_commander={  name = "William Fletcher" portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_2.dds" traits={  } skill=1
-	attack_skill = 1
-	defense_skill = 1
-	planning_skill = 1
-	logistics_skill = 2
-}
-create_corps_commander={  name = "Gavin Lewis" portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_5.dds" traits={ } skill=1
-	attack_skill = 1
-	defense_skill = 1
-	planning_skill = 1
-	logistics_skill = 2
-}
-
-
-
-
-
-set_technology = {
-	# Navy
-	ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-	
-	ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-	
-	###ww1_battleship2 = 0 #  ww1_battleship_1906 (Dreadnought I)
-	###ww1_battleship3 = 0 #  ww1_battleship_1910 (Dreadnought II)
-	###ww1_battleship4 = 0 #  ww1_battleship_1914 (Dreadnought III)
-
-	###ww1_battlecruiser1 = 0 # ww1_battlecruiser_1906 (Battlecruiser I)
-	###ww1_battlecruiser2 = 0 # ww1_battlecruiser_1910 (Battlecruiser II)
-	###ww1_battlecruiser3 = 0 # ww1_battlecruiser_1910 (Battlecruiser III)
-
-	ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1 # heavy_cruiser_1890 (Armored Cruiser I)
-	ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1 # heavy_cruiser_1900 (Armored Cruiser II)
-
-	ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1 # light_cruiser_1890 (Protected Cruiser I)
-	ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1 # light_cruiser_1900 (Protected Cruiser II)
-	###ww1_light_cruiser2 = 0 # light_cruiser_1906 (Light Cruiser I)
-	###ww1_light_cruiser3 = 0 # light_cruiser_1910 (Light Cruiser II)
-	###ww1_light_cruiser4 = 0 # light_cruiser_1914 (Light Cruiser III)
-
-	ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1 # destroyer_1890 (Torpedo Boat I)
-	ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1 # destroyer_1900 (Destroyer I)
-	ww1_destroyer2 = 1
-	ww1_destroyer2_mtg = 1 # destroyer_1906 (Destroyer II)
-	###ww1_destroyer3 = 0 # destroyer_1910 (Destroyer III)
-	###ww1_destroyer4 = 0 # destroyer_1914 (Destroyer IV)	
-
-	ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
-
-	ww1_submarine0 = 1
-	ww1_submarine0_mtg = 1 # coastal_submarine_1900 (Coastal Submarine 1900, first available Submarine)
-	###ww1_submarine1 = 0 # submarine_1906 (Submarine I)
-	###ww1_submarine2 = 0 # submarine_1910 (Submarine II)
-	###ww1_submarine3 = 0 # submarine_1914 (Submarine III)
-
-	transport = 1
-	transport_mtg = 1 # Naval Transport
-	ww1_fortification1 = 1
-}
 
 1910.1.1 = {
 	oob = "CAN_1910"
+	
 	add_opinion_modifier = {  target = USA   modifier = WSV_old_wounds }
 
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
 
-	#-------------------------------------------------------
+	create_country_leader={ name = "Wilfrid Laurier" desc=CAN_wilfrid_laurier_DESC picture="gfx/portraits/CAN/country_leaders/CAN_wilfrid_laurier.dds" expire="1935.1.1" ideology=liberalism traits={  } }
 
-	set_technology = {
-
-		# Infantry
-		infantry_weapons = 1
-		support_weapons = 1
-		infantry_binoculars = 1
-		#motorised_infantry = 1
-		#ww1_ambulance1 = 1
-
-
-		# Support
-		tech_support = 1
-		tech_engineers = 1
-		tech_recon = 1
-		#tech_military_police = 1
-		#tech_maintenance_company = 1
-		#tech_field_hospital = 1
-		#tech_logistics_company = 1
-
-		# Armor
-
-		# Artillery
-		light_field_gun1 = 1
-		heavy_field_gun1 = 1
-
-		# Air
-
-		# Engineering
-		electronic_mechanical_engineering = 1
-
-		# Industry
+	create_field_marshal={  name = "Arthur Carrie"  portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_3.dds" traits={ unyielding_defender  adaptable } skill=3 
+		attack_skill = 2
+		defense_skill = 3
+		planning_skill = 2
+		logistics_skill = 3
 	}
+	create_field_marshal={  name = "Edward Clayton"  portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_4.dds" traits={  defensive_doctrine  winter_expert } skill=2 
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 2
+		logistics_skill = 2
+	}
+	create_corps_commander={  name = "Clark Molson" portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_1.dds" traits={ trickster } skill=2
+		attack_skill = 1
+		defense_skill = 2
+		planning_skill = 1
+		logistics_skill = 2
+	}
+
+	create_corps_commander={  name = "William Fletcher" portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_2.dds" traits={  } skill=1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 2
+	}
+	create_corps_commander={  name = "Gavin Lewis" portrait_path="gfx/leaders/ENG/Portrait_Britain_Generic_land_5.dds" traits={ } skill=1
+		attack_skill = 1
+		defense_skill = 1
+		planning_skill = 1
+		logistics_skill = 2
+	}
+
 
 	set_politics = {
 	    ruling_party = democratic
@@ -168,157 +67,32 @@ set_technology = {
 	    CAN_american_menance
 	    #CAN_frontiersmen
 	}	
-}
-
-1914.1.1 = {
-	add_political_power = 1200
-	set_fuel_ratio = 1
-	oob = "CAN_1914"
-
-	create_country_leader = {
-        name = "Robert Borden"
-        desc = CAN_robert_borden_DESC picture = "gfx/portraits/CAN/country_leaders/CAN_robert_borden.dds"
-        expire = "1935.1.1"
-        ideology = liberalism traits = {}
-    }
-
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
-	if = { limit = { has_start_date < 1937.1.1 }
-	#Army
-		complete_national_focus = CAN_ww1_army_effort
-		complete_national_focus = CAN_ww1_equipment_effort
-		complete_national_focus = CAN_ww1_artillery_effort_1
-		complete_national_focus = CAN_ww1_doctrine_effort
-		complete_national_focus = CAN_ww1_trenchwarfare
-
-		#Industrial
-		complete_national_focus = CAN_ww1_industrial_effort
-		complete_national_focus = CAN_ww1_infrastructure_effort
-		complete_national_focus = CAN_ww1_production_effort
-		complete_national_focus = CAN_ww1_construction_effort
-
-
-		#Political
-		complete_national_focus = CAN_political_effort
-
-		#Diplomatic
-		complete_national_focus = CAN_american_question
-		complete_national_focus = CAN_defense_of_canada	
-		complete_national_focus = CAN_eastern_defenses
-		complete_national_focus = CAN_central_defenses
-		complete_national_focus = CAN_western_defenses
-		complete_national_focus = CAN_shift_economy
-		complete_national_focus = CAN_call_to_arms
-	}
 	
 
-	#-------------------------------------------------------
-
 	set_technology = {
-
 		# Infantry
 		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		ww1_infantry_equip1 = 1
 		support_weapons = 1
-		support_weapons2 = 1
 		infantry_binoculars = 1
-		infantry_grenade = 1
-		motorised_infantry = 1
-		#ww1_ambulance1 = 1
-		tech_mountaineers = 1
 
 		# Support
 		tech_support = 1
 		tech_engineers = 1
-		tech_recon = 1
-
-		# Armor
-		gwtank = 1 # 1910 Armored Car
-
+		
 		# Artillery
 		light_field_gun1 = 1
-		bonus_artillery1 = 1
-		heavy_field_gun1 = 1
-		bonus_bertha1 = 1
 
-		# Land Doctrine
-		ww1_landdoctrine = 1
-		ww1_directfire = 1
-		ww1_mg_ammo = 1
-
-		# Navy
-		ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1
-		ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1
-		ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1
-		ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1
-		ww1_submarine0 = 1
-		ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-		ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-		ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1
+		# Naval
 		ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1
-		ww1_destroyer2 = 1
-	ww1_destroyer2_mtg = 1
-		ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
-		transport = 1
-	transport_mtg = 1
-
-		# Air
-		ww1_fighter1 = 1
-
-		# Air Doctrine
-		ww1_airdoctrine = 1
+		ww1_light_cruiser1 = 1
+		ww1_heavy_cruiser1 = 1
+		ww1_battleship1 = 1
+		ww1_battleship2 = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
-		radio = 1
-		supertech1 = 1
-		mechanical_computing = 1
-		hoi4tgw_decryption = 1
-		hoi4tgw_encryption = 1
-		torpedotech1 = 1
-		chemical_research = 1
 
 		# Industry
-		ww1_tools1 = 1
-		ww1_tools2 = 1
-		#ww1_camera1 = 1
-		ww1_industry1 = 1
-		#ww1_medicine1 = 1
-		#ww1_medicine1 = 2
 		ww1_fortification1 = 1
-		ww1_fortification2 = 1
-		ww1_mining1 = 1
-		ww1_construction1 = 1
 	}
-
-	set_politics = {
-	    ruling_party = democratic
-	    last_election = "1913.5.31"
-	    election_frequency = 48
-	    elections_allowed = yes
-	}
-	set_popularities = {
-	    democratic = 97
-	    fascism = 1
-	    communism = 1
-	    neutrality = 1
-	}
-
-	add_ideas = {
-	    CAN_american_menance
-	}
-
-	set_country_flag = grey_retired
 }
