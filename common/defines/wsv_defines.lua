@@ -6,20 +6,25 @@ NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 1000			--Max army experience a country 
 NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 1000			--Max navy experience a country can store
 NDefines.NMilitary.MAX_AIR_EXPERIENCE = 1000				--Max air experience a country can store
 
+NDefines.NProduction.BASE_FACTORY_SPEED = 3.75 				-- Base civ factory speed multiplier (how much hoi3 style IC each factory gives).
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3.5 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
+
+
+
+--[[
+
+
 NDefines.NMilitary.EXILE_ORG = 0.2					--they need to be able to move
 
 NDefines.NNavy.NAVAL_SUPREMACY_CAN_INVADE = 0.75
 NDefines.NAI.MAX_DISTANCE_NALAV_INVASION = 125.0
 
-NDefines.NProduction.BASE_FACTORY_SPEED = 3.75 				-- Base civ factory speed multiplier (how much hoi3 style IC each factory gives).
-NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3.4 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
 
 NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2
 NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
 
 --war stuff
 --NDefines.NMilitary.REINFORCE_CHANCE = 0.01
-
 
 --give states
 NDefines.NAI.GIVE_STATE_CONTROL_BASE_SCORE = 60			-- (Originally 50) Base diplo score for giving away control of states
@@ -36,7 +41,7 @@ NDefines.NResistance.INITIAL_STATE_RESISTANCE = 10.0  --inital resistance when t
 NDefines.NResistance.COMPLIANCE_GROWTH_IS_AT_PEACE = 5 -- compliance growth buff at peace
 
 
-
+--]]
 
 
 
