@@ -10,6 +10,8 @@ NDefines.NProduction.BASE_FACTORY_SPEED = 3.75 				-- Base civ factory speed mul
 NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3.5 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
 
 
+NDefines.NCharacter.DEFAULT_PP_COST_FOR_MILITARY_ADVISOR = 100
+
 
 --[[
 
