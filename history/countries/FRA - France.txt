@@ -9,99 +9,86 @@ set_stability = 0.65
 set_war_support = 0.35
 set_convoys = 300
 
-create_faction = entente # France is now Leader of the Entente | Since Beta 0.2
-
-add_to_faction = RUS
-puppet = MOR
-puppet = TUN
-
-
-
-# SPECIAL_DLC Together for Victory
-if = { limit = { has_dlc = "Together for Victory" }
-
-	#IF-----------------------------------------
-	set_autonomy = {
-		target = TUN
-		autonomous_state = autonomy_integrated_puppet
-	}
-	#-------------------------------------------
-
-	#ELSE---------------------------------------
-	else = {
-		# WORK IN PROGRESS #
-	}
-	#-------------------------------------------
-}
-
-give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of London (1839)
-
 
 
 
 1910.1.1 = {
 	oob = "FRA_1910"
 
-	# Active Leader
-	recruit_character = FRA_armand_fallières
 
-	# Country Leaders
-	recruit_character = FRA_charles_jonnart
-	recruit_character = FRA_gaston_doumergue
-	recruit_character = FRA_louis_frossard
-	recruit_character = FRA_alexandre_millerand
-	recruit_character = FRA_georges_clemenceau
-	recruit_character = FRA_paul_painlevé
-	recruit_character = FRA_jules_méline
-	recruit_character = FRA_jules_pams
-	recruit_character = FRA_paul_doumer
-	recruit_character = FRA_philippe_viii
+	#---------------- GEOPOLITICS ----------------#
+	create_faction = entente # France is now Leader of the Entente | Since Beta 0.2
+	add_to_faction = RUS
+	puppet = MOR
+	puppet = TUN
+	give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of London (1839)
 
-	# Civil Advisors
-	recruit_character = FRA_jean_jaures
-	recruit_character = FRA_louis_franchet_d_esperey
-	recruit_character = FRA_charles_dumont
-	recruit_character = FRA_joseph_thierry
-	recruit_character = FRA_rene_viviani
+	if = { limit = { has_dlc = "Together for Victory" }
+		set_autonomy = {
+			target = TUN
+			autonomous_state = autonomy_integrated_puppet
+		}
+		else = {}
+	}
 
-	# Military 
-	recruit_character = FRA_joseph_gallieni
-	recruit_character = FRA_joseph_joffre
-	recruit_character = FRA_robert_nivelle
-	recruit_character = FRA_ferdinand_foch
-	recruit_character = FRA_philippe_pétain
-	recruit_character = FRA_henri_berthelot
-	recruit_character = FRA_louis_franchet_despèrey
-	recruit_character = FRA_Émile_fayolle
-	recruit_character = FRA_hubert_lyautey
-	recruit_character = FRA_michel_maunoury
-	recruit_character = FRA_auguste_boué_de_lapeyrère
-	recruit_character = FRA_jean_merveilleux_du_vignaux
-	recruit_character = FRA_lucien_lacaze
-	recruit_character = FRA_pierrealexis_ronarch
 
-	# Military Advisors
-	recruit_character = FRA_maurice_sarrail
-	recruit_character = FRA_jean_graziani
-	recruit_character = FRA_marie_merveilleux_du_vignaux
+	#---------------- CHARACTERS ----------------#
+	if = { limit = { has_start_date < 1937.1.1 }
+		# Country Leaders
+		recruit_character = FRA_charles_jonnart
+		recruit_character = FRA_gaston_doumergue
+		recruit_character = FRA_louis_frossard
+		recruit_character = FRA_alexandre_millerand
+		recruit_character = FRA_georges_clemenceau
+		recruit_character = FRA_jules_méline
+		recruit_character = FRA_jules_pams
+		recruit_character = FRA_paul_doumer
+		recruit_character = FRA_philippe_viii
+
+		# Active Leader
+		recruit_character = FRA_armand_fallières
+		promote_character = FRA_armand_fallières
+
+		# Civil Advisors
+		recruit_character = FRA_jean_jaures
+		recruit_character = FRA_louis_franchet_d_esperey
+		recruit_character = FRA_charles_dumont
+		recruit_character = FRA_joseph_thierry
+		recruit_character = FRA_rene_viviani
+
+		# Military 
+		recruit_character = FRA_joseph_gallieni
+		recruit_character = FRA_joseph_joffre
+		recruit_character = FRA_robert_nivelle
+		recruit_character = FRA_ferdinand_foch
+		recruit_character = FRA_philippe_pétain
+		recruit_character = FRA_henri_berthelot
+		recruit_character = FRA_louis_franchet_despèrey
+		recruit_character = FRA_Émile_fayolle
+		recruit_character = FRA_hubert_lyautey
+		recruit_character = FRA_michel_maunoury
+		recruit_character = FRA_auguste_boué_de_lapeyrère
+		recruit_character = FRA_jean_merveilleux_du_vignaux
+		recruit_character = FRA_lucien_lacaze
+		recruit_character = FRA_pierrealexis_ronarch
+
+		# Military Advisors
+		recruit_character = FRA_maurice_sarrail
+		recruit_character = FRA_jean_graziani
+		recruit_character = FRA_marie_merveilleux_du_vignaux
 	
+	#------------- NATIONAL FOCUS --------------#
+		#Army
+		complete_national_focus = FRA_ww1_army_effort
+		complete_national_focus = FRA_ww1_industrial_effort
+		complete_national_focus = FRA_ww1_naval_effort
+	
+		#Diplomatic
+		complete_national_focus = FRA_ww1_diplomatic_effort
+	}
 
 
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
-	#if = { limit = { has_start_date < 1937.1.1 }
-	#	#Army
-	#	complete_national_focus = FRA_ww1_army_effort
-	#	complete_national_focus = FRA_ww1_industrial_effort
-	#	complete_national_focus = FRA_ww1_naval_effort
-	#
-	#	#Diplomatic
-	#	complete_national_focus = FRA_ww1_diplomatic_effort
-	#}
-	#-------------------------------------------------------
-
-
+	#---------------- POLITICS ----------------#
 	set_politics = {
 	    ruling_party = democratic
 	    last_election = "1910.4.30"
@@ -125,7 +112,7 @@ give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of
 		#Franch_Staff
 	}
 
-
+	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
 		# Infantry
 		infantry_weapons = 1
@@ -300,12 +287,13 @@ give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of
 	create_faction = entente #refreshes entente
 	
 
-	# Active Country Leader
-	recruit_character = FRA_charles_xi
-
 	# Country Leaders
 	recruit_character = FRA_raymond_poincaré
 	recruit_character = FRA_jean_de_lattre_de_tassigny
+
+	# Active Country Leader
+	recruit_character = FRA_charles_xi
+	promote_character = FRA_charles_xi
 
 	# Civil Advisors
 	recruit_character = FRA_zivony_peshkov

@@ -15,13 +15,51 @@ set_convoys = 200
 
 
 1910.1.1 = {
-
 	oob = "AUH_1910"
-
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
+	
+	#---------------- CHARACTERS ----------------#
 	if = { limit = { has_start_date < 1937.1.1 }
+		# Country Leaders
+		recruit_character = AUH_viktor_adler
+		recruit_character = AUH_franz_ferdinand
+
+		# Active Leader
+		recruit_character = AUH_franz_joseph_i
+		promote_character = AUH_franz_joseph_i
+
+		# Civil Advisors
+		recruit_character = AUH_eugen_hordliczka
+		recruit_character = AUH_agenor_goluchowski
+		recruit_character = AUH_oskar_von_hranilovic_czvetassin
+		recruit_character = AUH_alois_lexa_von_aehrenthal
+		recruit_character = AUH_gyula_andrassy
+		recruit_character = AUH_gabor_ugron
+		recruit_character = AUH_leon_von_bilinski
+
+		# Military
+		recruit_character = AUH_franz_conrad_von_hotzendorf
+		recruit_character = AUH_arthur_von_bolfras
+		recruit_character = AUH_stögersteiner_von_steinstätten
+		recruit_character = AUH_svetozar_borojević_von_bojna
+		recruit_character = AUH_karl_von_pflanzerbaltin
+		recruit_character = AUH_viktor_dankl_von_krasnik
+		recruit_character = AUH_hermann_kövess_von_kövessháza
+		recruit_character = AUH_miklós_horthy
+		recruit_character = AUH_hermann_von_spaun
+		recruit_character = AUH_anton_haus
+
+		# Military Advisors
+		recruit_character = AUH_franz_von_holub	
+		recruit_character = AUH_maximilian_njegovan
+		recruit_character = AUH_karl_kailer_von_kagenfels
+		recruit_character = AUH_maximilian_daublebsky_von_sterneck
+		recruit_character = AUH_blasius_schemua
+		recruit_character = AUH_august_urbanski
+		recruit_character = AUH_artur_arz_von_straussenberg
+		recruit_character = AUH_friedrich_von_beck_rzikowsky
+		recruit_character = AUH_rudolf_montecuccoli
+
+	#------------- NATIONAL FOCUS --------------#
 		#Army
 		complete_national_focus = AUH_ww1_army_effort
 		complete_national_focus = AUH_ww1_industrial_effort
@@ -30,49 +68,9 @@ set_convoys = 200
 		#Diplomatic
 		complete_national_focus = AUH_ww1_diplomatic_effort
 	}
-	#-------------------------------------------------------
-
-	# Active Leader
-	recruit_character = AUH_franz_joseph_i
-
-	# Country Leaders
-	recruit_character = AUH_viktor_adler
-	recruit_character = AUH_franz_ferdinand
-
-	# Civil Advisors
-	recruit_character = AUH_eugen_hordliczka
-	recruit_character = AUH_agenor_goluchowski
-	recruit_character = AUH_oskar_von_hranilovic_czvetassin
-	recruit_character = AUH_alois_lexa_von_aehrenthal
-	recruit_character = AUH_gyula_andrassy
-	recruit_character = AUH_gabor_ugron
-	recruit_character = AUH_leon_von_bilinski
-
-	# Military
-	recruit_character = AUH_franz_conrad_von_hotzendorf
-	recruit_character = AUH_arthur_von_bolfras
-	recruit_character = AUH_stögersteiner_von_steinstätten
-	recruit_character = AUH_svetozar_borojević_von_bojna
-	recruit_character = AUH_karl_von_pflanzerbaltin
-	recruit_character = AUH_viktor_dankl_von_krasnik
-	recruit_character = AUH_hermann_kövess_von_kövessháza
-	recruit_character = AUH_miklós_horthy
-	recruit_character = AUH_hermann_von_spaun
-	recruit_character = AUH_anton_haus
-
-	# Military Advisors
-	recruit_character = AUH_franz_von_holub	
-	recruit_character = AUH_maximilian_njegovan
-	recruit_character = AUH_karl_kailer_von_kagenfels
-	recruit_character = AUH_maximilian_daublebsky_von_sterneck
-	recruit_character = AUH_blasius_schemua
-	recruit_character = AUH_august_urbanski
-	recruit_character = AUH_artur_arz_von_straussenberg
-	recruit_character = AUH_friedrich_von_beck_rzikowsky
-	recruit_character = AUH_rudolf_montecuccoli
 	
 
-
+	#---------------- POLITICS ----------------#
 	set_politics = {
 	    ruling_party = neutrality
 	    last_election = "1867.6.8"
@@ -95,6 +93,7 @@ set_convoys = 200
 	}
 
 
+	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
 		# Infantry
 		infantry_weapons = 1
@@ -127,19 +126,6 @@ set_convoys = 200
 		# Industry
 		ww1_fortification1 = 1
 	}
-
-	
-	create_equipment_variant={ name="Kronprinz Erzherzogin Rudolf Class" type=battleship_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=1 ship_reliability_upgrade=3           } }
-	create_equipment_variant={ name="Monarch Class" type=battleship_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=1 ship_engine_upgrade=4 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Habsburg Class" type=battleship_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Radetzky Class" type=battleship_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Sankt Georg Class" type=heavy_cruiser_1900 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=1 ship_reliability_upgrade=1           } }
-	create_equipment_variant={ name="Panther Class" type=light_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=3 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Tiger Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=3 ship_reliability_upgrade=3 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Kaiser Franz Joseph I Class" type=light_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Blitz Class" type=destroyer_1890 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=3 } }
-	create_equipment_variant={ name="U3 Class" type=coastal_submarine_1906 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-
 }
 
 
@@ -245,12 +231,14 @@ set_convoys = 200
 		AUH_austrian_staff
 	}
 
-	# Active Country Leader
-	recruit_character = AUH_karl_i
 
 	# Country Leader
 	recruit_character = AUH_wilhelm_hartmann
 	recruit_character = AUH_emil_weber
+
+	# Active Country Leader
+	recruit_character = AUH_karl_i
+	promote_character = AUH_karl_i
 
 	# Civil Advisors
 	recruit_character = AUH_AUS_arthur_seyss-inquart

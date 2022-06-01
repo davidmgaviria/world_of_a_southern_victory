@@ -9,52 +9,6 @@ set_stability = 0.8
 set_war_support = 0.12
 set_convoys = 800
 
-# DIPLOMACY
-if = {
-	limit = {
-		has_dlc = "Together for Victory"
-	}
-
-	set_autonomy = {
-		target = RAJ
-		autonomous_state = autonomy_colony
-		freedom_level = 0.35
-	}
-	set_autonomy = {
-		target = CAN
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.4
-	}
-
-	set_autonomy = {
-		target = AST
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.2
-	}
-	set_autonomy = {
-		target = NZL
-		autonomous_state = autonomy_dominion
-		freedom_level = 0.2
-	}
-	else = {
-		puppet = RAJ
-		puppet = CAN
-		puppet = AST
-		puppet = NZL
-	}
-}
-give_military_access = RAJ
-
-
-set_cosmetic_tag = commonwealth_gfx_nohelmet
-
-puppet = OMA
-puppet = NEP
-puppet = BHU
-puppet = EGY
-
-give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - Treaty of London (1839)
-
 
 
 
@@ -63,86 +17,128 @@ give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - T
 1910.1.1 = {
 	oob = "ENG_1910"
 
-	# Active Leader
-	recruit_character = ENG_edward_vii
+	#---------------- GEOPOLITICS ----------------#
+	if = {
+		limit = {
+			has_dlc = "Together for Victory"
+		}
+		set_autonomy = {
+			target = RAJ
+			autonomous_state = autonomy_colony
+			freedom_level = 0.35
+		}
+		set_autonomy = {
+			target = CAN
+			autonomous_state = autonomy_dominion
+			freedom_level = 0.4
+		}
 
-	# Country Leaders
-	recruit_character = ENG_george_v      
-	recruit_character = ENG_tom_mann
-	recruit_character = ENG_gilbert_elliotmurraykynynmound
-	recruit_character = ENG_charles_hardinge
-	recruit_character = ENG_frederic_thesiger
-	recruit_character = ENG_rufus_isaacs
-	recruit_character = ENG_walter_davidson
+		set_autonomy = {
+			target = AST
+			autonomous_state = autonomy_dominion
+			freedom_level = 0.2
+		}
+		set_autonomy = {
+			target = NZL
+			autonomous_state = autonomy_dominion
+			freedom_level = 0.2
+		}
+		else = {
+			puppet = RAJ
+			puppet = CAN
+			puppet = AST
+			puppet = NZL
+		}
+	}
+	give_military_access = RAJ
+	puppet = OMA
+	puppet = NEP
+	puppet = BHU
+	puppet = EGY
+	give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - Treaty of London (1839)
+	#set_country_flag = monroe_doctrine
+
+
+	#---------------- CHARACTERS ----------------#
+	if = { limit = { has_start_date < 1937.1.1 }
+
+		# Country Leaders
+		recruit_character = ENG_george_v      
+		recruit_character = ENG_tom_mann
+		recruit_character = ENG_gilbert_elliotmurraykynynmound
+		recruit_character = ENG_charles_hardinge
+		recruit_character = ENG_frederic_thesiger
+		recruit_character = ENG_rufus_isaacs
+		recruit_character = ENG_walter_davidson
+
+		# Active Leader
+		recruit_character = ENG_edward_vii
+		promote_character = ENG_edward_vii
+		
+		# Civil Advisors
+		recruit_character = ENG_henry_petty_fitzmaurice
+		recruit_character = ENG_herbert_mullaly
+		recruit_character = ENG_edward_grey
+		recruit_character = ENG_arthur_balfour
+		recruit_character = ENG_george_macdonogh
+		recruit_character = ENG_reginald_mckenna
+		recruit_character = ENG_andrew_bonar_law
+		recruit_character = ENG_frederick_maurice
+		recruit_character = ENG_arthur_henderson
+		recruit_character = ENG_william_peel
+
+		# Military
+		recruit_character = ENG_herbert_kitchener
+		recruit_character = ENG_sir_douglas_haig
+		recruit_character = ENG_hamilton_i.s.m.
+		recruit_character = ENG_aylmer_hunterweston
+		recruit_character = ENG_sir_leslie_rundle
+		recruit_character = ENG_david_beatty
+		recruit_character = ENG_john_jellicoe
+		recruit_character = ENG_badenpowell
+		recruit_character = ENG_cavan
+		recruit_character = ENG_elles
+		recruit_character = ENG_glubb
+		recruit_character = ENG_grierson
+		recruit_character = ENG_horne_sir_h.
+		recruit_character = ENG_knox
+		recruit_character = ENG_maude
+		recruit_character = ENG_maxse_sir_i.
+		recruit_character = ENG_plumer_h.
+		recruit_character = ENG_rawlinson_sir_h.
+		recruit_character = ENG_bridgeman
+		recruit_character = ENG_egerton
+		recruit_character = ENG_pakenham
+		recruit_character = ENG_goodenough
+		recruit_character = ENG_keyes
+		recruit_character = ENG_tyrwhitt
+		recruit_character = ENG_herbert_samuel
+		recruit_character = ENG_aretas_akers_douglas
+		
+		# Military Advisors
+		recruit_character = ENG_frederick_lambart
+		recruit_character = ENG_louis_alexander_mountbatten
+		recruit_character = ENG_neville_lyttleton
+		recruit_character = ENG_frederick_roberts
+		recruit_character = ENG_arthur_wilson
+		recruit_character = ENG_st_john_brodrick
+		recruit_character = ENG_john_french
+		recruit_character = ENG_edward_james_headlam
+		recruit_character = ENG_percy_zachariah_cox
+		recruit_character = ENG_archibald_murray
+
+	#------------- NATIONAL FOCUS --------------#
+		#Army
+		complete_national_focus = ENG_ww1_army_effort
+		complete_national_focus = ENG_ww1_industrial_effort
+		complete_national_focus = ENG_ww1_naval_effort
 	
-	# Civil Advisors
-	recruit_character = ENG_henry_petty_fitzmaurice
-	recruit_character = ENG_herbert_mullaly
-	recruit_character = ENG_edward_grey
-	recruit_character = ENG_arthur_balfour
-	recruit_character = ENG_george_macdonogh
-	recruit_character = ENG_reginald_mckenna
-	recruit_character = ENG_andrew_bonar_law
-	recruit_character = ENG_frederick_maurice
-	recruit_character = ENG_arthur_henderson
-	recruit_character = ENG_william_peel
-
-	# Military
-	recruit_character = ENG_herbert_kitchener
-	recruit_character = ENG_sir_douglas_haig
-	recruit_character = ENG_hamilton_i.s.m.
-	recruit_character = ENG_aylmer_hunterweston
-	recruit_character = ENG_sir_leslie_rundle
-	recruit_character = ENG_david_beatty
-	recruit_character = ENG_john_jellicoe
-	recruit_character = ENG_badenpowell
-	recruit_character = ENG_cavan
-	recruit_character = ENG_elles
-	recruit_character = ENG_glubb
-	recruit_character = ENG_grierson
-	recruit_character = ENG_horne_sir_h.
-	recruit_character = ENG_knox
-	recruit_character = ENG_maude
-	recruit_character = ENG_maxse_sir_i.
-	recruit_character = ENG_plumer_h.
-	recruit_character = ENG_rawlinson_sir_h.
-	recruit_character = ENG_bridgeman
-	recruit_character = ENG_egerton
-	recruit_character = ENG_pakenham
-	recruit_character = ENG_goodenough
-	recruit_character = ENG_keyes
-	recruit_character = ENG_tyrwhitt
-	recruit_character = ENG_herbert_samuel
-	recruit_character = ENG_aretas_akers_douglas
-	
-	# Military Advisors
-	recruit_character = ENG_frederick_lambart
-	recruit_character = ENG_louis_alexander_mountbatten
-	recruit_character = ENG_neville_lyttleton
-	recruit_character = ENG_frederick_roberts
-	recruit_character = ENG_arthur_wilson
-	recruit_character = ENG_st_john_brodrick
-	recruit_character = ENG_john_french
-	recruit_character = ENG_edward_james_headlam
-	recruit_character = ENG_percy_zachariah_cox
-	recruit_character = ENG_archibald_murray
+		#Diplomatic
+		complete_national_focus = ENG_ww1_diplomatic_effort
+	}
 
 
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
-	#if = { limit = { has_start_date < 1937.1.1 }
-	#	#Army
-	#	complete_national_focus = ENG_ww1_army_effort
-	#	complete_national_focus = ENG_ww1_industrial_effort
-	#	complete_national_focus = ENG_ww1_naval_effort
-	#
-	#	#Diplomatic
-	#	complete_national_focus = ENG_ww1_diplomatic_effort
-	#}
-	#-------------------------------------------------------
-
-
+	#---------------- POLITICS ----------------#
 	set_politics = {
 	    ruling_party = democratic
 	    last_election = "1910.1.15"
@@ -165,9 +161,8 @@ give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - T
 		#ENG_british_regulars
 	}
 
-	set_country_flag = monroe_doctrine
 
-
+	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
 		# Infantry
 		infantry_weapons = 1
@@ -322,15 +317,16 @@ give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - T
 
 	puppet=SAF
 
-	# Active Country Leader
-	recruit_character = ENG_winston_churchill
-
 	# Country Leader
 	recruit_character = ENG_oswald_mosley
 	recruit_character = ENG_stanley_baldwin
 	recruit_character = ENG_neville_chamberlain
 	recruit_character = ENG_harry_pollitt
 	recruit_character = ENG_rajani_palme_dutt
+
+	# Active Country Leader
+	recruit_character = ENG_winston_churchill
+	promote_character = ENG_winston_churchill
 
 	# Civil Advisors
 	recruit_character = ENG_ernest_bevin

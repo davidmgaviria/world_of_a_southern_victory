@@ -23,63 +23,61 @@ set_convoys = 100
 1910.1.1 = {
 	oob = "RUS_1910"
 
-
-	#Active Country Leader
-	recruit_character = RUS_nikolay_ii
-
-	# Country Leaders
-	recruit_character = RUS_georgy_lvov
-	recruit_character = RUS_vladimir_lenin
-	recruit_character = RUS_alexander_kolchak
-
-	# Civil Advisors
-	recruit_character = RUS_boris_sturmer
-	recruit_character = RUS_vasily_shulgin
-	recruit_character = RUS_konstantin_v_rodzaevsky
-	recruit_character = RUS_vladimir_kokovtsov
-	recruit_character = RUS_nikolai_golitsyn
-	recruit_character = RUS_pavel_ryabushinsky
-
-	# Military
-	recruit_character = RUS_vladimir_sukhomlinov
-	recruit_character = RUS_aleksandr_rusin
-	recruit_character = RUS_mikhail_alexeyev
-	recruit_character = RUS_nikolay_rouzski
-	recruit_character = RUS_nikolay_baratov
-	recruit_character = RUS_anton_denikin
-	recruit_character = RUS_alexei_evert
-	recruit_character = RUS_nikolay_iudovich_ivanov
-	recruit_character = RUS_alexey_kaledin
-	recruit_character = RUS_aleksey_kuropatkin
-	recruit_character = RUS_platon_lechitsky
-	recruit_character = RUS_pavel_karlovitch_rennenkampf
-	recruit_character = RUS_aleksandr_samsonov
-	recruit_character = RUS_vladimir_sakharov
-	recruit_character = RUS_dmitry_shcherbachev
-	recruit_character = RUS_piotr_wrangel
-	recruit_character = RUS_nikolai_yudenich
-	recruit_character = RUS_yevgeni_ivanovich_alekseyev
-	recruit_character = RUS_andrei_eberhardt
-	recruit_character = RUS_grand_duke_alexander
-	recruit_character = RUS_alexei_brusilov
-	
-	# Military Advisors
-	recruit_character = RUS_andrei_shkuro
-	recruit_character = RUS_nikolai_dukhonin
-	recruit_character = RUS_stepan_voevodsky
-	recruit_character = RUS_alexei_polivanov
-	recruit_character = RUS_ivan_grigorovich
-	recruit_character = RUS_pyotr_krasnov
-	recruit_character = RUS_vasily_gurko
-	recruit_character = RUS_aleksandr_lukomsky
-	recruit_character = RUS_mikhail_alexeev
-	recruit_character = RUS_grand_duke_nikolai
-
-
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
+	#---------------- CHARACTERS ----------------#
 	if = { limit = { has_start_date < 1937.1.1 }
+		# Country Leaders
+		recruit_character = RUS_georgy_lvov
+		recruit_character = RUS_vladimir_lenin
+		recruit_character = RUS_alexander_kolchak
+
+		#Active Country Leader
+		recruit_character = RUS_nikolay_ii
+		promote_character = { character = RUS_nikolay_ii  ideology = autocracy }
+
+		# Civil Advisors
+		recruit_character = RUS_boris_sturmer
+		recruit_character = RUS_vasily_shulgin
+		recruit_character = RUS_konstantin_v_rodzaevsky
+		recruit_character = RUS_vladimir_kokovtsov
+		recruit_character = RUS_nikolai_golitsyn
+		recruit_character = RUS_pavel_ryabushinsky
+
+		# Military
+		recruit_character = RUS_vladimir_sukhomlinov
+		recruit_character = RUS_aleksandr_rusin
+		recruit_character = RUS_mikhail_alexeyev
+		recruit_character = RUS_nikolay_rouzski
+		recruit_character = RUS_nikolay_baratov
+		recruit_character = RUS_anton_denikin
+		recruit_character = RUS_alexei_evert
+		recruit_character = RUS_nikolay_iudovich_ivanov
+		recruit_character = RUS_alexey_kaledin
+		recruit_character = RUS_aleksey_kuropatkin
+		recruit_character = RUS_platon_lechitsky
+		recruit_character = RUS_pavel_karlovitch_rennenkampf
+		recruit_character = RUS_aleksandr_samsonov
+		recruit_character = RUS_vladimir_sakharov
+		recruit_character = RUS_dmitry_shcherbachev
+		recruit_character = RUS_piotr_wrangel
+		recruit_character = RUS_nikolai_yudenich
+		recruit_character = RUS_yevgeni_ivanovich_alekseyev
+		recruit_character = RUS_andrei_eberhardt
+		recruit_character = RUS_grand_duke_alexander
+		recruit_character = RUS_alexei_brusilov
+		
+		# Military Advisors
+		recruit_character = RUS_andrei_shkuro
+		recruit_character = RUS_nikolai_dukhonin
+		recruit_character = RUS_stepan_voevodsky
+		recruit_character = RUS_alexei_polivanov
+		recruit_character = RUS_ivan_grigorovich
+		recruit_character = RUS_pyotr_krasnov
+		recruit_character = RUS_vasily_gurko
+		recruit_character = RUS_aleksandr_lukomsky
+		recruit_character = RUS_mikhail_alexeev
+		recruit_character = RUS_grand_duke_nikolai
+
+	#------------- NATIONAL FOCUS --------------#
 		#Army
 		#complete_national_focus = RUS_ww1_army_effort
 		#complete_national_focus = RUS_ww1_industrial_effort
@@ -88,9 +86,9 @@ set_convoys = 100
 		#Diplomatic
 		#complete_national_focus = RUS_ww1_diplomatic_effort
 	}
-	#-------------------------------------------------------
 
 
+	#---------------- POLITICS ----------------#
 	set_politics = {
 	    ruling_party = neutrality
 	    last_election = "1912.9.1"
@@ -115,7 +113,7 @@ set_convoys = 100
 		RUS_agrarian_empire
 	}
 
-
+	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
 		# Infantry
 		infantry_weapons = 1
@@ -149,51 +147,8 @@ set_convoys = 100
 		# Industry
 		ww1_fortification1 = 1
 	}
-
-	
-	create_equipment_variant={ name="Admiral Chichagov Class" type=battleship_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
-	create_equipment_variant={ name="Charodeika Class" type=battleship_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
-	create_equipment_variant={ name="Petr Veliki Class" type=battleship_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=4 ship_armor_upgrade=3 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Ekatarina II Class" type=battleship_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Imperator Alexander II Class" type=battleship_1890 parent_version = 4 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Dvienadtsat Apostolov Class" type=battleship_1890 parent_version = 5 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Tri Svititelia Class" type=battleship_1890 parent_version = 6 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=4 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Rotislav Class" type=battleship_1890 parent_version = 7 obsolete=yes upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=5 ship_engine_upgrade=2 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Kniaz Potemkin Class" type=battleship_1890 parent_version = 8 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=3 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Tsesarevich Class" type=battleship_1890 parent_version = 9 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=5 ship_engine_upgrade=5 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Ioann Zlatoust Class" type=battleship_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Imperator Pavel I Class" type=battleship_1900 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Minin Class" type=heavy_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=2 ship_engine_upgrade=0 ship_reliability_upgrade=2           } }
-	create_equipment_variant={ name="General-Admiral Class" type=heavy_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
-	create_equipment_variant={ name="Pamiat Azova Class" type=heavy_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
-	create_equipment_variant={ name="Bayan Class" type=heavy_cruiser_1900 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=5 ship_engine_upgrade=1 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Rurik Class" type=heavy_cruiser_1900 parent_version = 1 obsolete=no upgrades={ ship_gun_upgrade=5 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
-	create_equipment_variant={ name="Admiral Kornilov Class" type=light_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Pallada Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=4 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Askold Class" type=light_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Bogatyr Class" type=light_cruiser_1890 parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Zhemchug Class" type=light_cruiser_1900 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=5 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
-	create_equipment_variant={ name="Bditelni Class" type=destroyer_1890 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=4 } }
-	create_equipment_variant={ name="Boiki Class" type=destroyer_1890 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=4 } }
-	create_equipment_variant={ name="Grozni Class" type=destroyer_1900 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Z Class" type=destroyer_1900 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Tverdi Class" type=destroyer_1900 parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Lovki Class" type=destroyer_1900 parent_version = 3 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Bditelni Class" type=destroyer_1900 parent_version = 4 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Storozhevoi Class" type=destroyer_1900 parent_version = 5 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-	create_equipment_variant={ name="Ukraina Class" type=destroyer_1900 parent_version = 6 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
-	create_equipment_variant={ name="Emir Bukharski Class" type=destroyer_1900 parent_version = 7 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
-	create_equipment_variant={ name="Gaidamak Class" type=destroyer_1900 parent_version = 8 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
-	create_equipment_variant={ name="General Kondratenko Class" type=destroyer_1900 parent_version = 9 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=5 } }
-	create_equipment_variant={ name="Novik Class" type=destroyer_1906 parent_version = 0 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=4    ship_torpedo_upgrade=5 } }
-	create_equipment_variant={ name="Kasatka Class" type=coastal_submarine_1900 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=5 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
-	create_equipment_variant={ name="Holland Class" type=coastal_submarine_1900 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=0 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
-	create_equipment_variant={ name="Lake Class" type=coastal_submarine_1900 parent_version = 2 obsolete=yes upgrades={    ship_reliability_upgrade=2       sub_torpedo_upgrade=5 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
-	create_equipment_variant={ name="Kaiman Class" type=coastal_submarine_1906 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=5 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-	create_equipment_variant={ name="Minoga Class" type=coastal_submarine_1906 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-	create_equipment_variant={ name="Pochtovy Class" type=coastal_submarine_1910 parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=1 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-
 }
+
 
 
 # 1914.1.1 = {
@@ -293,6 +248,7 @@ set_convoys = 100
 
 	# Active Country Leader
 	recruit_character = RUS_mikhail_ii
+	promote_character = RUS_mikhail_ii
 
 	# Civil Advisors
 	recruit_character = RUS_goga_makarov
