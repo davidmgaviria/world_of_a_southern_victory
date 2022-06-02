@@ -2,8 +2,110 @@
 
 equipments = {
 
+	gw_light_tank_equipment = {
+		year = 1917
+
+		can_be_produced = {
+			NOT = {
+				has_idea = BUL_army_restrictions
+			}
+		}
+	
+		is_archetype = yes
+		is_buildable = no
+		is_convertable = yes
+		picture = archetype_light_tank_equipment			
+		type = armor
+		group_by = archetype
+		
+		interface_category = interface_category_armor
+
+		upgrades = {  # no upgrades for GW tank :'(
+		}
+
+		#Misc Abilities
+		maximum_speed = 7
+		reliability = 0.65
+
+		#Defensive Abilities
+		defense = 3
+		breakthrough = 14
+		armor_value = 4
+
+		#Offensive Abilities
+		soft_attack = 6
+		hard_attack = 3
+		ap_attack = 10
+		air_attack = 0
+
+		build_cost_ic = 6.2 
+		fuel_consumption = 2.2
+	}
+
+
+	
+	# HOI4TGW First Light Tank (Prototype) - HOI4TGW Open Beta 0.7
+	
+	ww1_tank_prototype_equipment = {
+		archetype = gw_light_tank_equipment
+
+		priority = 10
+		visual_level = 0
+	}
+
+	ww1_light_tank_equipment_1 = {
+		archetype = gw_light_tank_equipment
+		parent = ww1_tank_prototype_equipment
+		priority = 10
+
+		visual_level = 0
+
+		#NO Upgrades
+		upgrades = { }
+	}
+
+
+	ww1_light_tank_equipment_2 = {
+		archetype = gw_light_tank_equipment
+		parent = ww1_light_tank_equipment_1
+		priority = 10
+
+		visual_level = 0
+
+		upgrades = {  # no upgrades for GW tank :'(
+		}
+
+		#Misc Abilities
+		maximum_speed = 8.6
+		reliability = 0.7
+
+		#Defensive Abilities
+		defense = 4
+		breakthrough = 18
+		armor_value = 5
+
+		#Offensive Abilities
+		soft_attack = 8
+		hard_attack = 4
+		ap_attack = 15
+		air_attack = 0
+
+		build_cost_ic = 7 #gw tanks are clunky
+		fuel_consumption = 2.2
+	}
+
+
+
+
+
 	light_tank_equipment = {
-		year = 1900
+		year = 1934
+
+		can_be_produced = {
+			NOT = {
+				has_idea = BUL_army_restrictions
+			}
+		}
 	
 		is_archetype = yes
 		is_buildable = no
@@ -42,185 +144,13 @@ equipments = {
 		
 		build_cost_ic = 8
 		resources = {
-			##oil = 1
+			#oil = 1
 			steel = 2
 		}
 
 		fuel_consumption = 2.4
 	}
-	
-	# HOI4TGW First Light Tank (Prototype) - HOI4TGW Open Beta 0.7
-	
-	ww1_tank_prototype_equipment = {
-		archetype = light_tank_equipment
 
-		priority = 10
-		visual_level = 0
-	}
-
-	ww1_light_tank_equipment_1 = {
-		archetype = light_tank_equipment
-		parent = ww1_tank_prototype_equipment
-		priority = 10
-
-		visual_level = 0
-
-		#NO Upgrades
-		upgrades = { }
-
-		#Misc Abilities
-		maximum_speed = 5
-		reliability = 0.6
-
-		#Defensive Abilities
-		defense = 3
-		breakthrough = 14
-		armor_value = 6
-
-		#Offensive Abilities
-		soft_attack = 7
-		hard_attack = 4
-		ap_attack = 8
-		air_attack = 0
-
-		build_cost_ic = 8
-		resources = {
-			##oil = 1
-			steel = 2
-		}
-		fuel_consumption = 1.3
-	}
-
-	ww1_light_tank_equipment_1b = {
-		archetype = light_tank_equipment
-		parent = ww1_light_tank_equipment_1
-		priority = 10
-
-		visual_level = 0
-
-		#NO Upgrades
-		upgrades = { }
-
-		#Misc Abilities
-		maximum_speed = 6
-		reliability = 0.60
-
-		#Defensive Abilities
-		defense = 3
-		breakthrough = 14
-		armor_value = 6
-
-		#Offensive Abilities
-		soft_attack = 6
-		hard_attack = 5
-		ap_attack = 10
-		air_attack = 0
-
-		build_cost_ic = 8
-		resources = {
-			##oil = 1
-			steel = 2
-		}
-		fuel_consumption = 1.3
-	}
-
-	ww1_light_tank_equipment_2 = {
-		archetype = light_tank_equipment
-		parent = ww1_light_tank_equipment_1
-		priority = 10
-
-		visual_level = 0
-
-		#NO Upgrades
-		upgrades = { }
-
-		#Misc Abilities
-		maximum_speed = 6
-		reliability = 0.7
-
-		#Defensive Abilities
-		defense = 3
-		breakthrough = 16
-		armor_value = 8
-
-		#Offensive Abilities
-		soft_attack = 6
-		hard_attack = 4
-		ap_attack = 10
-		air_attack = 0
-
-		build_cost_ic = 8
-		resources = {
-			##oil = 1
-			steel = 2
-		}
-		fuel_consumption = 1.6
-	}
-
-	ww1_light_tank_equipment_3 = {
-		archetype = light_tank_equipment
-		parent = ww1_light_tank_equipment_2
-		priority = 10
-
-		visual_level = 0
-
-		#NO Upgrades
-		upgrades = { }
-
-		#Misc Abilities
-		maximum_speed = 7
-		reliability = 0.8
-
-		#Defensive Abilities
-		defense = 3
-		breakthrough = 20
-		armor_value = 10
-
-		#Offensive Abilities
-		soft_attack = 7
-		hard_attack = 5
-		ap_attack = 12
-		air_attack = 0
-
-		build_cost_ic = 8
-		resources = {
-			##oil = 1
-			steel = 2
-		}
-		fuel_consumption = 1.8
-	}
-
-	# WW1 tank from Vanilla
-	gw_tank_equipment = {
-		year = 1914
-	
-		archetype = light_tank_equipment
-		parent = ww1_light_tank_equipment_3
-		priority = 5
-		visual_level = 0
-		is_convertable = yes
-		
-		upgrades = {  # no upgrades for GW tank :'(
-		}
-
-		#Misc Abilities
-		maximum_speed = 6
-		reliability = 0.8
-
-		#Defensive Abilities
-		defense = 4
-		breakthrough = 18
-		armor_value = 5
-
-		#Offensive Abilities
-		soft_attack = 8
-		hard_attack = 4
-		ap_attack = 15
-		air_attack = 0
-
-		build_cost_ic = 7 #gw tanks are clunky
-		fuel_consumption = 2
-	}
 
 	light_tank_equipment_1 = {
 		year = 1934
