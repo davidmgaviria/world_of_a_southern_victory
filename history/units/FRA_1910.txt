@@ -13,13 +13,16 @@ division_template = {
 		infantry = { x = 2 y = 0 }
 		infantry = { x = 2 y = 1 }
 		infantry = { x = 2 y = 2 }
+        infantry = { x = 3 y = 0 }
+        infantry = { x = 3 y = 1 }
+        infantry = { x = 3 y = 2 }
+        artillery_brigade = { x = 4 y = 0 }
 	}
 	support = {
-		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
-		artillery = { x = 0 y = 2 }
+		engineer = { x = 0 y = 0 }
 	}
 }
+
 
 division_template = {
 	name = "Légion Etrangère"		# Elite
@@ -31,21 +34,19 @@ division_template = {
 		infantry = { x = 1 y = 1 }
 		infantry = { x = 1 y = 2 }
 		infantry = { x = 2 y = 0 }
-		infantry = { x = 2 y = 1 }
-		infantry = { x = 2 y = 2 }
+		artillery_brigade = { x = 2 y = 1 }
+		artillery_brigade = { x = 2 y = 2 }
 	}
 	support = {
 		recon = { x = 0 y = 0 }
 		engineer = { x = 0 y = 1 }
-		logistics_company = { x = 0 y = 2 }
-		field_hospital = { x = 0 y = 3 }
-		artillery = { x = 0 y = 4 }
 	}
 	priority = 2
 }
 
+
 division_template = {
-	name = "Troupes Coloniales"		# Special
+	name = "Brigade de Gendarmerie"	# Militia
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -54,9 +55,22 @@ division_template = {
 	}
 	support = {
 		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }		
 	}
+	priority = 0
 }
+
+
+division_template = {
+	name = "Troupes Coloniales"	# Militia
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+	}
+	priority = 0
+}
+
 
 division_template = {
 	name = "Chasseurs Alpins"		# Mountain Division
@@ -67,20 +81,9 @@ division_template = {
 		mountaineers = { x = 1 y = 1 }
 	}
 	support = {
-        recon = { x = 0 y = 0 }
-   		engineer = { x = 0 y = 1 }
-        logistics_company = { x = 0 y = 2 }
+   		engineer = { x = 0 y = 0 }
+   		artillery = { x = 0 y = 1 }
 	}
-}
-division_template = {
-	name = "Brigade de Gendarmerie"	# Militia
-	regiments = {
-		infantry = { x = 0 y = 0 }
-		infantry = { x = 0 y = 1 }
-		infantry = { x = 1 y = 0 }
-		infantry = { x = 1 y = 1 }
-	}
-	priority = 0
 }
 
 division_template = {
@@ -93,7 +96,6 @@ division_template = {
 	}
 	support = {
 		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
 	}
 }
 
@@ -105,11 +107,6 @@ division_template = {
         armored_car = { x = 0 y = 1 }       
         infantry = { x = 1 y = 0 }
         infantry = { x = 1 y = 1 }
-    }
-
-    support = {
-        recon = { x = 0 y = 0 }
-        engineer = { x = 0 y = 1 }
     }
 }
 ###################################################################
@@ -517,7 +514,8 @@ fleet = {
 			name = "16e Division de Gendarmerie"
 			location=9737 # Bordeaux
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -525,7 +523,8 @@ fleet = {
 			name = "17e Division de Gendarmerie"
 			location = 3946 # Perpignan
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -533,7 +532,8 @@ fleet = {
 			name = "18e Division de Gendarmerie"
 			location=11834 # Marseille
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -541,7 +541,8 @@ fleet = {
 			name = "19e Division de Gendarmerie"
 			location = 911 # Toulon
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -549,7 +550,8 @@ fleet = {
 			name = "21e Division de Gendarmerie"
 			location=9909 # Nice
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -557,7 +559,8 @@ fleet = {
 			name = "20e Division de Gendarmerie"
 			location = 911 # Cannes
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -565,7 +568,8 @@ fleet = {
 			name = "24e Division de Gendarmerie"
 			location = 6609 # Albertville
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -573,7 +577,8 @@ fleet = {
 			name = "23e Division de Gendarmerie"
 			location = 3764 # Briancon
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -581,7 +586,8 @@ fleet = {
 			name = "22e Division de Gendarmerie"
 			location = 3764 # Barcelonnette
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -589,7 +595,8 @@ fleet = {
 			name = "1er Division de Gendarmerie"
 			location = 9710 # Bayonne
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -597,7 +604,8 @@ fleet = {
 			name = "2e Division de Gendarmerie"
 			location = 943 # Lannemezan
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -605,7 +613,8 @@ fleet = {
 			name = "4e Division de Gendarmerie"
 			location = 6639 # Annecy
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -613,7 +622,8 @@ fleet = {
 			name = "3e Division de Gendarmerie"
 			location=9909 # Nice
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -621,7 +631,8 @@ fleet = {
 			name = "5e Division de Gendarmerie"
 			location = 3764 # Briancon
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -629,7 +640,8 @@ fleet = {
 			name = "6e Division de Gendarmerie"
 			location = 3838 # Ajàccio
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -637,7 +649,8 @@ fleet = {
 			name = "7e Division de Gendarmerie"
 			location = 3764 # Barcelonnette
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}	
 	
 	division= { 
@@ -673,12 +686,18 @@ fleet = {
 	
 	
 	division= { 
-			name = "Alpins d'territoriale"
+			name = "1a Alpins d'territoriale"
 			location = 9728 # Romans sur Isere
 			division_template="Chasseurs Alpins"
 			start_experience_factor=0.3
 			}
-	
+
+		division= { 
+			name = "2a Alpins d'territoriale"
+			location = 9728 # Romans sur Isere
+			division_template="Chasseurs Alpins"
+			start_experience_factor=0.3
+			}
 	
 	
 	
@@ -766,7 +785,7 @@ fleet = {
 	division= { 
 			name = "Legion d'Infanterie Foreign"
 			location = 911 # Toulon
-			division_template="Division d'Infanterie"
+			division_template="Légion Etrangère"
 			start_experience_factor=0.15
 			}
 	

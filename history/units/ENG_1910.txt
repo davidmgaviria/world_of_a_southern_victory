@@ -2,23 +2,52 @@
 ###################################################################
 
 division_template = {
-	name = "Infantry Division"	# Infantry
+	name = "Regulars"	# Infantry
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
 		infantry = { x = 1 y = 0 }
 		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
 		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+		infantry = { x = 2 y = 2 }
+        infantry = { x = 3 y = 0 }
+        infantry = { x = 3 y = 1 }
+        infantry = { x = 3 y = 2 }
+        artillery_brigade = { x = 4 y = 0 }
+        artillery_brigade = { x = 4 y = 1 }
 	}
 	support = {
-		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
-		artillery = { x = 0 y = 2 }
+	    engineer = { x = 0 y = 0 }
 	}
 }
 
+
 division_template = {
 	name = "Royal Guards"		# Elite
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
+		infantry = { x = 2 y = 2 }
+	}
+	support = {
+		artillery = { x = 0 y = 0 }
+		engineer = { x = 0 y = 1 }
+	}
+	priority = 2
+}
+
+
+division_template = {
+	name = "Reserve Force"	# Militia
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -27,32 +56,11 @@ division_template = {
 		infantry = { x = 2 y = 0 }
 		infantry = { x = 2 y = 1 }
 	}
-	support = {
-		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
-		logistics_company = { x = 0 y = 2 }
-		field_hospital = { x = 0 y = 3 }
-		artillery = { x = 0 y = 4 }
-	}
-	priority = 2
 }
 
-division_template = {
-	name = "Colonial Troops"		# Special
-	regiments = {
-		infantry = { x = 0 y = 0 }
-		infantry = { x = 0 y = 1 }
-		infantry = { x = 1 y = 0 }
-		infantry = { x = 1 y = 1 }
-	}
-	support = {
-		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }		
-	}
-}
 
 division_template = {
-	name = "Reserve Brigade"	# Militia
+	name = "Territorial Force"		# Colonial Troops
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -61,6 +69,7 @@ division_template = {
 	}
 	priority = 0
 }
+
 
 division_template = {
 	name = "Cavalry Division"		# Cavalry
@@ -72,9 +81,9 @@ division_template = {
 	}
 	support = {
 		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
 	}
 }
+
 
 division_template = {
     name = "Armored Recon"
@@ -91,6 +100,8 @@ division_template = {
         engineer = { x = 0 y = 1 }
     }
 }
+
+
 
 
 ###################################################################
@@ -665,7 +676,7 @@ fleet = {
 	division= { 
 			name = "43rd (Wessex) Division"
 			location = 271 # Norwich
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -673,7 +684,7 @@ fleet = {
 	division= { 
 			name = "44th (Home Counties) Division"
 			location = 271 # Norwich
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -681,23 +692,23 @@ fleet = {
 	division= { 
 			name = "54th (East Anglian) Division"
 			location = 271 # Norwich
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
 	
 	division= { 
-			name = "5th Infantry Division"
+			name = "5th Regulars"
 			location=11293 # Dublin
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 			}
 	
 	
 	division= { 
-			name = "6th Infantry Division"
+			name = "6th Regulars"
 			location=11293 # Dublin
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 			}
 	
@@ -713,7 +724,7 @@ fleet = {
 	division= { 
 			name = "47th (2nd London) Division"
 			location = 3501 # Dover
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -721,7 +732,7 @@ fleet = {
 	division= { 
 			name = "56th (1st London) Division"
 			location = 3501 # Dover
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 			}
 	
@@ -729,7 +740,7 @@ fleet = {
 	division= { 
 			name = "46th (North Midland) Division"
 			location = 9379 # Sheffield
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -737,7 +748,7 @@ fleet = {
 	division= { 
 			name = "49th (West Riding) Division"
 			location = 9379 # Sheffield
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 
@@ -745,7 +756,7 @@ fleet = {
 	division= { 
 			name = "50th (Northumbrian) Division"
 			location = 9379 # Sheffield
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -761,7 +772,7 @@ fleet = {
 	division= { 
 			name = "51st (Highland) Division"
 			location=9392 # Edinburgh
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -769,15 +780,15 @@ fleet = {
 	division= { 
 			name = "52nd (Lowland) Division"
 			location=9392 # Edinburgh
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
 	
 	division= { 
-			name = "3rd Infantry Division"
+			name = "3rd Regulars"
 			location = 9458 # Portsmouth
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 			}
 	
@@ -785,7 +796,7 @@ fleet = {
 	division= { 
 			name = "53rd (Welsh) Division"
 			location=9297 # Birmingham
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -793,7 +804,7 @@ fleet = {
 	division= { 
 			name = "55th (West Lancashire) Division"
 			location=9297 # Birmingham
-			division_template="Infantry Division"
+			division_template="Regulars"
 			start_experience_factor=0.3
 		}
 	
@@ -809,7 +820,7 @@ fleet = {
 	division= { 
 			name = "Gibraltar Fortress"
 			location=4135 # Gibraltar
-			division_template="Reserve Brigade"
+			division_template="Reserve Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			}
@@ -818,7 +829,7 @@ fleet = {
 	division= { 
 			name = "Malta Garrison"
 			location = 12003 # Malta
-			division_template="Reserve Brigade"
+			division_template="Reserve Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			}
@@ -827,7 +838,7 @@ fleet = {
 	division= { 
 			name = "El Iskandariya Garrison"
 			location = 4076 # El Iskandarîya
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -837,7 +848,7 @@ fleet = {
 	division= { 
 			name = "Singapore Fortress"
 			location=12299 # Singapore
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -847,7 +858,7 @@ fleet = {
 	division= { 
 			name = "Wei Hai Wei Garrison"
 			location = 4205 # Weihai
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -857,7 +868,7 @@ fleet = {
 	division= { 
 			name = "The Chinese Regiment"
 			location = 4205 # Weihai
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -867,7 +878,7 @@ fleet = {
 	division= { 
 			name = "Hong Kong Garrison"
 			location=10062 # Hong Kong
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 		}
@@ -876,7 +887,7 @@ fleet = {
 	division= { 
 			name = "Aden Brigade"
 			location = 12821 # Aden
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -886,7 +897,7 @@ fleet = {
 	division= { 
 			name = "KAR - 1st Nyasaland"
 			location=5210 # Mombasa
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -896,7 +907,7 @@ fleet = {
 	division= { 
 			name = "KAR - 4th Uganda"
 			location = 1939 # Nairobi
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -906,7 +917,7 @@ fleet = {
 	division= { 
 			name = "Gold Coast & West African Regiments"
 			location = 10862 # Accra
-			division_template="Reserve Brigade"
+			division_template="Territorial Force"
 			start_experience_factor=0.1
 			start_equipment_factor = 0.65
 			
@@ -917,7 +928,7 @@ fleet = {
 	division= { 
 		name = "The Nigeria Regiment"
 		location=2050 # Lagos
-		division_template="Reserve Brigade"
+		division_template="Territorial Force"
 		start_experience_factor=0.1
 		#start_equipment_factor = 0.65
 		
