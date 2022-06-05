@@ -171,8 +171,13 @@ AUH_gw_unit_production = {
 	}
 	ai_strategy = {
 		type = role_ratio
-		id = infantry
-		value = 70 
+		id = assault_infantry
+		value = 40 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = line_infantry
+		value = 30 
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -257,25 +262,9 @@ AUH_gw_unit_production = {
 }
 
 
-AUH_build_up_army = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = RUS
-		has_army_manpower = { size < 800000 }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
-	}
-}
 
 
-AUH_focus_serbia = {
+AUH_mobilize_against_serbia = {
 	allowed = {
 		original_tag = AUH
 		has_start_date < 1937.1.1
@@ -296,15 +285,15 @@ AUH_focus_serbia = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
+		type = prepare_for_war
 		tag = SER
 		value = 150
 	}	
 
 	ai_strategy = {
-		type = front_unit_request
+		type = prepare_for_war
 		tag = RUS
-		value = -60
+		value = 25
 	}
 }
 

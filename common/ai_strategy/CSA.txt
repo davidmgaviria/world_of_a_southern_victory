@@ -204,17 +204,23 @@ CSA_gw_unit_production = {
 		id = armored_car
 		value = 1
 	}
+
 	ai_strategy = {
 		type = role_ratio
-		id = infantry
-		value = 70 
+		id = assault_infantry
+		value = 35 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = line_infantry
+		value = 30 
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 10
+		value = 10 
 	}
-	
+
 	#Air unit factors
 	ai_strategy = {
 		type = unit_ratio
@@ -292,21 +298,23 @@ CSA_gw_unit_production = {
 }
 
 
-CSA_ww1_focus_on_usa = {
+
+CSA_greatwar_mobilize = {
 	allowed = {
 		original_tag = CSA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		country_exists = USA
-		NOT = { is_in_faction_with = USA }	
+		NOT = { is_in_faction_with = USA }
+		threat > 0.35	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "USA"
-		value = 60
+		value = 100
 	}
 
 	#protect richmond
@@ -319,14 +327,6 @@ CSA_ww1_focus_on_usa = {
 		state = 813
 		value = 75
 	}
-
-	#sonora
-	ai_strategy = {
-		type = front_unit_request
-		state = 377
-		state = 837
-		value = -30
-	}
 }	
 
 
@@ -337,12 +337,15 @@ CSA_take_dc = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		USA = { exists = yes }
+		USA = { 
+			exists = yes 
+			NOT = { has_non_aggression_pact_with = CSA }
+		}
 	}
 	abort = {
 		OR = {
 			surrender_progress > 0.1
-			casualties > 150000
+			casualties > 100000
 		}
 	}
 
@@ -354,22 +357,11 @@ CSA_take_dc = {
 		priority = 100
 		ratio = 0.7
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
-
-	#more troops east
-	ai_strategy = {
-		type = front_unit_request
-		state = 840
-		state = 360
-		state = 361
-		value = 250
-	}
 }
-
-
 
 
 

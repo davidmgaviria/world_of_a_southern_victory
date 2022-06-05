@@ -19,7 +19,7 @@
 ######################################################################
 
 
-#GW past 1916
+#GW production
 default_unit_production = {
 	allowed = {
 		has_start_date < 1937.1.1
@@ -36,6 +36,24 @@ default_unit_production = {
 			original_tag = AUH
 			original_tag = RUS
 		}	
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = assault_infantry
+		value = 50 
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = line_infantry
+		value = 20 
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 5
 	}
 	
 	ai_strategy = {
@@ -68,18 +86,6 @@ default_unit_production = {
 		value = 1
 	}
 
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 80 
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry
-		value = 5
-	}
-	
 	#Air unit factors
 	ai_strategy = {
 		type = unit_ratio
@@ -143,25 +149,23 @@ default_unit_production = {
 		value = 20
 	}
 
+	# Production
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
-		value = 25
+		value = 35
 	}
+
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
 		value = 40
 	}
+
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 30
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = 5
+		value = 25
 	}
 }
 
@@ -181,7 +185,7 @@ DEFAULT_template_design = {
 	ai_strategy = {
 		type = template_prio
 		id = infantry
-		value = 75
+		value = 70
 	}
 
 	ai_strategy = {
@@ -239,7 +243,7 @@ DEFAULT_template_design = {
 	ai_strategy = {
 		type = template_prio
 		id = infantry
-		value = 40
+		value = 50
 	}
 
 	ai_strategy = {
@@ -370,8 +374,14 @@ default_unit_production = {
 
 	ai_strategy = {
 		type = role_ratio
-		id = infantry
-		value = 75
+		id = line_infantry
+		value = 45 
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = assault_infantry
+		value = 25 
 	}
 
 	ai_strategy = {
@@ -638,6 +648,45 @@ default_mobile_production = {
 ##############################################
 #############  GENERIC STUFF   ###############
 ##############################################
+
+# ai should focus on holding the line if on defensive
+default_infantry_defensive = {
+	enable = {
+		surrender_progress > 0.25
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = assault_infantry
+		value = -10 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = line_infantry
+		value = 5
+	}
+}
+
+# ai should focus on holding the line if on defensive
+default_infantry_defensive_2 = {
+	enable = {
+		surrender_progress > 0.4
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = assault_infantry
+		value = -10 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = line_infantry
+		value = 5 
+	}
+}
+
 
 
 #combatants historically did not share a lot of divisons
