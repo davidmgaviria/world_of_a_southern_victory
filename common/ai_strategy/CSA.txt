@@ -75,6 +75,21 @@ CSA_area_priority = {
 	}
 }
 
+# guard the large area of north america
+CSA_extra_home_garrison = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = garrison
+		value = 5
+	}
+}
+
 
 
 CSA_france_ally = {
@@ -204,15 +219,28 @@ CSA_gw_unit_production = {
 		id = armored_car
 		value = 1
 	}
+<<<<<<< Updated upstream
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
 		value = 70 
+=======
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 55 
+>>>>>>> Stashed changes
 	}
+	
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
+<<<<<<< Updated upstream
 		value = 10
+=======
+		value = 5 
+>>>>>>> Stashed changes
 	}
 	
 	#Air unit factors
@@ -292,7 +320,31 @@ CSA_gw_unit_production = {
 }
 
 
+<<<<<<< Updated upstream
 CSA_ww1_focus_on_usa = {
+=======
+
+CSA_build_up_army = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10 # reduce while we build up in case of issues
+	}
+}
+
+
+
+CSA_greatwar_mobilize = {
+>>>>>>> Stashed changes
 	allowed = {
 		original_tag = CSA		
 		has_start_date < 1937.1.1
@@ -431,7 +483,7 @@ CSA_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 75 
+		value = 70 
 	}
 	#Air unit factors
 	ai_strategy = {

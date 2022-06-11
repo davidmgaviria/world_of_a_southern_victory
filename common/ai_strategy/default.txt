@@ -37,6 +37,21 @@ default_unit_production = {
 			original_tag = RUS
 		}	
 	}
+<<<<<<< Updated upstream
+=======
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 70 
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 2
+	}
+>>>>>>> Stashed changes
 	
 	ai_strategy = {
 		type = role_ratio
@@ -371,7 +386,11 @@ default_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
+<<<<<<< Updated upstream
 		value = 75
+=======
+		value = 70 
+>>>>>>> Stashed changes
 	}
 
 	ai_strategy = {
@@ -639,6 +658,94 @@ default_mobile_production = {
 #############  GENERIC STUFF   ###############
 ##############################################
 
+<<<<<<< Updated upstream
+=======
+# ai should focus on holding the line if on defensive
+default_infantry_defensive = {
+	enable = {
+		surrender_progress > 0.25
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = -5 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 5
+	}
+}
+
+# ai should focus on holding the line if on defensive
+default_infantry_defensive_2 = {
+	enable = {
+		surrender_progress > 0.4
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = -5
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 5
+	}
+}
+
+
+# During peace we make more civs
+default_peacetime_economy = {
+	enable = {
+		has_war = no 
+	}
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -10
+	}
+}
+
+# Industry distribution based on economy status
+default_civ_econ = {
+	enable = {
+		has_idea = civilian_economy
+	}
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -25
+	}
+}
+
+default_early_mobil = {
+	enable = {
+		has_idea = low_economic_mobilisation
+	}
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -10
+	}
+}
+
+default_war_economy = {
+	enable = {
+		OR = {
+			has_idea = war_economy
+			has_idea = tot_economic_mobilisation
+		}
+	}
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 15
+	}
+}
+
+
+>>>>>>> Stashed changes
 
 #combatants historically did not share a lot of divisons
 #default_dont_like_sharing = {		
@@ -652,29 +759,6 @@ default_mobile_production = {
 #	}
 #}
 
-
-default_garrison_coast = {
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 10
-	}
-}
-
-
-default_garrison_coast_more = {
-	enable = {
-		is_major = yes
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 5
-	}
-}
 
 
 default_armored_production = {
