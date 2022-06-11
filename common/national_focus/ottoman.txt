@@ -1732,8 +1732,14 @@ focus = {
 	focus = {
 		id = TUR_ww1_army_effort
 		icon = GFX_goal_generic_allies_build_infantry
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
-		ai_will_do = { factor = 10 }
+		completion_reward = { 
+			army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } 
+			remove_ideas = TUR_outdated_army
+		}
+		available = {
+			has_global_flag = kis_firstbalkanwar_victory
+		}
+		ai_will_do = { factor = 25 }
 		cost = 10
 		x = 23
 		y = 0

@@ -1,5 +1,22 @@
 technologies = {
 
+	@1900 = 0
+	@1910 = 2
+	@1914 = 4
+	@1915 = 6
+	@1916 = 8
+	@1917 = 10
+	@1918 = 12
+
+	@1936 = 14
+	@1939 = 16
+	@1941 = 18
+	@1942 = 20
+	@1943 = 22
+	@1944 = 24
+
+
+
 	light_field_gun1 = {
 
 		enable_equipments = {
@@ -14,20 +31,15 @@ technologies = {
 		}
 
 		path = {
-			leads_to_tech = bonus_artillery4
-			research_cost_coeff = 1
-		}
-
-		path = {
 			leads_to_tech = heavy_field_gun1
-			research_cost_coeff = 0.75
+			research_cost_coeff = 1
 		}
 		
 		research_cost = 1.5
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 0 }
+			position = { x = 0 y = @1900 }
 		}
 		
 		categories = {
@@ -39,262 +51,14 @@ technologies = {
 		}
 	}
 
-	heavy_field_gun1 = {
-
-		enable_equipments = {
-			heavy_field_gun_equipment_1
-		}
-
-		start_year = 1900
-			
-		research_cost = 1.5
-		
-		folder = {
-			name = artillery_folder
-			position = { x = 5 y = 0 }
-		}
-
-		path = {
-			leads_to_tech = bonus_bertha1 
-			research_cost_coeff = 1
-		}
-
-		path = {
-			leads_to_tech = bonus_bertha4
-			research_cost_coeff = 1
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 3
-		}
-	}
-
-	bonus_bertha1 = {
-
-		start_year = 1910
-
-		heavy_artillery_brigade = {
-			hard_attack = 0.10
-			breakthrough = 0.03 # Open Beta 0.7.3 #
-		}
-		
-		path = {
-			leads_to_tech = heavy_field_gun2
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 1.5
-
-		start_year = 1910
-		
-		folder = {
-			name = artillery_folder
-			position = { x = 5 y = 2 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				tag = GER
-			}
-		}
-	}
-
-	# 0.5.1 (03/2018)
-	bonus_bertha4 = {
-
-		start_year = 1910
-
-		heavy_artillery_brigade = {
-			maximum_speed = 0.05
-		}
-		
-		research_cost = 1.5
-
-		start_year = 1910
-		
-		folder = {
-			name = artillery_folder
-			position = { x = 3 y = 2 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				tag = GER
-			}
-		}
-	}
-
-
-
-	heavy_field_gun2 = {
-
-		start_year = 1914
-
-		enable_equipments = {
-			heavy_field_gun_equipment_2
-		}
-		
-		path = {
-			leads_to_tech = bonus_bertha2 
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 1.5
-
-		folder = {
-			name = artillery_folder
-			position = { x = 5 y = 4 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				tag = GER
-			}
-		}
-
-	}
-
-
-
-	bonus_bertha2 = {
-
-		heavy_artillery_brigade = {
-			hard_attack = 0.1
-		}
-		
-		path = {
-			leads_to_tech = heavy_field_gun3
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 1.5
-
-		start_year = 1916
-		
-		folder = {
-			name = artillery_folder
-			position = { x = 5 y = 6 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				tag = GER
-			}
-		}
-
-	}
-
-
-	heavy_field_gun3 = {
-
-		enable_equipments = {
-			heavy_field_gun_equipment_3
-		}
-
-		path = {
-			leads_to_tech = bonus_bertha3
-			research_cost_coeff = 1
-		}
-		
-		start_year = 1918
-		
-		research_cost = 1.5
-		
-		folder = {
-			name = artillery_folder
-			position = { x = 5 y = 8 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				tag = GER
-			}
-		}
-
-	}
-
-
-	bonus_bertha3 = {
-
-		heavy_artillery_brigade = {
-			hard_attack = 0.1
-		}
-		artillery = {
-			hard_attack = 0.1
-		}
-		artillery_brigade = {
-			hard_attack = 0.1
-		}
-
-		path = {
-			leads_to_tech = standard_artillery 
-			research_cost_coeff = 0.75
-		}
-		
-		research_cost = 1.5
-
-		start_year = 1930
-		
-		folder = {
-			name = artillery_folder
-			position = { x = 5 y = 10 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
-
-
-
 
 	bonus_artillery1 = {
 
 		artillery = {
 			soft_attack = 0.05
-			breakthrough = 0.02 # Open Beta 0.7.3 #
 		}
 		artillery_brigade = {
 			soft_attack = 0.05
-			breakthrough = 0.02 # Open Beta 0.7.3 #
 		}
 		
 		path = {
@@ -308,32 +72,7 @@ technologies = {
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 2 }
-		}
-		
-		categories = {
-			artillery
-		}
-		
-		ai_will_do = {
-			factor = 5
-		}
-	}
-
-	# 0.5.1 (03/2018)
-	bonus_artillery4 = {
-
-		artillery_brigade = {
-			maximum_speed = 0.05
-		}
-		
-		research_cost = 1.5
-
-		start_year = 1910
-		
-		folder = {
-			name = artillery_folder
-			position = { x = -2 y = 2 }
+			position = { x = 0 y = @1910 }
 		}
 		
 		categories = {
@@ -362,7 +101,7 @@ technologies = {
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 4 }
+			position = { x = 0 y = @1914 }
 		}
 
 		start_year = 1914
@@ -380,10 +119,10 @@ technologies = {
 	bonus_artillery2 = {
 
 		artillery = {
-			hard_attack = 0.1
+			soft_attack = 0.1
 		}
 		artillery_brigade = {
-			hard_attack = 0.1
+			soft_attack = 0.1
 		}
 		
 		path = {
@@ -393,11 +132,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1916
+		start_year = 1915
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 6 }
+			position = { x = 0 y = @1915 }
 		}
 		
 		categories = {
@@ -412,10 +151,10 @@ technologies = {
 	bonus_artillery3 = {
 
 		artillery = {
-			soft_attack = 0.12
+			soft_attack = 0.1
 		}
 		artillery_brigade = {
-			soft_attack = 0.12
+			soft_attack = 0.1
 		}
 		
 		path = {
@@ -425,11 +164,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1918
+		start_year = 1916
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 8 }
+			position = { x = 0 y = @1916 }
 		}
 		
 		categories = {
@@ -440,7 +179,6 @@ technologies = {
 			factor = 5
 		}
 	}
-
 
 
 	standard_artillery = {
@@ -466,11 +204,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1930
+		start_year = 1917
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 10 }
+			position = { x = 0 y = @1917 }
 		}
 		
 		categories = {
@@ -478,7 +216,189 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50
+			factor = 10
+		}
+	}
+
+
+
+	heavy_field_gun1 = {
+
+		enable_equipments = {
+			heavy_field_gun_equipment_1
+		}
+
+		start_year = 1910
+			
+		research_cost = 1.5
+		
+		folder = {
+			name = artillery_folder
+			position = { x = 5 y = @1910 }
+		}
+
+		path = {
+			leads_to_tech = bonus_bertha1 
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = bonus_bertha4
+			research_cost_coeff = 1
+		}
+		
+		categories = {
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 3
+		}
+	}
+
+
+	bonus_bertha1 = {
+
+		start_year = 1914
+
+		# this is the support company
+		#heavy_artillery = {
+		#	soft_attack = 0.1
+		#	breakthrough = 0.05
+		#}
+		heavy_artillery_brigade = {
+			soft_attack = 0.1
+			breakthrough = 0.05
+		}
+		
+		path = {
+			leads_to_tech = bonus_bertha2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+
+		start_year = 1914
+		
+		folder = {
+			name = artillery_folder
+			position = { x = 5  y = @1914 }
+		}
+		
+		categories = {
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+		}
+	}
+
+
+	# 0.5.1 (03/2018)
+	bonus_bertha2 = {
+
+		start_year = 1915
+
+		heavy_artillery_brigade = {
+			maximum_speed = 0.1
+		}
+		
+		research_cost = 1.5
+		
+		path = {
+			leads_to_tech = heavy_field_gun2
+			research_cost_coeff = 1
+		}
+
+		folder = {
+			name = artillery_folder
+			position = { x = 5 y = @1915 }
+		}
+		
+		categories = {
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+		}
+	}
+
+
+	heavy_field_gun2 = {
+
+		start_year = 1916
+
+		enable_equipments = {
+			heavy_field_gun_equipment_2
+		}
+		
+		path = {
+			leads_to_tech = bonus_bertha3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+
+		folder = {
+			name = artillery_folder
+			position = { x = 5 y = @1916 }
+		}
+		
+		categories = {
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+		}
+	}
+
+
+	bonus_bertha3 = {
+
+		start_year = 1917
+
+		# this is the support company
+		#heavy_artillery = {
+		#	soft_attack = 0.1
+		#	breakthrough = 0.05
+		#}
+		heavy_artillery_brigade = {
+			soft_attack = 0.1
+			breakthrough = 0.05
+		}
+		
+		research_cost = 1.5
+
+		folder = {
+			name = artillery_folder
+			position = { x = 5 y = @1917 }
+		}
+		
+		categories = {
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 2
+				tag = GER
+			}
 		}
 	}
 
@@ -500,11 +420,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1937
+		start_year = 1936
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 12 }
+			position = { x = 0 y = @1936 }
 		}
 		
 		categories = {
@@ -516,6 +436,7 @@ technologies = {
 		}
 	}
 	
+
 	artillery1 = {
 	
 		enable_equipments = {
@@ -534,13 +455,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1939
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 14 }
+			position = { x = 0 y = @1939 }
 		}
 		
 		categories = {
@@ -571,13 +492,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1941
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 16 }
+			position = { x = 0 y = @1941 }
 		}
 		
 		categories = {
@@ -603,13 +524,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1942
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 18 }
+			position = { x = 0 y = @1942 }
 		}
 		
 		categories = {
@@ -639,13 +560,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.8
 
 		start_year = 1943
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 20 }
+			position = { x = 0 y = @1943 }
 		}
 		
 		categories = {
@@ -662,13 +583,13 @@ technologies = {
 			soft_attack = 0.1
 		}
 		
-		research_cost = 1
+		research_cost = 1.8
 
 		start_year = 1944
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = 22 }
+			position = { x = 0 y = @1944 }
 		}
 		
 		categories = {
@@ -701,7 +622,7 @@ technologies = {
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 3 y = 16 }
+			position = { x = 3 y = @1941 }
 		}
 		
 		ai_will_do = {
@@ -730,13 +651,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 2
 
 		start_year = 1942
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 3 y = 18 }
+			position = { x = 3 y = @1942 }
 		}
 		
 		ai_will_do = {
@@ -765,13 +686,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 2
 
 		start_year = 1943
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 3 y = 20 }
+			position = { x = 3 y = @1943 }
 		}
 		
 		ai_will_do = {
@@ -799,13 +720,13 @@ technologies = {
 		#	soft_attack = 0.15
 		#}
 
-		research_cost = 1
+		research_cost = 2.2
 
 		start_year = 1944
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 3 y = 22 }
+			position = { x = 3 y = @1944 }
 		}
 		
 		ai_will_do = {
@@ -835,11 +756,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1937
+		start_year = 1936
 		
 		folder = {
 			name = artillery_folder
-			position = { x = -3 y = 12 }
+			position = { x = -3 y = @1936 }
 		}
 		
 		ai_will_do = {
@@ -865,13 +786,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1939
 		
 		folder = {
 			name = artillery_folder
-			position = { x = -3 y = 14 }
+			position = { x = -3 y = @1939 }
 		}
 		
 		ai_will_do = {
@@ -901,13 +822,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1941
 		
 		folder = {
 			name = artillery_folder
-			position = { x = -3 y = 16 }
+			position = { x = -3 y = @1941 }
 		}
 		
 		ai_will_do = {
@@ -933,13 +854,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1942
 		
 		folder = {
 			name = artillery_folder
-			position = { x = -3 y = 18 }
+			position = { x = -3 y = @1942 }
 		}
 		
 		ai_will_do = {
@@ -965,13 +886,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1943
 		
 		folder = {
 			name = artillery_folder
-			position = { x = -3 y = 20 }
+			position = { x = -3 y = @1943 }
 		}
 		
 		ai_will_do = {
@@ -996,13 +917,13 @@ technologies = {
 		#	air_attack = 0.1
 		#}
 		
-		research_cost = 1
+		research_cost = 1.8
 
 		start_year = 1944
 		
 		folder = {
 			name = artillery_folder
-			position = { x = -3 y = 22 }
+			position = { x = -3 y = @1944 }
 		}
 		
 		ai_will_do = {
@@ -1027,11 +948,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1937
+		start_year = 1936
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 7 y = 12 }
+			position = { x = 7 y = @1936 }
 		}
 		
 		ai_will_do = {
@@ -1060,13 +981,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1939
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 7 y = 14 }
+			position = { x = 7 y = @1939 }
 		}
 		
 		ai_will_do = {
@@ -1099,13 +1020,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1941
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 7 y = 16 }
+			position = { x = 7 y = @1941 }
 		}
 		
 		ai_will_do = {
@@ -1134,13 +1055,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1942
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 7 y = 18 }
+			position = { x = 7 y = @1942 }
 		}
 		
 		ai_will_do = {
@@ -1169,13 +1090,13 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		
-		research_cost = 1
+		research_cost = 1.5
 
 		start_year = 1943
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 7 y = 20 }
+			position = { x = 7 y = @1943 }
 		}
 		
 		ai_will_do = {
@@ -1203,13 +1124,13 @@ technologies = {
 		#	ap_attack = 0.05
 		#}
 		
-		research_cost = 1
+		research_cost = 1.8
 
 		start_year = 1944
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 7 y = 22 }
+			position = { x = 7 y = @1944 }
 		}
 		
 		ai_will_do = {

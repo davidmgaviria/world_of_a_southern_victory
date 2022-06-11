@@ -75,6 +75,20 @@ CSA_area_priority = {
 	}
 }
 
+# guard the large area of north america
+CSA_extra_home_garrison = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = garrison
+		value = 5
+	}
+}
 
 
 CSA_france_ally = {
@@ -126,27 +140,27 @@ CSA_ignore_europe = {
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = ENG
+		id = "ENG"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = FRA
+		id = "FRA"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = BEL
+		id = "BEL"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = LUX
+		id = "LUX"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = SER
+		id = "SER"
 		value = 100
 	}				
 }
@@ -161,7 +175,7 @@ CSA_ignore_russia = {
 	
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = RUS
+		id = "RUS"
 		value = 100
 	}		
 }
@@ -204,11 +218,13 @@ CSA_gw_unit_production = {
 		id = armored_car
 		value = 1
 	}
+
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 70 
+		value = 65 
 	}
+	
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
@@ -292,21 +308,22 @@ CSA_gw_unit_production = {
 }
 
 
-CSA_ww1_focus_on_usa = {
+CSA_greatwar_mobilize = {
 	allowed = {
 		original_tag = CSA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		country_exists = USA
-		NOT = { is_in_faction_with = USA }	
+		NOT = { is_in_faction_with = USA }
+		threat > 0.35	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "USA"
-		value = 60
+		value = 100
 	}
 
 	#protect richmond
@@ -319,14 +336,6 @@ CSA_ww1_focus_on_usa = {
 		state = 813
 		value = 75
 	}
-
-	#sonora
-	ai_strategy = {
-		type = front_unit_request
-		state = 377
-		state = 837
-		value = -30
-	}
 }	
 
 
@@ -337,12 +346,15 @@ CSA_take_dc = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		USA = { exists = yes }
+		USA = { 
+			exists = yes 
+			NOT = { has_non_aggression_pact_with = CSA }
+		}
 	}
 	abort = {
 		OR = {
 			surrender_progress > 0.1
-			casualties > 150000
+			casualties > 100000
 		}
 	}
 
@@ -358,19 +370,7 @@ CSA_take_dc = {
 		execute_order = yes
 		manual_attack = yes
 	}
-
-	#more troops east
-	ai_strategy = {
-		type = front_unit_request
-		state = 840
-		state = 360
-		state = 361
-		value = 250
-	}
 }
-
-
-
 
 
 
@@ -431,7 +431,7 @@ CSA_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 75 
+		value = 70 
 	}
 	#Air unit factors
 	ai_strategy = {

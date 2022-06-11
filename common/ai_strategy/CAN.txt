@@ -159,6 +159,7 @@ CAN_defend_against_usa = {
 			has_non_aggression_pact_with = USA
 		}
 		has_start_date < 1937.1.1
+		threat > 0.35
 	}
 	abort_when_not_enabled = yes
 
@@ -193,38 +194,43 @@ CAN_defend_against_usa = {
 		type = 	spare_unit_factor		
 		value = -100
 	}
-
 	ai_strategy = {
-		type = garrison
-		value = -5
+		type = role_ratio
+		id = infantry
+		value = -10   	#less infantry, more garrison
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 15 		#lots of garrison to cover border
 	}
 }	
 
 
 
-CAN_on_the_defensive = {
-	allowed = { 
-		original_tag = CAN 
-		has_start_date < 1937.1.1
-	}
-	enable = {		
-		has_war_with = USA
-	}
-	abort = {
-		USA = { surrender_progress > 0.15 }
-	}
+# CAN_on_the_defensive = {
+# 	allowed = { 
+# 		original_tag = CAN 
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {		
+# 		has_war_with = USA
+# 	}
+# 	abort = {
+# 		USA = { surrender_progress > 0.15 }
+# 	}
 
-	ai_strategy = {
-		type = front_control
-		tag = USA
-		priority = 50
-		ratio = 0.35
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
-	}
-}
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = USA
+# 		priority = 50
+# 		ratio = 0.35
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
+# }
 
 
 
