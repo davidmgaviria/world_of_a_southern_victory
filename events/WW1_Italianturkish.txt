@@ -377,17 +377,11 @@ country_event = {
 		tag = ITA
 		ITA = {
 			has_war_with = TUR
-			OR = {
-				surrender_progress > 0.2
-				has_stability < 0.5
-				AND = {	
-					has_idea = generic_war_exhaustion1
-					OR = {
-						NOT = { controls_state = 448  controls_state = 450 }
-						NOT = { controls_state = 448  controls_state = 451 }
-						NOT = { controls_state = 450  controls_state = 451 }
-					}
-				}
+			has_idea = generic_war_exhaustion1
+			OR = {	
+				NOT = { controls_state = 448 }
+				NOT = { controls_state = 450 }
+				NOT = { controls_state = 451 }
 			}
 		}
 		is_in_faction = no
