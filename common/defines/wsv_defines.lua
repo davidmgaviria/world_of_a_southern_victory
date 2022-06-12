@@ -14,6 +14,13 @@ NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
 
 NDefines.NCharacter.DEFAULT_PP_COST_FOR_MILITARY_ADVISOR = 100
 
+NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_LAND_DOCTRINE = 1.0   -- How quickly is desire to unlock land doctrines accumulated?
+NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_NAVAL_DOCTRINE = 0.75   -- How quickly is desire to unlock naval doctrines accumulated?
+NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_AIR_DOCTRINE = 0.75     -- How quickly is desire to unlock air doctrines accumulated?
+
+--NDefines.NAI.START_TRAINING_EQUIPMENT_LEVEL = 0.95               -- ai will not start to train if equipment drops below this level
+--NDefines.NAI.STOP_TRAINING_EQUIPMENT_LEVEL = 0.90                -- ai will not train if equipment drops below this level
+
 
 --[[
 
@@ -24,11 +31,6 @@ NDefines.NNavy.NAVAL_SUPREMACY_CAN_INVADE = 0.75
 NDefines.NAI.MAX_DISTANCE_NALAV_INVASION = 125.0
 
 
-NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2
-NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
-
---war stuff
---NDefines.NMilitary.REINFORCE_CHANCE = 0.01
 
 --give states
 NDefines.NAI.GIVE_STATE_CONTROL_BASE_SCORE = 60			-- (Originally 50) Base diplo score for giving away control of states
