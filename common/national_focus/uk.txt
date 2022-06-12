@@ -518,13 +518,28 @@ focus_tree = {
 	        FRA = {
 	            is_faction_leader = yes
 	        }
+	        threat > 0.1
 		}
 
 		completion_reward = { 
-            FRA = {
-                add_to_faction = ENG
+            #FRA = {
+            #    add_to_faction = ENG
+            #}
+            #hidden_effect = { news_event = wsv_generic.10 }
+           
+        	diplomatic_relation = {
+        	    country = FRA
+        	    relation = non_aggression_pact
+        	    active = yes
+        	}
+            if = {
+            	limit = { RUS = { is_in_faction_with = FRA } }
+        		diplomatic_relation = {
+        		    country = RUS
+        		    relation = non_aggression_pact
+        		    active = yes
+        		}
             }
-            hidden_effect = { news_event = wsv_generic.10 }
 		}
 
 		ai_will_do = {

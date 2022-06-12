@@ -347,7 +347,7 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_franzferdinand.9.b
+		name = wsv_franzferdinand.9.c
 		trigger = { 
 			NOT = { tag = AUH }
 			NOT = { tag = SER }
@@ -357,4 +357,85 @@ news_event = {
 
 
 
+# Russia ponders invervention
+country_event = {
+	id = wsv_franzferdinand.10
+	title = wsv_franzferdinand.10.t
+	desc = wsv_franzferdinand.10.d
+	picture = COUNTRY_hoi4tgw_report_austria_hungary
+	
+	is_triggered_only = yes
+
+	# Do nothing
+	option = {
+		name = wsv_franzferdinand.10.a
+
+		SER = {
+			add_opinion_modifier = { 
+				target = RUS
+				modifier = refused_help
+			}
+		}
+
+		ai_chance =  { 
+			factor = 10
+			modifier = {
+				factor = 0 
+				is_historical_focus_on = yes
+			} 
+		}
+	}
+
+	# Help the Serbs
+	option = {
+		name = wsv_franzferdinand.10.b
+
+		give_guarantee = SER
+		custom_effect_tooltip = july_russian_intervention_tt
+		hidden_effect = {
+			news_event = { id = wsv_franzferdinand.11  days = 1 }
+		}
+
+		ai_chance =  { 
+			factor = 40
+		}
+	}
+}
+
+
+# Russia guarantees Serbia
+news_event = {
+	id = wsv_franzferdinand.11
+	title = wsv_franzferdinand.11.t
+	desc = wsv_franzferdinand.11.d
+	#picture = EVENT_hoi4tgw_austria_vs_serbia		
+
+	is_triggered_only = yes
+
+	major = yes
+	
+	immediate = {
+		hidden_effect = {
+			set_global_flag = russia_guaranteed_serbia
+		}
+	}
+		
+	option = {
+		name = wsv_franzferdinand.11.a
+		trigger = { tag = AUH }
+	}
+
+	option = {
+		name = wsv_franzferdinand.11.b
+		trigger = { tag = SER }
+	}
+
+	option = {
+		name = wsv_franzferdinand.11.c
+		trigger = { 
+			NOT = { tag = AUH }
+			NOT = { tag = SER }
+		}
+	}
+}
 

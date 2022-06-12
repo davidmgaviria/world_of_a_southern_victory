@@ -622,16 +622,33 @@ focus_tree = {
 
 	 		GER = {
 	 			exists = yes
- 				is_faction_leader = yes
+ 				#is_faction_leader = yes
+ 				OR = {
+ 					has_war_with = FRA
+ 					has_war_with = ENG
+ 				}
 	 		}
 	 		NOT = { has_global_flag = kis_treaty_of_versailles }
 		}
 
 		completion_reward = {
 
-				GER={
-					add_to_faction=ROOT
+			if = {
+				limit = { GER = { has_war_with = ENG } }
+				add_to_war = { 
+				    targeted_alliance = GER 
+				    enemy = ENG 
+				    hostility_reason = asked_to_join
 				}
+			}
+			if = {
+				limit = { GER = { has_war_with = FRA } }
+				add_to_war = { 
+				    targeted_alliance = GER 
+				    enemy = FRA 
+				    hostility_reason = asked_to_join
+				}
+			}
 		}
 
 		ai_will_do = { factor = 0 } # AI will not join Central Powers
@@ -659,17 +676,33 @@ focus_tree = {
 	 			exists = yes
  				is_faction_leader = yes
 	 		}
-	 		GER = {
-	 			has_war_with = FRA
-	 			has_war_with = ENG
+	 		OR = {
+	 			GER = { has_war_with = FRA }
+	 			GER = { has_war_with = ENG }
 	 		}
 	 		NOT = { has_global_flag = kis_treaty_of_versailles }
 		}
 		completion_reward = {
 
-				FRA={
-					add_to_faction=ROOT
+			#FRA={
+			#	add_to_faction=ROOT
+			#}
+			if = {
+				limit = { GER = { has_war_with = ENG } }
+				add_to_war = { 
+				    targeted_alliance = ENG 
+				    enemy = GER 
+				    hostility_reason = asked_to_join
 				}
+			}
+			if = {
+				limit = { GER = { has_war_with = FRA } }
+				add_to_war = { 
+				    targeted_alliance = FRA 
+				    enemy = GER 
+				    hostility_reason = asked_to_join
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -999,7 +1032,7 @@ focus_tree = {
 			factor = 0
 
 			modifier = {
-				factor = 200
+				add = 200
 				OR = {
 					FRA = { has_capitulated = yes }
 					has_global_flag = second_treaty_of_frankfurt

@@ -19,7 +19,6 @@ country_event = {
 			set_country_flag = kis_secondbalkan_war
 			# Factions
 			BUL = {
-				create_faction = "greater_builgaria"
 				add_named_threat = {
 					threat = 5
 					name = "Second Balkan War"
@@ -428,7 +427,11 @@ country_event = {
 
 		FROM = {
 			# all allies peace out
-			every_allied_country = {
+			every_country = {
+				limit = { 
+					is_in_faction_with = FROM 
+					has_war_with = BUL
+				}
 				white_peace = BUL
 				leave_faction = yes
 				diplomatic_relation = {

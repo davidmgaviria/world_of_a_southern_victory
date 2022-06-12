@@ -478,13 +478,16 @@ focus_tree = {
 		ai_will_do = { factor = 30 }
 
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = GER 
-				modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+			diplomatic_relation = {
+			    country = GER
+			    relation = non_aggression_pact
+			    active = yes
 			}
-			add_opinion_modifier = { 
-				target = FRA
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+			FRA = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
 			}
 		}
 	}
@@ -510,48 +513,20 @@ focus_tree = {
 		ai_will_do = { factor = 30 }
 
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = AUH
-				modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+			diplomatic_relation = {
+			    country = AUH
+			    relation = non_aggression_pact
+			    active = yes
 			}
-			add_opinion_modifier = { 
-				target = RUS
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+			RUS = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
 			}
 		}
 	}
 
-
-	focus = {
-		id = USA_join_central_powers
-		icon = GFX_goal_generic_territory_or_war
-		prerequisite = { focus = USA_strengthen_austro-hungarian_ties }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =  USA_strengthen_austro-hungarian_ties
-
-		available = {
-	 		is_puppet = no
-	 		NOT = { has_war_with = GER }
-			is_in_faction = no
-	 		
-	 		GER = {
-	 			exists = yes
- 				is_faction_leader = yes
-	 		}
-	 		NOT = { has_global_flag = kis_treaty_of_versailles }
-		}
-
-		ai_will_do = { factor = 40 }
-
-		completion_reward = { 
-			GER={
-				add_to_faction=ROOT
-			}
-			hidden_effect = { news_event = wsv_generic.10 }
-		}
-	}
 
 
 
@@ -584,8 +559,11 @@ focus_tree = {
 		ai_will_do = { factor = 30 }
 
 		completion_reward = { 
-			add_opinion_modifier={ 
-				target=CAN modifier=HOI4TGW_Opinion_anti_canada_policy_malus
+			CAN = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
 			}
 		}
 	}
@@ -602,9 +580,10 @@ focus_tree = {
 		ai_will_do = { factor = 15 }
 
 		completion_reward = { 
-			USA={ 
-				add_opinion_modifier={ 
-					target=ENG modifier=HOI4TGW_Opinion_anti_uk_policy_malus
+			ENG = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
 				}
 			}
 		}
@@ -662,9 +641,10 @@ focus_tree = {
 		ai_will_do = { factor = 20 }
 
 		completion_reward = { 
-			USA={ 
-				add_opinion_modifier={ 
-					target=CSA modifier=HOI4TGW_Opinion_anti_csa_policy_malus
+			CSA = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
 				}
 			}
 		}
@@ -684,9 +664,10 @@ focus_tree = {
 		ai_will_do = { factor = 10 }
 
 		completion_reward = { 
-			USA={ 
-				add_opinion_modifier={ 
-					target=MEX modifier=HOI4TGW_Opinion_anti_mexico_policy_malus
+			MEX = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
 				}
 			}
 		}
@@ -795,7 +776,7 @@ focus_tree = {
 		id = USA_prepare_for_war
 		prerequisite = { focus = USA_anti-canada_policy }
 		prerequisite = { focus = USA_anti-csa_policy }
-		prerequisite = { focus = USA_join_central_powers }
+		prerequisite = { focus = USA_strengthen_austro-hungarian_ties }
 		icon = GFX_goal_demand_sudetenland  
 		available = { threat > 0.25 }
 		completion_reward = {
@@ -808,7 +789,7 @@ focus_tree = {
 		cost = 5
 		x = 0
 		y = 2
-		relative_position_id = USA_join_central_powers
+		relative_position_id = USA_strengthen_austro-hungarian_ties
 	}
 
 
@@ -818,7 +799,7 @@ focus_tree = {
 		prerequisite = { focus = USA_prepare_for_war }
 		cost = 10
 		x = -1
-		y = 1
+		y = 2
 		relative_position_id = USA_prepare_for_war
 
 		available = {
@@ -853,7 +834,7 @@ focus_tree = {
 		prerequisite = { focus = USA_prepare_for_war }
 		cost = 10
 		x = 1
-		y = 1
+		y = 2
 		relative_position_id = USA_prepare_for_war
 
 		available = {
@@ -886,6 +867,43 @@ focus_tree = {
     			type = topple_government
     			target = CSA
 			}
+		}
+	}
+
+
+	focus = {
+		id = USA_join_central_powers
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = USA_prepare_for_war }
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id =  USA_prepare_for_war
+
+		available = {
+			threat > 0.5
+	 		is_puppet = no
+	 		NOT = { has_war_with = GER }
+			is_in_faction = no
+	 		
+	 		GER = {
+	 			exists = yes
+ 				is_faction_leader = yes
+	 		}
+	 		NOT = { has_global_flag = kis_treaty_of_versailles }
+		}
+
+		ai_will_do = { factor = 40 }
+
+		bypass = {
+			is_in_faction_with = GER
+		}
+
+		completion_reward = { 
+			GER={
+				add_to_faction=ROOT
+			}
+			hidden_effect = { news_event = wsv_generic.10 }
 		}
 	}
 

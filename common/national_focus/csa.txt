@@ -284,14 +284,17 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = ENG
-				modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+			diplomatic_relation = {
+			    country = ENG
+			    relation = non_aggression_pact
+			    active = yes
 			}
-			add_opinion_modifier = { 
-				target = GER
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
-			}			
+			USA = {
+				add_opinion_modifier = { 
+					target = CSA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
+			}		
 		}
 	}
 
@@ -302,7 +305,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_strengthen_british_ties }
 		cost = 10
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CSA_strengthen_british_ties
 
 		ai_will_do = { 
@@ -337,13 +340,16 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = FRA
-				modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+			diplomatic_relation = {
+			    country = FRA
+			    relation = non_aggression_pact
+			    active = yes
 			}
-			add_opinion_modifier = { 
-				target = AUH
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+			GER = {
+				add_opinion_modifier = { 
+					target = CSA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
 			}		
 		}
 	}
@@ -352,9 +358,9 @@ focus_tree = {
 		id = CSA_join_entente
 		icon = GFX_goal_support_democracy
 		prerequisite = { focus = CSA_strengthen_french_ties }
-		cost = 10
+		cost = 5
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CSA_strengthen_french_ties
 
 		available = {
@@ -365,10 +371,15 @@ focus_tree = {
 	 			exists = yes
  				is_faction_leader = yes
 	 		}
+	 		threat > 0.5
 		}
 
 		ai_will_do = { 
 			factor = 40 
+		}
+
+		bypass = {
+			is_in_faction_with = FRA
 		}
 
 		completion_reward = { 
@@ -382,8 +393,8 @@ focus_tree = {
 
 	focus = {
 		id = CSA_prepare_for_war
-		prerequisite = { focus = CSA_csa-canadian_partnership }
-		prerequisite = { focus = CSA_join_entente }
+		prerequisite = { focus = CSA_strengthen_british_ties }
+		prerequisite = { focus = CSA_strengthen_french_ties }
 		icon = GFX_goal_demand_sudetenland   
 		available = { threat > 0.25 }
 		completion_reward = {
@@ -394,9 +405,9 @@ focus_tree = {
 		cancel_if_invalid = yes 
 		ai_will_do = { factor = 50 }
 		cost = 5
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = CSA_join_entente
+		relative_position_id = CSA_strengthen_british_ties
 	}
 
 
@@ -406,7 +417,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_prepare_for_war }
 		cost = 10
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CSA_prepare_for_war
 		available = {
 			has_war = yes
@@ -502,10 +513,28 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			custom_effect_tooltip = CSA_mexico_loosen_tt
-			hidden_effect = {
-				MEX = {	add_autonomy_score = { value = 1000 } }	
-			}			
+			#custom_effect_tooltip = CSA_mexico_loosen_tt
+			#hidden_effect = {
+			#	MEX = {	add_autonomy_score = { value = 1000 } }	
+			#}
+
+			diplomatic_relation = {
+			    country = CSA
+			    relation = non_aggression_pact
+			    active = yes
+			}
+			diplomatic_relation = {
+			    country = MEX
+			    relation = guarantee
+			    active = no
+			}
+			MEX = {
+				diplomatic_relation = {
+				    country = CSA
+				    relation = guarantee
+				    active = no
+				}
+			}
 		}
 	}
 
@@ -525,10 +554,22 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			custom_effect_tooltip = CSA_mexico_tighten_tt
-			hidden_effect = {
-				MEX = {	add_autonomy_score = { value = -1000 } }	
-			}				
+			#custom_effect_tooltip = CSA_mexico_tighten_tt
+			#hidden_effect = {
+			#	MEX = {	add_autonomy_score = { value = -1000 } }	
+			#}	
+			MEX = {
+				diplomatic_relation = {
+				    country = CSA
+				    relation = military_access
+				    active = yes
+				}
+				diplomatic_relation = {
+				    country = CSA
+				    relation = docking_rights
+				    active = yes
+				}
+			}			
 		}
 	}
 
@@ -580,28 +621,28 @@ focus_tree = {
 	}
 
 
-	focus = {
-		id = CSA_release_mexico
-		icon = GFX_focus_mexico_csa_unity
-		prerequisite = { focus = CSA_csa-mexico_military }
-		prerequisite = { focus = CSA_loosen_control_mexico }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = CSA_csa-mexico_military
+	# focus = {
+	# 	id = CSA_release_mexico
+	# 	icon = GFX_focus_mexico_csa_unity
+	# 	prerequisite = { focus = CSA_csa-mexico_military }
+	# 	prerequisite = { focus = CSA_loosen_control_mexico }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = CSA_csa-mexico_military
 		
-		ai_will_do = { 
-			factor = 5
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			} 
-		}
+	# 	ai_will_do = { 
+	# 		factor = 5
+	# 		modifier = {
+	# 			is_historical_focus_on = yes
+	# 			factor = 0
+	# 		} 
+	# 	}
 
-		completion_reward = { 
-			release = MEX			
-		}
-	}
+	# 	completion_reward = { 
+	# 		release = MEX			
+	# 	}
+	# }
 
 
 	focus = {
