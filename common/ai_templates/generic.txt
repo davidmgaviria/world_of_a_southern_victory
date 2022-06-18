@@ -1,10 +1,872 @@
+####################################################################################
+############################## SOUTHERN VICTORY ####################################
+####################################################################################
+
+
+
+infantry_generic = {
+
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# 	CHI
+	# 	PRC 
+	# 	GXC
+	# 	YUN
+	# 	SHX
+	# 	XSM
+	# 	SIK
+	# 	MEN
+	# 	MAN
+	# }
+
+	roles = {
+		infantry
+	}
+	
+	upgrade_prio = {
+		factor = 10
+	}
+
+	match_to_count = 0.10
+
+	## Infantry 1 template
+	infantry_default_1 = {
+	
+		upgrade_prio = {
+			factor = 2
+		}
+		
+		target_width = 20.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			0.00 #-- defense
+			1.00 #-- breakthrough
+			0.00 #-- hardness
+			4.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.00 #-- recon
+			1.00 #-- entrenchment
+			0.00 #-- initiative
+			0.00 #-- casualty_trickleback
+			0.00 #-- supply_consumption_factor
+			0.00 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.00 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.00 #-- air_attack
+			#-- Common Values
+			0.60 #-- max_organisation
+			0.40 #-- max_strength
+			0.00 #-- maximum_speed
+			0.00 #-- armor_value
+			0.20 #-- ap_attack
+			0.00 #-- reliability
+			0.00 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.8  				
+			match_value = 2000.0 		
+			
+			support = {
+				engineer = 1
+				recon = 1
+				artillery = 1
+			}
+			
+			regiments = {
+				infantry = 9
+			}
+		}
+		
+		allowed_types = {
+			infantry		
+			engineer
+			recon
+			field_hospital
+			logistics_company
+			anti_tank
+			artillery
+			rocket_artillery
+			artillery_brigade
+		}
+	}
+
+
+	## Infantry 2 template
+	infantry_default_2 = {
+	
+		upgrade_prio = {
+			factor = 0.5
+
+			modifier = {
+				factor = 4
+				stockpile_ratio = {
+				    archetype = artillery_equipment
+				    ratio < 0.1
+				}
+			}
+
+			modifier = {
+				factor = 3
+				stockpile_ratio = {
+				    archetype = artillery_equipment
+				    ratio < 0.3
+				}
+			}
+		}
+		
+		target_width = 20.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			0.00 #-- defense
+			1.00 #-- breakthrough
+			0.00 #-- hardness
+			4.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.00 #-- recon
+			1.00 #-- entrenchment
+			0.00 #-- initiative
+			0.00 #-- casualty_trickleback
+			0.00 #-- supply_consumption_factor
+			0.00 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.00 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.00 #-- air_attack
+			#-- Common Values
+			0.60 #-- max_organisation
+			0.40 #-- max_strength
+			0.00 #-- maximum_speed
+			0.00 #-- armor_value
+			0.20 #-- ap_attack
+			0.00 #-- reliability
+			0.00 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.8  				
+			match_value = 2000.0 			
+			
+			support = {
+				engineer = 1
+				recon = 1
+				field_hospital = 1
+				logistics_company = 1
+			}
+			
+			regiments = {
+				infantry = 7
+				artillery_brigade = 2
+			}
+		}
+		
+		allowed_types = {
+			infantry		
+			engineer
+			recon
+			field_hospital
+			logistics_company
+			anti_tank
+			artillery
+			rocket_artillery
+			artillery_brigade
+		}
+	}
+}
+
+
+
+
+cavalry_generic = {
+
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# 	CHI
+	# 	PRC 
+	# 	GXC
+	# 	YUN
+	# 	SHX
+	# 	XSM
+	# 	SIK
+	# 	MEN
+	# 	MAN
+	# }
+
+	roles = {
+		cavalry
+	}
+	
+	upgrade_prio = {
+		factor = 4
+	}
+
+	match_to_count = 0.10
+	
+
+	cavalry_default = {
+	
+		upgrade_prio = {
+			factor = 2
+		}
+		
+		target_width = 12.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			0.00 #-- defense
+			1.00 #-- breakthrough
+			0.00 #-- hardness
+			4.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.00 #-- recon
+			1.00 #-- entrenchment
+			0.00 #-- initiative
+			0.00 #-- casualty_trickleback
+			0.00 #-- supply_consumption_factor
+			0.00 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.00 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.00 #-- air_attack
+			#-- Common Values
+			0.60 #-- max_organisation
+			0.40 #-- max_strength
+			0.00 #-- maximum_speed
+			0.00 #-- armor_value
+			0.20 #-- ap_attack
+			0.00 #-- reliability
+			0.00 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.9
+			match_value = 3000.0
+			
+			support = {
+				engineer = 1
+				recon = 1
+				artillery = 1
+			}
+			
+			regiments = {
+				cavalry = 6
+			}
+		}
+		
+		allowed_types = {
+			infantry		
+			engineer
+			recon
+			field_hospital
+			logistics_company
+			anti_tank
+			artillery
+			rocket_artillery
+			artillery_brigade
+		}
+	}
+}
+
+
+
+cavalry_big_generic = {
+
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# 	CHI
+	# 	PRC 
+	# 	GXC
+	# 	YUN
+	# 	SHX
+	# 	XSM
+	# 	SIK
+	# 	MEN
+	# 	MAN
+	# }
+
+	roles = {
+		cavalry
+	}
+	
+	upgrade_prio = {
+		factor = 6
+
+		modifier = {
+			factor = 0
+
+			stockpile_ratio = { 
+  				archetype = infantry_equipment
+  				ratio < 2
+  			}
+		}
+	}
+
+	match_to_count = 0.10
+	
+
+	cavalry_big_default = {
+	
+		upgrade_prio = {
+			factor = 5
+
+			modifier = {
+				factor = 0
+
+				stockpile_ratio = { 
+	  				archetype = infantry_equipment
+	  				ratio < 2
+	  			}
+			}
+		}
+		
+		target_width = 18.0
+		width_weight = 1.5
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			0.00 #-- defense
+			1.00 #-- breakthrough
+			0.00 #-- hardness
+			4.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.00 #-- recon
+			1.00 #-- entrenchment
+			0.00 #-- initiative
+			0.00 #-- casualty_trickleback
+			0.00 #-- supply_consumption_factor
+			0.00 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.00 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.00 #-- air_attack
+			#-- Common Values
+			0.60 #-- max_organisation
+			0.40 #-- max_strength
+			0.00 #-- maximum_speed
+			0.00 #-- armor_value
+			0.20 #-- ap_attack
+			0.00 #-- reliability
+			0.00 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.9
+			match_value = 5000.0
+			
+			support = {
+				engineer = 1
+				anti_tank = 1
+				recon = 1
+				signal_company = 1
+				logistics_company = 1
+			}
+			
+			regiments = {
+				cavalry = 9
+			}
+		}
+		
+		allowed_types = {
+			infantry		
+			engineer
+			recon
+			field_hospital
+			logistics_company
+			anti_tank
+			artillery
+			rocket_artillery
+			artillery_brigade
+			signal_company
+		}
+	}
+}
+
+
+greatwar_lightarmor_generic = {
+
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# }
+
+	roles = {
+		armor
+	}
+	
+	upgrade_prio = {
+		factor = 2
+
+		modifier = {
+			factor = 7
+			has_tech = ww1_light_tank
+		}
+		
+		modifier = {
+			factor = 0
+			has_tech = basic_light_tank
+		}
+	}
+	
+	match_to_count = 0.5
+
+	gw_light_armor_default = {
+		upgrade_prio = {
+			factor = 2
+		}
+		
+		production_prio = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				num_of_military_factories > 35
+			}
+		}
+		
+		#can_upgrade_in_field = {
+		#	has_equipment = { light_tank_chassis < 500 } 
+		#}
+		
+		target_width = 18.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			1.10 #-- defense
+			1.10 #-- breakthrough
+			0.60 #-- hardness
+			1.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.10 #-- recon
+			0.01 #-- entrenchment
+			0.10 #-- initiative
+			0.01 #-- casualty_trickleback
+			-0.05 #-- supply_consumption_factor
+			-0.01 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.01 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.02 #-- air_attack
+			#-- Common Values
+			30.00 #-- max_organisation
+			0.80 #-- max_strength
+			2.0 #-- maximum_speed
+			0.20 #-- armor_value
+			0.05 #-- ap_attack
+			0.10 #-- reliability
+			0.10 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.9
+			match_value = 4000.0
+			
+			support = {
+				engineer = 1
+				mot_recon = 1
+				artillery = 1
+				anti_tank = 1
+			}
+			
+			regiments = {
+				light_armor = 3
+				infantry = 6
+			}
+		}
+		
+		allowed_types = {
+			light_armor
+			heavy_armor
+			motorized
+			engineer
+			mot_recon
+			armored_car_recon
+			light_tank_recon
+			artillery
+			anti_tank
+		}
+		
+		#replace_at_match = 0.4
+		#replace_with = medium_armor_default
+		#target_min_match = 0.5
+	}
+}
+
+
+greatwar_heavyarmor_generic = {
+
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# }
+
+	roles = {
+		armor
+	}
+	
+	upgrade_prio = {
+		factor = 3
+
+		modifier = {
+			factor = 10
+			has_tech = ww1_heavy_tank
+		}
+		
+		modifier = {
+			factor = 0
+			has_tech = basic_heavy_tank
+		}
+	}
+	
+	match_to_count = 0.5
+
+	### Heavy Armor ###
+	gw_heavy_armor_default = {
+		upgrade_prio = {
+			factor = 2
+		}
+		
+		production_prio = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				num_of_military_factories > 50
+			}
+		}
+		
+		#can_upgrade_in_field = {
+		#	has_equipment = { light_tank_chassis < 500 } 
+		#}
+		
+		target_width = 18.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			1.10 #-- defense
+			1.10 #-- breakthrough
+			0.60 #-- hardness
+			1.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.10 #-- recon
+			0.01 #-- entrenchment
+			0.10 #-- initiative
+			0.01 #-- casualty_trickleback
+			-0.05 #-- supply_consumption_factor
+			-0.01 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.01 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.02 #-- air_attack
+			#-- Common Values
+			30.00 #-- max_organisation
+			0.80 #-- max_strength
+			2.0 #-- maximum_speed
+			0.20 #-- armor_value
+			0.05 #-- ap_attack
+			0.10 #-- reliability
+			0.10 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.9
+			match_value = 4000.0
+			
+			support = {
+				engineer = 1
+				mot_recon = 1
+				artillery = 1
+				anti_tank = 1
+			}
+			
+			regiments = {
+				heavy_armor = 19
+				infantry = 6
+			}
+		}
+		
+		allowed_types = {
+			light_armor
+			heavy_armor
+			motorized
+			engineer
+			mot_recon
+			armored_car_recon
+			light_tank_recon
+			artillery
+			anti_tank
+		}
+		
+		#replace_at_match = 0.4
+		#replace_with = medium_armor_default
+		#target_min_match = 0.5
+	}
+}
+
+
+
+
+####################################################################################
+################################# VANILLLA GAME ####################################
+####################################################################################
+
+
+
+
+infantry_big_generic = {
+
+	# blocked_for = {
+	# 	GER
+	# 	FRA
+	# 	ENG
+	# 	RUS
+	# }
+
+	# Original blocked for
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# 	CHI
+	# 	PRC 
+	# 	GXC
+	# 	YUN
+	# 	SHX
+	# 	XSM
+	# 	SIK
+	# 	MEN
+	# 	MAN
+	# }
+
+	roles = {
+		infantry
+	}
+	
+	upgrade_prio = {
+		factor = 20
+
+		modifier = {
+			factor = 0
+
+			stockpile_ratio = { 
+  				archetype = infantry_equipment
+  				ratio < 4
+  			}
+		}
+	}
+
+	match_to_count = 0.10
+	
+	infantry_default = {
+	
+		upgrade_prio = {
+			factor = 20
+
+			modifier = {
+				factor = 0
+
+				OR = {
+					date < 1938.1.1
+					stockpile_ratio = { 
+		  				archetype = infantry_equipment
+		  				ratio < 4
+		  			}
+		  		}
+			}
+		}
+		
+		target_width = 40.0
+		width_weight = 1.5
+		column_swap_factor = 0.5
+		
+		stat_weights = {
+			0.00 #-- default_morale
+			0.00 #-- defense
+			1.00 #-- breakthrough
+			0.00 #-- hardness
+			4.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.00 #-- recon
+			1.00 #-- entrenchment
+			0.00 #-- initiative
+			0.00 #-- casualty_trickleback
+			0.00 #-- supply_consumption_factor
+			0.00 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.00 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.00 #-- air_attack
+			#-- Common Values
+			0.60 #-- max_organisation
+			0.40 #-- max_strength
+			0.00 #-- maximum_speed
+			0.00 #-- armor_value
+			0.20 #-- ap_attack
+			0.00 #-- reliability
+			0.00 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
+		
+		target_template = {
+			weight = 0.9
+			match_value = 5000.0
+			
+			support = {
+				engineer = 1
+				anti_tank = 1
+				recon = 1
+				signal_company = 1
+				logistics_company = 1
+			}
+			
+			regiments = {
+				infantry = 14
+				artillery_brigade = 4
+			}
+		}
+		
+		allowed_types = {
+			infantry		
+			engineer
+			recon
+			field_hospital
+			logistics_company
+			anti_tank
+			artillery
+			rocket_artillery
+			artillery_brigade
+			signal_company
+		}
+	}
+}
+
+
+
 armor_generic = {
 
-	blocked_for = {
-		JAP
-		RUS
-		SOV
-	}
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# }
 
 	roles = {
 		armor
@@ -15,12 +877,18 @@ armor_generic = {
 
 		modifier = {
 			factor = 7
-			has_tech = basic_medium_tank
+			OR = {
+				has_tech = basic_medium_tank
+				has_tech = basic_medium_tank_chassis
+			}
 		}
 		
 		modifier = {
 			factor = 2
-			has_tech = main_battle_tank
+			OR = {
+				has_tech = main_battle_tank
+				has_tech = main_battle_tank_chassis
+			}
 		}
 	}
 	
@@ -45,7 +913,7 @@ armor_generic = {
 		}
 		
 		can_upgrade_in_field = {
-			has_equipment = { light_tank_equipment < 500 } 
+			has_equipment = { light_tank_chassis < 500 } 
 		}
 		
 		target_width = 18.0
@@ -223,7 +1091,10 @@ armor_generic = {
 
 			modifier = {
 				factor = 4
-				has_tech = basic_medium_tank
+				OR = {
+					has_tech = basic_medium_tank
+					has_tech = basic_medium_tank_chassis
+				}
 			}
 		}
 		
@@ -483,16 +1354,20 @@ armor_generic = {
 			artillery
 		}
 	}
-
 }
+
+
 
 garrison_generic = {
 
-	blocked_for = {
-		JAP
-		RUS
-		SOV
-	}
+	# blocked_for = {
+	# 	GER
+	# 	JAP
+	# 	ENG
+	# 	USA
+	# 	ITA
+	# 	SOV
+	# }
 	
 	roles = {
 		garrison
@@ -584,6 +1459,8 @@ garrison_generic = {
 	}
 }
 
+
+
 suppression_generic = {
 	
 	roles = {
@@ -608,13 +1485,6 @@ suppression_generic = {
 	
 		upgrade_prio = {
 			factor = 2
-
-			modifier = {
-				factor = 50
-				any_owned_state = {
-					has_active_resistance = yes
-				}			
-			}
 		}
 		
 		target_width = 12.0
@@ -679,358 +1549,9 @@ suppression_generic = {
 	}
 }
 
-infantry_generic = {
 
-	blocked_for = {
-		CAN
-		RUS
-		SOV
-		JAP
-		CHI
-		PRC 
-		GXC
-		YUN
-		SHX
-		XSM
-		SIK
-		MEN
-		MAN
-	}
-
-	roles = {
-		infantry
-	}
-	
-	upgrade_prio = {
-		factor = 2
-
-		modifier = {
-			factor = 5
-		}
-	}
-
-	match_to_count = 0.10
-	
-	infantry_default = {
-	
-		upgrade_prio = {
-			factor = 2
-
-			modifier = {
-				factor = 1
-			}
-		}
-		
-		target_width = 20.0
-		width_weight = 1.0
-		column_swap_factor = 0.5
-		
-		stat_weights = {
-			0.00 #-- default_morale
-			0.00 #-- defense
-			1.00 #-- breakthrough
-			0.00 #-- hardness
-			4.00 #-- soft_attack
-			0.00 #-- hard_attack
-			0.00 #-- recon
-			1.00 #-- entrenchment
-			0.00 #-- initiative
-			0.00 #-- casualty_trickleback
-			0.00 #-- supply_consumption_factor
-			0.00 #-- supply_consumption
-			0.00 #-- suppression
-			0.00 #-- suppression_factor
-			0.00 #-- experience_loss_factor
-			0.00 #-- equipment_capture_factor
-			0.00 #-- fuel_capacity
-			#-- Air Values
-			0.00 #-- air_attack
-			#-- Common Values
-			0.60 #-- max_organisation
-			0.40 #-- max_strength
-			0.00 #-- maximum_speed
-			0.00 #-- armor_value
-			0.20 #-- ap_attack
-			0.00 #-- reliability
-			0.00 #-- reliability_factor
-			0.00 #-- weight
-			0.00 #-- fuel_consumption
-			0.00 #-- fuel_consumption_factor
-			0.00 #-- strat_attack
-			0.00 #-- carrier_size
-			0.00 #-- acc_hot_gain
-			0.00 #-- acc_cold_gain
-			0.00 #-- build_cost_ic
-		}
-		
-		target_template = {
-			weight = 0.9
-			match_value = 3000.0
-			
-			support = {
-				engineer = 1
-				recon = 1
-			}
-			
-			regiments = {
-				infantry = 7
-				artillery_brigade = 2
-			}
-		}
-		
-		allowed_types = {
-			infantry		
-			engineer
-			recon
-			field_hospital
-			logistics_company
-			anti_tank
-			artillery
-			rocket_artillery
-			artillery_brigade
-		}
-	}
-}
-
-
-infantry_big_generic = {
-
-	blocked_for = {
-		CAN
-		JAP
-		RUS
-		SOV
-		CHI
-		PRC 
-		GXC
-		YUN
-		SHX
-		XSM
-		SIK
-		MEN
-		MAN
-	}
-
-	roles = {
-		infantry
-	}
-	
-	upgrade_prio = {
-		factor = 20
-
-		modifier = {
-			factor = 0
-			stockpile_ratio = { 
-	  			archetype = infantry_equipment
-	  			ratio < 4
-	  		}
-		}
-	}
-
-	match_to_count = 0.10
-	
-	infantry_default = {
-	
-		upgrade_prio = {
-			factor = 20
-
-			modifier = {
-				factor = 0
-				stockpile_ratio = { 
-		  			archetype = infantry_equipment
-		  			ratio < 4
-		  		}
-			}
-		}
-		
-		target_width = 40.0
-		width_weight = 1.5
-		column_swap_factor = 0.5
-		
-		stat_weights = {
-			0.00 #-- default_morale
-			0.00 #-- defense
-			1.00 #-- breakthrough
-			0.00 #-- hardness
-			4.00 #-- soft_attack
-			0.00 #-- hard_attack
-			0.00 #-- recon
-			1.00 #-- entrenchment
-			0.00 #-- initiative
-			0.00 #-- casualty_trickleback
-			0.00 #-- supply_consumption_factor
-			0.00 #-- supply_consumption
-			0.00 #-- suppression
-			0.00 #-- suppression_factor
-			0.00 #-- experience_loss_factor
-			0.00 #-- equipment_capture_factor
-			0.00 #-- fuel_capacity
-			#-- Air Values
-			0.00 #-- air_attack
-			#-- Common Values
-			0.60 #-- max_organisation
-			0.40 #-- max_strength
-			0.00 #-- maximum_speed
-			0.00 #-- armor_value
-			0.20 #-- ap_attack
-			0.00 #-- reliability
-			0.00 #-- reliability_factor
-			0.00 #-- weight
-			0.00 #-- fuel_consumption
-			0.00 #-- fuel_consumption_factor
-			0.00 #-- strat_attack
-			0.00 #-- carrier_size
-			0.00 #-- acc_hot_gain
-			0.00 #-- acc_cold_gain
-			0.00 #-- build_cost_ic
-		}
-		
-		target_template = {
-			weight = 0.9
-			match_value = 5000.0
-			
-			support = {
-				engineer = 1
-				recon = 1
-				field_hospital = 1
-				signal_company = 1
-				logistics_company = 1
-			}
-			
-			regiments = {
-				infantry = 14
-				artillery_brigade = 4
-			}
-		}
-		
-		allowed_types = {
-			infantry		
-			engineer
-			recon
-			field_hospital
-			logistics_company
-			anti_tank
-			artillery
-			rocket_artillery
-			artillery_brigade
-			signal_company
-		}
-	}
-}
-
-mountaineers_generic = {
-
-	blocked_for = {
-		JAP
-		RUS
-		SOV
-	}
-
-	roles = {
-		mountaineers
-	}
-	
-	upgrade_prio = {
-		factor = 2
-
-		modifier = {
-			factor = 0
-			NOT = {
-				has_tech = tech_mountaineers
-			}
-		}
-	}
-	
-	match_to_count = 0.45
-
-	mountaineers_default = {
-	
-		upgrade_prio = {
-			factor = 2
-
-			modifier = {
-				factor = 1
-			}
-		}
-	
-		target_width = 20.0
-		width_weight = 2.0
-		column_swap_factor = 0.2
-		
-		stat_weights = {
-			0 #-- default_morale
-			1 #-- defense
-			1 #-- breakthrough
-			0 #-- hardness
-			2 #-- soft_attack
-			0 #-- hard_attack
-			0 #-- recon
-			0 #-- entrenchment
-			0 #-- initiative
-			0 #-- casualty_trickleback
-			0  #-- supply_consumption_factor
-			0 #-- supply_consumption
-			0 #-- suppression
-			0 #-- suppression_factor
-			0 #-- experience_loss_factor
-			0 #-- equipment_capture_factor
-			0.00 #-- fuel_capacity
-			#-- Air Values
-			0 #-- air_attack
-			#-- Common Values
-			1 #-- max_organisation
-			1 #-- max_strength
-			0 #-- maximum_speed
-			0 #-- armor_value
-			0 #-- ap_attack
-			0 #-- reliability
-			0 #-- reliability_factor
-			0.00 #-- weight
-			0.00 #-- fuel_consumption
-			0.00 #-- fuel_consumption_factor
-			0.00 #-- strat_attack
-			0.00 #-- carrier_size
-			0.00 #-- acc_hot_gain
-			0.00 #-- acc_cold_gain
-			-0.1 #-- build_cost_ic
-		}
-
-		target_template = {
-			weight = 0.5
-			match_value = 3000.0
-			
-			support = {
-				engineer = 1
-				artillery = 1
-				anti_tank = 1
-				logistics_company = 1
-			}
-			
-			regiments = {
-				mountaineers = 8
-				artillery_brigade = 2
-			}
-		}
-		
-		allowed_types = {
-			mountaineers
-			artillery
-			recon
-			signal_company
-			field_hospital
-			logistics_company
-			anti_tank
-		}
-	}
-}
 
 marines_generic = {
-
-	blocked_for = {
-		JAP
-		RUS
-		SOV
-	}
 
 	roles = {
 		marines
@@ -1108,8 +1629,6 @@ marines_generic = {
 			support = {
 				recon = 1
 				logistics_company = 1
-				engineer = 1
-				artillery = 1
 			}
 			
 			regiments = {
@@ -1134,6 +1653,9 @@ marines_generic = {
 				NOT = {
 					has_tech = amphibious_tank
 					has_tech = amphibious_mechanized_infantry
+				}
+				NOT = {
+					has_tech = amphibious_tank_chassis
 				}
 			}
 			modifier = {
@@ -1192,7 +1714,6 @@ marines_generic = {
 				recon = 1
 				logistics_company = 1
 				engineer = 1
-				artillery = 1
 			}
 			
 			regiments = {
@@ -1215,12 +1736,6 @@ marines_generic = {
 
 
 paratrooper_generic = {
-
-	blocked_for = {
-		JAP
-		RUS
-		SOV
-	}
 
 	roles = {
 		paratrooper

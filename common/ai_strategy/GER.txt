@@ -147,7 +147,7 @@ GER_ignore_north_america = {
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = USA
+		id = "USA"
 		value = 100
 	}	
 }
@@ -263,7 +263,7 @@ GER_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 15
+		value = 40
 	}
 	ai_strategy = {
 		type = equipment_variant_production_factor
@@ -273,7 +273,7 @@ GER_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 55
+		value = 25
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -293,31 +293,42 @@ GER_gw_unit_production = {
 }
 
 
-GER_build_up_army = {
+GER_militarized_society = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		always = yes
+	}
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 15
+	}
+}
+
+
+GER_fast_build_up_army = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		threat > 0.35
 		OR = { country_exists = FRA   country_exists = RUS }
-		has_army_manpower = { size < 2000000 }
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
-	}
-
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 40
+		value = -10 # reduce while we build up in case of issues
 	}
 }
 
 
 
-no_one_gets_our_troops = {
+GER_no_one_gets_our_troops = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
@@ -342,68 +353,37 @@ no_one_gets_our_troops = {
 
 
 
+GER_greatwar_mobilize = {
+	allowed = {
+		original_tag = GER		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = FRA
+		NOT = { is_in_faction_with = FRA }
+		threat > 0.35	
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "FRA"
+		value = 100
+	}
+}
+
+
+
 GER_der_schlieffen_plan = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		FRA = { exists = yes }
 		OR = {
 			has_idea = schlieffen
-			FRA = { surrender_progress > 0.3 }
-			NOT = { has_global_flag = hoi4tgw_SchlieffenSecurity }
+			has_decision = germany_schliffen_plan
 		}
-	}
-	abort = {
-		OR = {
-			#attack has failed
-			AND = {
-				casualties > 250000
-				NOT = { controls_state = 16 }		
-			}
-			#schliffen is over
-			AND = {
-				NOT = { has_idea = schlieffen }
-				has_global_flag = hoi4tgw_SchlieffenSecurity
-			}
-		}
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "BEL"			
-		value = 600
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "LUX"			
-		value = 600
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "FRA"			
-		value = 250
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "BEL"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "LUX"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "FRA"			
-		value = 100
 	}
 
 	ai_strategy = {
@@ -420,107 +400,135 @@ GER_der_schlieffen_plan = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = BEL			
+		type = conquer
+		id = "BEL"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "LUX"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "FRA"			
 		value = 100
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = FRA
-		value = 50
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = RUS
-		value = -25
-	}
-
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "AUH"
-		value = 1
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = africa		
-		value = -150
-	}
-}
-
-
-GER_focus_on_western_front = {
-	allowed = {
-		original_tag = GER
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		FRA = { exists = yes }
-		RUS = { exists = yes }
-	}
-	abort = {
-		OR = {
-			FRA = { has_capitulated = yes }
-			RUS = { has_capitulated = yes }
-		}
-	}
-	abort_when_not_enabled = yes
-
-	# If Germany invades liege it can be a possiblity to make it historical
-	
-	ai_strategy = {
-		type = conquer
-		id = "FRA"			
-		value = 150
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = FRA			
+		type = ignore
+		id = "RUS"		
 		value = 80
 	}
+
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	tag = BEL			
+	# 	value = 100
+	# }
+
+	# ai_strategy = {
+	#  	type = front_unit_request
+	#  	tag = FRA
+	#  	value = 50
+	# }
+
+	# ai_strategy = {
+	#  	type = front_unit_request
+	#  	tag = RUS
+	#  	value = -25
+	# }
+
+	# ai_strategy = {
+	# 	type = dont_defend_ally_borders
+	# 	id = "AUH"
+	# 	value = 1
+	# }
+
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = africa		
+	# 	value = -80
+	# }
 }
 
 
-GER_eastern_front = {
-	allowed = {
-		original_tag = GER
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		FRA = { exists = yes }
-		RUS = { exists = yes }
-	}
-	abort = {
-		OR = {
-			FRA = { has_capitulated = yes }
-			RUS = { has_capitulated = yes }
-		}
-	}
-	abort_when_not_enabled = yes
+# GER_focus_on_western_front = {
+# 	allowed = {
+# 		original_tag = GER
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		FRA = { exists = yes }
+# 		RUS = { exists = yes }
+# 		has_war_with = FRA
+# 		has_war_with = RUS
+# 	}
+# 	abort = {
+# 		OR = {
+# 			FRA = { has_capitulated = yes }
+# 			RUS = { has_capitulated = yes }
+# 		}
+# 	}
+# 	abort_when_not_enabled = yes
 
-	# If Germany invades liege it can be a possiblity to make it historical
+# 	# If Germany invades liege it can be a possiblity to make it historical
 	
-	ai_strategy = {
-		type = conquer
-		id = "RUS"			
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = conquer
+# 		id = "FRA"			
+# 		value = 150
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		tag = RUS			
-		value = -50
-	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		tag = FRA			
+# 		value = 80
+# 	}
+# }
 
-	ai_strategy = {
-		type = consider_weak
-		id = "RUS"			
-		value = 15
-	}
-}
+
+# GER_eastern_front = {
+# 	allowed = {
+# 		original_tag = GER
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		FRA = { exists = yes }
+# 		RUS = { exists = yes }
+# 		has_war_with = FRA
+# 		has_war_with = RUS
+# 	}
+# 	abort = {
+# 		OR = {
+# 			FRA = { has_capitulated = yes }
+# 			RUS = { has_capitulated = yes }
+# 		}
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	# If Germany invades liege it can be a possiblity to make it historical
+	
+# 	ai_strategy = {
+# 		type = conquer
+# 		id = "RUS"			
+# 		value = 75
+# 	}
+
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		tag = RUS			
+# 		value = -50
+# 	}
+
+# 	ai_strategy = {
+# 		type = consider_weak
+# 		id = "RUS"			
+# 		value = 15
+# 	}
+# }
 
 
 
@@ -543,7 +551,7 @@ GER_attack_french_during_mutiny = {
 		priority = 120
 		ratio = 0.8
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}

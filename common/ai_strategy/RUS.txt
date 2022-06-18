@@ -77,6 +77,37 @@ RUS_area_priority = {
 	}
 }
 
+# guard the vast expanse of russia
+RUS_extra_home_garrison = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = garrison
+		value = 10
+	}
+}
+
+
+# Russia makes more mils
+RUS_militarized_society = {
+	allowed = {
+		original_tag = RUS 
+	}
+	enable = {
+		always = yes
+	}
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 15
+	}
+}
+
 
 
 RUS_ignore_north_america = {
@@ -100,17 +131,17 @@ RUS_ignore_north_america = {
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = CSA
+		id = "CSA"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = MEX
+		id = "MEX"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = CAN
+		id = "CAN"
 		value = 100
 	}			
 }
@@ -127,22 +158,22 @@ RUS_ignore_western_europe = {
 	
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = ENG
+		id = "ENG"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = FRA
+		id = "FRA"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = BEL
+		id = "BEL"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = LUX
+		id = "LUX"
 		value = 100
 	}				
 }
@@ -230,12 +261,12 @@ RUS_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 70 
+		value = 50 
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 5
+		value = 10
 	}
 	
 	#Air unit factors
@@ -295,35 +326,44 @@ RUS_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
-		value = 30
+		value = 25
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 45
+		value = 60			#lots of damn rifles
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 20
+		value = 10
 	}
 }
 
 
-RUS_save_up_equip = {
+RUS_mobilize_for_serbia = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war = no
-		has_army_manpower = { size < 2000000 }
+		SER = { 
+			exists = yes 
+			NOT = { is_puppet_of = AUH }
+		}
+		has_global_flag = kis_franzferdinand_murdered
 	}
-	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = 20 
+		type = prepare_for_war
+		id = "AUH"
+		value = 75
+	}	
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"
+		value = 20
 	}
 }
 

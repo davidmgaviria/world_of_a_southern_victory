@@ -48,7 +48,6 @@ FRA_ignore_north_america = {
 		GER = { has_capitulated = yes }
 	}
 
-
 	ai_strategy = {
 		type = front_unit_request
 		area = north_america		
@@ -56,17 +55,17 @@ FRA_ignore_north_america = {
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = CSA
+		id = "CSA"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = MEX
+		id = "MEX"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = CAN
+		id = "CAN"
 		value = 100
 	}			
 }
@@ -82,7 +81,7 @@ FRA_ignore_russia = {
 
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = RUS
+		id = "RUS"
 		value = 100
 	}		
 }
@@ -214,81 +213,56 @@ FRA_gw_unit_production = {
 }
 
 
-FRA_build_up_army = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = GER
-		has_army_manpower = { size < 1000000 }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
-	}
-}
 
-
-FRA_focus_on_germany = {
+FRA_greatwar_mobilize = {
 	allowed = {
-		original_tag = FRA
+		original_tag = FRA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		country_exists = GER
 		NOT = { is_in_faction_with = GER }
+		threat > 0.35	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = conquer
-		id = "GER"			
-		value = 50
+		type = prepare_for_war
+		id = "GER"
+		value = 100
 	}
-	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = -60
-	}
-	ai_strategy = {
-		type = front_unit_request
-		area = middle_east
-		area = suez
-		value = -80
-	}
-}
+}	
 
 
-FRA_plan_17 = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = GER
-		is_in_faction_with = BEL
-	}
-	abort = {
-		OR = {
-			surrender_progress > 0.1
-			casualties > 100000
-			GER = { controls_state = 34 }
-		}
-	}
-	ai_strategy = {
-		type = front_control
-		state = 28
-		priority = 100
-		ratio = 0.35
-		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
-		manual_attack = yes
-	}
-}
+# FRA_focus_on_germany = {
+# 	allowed = {
+# 		original_tag = FRA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = GER
+# 		NOT = { is_in_faction_with = GER }
+# 		has_war_with = GER
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 		type = conquer
+# 		id = "GER"			
+# 		value = 50
+# 	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		area = africa
+# 		value = -60
+# 	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		area = middle_east
+# 		area = suez
+# 		value = -80
+# 	}
+# }
 
 
 

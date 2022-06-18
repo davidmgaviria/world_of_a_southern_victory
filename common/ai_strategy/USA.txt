@@ -77,6 +77,21 @@ USA_area_priority = {
 }
 
 
+# guard the large area of north america
+USA_extra_home_garrison = {
+	allowed = {
+		original_tag = USA
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = garrison
+		value = 5
+	}
+}
+
 
 USA_two_oceans_fleet = {
 	allowed = {
@@ -126,22 +141,22 @@ USA_ignore_europe = {
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = GER
+		id = "GER"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = AUH
+		id = "AUH"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = BUL
+		id = "BUL"
 		value = 100
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = TUR
+		id = "TUR"
 		value = 100
 	}				
 }
@@ -190,6 +205,7 @@ USA_gw_unit_production = {
 		id = infantry
 		value = 70 
 	}
+	
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
@@ -279,20 +295,20 @@ USA_gw_unit_production = {
 }
 
 
-USA_build_up_army = {
+USA_fast_build_up_army = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		OR = { country_exists = CAN   country_exists = CSA }
-		has_army_manpower = { size < 1700000 }
+		has_war = no
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -10 # reduce while we build up in case of issues
 	}
 }
 
@@ -324,7 +340,39 @@ USA_germany_ally_ww1 = {
 }
 
 
-USA_focus_on_csa = {
+USA_greatwar_mobilize = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		CSA = { exists = yes }
+		NOT = { is_in_faction_with = CSA }
+		threat > 0.35
+	}
+	abort = {
+		OR = {
+			CSA = { has_capitulated = yes }
+			has_global_flag = treaty_of_richmond
+			USA = { is_in_faction_with = CSA }
+		}
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "CSA"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "CAN"			
+		value = 50
+	}
+}
+
+
+USA_focus_on_confederacy = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
@@ -340,105 +388,92 @@ USA_focus_on_csa = {
 			USA = { is_in_faction_with = CSA }
 		}
 	}
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CSA"			
-		value = 400
-	}
 
 	ai_strategy = {
-		type = conquer
-		id = "CSA"			
-		value = 250
+		type = ignore
+		id = "CAN"		
+		value = 10
 	}
+}
 
-	ai_strategy = {
-		type = conquer
-		id = "MEX"			
-		value = -100
+
+USA_attack_csa_during_black_rebellion = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
 	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = CSA
-		value = 65
+	enable = {
+		CSA = { has_idea = CSA_black_rebellion_idea }
 	}
-
+	abort_when_not_enabled = yes
+	
 	ai_strategy = {
 		type = consider_weak
 		id = "CSA"			
-		value = 10
-	}
-
-	#sonora
-	ai_strategy = {
-		type = front_unit_request
-		state = 483
-		state = 816
-		value = -75
+		value = 5
 	}
 }
 
 
+# USA_attack_canada = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		CAN = { exists = yes }
+# 		NOT = { is_in_faction_with = CAN }
+# 	}
+# 	abort_when_not_enabled = yes
 
-USA_attack_canada = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CAN = { exists = yes }
-		NOT = { is_in_faction_with = CAN }
-	}
-	abort_when_not_enabled = yes
+# 	ai_strategy = {
+# 		type = conquer
+# 		id = "CAN"			
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = conquer
-		id = "CAN"			
-		value = 50
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CAN"			
-		value = 75
-	}
-}
-
+# 	ai_strategy = {
+# 		type = prepare_for_war
+# 		id = "CAN"			
+# 		value = 75
+# 	}
+# }
 
 
 
-USA_take_english_islands = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = ENG
-		ENG = {
-			OR = {
-				controls_state = 696 #bermuda
-				controls_state = 690 #north bermuda
-				controls_state = 693 #south bermuda
-				controls_state = 629 #hawaii
-			}
-		}
-	}
-	abort_when_not_enabled = yes
 
-	ai_strategy = {
-		type = front_control
-		state = 696 #bermuda
-		state = 690 #north bermuda
-		state = 693 #south bermuda
-		state = 629 #hawaii
-		ratio = 0.6
-		priority = 100
-		ordertype = invasion
-		execution_type = balanced
-		execute_order = yes
-	}
-}
+# USA_take_english_islands = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = ENG
+# 		ENG = {
+# 			OR = {
+# 				controls_state = 696 #bermuda
+# 				controls_state = 690 #north bermuda
+# 				controls_state = 693 #south bermuda
+# 				controls_state = 629 #hawaii
+# 			}
+# 		}
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 		type = front_control
+# 		state = 696 #bermuda
+# 		state = 690 #north bermuda
+# 		state = 693 #south bermuda
+# 		state = 629 #hawaii
+# 		ratio = 0.6
+# 		priority = 100
+# 		ordertype = invasion
+# 		execution_type = balanced
+# 		execute_order = yes
+# 	}
+# }
+
 
 
 USA_attack_csa_during_black_rebellion = {

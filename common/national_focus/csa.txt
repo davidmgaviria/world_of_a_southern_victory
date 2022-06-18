@@ -73,7 +73,6 @@ focus_tree = {
 		available = {
 			NOT = { has_completed_focus = CSA_black_soldiers }
 			has_global_flag = csa_black_revolt
-			BSR = { exists = no }
 		}
 
 		ai_will_do = { 
@@ -284,14 +283,17 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = ENG
-				modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+			diplomatic_relation = {
+			    country = ENG
+			    relation = non_aggression_pact
+			    active = yes
 			}
-			add_opinion_modifier = { 
-				target = GER
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
-			}			
+			USA = {
+				add_opinion_modifier = { 
+					target = CSA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
+			}		
 		}
 	}
 
@@ -302,7 +304,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_strengthen_british_ties }
 		cost = 10
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CSA_strengthen_british_ties
 
 		ai_will_do = { 
@@ -337,13 +339,16 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = FRA
-				modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+			diplomatic_relation = {
+			    country = FRA
+			    relation = non_aggression_pact
+			    active = yes
 			}
-			add_opinion_modifier = { 
-				target = AUH
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+			GER = {
+				add_opinion_modifier = { 
+					target = CSA
+					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
+				}
 			}		
 		}
 	}
@@ -352,9 +357,9 @@ focus_tree = {
 		id = CSA_join_entente
 		icon = GFX_goal_support_democracy
 		prerequisite = { focus = CSA_strengthen_french_ties }
-		cost = 10
+		cost = 5
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CSA_strengthen_french_ties
 
 		available = {
@@ -365,10 +370,15 @@ focus_tree = {
 	 			exists = yes
  				is_faction_leader = yes
 	 		}
+	 		threat > 0.5
 		}
 
 		ai_will_do = { 
 			factor = 40 
+		}
+
+		bypass = {
+			is_in_faction_with = FRA
 		}
 
 		completion_reward = { 
@@ -382,8 +392,8 @@ focus_tree = {
 
 	focus = {
 		id = CSA_prepare_for_war
-		prerequisite = { focus = CSA_csa-canadian_partnership }
-		prerequisite = { focus = CSA_join_entente }
+		prerequisite = { focus = CSA_strengthen_british_ties }
+		prerequisite = { focus = CSA_strengthen_french_ties }
 		icon = GFX_goal_demand_sudetenland   
 		available = { threat > 0.25 }
 		completion_reward = {
@@ -394,9 +404,9 @@ focus_tree = {
 		cancel_if_invalid = yes 
 		ai_will_do = { factor = 50 }
 		cost = 5
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = CSA_join_entente
+		relative_position_id = CSA_strengthen_british_ties
 	}
 
 
@@ -406,7 +416,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_prepare_for_war }
 		cost = 10
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = CSA_prepare_for_war
 		available = {
 			has_war = yes
@@ -502,10 +512,28 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			custom_effect_tooltip = CSA_mexico_loosen_tt
-			hidden_effect = {
-				MEX = {	add_autonomy_score = { value = 1000 } }	
-			}			
+			#custom_effect_tooltip = CSA_mexico_loosen_tt
+			#hidden_effect = {
+			#	MEX = {	add_autonomy_score = { value = 1000 } }	
+			#}
+
+			diplomatic_relation = {
+			    country = CSA
+			    relation = non_aggression_pact
+			    active = yes
+			}
+			diplomatic_relation = {
+			    country = MEX
+			    relation = guarantee
+			    active = no
+			}
+			MEX = {
+				diplomatic_relation = {
+				    country = CSA
+				    relation = guarantee
+				    active = no
+				}
+			}
 		}
 	}
 
@@ -525,10 +553,22 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			custom_effect_tooltip = CSA_mexico_tighten_tt
-			hidden_effect = {
-				MEX = {	add_autonomy_score = { value = -1000 } }	
-			}				
+			#custom_effect_tooltip = CSA_mexico_tighten_tt
+			#hidden_effect = {
+			#	MEX = {	add_autonomy_score = { value = -1000 } }	
+			#}	
+			MEX = {
+				diplomatic_relation = {
+				    country = CSA
+				    relation = military_access
+				    active = yes
+				}
+				diplomatic_relation = {
+				    country = CSA
+				    relation = docking_rights
+				    active = yes
+				}
+			}			
 		}
 	}
 
@@ -580,28 +620,28 @@ focus_tree = {
 	}
 
 
-	focus = {
-		id = CSA_release_mexico
-		icon = GFX_focus_mexico_csa_unity
-		prerequisite = { focus = CSA_csa-mexico_military }
-		prerequisite = { focus = CSA_loosen_control_mexico }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = CSA_csa-mexico_military
+	# focus = {
+	# 	id = CSA_release_mexico
+	# 	icon = GFX_focus_mexico_csa_unity
+	# 	prerequisite = { focus = CSA_csa-mexico_military }
+	# 	prerequisite = { focus = CSA_loosen_control_mexico }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = CSA_csa-mexico_military
 		
-		ai_will_do = { 
-			factor = 5
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			} 
-		}
+	# 	ai_will_do = { 
+	# 		factor = 5
+	# 		modifier = {
+	# 			is_historical_focus_on = yes
+	# 			factor = 0
+	# 		} 
+	# 	}
 
-		completion_reward = { 
-			release = MEX			
-		}
-	}
+	# 	completion_reward = { 
+	# 		release = MEX			
+	# 	}
+	# }
 
 
 	focus = {
@@ -637,8 +677,8 @@ focus_tree = {
 	focus = {
 		id = CSA_ww1_army_effort
 		icon = GFX_focus_generic_commonwealth_build_infantry
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
-		ai_will_do = { factor = 10 }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
+		ai_will_do = { factor = 20 }
 		cost = 10
 		x = 20
 		y = 0
@@ -698,8 +738,8 @@ focus_tree = {
 		prerequisite = { focus=CSA_ww1_army_effort }
 		available = { date > 1911.1.1 }
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
-		ai_will_do = { factor = 10 }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
+		ai_will_do = { factor = 20 }
 		cost = 10
 		x = 0
 		y = 2
@@ -788,7 +828,7 @@ focus_tree = {
 		prerequisite = { focus=CSA_ww1_doctrine_effort }
 		available = { date > 1913.1.1 }
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
 		ai_will_do = { factor = 10 }
 		cost = 10
 		x = 0
@@ -814,7 +854,7 @@ focus_tree = {
 		prerequisite = { focus=CSA_ww1_doctrine_effort_2 }
 		available = { date > 1915.1.1 }
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
 		ai_will_do = { factor = 10 }
 		cost = 10
 		x = 0
@@ -1719,7 +1759,7 @@ focus_tree = {
 		prerequisite = { focus=CSA_ww1_newnavalcanons_1 }
 		available = { date > 1911.1.1 }
 		icon = GFX_goal_generic_navy_battleship
-		completion_reward = { add_tech_bonus={ name=cr_bonus bonus=0.15 uses=1 technology=ww1_battleship0 technology=ww1_battleship1 technology=ww1_battleship2 } }
+		completion_reward = { add_tech_bonus={ name=cr_bonus bonus=0.15 uses=1 category=bb_tech } }
 		ai_will_do = { factor=1 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
 		ai_will_do = { factor = 10 }
 		cost = 10
@@ -1780,13 +1820,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 technology=ww1_submarine1_mtg technology=ww1_submarine2_mtg }
+				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 category=ss_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 technology=ww1_submarine1 technology=ww1_submarine2 }
+				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 category=ss_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
@@ -1806,13 +1846,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 technology=ww1_light_cruiser0_mtg technology=ww1_light_cruiser1_mtg technology=ww1_light_cruiser2_mtg }
+				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 category=cl_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 technology=ww1_light_cruiser0 technology=ww1_light_cruiser1 technology=ww1_light_cruiser2 }
+				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 category=cl_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
@@ -1832,13 +1872,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 technology=ww1_destroyer0_mtg technology=ww1_destroyer1_mtg technology=ww1_destroyer2_mtg }
+				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 category=dd_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 technology=ww1_destroyer0 technology=ww1_destroyer1 technology=ww1_destroyer2 }
+				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 category=dd_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
@@ -1858,13 +1898,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 technology=ww1_battlecruiser0_mtg technology=ww1_battlecruiser1_mtg technology=ww1_battlecruiser2_mtg technology=early_battleship_mtg technology=seaplane_carrier_mtg }
+				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 category=bb_tech category=bc_tech category=cv_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 technology=ww1_battlecruiser0 technology=ww1_battlecruiser1 technology=ww1_battlecruiser2 technology=early_battleship technology=seaplane_carrier }
+				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 category=bb_tech category=bc_tech category=cv_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }

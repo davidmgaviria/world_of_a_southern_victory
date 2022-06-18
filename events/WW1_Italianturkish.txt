@@ -36,10 +36,12 @@ country_event = {
 	        	set_state_controller = 451 # Tobruk, Derna and Khoms were easily conquered
 	        	load_oob = "ITA_Tobruk" # Italian troops on Tobruk
 				add_named_threat = {
-					threat = 3
+					threat = 5
 					name = "Italo-Turkish War"
 				}
         		set_country_flag = italian_libya_war
+        		activate_decision = italoturkish_expedition_deadline
+        		add_war_support = 0.2
 	        }
 		    TUR = {
 		        country_event = { id = ww1_italianturkish.2 days = 1 }
@@ -76,63 +78,63 @@ country_event = {
 
 # Ottomans offers peace to Italy	
 #____________________________________________________________
-country_event = {
-	id = ww1_italianturkish.3
-	title = ww1_italianturkish.3.t
-	desc = ww1_italianturkish.3.d
-	picture = GFX_report_event_generic_read_write
+# country_event = {
+# 	id = ww1_italianturkish.3
+# 	title = ww1_italianturkish.3.t
+# 	desc = ww1_italianturkish.3.d
+# 	picture = GFX_report_event_generic_read_write
 	
-	trigger = {
-		tag = TUR
-		has_war_with = ITA
-		OR = {
-			TUR = { surrender_progress > 0.2 }
-			ITA = {
-				controls_state = 448
-				controls_state = 449
-				controls_state = 450
-				controls_state = 451
-				controls_state = 661
-				controls_state = 662
-				controls_state = 663
-			}
-			#we must do this or the war drags on forever
-			AND = {
-				TUR = { has_idea =  generic_war_exhaustion1 }
-				ITA = {
-					OR = { controls_state = 448  controls_state = 450 }
-					OR = { controls_state = 448  controls_state = 451 }
-					OR = { controls_state = 450  controls_state = 451 }
-				}
-			}
-		}
-		is_in_faction = no
-	}
+# 	trigger = {
+# 		tag = TUR
+# 		has_war_with = ITA
+# 		OR = {
+# 			TUR = { surrender_progress > 0.2 }
+# 			ITA = {
+# 				controls_state = 448
+# 				controls_state = 449
+# 				controls_state = 450
+# 				controls_state = 451
+# 				controls_state = 661
+# 				controls_state = 662
+# 				controls_state = 663
+# 			}
+# 			#we must do this or the war drags on forever
+# 			AND = {
+# 				TUR = { has_idea =  generic_war_exhaustion1 }
+# 				ITA = {
+# 					OR = { controls_state = 448  controls_state = 450 }
+# 					OR = { controls_state = 448  controls_state = 451 }
+# 					OR = { controls_state = 450  controls_state = 451 }
+# 				}
+# 			}
+# 		}
+# 		is_in_faction = no
+# 	}
 
-	mean_time_to_happen = { days = 5 }
+# 	mean_time_to_happen = { days = 5 }
 
-	fire_only_once = yes
+# 	fire_only_once = yes
 
-	option = {
-		name = ww1_italianturkish.3.a
-		ai_chance = { factor = 100 }
-		ITA = {
-			country_event = { days = 1 id = ww1_italianturkish.4 }
-		}
-		effect_tooltip = {
-			ITA = { white_peace = TUR }
-			transfer_state=164
-			transfer_state=273
-			transfer_state=448
-			transfer_state=449
-			transfer_state=450
-			transfer_state=451
-			transfer_state=661
-			transfer_state=662
-			transfer_state=663
-		}
-	}
-}
+# 	option = {
+# 		name = ww1_italianturkish.3.a
+# 		ai_chance = { factor = 100 }
+# 		ITA = {
+# 			country_event = { days = 1 id = ww1_italianturkish.4 }
+# 		}
+# 		effect_tooltip = {
+# 			ITA = { white_peace = TUR }
+# 			transfer_state=164
+# 			transfer_state=273
+# 			transfer_state=448
+# 			transfer_state=449
+# 			transfer_state=450
+# 			transfer_state=451
+# 			transfer_state=661
+# 			transfer_state=662
+# 			transfer_state=663
+# 		}
+# 	}
+# }
 #____________________________________________________________
 
 # Italy accepts Ottoman's reddition
@@ -173,7 +175,7 @@ country_event = {
 				}
 				hidden_effect = { set_war_support = 0.3 }
 			}
-			TUR = { remove_ideas = TUR_supremacy_of_italian_navy }
+			#TUR = { remove_ideas = TUR_supremacy_of_italian_navy }
 			news_event = { days = 1 id = ww1_italianturkish.9 }
 		}
 	}
@@ -363,51 +365,51 @@ news_event = {
 #____________________________________________________________
 
 
-#____________________________________________________________
+# #____________________________________________________________
 
-# Italy Offers Peace	
-#____________________________________________________________
-country_event = {
-	id = ww1_italianturkish.11
-	title = ww1_italianturkish.11.t
-	desc = ww1_italianturkish.11.d
-	picture = GFX_report_event_generic_read_write
+# # Italy Offers Peace	
+# #____________________________________________________________
+# country_event = {
+# 	id = ww1_italianturkish.11
+# 	title = ww1_italianturkish.11.t
+# 	desc = ww1_italianturkish.11.d
+# 	picture = GFX_report_event_generic_read_write
 	
-	trigger = {
-		tag = ITA
-		ITA = {
-			has_war_with = TUR
-			OR = {
-				surrender_progress > 0.2
-				has_stability < 0.5
-				AND = {	
-					has_idea = generic_war_exhaustion1
-					OR = {
-						NOT = { controls_state = 448  controls_state = 450 }
-						NOT = { controls_state = 448  controls_state = 451 }
-						NOT = { controls_state = 450  controls_state = 451 }
-					}
-				}
-			}
-		}
-		is_in_faction = no
-	}
+# 	trigger = {
+# 		tag = ITA
+# 		ITA = {
+# 			has_war_with = TUR
+# 			OR = {
+# 				surrender_progress > 0.2
+# 				has_stability < 0.5
+# 				AND = {	
+# 					has_idea = generic_war_exhaustion1
+# 					OR = {
+# 						NOT = { controls_state = 448  controls_state = 450 }
+# 						NOT = { controls_state = 448  controls_state = 451 }
+# 						NOT = { controls_state = 450  controls_state = 451 }
+# 					}
+# 				}
+# 			}
+# 		}
+# 		is_in_faction = no
+# 	}
 
-	mean_time_to_happen = { days = 5 }
+# 	mean_time_to_happen = { days = 5 }
 
-	fire_only_once = yes
+# 	fire_only_once = yes
 
-	option = {
-		name = ww1_italianturkish.11.a
-		ai_chance = { factor = 100 }
-		TUR = {
-			country_event = { days = 1 id = ww1_italianturkish.12 }
-		}
-		effect_tooltip = {
-			ITA = { white_peace = TUR }
-		}
-	}
-}
+# 	option = {
+# 		name = ww1_italianturkish.11.a
+# 		ai_chance = { factor = 100 }
+# 		TUR = {
+# 			country_event = { days = 1 id = ww1_italianturkish.12 }
+# 		}
+# 		effect_tooltip = {
+# 			ITA = { white_peace = TUR }
+# 		}
+# 	}
+# }
 #____________________________________________________________
 
 #Ottomans Accepts Italy's reddition
@@ -431,6 +433,7 @@ country_event = {
 		hidden_effect = {
 			ITA = {
 				set_country_flag = ITA_Lib_War_End_Lost_States
+				add_war_support = -0.2   # net effect is -10 from pre war value
 				diplomatic_relation = {
 					country = TUR
 					relation = non_aggression_pact

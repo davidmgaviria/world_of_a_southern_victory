@@ -125,7 +125,7 @@ AUH_ignore_north_america = {
 	}
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = USA
+		id = "USA"
 		value = 100
 	}	
 }
@@ -172,12 +172,12 @@ AUH_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 70 
+		value = 65 
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 5
+		value = 2
 	}
 	
 	#Air unit factors
@@ -257,22 +257,22 @@ AUH_gw_unit_production = {
 }
 
 
-AUH_build_up_army = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = RUS
-		has_army_manpower = { size < 800000 }
-	}
-	abort_when_not_enabled = yes
+# AUH_build_up_army = {
+# 	allowed = {
+# 		original_tag = AUH
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = RUS
+# 		has_army_manpower = { size < 800000 }
+# 	}
+# 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
-	}
-}
+# 	ai_strategy = {
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = -20 # reduce while we build up in case of issues
+# 	}
+# }
 
 
 AUH_focus_serbia = {
@@ -296,15 +296,21 @@ AUH_focus_serbia = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = SER
-		value = 150
+		type = prepare_for_war
+		id = "SER"
+		value = 100
 	}	
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = RUS
-		value = -60
+		tag = SER
+		value = 80
+	}	
+
+	ai_strategy = {
+		type = ignore
+		id = "RUS"		
+		value = 10
 	}
 }
 
@@ -366,7 +372,7 @@ AUH_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 70 
+		value = 60 
 	}
 	#Air unit factors
 	ai_strategy = {
