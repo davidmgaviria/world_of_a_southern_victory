@@ -6,13 +6,20 @@ NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 1000			--Max army experience a country 
 NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 1000			--Max navy experience a country can store
 NDefines.NMilitary.MAX_AIR_EXPERIENCE = 1000				--Max air experience a country can store
 
-NDefines.NProduction.BASE_FACTORY_SPEED = 3.5 				-- Base civ factory speed multiplier (how much hoi3 style IC each factory gives).
-NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3.4 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
+NDefines.NProduction.BASE_FACTORY_SPEED = 3.75 				-- Base civ factory speed multiplier (how much hoi3 style IC each factory gives).
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3.5 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
 
 NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2
 NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
 
 NDefines.NCharacter.DEFAULT_PP_COST_FOR_MILITARY_ADVISOR = 100
+
+NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_LAND_DOCTRINE = 0.65   -- How quickly is desire to unlock land doctrines accumulated?
+NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_NAVAL_DOCTRINE = 0.5   -- How quickly is desire to unlock naval doctrines accumulated?
+NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_AIR_DOCTRINE = 0.5     -- How quickly is desire to unlock air doctrines accumulated?
+
+NDefines.NAI.START_TRAINING_EQUIPMENT_LEVEL = 0.65               -- ai will not start to train if equipment drops below this level
+NDefines.NAI.STOP_TRAINING_EQUIPMENT_LEVEL = 0.5                -- ai will not train if equipment drops below this level
 
 
 --[[
@@ -24,11 +31,6 @@ NDefines.NNavy.NAVAL_SUPREMACY_CAN_INVADE = 0.75
 NDefines.NAI.MAX_DISTANCE_NALAV_INVASION = 125.0
 
 
-NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2
-NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
-
---war stuff
---NDefines.NMilitary.REINFORCE_CHANCE = 0.01
 
 --give states
 NDefines.NAI.GIVE_STATE_CONTROL_BASE_SCORE = 60			-- (Originally 50) Base diplo score for giving away control of states

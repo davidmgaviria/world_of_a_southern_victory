@@ -1,0 +1,151 @@
+secondbalkan_war_decisions = {
+	
+
+	# Bulgaria throws in the towel
+	secondbalkan_bulgaria_offers_peace = {
+
+		icon = generic_form_nation
+
+		allowed = {
+			tag = BUL
+		}
+
+		available = {
+			OR = {
+				casualties > 50000
+				surrender_progress > 0
+			}
+		}
+
+		visible = {
+			has_global_flag = kis_secondbalkan_war
+			NOT = { has_global_flag = kis_secondbalkanwar_victory }
+			OR = {
+				has_war_with = SER
+				has_war_with = GRE
+			}
+		}
+
+		days_remove = 3
+
+		days_re_enable = 60
+
+		remove_effect = {
+			country_event = ww1_secondbalkan.3
+		}
+
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				add = 1
+				surrender_progress > 0.03
+			}
+		}
+	}
+
+
+	# Serbia / Greece ask for peace
+	secondbalkan_bulgaria_wins = {
+
+		icon = generic_form_nation
+
+		allowed = {
+			OR = {
+				tag = SER
+				tag = GRE
+			}
+		}
+
+		available = {
+			BUL = {
+				controls_state = 818
+				controls_state = 106
+				controls_state = 731
+			}
+		}
+
+		visible = {
+			has_global_flag = kis_secondbalkan_war
+			NOT = { has_global_flag = kis_secondbalkanwar_victory }
+			has_war_with = BUL
+			is_faction_leader = yes
+		}
+
+		days_remove = 3
+
+		days_re_enable = 60
+
+		complete_effect = {
+			BUL = { country_event = ww1_secondbalkan.6 }
+			custom_effect_tooltip = secondbalkan_bulgaria_wins_tt
+		}
+
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				alliance_strength_ratio < 2
+			}
+
+			modifier = {
+				factor = 2
+				alliance_strength_ratio < 1.5
+			}
+
+			modifier = {
+				factor = 2
+				alliance_strength_ratio < 1
+			}
+
+			modifier = {
+				factor = 2
+				casualties > 50000
+			}
+		}
+	}
+
+
+	# Romania / turkey offers peace
+	secondbalkan_interventionist_dips = {
+
+		icon = generic_form_nation
+
+		allowed = {
+			OR = {
+				tag = ROM
+				tag = BUL
+			}
+		}
+
+		available = {
+			OR = {
+				casualties_inflicted_by = {
+					opponent = BUL
+					thousands > 50
+				}
+				surrender_progress > 0.1
+			}
+		}
+
+		visible = {
+			has_global_flag = kis_secondbalkan_war
+			NOT = { has_global_flag = kis_secondbalkanwar_victory }
+			has_war_with = BUL
+		}
+
+		days_remove = 3
+
+		days_re_enable = 60
+
+		complete_effect = {
+			BUL = { country_event = ww1_secondbalkan.5 }
+			custom_effect_tooltip = secondbalkan_whitepeace_tt
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+}
