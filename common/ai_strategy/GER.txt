@@ -263,7 +263,7 @@ GER_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 15
+		value = 40
 	}
 	ai_strategy = {
 		type = equipment_variant_production_factor
@@ -273,7 +273,7 @@ GER_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 55
+		value = 25
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -289,6 +289,22 @@ GER_gw_unit_production = {
 		type = equipment_variant_production_factor
 		id = airship_bomber_equipment
 		value = 20
+	}
+}
+
+
+GER_militarized_society = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 15
 	}
 }
 
@@ -364,68 +380,10 @@ GER_der_schlieffen_plan = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		FRA = { exists = yes }
 		OR = {
 			has_idea = schlieffen
-			FRA = { surrender_progress > 0.3 }
-			NOT = { has_global_flag = hoi4tgw_SchlieffenSecurity }
+			has_decision = germany_schliffen_plan
 		}
-	}
-	abort = {
-		OR = {
-			#attack has failed
-			AND = {
-				casualties > 150000
-				NOT = { controls_state = 16 }		
-			}
-			#schliffen is over
-			AND = {
-				NOT = { has_idea = schlieffen }
-				has_global_flag = hoi4tgw_SchlieffenSecurity
-			}
-		}
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "BEL"			
-		value = 400
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "LUX"			
-		value = 400
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "FRA"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "BEL"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "LUX"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "FRA"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = ignore
-		id = "RUS"		
-		value = 10
 	}
 
 	ai_strategy = {
@@ -442,34 +400,58 @@ GER_der_schlieffen_plan = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = BEL			
+		type = conquer
+		id = "BEL"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "LUX"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "FRA"			
 		value = 100
 	}
 
 	ai_strategy = {
-	 	type = front_unit_request
-	 	tag = FRA
-	 	value = 50
+		type = ignore
+		id = "RUS"		
+		value = 80
 	}
 
-	ai_strategy = {
-	 	type = front_unit_request
-	 	tag = RUS
-	 	value = -25
-	}
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	tag = BEL			
+	# 	value = 100
+	# }
 
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "AUH"
-		value = 1
-	}
+	# ai_strategy = {
+	#  	type = front_unit_request
+	#  	tag = FRA
+	#  	value = 50
+	# }
 
-	ai_strategy = {
-		type = front_unit_request
-		area = africa		
-		value = -80
-	}
+	# ai_strategy = {
+	#  	type = front_unit_request
+	#  	tag = RUS
+	#  	value = -25
+	# }
+
+	# ai_strategy = {
+	# 	type = dont_defend_ally_borders
+	# 	id = "AUH"
+	# 	value = 1
+	# }
+
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = africa		
+	# 	value = -80
+	# }
 }
 
 
@@ -569,7 +551,7 @@ GER_attack_french_during_mutiny = {
 		priority = 120
 		ratio = 0.8
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}

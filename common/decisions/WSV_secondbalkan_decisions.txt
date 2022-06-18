@@ -13,12 +13,12 @@ secondbalkan_war_decisions = {
 		available = {
 			OR = {
 				casualties > 50000
-				surrender_progress > 0.05
+				surrender_progress > 0
 			}
 		}
 
 		visible = {
-			has_global_flag = kis_secondbalkanwar_start
+			has_global_flag = kis_secondbalkan_war
 			NOT = { has_global_flag = kis_secondbalkanwar_victory }
 			OR = {
 				has_war_with = SER
@@ -30,12 +30,17 @@ secondbalkan_war_decisions = {
 
 		days_re_enable = 60
 
-		complete_effect = {
+		remove_effect = {
 			country_event = ww1_secondbalkan.3
 		}
 
 		ai_will_do = {
-			factor = 10
+			factor = 0
+
+			modifier = {
+				add = 1
+				surrender_progress > 0.03
+			}
 		}
 	}
 
