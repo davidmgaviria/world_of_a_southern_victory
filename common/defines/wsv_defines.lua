@@ -18,8 +18,8 @@ NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_LAND_DOCTRINE = 0.65   -- How quickly is de
 NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_NAVAL_DOCTRINE = 0.5   -- How quickly is desire to unlock naval doctrines accumulated?
 NDefines.NAI.DESIRE_USE_XP_TO_UNLOCK_AIR_DOCTRINE = 0.5     -- How quickly is desire to unlock air doctrines accumulated?
 
-NDefines.NAI.START_TRAINING_EQUIPMENT_LEVEL = 0.65               -- ai will not start to train if equipment drops below this level
-NDefines.NAI.STOP_TRAINING_EQUIPMENT_LEVEL = 0.5                -- ai will not train if equipment drops below this level
+--NDefines.NAI.START_TRAINING_EQUIPMENT_LEVEL = 0.65               -- ai will not start to train if equipment drops below this level
+--NDefines.NAI.STOP_TRAINING_EQUIPMENT_LEVEL = 0.5                -- ai will not train if equipment drops below this level
 
 
 --[[
