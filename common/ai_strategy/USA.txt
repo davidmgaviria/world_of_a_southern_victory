@@ -77,21 +77,6 @@ USA_area_priority = {
 }
 
 
-# guard the large area of north america
-USA_extra_home_garrison = {
-	allowed = {
-		original_tag = USA
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 5
-	}
-}
-
 
 USA_two_oceans_fleet = {
 	allowed = {
@@ -175,6 +160,11 @@ USA_gw_modified_unit_production = {
 	enable = {
 		always = yes
 	}
+
+	ai_strategy = {
+		type = garrison
+		value = 2
+	}
 	
 	ai_strategy = {
 		type = role_ratio
@@ -191,13 +181,19 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armored_car
-		value = 5   
+		value = 2 
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = armor  #we love tanks
 		value = 2   
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = -5
 	}
 
 	ai_strategy = {

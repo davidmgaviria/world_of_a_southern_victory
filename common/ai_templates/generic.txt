@@ -373,7 +373,7 @@ garrison_generic = {
 			}
 			
 			regiments = {
-				infantry = 4
+				infantry = 6
 			}
 		}
 		
@@ -521,10 +521,21 @@ armoredcar_generic = {
 	}
 	
 	upgrade_prio = {
-		factor = 2
+		factor = 4
 
 		modifier = {
-			factor = 2
+			factor = 1.5
+			is_major = yes
+		}
+
+		modifier = {
+			factor = 0.5
+			date > 1937.1.1
+		}
+
+		modifier = {
+			factor = 0
+			NOT = { has_tech = gwtank }
 		}
 	}
 

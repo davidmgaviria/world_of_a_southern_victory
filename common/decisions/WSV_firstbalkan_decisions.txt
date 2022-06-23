@@ -60,11 +60,18 @@ firstbalkan_war_decisions = {
 		ai_will_do = {
 			factor = 0
 
+			## negative modifiers ##
 			modifier = {
 				add = -1
 				controls_state = 756   		# if we control east thrace we're less inclined to give up
 			}
 
+			modifier = {
+				add = -1
+				casualties > 125000
+			}
+
+			## positive modifiers ##
 			modifier = {
 				add = 1
 				NOT = {						# if we've lost most of the balkan territory
@@ -79,11 +86,6 @@ firstbalkan_war_decisions = {
 					controls_state = 761
 					controls_state = 758
 				}
-			}
-
-			modifier = {
-				add = 1
-				casualties > 100000
 			}
 
 			modifier = {

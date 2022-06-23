@@ -11,13 +11,8 @@ technologies = {
 			research_cost_coeff = 1
 		}
 
-
 		planning_speed = 0.25
-		army_morale_factor = 0.1
-
-		category_all_infantry = {
-			soft_attack = 0.05
-		}
+		army_infantry_attack_factor = 0.1
 
 		enable_tactic = tactic_human_wave_tactics
 
@@ -130,6 +125,14 @@ technologies = {
 				}
 				factor = 0.8
 			}
+			modifier = {
+				factor = 0
+				OR = {
+					tag = RUS
+					tag = GER
+					tag = CSA
+				}
+			}
 		}
 	}
 
@@ -137,7 +140,7 @@ technologies = {
 	ww1_rifle_ammo = {
 		category_all_infantry = {
 			soft_attack = 0.05
-			defense = 0.1
+			defense = 0.05
 		}	
 		
 		path = {
@@ -173,7 +176,7 @@ technologies = {
 
 	ww1_mg_ammo = {
 		category_all_infantry = {
-			defense = 0.1
+			defense = 0.05
 			#hard_attack = 1 
 		}		
 		
@@ -211,7 +214,7 @@ technologies = {
 	ww1_preliminary_bombardment = {
 		
 		category_artillery = {
-			soft_attack = 0.1
+			soft_attack = 0.05
 		}
 		
 		#enable_tactic = tactic_overwhelming_fire
@@ -289,7 +292,7 @@ technologies = {
 
 		category_all_infantry = {
 			max_organisation = 5
-			breakthrough = 0.1
+			breakthrough = 0.05
 		}
 		enable_tactic = tactic_tactical_withdrawal
 
@@ -330,9 +333,14 @@ technologies = {
 			ww1_firepower_kills
 		}
 
-		army_speed_factor = 0.10
-		enable_tactic = tactic_unexpected_thrust
+		category_all_infantry = {
+			breakthrough = 0.15
+		}
+		cavalry = {
+			breakthrough = 0.15
+		}
 		org_loss_when_moving = -0.1
+		enable_tactic = tactic_unexpected_thrust
 
 		path = {
 			leads_to_tech = ww1_no_supply
@@ -409,10 +417,7 @@ technologies = {
 
 	ww1_forced_march = {
 
-		army_speed_factor = 0.05
-		category_all_infantry = {
-			breakthrough = 0.05
-		}
+		army_speed_factor = 0.1
 
 		path = {
 			leads_to_tech = ww1_counterattack
@@ -447,7 +452,10 @@ technologies = {
 
 	ww1_cavalry_raids = {
 
-		recon_factor = 0.15		
+		recon_factor = 0.1
+		cavalry = {
+			soft_attack = 0.1
+		}	
 
 		path = {
 			leads_to_tech = ww1_cavalry_support
@@ -483,8 +491,8 @@ technologies = {
 	ww1_cavalry_support = {
 
 		cavalry = {
-			breakthrough = 0.1
-			soft_attack = 0.1
+			breakthrough = 0.05
+			soft_attack = 0.05
 		}
 		armored_car = {
 			max_organisation = 5

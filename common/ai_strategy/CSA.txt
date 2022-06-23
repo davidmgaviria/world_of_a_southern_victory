@@ -75,20 +75,6 @@ CSA_area_priority = {
 	}
 }
 
-# # guard the large area of north america
-# CSA_extra_home_garrison = {
-# 	allowed = {
-# 		original_tag = CSA
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = garrison
-# 		value = 5
-# 	}
-# }
 
 
 CSA_france_ally = {
@@ -192,11 +178,17 @@ CSA_gw_modified_unit_production = {
 	enable = {
 		always = yes
 	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
 	
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 4
+		value = 2
 	}
 
 	ai_strategy = {
@@ -208,6 +200,18 @@ CSA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
+		value = -5
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
 		value = -5
 	}
 }
