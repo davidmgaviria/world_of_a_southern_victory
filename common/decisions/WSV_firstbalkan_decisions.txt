@@ -15,20 +15,6 @@ firstbalkan_war_decisions = {
 				casualties > 50000
 				surrender_progress > 0.25
 			}
-			AND = {
-				NOT = {
-					controls_state = 44
-					controls_state = 106
-					controls_state = 184
-					controls_state = 731
-					controls_state = 788
-					controls_state = 766
-					controls_state = 759
-					controls_state = 760
-					controls_state = 761
-					controls_state = 758
-				}
-			}
 		}
 
 		visible = {
@@ -60,21 +46,10 @@ firstbalkan_war_decisions = {
 		ai_will_do = {
 			factor = 0
 
-			## negative modifiers ##
+			# less likely to give up if holding onto balkans
 			modifier = {
 				add = -1
-				controls_state = 756   		# if we control east thrace we're less inclined to give up
-			}
-
-			modifier = {
-				add = -1
-				casualties > 125000
-			}
-
-			## positive modifiers ##
-			modifier = {
-				add = 1
-				NOT = {						# if we've lost most of the balkan territory
+				OR = {
 					controls_state = 44
 					controls_state = 106
 					controls_state = 184
@@ -88,14 +63,22 @@ firstbalkan_war_decisions = {
 				}
 			}
 
+			# start losing interest when casualties mount
+			modifier = {
+				add = 1
+				casualties > 100000
+			}
+
+			# balkans isnt worth this much blood
 			modifier = {
 				add = 1
 				casualties > 200000
 			}
 
+			# if we lose istanbul give up
 			modifier = {
 				add = 10
-				NOT = { controls_state = 341 }  #we lost istanbul
+				NOT = { controls_state = 341 }  
 			}
 		}
 	}
@@ -144,6 +127,69 @@ firstbalkan_war_decisions = {
 
 		ai_will_do = {
 			factor = 0
+
+			# less likely to give up if holding northern balkans
+			modifier = {
+				add = -1
+				controls_state = 760
+				controls_state = 761
+				controls_state = 44
+				controls_state = 106
+				controls_state = 803
+				controls_state = 758
+			}
+
+			# less likely to give up if holding southern balkans
+			modifier = {
+				add = -1
+				controls_state = 759
+				controls_state = 731
+				controls_state = 788
+				controls_state = 184
+			}
+
+			# start losing interest when casualties mount
+			modifier = {
+				add = 1
+				OR = { 
+					AND = {
+						tag = BUL
+						casualties > 75000
+					}
+					AND = {
+						tag = SER
+						casualties > 60000
+					}
+				}
+			}
+
+			modifier = {
+				add = 1
+				OR = { 
+					AND = {
+						tag = BUL
+						casualties > 100000
+					}
+					AND = {
+						tag = SER
+						casualties > 85000
+					}
+				}
+			}
+
+			modifier = {
+				add = 1
+				OR = { 
+					AND = {
+						tag = BUL
+						casualties > 150000
+					}
+					AND = {
+						tag = SER
+						casualties > 125000
+					}
+				}
+			}
 		}
 	}
 }
