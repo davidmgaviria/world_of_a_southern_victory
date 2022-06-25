@@ -135,16 +135,27 @@ AUH_ignore_north_america = {
 ######################### GREAT WAR ##########################
 
 
-#no changes to unit production
-# AUH_gw_modified_unit_production = {
-# 	allowed = {
-# 		original_tag = AUH
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-# }
+AUH_gw_modified_unit_production = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = -15
+	}
+}
 
 
 # AUH_build_up_army = {

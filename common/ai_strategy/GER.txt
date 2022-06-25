@@ -87,22 +87,35 @@ GER_area_priority_africa = {
         id = africa
         value = -90
     }
+
+    ai_strategy = {
+		type = front_unit_request
+		area = africa		
+		value = -70
+	}
 }
 
 
 
-GER_ignore_africa = {
+GER_francogerman_rivalry = {
 	allowed = {
 		original_tag = GER
 	}
 	enable = {
-		always = yes
+		FRA = { 
+			exists = yes
+			NOT = { is_in_faction_with = GER }
+		}
 	}
+	abort = {
+		FRA = { has_capitulated = yes }
+	}
+
 	ai_strategy = {
 		type = front_unit_request
-		area = africa		
-		value = -70
-	}	
+		tag = FRA			
+		value = 50
+	}
 }
 
 
@@ -172,28 +185,28 @@ GER_gw_modified_unit_production = {
 		value = 5
 	}
 
-	ai_strategy = {
-		type = role_ratio
-		id = armored_car
-		value = 2  
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry
-		value = 4  
-	}
+	# ai_strategy = {
+	# 	type = role_ratio
+	# 	id = armored_car
+	# 	value = 2  
+	# }
 
 	ai_strategy = {
 	 	type = equipment_production_factor
-	 	id = artillery
-	 	value = 5
+	 	id = infantry
+	 	value = 10
 	}
 
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = heavy_field_gun_equipment 
-		value = 40
+		value = 25
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized 
+		value = 5
 	}
 }
 

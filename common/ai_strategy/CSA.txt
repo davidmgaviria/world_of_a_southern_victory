@@ -99,7 +99,7 @@ CSA_france_ally = {
 	ai_strategy = {
 		type = alliance
 		id = "FRA"			
-		value = 100
+		value = 50
 	}		
 }
 
@@ -151,6 +151,36 @@ CSA_ignore_europe = {
 	}				
 }
 
+
+CSA_ignore_mexico = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		OR = {
+			AND = { 
+				has_non_aggression_pact_with = MEX
+				threat > 0.25
+			}
+			has_war_together_with = MEX
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = ignore
+		id = "MEX"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MEX"
+		value = 100
+	}
+}	
+
+
 CSA_ignore_russia = {
 	allowed = {
 		original_tag = CSA
@@ -188,7 +218,7 @@ CSA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 2
+		value = 4
 	}
 
 	ai_strategy = {
@@ -212,7 +242,7 @@ CSA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = -5
+		value = -15
 	}
 }
 
