@@ -234,8 +234,8 @@ CSA_gw_modified_unit_production = {
 	}
 
 	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
+		type = equipment_variant_production_factor
+		id = infantry_equipment
 		value = 10
 	}
 
@@ -255,7 +255,7 @@ CSA_greatwar_mobilize = {
 	enable = {
 		country_exists = USA
 		NOT = { is_in_faction_with = USA }
-		threat > 0.35	
+		threat > 0.3	
 	}
 	abort_when_not_enabled = yes
 
@@ -282,6 +282,7 @@ CSA_greatwar_mobilize = {
 
 
 
+
 CSA_take_dc = {
 	allowed = {
 		original_tag = CSA
@@ -292,8 +293,10 @@ CSA_take_dc = {
 			exists = yes 
 			NOT = { has_non_aggression_pact_with = CSA }
 		}
+		threat > 0.25
 	}
 	abort = {
+		has_war_with = USA
 		OR = {
 			surrender_progress > 0.1
 			casualties > 100000
@@ -306,11 +309,22 @@ CSA_take_dc = {
 		state = 360
 		state = 840
 		priority = 100
-		ratio = 0.7
+		ratio = 0.6
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 840
+		state = 362
+		state = 361
+		state = 360
+		state = 814
+		state = 813
+		value = 200
 	}
 }
 
