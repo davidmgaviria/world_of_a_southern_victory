@@ -16,10 +16,10 @@ focus_tree = {
 		y = 0
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
+				add = 10
+				is_historical_focus_on = no
 			}
 		}
 
@@ -59,16 +59,7 @@ focus_tree = {
 
 		completion_reward = { 
 			remove_ideas = { USA_prussian_model }
-			remove_opinion_modifier = {
-		    	target = GER
-		    	modifier = WSV_american-german_alliance
-			}
-			GER = {
-				remove_opinion_modifier = {
-		    		target =USA
-		    		modifier = WSV_american-german_alliance
-				}	
-			}
+			diplomatic_relation = { country = GER   relation = non_aggression_pact  active = no }
 		}
 	}
 
@@ -478,11 +469,8 @@ focus_tree = {
 		ai_will_do = { factor = 30 }
 
 		completion_reward = { 
-			diplomatic_relation = {
-			    country = GER
-			    relation = non_aggression_pact
-			    active = yes
-			}
+			give_guarantee = GER
+			GER = { give_guarantee = USA }
 			FRA = {
 				add_opinion_modifier = { 
 					target = USA
@@ -502,9 +490,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = USA_strengthen_german_ties
 
-		available = {
-	 		NOT = { has_war_with = AUH }
-	 		
+		available = {	
 	 		AUH = {
 	 			exists = yes
 	 		}
@@ -513,10 +499,11 @@ focus_tree = {
 		ai_will_do = { factor = 30 }
 
 		completion_reward = { 
-			diplomatic_relation = {
-			    country = AUH
-			    relation = non_aggression_pact
-			    active = yes
+			AUH = {
+				add_opinion_modifier = { 
+					target = USA
+					modifier =  HOI4TGW_Opinion_improved_diplomatic_relations
+				}
 			}
 			RUS = {
 				add_opinion_modifier = { 

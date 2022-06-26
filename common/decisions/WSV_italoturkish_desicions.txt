@@ -10,7 +10,7 @@ italoturkish_war_decisions = {
 		}
 
 		visible = {
-			has_country_flag = italian_libya_war
+			has_war_with = TUR
 			NOT = {
 				has_country_flag = ITA_Lib_War_End_Lost_States	
 				has_country_flag = ITA_Lib_War_End_Victory		
@@ -57,12 +57,12 @@ italoturkish_war_decisions = {
 			}
 		}
 
-		days_remove = 0
+		days_remove = 4
 
 		days_re_enable = 60
 
-		complete_effect = {
-			TUR = { country_event = { id = ww1_italianturkish.12  days = 3 } }
+		remove_effect = {
+			TUR = { country_event = ww1_italianturkish.12 }
 		}
 
 		ai_will_do = {
@@ -101,16 +101,13 @@ italoturkish_war_decisions = {
 			OR = {
 				casualties_inflicted_by = {
 				    opponent = ITA
-				    thousands > 100000
+				    thousands > 50000
 				}
 				AND = {
 					ITA = {
 						controls_state = 448
 						controls_state = 450
 						controls_state = 451
-						controls_state = 661
-						controls_state = 662
-						controls_state = 663
 					}
 				}
 			}
@@ -126,16 +123,39 @@ italoturkish_war_decisions = {
 			}
 		}
 
-		days_remove = 0
+		days_remove = 4
 
 		days_re_enable = 60
 
-		complete_effect = {
-			ITA = { country_event = { id = ww1_italianturkish.4  days = 3 } }
+		remove_effect = {
+			ITA = { country_event =ww1_italianturkish.4 }
 		}
 
+		
 		ai_will_do = {
-			factor = 1
+			factor = 0
+
+			#if we've lost everything give up
+			modifier = {
+				add = 1
+				NOT = {
+					controls_state = 448
+					controls_state = 450
+					controls_state = 451
+					controls_state = 661
+					controls_state = 662
+					controls_state = 663
+				}
+			}
+
+			#libya isnt worth the blood
+			modifier = {
+				add = 1
+				casualties_inflicted_by = {
+				    opponent = ITA
+				    thousands > 80000
+				}
+			}
 		}
 	}
 }

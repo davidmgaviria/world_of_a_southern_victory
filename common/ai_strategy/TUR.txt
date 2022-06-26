@@ -13,6 +13,48 @@
 # area_priority
 
 
+
+TUR_gw_modified_unit_production = {
+	allowed = {
+		original_tag = TUR
+		#has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 2
+	}
+}
+
+
+TUR_italoturkish_war = {
+	enable = {
+		original_tag = TUR
+		has_war_with = ITA
+	}
+	abort = {
+		has_country_flag = ITA_Lib_War_End
+	}
+
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 29   	#libyan coast
+		value = 75
+	}
+}
+
+
+
 # After the first balkan, turkey built up rapidly
 TUR_build_up_army = {
 	enable = {
@@ -25,12 +67,39 @@ TUR_build_up_army = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -10 # reduce while we build up in case of issues
 	}
+
 	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 10
+		type = force_build_armies
+		value = 75
 	}
+}
+
+
+
+TUR_libya_buffers = {
+	enable = {
+		tag = TUR
+		controls_state = 448
+		controls_state = 450
+		controls_state = 451
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			448
+			450
+			451
+		}
+
+		ratio = 0.05
+		subtract_invasions_from_need = yes
+	}	
 }
 
 

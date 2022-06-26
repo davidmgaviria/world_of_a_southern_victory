@@ -10,7 +10,7 @@ news_event = {
 	major = yes
 	
 	trigger = {
-		date > 1914.6.21
+		date > 1914.6.27
 		date < 1914.9.1
 		NOT = { has_global_flag = kis_franzferdinand_murdered }
 		SER = {
@@ -26,7 +26,7 @@ news_event = {
 	}
 	
 	mean_time_to_happen = {
-		days = 7
+		days = 1
 	}
 
 	immediate = {
@@ -134,8 +134,8 @@ country_event = {
 	# Issue the ultimatum
 	option = {
 		name = wsv_franzferdinand.4.a
-		SER = { country_event = { id = wsv_franzferdinand.7   days = 4 } } 		   # event for serbia
-		hidden_effect = { news_event = { id = wsv_franzferdinand.6   days = 4 } }  # event for everyone else
+		SER = { country_event = { id = wsv_franzferdinand.7   days = 6 } } 		   # event for serbia
+		hidden_effect = { news_event = { id = wsv_franzferdinand.6   days = 6 } }  # event for everyone else
 	}
 }
 
@@ -165,8 +165,8 @@ country_event = {
 	option = {
 		name = wsv_franzferdinand.5.b
 		leave_faction = yes
-		SER = { country_event = { id = wsv_franzferdinand.7   days = 4 } } 		   # event for serbia
-		hidden_effect = { news_event = { id = wsv_franzferdinand.6   days = 4 } }  # event for everyone else
+		SER = { country_event = { id = wsv_franzferdinand.7   days = 6 } } 		   # event for serbia
+		hidden_effect = { news_event = { id = wsv_franzferdinand.6   days = 6 } }  # event for everyone else
 
 		ai_chance =  { 
 			factor = 40 
@@ -249,7 +249,7 @@ country_event = {
 	# Reject
 	option = {
 		name = wsv_franzferdinand.7.a
-		news_event = { id = wsv_franzferdinand.8  days = 4 }
+		news_event = { id = wsv_franzferdinand.8  days = 6 }
 		custom_effect_tooltip = july_serbia_defiant_tt
 
 		ai_chance =  { 
@@ -260,7 +260,7 @@ country_event = {
 	# Accept
 	option = {
 		name = wsv_franzferdinand.7.b
-		news_event = { id = wsv_franzferdinand.9  days = 4 }
+		news_event = { id = wsv_franzferdinand.9  days = 6 }
 		custom_effect_tooltip = july_serbia_submits_tt
 
 		ai_chance =  { 
@@ -288,12 +288,7 @@ news_event = {
 	immediate = {
 		hidden_effect = {
 			set_global_flag = kis_serbia_refuse
-			AUH={
-			 	create_wargoal={
-			 		type=puppet_wargoal_focus
-			 		target=SER
-		 		}
-			 }
+			AUH = { activate_decision = austria_must_decide }
 		}
 	}
 		
@@ -393,7 +388,7 @@ country_event = {
 		give_guarantee = SER
 		custom_effect_tooltip = july_russian_intervention_tt
 		hidden_effect = {
-			news_event = { id = wsv_franzferdinand.11  days = 1 }
+			news_event = { id = wsv_franzferdinand.11  days = 3 }
 		}
 
 		ai_chance =  { 
