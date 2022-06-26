@@ -14,122 +14,7 @@
 
 
 
-TUR_gw_modified_unit_production = {
-	allowed = {
-		original_tag = TUR
-		#has_start_date < 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = garrison
-		value = 4
-	}
-	
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry
-		value = 2
-	}
-}
-
-
-TUR_italoturkish_war = {
-	enable = {
-		original_tag = TUR
-		has_war_with = ITA
-	}
-	abort = {
-		has_country_flag = ITA_Lib_War_End
-	}
-
-	ai_strategy = {
-		type = 	naval_avoid_region
-		id = 29   	#libyan coast
-		value = 75
-	}
-}
-
-
-
-# After the first balkan, turkey built up rapidly
-TUR_build_up_army = {
-	enable = {
-		tag = TUR
-		has_global_flag = kis_firstbalkanwar_victory
-		has_war = no
-		has_start_date < 1937.1.1
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
-	}
-
-	ai_strategy = {
-		type = force_build_armies
-		value = 75
-	}
-}
-
-
-
-TUR_libya_buffers = {
-	enable = {
-		tag = TUR
-		controls_state = 448
-		controls_state = 450
-		controls_state = 451
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = put_unit_buffers
-				
-		states = { 
-			448
-			450
-			451
-		}
-
-		ratio = 0.05
-		subtract_invasions_from_need = yes
-	}	
-}
-
-
-
-TUR_balkan_buffers = {
-	enable = {
-		tag = TUR
-		NOT = { has_global_flag = kis_firstbalkanwar_victory }
-		has_start_date < 1937.1.1
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = put_unit_buffers
-				
-		states = { 
-			106
-			44
-			184
-			731
-			758
-			756
-			788
-			341
-		}
-
-		ratio = 0.2
-		subtract_invasions_from_need = yes
-	}	
-}
+######################### GENERIC ##########################
 
 
 TUR_garrison_anatolia = {
@@ -151,7 +36,7 @@ TUR_garrison_anatolia = {
 			355
 			354
 		}
-		ratio = 0.1
+		ratio = 0.15
 		subtract_invasions_from_need = yes
 	}	
 }
@@ -172,8 +57,144 @@ TUR_garrison_middle_east = {
 			454
 			291
 		}
-		ratio = 0.05
+		ratio = 0.1
 		subtract_invasions_from_need = yes
 	}	
 }
+
+
+
+######################### GREAT WAR ##########################
+
+
+TUR_gw_modified_unit_production = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 2
+	}
+}
+
+
+TUR_italoturkish_war = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		original_tag = TUR
+		has_war_with = ITA
+	}
+	abort = {
+		has_country_flag = ITA_Lib_War_End
+	}
+
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 29   	#libyan coast
+		value = 75
+	}
+}
+
+
+
+# After the first balkan, turkey built up rapidly
+TUR_build_up_army = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		has_global_flag = kis_firstbalkanwar_victory
+		has_war = no
+	}
+	#abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 # reduce while we build up in case of issues
+	}
+
+	ai_strategy = {
+        type = force_build_armies
+        value = 200
+	}
+}
+
+
+
+TUR_libya_buffers = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		controls_state = 448
+		controls_state = 450
+		controls_state = 451
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			448
+			450
+			451
+		}
+
+		ratio = 0.1
+		subtract_invasions_from_need = yes
+	}	
+}
+
+
+
+TUR_balkan_buffers = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		NOT = { has_global_flag = kis_firstbalkanwar_victory }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			106
+			44
+			184
+			731
+			758
+			756
+			788
+			341
+		}
+
+		ratio = 0.25
+		subtract_invasions_from_need = yes
+	}	
+}
+
 
