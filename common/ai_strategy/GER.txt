@@ -87,22 +87,41 @@ GER_area_priority_africa = {
         id = africa
         value = -90
     }
+
+    ai_strategy = {
+		type = front_unit_request
+		area = africa		
+		value = -70
+	}
 }
 
 
 
-GER_ignore_africa = {
+GER_francogerman_rivalry = {
 	allowed = {
 		original_tag = GER
 	}
 	enable = {
-		always = yes
+		FRA = { 
+			exists = yes
+			NOT = { is_in_faction_with = GER }
+		}
 	}
+	abort = {
+		FRA = { has_capitulated = yes }
+	}
+
 	ai_strategy = {
 		type = front_unit_request
-		area = africa		
-		value = -80
-	}	
+		tag = FRA			
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = RUS			
+		value = -25
+	}
 }
 
 
@@ -156,7 +175,8 @@ GER_ignore_north_america = {
 
 ######################### GREAT WAR ##########################
 
-GER_gw_unit_production = {
+#stacks from base production
+GER_gw_modified_unit_production = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
@@ -166,146 +186,72 @@ GER_gw_unit_production = {
 	}
 	
 	ai_strategy = {
-		type = role_ratio
-		id = paratroopers
-		value = 0
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mountaineers
-		value = 4
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = marines
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = armor
+		type = unit_ratio
+		id = strategic_bomber	#we love blimps
 		value = 5
 	}
+
 	ai_strategy = {
-		type = role_ratio
-		id = armored_car
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 70 
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry
-		value = 5
-	}
-	
-	#Air unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = scout_plane
-		value = 2
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 55
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = 0
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
-		value = 5
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = 1
-	}
-	
-	# Naval unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = capital_ship
-		value = 15
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = submarine
-		value = 15
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = screen_ship
-		value = 40
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = convoy
-		value = 20
+	 	type = equipment_production_factor
+	 	id = infantry
+	 	value = 5
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
-		id = fighter
-		value = 30
+		id = artillery 
+		value = 10
 	}
+
 	ai_strategy = {
 		type = equipment_production_factor
-		id = infantry
-		value = 40
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = support_equipment
-		value = -10
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 25
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
+		id = motorized 
 		value = 5
 	}
+
 	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = ww1_armored_car_equipment
-		value = 5
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = airship_bomber_equipment
-		value = 20
+		type = equipment_production_min_factories
+		id = motorized
+		value = 2
 	}
 }
 
 
-GER_militarized_society = {
+# GER_militarized_society = {
+# 	allowed = {
+# 		original_tag = GER
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+	
+# 	ai_strategy = {
+# 		type = added_military_to_civilian_factory_ratio		
+# 		value = 15
+# 	}
+# }
+
+
+GER_americam_ally_ww1 = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		always = yes
+		country_exists = USA
+		USA = {
+			NOT = { has_war_with = GER }
+			NOT = { has_completed_focus = USA_end_german-american_partnership }
+		}
 	}
+	abort_when_not_enabled = yes
 	
 	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 15
-	}
+		type = befriend
+		id = "USA"			
+		value = 50
+	}	
 }
 
 
@@ -361,10 +307,20 @@ GER_greatwar_mobilize = {
 	enable = {
 		country_exists = FRA
 		NOT = { is_in_faction_with = FRA }
-		threat > 0.35	
+		threat > 0.3
 	}
 	abort_when_not_enabled = yes
 
+	ai_strategy = {
+		type = prepare_for_war
+		id = "BEL"
+		value = 100
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "LUX"
+		value = 100
+	}
 	ai_strategy = {
 		type = prepare_for_war
 		id = "FRA"
@@ -392,7 +348,7 @@ GER_der_schlieffen_plan = {
 		tag = LUX
 		tag = FRA
 		priority = 200
-		ratio = 0.6
+		ratio = 0.4
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -418,40 +374,28 @@ GER_der_schlieffen_plan = {
 	}
 
 	ai_strategy = {
-		type = ignore
-		id = "RUS"		
-		value = 80
+		type = front_unit_request
+		tag = BEL			
+		value = 100
 	}
 
-	# ai_strategy = {
-	# 	type = front_unit_request
-	# 	tag = BEL			
-	# 	value = 100
-	# }
+	ai_strategy = {
+	 	type = front_unit_request
+	 	tag = FRA
+	 	value = 50
+	}
 
-	# ai_strategy = {
-	#  	type = front_unit_request
-	#  	tag = FRA
-	#  	value = 50
-	# }
+	ai_strategy = {
+	 	type = front_unit_request
+	 	tag = RUS
+	 	value = -20
+	}
 
-	# ai_strategy = {
-	#  	type = front_unit_request
-	#  	tag = RUS
-	#  	value = -25
-	# }
-
-	# ai_strategy = {
-	# 	type = dont_defend_ally_borders
-	# 	id = "AUH"
-	# 	value = 1
-	# }
-
-	# ai_strategy = {
-	# 	type = front_unit_request
-	# 	area = africa		
-	# 	value = -80
-	# }
+	ai_strategy = {
+		type = front_unit_request
+		area = africa		
+		value = -60
+	}
 }
 
 
