@@ -6,10 +6,13 @@ division_template = {
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
 		infantry = { x = 1 y = 0 }
 		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
 		infantry = { x = 2 y = 0 }
 		infantry = { x = 2 y = 1 }
+		infantry = { x = 2 y = 2 }
 	}
 	support = {
 		engineer = { x = 0 y = 0 }
@@ -27,6 +30,7 @@ division_template = {
 		infantry = { x = 0 y = 2 }
 		infantry = { x = 1 y = 0 }
 	}
+	priority = 0
 }
 
 
@@ -38,11 +42,7 @@ division_template = {
 		cavalry = { x = 0 y = 2 }
 		cavalry = { x = 1 y = 0 }
 	}
-	priority = 0
 }
-
-
-
 
 
 
@@ -57,8 +57,8 @@ fleet = {
 	task_force = {
 		name = "Royal Canadian Navy"
 		location = 7361 # Halifax
-		ship = { name = "HMS Niobe" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = ENG version_name = "Diadem Class" } } }
-		ship = { name = "HMS Rainbow" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = ENG version_name = "Apollo Class" } } }
+		ship = { name = "HMS Niobe" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = ENG version_name = "Diadem Class" } } }
+		ship = { name = "HMS Rainbow" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = ENG version_name = "Apollo Class" } } }
 	}
 }
 
@@ -76,6 +76,18 @@ fleet = {
 			}
 	division= { 
 			name = "3rd Canadian Infantry Div."
+			location=3778 # Ottawa
+			division_template="Canadian Royal Infantry Division"
+			start_experience_factor=0.3
+			}
+	division= { 
+			name = "4th Canadian Infantry Div."
+			location=3775 # Toronto
+			division_template="Canadian Royal Infantry Division"
+			start_experience_factor=0.3
+		}
+	division= { 
+			name = "5th Canadian Infantry Div."
 			location=3775 # Toronto
 			division_template="Canadian Royal Infantry Division"
 			start_experience_factor=0.3
@@ -182,13 +194,6 @@ fleet = {
 			start_experience_factor=0.1
 			start_equipment_factor = 0.55
 		}	
-	division= { 
-			name = "12th Canadian Home Guard"
-			location=4285 #New Brunswick
-			division_template="Canadian Home Guard"
-			start_experience_factor=0.1
-			start_equipment_factor = 0.55
-		}
 	
 
 }

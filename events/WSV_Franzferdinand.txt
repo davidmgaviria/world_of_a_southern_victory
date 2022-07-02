@@ -1,0 +1,436 @@
+﻿add_namespace = wsv_franzferdinand
+
+### Franz Ferdinand killed
+news_event = {
+	id = wsv_franzferdinand.1
+	title = wsv_franzferdinand.1.t
+	desc = wsv_franzferdinand.1.d
+	picture = news_event_archduke_dead
+	
+	major = yes
+	
+	trigger = {
+		date > 1914.6.27
+		date < 1914.9.1
+		NOT = { has_global_flag = kis_franzferdinand_murdered }
+		SER = {
+			exists = yes
+        	is_puppet = no 
+        	has_war = no
+        }		
+		AUH = {
+			exists = yes
+			is_puppet = no 
+			has_war = no
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+
+	immediate = {
+		set_global_flag = kis_franzferdinand_murdered
+		hidden_effect = {
+			AUH = {
+				add_war_support = 0.1
+				set_country_flag = murder_of_franz_ferdinand
+				country_event = { id=wsv_franzferdinand.2   days = 1 } 
+			}
+			SER = {
+				set_country_flag=murder_of_franz_ferdinand
+				add_named_threat={
+					threat=5
+					name= franzferdiand_dead_tt
+				}
+			}
+		}
+	}
+		
+	option = {
+		name = wsv_franzferdinand.1.a
+		trigger = { tag = AUH }
+	}
+	option = {
+		name = wsv_franzferdinand.1.b
+		trigger = { NOT = { tag = AUH } }
+	}
+}
+
+
+#----------------------------------------------
+# Austria request German Backing
+#----------------------------------------------
+
+### Austria asks for German backing
+country_event = {
+	id = wsv_franzferdinand.2
+	title = wsv_franzferdinand.2.t
+	desc = wsv_franzferdinand.2.d
+	#picture = news_event_archduke_dead
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_franzferdinand.2.a
+		GER = { country_event = { id = wsv_franzferdinand.3  days = 2 } }
+	}
+}
+
+
+### Germany gets Austria request for aid
+country_event = {
+	id = wsv_franzferdinand.3
+	title = wsv_franzferdinand.3.t
+	desc = wsv_franzferdinand.3.d
+	#picture = news_event_archduke_dead
+
+	is_triggered_only = yes
+	
+	# Blank cheque
+	option = {
+		name = wsv_franzferdinand.3.a
+		AUH = { country_event = { id = wsv_franzferdinand.4  days = 2 } }
+
+		ai_chance =  { 
+			factor = 80 
+			modifier = {
+				factor = 0.5
+				has_army_manpower = { size < 1500000 }
+			}
+			modifier = {
+				factor = 0.5
+				has_army_manpower = { size < 1000000 }
+			}
+		}
+	}
+
+	# Deny help
+	option = {
+		name = wsv_franzferdinand.3.b
+		AUH = { country_event = { id = wsv_franzferdinand.5  days = 2 } }
+		custom_effect_tooltip = germany_refuses_aid_tt
+		
+		ai_chance =  { 
+			factor = 10 
+			modifier = {
+				factor = 0 
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+### Germany gave us the green light
+country_event = {
+	id = wsv_franzferdinand.4
+	title = wsv_franzferdinand.4.t
+	desc = wsv_franzferdinand.4.d
+	#picture = news_event_archduke_dead
+
+	is_triggered_only = yes
+	
+	# Issue the ultimatum
+	option = {
+		name = wsv_franzferdinand.4.a
+		SER = { country_event = { id = wsv_franzferdinand.7   days = 6 } } 		   # event for serbia
+		hidden_effect = { news_event = { id = wsv_franzferdinand.6   days = 6 } }  # event for everyone else
+	}
+}
+
+
+### Germany denied aid
+country_event = {
+	id = wsv_franzferdinand.5
+	title = wsv_franzferdinand.5.t
+	desc = wsv_franzferdinand.5.d
+	#picture = news_event_archduke_dead
+
+	is_triggered_only = yes
+	
+	# Drop the matter
+	option = {
+		name = wsv_franzferdinand.5.a
+		add_political_power = -100
+		add_stability = -0.1
+		add_war_support = -0.2
+
+		ai_chance =  { 
+			factor = 40 
+		}
+	}
+
+	# Issue the ultimatum 
+	option = {
+		name = wsv_franzferdinand.5.b
+		leave_faction = yes
+		SER = { country_event = { id = wsv_franzferdinand.7   days = 6 } } 		   # event for serbia
+		hidden_effect = { news_event = { id = wsv_franzferdinand.6   days = 6 } }  # event for everyone else
+
+		ai_chance =  { 
+			factor = 40 
+			modifier = {
+				factor = 1.5
+				strength_ratio = {
+				    tag = RUS
+				    ratio > 0.75
+				}
+			}
+			modifier = {
+				factor = 1.5
+				strength_ratio = {
+				    tag = RUS
+				    ratio > 0.9
+				}
+			}
+			modifier = {
+				factor = 1.5
+				strength_ratio = {
+				    tag = RUS
+				    ratio > 1
+				}
+			}
+		}
+	}
+}
+
+
+
+#----------------------------------------------
+# Austrian Ultimatum
+#----------------------------------------------
+
+# News event of ultimatum
+news_event = {
+	id = wsv_franzferdinand.6
+	title = wsv_franzferdinand.6.t
+	desc = wsv_franzferdinand.6.d
+	picture = EVENT_hoi4tgw_austria_vs_serbia
+	
+	major = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			AUH = {
+				add_named_threat={
+					threat = 10
+					name = july_austria_ultimatum_tt
+				}
+			}
+		}
+	}
+		
+	option = {
+		name = wsv_franzferdinand.6.a
+		trigger = { tag = AUH }
+	}
+	option = {
+		name = wsv_franzferdinand.6.b
+		trigger = { 
+			NOT = { tag = AUH }
+		}
+	}
+}
+
+
+
+# Serbia gets ultimatum
+country_event = {
+	id = wsv_franzferdinand.7
+	title = wsv_franzferdinand.7.t
+	desc = wsv_franzferdinand.7.d
+	picture = COUNTRY_hoi4tgw_report_austria_hungary
+	
+	is_triggered_only = yes
+
+	# Reject
+	option = {
+		name = wsv_franzferdinand.7.a
+		news_event = { id = wsv_franzferdinand.8  days = 6 }
+		custom_effect_tooltip = july_serbia_defiant_tt
+
+		ai_chance =  { 
+			factor = 80 
+		}
+	}
+
+	# Accept
+	option = {
+		name = wsv_franzferdinand.7.b
+		news_event = { id = wsv_franzferdinand.9  days = 6 }
+		custom_effect_tooltip = july_serbia_submits_tt
+
+		ai_chance =  { 
+			factor = 10 
+			modifier = {
+				factor = 0 
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+# Serbia rejects ultimatum
+news_event = {
+	id = wsv_franzferdinand.8
+	title = wsv_franzferdinand.8.t
+	desc = wsv_franzferdinand.8.d
+	picture = EVENT_hoi4tgw_austria_vs_serbia
+
+	is_triggered_only = yes
+
+	major = yes
+	
+	immediate = {
+		hidden_effect = {
+			set_global_flag = kis_serbia_refuse
+			AUH = { activate_decision = austria_must_decide }
+		}
+	}
+		
+	option = {
+		name = wsv_franzferdinand.8.a
+		trigger = { tag = AUH }
+	}
+
+	option = {
+		name = wsv_franzferdinand.8.b
+		trigger = { tag = SER }
+	}
+
+	option = {
+		name = wsv_franzferdinand.8.b
+		trigger = { 
+			NOT = { tag = AUH }
+			NOT = { tag = SER }
+		}
+	}
+}
+
+
+
+# Serbia accepts ultimatum
+news_event = {
+	id = wsv_franzferdinand.9
+	title = wsv_franzferdinand.9.t
+	desc = wsv_franzferdinand.9.d
+	picture = EVENT_hoi4tgw_austria_vs_serbia
+
+	is_triggered_only = yes
+
+	major = yes
+	
+	immediate = {
+		hidden_effect = {
+			AUH = { puppet = SER }
+			set_global_flag = kis_serbia_accept
+		}
+	}
+		
+	option = {
+		name = wsv_franzferdinand.9.a
+		trigger = { tag = AUH }
+	}
+
+	option = {
+		name = wsv_franzferdinand.9.b
+		trigger = { tag = SER }
+	}
+
+	option = {
+		name = wsv_franzferdinand.9.c
+		trigger = { 
+			NOT = { tag = AUH }
+			NOT = { tag = SER }
+		}
+	}
+}
+
+
+
+# Russia ponders invervention
+country_event = {
+	id = wsv_franzferdinand.10
+	title = wsv_franzferdinand.10.t
+	desc = wsv_franzferdinand.10.d
+	picture = COUNTRY_hoi4tgw_report_austria_hungary
+	
+	is_triggered_only = yes
+
+	# Do nothing
+	option = {
+		name = wsv_franzferdinand.10.a
+
+		SER = {
+			add_opinion_modifier = { 
+				target = RUS
+				modifier = refused_help
+			}
+		}
+
+		ai_chance =  { 
+			factor = 10
+			modifier = {
+				factor = 0 
+				is_historical_focus_on = yes
+			} 
+		}
+	}
+
+	# Help the Serbs
+	option = {
+		name = wsv_franzferdinand.10.b
+
+		give_guarantee = SER
+		custom_effect_tooltip = july_russian_intervention_tt
+		hidden_effect = {
+			news_event = { id = wsv_franzferdinand.11  days = 3 }
+		}
+
+		ai_chance =  { 
+			factor = 40
+		}
+	}
+}
+
+
+# Russia guarantees Serbia
+news_event = {
+	id = wsv_franzferdinand.11
+	title = wsv_franzferdinand.11.t
+	desc = wsv_franzferdinand.11.d
+	#picture = EVENT_hoi4tgw_austria_vs_serbia		
+
+	is_triggered_only = yes
+
+	major = yes
+	
+	immediate = {
+		hidden_effect = {
+			set_global_flag = russia_guaranteed_serbia
+		}
+	}
+		
+	option = {
+		name = wsv_franzferdinand.11.a
+		trigger = { tag = AUH }
+	}
+
+	option = {
+		name = wsv_franzferdinand.11.b
+		trigger = { tag = SER }
+	}
+
+	option = {
+		name = wsv_franzferdinand.11.c
+		trigger = { 
+			NOT = { tag = AUH }
+			NOT = { tag = SER }
+		}
+	}
+}
+

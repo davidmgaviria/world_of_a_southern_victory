@@ -13,13 +13,16 @@ division_template = {
 		infantry = { x = 2 y = 0 }
 		infantry = { x = 2 y = 1 }
 		infantry = { x = 2 y = 2 }
+		infantry = { x = 3 y = 0 }
+        infantry = { x = 3 y = 1 }
+        infantry = { x = 3 y = 2 }
+		artillery_brigade = { x = 4 y = 0 }
 	}
 	support = {
-		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
-		artillery = { x = 0 y = 2 }
+		engineer = { x = 0 y = 0 }
 	}
 }
+
 
 division_template = {
 	name = "Légion Etrangère"		# Elite
@@ -31,21 +34,19 @@ division_template = {
 		infantry = { x = 1 y = 1 }
 		infantry = { x = 1 y = 2 }
 		infantry = { x = 2 y = 0 }
-		infantry = { x = 2 y = 1 }
-		infantry = { x = 2 y = 2 }
+		artillery_brigade = { x = 2 y = 1 }
+		artillery_brigade = { x = 2 y = 2 }
 	}
 	support = {
 		recon = { x = 0 y = 0 }
 		engineer = { x = 0 y = 1 }
-		logistics_company = { x = 0 y = 2 }
-		field_hospital = { x = 0 y = 3 }
-		artillery = { x = 0 y = 4 }
 	}
 	priority = 2
 }
 
+
 division_template = {
-	name = "Troupes Coloniales"		# Special
+	name = "Brigade de Gendarmerie"	# Militia
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -54,9 +55,22 @@ division_template = {
 	}
 	support = {
 		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }		
 	}
+	priority = 0
 }
+
+
+division_template = {
+	name = "Troupes Coloniales"	# Militia
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+	}
+	priority = 0
+}
+
 
 division_template = {
 	name = "Chasseurs Alpins"		# Mountain Division
@@ -67,33 +81,21 @@ division_template = {
 		mountaineers = { x = 1 y = 1 }
 	}
 	support = {
-        recon = { x = 0 y = 0 }
-   		engineer = { x = 0 y = 1 }
-        logistics_company = { x = 0 y = 2 }
+   		engineer = { x = 0 y = 0 }
+   		artillery = { x = 0 y = 1 }
 	}
-}
-division_template = {
-	name = "Brigade de Gendarmerie"	# Militia
-	regiments = {
-		infantry = { x = 0 y = 0 }
-		infantry = { x = 0 y = 1 }
-		infantry = { x = 1 y = 0 }
-		infantry = { x = 1 y = 1 }
-	}
-	priority = 0
 }
 
 division_template = {
 	name = "Hussards"		# Cavalry
 	regiments = {
 		cavalry = { x = 0 y = 0 }
-		cavalry = { x = 0 y = 1 }
-		cavalry = { x = 1 y = 0 }
-		cavalry = { x = 1 y = 1 }
+        cavalry = { x = 0 y = 1 }
+        cavalry = { x = 0 y = 2 }
+        cavalry = { x = 1 y = 0 }
 	}
 	support = {
-		recon = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
+		artillery = { x = 0 y = 0 }
 	}
 }
 
@@ -106,11 +108,6 @@ division_template = {
         infantry = { x = 1 y = 0 }
         infantry = { x = 1 y = 1 }
     }
-
-    support = {
-        recon = { x = 0 y = 0 }
-        engineer = { x = 0 y = 1 }
-    }
 }
 ###################################################################
 
@@ -122,16 +119,16 @@ fleet = {
 	task_force = {
 		name = "1ère Armée Navale"
 		location = 911 # Toulon
-		ship = { name = "Neptune" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Marceau Class" } } }
-		ship = { name = "Brennus" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Brennus Class" } } }
-		ship = { name = "Charles Martel" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Charles Martel Class" } } }
-		ship = { name = "Carnot" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Carnot Class" } } }
-		ship = { name = "Jauréguiberry" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Jauréguiberry Class" } } }
-		ship = { name = "Masséna" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Masséna Class" } } }
-		ship = { name = "Bouvet" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Bouvet Class" } } }
-		ship = { name = "Charlemagne" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Charlemagne Class" } } }
-		ship = { name = "Gaulois" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Charlemagne Class" } } }
-		ship = { name = "St. Louis" definition = battleship equipment = { battleship_1890 = { amount = 1 owner = FRA version_name = "Charlemagne Class" } } }
+		ship = { name = "Neptune" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Marceau Class" } } }
+		ship = { name = "Brennus" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Brennus Class" } } }
+		ship = { name = "Charles Martel" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Charles Martel Class" } } }
+		ship = { name = "Carnot" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Carnot Class" } } }
+		ship = { name = "Jauréguiberry" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Jauréguiberry Class" } } }
+		ship = { name = "Masséna" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Masséna Class" } } }
+		ship = { name = "Bouvet" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Bouvet Class" } } }
+		ship = { name = "Charlemagne" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Charlemagne Class" } } }
+		ship = { name = "Gaulois" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Charlemagne Class" } } }
+		ship = { name = "St. Louis" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Charlemagne Class" } } }
 		ship = { name = "Henri IV" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA } } }
 		ship = { name = "Suffren" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Suffren Class" } } }
 		ship = { name = "République" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "République Class" } } }
@@ -141,8 +138,8 @@ fleet = {
 		ship = { name = "Liberté" definition = battleship equipment = { battleship_1900 = { amount = 1 owner = FRA version_name = "Liberté Class" } } }
 		ship = { name = "Edgar Quinet" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Edgar Quinet Class" } } }
 		ship = { name = "Waldeck-Rousseau" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Edgar Quinet Class" } } }
-		ship = { name = "Bruix" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = FRA version_name = "Amiral Charner Class" } } }
-		ship = { name = "Latouche-Tréville" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = FRA version_name = "Amiral Charner Class" } } }
+		ship = { name = "Bruix" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Amiral Charner Class" } } }
+		ship = { name = "Latouche-Tréville" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Amiral Charner Class" } } }
 		ship = { name = "D'Entrecasteaux" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "D'Entrecasteaux Class" } } }
 		ship = { name = "Tromblon" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
 		ship = { name = "Pierrier" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
@@ -181,14 +178,14 @@ fleet = {
 		name = "3ème Division de Sous-Marins"
 		location = 911 # Toulon
 		
-		ship = { name = "Oursin" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Perle " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Phoque" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Protee " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Souffleur" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Thon " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Truite " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "X " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "X Class" } } }
+		ship = { name = "Oursin" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Perle " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Phoque" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Protee " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Souffleur" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Thon " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Truite " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "X " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "X Class" } } }
 		ship = { name = "Aigrette" definition = submarine equipment = { submarine_1910 = { amount = 1 owner = FRA } } }
 		ship = { name = "Cigogne" definition = submarine equipment = { submarine_1910 = { amount = 1 owner = FRA } } }
 		ship = { name = "Omega" definition = submarine equipment = { submarine_1910 = { amount = 1 owner = FRA version_name = "Omega Class" } } }
@@ -205,22 +202,22 @@ fleet = {
 		ship = { name = "Marseillaise" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Gloire Class" } } }
 		ship = { name = "Desaix" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA } } }
 		ship = { name = "Kléber" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA } } }
-		ship = { name = "Gueydon" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = FRA version_name = "Gueydon Class" } } }
-		ship = { name = "Lavoisier" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = FRA version_name = "Linois Class" } } }
-		ship = { name = "Forbin" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = FRA version_name = "Forbin Class" } } }
-		ship = { name = "Amiral Cécille" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = FRA version_name = "Amiral Cécille Class" } } }
-		ship = { name = "Isly" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = FRA version_name = "Alger Class" } } }
-		ship = { name = "Du Chayla" definition = light_cruiser equipment = { light_cruiser_1890 = { amount = 1 owner = FRA version_name = "D'Assas Class" } } }
+		ship = { name = "Gueydon" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Gueydon Class" } } }
+		ship = { name = "Lavoisier" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Linois Class" } } }
+		ship = { name = "Forbin" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Forbin Class" } } }
+		ship = { name = "Amiral Cécille" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Amiral Cécille Class" } } }
+		ship = { name = "Isly" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Alger Class" } } }
+		ship = { name = "Du Chayla" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "D'Assas Class" } } }
 		ship = { name = "Châteaurenault" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Châteaurenault Class" } } }
 		ship = { name = "Alger" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Alger Class" } } }
 		ship = { name = "Galilée" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Linois Class" } } }
 		ship = { name = "Chasseloup-Laubat" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Friant Class" } } }
 		ship = { name = "Pascal" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Descartes Class" } } }
 		ship = { name = "D'Estrées" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "D'Estrées Class" } } }
-		ship = { name = "Pertuisane" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
-		ship = { name = "Escopette" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
-		ship = { name = "Flamberge" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
-		ship = { name = "Rapiere" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
+		ship = { name = "Pertuisane" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
+		ship = { name = "Escopette" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
+		ship = { name = "Flamberge" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
+		ship = { name = "Rapiere" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Pertuisane Class" } } }
 		ship = { name = "Carabine" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
 		ship = { name = "Sarbacane" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
 		ship = { name = "Arquebuse" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
@@ -246,12 +243,12 @@ fleet = {
 	task_force = {
 		name = "1ère Division de Sous-Marins"
 		location = 6449 # Cherbourg
-		ship = { name = "Plongeur" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA } } }
-		ship = { name = "Espadon " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
-		ship = { name = "Silure  " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
-		ship = { name = "Sirene " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
-		ship = { name = "Triton  " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
-		ship = { name = "Farfadet " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Farfadet Class" } } }
+		ship = { name = "Plongeur" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA } } }
+		ship = { name = "Espadon " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
+		ship = { name = "Silure  " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
+		ship = { name = "Sirene " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
+		ship = { name = "Triton  " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Sirene Class" } } }
+		ship = { name = "Farfadet " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Farfadet Class" } } }
 	}
 }
 
@@ -261,23 +258,23 @@ fleet = {
 	task_force = {
 		name = "Défense Mobile"
 		location = 575 # Calais
-		ship = { name = "Durandal" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA } } }
-		ship = { name = "Hallebarde" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA } } }
-		ship = { name = "Fauconneau" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA } } }
-		ship = { name = "Yatagan" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Framee Class" } } }
-		ship = { name = "Pique" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Framee Class" } } }
-		ship = { name = "Epee" definition = destroyer equipment = { destroyer_1890 = { amount = 1 owner = FRA version_name = "Framee Class" } } }
+		ship = { name = "Durandal" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
+		ship = { name = "Hallebarde" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
+		ship = { name = "Fauconneau" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
+		ship = { name = "Yatagan" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Framee Class" } } }
+		ship = { name = "Pique" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Framee Class" } } }
+		ship = { name = "Epee" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA version_name = "Framee Class" } } }
 	}
 	task_force = {
 		name = "2ème Division de Sous-Marins"
 		location = 575 # Calais
-		ship = { name = "Algerien" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Morse Class" } } }
-		ship = { name = "Francais  " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Morse Class" } } }
-		ship = { name = "Alose" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Anguille " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Bonite " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Castor " definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
-		ship = { name = "Dorade" definition = submarine equipment = { coastal_submarine_1900 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Algerien" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Morse Class" } } }
+		ship = { name = "Francais  " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Morse Class" } } }
+		ship = { name = "Alose" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Anguille " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Bonite " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Castor " definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
+		ship = { name = "Dorade" definition = submarine equipment = { submarine_1906 = { amount = 1 owner = FRA version_name = "Naiade Class" } } }
 	}
 }
 
@@ -287,8 +284,8 @@ fleet = {
 	task_force = {
 		name = "Détail Speciale"
 		location = 7069 # Casablanca
-		ship = { name = "Dupuy de Lôme" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = FRA } } }
-		ship = { name = "Amiral Charner" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = FRA version_name = "Amiral Charner Class" } } }
+		ship = { name = "Dupuy de Lôme" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA } } }
+		ship = { name = "Amiral Charner" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Amiral Charner Class" } } }
 		ship = { name = "Cassard" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "D'Assas Class" } } }
 		ship = { name = "Cosmao" definition = light_cruiser equipment = { light_cruiser_1900 = { amount = 1 owner = FRA version_name = "Troude Class" } } }
 		ship = { name = "Francisque II" definition = destroyer equipment = { destroyer_1900 = { amount = 1 owner = FRA } } }
@@ -331,7 +328,7 @@ fleet = {
 	task_force = {
 		name = "Détail du Pacifique de Sud"
 		location = 12148 # Tahiti
-		ship = { name = "Montcalm" definition = heavy_cruiser equipment = { heavy_cruiser_1890 = { amount = 1 owner = FRA version_name = "Gueydon Class" } } }
+		ship = { name = "Montcalm" definition = heavy_cruiser equipment = { heavy_cruiser_1900 = { amount = 1 owner = FRA version_name = "Gueydon Class" } } }
 	}
 }
 
@@ -517,7 +514,8 @@ fleet = {
 			name = "16e Division de Gendarmerie"
 			location=9737 # Bordeaux
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -525,7 +523,8 @@ fleet = {
 			name = "17e Division de Gendarmerie"
 			location = 3946 # Perpignan
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -533,7 +532,8 @@ fleet = {
 			name = "18e Division de Gendarmerie"
 			location=11834 # Marseille
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -541,7 +541,8 @@ fleet = {
 			name = "19e Division de Gendarmerie"
 			location = 911 # Toulon
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -549,7 +550,8 @@ fleet = {
 			name = "21e Division de Gendarmerie"
 			location=9909 # Nice
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -557,7 +559,8 @@ fleet = {
 			name = "20e Division de Gendarmerie"
 			location = 911 # Cannes
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -565,7 +568,8 @@ fleet = {
 			name = "24e Division de Gendarmerie"
 			location = 6609 # Albertville
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -573,7 +577,8 @@ fleet = {
 			name = "23e Division de Gendarmerie"
 			location = 3764 # Briancon
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -581,7 +586,8 @@ fleet = {
 			name = "22e Division de Gendarmerie"
 			location = 3764 # Barcelonnette
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -589,7 +595,8 @@ fleet = {
 			name = "1er Division de Gendarmerie"
 			location = 9710 # Bayonne
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -597,7 +604,8 @@ fleet = {
 			name = "2e Division de Gendarmerie"
 			location = 943 # Lannemezan
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -605,7 +613,8 @@ fleet = {
 			name = "4e Division de Gendarmerie"
 			location = 6639 # Annecy
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -613,7 +622,8 @@ fleet = {
 			name = "3e Division de Gendarmerie"
 			location=9909 # Nice
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -621,7 +631,8 @@ fleet = {
 			name = "5e Division de Gendarmerie"
 			location = 3764 # Briancon
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -629,7 +640,8 @@ fleet = {
 			name = "6e Division de Gendarmerie"
 			location = 3838 # Ajàccio
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}
 	
 	
@@ -637,48 +649,55 @@ fleet = {
 			name = "7e Division de Gendarmerie"
 			location = 3764 # Barcelonnette
 			division_template="Brigade de Gendarmerie"
-			start_experience_factor=0.1
+			start_experience_factor=0.05
+			start_equipment_factor = 0.5
 			}	
 	
-	division= { 
-			name = "64eme Division d'Infanterie de reserve"
-			location = 9728 # Romans sur Isere
-			division_template="Division d'Infanterie"
-			start_experience_factor=0.1
-			}
+	# division= { 
+	# 		name = "64eme Division d'Infanterie de reserve"
+	# 		location = 9728 # Romans sur Isere
+	# 		division_template="Division d'Infanterie"
+	# 		start_experience_factor=0.1
+	# 		}
+	
+	
+	# division= { 
+	# 		name = "74eme Division d'Infanterie de reserve"
+	# 		location = 9728 # Romans sur Isere
+	# 		division_template="Division d'Infanterie"
+	# 		start_experience_factor=0.1
+	# 		}
+	
+	
+	# division= { 
+	# 		name = "65eme Division d'Infanterie de reserve"
+	# 		location = 9728 # Romans sur Isere
+	# 		division_template="Division d'Infanterie"
+	# 		start_experience_factor=0.1
+	# 		}
+	
+	
+	# division= { 
+	# 		name = "75eme Division d'Infanterie de reserve"
+	# 		location = 9728 # Romans sur Isere
+	# 		division_template="Division d'Infanterie"
+	# 		start_experience_factor=0.1
+	# 		}
 	
 	
 	division= { 
-			name = "74eme Division d'Infanterie de reserve"
-			location = 9728 # Romans sur Isere
-			division_template="Division d'Infanterie"
-			start_experience_factor=0.1
-			}
-	
-	
-	division= { 
-			name = "65eme Division d'Infanterie de reserve"
-			location = 9728 # Romans sur Isere
-			division_template="Division d'Infanterie"
-			start_experience_factor=0.1
-			}
-	
-	
-	division= { 
-			name = "75eme Division d'Infanterie de reserve"
-			location = 9728 # Romans sur Isere
-			division_template="Division d'Infanterie"
-			start_experience_factor=0.1
-			}
-	
-	
-	division= { 
-			name = "Alpins d'territoriale"
+			name = "1a Alpins d'territoriale"
 			location = 9728 # Romans sur Isere
 			division_template="Chasseurs Alpins"
 			start_experience_factor=0.3
 			}
-	
+
+		division= { 
+			name = "2a Alpins d'territoriale"
+			location = 9728 # Romans sur Isere
+			division_template="Chasseurs Alpins"
+			start_experience_factor=0.3
+			}
 	
 	
 	
@@ -766,7 +785,7 @@ fleet = {
 	division= { 
 			name = "Legion d'Infanterie Foreign"
 			location = 911 # Toulon
-			division_template="Division d'Infanterie"
+			division_template="Légion Etrangère"
 			start_experience_factor=0.15
 			}
 	

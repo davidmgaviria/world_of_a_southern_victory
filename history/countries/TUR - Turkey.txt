@@ -11,7 +11,7 @@ set_fuel_ratio = 0.19
 set_stability = 0.5
 set_war_support = 0.23
 set_convoys = 100
-set_research_slots = 2 #was 3
+set_research_slots = 3
 
 puppet = HJZ 
 puppet = YEM
@@ -69,48 +69,17 @@ if = { limit = { has_start_date < 1937.1.1 }
 	#-------------------------------------------------------
 	#							NF
 	#-------------------------------------------------------
-	if = { limit = { has_start_date < 1937.1.1 }
-		#Army
-		complete_national_focus = TUR_ww1_army_effort
-		complete_national_focus = TUR_ww1_industrial_effort
-		complete_national_focus = TUR_ww1_naval_effort
-
-		#Diplomatic
-		complete_national_focus = TUR_ww1_diplomatic_effort
-	}
+	#if = { limit = { has_start_date < 1937.1.1 }
+	#	#Army
+	#	complete_national_focus = TUR_ww1_army_effort
+	#	complete_national_focus = TUR_ww1_industrial_effort
+	#	complete_national_focus = TUR_ww1_naval_effort
+	#	
+	#	#Diplomatic
+	#	complete_national_focus = TUR_ww1_diplomatic_effort
+	#}
 	#-------------------------------------------------------
 
-	set_technology = {
-
-		# Infantry
-		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		support_weapons = 1
-		infantry_binoculars = 1
-		#motorised_infantry = 1
-		#ww1_ambulance1 = 1
-
-		# Support
-		tech_support = 1
-		tech_engineers = 1
-		tech_recon = 1
-		
-		# Armor
-		#gwtank=1 # 1910 Armored Car
-
-		# Artillery
-		light_field_gun1 = 1
-		heavy_field_gun1 = 1
-
-		# Air
-
-		# Engineering
-		electronic_mechanical_engineering = 1
-		chemical_research = 1
-
-		# Industry
-		ww1_fortification1 = 1
-	}
 
 	set_politics = {
 	    ruling_party = neutrality
@@ -131,6 +100,31 @@ if = { limit = { has_start_date < 1937.1.1 }
 		limited_conscription
 		limited_exports
 	}
+
+	add_timed_idea = {
+		idea = TUR_outdated_army
+		days = 1080  #january 1, 1913
+	}
+
+
+	set_technology = {
+		#Trains
+		basic_train = 1
+
+		# Infantry
+		infantry_weapons = 1
+
+		# Artillery
+		light_field_gun1 = 1
+
+		# Naval
+		ww1_destroyer1 = 1
+		ww1_light_cruiser1 = 1
+		ww1_heavy_cruiser1 = 1
+		ww1_battleship1 = 1
+	}
+
+
 	create_equipment_variant={ name="Assari Tewfik Class" type=heavy_cruiser_1890 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=5           } }
 	create_equipment_variant={ name="Assari Shevket Class" type=heavy_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
 	create_equipment_variant={ name="Avni Illah Class" type=heavy_cruiser_1890 parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
@@ -141,267 +135,8 @@ if = { limit = { has_start_date < 1937.1.1 }
 	create_equipment_variant={ name="Lutfi Humayun Class" type=light_cruiser_1890 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
 	create_equipment_variant={ name="Medjidieh Class" type=light_cruiser_1900 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=1  ship_engine_upgrade=3 ship_reliability_upgrade=4 ship_anti_air_upgrade=0          } }
 	create_equipment_variant={ name="S165 Class" type=destroyer_1906 parent_version = 0 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=1 } }
-
 }
 
-1914.1.1 = {
-	add_political_power = 1200
-	set_fuel_ratio = 1
-	set_stability = 0.4
-	oob = "TUR_1914"
-
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
-	if = { limit = { has_start_date < 1937.1.1 }
-		#Army
-		complete_national_focus = TUR_ww1_army_effort
-		
-		# Air
-		complete_national_focus = TUR_ww1_aviation_effort
-		
-		# Industry
-		complete_national_focus = TUR_ww1_industrial_effort
-		complete_national_focus = TUR_ww1_infrastructure_effort
-		complete_national_focus = TUR_ww1_airfield_expansion_1
-		complete_national_focus = TUR_ww1_construction_effort
-		complete_national_focus = TUR_ww1_production_effort
-		complete_national_focus = TUR_ww1_dockyard_effort_1
-		
-		# Naval
-		complete_national_focus = TUR_ww1_naval_effort
-
-		#Political
-		complete_national_focus = TUR_ww1_political_effort
-		complete_national_focus = TUR_ww1_SupportYoungTurksReforms
-
-		#Diplomatic
-		complete_national_focus = TUR_ww1_diplomatic_effort
-		complete_national_focus = TUR_ww1_BalkansPolitics
-		complete_national_focus = TUR_ww1_anti_serb
-		unlock_national_focus = TUR_ww1_AntiBulgaria
-		unlock_national_focus = TUR_ww1_BalkanLeagueMenace
-		complete_national_focus = TUR_ww1_assert_position_west
-		complete_national_focus = TUR_ww1_anti_ita
-		complete_national_focus = TUR_ww1_anti_uk
-		complete_national_focus = TUR_ww1_anti_ru
-		complete_national_focus = TUR_ww1_assert_position_east
-		complete_national_focus = TUR_ww1_develop_arab
-		complete_national_focus = TUR_ww1_fight_arab_revolt
-	}
-	#-------------------------------------------------------
-
-	set_technology = {
-
-		# Infantry
-		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		ww1_infantry_equip1 = 1
-		support_weapons = 1
-		support_weapons2 = 1
-		infantry_binoculars = 1
-		infantry_grenade = 1
-		motorised_infantry = 1
-		#ww1_ambulance1 = 1
-		tech_mountaineers = 1
-
-		# Support
-		tech_support = 1
-		tech_engineers = 1
-		tech_recon = 1
-
-		# Armor
-		gwtank = 1 # 1910 Armored Car
-
-		# Artillery
-		light_field_gun1 = 1
-		bonus_artillery1 = 1
-		heavy_field_gun1 = 1
-		bonus_bertha1 = 1
-
-		# Land Doctrine
-		ww1_landdoctrine = 1
-		ww1_directfire = 1
-		ww1_rifle_ammo = 1
-
-		# Navy
-		ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1
-		ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1
-		ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1
-		ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1
-		ww1_submarine0 = 1
-		ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-		ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-		ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1
-		ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1
-		ww1_destroyer2 = 1
-	ww1_destroyer2_mtg = 1
-		ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
-		transport = 1
-	transport_mtg = 1
-
-		# Air
-		ww1_fighter1 = 1
-
-		# Air Doctrine
-		ww1_airdoctrine = 1
-
-		# Engineering
-		electronic_mechanical_engineering = 1
-		radio = 1
-		supertech1 = 1
-		mechanical_computing = 1
-		hoi4tgw_decryption = 1
-		hoi4tgw_encryption = 1
-		torpedotech1 = 1
-		chemical_research = 1
-
-		# Industry
-		ww1_tools1 = 1
-		ww1_tools2 = 1
-		#ww1_camera1 = 1
-		ww1_industry1 = 1
-		#ww1_medicine1 = 1
-		#ww1_medicine1 = 2
-		ww1_fortification1 = 1
-		ww1_fortification2 = 1
-		ww1_mining1 = 1
-		ww1_construction1 = 1
-	}
-
-	set_politics = {
-	    ruling_party = neutrality
-	    last_election = "1912.4.1"
-	    election_frequency = 48
-	    elections_allowed = yes
-	}
-	set_popularities = {
-	    democratic = 19
-	    fascism = 5
-	    communism = 1
-	    neutrality = 75
-	}
-
-	add_ideas = {
-		ww1_Faith_Allah
-		limited_conscription
-		limited_exports
-		german_advisors
-	}
-
-
-	create_navy_leader={  name = "Wilhelm Souchon" id=90162 portrait_path="gfx/portraits/TUR/navy_admirals/GER_souchon.dds" traits={ superior_tactician  } skill=4 }
-	create_navy_leader={  name = "Ahmed Ramiz Bey" id=90159 portrait_path="gfx/portraits/TUR/navy_admirals/TUR_Ahmed_Ramiz_Bey.dds" traits={   } skill=2 }
-	create_navy_leader={  name = "Arif Paşa" id=90097 portrait_path="gfx/portraits/TUR/navy_admirals/TUR_Arif_Pasa.dds" traits={ old_guard  } skill=2 }
-
-	create_field_marshal={  name = "Liman von Sanders" id=90147 portrait_path="gfx/portraits/TUR/army_generals/GER_von_Snaders.dds" traits={ offensive_doctrine } skill=3 
-		attack_skill = 3
-		defense_skill = 3
-		planning_skill = 2
-		logistics_skill = 2
-	}
-
-	create_field_marshal={  name = "Mustafa Kemal Paşa" id=90013 portrait_path="gfx/portraits/TUR/army_generals/TUR_mustafa_kemal.dds" traits={ fast_planner defensive_doctrine } skill=4 
-		attack_skill = 2
-		defense_skill = 2
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "İsmail Enver Paşa" id=90007 portrait_path="gfx/portraits/TUR/army_generals/TUR_Enver.dds" traits={   } skill=2 
-		attack_skill = 2
-		defense_skill = 2
-		planning_skill = 1
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Mehmed Esad Paşa" id=90008 portrait_path="gfx/portraits/TUR/army_generals/TUR_Esad.dds" traits={   } skill=3 
-		attack_skill = 1
-		defense_skill = 2
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Hasan Tahsin Paşa" id=90138 portrait_path="gfx/portraits/TUR/army_generals/TUR_Hasan_Tahsin.dds" traits={ old_guard desert_fox } skill=3 
-		attack_skill = 2
-		defense_skill = 1
-		planning_skill = 1
-		logistics_skill = 2
-	}
-
-	create_corps_commander={  name = "Mahmud Shevket Paşa" id=90507 portrait_path="gfx/portraits/TUR/army_generals/TUR_Shevket.dds" traits={   } skill=2 
-		attack_skill = 2
-		defense_skill = 2
-		planning_skill = 1
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Kölemen Abdullah Paşa" id=90508 portrait_path="gfx/portraits/TUR/army_generals/TUR_Kolemen.dds" traits={   } skill=1 
-		attack_skill = 1
-		defense_skill = 2
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Ali Rıza Paşa" id=90509 portrait_path="gfx/portraits/TUR/army_generals/TUR_Ali_Riza.dds" traits={   } skill=1 
-		attack_skill = 2
-		defense_skill = 1
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Mahmud Muhtar Paşa" id=90510 portrait_path="gfx/portraits/TUR/army_generals/TUR_Muhtar.dds" traits={   } skill=1 
-		attack_skill = 2
-		defense_skill = 1
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Ahmed Djemal Paşa" id=90511 portrait_path="gfx/portraits/TUR/army_generals/TUR_Djemal.dds" traits={   } skill=1 
-		attack_skill = 2
-		defense_skill = 3
-		planning_skill = 1
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Abdülkerim Öpelimi Paşa" id=90512 portrait_path="gfx/portraits/TUR/army_generals/TUR_Abdulkerim.dds" traits={   } skill=2 
-		attack_skill = 2
-		defense_skill = 1
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Hasan Izzet Paşa" id=90513 portrait_path="gfx/portraits/TUR/army_generals/TUR_Izzet.dds" traits={   } skill=2 
-		attack_skill = 2
-		defense_skill = 2
-		planning_skill = 1
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Nihat Anılmış Paşa" id=90514 portrait_path="gfx/portraits/TUR/army_generals/TUR_Nihat.dds" traits={   } skill=2 
-		attack_skill = 1
-		defense_skill = 2
-		planning_skill = 1
-		logistics_skill = 2
-	}
-	create_field_marshal={  name = "Fevzi Çakmak Paşa" id=90515 portrait_path="gfx/portraits/TUR/army_generals/TUR_Fevzi.dds" traits={   } skill=2 
-		attack_skill = 2
-		defense_skill = 1
-		planning_skill = 2
-		logistics_skill = 1
-	}
-	create_corps_commander={  name = "Cevat Çobanlı Paşa" id=90516 portrait_path="gfx/portraits/TUR/army_generals/TUR_Cevat.dds" traits={   } skill=3 
-		attack_skill = 1
-		defense_skill = 2
-		planning_skill = 1
-		logistics_skill = 2
-	}
-	create_corps_commander={  name = "Halil Kut Paşa" id=90517 portrait_path="gfx/portraits/TUR/army_generals/TUR_Halil.dds" traits={   } skill=2 
-		attack_skill = 2
-		defense_skill = 2
-		planning_skill = 2
-		logistics_skill = 1
-	}
-}
 
 
 
@@ -424,6 +159,7 @@ if = { limit = { has_start_date < 1937.1.1 }
 	}
 	remove_ideas = {
 		german_advisors
+		TUR_outdated_army
 	}
 
 
@@ -512,309 +248,6 @@ if = { limit = { has_start_date < 1937.1.1 }
 
 	########################################
 
-
-	set_technology = {
-
-		# Infantry
-		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		ww1infantry_weapons2 = 1
-		ww1infantry_weapons3 = 1
-		ww1_infantry_equip1 = 1
-		ww1_infantry_equip2 = 1
-		ww1_infantry_equip3 = 1
-		support_weapons = 1
-		support_weapons2 = 1
-		ww1_helmet_equip = 1
-		support_weapons3 = 1
-		support_weapons4 = 1
-		infantry_binoculars = 1
-		infantry_grenade = 1
-		infantry_gasmask = 1
-		infantry_ww1_mortar1 = 1
-		infantry_ww1_mortar2 = 1
-		infantry_flamethrower1 = 1
-		infantry_flamethrower2 = 1
-		infantry_at_grenade = 1
-		infantry_at_rifle = 1
-		#infantry_ww1_machinegun1 = 1
-		#infantry_ww1_machinegun2 = 1
-		#infantry_ww1_machinegun3 = 1 = 1
-		motorised_infantry = 1
-		#early_motorised = 1
-		#ww1_ambulance1 = 1
-		#ww1_ambulance2 = 1
-		tech_mountaineers = 1
-		marines = 1
-		tech_mountaineers2 = 1
-		marines2 = 1
-
-		# Support
-		tech_support = 1
-		tech_engineers = 1
-		tech_engineers2 = 1
-		tech_engineers3 = 1
-		#tech_engineers4 = 1
-		tech_recon = 1
-		tech_recon2 = 1
-		tech_recon3 = 1
-		#tech_recon4 = 1
-		tech_maintenance_company = 1
-		tech_maintenance_company2 = 1
-		tech_maintenance_company3= 1
-		#tech_maintenance_company4 = 1
-		tech_military_police = 1
-		tech_military_police2 = 1
-		tech_military_police3 = 1
-		#tech_military_police4 = 1
-		tech_field_hospital = 1
-		tech_field_hospital2 = 1
-		tech_field_hospital3 = 1
-		#tech_field_hospital4 = 1
-		tech_logistics_company = 1
-		tech_logistics_company2 = 1
-		tech_logistics_company3 = 1
-		#tech_logistics_company4 = 1
-		tech_signal_company = 1
-		tech_signal_company2 = 1
-		tech_signal_company3 = 1
-		#tech_signal_company4 = 1
-
-		# Armor
-		gwtank = 1 # 1910 Armored Car
-		ww1_armored_car_2 = 1
-		ww1_armored_car_3 = 1
-		ww1_armored_car_4 = 1
-		ww1_armored_car_5 = 1
-		ww1_light_tank = 1
-		#ww1_light_tank_b = 1
-		ww1_heavy_tank = 1
-		ww1_heavy_tank2 = 1
-		ww1_super_heavy_tank = 1
-		ww1_light_tank_interwar_1 = 1
-		#ww1_light_tank_interwar_2 = 1
-		#ww1_heavy_tank_interwar = 1
-
-		# Artillery
-		light_field_gun1 = 1
-		light_field_gun2 = 1
-		bonus_artillery1 = 1
-		bonus_artillery2 = 1
-		bonus_artillery3 = 1
-		bonus_artillery4 = 1
-		heavy_field_gun1 = 1
-		heavy_field_gun2 = 1
-		heavy_field_gun3 = 1
-		bonus_bertha1 = 1
-		bonus_bertha2 = 1
-		bonus_bertha3 = 1
-		bonus_bertha4 = 1
-		standard_artillery = 1
-
-		# Land Doctrine
-		ww1_landdoctrine = 0
-		ww1_directfire = 0
-		ww1_rifle_ammo = 0
-		ww1_long_march = 0
-		ww1_battlefield = 0
-		ww1_mass_artillery = 0
-		ww1_target = 0
-		ww1_night = 0
-		ww1_tank = 0
-		ww1_landdoctrine_unlock_ww2 = 0
-
-		# Navy
-		ww1_heavy_cruiser0 = 1
-	ww1_heavy_cruiser0_mtg = 1
-		ww1_heavy_cruiser1 = 1
-	ww1_heavy_cruiser1_mtg = 1
-		early_heavy_cruiser = 1
-		basic_heavy_cruiser = 1
-		ww1_battlecruiser0 = 1
-	ww1_battlecruiser0_mtg = 1
-		ww1_battlecruiser1 = 1
-	ww1_battlecruiser1_mtg = 1
-		ww1_battlecruiser2 = 1
-	ww1_battlecruiser2_mtg = 1
-		ww1_battlecruiser3 = 1
-	ww1_battlecruiser3_mtg = 1
-	early_battlecruiser = 1
-		ww1_light_cruiser0 = 1
-	ww1_light_cruiser0_mtg = 1
-		ww1_light_cruiser1 = 1
-	ww1_light_cruiser1_mtg = 1
-		ww1_light_cruiser2 = 1
-	ww1_light_cruiser2_mtg = 1
-		ww1_light_cruiser3 = 1
-	ww1_light_cruiser3_mtg = 1
-		ww1_light_cruiser4 = 1
-	ww1_light_cruiser4_mtg = 1
-		ww1_light_cruiser5 = 1
-	ww1_light_cruiser5_mtg = 1
-		early_light_cruiser = 1
-		ww1_submarine0 = 1
-	ww1_submarine0_mtg = 1
-		ww1_submarine1 = 1
-	ww1_submarine1_mtg = 1
-		ww1_coastal_submarine1 = 1
-	ww1_coastal_submarine1_mtg = 1
-	ww1_submarine2 = 1
-	ww1_submarine2_mtg = 1
-		ww1_coastal_submarine2 = 1
-	ww1_coastal_submarine2_mtg = 1
-	ww1_submarine3 = 1
-	ww1_submarine3_mtg = 1
-		ww1_coastal_submarine3 = 1
-	ww1_coastal_submarine3_mtg = 1
-	ww1_submarine4 = 1
-	ww1_submarine4_mtg = 1
-		ww1_coastal_submarine4 = 1
-	ww1_coastal_submarine4_mtg = 1
-	ww1_cruiser_submarine1 = 1
-	ww1_cruiser_submarine2 = 1
-	early_submarine = 1
-		ww1_battleship0 = 1
-	ww1_battleship0_mtg = 1
-		ww1_battleship1 = 1
-	ww1_battleship1_mtg = 1
-		ww1_battleship2 = 1
-	ww1_battleship2_mtg = 1
-		ww1_battleship3 = 1
-	ww1_battleship3_mtg = 1
-	ww1_battleship4 = 1
-	ww1_battleship4_mtg = 1
-		ww1_battleship5 = 1
-	ww1_battleship5_mtg = 1
-	early_battleship = 1
-	basic_battleship = 1
-		ww1_destroyer0 = 1
-	ww1_destroyer0_mtg = 1
-		ww1_destroyer1 = 1
-	ww1_destroyer1_mtg = 1
-		ww1_destroyer2 = 1
-	ww1_destroyer2_mtg = 1
-		ww1_destroyer3 = 1
-	ww1_destroyer3_mtg = 1
-		ww1_destroyer4 = 1
-	ww1_destroyer4_mtg = 1
-		ww1_destroyer5 = 1
-	ww1_destroyer5_mtg = 1
-		early_destroyer = 1
-		ww1_moduleMTG_mines = 1
-	ww1_moduleMTG_mines_mtg = 1 # Mines
-		transport = 1
-	transport_mtg = 1
-	ww1_smoke_generator = 1
-	seaplane_carrier = 1
-	ww1_carrier = 1
-	early_carrier = 1
-
-		# Air
-		ww1_fighter1 = 1
-		#ww1_fighter1b = 1
-		ww1_fighter2 = 1
-		ww1_fighter3b = 1
-		ww1_fighter3 = 1
-		ww1_fighter4 = 1
-		early_fighter = 1
-		cv_early_fighter = 1
-		fighter1 = 1
-		CAS1 = 1
-		ww1_seaplane1 = 1
-		ww1_seaplane2 = 1
-		ww1_bomber1 = 1
-		ww1_bomber2 = 1
-		#ww1_bomber3 = 1
-		early_bomber = 1
-		ww1_transport_plane = 1
-		ww1_zeppelin1 = 1
-		ww1_zeppelin2 = 1
-
-		# Air Doctrine
-		ww1_airdoctrine = 0
-		ww1_airdoctrine_2 = 0
-		ww1_airdoctrine_3 = 0
-		ww1_airdoctrine_4 = 0
-		ww1_airdoctrine_5 = 0
-		ww1_airdoctrine_5b = 0
-		ww1_airdoctrine_6 = 0
-		ww1_airdoctrine_6b = 0
-		ww1_airdoctrine_7 = 0
-		ww1_airdoctrine_7b = 0
-		ww1_airdoctrine_8 = 0
-		ww1_airdoctrine_9 = 0
-		ww1_airdoctrine_9b = 0
-		ww1_airdoctrine_unlock_ww2 = 0
-
-		# Navy Doctrine
-		ww1_navaldoctrine = 0
-		ww1_navaldoctrine_2 = 0
-		ww1_navaldoctrine_3 = 0
-		ww1_navaldoctrine_4 = 0
-		ww1_navaldoctrine_5 = 0
-		ww1_navaldoctrine_5b = 0
-		ww1_navaldoctrine_6 = 0
-		ww1_navaldoctrine_6b = 0
-		ww1_navaldoctrine_unlock_ww2 = 0
-
-		# Engineering
-		electronic_mechanical_engineering = 1
-		radio = 1
-		radio2 = 1
-		supertech1 = 1
-		supertech2 = 1
-		mechanical_computing = 1
-		mechanical_computing2 = 1
-		tankaircraft1 = 1
-		tankaircraft2 = 1
-		tanktrack1 = 1
-		tanktrack2 = 1
-		dingfelder_engine1 = 1
-		dingfelder_engine2 = 1
-		hoi4tgw_decryption = 1
-		hoi4tgw_encryption = 1
-		torpedotech1 = 1
-		subhulltech1 = 1
-		torpedotech2 = 1
-		torpedotech3 = 1
-		chemical_research = 1
-		chemical_research2 = 1
-		chemical_research3 = 1
-		tank_unlocker1 = 1
-		tank_unlocker2 = 1
-		electronic_ww2 = 1
-
-		# Industry
-		ww1_tools1 = 1
-		ww1_tools2 = 1
-		ww1_tools3 = 1
-		basic_machine_tools = 1
-		#ww1_camera1 = 1
-		#ww1_camera2 = 1
-		#ww1_camera3 = 1
-		ww1_industry1 = 1
-		ww1_industry2 = 1
-		ww1_industry3 = 1
-		#ww1_medicine1 = 1
-		#ww1_medicine2 = 1
-		#ww1_medicine3 = 1
-		#ww1_medicine4 = 1
-		ww1_fortification1 = 1
-		ww1_fortification2 = 1
-		ww1_fortification3 = 1
-		#ww1_fortification3b = 1
-		ww1_fortification4 = 1
-		#ww1_fortification5 = 1
-		ww1_mining1 = 1
-		ww1_mining2 = 1
-		ww1_mining3 = 1
-		ww1_construction1 = 1
-		ww1_construction2 = 1
-		ww1_oil1 = 1
-		ww1_oil2 = 1
-		ww1_oil3 = 1
-		ww1_bergiusprocess = 1
-	}
 
 	### VARIANTS ###
 	# 1936 Start #

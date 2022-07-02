@@ -42,12 +42,11 @@ BUL_build_up_army = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -10 # reduce while we build up in case of issues
 	}
-
 	ai_strategy = {
 		type = force_build_armies
-		value = 40
+		value = 100
 	}
 }
 
@@ -59,27 +58,13 @@ BUL_first_balkan = {
 		is_in_faction_with = SER
 		has_start_date < 1937.1.1
 	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = conquer
-		id = "TUR"			
-		value = 10
-	}	
+	abort_when_not_enabled = yes	
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "TUR"			
-		value = 40
+		value = 75
 	}	
-
-	ai_strategy = {
-		type = front_unit_request
-		state = 788	
-		state = 756	
-		state = 341	
-		value = 100
-	}
 }
 
 
@@ -97,17 +82,17 @@ BUL_second_balkan = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "SER"			
-		value = 400
+		value = 50
 	}
 	ai_strategy = {
 		type = conquer
 		id = "SER"			
-		value = 600
+		value = 200
 	}
 	ai_strategy = {
 		type = conquer
 		id = "GRE"			
-		value = 400
+		value = 100
 	}
 }
 
@@ -127,25 +112,14 @@ BUL_world_war_1_serbia = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "SER"			
-		value = 600
+		value = 200
 	}
 	
 	ai_strategy = {
 		type = conquer
 		id = "SER"			
-		value = 600
+		value = 100
 	}	
-
-	ai_strategy = {
-		type = front_control
-		tag = SER
-		ratio = 0.1
-		priority = 100
-		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
-		manual_attack = yes
-	}
 }
 
 
@@ -164,25 +138,14 @@ BUL_world_war_1_greece = {
 	ai_strategy = {
 		type = conquer
 		id = "GRE"			
-		value = 800
+		value = 50
 	}
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "GRE"			
-		value = 800
+		value = 50
 	}	
-
-	ai_strategy = {
-		type = front_control
-		state = 184
-		ratio = 0.1
-		priority = 100
-		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
-		manual_attack = yes
-	}
 }
 
 

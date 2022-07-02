@@ -43,7 +43,7 @@ NDefines.NAI.PLAN_ACTIVATION_SUPERIORITY_AGGRO = 1.0			-- How aggressive a count
 -------------------------------------------------------------------------------------------
 --FIRM VALUES (we're confident in these being correct)
 -------------------------------------------------------------------------------------------
-
+--[[
 NDefines.NDiplomacy.NOT_READY_FOR_WAR_BASE = -500					-- AI should be unwilling to enter accept a call to war if not ready for war against the relevant enemies.
 NDefines.NMilitary.PLAN_SPREAD_ATTACK_WEIGHT = 50.0				-- The higher the value, the less it should crowd provinces with multiple attacks.
 NDefines.NMilitary.PLAN_SUPPLY_FACTOR = 15.5						-- Factor applied to available supply on a front location when determining priority
@@ -85,3 +85,4 @@ NDefines.NAI.MIN_UNITS_FACTOR_INVASION_ORDER = 0.1			-- Factor for min number of
 NDefines.NAI.MAX_UNITS_FACTOR_FRONT_ORDER = 2.5					-- Factor for max number of units to assign to area front orders
 NDefines.NAI.DESIRED_UNITS_FACTOR_FRONT_ORDER = 1.0				-- Factor for desired number of units to assign to area front orders
 NDefines.NAI.MIN_UNITS_FACTOR_FRONT_ORDER = 0.25					-- Factor for min number of units to assign to area front orders
+--]]

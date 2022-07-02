@@ -622,16 +622,33 @@ focus_tree = {
 
 	 		GER = {
 	 			exists = yes
- 				is_faction_leader = yes
+ 				#is_faction_leader = yes
+ 				OR = {
+ 					has_war_with = FRA
+ 					has_war_with = ENG
+ 				}
 	 		}
 	 		NOT = { has_global_flag = kis_treaty_of_versailles }
 		}
 
 		completion_reward = {
 
-				GER={
-					add_to_faction=ROOT
+			if = {
+				limit = { GER = { has_war_with = ENG } }
+				add_to_war = { 
+				    targeted_alliance = GER 
+				    enemy = ENG 
+				    hostility_reason = asked_to_join
 				}
+			}
+			if = {
+				limit = { GER = { has_war_with = FRA } }
+				add_to_war = { 
+				    targeted_alliance = GER 
+				    enemy = FRA 
+				    hostility_reason = asked_to_join
+				}
+			}
 		}
 
 		ai_will_do = { factor = 0 } # AI will not join Central Powers
@@ -659,17 +676,33 @@ focus_tree = {
 	 			exists = yes
  				is_faction_leader = yes
 	 		}
-	 		GER = {
-	 			has_war_with = FRA
-	 			has_war_with = ENG
+	 		OR = {
+	 			GER = { has_war_with = FRA }
+	 			GER = { has_war_with = ENG }
 	 		}
 	 		NOT = { has_global_flag = kis_treaty_of_versailles }
 		}
 		completion_reward = {
 
-				FRA={
-					add_to_faction=ROOT
+			#FRA={
+			#	add_to_faction=ROOT
+			#}
+			if = {
+				limit = { GER = { has_war_with = ENG } }
+				add_to_war = { 
+				    targeted_alliance = ENG 
+				    enemy = GER 
+				    hostility_reason = asked_to_join
 				}
+			}
+			if = {
+				limit = { GER = { has_war_with = FRA } }
+				add_to_war = { 
+				    targeted_alliance = FRA 
+				    enemy = GER 
+				    hostility_reason = asked_to_join
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -999,7 +1032,7 @@ focus_tree = {
 			factor = 0
 
 			modifier = {
-				factor = 200
+				add = 200
 				OR = {
 					FRA = { has_capitulated = yes }
 					has_global_flag = second_treaty_of_frankfurt
@@ -1124,7 +1157,7 @@ focus_tree = {
 	focus = {
 		id = JAP_ww1_army_effort
 		icon = GFX_goal_generic_allies_build_infantry
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
 		ai_will_do = { factor = 10 }
 		cost = 10
 		x = 22
@@ -1180,7 +1213,7 @@ focus_tree = {
 		prerequisite = { focus=JAP_ww1_army_effort }
 		available = { date > 1911.1.1 }
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
 		ai_will_do = { factor = 10 }
 		cost = 10
 		x = 22
@@ -1264,7 +1297,7 @@ focus_tree = {
 		prerequisite = { focus=JAP_ww1_doctrine_effort }
 		available = { date > 1913.1.1 }
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
 		ai_will_do = { factor = 10 }
 		cost = 10
 		x = 22
@@ -1288,7 +1321,7 @@ focus_tree = {
 		prerequisite = { focus=JAP_ww1_doctrine_effort_2 }
 		available = { date > 1915.1.1 }
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_tech_bonus={ name=land_doc_bonus bonus=0.2 uses=1 category=land_doctrine } }
+		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
 		ai_will_do = { factor = 10 }
 		cost = 10
 		x = 22
@@ -2153,7 +2186,7 @@ focus_tree = {
 		prerequisite = { focus=JAP_ww1_newnavalcanons_1 }
 		available = { date > 1911.1.1 }
 		icon = GFX_goal_generic_navy_battleship
-		completion_reward = { add_tech_bonus={ name=cr_bonus bonus=0.15 uses=1 technology=ww1_battleship0 technology=ww1_battleship1 technology=ww1_battleship2 } }
+		completion_reward = { add_tech_bonus={ name=cr_bonus bonus=0.15 uses=1 category=bb_tech } }
 		ai_will_do = { factor=1 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
 		ai_will_do = { factor = 10 }
 		cost = 10
@@ -2210,13 +2243,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 technology=ww1_submarine1_mtg technology=ww1_submarine2_mtg }
+				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 category=ss_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 technology=ww1_submarine1 technology=ww1_submarine2 }
+				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 category=ss_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
@@ -2235,13 +2268,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 technology=ww1_light_cruiser0_mtg technology=ww1_light_cruiser1_mtg technology=ww1_light_cruiser2_mtg }
+				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 category=cl_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 technology=ww1_light_cruiser0 technology=ww1_light_cruiser1 technology=ww1_light_cruiser2 }
+				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 category=cl_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
@@ -2260,13 +2293,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 technology=ww1_destroyer0_mtg technology=ww1_destroyer1_mtg technology=ww1_destroyer2_mtg }
+				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 category=dd_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 technology=ww1_destroyer0 technology=ww1_destroyer1 technology=ww1_destroyer2 }
+				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 category=dd_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
@@ -2285,13 +2318,13 @@ focus_tree = {
 				limit = { 
 					has_dlc = "Man the Guns"
 				}
-				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 technology=ww1_battlecruiser0_mtg technology=ww1_battlecruiser1_mtg technology=ww1_battlecruiser2_mtg technology=early_battleship_mtg technology=seaplane_carrier_mtg }
+				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 category=bb_tech category=bc_tech category=cv_tech }
 			}
 			if = { 
 				limit = { 
 					not = { has_dlc = "Man the Guns" }
 				}
-				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 technology=ww1_battlecruiser0 technology=ww1_battlecruiser1 technology=ww1_battlecruiser2 technology=early_battleship technology=seaplane_carrier }
+				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 category=bb_tech category=bc_tech category=cv_tech }
 			}
 		}
 		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
