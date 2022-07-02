@@ -37,9 +37,16 @@ secondbalkan_war_decisions = {
 		ai_will_do = {
 			factor = 0
 
+			# if we're being beaten surrender
 			modifier = {
 				add = 1
-				surrender_progress > 0.03
+				surrender_progress > 0.1
+			}
+
+			# macedonia isnt worth this much if we've already lost it
+			modifier = {
+				add = 1
+				casualties > 20000
 			}
 		}
 	}
@@ -76,32 +83,33 @@ secondbalkan_war_decisions = {
 
 		days_re_enable = 60
 
-		complete_effect = {
+		remove_effect = {
 			BUL = { country_event = ww1_secondbalkan.6 }
 			custom_effect_tooltip = secondbalkan_bulgaria_wins_tt
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 0
 
+			# macedonia isnt worth this much if we've already lost it
 			modifier = {
-				factor = 2
-				alliance_strength_ratio < 2
+				add = 1
+				OR = { 
+					AND = {
+						tag = SER
+						casualties > 60000
+					}
+					AND = {
+						tag = GRE
+						casualties > 40000
+					}
+				}
 			}
 
+			# if we're being beaten surrender
 			modifier = {
-				factor = 2
-				alliance_strength_ratio < 1.5
-			}
-
-			modifier = {
-				factor = 2
-				alliance_strength_ratio < 1
-			}
-
-			modifier = {
-				factor = 2
-				casualties > 50000
+				add = 1
+				surrender_progress > 0.5
 			}
 		}
 	}
@@ -125,7 +133,7 @@ secondbalkan_war_decisions = {
 					opponent = BUL
 					thousands > 50
 				}
-				surrender_progress > 0.1
+				surrender_progress > 0.15
 			}
 		}
 
@@ -139,7 +147,7 @@ secondbalkan_war_decisions = {
 
 		days_re_enable = 60
 
-		complete_effect = {
+		remove_effect = {
 			BUL = { country_event = ww1_secondbalkan.5 }
 			custom_effect_tooltip = secondbalkan_whitepeace_tt
 		}

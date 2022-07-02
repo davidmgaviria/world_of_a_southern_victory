@@ -75,20 +75,6 @@ CSA_area_priority = {
 	}
 }
 
-# guard the large area of north america
-CSA_extra_home_garrison = {
-	allowed = {
-		original_tag = CSA
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 5
-	}
-}
 
 
 CSA_france_ally = {
@@ -113,7 +99,7 @@ CSA_france_ally = {
 	ai_strategy = {
 		type = alliance
 		id = "FRA"			
-		value = 100
+		value = 50
 	}		
 }
 
@@ -165,6 +151,36 @@ CSA_ignore_europe = {
 	}				
 }
 
+
+CSA_ignore_mexico = {
+	allowed = {
+		original_tag = CSA
+	}
+	enable = {
+		OR = {
+			AND = { 
+				has_non_aggression_pact_with = MEX
+				threat > 0.25
+			}
+			has_war_together_with = MEX
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = ignore
+		id = "MEX"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MEX"
+		value = 100
+	}
+}	
+
+
 CSA_ignore_russia = {
 	allowed = {
 		original_tag = CSA
@@ -184,7 +200,7 @@ CSA_ignore_russia = {
 ########################## GREAT WAR ##########################
 
 
-CSA_gw_unit_production = {
+CSA_gw_modified_unit_production = {
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
@@ -192,118 +208,41 @@ CSA_gw_unit_production = {
 	enable = {
 		always = yes
 	}
-	
-	ai_strategy = {
-		type = role_ratio
-		id = paratroopers
-		value = 0
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mountaineers
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = marines
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = armored_car
-		value = 1
-	}
 
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 65 
-	}
+	# ai_strategy = {
+	# 	type = role_ratio
+	# 	id = garrison
+	# 	value = 2
+	# }
 	
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 10
-	}
-	
-	#Air unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = scout_plane
 		value = 2
 	}
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 50
-	}	
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = 0
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
-		value = 2
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = 1
-	}
-	
-	# Naval unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = capital_ship
-		value = 10
-	}
+
 	ai_strategy = {
 		type = unit_ratio
 		id = submarine
-		value = 20
+		value = 5
 	}
+	
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
-		value = 35
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = convoy
-		value = 20
+		value = -5
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
-		id = fighter
-		value = 30
-	}
-	ai_strategy = {
-		type = equipment_production_factor
 		id = infantry
-		value = 45
+		value = 10
 	}
+
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 20
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = 5
+		value = -15
 	}
 }
 
@@ -316,7 +255,7 @@ CSA_greatwar_mobilize = {
 	enable = {
 		country_exists = USA
 		NOT = { is_in_faction_with = USA }
-		threat > 0.35	
+		threat > 0.3	
 	}
 	abort_when_not_enabled = yes
 
@@ -329,14 +268,18 @@ CSA_greatwar_mobilize = {
 	#protect richmond
 	ai_strategy = {
 		type = front_unit_request
+
+		state = 840
 		state = 362
-		state = 360
 		state = 361
+		state = 360
 		state = 814
 		state = 813
-		value = 75
+		
+		value = 125
 	}
 }	
+
 
 
 
@@ -350,8 +293,10 @@ CSA_take_dc = {
 			exists = yes 
 			NOT = { has_non_aggression_pact_with = CSA }
 		}
+		threat > 0.25
 	}
 	abort = {
+		has_war_with = USA
 		OR = {
 			surrender_progress > 0.1
 			casualties > 100000
@@ -364,11 +309,22 @@ CSA_take_dc = {
 		state = 360
 		state = 840
 		priority = 100
-		ratio = 0.7
+		ratio = 0.6
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 840
+		state = 362
+		state = 361
+		state = 360
+		state = 814
+		state = 813
+		value = 200
 	}
 }
 
