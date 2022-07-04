@@ -56,6 +56,18 @@ ENG_civilian_focus = {
 		type = added_military_to_civilian_factory_ratio		
 		value = -10
 	}
+
+	ai_strategy = {
+		type = 	build_army
+		id = infantry	
+		value = 25
+	}
+
+	ai_strategy = {
+		type = 	build_army
+		id = garrison	
+		value = 5
+	}
 }
 
 
@@ -68,12 +80,13 @@ ENG_area_priority_africa = {
     ai_strategy = {
         type = area_priority
         id = africa
-        value = -90
+        value = -60
     }
+
     ai_strategy = {
         type = area_priority
         id = suez
-        value = 25
+        value = 15
     }
 }
 
@@ -133,18 +146,18 @@ ENG_bef_against_germany = {
 	ai_strategy = {
 		type = support
 		id = "FRA"
-		value = 350
+		value = 200
 	}
 	ai_strategy = {
 		type = protect
 		id = "FRA"
-		value = 100
+		value = 60
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = europe		
-		value = 50
+		value = 40
 	}
 }
 
@@ -153,68 +166,68 @@ ENG_bef_against_germany = {
 ######################### WW1 ##########################
 
 
-ENG_default_area_priority = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		always = yes
-	}
+# ENG_default_area_priority = {
+# 	allowed = {
+# 		original_tag = ENG
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = europe
-		value = 100
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = europe
+# 		value = 100
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = scandinavia
-		value = 100
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 100
+# 	}
 	
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 85
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_america
+# 		value = 85
+# 	}
 	
-	ai_strategy = {
-		type = area_priority
-		id = south_america
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = south_america
+# 		value = 50
+# 	}
 	
-	ai_strategy = {
-		type = area_priority
-		id = asia
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 75
+# 	}
 	
-	ai_strategy = {
-		type = area_priority
-		id = middle_east
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = suez
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = suez
+# 		value = 50
+# 	}
 	
-	ai_strategy = {
-		type = area_priority
-		id = pacific
-		value = 300
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = 300
+# 	}
 	
-	ai_strategy = {
-		type = area_priority
-		id = oceania
-		value = 80
-	}
-}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = 80
+# 	}
+# }
 
 
 
@@ -227,17 +240,6 @@ ENG_gw_modified_unit_production = {
 	enable = {
 		always = yes
 	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = -30
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 4   # need small units to protect the empire
-	}
 	
 	ai_strategy = {
 		type = role_ratio
@@ -245,11 +247,11 @@ ENG_gw_modified_unit_production = {
 		value = 2
 	}
 
-	# ai_strategy = {
-	# 	type = role_ratio
-	# 	id = armored_car
-	# 	value = 2   
-	# }
+	ai_strategy = {
+		type = role_ratio
+		id = armored_car
+		value = 2   
+	}
 
 	ai_strategy = {
 		type = role_ratio
@@ -266,13 +268,13 @@ ENG_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 10
+		value = 5
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = -15
+		value = -10
 	}
 
 	ai_strategy = {
@@ -315,7 +317,7 @@ ENG_protect_canada = {
 	enable = {
 		country_exists = USA
 		NOT = { is_in_faction_with = USA }
-		#CAN = { is_puppet_of = ENG }
+		CAN = { is_puppet_of = ENG }
 		#threat > 0.35	
 	}
 	abort_when_not_enabled = yes
@@ -345,8 +347,14 @@ ENG_protect_canada = {
  	ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 15
+		value = 25
 	}
+
+	ai_strategy = {
+        type = area_priority
+        id = north_america
+        value = 10
+    }
 
 	# ai_strategy = {
 	# 	type = put_unit_buffers

@@ -26,6 +26,7 @@ wsv_great_war_decisions = {
 			add_stability = -0.2
 			add_war_support = -0.25
 			add_political_power = -100
+			GER = { clr_country_flag = blank_cheque_given }
 		}
 
 		ai_will_do = {
@@ -63,8 +64,20 @@ wsv_great_war_decisions = {
 			    target = SER
 			    type = puppet_wargoal_focus
 			}
+			if = {
+				limit = { 
+					is_in_faction_with = GER
+					GER = { has_country_flag = blank_cheque_given }
+				}
+				add_to_war = { 
+				    targeted_alliance = GER 
+				    enemy = SER 
+				    hostility_reason = asked_to_join
+				}
+			}
 			hidden_effect = {
 				remove_decision = austria_must_decide
+				GER = { clr_country_flag = blank_cheque_given }
 			}
 		}
 

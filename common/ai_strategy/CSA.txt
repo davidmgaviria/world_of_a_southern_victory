@@ -17,13 +17,19 @@
 
 CSA_area_priority = {
 	enable = {
-		original_tag = CSA
+		tag = CSA
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 110  #more here
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = europe
-		value = 50
+		value = 100
 	}
 
 	ai_strategy = {
@@ -31,25 +37,19 @@ CSA_area_priority = {
 		id = scandinavia
 		value = 10
 	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 110
-	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = south_america
-		value = 50
+		value = 40
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = asia
 		value = 75
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = middle_east
@@ -58,20 +58,26 @@ CSA_area_priority = {
 
 	ai_strategy = {
 		type = area_priority
+		id = africa
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
 		id = suez
 		value = 50
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = pacific
-		value = 300
+		value = -120 
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = oceania
-		value = 80
+		value = 75
 	}
 }
 
@@ -208,12 +214,6 @@ CSA_gw_modified_unit_production = {
 	enable = {
 		always = yes
 	}
-
-	# ai_strategy = {
-	# 	type = role_ratio
-	# 	id = garrison
-	# 	value = 2
-	# }
 	
 	ai_strategy = {
 		type = role_ratio
@@ -236,15 +236,42 @@ CSA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 10
+		value = 15
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = -15
+		value = -10
 	}
 }
+
+
+CSA_defend_richmond = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		NOT = { is_in_faction_with = USA }
+	}
+	abort_when_not_enabled = yes
+
+	#protect richmond
+	ai_strategy = {
+		type = front_unit_request
+
+		state = 840
+		state = 362
+		state = 361
+		state = 360
+		state = 814
+		state = 813
+		
+		value = 100
+	}
+}	
 
 
 CSA_greatwar_mobilize = {
@@ -263,20 +290,6 @@ CSA_greatwar_mobilize = {
 		type = prepare_for_war
 		id = "USA"
 		value = 100
-	}
-
-	#protect richmond
-	ai_strategy = {
-		type = front_unit_request
-
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		state = 813
-		
-		value = 125
 	}
 }	
 
@@ -323,8 +336,8 @@ CSA_take_dc = {
 		state = 361
 		state = 360
 		state = 814
-		state = 813
-		value = 200
+		#state = 813
+		value = 100
 	}
 }
 
