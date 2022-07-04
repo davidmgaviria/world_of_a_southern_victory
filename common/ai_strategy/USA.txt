@@ -18,39 +18,39 @@
 
 USA_area_priority = {
 	enable = {
-		original_tag = USA
+		tag = USA
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 110  #more here
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = europe
-		value = 85
+		value = 100
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = scandinavia
-		value = 50
+		value = 10
 	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 100
-	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = south_america
-		value = 50
+		value = 40
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = asia
 		value = 75
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = middle_east
@@ -59,20 +59,26 @@ USA_area_priority = {
 
 	ai_strategy = {
 		type = area_priority
+		id = africa
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
 		id = suez
 		value = 50
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = pacific
-		value = 100
+		value = 120 
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = oceania
-		value = 80
+		value = 75
 	}
 }
 
@@ -162,8 +168,14 @@ USA_gw_modified_unit_production = {
 	}
 
 	ai_strategy = {
+		type = 	build_army
+		id = garrison	
+		value = 15
+	}
+
+	ai_strategy = {
 		type = garrison
-		value = 8
+		value = 3
 	}
 	
 	ai_strategy = {
@@ -178,11 +190,11 @@ USA_gw_modified_unit_production = {
 		value = 2
 	}
 
-	# ai_strategy = {
-	# 	type = role_ratio
-	# 	id = armored_car
-	# 	value = 2 
-	# }
+	ai_strategy = {
+		type = role_ratio
+		id = armored_car
+		value = 2 
+	}
 
 	ai_strategy = {
 		type = role_ratio
@@ -193,13 +205,13 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = -15
+		value = -5
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 45
+		value = 25
 	}
 
 	ai_strategy = {
@@ -254,6 +266,33 @@ USA_germany_ally_ww1 = {
 }
 
 
+USA_defend_washington = {
+	allowed = {
+		original_tag = USA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = CSA
+		NOT = { is_in_faction_with = CSA }
+	}
+	abort_when_not_enabled = yes
+
+	#protect washington
+	ai_strategy = {
+		type = front_unit_request
+
+		state = 840
+		state = 362
+		state = 361
+		state = 360
+		state = 814
+		state = 813
+		
+		value = 60
+	}
+}	
+
+
 USA_greatwar_mobilize = {
 	allowed = {
 		original_tag = USA
@@ -276,6 +315,12 @@ USA_greatwar_mobilize = {
 		type = prepare_for_war
 		id = "CSA"			
 		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "MEX"			
+		value = 10
 	}
 
 	ai_strategy = {
@@ -306,13 +351,13 @@ USA_focus_on_confederacy = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 40
+		value = 25
 	}	
 
 	ai_strategy = {
 		type = ignore
 		id = "CAN"		
-		value = 10
+		value = 5
 	}
 }
 

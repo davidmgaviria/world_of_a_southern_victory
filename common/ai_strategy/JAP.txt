@@ -15,67 +15,70 @@
 
 
 JAP_area_priority = {
-	enable = {
+	allowed = {
 		original_tag = JAP
+	}
+	enable = {
+		always = yes
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = europe
-		value = 25 #more focus here
+		value = 20
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = scandinavia
-		value = -90
+		value = -30
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = north_america
-		value = 25
+		value = 50
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = south_america
-		value = 10
+		value = 50
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = asia
-		value = 150
+		value = 100
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = middle_east
-		value = -75
+		value = 30
 	}
-	
+	ai_strategy = {
+		type = area_priority
+		id = suez
+		value = 20
+	}
+
 	ai_strategy = {
 		type = area_priority
 		id = africa
-		value = -50
+		value = -60
 	}
-	ai_strategy = {
-        type = area_priority
-        id = suez
-        value = -75
-    }
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = pacific
-		value = 200 #less focus here
+		value = 80
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = oceania
-		value = 75
+		value = 80
 	}
 }
 
@@ -90,7 +93,7 @@ JAP_extra_home_garrison = {
 
 	ai_strategy = {
 		type = garrison
-		value = 25
+		value = 4
 	}
 }
 
@@ -153,6 +156,54 @@ JAP_only_asia = {
 #		subtract_invasions_from_need = yes
 #	}
 #}
+
+
+JAP_dont_join_entente = {
+	enable = {
+		tag = JAP
+		OR = {
+			NOT = { is_in_faction_with = FRA }
+			NOT = { is_in_faction_with = ENG }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "FRA"			
+		value = -2000
+	}
+
+	ai_strategy = {
+		type = alliance
+		id = "ENG"			
+		value = -2000
+	}
+}
+
+
+JAP_dont_join_centralpowers = {
+	enable = {
+		tag = JAP
+		OR = {
+			NOT = { is_in_faction_with = GER }
+			NOT = { is_in_faction_with = USA }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = -2000
+	}
+
+	ai_strategy = {
+		type = alliance
+		id = "USA"			
+		value = -2000
+	}
+}
 
 
 

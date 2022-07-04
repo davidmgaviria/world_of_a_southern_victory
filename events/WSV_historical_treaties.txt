@@ -1,1181 +1,1181 @@
-﻿add_namespace = wsv_historical_treaty
+﻿# add_namespace = wsv_historical_treaty
 
 
-#Intro
-##################################################################################
-#introduction
-country_event = {
-	id = wsv_historical_treaty.0
-	title = wsv_historical_treaty.0.t
-	desc = wsv_historical_treaty.0.d
-	#picture = report_event_sign_paper
+# #Intro
+# ##################################################################################
+# #introduction
+# country_event = {
+# 	id = wsv_historical_treaty.0
+# 	title = wsv_historical_treaty.0.t
+# 	desc = wsv_historical_treaty.0.d
+# 	#picture = report_event_sign_paper
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 	
-	#yes historical!
-	option = {
-		name = wsv_historical_treaty.0.a
-		hidden_effect = { 
-			add_to_variable = { global.yes_vote = 1 }
-			add_to_variable = { global.votes_left = -1 }
+# 	#yes historical!
+# 	option = {
+# 		name = wsv_historical_treaty.0.a
+# 		hidden_effect = { 
+# 			add_to_variable = { global.yes_vote = 1 }
+# 			add_to_variable = { global.votes_left = -1 }
 
-			#tests for voting
-			if = {
-				limit = { check_variable = { global.votes_left = 0 } }
-				if = { 
-					limit = { check_variable = { global.yes_vote > global.no_vote } }
-					set_global_flag = historical_treaties_on
-					every_country = {
-						limit = { is_ai = no }
-						country_event = { id = wsv_historical_treaty.1 }  #yay treaties :)
-					}
-				}
-				else = {
-					every_country = {
-						limit = { is_ai = no }
-						country_event = { id = wsv_historical_treaty.2 }	#no treaties :(
-					}
-				}
-			}
-		}
-	}
+# 			#tests for voting
+# 			if = {
+# 				limit = { check_variable = { global.votes_left = 0 } }
+# 				if = { 
+# 					limit = { check_variable = { global.yes_vote > global.no_vote } }
+# 					set_global_flag = historical_treaties_on
+# 					every_country = {
+# 						limit = { is_ai = no }
+# 						country_event = { id = wsv_historical_treaty.1 }  #yay treaties :)
+# 					}
+# 				}
+# 				else = {
+# 					every_country = {
+# 						limit = { is_ai = no }
+# 						country_event = { id = wsv_historical_treaty.2 }	#no treaties :(
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
 
-	#no, i want free play
-	option = {
-		name = wsv_historical_treaty.0.b
-		hidden_effect = { 
-			add_to_variable = { global.no_vote = 1 }
-			add_to_variable = { global.votes_left = -1 } 
+# 	#no, i want free play
+# 	option = {
+# 		name = wsv_historical_treaty.0.b
+# 		hidden_effect = { 
+# 			add_to_variable = { global.no_vote = 1 }
+# 			add_to_variable = { global.votes_left = -1 } 
 
-			#tests for voting
-			if = {
-				limit = { check_variable = { global.votes_left = 0 } }
-				if = { 
-					limit = { check_variable = { global.yes_vote > global.no_vote } }
-					set_global_flag = historical_treaties_on
-					every_country = {
-						limit = { is_ai = no }
-						country_event = { id = wsv_historical_treaty.1 }  #yay treaties :)
-					}
-				}
-				else = {
-					every_country = {
-						limit = { is_ai = no }
-						country_event = { id = wsv_historical_treaty.2 }	#no treaties :(
-					}
-				}
-			}
-		}
-	}
-}
+# 			#tests for voting
+# 			if = {
+# 				limit = { check_variable = { global.votes_left = 0 } }
+# 				if = { 
+# 					limit = { check_variable = { global.yes_vote > global.no_vote } }
+# 					set_global_flag = historical_treaties_on
+# 					every_country = {
+# 						limit = { is_ai = no }
+# 						country_event = { id = wsv_historical_treaty.1 }  #yay treaties :)
+# 					}
+# 				}
+# 				else = {
+# 					every_country = {
+# 						limit = { is_ai = no }
+# 						country_event = { id = wsv_historical_treaty.2 }	#no treaties :(
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+# }
 
 
-#yes treaties!
-country_event = {
-	id = wsv_historical_treaty.1
-	title = wsv_historical_treaty.1.t
-	desc = wsv_historical_treaty.1.d
-	#picture = report_event_sign_paper
+# #yes treaties!
+# country_event = {
+# 	id = wsv_historical_treaty.1
+# 	title = wsv_historical_treaty.1.t
+# 	desc = wsv_historical_treaty.1.d
+# 	#picture = report_event_sign_paper
 
-	fire_only_once = yes
+# 	fire_only_once = yes
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 	
-	#yay treaties
-	option = {
-		name = wsv_historical_treaty.1.a
-	}
-}
+# 	#yay treaties
+# 	option = {
+# 		name = wsv_historical_treaty.1.a
+# 	}
+# }
 
 
-#no treaties
-country_event = {
-	id = wsv_historical_treaty.2
-	title = wsv_historical_treaty.2.t
-	desc = wsv_historical_treaty.2.d
-	#picture = report_event_sign_paper
+# #no treaties
+# country_event = {
+# 	id = wsv_historical_treaty.2
+# 	title = wsv_historical_treaty.2.t
+# 	desc = wsv_historical_treaty.2.d
+# 	#picture = report_event_sign_paper
 
-	fire_only_once = yes
+# 	fire_only_once = yes
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	#no treaties
-	option = {
-		name = wsv_historical_treaty.2.a
-	}
-}
+# 	#no treaties
+# 	option = {
+# 		name = wsv_historical_treaty.2.a
+# 	}
+# }
 
 
 
-##################################################################################
-#Treaty of Nashville
-##################################################################################
+# ##################################################################################
+# #Treaty of Nashville
+# ##################################################################################
 
-#csa surrenders
-country_event = {
-	id = wsv_historical_treaty.3
-	title = wsv_historical_treaty.3.t
-	desc = wsv_historical_treaty.3.d
-	#picture = report_event_sign_paper
+# #csa surrenders
+# country_event = {
+# 	id = wsv_historical_treaty.3
+# 	title = wsv_historical_treaty.3.t
+# 	desc = wsv_historical_treaty.3.d
+# 	#picture = report_event_sign_paper
 
-	fire_only_once = yes
+# 	fire_only_once = yes
 
-	trigger = {
-		has_global_flag = historical_treaties_on
-		has_start_date < 1937.1.1
-		tag = CSA
-		CSA = {
-			has_war_with = USA
-			OR = {
-				surrender_progress > 0.55
-				has_stability < 0.26	
-			}
-		}		
-	}
+# 	trigger = {
+# 		has_global_flag = historical_treaties_on
+# 		has_start_date < 1937.1.1
+# 		tag = CSA
+# 		CSA = {
+# 			has_war_with = USA
+# 			OR = {
+# 				surrender_progress > 0.55
+# 				has_stability < 0.26	
+# 			}
+# 		}		
+# 	}
 
-	option = {
-		name = wsv_historical_treaty.3.a
-		USA = { country_event = { id = wsv_historical_treaty.4 } }
-		ai_chance = { factor = 4000 }
-	}
+# 	option = {
+# 		name = wsv_historical_treaty.3.a
+# 		USA = { country_event = { id = wsv_historical_treaty.4 } }
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.3.b
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.3.b
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#csa offers peace
-country_event = {
-	id = wsv_historical_treaty.4
-	title = wsv_historical_treaty.4.t
-	desc = wsv_historical_treaty.4.d
-	#picture = 
+# #csa offers peace
+# country_event = {
+# 	id = wsv_historical_treaty.4
+# 	title = wsv_historical_treaty.4.t
+# 	desc = wsv_historical_treaty.4.d
+# 	#picture = 
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	#accept surrender
-	option = {
-		name = wsv_historical_treaty.4.a
+# 	#accept surrender
+# 	option = {
+# 		name = wsv_historical_treaty.4.a
 		
-		custom_effect_tooltip = csa-usa_armistice_tt
-		hidden_effect = {
-			set_global_flag = treaty_of_nashville
-			add_named_threat = {
-				threat = -10
-				name = "Confederacy Signs Armistice"
-			}
+# 		custom_effect_tooltip = csa-usa_armistice_tt
+# 		hidden_effect = {
+# 			set_global_flag = treaty_of_nashville
+# 			add_named_threat = {
+# 				threat = -10
+# 				name = "Confederacy Signs Armistice"
+# 			}
 
-			every_country = {
-			    limit = { is_in_faction_with = CSA }
-				add_stability = -0.05
-				add_war_support = -0.1
-			}
+# 			every_country = {
+# 			    limit = { is_in_faction_with = CSA }
+# 				add_stability = -0.05
+# 				add_war_support = -0.1
+# 			}
 
-			CSA = {	
-				if= { limit = { is_in_faction = yes }  leave_faction = yes }
-				set_rule = { can_join_factions = no }
-				set_rule = { can_not_declare_war = yes }
-				add_ideas = { disarmed_nation   civilian_economy }
-				every_state = {	THIS = { delete_unit = { state = PREV } } }
-			}
+# 			CSA = {	
+# 				if= { limit = { is_in_faction = yes }  leave_faction = yes }
+# 				set_rule = { can_join_factions = no }
+# 				set_rule = { can_not_declare_war = yes }
+# 				add_ideas = { disarmed_nation   civilian_economy }
+# 				every_state = {	THIS = { delete_unit = { state = PREV } } }
+# 			}
 
-			every_country = {
-			    limit = {
-				    has_war_with = CSA
-					is_in_faction_with = USA
-				}
-				white_peace = CSA
-			}
+# 			every_country = {
+# 			    limit = {
+# 				    has_war_with = CSA
+# 					is_in_faction_with = USA
+# 				}
+# 				white_peace = CSA
+# 			}
 
-			USA = { 
-				transfer_state = 814
-				transfer_state = 369
-				transfer_state = 374
-				transfer_state = 815
-				transfer_state = 816
-				transfer_state = 817
-			}
+# 			USA = { 
+# 				transfer_state = 814
+# 				transfer_state = 369
+# 				transfer_state = 374
+# 				transfer_state = 815
+# 				transfer_state = 816
+# 				transfer_state = 817
+# 			}
 
-			MEX = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = CSA
-						is_in_faction_with = USA
-					}
-					transfer_state = 482
-					transfer_state = 483
-				}	
-			}
-		news_event = { id = wsv_historical_treaty.5 }
-		}
-		ai_chance = { factor = 4000 }
-	}
-
-	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.4.b
-		custom_effect_tooltip = fighting_continues_tt
-		hidden_effect = { CSA = { country_event = { id = wsv_historical_treaty.6 } } }
-		ai_chance = { factor = 0 }
-	}
-}
-
-
-#csa armistce
-news_event = {
-	id = wsv_historical_treaty.5
-	title = wsv_historical_treaty.5.t
-	desc = wsv_historical_treaty.5.d
-	picture = news_event_wsv_armistice
-
-	major = yes
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_historical_treaty.5.a
-	}
-}
-
-
-#usa said no
-news_event = {
-	id = wsv_historical_treaty.6
-	title = wsv_historical_treaty.6.t
-	desc = wsv_historical_treaty.6.d
-	#picture = report_event_sign_paper
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_historical_treaty.6.a
-		
-	}
-}
-
-
-##################################################################################
-#Second Treaty of Frankfurt
-##################################################################################
-
-#france surrenders
-country_event = {
-	id = wsv_historical_treaty.7
-	title = wsv_historical_treaty.7.t
-	desc = wsv_historical_treaty.7.d
-	#picture = report_event_sign_paper
-
-	fire_only_once = yes
-
-	trigger = {
-		has_global_flag = historical_treaties_on
-		has_start_date < 1937.1.1
-		tag = FRA
-		FRA = { 
-			has_war_with = GER
-			OR = {
-				surrender_progress > 0.55
-				has_stability < 0.26
-				AND = {
-					surrender_progress > 0.15
-					has_idea = FRA_french_army_mutiny
-				}
-			}
-		}
-	}
-
-	option = {
-		name = wsv_historical_treaty.7.a
-		GER = { country_event = { id = wsv_historical_treaty.8 } }
-		ai_chance = { factor = 4000 }
-	}
+# 			MEX = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = CSA
+# 						is_in_faction_with = USA
+# 					}
+# 					transfer_state = 482
+# 					transfer_state = 483
+# 				}	
+# 			}
+# 		news_event = { id = wsv_historical_treaty.5 }
+# 		}
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.7.b
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.4.b
+# 		custom_effect_tooltip = fighting_continues_tt
+# 		hidden_effect = { CSA = { country_event = { id = wsv_historical_treaty.6 } } }
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#france offers peace
-country_event = {
-	id = wsv_historical_treaty.8
-	title = wsv_historical_treaty.8.t
-	desc = wsv_historical_treaty.8.d
-	#picture = 
+# #csa armistce
+# news_event = {
+# 	id = wsv_historical_treaty.5
+# 	title = wsv_historical_treaty.5.t
+# 	desc = wsv_historical_treaty.5.d
+# 	picture = news_event_wsv_armistice
 
-	is_triggered_only = yes
+# 	major = yes
 
-	#accept surrender
-	option = {
-		name = wsv_historical_treaty.8.a
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_historical_treaty.5.a
+# 	}
+# }
+
+
+# #usa said no
+# news_event = {
+# 	id = wsv_historical_treaty.6
+# 	title = wsv_historical_treaty.6.t
+# 	desc = wsv_historical_treaty.6.d
+# 	#picture = report_event_sign_paper
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_historical_treaty.6.a
 		
-		custom_effect_tooltip = france-germany_armistice_tt
-		hidden_effect = {
-			set_global_flag = second_treaty_of_frankfurt
-			add_named_threat = {
-				threat = -10
-				name = "France Signs Armistice"
-			}
+# 	}
+# }
 
-			every_country = {
-			    limit = { is_in_faction_with = FRA }
-				add_stability = -0.05
-				add_war_support = -0.1
-			}
 
-			FRA = {	
-				if= { limit = { is_in_faction = yes }  leave_faction = yes }
-				set_rule = { can_join_factions = no }
-				set_rule = { can_not_declare_war = yes }
-				add_ideas = { disarmed_nation   civilian_economy }
-				every_state = {	THIS = { delete_unit = { state = PREV } } }
-			}
+# ##################################################################################
+# #Second Treaty of Frankfurt
+# ##################################################################################
 
-			BRA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = FRA
-						is_in_faction_with = GER
-					}
-					transfer_state = 310
-				}	
-			}
+# #france surrenders
+# country_event = {
+# 	id = wsv_historical_treaty.7
+# 	title = wsv_historical_treaty.7.t
+# 	desc = wsv_historical_treaty.7.d
+# 	#picture = report_event_sign_paper
 
-			ITA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = FRA
-						is_in_faction_with = GER
-					}
-					transfer_state = 1
-					transfer_state = 458
-					transfer_state = 665
-					transfer_state = 268
-				}	
-			}
+# 	fire_only_once = yes
 
-			SPA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = FRA
-						is_in_faction_with = GER
-					}
-					transfer_state = 461
-					transfer_state = 462
-				}	
-			}
+# 	trigger = {
+# 		has_global_flag = historical_treaties_on
+# 		has_start_date < 1937.1.1
+# 		tag = FRA
+# 		FRA = { 
+# 			has_war_with = GER
+# 			OR = {
+# 				surrender_progress > 0.55
+# 				has_stability < 0.26
+# 				AND = {
+# 					surrender_progress > 0.15
+# 					has_idea = FRA_french_army_mutiny
+# 				}
+# 			}
+# 		}
+# 	}
 
-			USA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = FRA
-						is_in_faction_with = GER
-					}
-					transfer_state = 694
-				}	
-			}
-
-			GER = { 
-				annex_country = { target = BEL  transfer_troops = no }
-				annex_country = { target = LUX  transfer_troops = no }
-				transfer_state = 828
-				#africa
-				transfer_state = 755
-				transfer_state = 772
-				transfer_state = 752
-				transfer_state = 461
-				transfer_state = 462
-				transfer_state = 660
-				transfer_state = 774
-				transfer_state = 776
-				transfer_state = 543 
-				transfer_state = 708
-				transfer_state = 706
-				#pacific
-				transfer_state = 734
-			}
-			BEL = { transfer_state = 6  set_cosmetic_tag = BEL_german_puppet }
-			GER = { puppet = BEL }
-
-			every_country = {
-			    limit = {
-				    has_war_with = FRA
-					is_in_faction_with = GER
-				}
-				white_peace = FRA
-			}
-		news_event = { id = wsv_historical_treaty.9 }
-		}
-		ai_chance = { factor = 4000 }
-	}
+# 	option = {
+# 		name = wsv_historical_treaty.7.a
+# 		GER = { country_event = { id = wsv_historical_treaty.8 } }
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.8.b
-		custom_effect_tooltip = fighting_continues_tt
-		hidden_effect = { FRA = { country_event = { id = wsv_historical_treaty.10 } } }
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.7.b
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#France armistce
-news_event = {
-	id = wsv_historical_treaty.9
-	title = wsv_historical_treaty.9.t
-	desc = wsv_historical_treaty.9.d
-	picture = news_event_wsv_armistice
+# #france offers peace
+# country_event = {
+# 	id = wsv_historical_treaty.8
+# 	title = wsv_historical_treaty.8.t
+# 	desc = wsv_historical_treaty.8.d
+# 	#picture = 
 
-	major = yes
+# 	is_triggered_only = yes
 
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_historical_treaty.9.a
-	}
-}
-
-
-#germany said no
-news_event = {
-	id = wsv_historical_treaty.10
-	title = wsv_historical_treaty.10.t
-	desc = wsv_historical_treaty.10.d
-	#picture = report_event_sign_paper
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_historical_treaty.10.a
+# 	#accept surrender
+# 	option = {
+# 		name = wsv_historical_treaty.8.a
 		
-	}
-}
+# 		custom_effect_tooltip = france-germany_armistice_tt
+# 		hidden_effect = {
+# 			set_global_flag = second_treaty_of_frankfurt
+# 			add_named_threat = {
+# 				threat = -10
+# 				name = "France Signs Armistice"
+# 			}
 
+# 			every_country = {
+# 			    limit = { is_in_faction_with = FRA }
+# 				add_stability = -0.05
+# 				add_war_support = -0.1
+# 			}
 
-#################################################################################
-#Treaty of Brest-Litovsk
-##################################################################################
+# 			FRA = {	
+# 				if= { limit = { is_in_faction = yes }  leave_faction = yes }
+# 				set_rule = { can_join_factions = no }
+# 				set_rule = { can_not_declare_war = yes }
+# 				add_ideas = { disarmed_nation   civilian_economy }
+# 				every_state = {	THIS = { delete_unit = { state = PREV } } }
+# 			}
 
-#russia surrenders
-country_event = {
-	id = wsv_historical_treaty.11
-	title = wsv_historical_treaty.11.t
-	desc = wsv_historical_treaty.11.d
-	#picture = report_event_sign_paper
+# 			BRA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = FRA
+# 						is_in_faction_with = GER
+# 					}
+# 					transfer_state = 310
+# 				}	
+# 			}
 
-	fire_only_once = yes
+# 			ITA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = FRA
+# 						is_in_faction_with = GER
+# 					}
+# 					transfer_state = 1
+# 					transfer_state = 458
+# 					transfer_state = 665
+# 					transfer_state = 268
+# 				}	
+# 			}
 
-	trigger = {
-		has_global_flag = historical_treaties_on
-		has_start_date < 1937.1.1
-		tag = RUS
-		RUS = {
-			has_war_with = GER
-			OR = {
-				has_war_with = SOV
-				surrender_progress > 0.55
-				has_stability < 0.26
-			}
-		}
-	}
+# 			SPA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = FRA
+# 						is_in_faction_with = GER
+# 					}
+# 					transfer_state = 461
+# 					transfer_state = 462
+# 				}	
+# 			}
 
-	option = {
-		name = wsv_historical_treaty.11.a
-		GER = { country_event = { id = wsv_historical_treaty.12 } }
-		ai_chance = { factor = 4000 }
-	}
+# 			USA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = FRA
+# 						is_in_faction_with = GER
+# 					}
+# 					transfer_state = 694
+# 				}	
+# 			}
+
+# 			GER = { 
+# 				annex_country = { target = BEL  transfer_troops = no }
+# 				annex_country = { target = LUX  transfer_troops = no }
+# 				transfer_state = 828
+# 				#africa
+# 				transfer_state = 755
+# 				transfer_state = 772
+# 				transfer_state = 752
+# 				transfer_state = 461
+# 				transfer_state = 462
+# 				transfer_state = 660
+# 				transfer_state = 774
+# 				transfer_state = 776
+# 				transfer_state = 543 
+# 				transfer_state = 708
+# 				transfer_state = 706
+# 				#pacific
+# 				transfer_state = 734
+# 			}
+# 			BEL = { transfer_state = 6  set_cosmetic_tag = BEL_german_puppet }
+# 			GER = { puppet = BEL }
+
+# 			every_country = {
+# 			    limit = {
+# 				    has_war_with = FRA
+# 					is_in_faction_with = GER
+# 				}
+# 				white_peace = FRA
+# 			}
+# 		news_event = { id = wsv_historical_treaty.9 }
+# 		}
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.11.b
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.8.b
+# 		custom_effect_tooltip = fighting_continues_tt
+# 		hidden_effect = { FRA = { country_event = { id = wsv_historical_treaty.10 } } }
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#russia offers peace
-country_event = {
-	id = wsv_historical_treaty.12
-	title = wsv_historical_treaty.12.t
-	desc = wsv_historical_treaty.12.d
-	#picture = 
+# #France armistce
+# news_event = {
+# 	id = wsv_historical_treaty.9
+# 	title = wsv_historical_treaty.9.t
+# 	desc = wsv_historical_treaty.9.d
+# 	picture = news_event_wsv_armistice
 
-	is_triggered_only = yes
+# 	major = yes
 
-	#accept surrender
-	option = {
-		name = wsv_historical_treaty.12.a
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_historical_treaty.9.a
+# 	}
+# }
+
+
+# #germany said no
+# news_event = {
+# 	id = wsv_historical_treaty.10
+# 	title = wsv_historical_treaty.10.t
+# 	desc = wsv_historical_treaty.10.d
+# 	#picture = report_event_sign_paper
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_historical_treaty.10.a
 		
-		custom_effect_tooltip = russia-germany_armistice_tt
-		hidden_effect = {
-			set_global_flag = treaty_of_brest-litovsk
-			add_named_threat = {
-				threat = -10
-				name = "Russia Signs Armistice"
-			}
+# 	}
+# }
 
-			every_country = {
-			    limit = { is_in_faction_with = RUS }
-				add_stability = -0.05
-				add_war_support = -0.1
-			}
 
-			RUS = {	
-				if= { limit = { is_in_faction = yes }  leave_faction = yes }
-				set_rule = { can_join_factions = no }
-			}
+# #################################################################################
+# #Treaty of Brest-Litovsk
+# ##################################################################################
 
-			SOV = {
-				country_event = { days = 20 id = ww1_russia.7 }
-				country_event = { days = 2 id = ww1_russia.8 }
-				RUS = {
-					every_state = {
-						limit = { is_core_of = RUS }
-						SOV = {
-							add_state_core = PREV
-						}
-					}
-				}
-				add_ideas = octrev
-				set_rule = { can_join_factions = no }
-			}
+# #russia surrenders
+# country_event = {
+# 	id = wsv_historical_treaty.11
+# 	title = wsv_historical_treaty.11.t
+# 	desc = wsv_historical_treaty.11.d
+# 	#picture = report_event_sign_paper
 
-			TUR = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = RUS
-						is_in_faction_with = GER
-					}
-					transfer_state = 229
-					transfer_state = 230
-					transfer_state = 231
-					#transfer_state = 233
-				}	
-			}
+# 	fire_only_once = yes
 
-			SWE = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = RUS
-						is_in_faction_with = GER
-					}
-					transfer_state = 148
-					transfer_state = 148
-					transfer_state = 150
-					transfer_state = 111
-					transfer_state = 145
-					transfer_state = 13
-				}
-				else = { 
-					EST = {	transfer_state = 13   transfer_state = 191   give_guarantee = GER }
-				}	
-			}
+# 	trigger = {
+# 		has_global_flag = historical_treaties_on
+# 		has_start_date < 1937.1.1
+# 		tag = RUS
+# 		RUS = {
+# 			has_war_with = GER
+# 			OR = {
+# 				has_war_with = SOV
+# 				surrender_progress > 0.55
+# 				has_stability < 0.26
+# 			}
+# 		}
+# 	}
 
-			every_country = {
-			    limit = {
-				    has_war_with = RUS
-					is_in_faction_with = GER
-				}
-				white_peace = RUS
-			}
-			UKR = {
-				transfer_state = 192
-				transfer_state = 193
-				transfer_state = 196
-				transfer_state = 197
-				transfer_state = 198
-				transfer_state = 199
-				transfer_state = 200
-				transfer_state = 201
-				transfer_state = 202
-				transfer_state = 203
-				transfer_state = 221
-				transfer_state = 225
-				transfer_state = 226
-				transfer_state = 227
-				#transfer_state = 228 #Open Beta 0.1.6
-				transfer_state = 259
-				transfer_state = 137
-				transfer_state = 228
-				transfer_state = 93
-				transfer_state = 94
-				transfer_state = 194
-				every_owned_state = {
-					add_core_of = UKR
-				}
-			}
-			POL = {
-				transfer_state = 97
-				transfer_state = 92
-				transfer_state = 10
-				transfer_state = 98
-				transfer_state = 90
-				transfer_state = 87
-				every_owned_state = {
-					add_core_of = POL
-				}
-			}
-			UBD = {  
-				transfer_state = 13 	
-				transfer_state = 191 
-				transfer_state = 190 	
-				transfer_state = 12
-				every_owned_state = {
-					add_core_of = UBD
-				}
-			}
-			LIT = {	
-				transfer_state = 189 	
-				transfer_state = 11	  
-				transfer_state = 784 
-				transfer_state = 95
-				transfer_state = 835  
-				every_owned_state = {
-					add_core_of = LIT
-				}
-			}
-			GER = { add_to_faction=UKR  puppet=LIT  puppet=POL  puppet=UBD   }
+# 	option = {
+# 		name = wsv_historical_treaty.11.a
+# 		GER = { country_event = { id = wsv_historical_treaty.12 } }
+# 		ai_chance = { factor = 4000 }
+# 	}
+
+	
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.11.b
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
+
+
+# #russia offers peace
+# country_event = {
+# 	id = wsv_historical_treaty.12
+# 	title = wsv_historical_treaty.12.t
+# 	desc = wsv_historical_treaty.12.d
+# 	#picture = 
+
+# 	is_triggered_only = yes
+
+# 	#accept surrender
+# 	option = {
+# 		name = wsv_historical_treaty.12.a
+		
+# 		custom_effect_tooltip = russia-germany_armistice_tt
+# 		hidden_effect = {
+# 			set_global_flag = treaty_of_brest-litovsk
+# 			add_named_threat = {
+# 				threat = -10
+# 				name = "Russia Signs Armistice"
+# 			}
+
+# 			every_country = {
+# 			    limit = { is_in_faction_with = RUS }
+# 				add_stability = -0.05
+# 				add_war_support = -0.1
+# 			}
+
+# 			RUS = {	
+# 				if= { limit = { is_in_faction = yes }  leave_faction = yes }
+# 				set_rule = { can_join_factions = no }
+# 			}
+
+# 			SOV = {
+# 				country_event = { days = 20 id = ww1_russia.7 }
+# 				country_event = { days = 2 id = ww1_russia.8 }
+# 				RUS = {
+# 					every_state = {
+# 						limit = { is_core_of = RUS }
+# 						SOV = {
+# 							add_state_core = PREV
+# 						}
+# 					}
+# 				}
+# 				add_ideas = octrev
+# 				set_rule = { can_join_factions = no }
+# 			}
+
+# 			TUR = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = RUS
+# 						is_in_faction_with = GER
+# 					}
+# 					transfer_state = 229
+# 					transfer_state = 230
+# 					transfer_state = 231
+# 					#transfer_state = 233
+# 				}	
+# 			}
+
+# 			SWE = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = RUS
+# 						is_in_faction_with = GER
+# 					}
+# 					transfer_state = 148
+# 					transfer_state = 148
+# 					transfer_state = 150
+# 					transfer_state = 111
+# 					transfer_state = 145
+# 					transfer_state = 13
+# 				}
+# 				else = { 
+# 					EST = {	transfer_state = 13   transfer_state = 191   give_guarantee = GER }
+# 				}	
+# 			}
+
+# 			every_country = {
+# 			    limit = {
+# 				    has_war_with = RUS
+# 					is_in_faction_with = GER
+# 				}
+# 				white_peace = RUS
+# 			}
+# 			UKR = {
+# 				transfer_state = 192
+# 				transfer_state = 193
+# 				transfer_state = 196
+# 				transfer_state = 197
+# 				transfer_state = 198
+# 				transfer_state = 199
+# 				transfer_state = 200
+# 				transfer_state = 201
+# 				transfer_state = 202
+# 				transfer_state = 203
+# 				transfer_state = 221
+# 				transfer_state = 225
+# 				transfer_state = 226
+# 				transfer_state = 227
+# 				#transfer_state = 228 #Open Beta 0.1.6
+# 				transfer_state = 259
+# 				transfer_state = 137
+# 				transfer_state = 228
+# 				transfer_state = 93
+# 				transfer_state = 94
+# 				transfer_state = 194
+# 				every_owned_state = {
+# 					add_core_of = UKR
+# 				}
+# 			}
+# 			POL = {
+# 				transfer_state = 97
+# 				transfer_state = 92
+# 				transfer_state = 10
+# 				transfer_state = 98
+# 				transfer_state = 90
+# 				transfer_state = 87
+# 				every_owned_state = {
+# 					add_core_of = POL
+# 				}
+# 			}
+# 			UBD = {  
+# 				transfer_state = 13 	
+# 				transfer_state = 191 
+# 				transfer_state = 190 	
+# 				transfer_state = 12
+# 				every_owned_state = {
+# 					add_core_of = UBD
+# 				}
+# 			}
+# 			LIT = {	
+# 				transfer_state = 189 	
+# 				transfer_state = 11	  
+# 				transfer_state = 784 
+# 				transfer_state = 95
+# 				transfer_state = 835  
+# 				every_owned_state = {
+# 					add_core_of = LIT
+# 				}
+# 			}
+# 			GER = { add_to_faction=UKR  puppet=LIT  puppet=POL  puppet=UBD   }
 			
-		news_event = { id = wsv_historical_treaty.13 }
-		}
-		ai_chance = { factor = 4000 }
-	}
+# 		news_event = { id = wsv_historical_treaty.13 }
+# 		}
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.12.b
-		custom_effect_tooltip = fighting_continues_tt
-		hidden_effect = { RUS = { country_event = { id = wsv_historical_treaty.14 } } }
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.12.b
+# 		custom_effect_tooltip = fighting_continues_tt
+# 		hidden_effect = { RUS = { country_event = { id = wsv_historical_treaty.14 } } }
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#russia armistce
-news_event = {
-	id = wsv_historical_treaty.13
-	title = wsv_historical_treaty.13.t
-	desc = wsv_historical_treaty.13.d
-	picture = news_event_wsv_armistice
+# #russia armistce
+# news_event = {
+# 	id = wsv_historical_treaty.13
+# 	title = wsv_historical_treaty.13.t
+# 	desc = wsv_historical_treaty.13.d
+# 	picture = news_event_wsv_armistice
 
-	major = yes
+# 	major = yes
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = {
-		name = wsv_historical_treaty.13.a
-	}
-}
-
-
-#germany said no
-news_event = {
-	id = wsv_historical_treaty.14
-	title = wsv_historical_treaty.14.t
-	desc = wsv_historical_treaty.14.d
-	#picture = report_event_sign_paper
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_historical_treaty.14.a	
-	}
-}
+# 	option = {
+# 		name = wsv_historical_treaty.13.a
+# 	}
+# }
 
 
-##################################################################################
-#Treaty of Halifax
-##################################################################################
+# #germany said no
+# news_event = {
+# 	id = wsv_historical_treaty.14
+# 	title = wsv_historical_treaty.14.t
+# 	desc = wsv_historical_treaty.14.d
+# 	#picture = report_event_sign_paper
 
-#uk surrenders
-country_event = {
-	id = wsv_historical_treaty.15
-	title = wsv_historical_treaty.15.t
-	desc = wsv_historical_treaty.15.d
-	#picture = report_event_sign_paper
+# 	is_triggered_only = yes
 
-	fire_only_once = yes
+# 	option = {
+# 		name = wsv_historical_treaty.14.a	
+# 	}
+# }
 
-	trigger = {
-		has_global_flag = historical_treaties_on
-		has_start_date < 1937.1.1
-		tag = ENG
-		OR = { has_war_with = USA   has_war_with = GER }
 
-		#either England is getting invaded or england is last man standing w/ canada falling
-		OR = {
-			surrender_progress > 0.55
-			has_stability < 0.26
-			AND = {
-				all_allied_country = { OR = { has_capitulated = yes    is_major = no    tag = JAP } }  #japan doesn't count
-				CAN = { surrender_progress > 0.15 }
-			}
-		}
-	}
+# ##################################################################################
+# #Treaty of Halifax
+# ##################################################################################
 
-	option = {
-		name = wsv_historical_treaty.15.a
-		if = {
-			limit = { has_war_with = USA }
-			USA = { country_event = { id = wsv_historical_treaty.16 } }
-		}
-		else = {
-			GER = { country_event = { id = wsv_historical_treaty.16 } }
-		}
-		ai_chance = { factor = 4000 }
-	}
+# #uk surrenders
+# country_event = {
+# 	id = wsv_historical_treaty.15
+# 	title = wsv_historical_treaty.15.t
+# 	desc = wsv_historical_treaty.15.d
+# 	#picture = report_event_sign_paper
+
+# 	fire_only_once = yes
+
+# 	trigger = {
+# 		has_global_flag = historical_treaties_on
+# 		has_start_date < 1937.1.1
+# 		tag = ENG
+# 		OR = { has_war_with = USA   has_war_with = GER }
+
+# 		#either England is getting invaded or england is last man standing w/ canada falling
+# 		OR = {
+# 			surrender_progress > 0.55
+# 			has_stability < 0.26
+# 			AND = {
+# 				all_allied_country = { OR = { has_capitulated = yes    is_major = no    tag = JAP } }  #japan doesn't count
+# 				CAN = { surrender_progress > 0.15 }
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_historical_treaty.15.a
+# 		if = {
+# 			limit = { has_war_with = USA }
+# 			USA = { country_event = { id = wsv_historical_treaty.16 } }
+# 		}
+# 		else = {
+# 			GER = { country_event = { id = wsv_historical_treaty.16 } }
+# 		}
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.15.b
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.15.b
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#england offers peace
-country_event = {
-	id = wsv_historical_treaty.16
-	title = wsv_historical_treaty.16.t
-	desc = wsv_historical_treaty.16.d
-	#picture = 
+# #england offers peace
+# country_event = {
+# 	id = wsv_historical_treaty.16
+# 	title = wsv_historical_treaty.16.t
+# 	desc = wsv_historical_treaty.16.d
+# 	#picture = 
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	#accept surrender
-	option = {
-		name = wsv_historical_treaty.16.a
+# 	#accept surrender
+# 	option = {
+# 		name = wsv_historical_treaty.16.a
 		
-		custom_effect_tooltip = usa-eng_armistice_tt
-		hidden_effect = {
-			set_global_flag = ttreaty_of_baltimore
-			add_named_threat = {
-				threat = -10
-				name = "England Signs Armistice"
-			}
+# 		custom_effect_tooltip = usa-eng_armistice_tt
+# 		hidden_effect = {
+# 			set_global_flag = ttreaty_of_baltimore
+# 			add_named_threat = {
+# 				threat = -10
+# 				name = "England Signs Armistice"
+# 			}
 
-			every_country = {
-			    limit = { is_in_faction_with = ENG }
-				add_stability = -0.05
-				add_war_support = -0.1
-			}
+# 			every_country = {
+# 			    limit = { is_in_faction_with = ENG }
+# 				add_stability = -0.05
+# 				add_war_support = -0.1
+# 			}
 
-			ENG = {	
-				if= { limit = { is_in_faction = yes }  leave_faction = yes }
-				set_rule = { can_join_factions = no }
-				set_rule = { can_not_declare_war = yes }
-				add_ideas = { disarmed_nation   civilian_economy }
-			}
-
-
-			BRA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = ENG
-						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
-					}
-					transfer_state = 687
-				}	
-			}
+# 			ENG = {	
+# 				if= { limit = { is_in_faction = yes }  leave_faction = yes }
+# 				set_rule = { can_join_factions = no }
+# 				set_rule = { can_not_declare_war = yes }
+# 				add_ideas = { disarmed_nation   civilian_economy }
+# 			}
 
 
-			SPA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = ENG
-						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
-					}
-					transfer_state = 118
-				}	
-			}
+# 			BRA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = ENG
+# 						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
+# 					}
+# 					transfer_state = 687
+# 				}	
+# 			}
 
 
-			ITA = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = ENG
-						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
-					}
-					transfer_state = 116
-					transfer_state = 754
-					transfer_state = 269
-				}	
-			}
+# 			SPA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = ENG
+# 						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
+# 					}
+# 					transfer_state = 118
+# 				}	
+# 			}
 
 
-			TUR = {
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = ENG
-						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
-					}
-					transfer_state = 453
-					transfer_state = 183
-					transfer_state = 656
-				}	
-			}
+# 			ITA = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = ENG
+# 						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
+# 					}
+# 					transfer_state = 116
+# 					transfer_state = 754
+# 					transfer_state = 269
+# 				}	
+# 			}
 
-			USA = { 
-				if = {
-					limit = {
-						exists = yes
-						has_war_with = ENG
-					}
-					annex_country = { target = CAN  transfer_troops = no }
-					transfer_state = 332
-					transfer_state = 331
-					#islands
-					transfer_state = 629  #hawaii!!!
-					transfer_state = 696
-					transfer_state = 690
-					transfer_state = 693
-					transfer_state = 689
-					transfer_state = 308
-					transfer_state = 692
-					transfer_state = 691
-					transfer_state = 727
-					transfer_state = 630
-					transfer_state = 631
-				}
-			}
-			IRE = {
-				transfer_state = 119
-				transfer_state = 134
-				transfer_state = 113
-				transfer_state = 135
-			}
 
-			every_country = {
-			    limit = {
-				    has_war_with = ENG
-					OR = { is_in_faction_with = USA  is_in_faction_with = GER }
-				}
-				white_peace = ENG
-				white_peace = SAF  #we want south africa to leave as well
-			}
-			SAF = { leave_faction = yes }  #get out of the entente christ
+# 			TUR = {
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = ENG
+# 						OR = { is_in_faction_with = USA    is_in_faction_with = GER }
+# 					}
+# 					transfer_state = 453
+# 					transfer_state = 183
+# 					transfer_state = 656
+# 				}	
+# 			}
+
+# 			USA = { 
+# 				if = {
+# 					limit = {
+# 						exists = yes
+# 						has_war_with = ENG
+# 					}
+# 					annex_country = { target = CAN  transfer_troops = no }
+# 					transfer_state = 332
+# 					transfer_state = 331
+# 					#islands
+# 					transfer_state = 629  #hawaii!!!
+# 					transfer_state = 696
+# 					transfer_state = 690
+# 					transfer_state = 693
+# 					transfer_state = 689
+# 					transfer_state = 308
+# 					transfer_state = 692
+# 					transfer_state = 691
+# 					transfer_state = 727
+# 					transfer_state = 630
+# 					transfer_state = 631
+# 				}
+# 			}
+# 			IRE = {
+# 				transfer_state = 119
+# 				transfer_state = 134
+# 				transfer_state = 113
+# 				transfer_state = 135
+# 			}
+
+# 			every_country = {
+# 			    limit = {
+# 				    has_war_with = ENG
+# 					OR = { is_in_faction_with = USA  is_in_faction_with = GER }
+# 				}
+# 				white_peace = ENG
+# 				white_peace = SAF  #we want south africa to leave as well
+# 			}
+# 			SAF = { leave_faction = yes }  #get out of the entente christ
 			
-			news_event = { id = wsv_historical_treaty.17 }
-		}
-		ai_chance = { factor = 4000 }
-	}
+# 			news_event = { id = wsv_historical_treaty.17 }
+# 		}
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.16.b
-		custom_effect_tooltip = fighting_continues_tt
-		hidden_effect = { ENG = { country_event = { id = wsv_historical_treaty.18 } } }
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.16.b
+# 		custom_effect_tooltip = fighting_continues_tt
+# 		hidden_effect = { ENG = { country_event = { id = wsv_historical_treaty.18 } } }
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
-#England armistce
-news_event = {
-	id = wsv_historical_treaty.17
-	title = wsv_historical_treaty.17.t
-	desc = wsv_historical_treaty.17.d
-	picture = news_event_wsv_armistice
+# #England armistce
+# news_event = {
+# 	id = wsv_historical_treaty.17
+# 	title = wsv_historical_treaty.17.t
+# 	desc = wsv_historical_treaty.17.d
+# 	picture = news_event_wsv_armistice
 
-	major = yes
+# 	major = yes
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	option = {
-		name = wsv_historical_treaty.17.a
-	}
-}
-
-
-#usa said no
-news_event = {
-	id = wsv_historical_treaty.18
-	title = wsv_historical_treaty.18.t
-	desc = wsv_historical_treaty.18.d
-	#picture = report_event_sign_paper
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_historical_treaty.18.a
-	}
-}
+# 	option = {
+# 		name = wsv_historical_treaty.17.a
+# 	}
+# }
 
 
+# #usa said no
+# news_event = {
+# 	id = wsv_historical_treaty.18
+# 	title = wsv_historical_treaty.18.t
+# 	desc = wsv_historical_treaty.18.d
+# 	#picture = report_event_sign_paper
 
-##################################################################################
-#Japan peaces out
-##################################################################################
+# 	is_triggered_only = yes
 
-#everyone has surrendered
-country_event = {
-	id = wsv_historical_treaty.19
-	title = wsv_historical_treaty.19.t
-	desc = wsv_historical_treaty.19.d
-	#picture = report_event_sign_paper
+# 	option = {
+# 		name = wsv_historical_treaty.18.a
+# 	}
+# }
 
-	fire_only_once = yes
 
-	trigger = {
-		has_global_flag = historical_treaties_on
-		has_start_date < 1937.1.1
-		tag = JAP
-		OR = {
-			has_war_with = GER	
-			has_war_with = USA
-		}
-		all_allied_country = { 
-			OR = { has_capitulated = yes	num_of_factories < 50 }
-		}
-		has_country_flag = entente_member
-	}
 
-	option = {
-		name = wsv_historical_treaty.19.a
-		news_event = { id = wsv_historical_treaty.20 }
-		ai_chance = { factor = 4000 }
-	}
+# ##################################################################################
+# #Japan peaces out
+# ##################################################################################
+
+# #everyone has surrendered
+# country_event = {
+# 	id = wsv_historical_treaty.19
+# 	title = wsv_historical_treaty.19.t
+# 	desc = wsv_historical_treaty.19.d
+# 	#picture = report_event_sign_paper
+
+# 	fire_only_once = yes
+
+# 	trigger = {
+# 		has_global_flag = historical_treaties_on
+# 		has_start_date < 1937.1.1
+# 		tag = JAP
+# 		OR = {
+# 			has_war_with = GER	
+# 			has_war_with = USA
+# 		}
+# 		all_allied_country = { 
+# 			OR = { has_capitulated = yes	num_of_factories < 50 }
+# 		}
+# 		has_country_flag = entente_member
+# 	}
+
+# 	option = {
+# 		name = wsv_historical_treaty.19.a
+# 		news_event = { id = wsv_historical_treaty.20 }
+# 		ai_chance = { factor = 4000 }
+# 	}
 
 	
-	#no, we will fight
-	option = {
-		name = wsv_historical_treaty.19.b
-		ai_chance = { factor = 0 }
-	}
-}
+# 	#no, we will fight
+# 	option = {
+# 		name = wsv_historical_treaty.19.b
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
 
-news_event = {
-	id = wsv_historical_treaty.20
-	title = wsv_historical_treaty.20.t
-	desc = wsv_historical_treaty.20.d
-	picture = news_event_wsv_armistice
+# news_event = {
+# 	id = wsv_historical_treaty.20
+# 	title = wsv_historical_treaty.20.t
+# 	desc = wsv_historical_treaty.20.d
+# 	picture = news_event_wsv_armistice
 
-	is_triggered_only = yes
+# 	is_triggered_only = yes
 
-	immediate = { 
-		hidden_effect = {
-			JAP = { leave_faction = yes	  clr_country_flag = entente_member }
+# 	immediate = { 
+# 		hidden_effect = {
+# 			JAP = { leave_faction = yes	  clr_country_flag = entente_member }
 
-			every_country = {
-			    limit = {
-				    has_war_with = JAP
-					OR = {
-						is_in_faction_with = GER
-						is_in_faction_with = USA
-					}
-				}
-				every_owned_state = {
-					limit = {
-						is_controlled_by = JAP
-						OR = {
-							is_on_continent = asia
-							region = 105 # Hawaii
-							region = 180 # Micronesian Gap
-							region = 97  # Eastern Micronesia
-							region = 32  # South-Eastern Pacific
-							region = 84  # Bismarck Sea
-							region = 95  # West Emperor Sea
-							region = 94  # Mariana Region
-							region = 177 # Western North Pacific
-							region = 172 # Pacific Line Ridge
-							region = 78  # Phillipine Sea
-							region = 109 # Peruvian Coast
-							region = 160 # Phillipines
-							region = 83  # Solomon Sea
-							region = 167 # New Guinea
-							region = 91  # Arafura Sea
-							region = 178 # West Polynesia
-							region = 179 # French Polynesia
-						}
-					}
-					JAP = { transfer_state = PREV }
-				}
-				white_peace = JAP
-			}
-		}
-	}
+# 			every_country = {
+# 			    limit = {
+# 				    has_war_with = JAP
+# 					OR = {
+# 						is_in_faction_with = GER
+# 						is_in_faction_with = USA
+# 					}
+# 				}
+# 				every_owned_state = {
+# 					limit = {
+# 						is_controlled_by = JAP
+# 						OR = {
+# 							is_on_continent = asia
+# 							region = 105 # Hawaii
+# 							region = 180 # Micronesian Gap
+# 							region = 97  # Eastern Micronesia
+# 							region = 32  # South-Eastern Pacific
+# 							region = 84  # Bismarck Sea
+# 							region = 95  # West Emperor Sea
+# 							region = 94  # Mariana Region
+# 							region = 177 # Western North Pacific
+# 							region = 172 # Pacific Line Ridge
+# 							region = 78  # Phillipine Sea
+# 							region = 109 # Peruvian Coast
+# 							region = 160 # Phillipines
+# 							region = 83  # Solomon Sea
+# 							region = 167 # New Guinea
+# 							region = 91  # Arafura Sea
+# 							region = 178 # West Polynesia
+# 							region = 179 # French Polynesia
+# 						}
+# 					}
+# 					JAP = { transfer_state = PREV }
+# 				}
+# 				white_peace = JAP
+# 			}
+# 		}
+# 	}
 
-	#accept surrender
-	option = {
-		name = wsv_historical_treaty.20.a
-	}
-}
-
-
-
-
-##################################################################################
-#Reorganize Balkans
-##################################################################################
-
-#everyone has surrendered
-#country_event = {
-#	id = wsv_historical_treaty.21
-#	title = wsv_historical_treaty.21.t
-#	desc = wsv_historical_treaty.21.d
-#	#picture = report_event_sign_paper
-#
-#	fire_only_once = yes
-#
-#	trigger = {
-#		has_global_flag = historical_treaties_on
-#		has_start_date < 1937.1.1
-#		tag = AUH
-#		has_war = no
-#		SER = { exists = yes }
-#		MNT = { exists = yes }
-#		ROM = { exists = yes }
-#		AND = {
-#			#entente is dead
-#			OR = {
-#				FRA = { has_capitulated = yes }
-#				has_global_flag = second_treaty_of_frankfurt
-#			}
-#			OR = {
-#				RUS = { has_capitulated = yes }
-#				has_global_flag = treaty_of_brest-litovsk
-#			}
-#			OR = {
-#				ENG = { has_capitulated = yes }
-#				has_global_flag = ttreaty_of_baltimore
-#			}
-#		}
-#	}
-#
-#	#yes
-#	option = {
-#		name = wsv_historical_treaty.21.a
-#		
-#		puppet = SER		
-#		annex_country = { target = MNT  transfer_troops = no }
-#		annex_country = { target = ROM  transfer_troops = no }
-#	
-#		BUL = {
-#			if = {
-#				limit = { is_in_faction_with = AUH }
-#				transfer_state = 77
-#				transfer_state = 759
-#				transfer_state = 818
-#			}
-#		}
-#		ai_chance = { factor = 4000 }
-#	}
-#
-#	
-#	#no, leave it
-#	option = {
-#		name = wsv_historical_treaty.21.b
-#		ai_chance = { factor = 0 }
-#	}
-#}
+# 	#accept surrender
+# 	option = {
+# 		name = wsv_historical_treaty.20.a
+# 	}
+# }
 
 
 
-##################################################################################
-#Mittelafrika
-##################################################################################
 
-#everyone has surrendered
-#country_event = {
-#	id = wsv_historical_treaty.22
-#	title = wsv_historical_treaty.22.t
-#	desc = wsv_historical_treaty.22.d
-#	#picture = report_event_sign_paper
-#
-#	fire_only_once = yes
-#
-#	trigger = {
-#		has_global_flag = historical_treaties_on
-#		has_start_date < 1937.1.1
-#		tag = GER
-#		OR = {
-#			COG = { is_puppet_of = GER }
-#			AND = {
-#				has_full_control_of_state = 538
-#				has_full_control_of_state = 718
-#				has_full_control_of_state = 295
-#			}
-#		}
-#		AND = {
-#			OR = {
-#				FRA = { has_capitulated = yes }
-#				has_global_flag = second_treaty_of_frankfurt
-#			}
-#			OR = {
-#				ENG = { has_capitulated = yes }
-#				has_global_flag = ttreaty_of_baltimore
-#			}
-#		}
-#	}
-#
-#	#yes
-#	option = {
-#		name = wsv_historical_treaty.22.a
-#
-#		if = {
-#			limit = { COG = { is_puppet_of = GER } }
-#			COG = {
-#				every_owned_state = {
-#					MTK = { transfer_state = PREV }
-#				}
-#			}
-#		}
-#		else = {
-#			GER = {
-#				every_owned_state = {
-#					limit = { 
-#						OR = {
-#							region = 140
-#							region = 183
-#							region = 17
-#							region = 184
-#							region = 185
-#							region = 139
-#						}
-#					}
-#					MTK = { transfer_state = PREV }
-#				}
-#			}
-#		}
-#		MTK = {	every_owned_state = { add_core_of = MTK	} }
-#		puppet = MTK
-#
-#		ai_chance = { factor = 4000 }
-#	}
-#
-#	
-#	#no, leave it
-#	option = {
-#		name = wsv_historical_treaty.22.b
-#		ai_chance = { factor = 0 }
-#	}
-#}
+# ##################################################################################
+# #Reorganize Balkans
+# ##################################################################################
+
+# #everyone has surrendered
+# #country_event = {
+# #	id = wsv_historical_treaty.21
+# #	title = wsv_historical_treaty.21.t
+# #	desc = wsv_historical_treaty.21.d
+# #	#picture = report_event_sign_paper
+# #
+# #	fire_only_once = yes
+# #
+# #	trigger = {
+# #		has_global_flag = historical_treaties_on
+# #		has_start_date < 1937.1.1
+# #		tag = AUH
+# #		has_war = no
+# #		SER = { exists = yes }
+# #		MNT = { exists = yes }
+# #		ROM = { exists = yes }
+# #		AND = {
+# #			#entente is dead
+# #			OR = {
+# #				FRA = { has_capitulated = yes }
+# #				has_global_flag = second_treaty_of_frankfurt
+# #			}
+# #			OR = {
+# #				RUS = { has_capitulated = yes }
+# #				has_global_flag = treaty_of_brest-litovsk
+# #			}
+# #			OR = {
+# #				ENG = { has_capitulated = yes }
+# #				has_global_flag = ttreaty_of_baltimore
+# #			}
+# #		}
+# #	}
+# #
+# #	#yes
+# #	option = {
+# #		name = wsv_historical_treaty.21.a
+# #		
+# #		puppet = SER		
+# #		annex_country = { target = MNT  transfer_troops = no }
+# #		annex_country = { target = ROM  transfer_troops = no }
+# #	
+# #		BUL = {
+# #			if = {
+# #				limit = { is_in_faction_with = AUH }
+# #				transfer_state = 77
+# #				transfer_state = 759
+# #				transfer_state = 818
+# #			}
+# #		}
+# #		ai_chance = { factor = 4000 }
+# #	}
+# #
+# #	
+# #	#no, leave it
+# #	option = {
+# #		name = wsv_historical_treaty.21.b
+# #		ai_chance = { factor = 0 }
+# #	}
+# #}
+
+
+
+# ##################################################################################
+# #Mittelafrika
+# ##################################################################################
+
+# #everyone has surrendered
+# #country_event = {
+# #	id = wsv_historical_treaty.22
+# #	title = wsv_historical_treaty.22.t
+# #	desc = wsv_historical_treaty.22.d
+# #	#picture = report_event_sign_paper
+# #
+# #	fire_only_once = yes
+# #
+# #	trigger = {
+# #		has_global_flag = historical_treaties_on
+# #		has_start_date < 1937.1.1
+# #		tag = GER
+# #		OR = {
+# #			COG = { is_puppet_of = GER }
+# #			AND = {
+# #				has_full_control_of_state = 538
+# #				has_full_control_of_state = 718
+# #				has_full_control_of_state = 295
+# #			}
+# #		}
+# #		AND = {
+# #			OR = {
+# #				FRA = { has_capitulated = yes }
+# #				has_global_flag = second_treaty_of_frankfurt
+# #			}
+# #			OR = {
+# #				ENG = { has_capitulated = yes }
+# #				has_global_flag = ttreaty_of_baltimore
+# #			}
+# #		}
+# #	}
+# #
+# #	#yes
+# #	option = {
+# #		name = wsv_historical_treaty.22.a
+# #
+# #		if = {
+# #			limit = { COG = { is_puppet_of = GER } }
+# #			COG = {
+# #				every_owned_state = {
+# #					MTK = { transfer_state = PREV }
+# #				}
+# #			}
+# #		}
+# #		else = {
+# #			GER = {
+# #				every_owned_state = {
+# #					limit = { 
+# #						OR = {
+# #							region = 140
+# #							region = 183
+# #							region = 17
+# #							region = 184
+# #							region = 185
+# #							region = 139
+# #						}
+# #					}
+# #					MTK = { transfer_state = PREV }
+# #				}
+# #			}
+# #		}
+# #		MTK = {	every_owned_state = { add_core_of = MTK	} }
+# #		puppet = MTK
+# #
+# #		ai_chance = { factor = 4000 }
+# #	}
+# #
+# #	
+# #	#no, leave it
+# #	option = {
+# #		name = wsv_historical_treaty.22.b
+# #		ai_chance = { factor = 0 }
+# #	}
+# #}
 
 
 

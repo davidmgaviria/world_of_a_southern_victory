@@ -16,28 +16,72 @@
 
 ######################### GENERIC ##########################
 
-FRA_area_priority_africa = {
-    enable = {
-        original_tag = FRA
-    }
+FRA_area_priority = {
+	allowed = { original_tag = FRA }
+	enable = {
+		always = yes
+	}
 
-    ai_strategy = {
-        type = area_priority
-        id = africa
-        value = -70
-    }
-    ai_strategy = {
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 110 #more focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = 0
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = 75
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 10
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -50
+	}
+	ai_strategy = {
         type = area_priority
         id = suez
-        value = -10
+        value = -50
     }
 
-    ai_strategy = {
-		type = front_unit_request
-		area = africa		
-		value = -70
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = 10 #less focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 10
 	}
 }
+
 
 
 FRA_ignore_north_america = {
@@ -111,13 +155,13 @@ FRA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 10
+		value = 15
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = -10
+		value = -5
 	}
 }
 
@@ -138,6 +182,18 @@ FRA_greatwar_mobilize = {
 		type = prepare_for_war
 		id = "GER"
 		value = 200
+	}
+
+	ai_strategy = {
+		type = support
+		id = "RUS"
+		value = 80
+	}
+
+	ai_strategy = {
+		type = ignore
+		id = "ENG"
+		value = 75
 	}
 }	
 
