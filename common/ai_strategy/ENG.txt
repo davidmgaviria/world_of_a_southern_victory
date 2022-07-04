@@ -80,14 +80,14 @@ ENG_area_priority_africa = {
     ai_strategy = {
         type = area_priority
         id = africa
-        value = -60
+        value = -85
     }
 
-    ai_strategy = {
-        type = area_priority
-        id = suez
-        value = 15
-    }
+    # ai_strategy = {
+    #     type = area_priority
+    #     id = suez
+    #     value = 0
+    # }
 }
 
 
@@ -141,7 +141,7 @@ ENG_bef_against_germany = {
 	ai_strategy = {
 		type = contain
 		id = "GER"
-		value = 400
+		value = 200
 	}
 	ai_strategy = {
 		type = support
@@ -159,6 +159,26 @@ ENG_bef_against_germany = {
 		area = europe		
 		value = 40
 	}
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
+
+	# #hold flanders
+	# ai_strategy = {
+	# 	type = put_unit_buffers
+	# 	# french states bordering benelux
+	# 	states = {
+	# 		29
+	# 		785
+	# 		18
+	# 	}
+	# 	ratio = 0.1
+	# 	area = europe
+	# 	subtract_invasions_from_need = no
+	# 	subtract_fronts_from_need = no
+	# }
 }
 
 
@@ -316,16 +336,21 @@ ENG_protect_canada = {
 	}
 	enable = {
 		country_exists = USA
-		NOT = { is_in_faction_with = USA }
-		CAN = { is_puppet_of = ENG }
+		#NOT = { is_in_faction_with = USA }
+		#CAN = { is_puppet_of = ENG }
 		#threat > 0.35	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 30
+	}
+
+	ai_strategy = {
 		type = contain
 		id = "USA"
-		value = 200
+		value = 100
 	}
 	ai_strategy = {
 		type = protect
@@ -335,7 +360,7 @@ ENG_protect_canada = {
 	ai_strategy = {
 		type = support
 		id = "CAN"
-		value = 100
+		value = 200
 	}
 
 	ai_strategy = {
@@ -347,7 +372,7 @@ ENG_protect_canada = {
  	ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 25
+		value = 15
 	}
 
 	ai_strategy = {
@@ -356,29 +381,24 @@ ENG_protect_canada = {
         value = 10
     }
 
-	# ai_strategy = {
-	# 	type = put_unit_buffers
-	# 	order_id = 5
-	# 	# canada
-	# 	states = {
-	# 		473
-	# 		470
-	# 		469
-	# 		467
-	# 		683
-	# 		682
-	# 		276
-	# 		466
-	# 		468
-	# 		823
-	# 		465
-	# 		464
-	# 		471
-	# 	}
-	# 	ratio = 0.2
-	# 	area = north_america
-	# 	subtract_invasions_from_need = no
-	# }
+    #west canada
+    ai_strategy = {
+		type = front_unit_request
+		area = western_canada
+		value = 20
+	}
+
+	#please hold winnipeg & toronto
+	ai_strategy = {
+		type = put_unit_buffers	
+		states = { 
+			467
+			276
+		}
+		ratio = 0.1
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
 }
 
 

@@ -60,7 +60,7 @@ CAN_defend_against_usa = {
 			has_non_aggression_pact_with = USA
 		}
 		has_start_date < 1937.1.1
-		threat > 0.2
+		threat > 0.15
 	}
 	abort_when_not_enabled = yes
 
@@ -94,6 +94,25 @@ CAN_defend_against_usa = {
 	ai_strategy = {
 		type = 	spare_unit_factor		
 		value = -100
+	}
+
+	#west canada
+    ai_strategy = {
+		type = front_unit_request
+		area = western_canada
+		value = 50
+	}
+
+	#please hold winnipeg & toronto
+	ai_strategy = {
+		type = put_unit_buffers	
+		states = { 
+			467
+			276
+		}
+		ratio = 0.2
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
 	}
 }	
 
