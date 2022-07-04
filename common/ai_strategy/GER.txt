@@ -17,81 +17,70 @@
 
 
 GER_area_priority = {
-	enable = {
+	allowed = {
 		original_tag = GER
+	}
+	enable = {
+		always = yes
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = europe
-		value = 100
+		value = 110 #more focus here
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = scandinavia
-		value = 85
+		value = 80
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = north_america
-		value = 75
+		value = 90
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = south_america
-		value = 50
+		value = 75
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = asia
 		value = 75
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = middle_east
-		value = 75
+		value = 50
 	}
-
 	ai_strategy = {
 		type = area_priority
 		id = suez
-		value = 50
+		value = 30
 	}
-	
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -150
+	}
+
 	ai_strategy = {
 		type = area_priority
 		id = pacific
-		value = 300
+		value = -120 #less focus here
 	}
-	
+
 	ai_strategy = {
 		type = area_priority
 		id = oceania
-		value = 80
-	}
-}
-
-
-GER_area_priority_africa = {
-    enable = {
-        original_tag = ENG
-    }
-
-    ai_strategy = {
-        type = area_priority
-        id = africa
-        value = -90
-    }
-
-    ai_strategy = {
-		type = front_unit_request
-		area = africa		
-		value = -70
+		value = -80
 	}
 }
 
@@ -114,13 +103,25 @@ GER_francogerman_rivalry = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = FRA			
-		value = 50
+		value = 45
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS			
-		value = -25
+		value = -20
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 20
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_front
+		value = -10
 	}
 }
 
@@ -194,13 +195,13 @@ GER_gw_modified_unit_production = {
 	ai_strategy = {
 	 	type = equipment_production_factor
 	 	id = infantry
-	 	value = 10
+	 	value = 15
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery 
-		value = 15
+		value = 10
 	}
 
 	ai_strategy = {
@@ -334,15 +335,29 @@ GER_greatwar_mobilize = {
 		id = "BEL"
 		value = 100
 	}
+
 	ai_strategy = {
 		type = prepare_for_war
 		id = "LUX"
 		value = 100
 	}
+
 	ai_strategy = {
 		type = prepare_for_war
 		id = "FRA"
-		value = 100
+		value = 200
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "RUS"
+		value = 40
+	}
+
+	ai_strategy = {
+		type = support
+		id = "AUH"
+		value = 80
 	}
 }
 
@@ -365,8 +380,8 @@ GER_der_schlieffen_plan = {
 		tag = BEL
 		tag = LUX
 		tag = FRA
-		priority = 200
-		ratio = 0.4
+		priority = 600
+		ratio = 0.3
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -376,43 +391,37 @@ GER_der_schlieffen_plan = {
 	ai_strategy = {
 		type = conquer
 		id = "BEL"			
-		value = 200
+		value = 400
 	}
 
 	ai_strategy = {
 		type = conquer
 		id = "LUX"			
-		value = 200
+		value = 400
 	}
 
 	ai_strategy = {
 		type = conquer
 		id = "FRA"			
+		value = 150
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = benelux
 		value = 100
 	}
 
+	#benelux
 	ai_strategy = {
 		type = front_unit_request
-		tag = BEL			
-		value = 100
-	}
 
-	ai_strategy = {
-	 	type = front_unit_request
-	 	tag = FRA
-	 	value = 50
-	}
-
-	ai_strategy = {
-	 	type = front_unit_request
-	 	tag = RUS
-	 	value = -20
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = africa		
-		value = -60
+		state = 793
+		state = 8
+		state = 34
+		state = 6
+		
+		value = 300
 	}
 }
 
@@ -494,30 +503,30 @@ GER_der_schlieffen_plan = {
 
 
 
-GER_attack_french_during_mutiny = {
-	allowed = {
-		original_tag = GER
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = FRA
-		FRA = { has_idea = FRA_french_army_mutiny }
-	}
-	abort_when_not_enabled = yes
+# GER_attack_french_during_mutiny = {
+# 	allowed = {
+# 		original_tag = GER
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = FRA
+# 		FRA = { has_idea = FRA_french_army_mutiny }
+# 	}
+# 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-		type = front_control
-		tag = FRA
-		tag = BEL
-		tag = LUX
-		priority = 120
-		ratio = 0.8
-		ordertype = front
-		execution_type = balanced
-		execute_order = yes
-		manual_attack = yes
-	}
-}
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = FRA
+# 		tag = BEL
+# 		tag = LUX
+# 		priority = 120
+# 		ratio = 0.8
+# 		ordertype = front
+# 		execution_type = balanced
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
+# }
 
 
 GER_support_austria = {
