@@ -219,7 +219,7 @@ GER_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = airship_bomber_equipment	#we like blimps
-		value = 10
+		value = 50
 	}
 
 	ai_strategy = {
@@ -624,172 +624,49 @@ GER_ignore_serbia = {
 ########################## WW2 ##########################
 
 
-
-GER_unit_production = {
+#stacks from base production
+GER_ww2_modified_unit_production = {
 	allowed = {
 		original_tag = GER
 		has_start_date > 1937.1.1
 	}
 	enable = {
-		NOT = { has_government = democratic  has_government = communism }
+		always = yes
 	}
-	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
 		type = role_ratio
 		id = garrison
-		value = 4
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = paratroopers
-		value = 0
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mountaineers
-		value = 4
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = marines
 		value = 2
 	}
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry 
-		value = -100
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = motorized
-		value = 5
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mechanized
-		value = 5
-	}
+
 	ai_strategy = {
 		type = role_ratio
 		id = armor
 		value = 2
 	}
+
 	ai_strategy = {
 		type = role_ratio
-		id = infantry
-		value = 70 
-	}
-	#Air unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 100
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = 5
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 10
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
-		value = 5
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = 5
-	}
-	# Naval unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = capital_ship
-		value = 15
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = submarine
-		value = 10
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = screen_ship
-		value = 40
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = convoy
-		value = 15
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = 150
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = cas
-		value = 15
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = tactical_bomber
-		value = 45 
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = naval_bomber
-		value = -40
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 10 #30 to 50
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = anti_tank
-		value = 20
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 60 #20 to 40
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = -5 
-	} 
-	ai_strategy = {
-		type = equipment_production_factor
 		id = motorized
-		value = -40
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories
-		id = artillery
-		value = 3
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories
-		id = fighter
 		value = 4
 	}
+
 	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = support_equipment
-		value = -20
+		type = unit_ratio
+		id = fighter
+		value = 40   #stacks, total is 120
 	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+
 	ai_strategy = {
 		type = air_factory_balance
-		value = 100 
+		value = 90
 	}
 }
 
@@ -806,7 +683,7 @@ GER_more_civs = {
 	
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
-		value = -25
+		value = -20
 	}
 }
 
@@ -818,23 +695,17 @@ GER_support_monarchist_spain = {
 	}
 	enable = {
 		has_government = neutrality
+		has_war = no
 		SPR = { 
 			exists = yes
 			has_war_with = SPN
-			NOT = { has_war_with = GER } 
-		}
-	}
-	abort = {
-		OR = {
-			date > 1939.1.1		#Germany pulls out by now, they have their own problems to deal with
-			SPR = { exists = no }
 		}
 	}
 
 	ai_strategy = {
 		type = befriend
 		id = "SPR"			
-		value = 200
+		value = 100
 	}
 
 	ai_strategy = {
@@ -845,20 +716,8 @@ GER_support_monarchist_spain = {
 
 	ai_strategy = {
 		type = send_lend_lease_desire
-		id = SPR
-		value = 400
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = -35
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = -5
+		id = "SPR"
+		value = 200
 	}
 }
 
@@ -876,9 +735,9 @@ GER_prepare_against_france = {
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = FRA
-		value = 60
+		type = prepare_for_war
+		id = "FRA"			
+		value = 200
 	}
 }
 
@@ -903,7 +762,6 @@ GER_prepare_against_russia = {
 }
 
 
-
 GER_eastern_puppets_build_up = {
 	allowed = {
 		has_start_date > 1937.1.1
@@ -915,14 +773,12 @@ GER_eastern_puppets_build_up = {
 		}
 	}
 	enable = {
-		date > 1939.1.1
 		is_in_faction_with = GER
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = prepare_for_war
-		id = "RUS"			
-		value = 50
+		type = equipment_stockpile_surplus_ratio
+		value = -10 # reduce while we build up in case of issues
 	}
 }

@@ -168,20 +168,9 @@ USA_gw_modified_unit_production = {
 	}
 
 	ai_strategy = {
-		type = 	build_army
-		id = garrison	
-		value = 15
-	}
-
-	ai_strategy = {
-		type = garrison
-		value = 3
-	}
-	
-	ai_strategy = {
 		type = role_ratio
-		id = mountaineers
-		value = -2   
+		id = garrison
+		value = 4
 	}
 
 	ai_strategy = {
@@ -456,7 +445,9 @@ USA_attack_csa_during_black_rebellion = {
 ########################## WW2 ##########################
 
 
-USA_unit_production = {
+
+#stacks from base production
+USA_ww2_modified_unit_production = {
 	allowed = {
 		original_tag = USA
 		has_start_date > 1937.1.1
@@ -464,223 +455,54 @@ USA_unit_production = {
 	enable = {
 		always = yes
 	}
-	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
 		type = role_ratio
-		id = paratroopers
-		value = 0
+		id = garrison
+		value = 4
 	}
+	
 	ai_strategy = {
 		type = role_ratio
 		id = mountaineers
-		value = 2
+		value = -2   
 	}
+
 	ai_strategy = {
 		type = role_ratio
 		id = marines
-		value = 4
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry 
-		value = -100
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = motorized
-		value = 5
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mechanized
-		value = 5
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = armor
 		value = 2
 	}
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 70 
-	}
-	#Air unit factors
+
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 100
+		value = 20   #stacks, total is 100
 	}
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = 5
-	}
+
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 10
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
 		value = 5
 	}
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = 5
-	}
-	# Naval unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = capital_ship
-		value = 15
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = submarine
-		value = 10
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = screen_ship
-		value = 40
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = convoy
-		value = 15
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = 125
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = cas
-		value = 10 
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = tactical_bomber
-		value = 25 
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = strategic_bomber
-		value = 15 
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = naval_bomber
-		value = -40
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 15 #30 to 50
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = anti_tank
-		value = 20
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 40 #20 to 40
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = -5 
-	} 
-	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized
-		value = -40
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories
-		id = artillery
-		value = 3
-	}
-	ai_strategy = {
-		type = equipment_production_min_factories
-		id = fighter
-		value = 4
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = support_equipment
-		value = 30
-	}
+
 	ai_strategy = {
 		type = air_factory_balance
-		value = 70 
+		value = 70
 	}
 }
 
 
-USA_focus_alot_on_civs = {
+
+USA_focus_on_civs = {
 	allowed = {
 		original_tag = USA
 		has_start_date > 1937.1.1
 	}
 	enable = {
 		has_war = no
-		has_idea = USA_socialist_policies
-		has_idea = USA_great_depression_1
-		NOT = { has_global_flag = CSA_richmond_agreement_broken }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -75
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = -45
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = -50
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = -50
-	}
-	ai_strategy = {
-		type = air_factory_balance
-		value = -50 
-	}
-}
-
-
-USA_focus_some_on_civs = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		has_war = no
-		OR = {
-			AND = { 
-				has_idea = USA_socialist_policies	
-				has_idea = USA_great_depression_2 
-			}
-			AND = { 
-				NOT = { has_idea = USA_socialist_policies }	
-				has_idea = USA_great_depression_1 
-			}
-		}
+		#has_idea = USA_socialist_policies
+		#has_idea = USA_great_depression_1
 		NOT = { has_global_flag = CSA_richmond_agreement_broken }
 	}
 	abort_when_not_enabled = yes
@@ -691,51 +513,13 @@ USA_focus_some_on_civs = {
 	}
 	
 	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = -25
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = -25
-	}
-	ai_strategy = {
 		type = air_factory_balance
-		value = -25 
+		value = -75 
 	}
 }
 
 
-USA_focus_tiny_on_civs = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		has_war = no
-		OR = {
-			AND = { 
-				has_idea = USA_socialist_policies	
-				has_idea = USA_great_depression_3 
-			}
-			AND = { 
-				NOT = { has_idea = USA_socialist_policies }	
-				has_idea = USA_great_depression_2 
-			}
-		}
-		NOT = { has_global_flag = CSA_richmond_agreement_broken }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -25
-	}
-}
-
-
-USA_build_up_against_featherstone = {
+USA_prepare_against_featherstone = {
 	allowed = {
 		original_tag = USA
 		has_start_date > 1937.1.1
@@ -751,68 +535,10 @@ USA_build_up_against_featherstone = {
 		id = "CSA"
 		value = 200
 	}
+
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
-		value = 100
-	}
-	ai_strategy = {
-		type = build_army
-		id = infantry		
-		value = 100
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = 5
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armor
-		value = 20
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = 100
-	}
-}
-
-
-
-USA_anti_confederate_war_plan = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		has_global_flag = CSA_richmond_agreement_broken 
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CSA"			
-		value = 200
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = eastern_america
-		value = 50
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = southwest_america
-		value = -75
-	}
-
-	#southwest america
-	ai_strategy = {
-		type = front_unit_request
-		state = 484
-		state = 483
-		value = -60
+		value = 40
 	}
 }
 
