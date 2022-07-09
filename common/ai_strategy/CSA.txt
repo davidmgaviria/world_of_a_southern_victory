@@ -247,6 +247,24 @@ CSA_gw_modified_unit_production = {
 }
 
 
+CSA_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1914.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10 # reduce while we build up in case of issues
+	}
+}
+
+
 CSA_defend_richmond = {
 	allowed = {
 		original_tag = CSA		
@@ -322,7 +340,7 @@ CSA_take_dc = {
 		state = 360
 		state = 840
 		priority = 100
-		ratio = 0.6
+		ratio = 0.3
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -400,20 +418,20 @@ CSA_ww2_modified_unit_production = {
 }
 
 
-CSA_fast_build_up_army = {
+CSA_ww2_stockpile_less_early_game = {
 	allowed = {
 		original_tag = CSA
 		has_start_date > 1937.1.1
 	}
 	enable = {
-		has_government = fascism
+		date < 1941.1.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -25 # reduce while we build up in case of issues
 	}
 }
 

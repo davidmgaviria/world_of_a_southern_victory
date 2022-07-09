@@ -170,19 +170,13 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = garrison
-		value = 4
+		value = 6
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = marines
 		value = 2
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armored_car
-		value = 2 
 	}
 
 	ai_strategy = {
@@ -217,20 +211,20 @@ USA_gw_modified_unit_production = {
 }
 
 
-USA_fast_build_up_army = {
+USA_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		OR = { country_exists = CAN   country_exists = CSA }
+		date < 1914.1.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 
@@ -340,7 +334,7 @@ USA_focus_on_confederacy = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 40
+		value = 20
 	}		
 }
 

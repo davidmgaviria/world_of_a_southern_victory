@@ -64,20 +64,22 @@ wsv_great_war_decisions = {
 			    target = SER
 			    type = puppet_wargoal_focus
 			}
-			if = {
-				limit = { 
-					is_in_faction_with = GER
-					GER = { has_country_flag = blank_cheque_given }
-				}
-				add_to_war = { 
-				    targeted_alliance = GER 
-				    enemy = SER 
-				    hostility_reason = asked_to_join
+			GER = {
+				if = {
+					limit = { 
+						is_in_faction_with = AUH 
+						has_country_flag = blank_cheque_given
+					}
+					add_to_war = { 
+					    targeted_alliance = AUH 
+					    enemy = SER 
+					    hostility_reason = asked_to_join
+					}
+					clr_country_flag = blank_cheque_given
 				}
 			}
 			hidden_effect = {
 				remove_decision = austria_must_decide
-				GER = { clr_country_flag = blank_cheque_given }
 			}
 		}
 

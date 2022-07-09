@@ -17,6 +17,74 @@
 ########################## GENERIC ##########################
 
 
+ENG_area_priority = {
+	allowed = { original_tag = ENG }
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 100 #more focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 90
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = 40
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = 75
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = suez
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 75
+	}
+}
+
+
 ENG_britannia_rules_the_waves = {
 	allowed = {
 		original_tag = ENG
@@ -56,38 +124,6 @@ ENG_civilian_focus = {
 		type = added_military_to_civilian_factory_ratio		
 		value = -10
 	}
-
-	ai_strategy = {
-		type = 	build_army
-		id = infantry	
-		value = 25
-	}
-
-	ai_strategy = {
-		type = 	build_army
-		id = garrison	
-		value = 5
-	}
-}
-
-
-
-ENG_area_priority_africa = {
-    enable = {
-        original_tag = ENG
-    }
-
-    ai_strategy = {
-        type = area_priority
-        id = africa
-        value = -85
-    }
-
-    # ai_strategy = {
-    #     type = area_priority
-    #     id = suez
-    #     value = 0
-    # }
 }
 
 
@@ -151,33 +187,51 @@ ENG_bef_against_germany = {
 	ai_strategy = {
 		type = protect
 		id = "FRA"
-		value = 60
+		value = 100
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		area = europe		
+ 		type = force_defend_ally_borders
+    	id = "FRA"
+   		value = 200
+ 	}
+
+ 	ai_strategy = {
+		type = conquer
+		id = "GER"			
 		value = 40
 	}
 
 	ai_strategy = {
-		type = 	spare_unit_factor		
-		value = 50
+		type = front_unit_request
+		tag = GER
+		area = europe
+		value = 100
 	}
 
-	# #hold flanders
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		area = africa
+		value = -100
+	}
+
+	#bases in france
 	# ai_strategy = {
 	# 	type = put_unit_buffers
-	# 	# french states bordering benelux
+	# 	order_id = 100
+	# 	# Il-De-Frans
 	# 	states = {
-	# 		29
-	# 		785
+	# 		16
 	# 		18
+	# 		785
+	# 		17
+	# 		29
+	# 		865
+	# 		15
 	# 	}
-	# 	ratio = 0.1
-	# 	area = europe
-	# 	subtract_invasions_from_need = no
-	# 	subtract_fronts_from_need = no
+	# 	ratio = 0.25
+	# 	subtract_invasions_from_need = yes
 	# }
 }
 
@@ -259,6 +313,12 @@ ENG_gw_modified_unit_production = {
 	}
 	enable = {
 		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
 	}
 	
 	ai_strategy = {
@@ -366,19 +426,25 @@ ENG_protect_canada = {
 	ai_strategy = {
  		type = force_defend_ally_borders
     	id = "CAN"
-   		value = 100
+   		value = 200
  	}
 
  	ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 15
+		value = 10
 	}
 
 	ai_strategy = {
         type = area_priority
         id = north_america
         value = 10
+    }
+
+    ai_strategy = {
+        type = area_priority
+        id = africa
+        value = -30  	#85
     }
 
     #west canada
@@ -477,6 +543,24 @@ ENG_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = air_factory_balance
 		value = 100
+	}
+}
+
+
+ENG_ww2_stockpile_less_early_game = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		date < 1941.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 

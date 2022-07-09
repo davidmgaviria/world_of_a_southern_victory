@@ -68,7 +68,7 @@ GER_area_priority = {
 	ai_strategy = {
 		type = area_priority
 		id = africa
-		value = -150
+		value = -300
 	}
 
 	ai_strategy = {
@@ -102,26 +102,26 @@ GER_francogerman_rivalry = {
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = FRA			
-		value = 45
+		area = western_front		
+		value = 60
 	}
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = RUS			
-		value = -20
+		area = eastern_front				
+		value = -25
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = western_front
-		value = 20
+		value = 10
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = eastern_front
-		value = -10
+		value = -30
 	}
 }
 
@@ -236,22 +236,6 @@ GER_gw_modified_unit_production = {
 }
 
 
-# GER_militarized_society = {
-# 	allowed = {
-# 		original_tag = GER
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-	
-# 	ai_strategy = {
-# 		type = added_military_to_civilian_factory_ratio		
-# 		value = 15
-# 	}
-# }
-
-
 GER_americam_ally_ww1 = {
 	allowed = {
 		original_tag = GER
@@ -274,20 +258,20 @@ GER_americam_ally_ww1 = {
 }
 
 
-GER_fast_build_up_army = {
+GER_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		threat > 0.35
-		OR = { country_exists = FRA   country_exists = RUS }
+		date < 1914.1.1
+		has_war = no
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 
@@ -359,6 +343,12 @@ GER_greatwar_mobilize = {
 		id = "AUH"
 		value = 80
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -75
+	}
 }
 
 
@@ -373,6 +363,7 @@ GER_der_schlieffen_plan = {
 			has_idea = schlieffen
 			has_decision = germany_schliffen_plan
 		}
+		casualties < 150000
 	}
 
 	ai_strategy = {
@@ -381,7 +372,7 @@ GER_der_schlieffen_plan = {
 		tag = LUX
 		tag = FRA
 		priority = 600
-		ratio = 0.3
+		ratio = 0.35
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -408,8 +399,8 @@ GER_der_schlieffen_plan = {
 
 	ai_strategy = {
 		type = area_priority
-		id = benelux
-		value = 100
+		id = 5   #benelux
+		value = 80 
 	}
 
 	#benelux
@@ -421,8 +412,15 @@ GER_der_schlieffen_plan = {
 		state = 34
 		state = 6
 		
-		value = 300
+		value = 250
 	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "AUH"
+		value = 100
+	}	
+
 }
 
 
