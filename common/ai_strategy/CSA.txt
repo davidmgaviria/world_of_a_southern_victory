@@ -83,33 +83,6 @@ CSA_area_priority = {
 
 
 
-CSA_france_ally = {
-	allowed = {
-		original_tag = CSA		
-	}
-	enable = {
-		country_exists = FRA
-		NOT = { has_war_with = FRA }
-		OR = {
-			threat > 0.3
-			has_completed_focus = CSA2_rejoin_entente
-		}
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = befriend
-		id = "FRA"			
-		value = 100
-	}
-	ai_strategy = {
-		type = alliance
-		id = "FRA"			
-		value = 50
-	}		
-}
-
-
 CSA_ignore_europe = {
 	allowed = {
 		original_tag = CSA
@@ -265,6 +238,31 @@ CSA_gw_stockpile_less_early_game = {
 }
 
 
+CSA_france_ally = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = FRA
+		NOT = { has_war_with = FRA }
+		threat > 0.3
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = befriend
+		id = "FRA"			
+		value = 100
+	}
+	ai_strategy = {
+		type = alliance
+		id = "FRA"			
+		value = 100
+	}		
+}
+
+
 CSA_defend_richmond = {
 	allowed = {
 		original_tag = CSA		
@@ -310,8 +308,6 @@ CSA_greatwar_mobilize = {
 		value = 100
 	}
 }	
-
-
 
 
 CSA_take_dc = {
@@ -361,7 +357,6 @@ CSA_take_dc = {
 
 
 
-
 ########################## WW2 ##########################
 
 
@@ -380,13 +375,11 @@ CSA_ww2_modified_unit_production = {
 		type = garrison
 		value = 2
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 10
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = marines
@@ -396,33 +389,30 @@ CSA_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 20   #stacks, total is 150
+		value = 20   #stacks, total is 100
 	}
 
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
+		value = 10
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
 		value = 5
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
-		id = infantry
-		value = -20
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
 		id = artillery
-		value = 50
+		value = 25
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = anti_tank
 		value = 25
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = armor
@@ -434,7 +424,6 @@ CSA_ww2_modified_unit_production = {
 		id = fighter
 		value = 150
 	}
-
 	ai_strategy = {
 		type = air_factory_balance
 		value = 110
@@ -456,6 +445,46 @@ CSA_ww2_stockpile_less_early_game = {
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
 		value = -25 # reduce while we build up in case of issues
+	}
+}
+
+
+
+CSA_ww2_modified_template_design = {
+	allowed = {
+		has_start_date > 1937.1.1
+	}
+	enable = {	
+		date < 1942.1.1	
+		original_tag = CSA
+		has_government = fascism		
+	}
+	abort = { 
+		date > 1942.1.1
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 15
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = -20
 	}
 }
 
@@ -544,6 +573,33 @@ CSA_attack_usa_ww2 = {
 
 
 
+CSA_france_fight_your_own_war = { 
+	allowed = { 
+		original_tag = CSA 
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		NOT = { has_war_together_with = FRA }
+		NOT = { has_war_together_with = ENG }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "FRA"			
+		value = -100
+	}
+
+	ai_strategy = {
+		type = alliance
+		id = "ENG"			
+		value = -100
+	}
+}
+
+
+
 # CSA_operation_blackbeard = {
 # 	allowed = {
 # 		original_tag = CSA
@@ -561,7 +617,7 @@ CSA_attack_usa_ww2 = {
 # 	abort = {
 # 		OR = {
 # 			controls_state = 261
-# 			casualties > 350000
+# 			casualties > 250000
 # 			surrender_progress > 0.1
 # 		}
 # 	}
@@ -592,6 +648,64 @@ CSA_attack_usa_ww2 = {
 # }
 
 
+
+
+# CSA_super_boost_light_for_med_armor = {
+# 	allowed = {
+# 		original_tag = CSA
+# 	}
+# 	enable = {
+# 		has_tech = basic_medium_tank
+# 		NOT = { has_template_ai_majority_unit = medium_armor }
+# 	}
+
+# 	abort = {	
+# 		has_template_ai_majority_unit = medium_armor
+# 	}
+
+# 	# lets do changes more often during this period too
+# 	ai_strategy = {
+# 		type = land_xp_spend_priority
+# 		id = division_template
+# 		value = 100
+# 	}
+
+# 	# this is gateway
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = light_armor
+# 		value = 100
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = medium_armor
+# 		value = 150
+# 	}
+# }
+
+
+# CSA_halt_light_armor_production_in_transitioning = {
+# 	allowed = {
+# 		original_tag = CSA
+# 	}
+# 	enable = {
+# 		has_template_majority_unit = medium_armor
+# 		OR = {
+# 			has_equipment = { light_tank_chassis > 600 }
+# 			date > 1940.1.1
+# 		}		
+# 	}
+# 	abort = {
+# 		# once we start we never go back to light armor
+# 	}
+
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = light_tank_chassis
+# 		value = -100
+# 	}
+# }
 
 # #CSA before 1942
 # DEFAULT_template_design = {
@@ -672,27 +786,7 @@ CSA_attack_usa_ww2 = {
 # }
 
 
-# CSA_halt_light_armor_production_in_transitioning = {
-# 	allowed = {
-# 		original_tag = CSA
-# 	}
-# 	enable = {
-# 		has_template_majority_unit = medium_armor
-# 		OR = {
-# 			has_equipment = { light_tank_chassis > 600 }
-# 			date > 1940.1.1
-# 		}		
-# 	}
-# 	abort = {
-# 		# once we start we never go back to light armor
-# 	}
 
-# 	ai_strategy = {
-# 		type = equipment_variant_production_factor
-# 		id = light_tank_chassis
-# 		value = -100
-# 	}
-# }
 
 # CSA_highered_armored_production = {
 # 	allowed = {
@@ -738,38 +832,7 @@ CSA_attack_usa_ww2 = {
 # }
 
 
-# CSA_super_boost_light_for_med_armor = {
-# 	allowed = {
-# 		original_tag = CSA
-# 	}
-# 	enable = {
-# 		has_tech = basic_medium_tank
-# 		NOT = { has_template_ai_majority_unit = medium_armor }
-# 	}
 
-# 	abort = {	
-# 		has_template_ai_majority_unit = medium_armor
-# 	}
-
-# 	# lets do changes more often during this period too
-# 	ai_strategy = {
-# 		type = land_xp_spend_priority
-# 		id = division_template
-# 		value = 100
-# 	}
-
-# 	# this is gateway
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = light_armor
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = medium_armor
-# 		value = 150
-# 	}
 	
 # }
 
@@ -804,50 +867,6 @@ CSA_attack_usa_ww2 = {
 # 		type = template_prio
 # 		id = modern_armor
 # 		value = 150
-# 	}
-# }
-
-
-
-# ## WW2 US Plans
-
-# CSA_dont_fight_germany_yet = { # Reverse strategy
-# 	reversed = yes
-
-# 	enable = {
-# 		NOT = { tag = CSA }
-# 		date > 1937.1.1
-# 		country_exists = USA
-# 		CSA = {
-# 			OR = {
-# 				is_in_faction_with = FRA
-# 				is_in_faction_with = ENG
-# 			}
-# 		}
-# 	}
-
-# 	abort = {
-# 		CSA = {
-# 			OR = {
-# 				has_non_aggression_pact_with = USA
-# 				is_in_faction_with = USA
-# 				has_war_with = USA
-# 			}
-# 		}
-# 	}
-
-# 	ai_strategy = {
-# 		type = diplo_action_desire
-# 		id = "CSA"
-# 		target = join_allies
-# 		value = -99999
-# 	}
-
-# 	ai_strategy = {
-# 		type = diplo_action_acceptance
-# 		id = "CSA"
-# 		target = call_allies
-# 		value = -99999
 # 	}
 # }
 

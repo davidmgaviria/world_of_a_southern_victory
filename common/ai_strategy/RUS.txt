@@ -391,13 +391,11 @@ RUS_ww2_modified_unit_production = {
 		id = garrison
 		value = 6
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 4
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
@@ -405,14 +403,23 @@ RUS_ww2_modified_unit_production = {
 	}
 
 	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
+		type = equipment_production_factor
+		id = artillery
+		value = 50
 	}
-
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
 	ai_strategy = {
 		type = air_factory_balance
-		value = 65
+		value = 50
 	}
 }
 
@@ -441,10 +448,9 @@ RUS_attack_germany_ww2 = {
 		has_start_date > 1937.1.1
 	}
 	enable = {
-		country_exists = GER
+		has_global_flag = russia_demanded_plebicites
 		NOT = { is_in_faction_with = GER }
-		has_government = fascism
-		has_global_flag = kaiser_wilhelm_ii_dead
+		NOT = { has_global_flag = eastern_plebicites_agreed }
 	}
 	abort = {
 		has_non_aggression_pact_with = GER

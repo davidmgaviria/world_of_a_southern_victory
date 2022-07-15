@@ -637,13 +637,11 @@ GER_ww2_modified_unit_production = {
 		id = garrison
 		value = 2
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = armor
 		value = 2
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
@@ -653,9 +651,8 @@ GER_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 40   #stacks, total is 120
+		value = 20   #stacks, total is 100
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
@@ -665,9 +662,8 @@ GER_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 50
+		value = 30
 	}
-
 	ai_strategy = {
 		type = air_factory_balance
 		value = 90
@@ -732,9 +728,9 @@ GER_prepare_against_france = {
 		has_start_date > 1937.1.1
 	}
 	enable = {
+		has_global_flag = france_demanded_plebicites
 		NOT = { is_in_faction_with = FRA }
-		NOT = { has_global_flag = french_plebicites_held }
-		FRA = { has_completed_focus = FRA2_french_plebicites }
+		NOT = { has_global_flag = french_plebicites_agreed }
 	}
 	abort_when_not_enabled = yes
 
@@ -752,9 +748,9 @@ GER_prepare_against_russia = {
 		has_start_date > 1937.1.1
 	}
 	enable = {
+		has_global_flag = russia_demanded_plebicites
 		NOT = { is_in_faction_with = RUS }
-		NOT = { has_global_flag = eastern_plebicites_held }
-		FRA = { has_completed_focus = RUS2_demand_eastern_plebicites }
+		NOT = { has_global_flag = eastern_plebicites_agreed }
 	}
 	abort_when_not_enabled = yes
 
@@ -769,20 +765,26 @@ GER_prepare_against_russia = {
 GER_eastern_puppets_build_up = {
 	allowed = {
 		has_start_date > 1937.1.1
-		OR = {
-			original_tag = UBD
-			original_tag = LIT
-			original_tag = UKR
-			original_tag = POL
-		}
 	}
 	enable = {
 		is_in_faction_with = GER
+		OR = {
+			tag = UBD
+			tag = LIT
+			tag = UKR
+			tag = POL
+		}
+		threat > 0.2
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "RUS"			
+		value = 10
 	}
 }

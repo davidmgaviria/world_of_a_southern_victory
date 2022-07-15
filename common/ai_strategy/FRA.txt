@@ -303,9 +303,8 @@ FRA_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 8
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
@@ -315,9 +314,8 @@ FRA_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 20   #stacks, total is 110
+		value = 20   #stacks, total is 100
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
@@ -326,34 +324,24 @@ FRA_ww2_modified_unit_production = {
 
 	ai_strategy = {
 		type = equipment_production_factor
-		id = infantry
-		value = -20
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
 		id = artillery
-		value = 50
+		value = 25
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = anti_tank
 		value = 25
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = armor
-		value = 25
+		value = 20
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
-		value = 120
+		value = 100
 	}
-
 	ai_strategy = {
 		type = air_factory_balance
 		value = 90
@@ -375,6 +363,45 @@ FRA_ww2_stockpile_less_early_game = {
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
 		value = -20 # reduce while we build up in case of issues
+	}
+}
+
+
+FRA_ww2_modified_template_design = {
+	allowed = {
+		has_start_date > 1937.1.1
+	}
+	enable = {	
+		date < 1942.1.1	
+		original_tag = FRA
+		has_government = fascism		
+	}
+	abort = { 
+		date > 1942.1.1
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = -10
 	}
 }
 
@@ -409,12 +436,15 @@ FRA_attack_germany_ww2 = {
 		has_start_date > 1937.1.1
 	}
 	enable = {
-		country_exists = GER
-		has_government = fascism
-		has_global_flag = kaiser_wilhelm_ii_dead
+		has_global_flag = france_demanded_plebicites
+		NOT = { is_in_faction_with = GER }
+		NOT = { has_global_flag = french_plebicites_agreed }
 	}
-	abort = {
-		has_non_aggression_pact_with = GER
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"			
+		value = 200
 	}
 
 	ai_strategy = {
@@ -440,12 +470,6 @@ FRA_attack_germany_ww2 = {
 		id = "HOL"			
 		value = 100
 	}	
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "GER"			
-		value = 100
-	}
 }
 
 

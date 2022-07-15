@@ -513,7 +513,7 @@ ENG_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 4
 	}
 	
 	ai_strategy = {
@@ -531,18 +531,54 @@ ENG_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 50
+		value = 30  #110
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 2
 	}
 
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 5
+		value = 10 
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 25
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_tank
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 80
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 25
 	}
 
 	ai_strategy = {
 		type = air_factory_balance
-		value = 100
+		value = 140
 	}
 }
 
@@ -561,6 +597,46 @@ ENG_ww2_stockpile_less_early_game = {
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
 		value = -15 # reduce while we build up in case of issues
+	}
+}
+
+
+
+ENG_ww2_modified_template_design = {
+	allowed = {
+		has_start_date > 1937.1.1
+	}
+	enable = {	
+		date < 1942.1.1	
+		original_tag = ENG
+		has_government = fascism		
+	}
+	abort = { 
+		date > 1942.1.1
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 15
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = -20
 	}
 }
 
