@@ -911,7 +911,7 @@ technologies = {
 		}
 
 		ai_will_do = {
-			factor = 20 
+			factor = 0 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -920,8 +920,12 @@ technologies = {
 			}
 			# only want confederates and germans to pick this
 			modifier = {
-				factor = 0
-				NOT = { tag = CSA }
+				add = 20
+				tag = GER
+			}
+			modifier = {
+				add = 80
+				tag = CSA
 			}
 		}
 		
@@ -968,6 +972,10 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			modifier = {
+				factor = 2
+				tag = CSA
 			}
 		}
 		
@@ -1023,6 +1031,10 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			modifier = {
+				factor = 2
+				tag = CSA
 			}
 		}
 		
@@ -1227,6 +1239,10 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			modifier = {
+				factor = 2
+				tag = CSA
 			}
 		}
 		
@@ -1699,24 +1715,19 @@ technologies = {
 
 
 		ai_will_do = {
-			factor = 20 
+			factor = 10 
 			modifier = {
 				not = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
-			# Most countries will pick grand battle plan
+			# french and english prefer thi
 			modifier = {
-				factor = 0.5
-				NOT = { tag = ENG }
-			}
-			# Russia and china like to throw bodies
-			modifier = {
-				factor = 0
-				NOT = { 
-					tag = RUS
-					tag = CHI
+				factor = 5
+				OR = {
+					tag = ENG
+					tag = FRA
 				}
 			}
 		}
@@ -2510,14 +2521,6 @@ technologies = {
 				}
 				factor = 0.8
 			}
-			# Russia and china like to throw bodies
-			modifier = {
-				factor = 0
-				OR = { 
-					tag = RUS
-					tag = CHI
-				}
-			}
 		}
 		
 		ai_research_weights = {
@@ -3209,19 +3212,23 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 20 
+			factor = 0 
 			modifier = {
 				not = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
-			# Only russia and china choose this
+			# Russia and china like to throw bodies
 			modifier = {
-				factor = 0
-				NOT = { 
+				add = 50
+				OR = { 
 					tag = RUS
 					tag = CHI
+					tag = SHX
+					tag = GXC
+					tag = XSM
+					tag = YUN
 				}
 			}
 		}

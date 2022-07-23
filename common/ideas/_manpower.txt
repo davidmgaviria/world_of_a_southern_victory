@@ -3,6 +3,9 @@ ideas = {
 	mobilization_laws = { 
 		law = yes
 
+
+
+		## Disarmed ##
 		disarmed_nation = {
 						
 			cost = 150
@@ -24,6 +27,8 @@ ideas = {
 
 		}
 		
+
+		## Volunteers ##
 		volunteer_only = {
 						
 			cost = 150
@@ -44,6 +49,8 @@ ideas = {
 			cancel_if_invalid = no
 		}
 		
+
+		## Limited conscription ##
 		limited_conscription = {
 					
 			cost = 150
@@ -56,16 +63,22 @@ ideas = {
 
 			modifier = {
 				conscription = 0.025
-				industrial_capacity_factory = -0.01
-				production_speed_buildings_factor = -0.01
+				#industrial_capacity_factory = -0.025
+				#production_speed_buildings_factor = -0.025
 			}
+
 
 			ai_will_do = {
    				factor = 1
 				modifier = {
+					# Ignore if high on manpower
+					factor = 0.5
+					manpower_per_military_factory > 5000
+				}
+				modifier = {
 					#Prio if low on manpower
 					factor = 20
-					manpower_per_military_factory <  1000
+					manpower_per_military_factory < 1000
 				}
 			}
 			
@@ -73,7 +86,7 @@ ideas = {
 		}
 
 
-		
+		## Extensive conscription ##
 		extensive_conscription = {
 			
 			available = {
@@ -96,26 +109,32 @@ ideas = {
 				conscription = 0.05
 				industrial_capacity_factory = -0.05
 				production_speed_buildings_factor = -0.05
-				training_time_factor = 0.05
+				training_time_factor = 0.1
 			}
+
 			ai_will_do = {
    				factor = 1
-				
+
 				modifier = {
-					#Prio if low on manpower
-					factor = 20
-					manpower_per_military_factory <  1000
+					# Ignore if high on manpower
+					factor = 0.5
+					manpower_per_military_factory > 3000
 				}
 
 				modifier = {
+					#Prio if low on manpower
 					factor = 20
-					CHI = { has_war_with = JAP }
-				}	
-			}	
+					manpower_per_military_factory <  800
+				}
+			}
 			
 			cancel_if_invalid = no
 		}
 		
+
+
+
+		## Service by requirement ##
 		service_by_requirement = {
 			
 			available = {
@@ -140,8 +159,9 @@ ideas = {
 			modifier = {
 				conscription = 0.1
 				industrial_capacity_factory = -0.1
+				industrial_capacity_dockyard = -0.1
 				production_speed_buildings_factor = -0.1
-				training_time_factor = 0.1
+				training_time_factor = 0.2
 			}
 
 			ai_will_do = {
@@ -160,18 +180,17 @@ ideas = {
 					#Block has plenty manpower
 					factor = 0
 					NOT = { tag = CHI }
-					NOT = { tag = RUS }
+					NOT = { tag = SOV }
 					manpower_per_military_factory >  3000
 				}
-				modifier = { # china relies a lot on throwing bodies at the enemy
-					factor = 3
-					tag = CHI
-					has_manpower < 200000
-				}
-			}	
+			}
+
 			cancel_if_invalid = no
 		}
 		
+
+
+		## All adaults serve ##
 		all_adults_serve = {
 			
 			
@@ -190,11 +209,13 @@ ideas = {
 			
 			modifier = {
 				conscription = 0.2
-				industrial_capacity_factory = -0.2
-				production_speed_buildings_factor = -0.2
+				industrial_capacity_factory = -0.3
+				industrial_capacity_dockyard = -0.3
+				production_speed_buildings_factor = -0.3
 				#XP from reinforcement penalty (small)
-				training_time_factor = 0.2
+				training_time_factor = 0.3
 			}
+
 			ai_will_do = {
    				factor = 1
 				modifier = {
@@ -213,16 +234,14 @@ ideas = {
 					NOT = { tag = CHI }
 					manpower_per_military_factory >  5000
 				}
-				modifier = { # china relies a lot on throwing bodies at the enemy
-					factor = 3
-					tag = CHI
-					has_manpower < 200000
-				}
 			}	
 			
 			cancel_if_invalid = no
 		}
 		
+
+
+		## Scraping the barrel ##
 		scraping_the_barrel = {
 			
 			
@@ -243,16 +262,19 @@ ideas = {
 			modifier = {
 				conscription = 0.25
 				industrial_capacity_factory = -0.4
+				industrial_capacity_dockyard = -0.4
 				production_speed_buildings_factor = -0.4
-				training_time_factor = 0.25
+				training_time_factor = 0.5
 			}
+
+
 			ai_will_do = {
    				factor = 1
 				modifier = {
 					#Prio if low on manpower
 					factor = 20
 					manpower_per_military_factory <  500
-				}				
+				}
 				modifier = {
 					#Lower chance if has decent amount
 					factor = 0.5

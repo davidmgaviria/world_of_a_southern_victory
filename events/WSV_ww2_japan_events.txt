@@ -29,34 +29,7 @@ news_event = {
 		hidden_effect = {
 			set_global_flag = marco_polo_bridge_incident
 			JAP = {
-				#add_named_threat = { threat=3  name=marco_polo_bridge_tt }
-				create_wargoal = {
-					type = puppet_wargoal_focus
-					target = CHI
-				}
-				add_state_claim = 608
-				add_state_claim = 614
-				add_state_claim = 597
-				add_state_claim = 746
-				add_state_claim = 598
-				add_state_claim = 613
-				add_state_claim = 596
-				add_state_claim = 749
-				add_state_claim = 594
-				add_state_claim = 591
-			}
-			CHI = { 
-				add_political_power = 100
-				add_ideas = generic_chinese_united_front
-				create_faction = "Chinese United Front"
-				add_to_faction = SHX
-				add_to_faction = GXC
-				add_to_faction = XSM
-				add_to_faction = YUN
-			}
-			every_country = {
-				limit = { is_in_faction_with = CHI }
-				add_ideas = generic_chinese_united_front
+				country_event = { id = wsv_ww2_japan.1  days = 5 }
 			}
 		}
 	}
@@ -83,4 +56,62 @@ news_event = {
 		}
 	} 
 }
+
+
+
+# Declare war
+country_event = {
+	id = wsv_ww2_japan.1
+	title = wsv_ww2_japan.1.t
+	desc = wsv_ww2_japan.1.d
+	#picture = report_event_deal_made
+
+	fire_only_once = yes
+
+	mean_time_to_happen = {	days = 4 }
+
+	is_triggered_only = yes
+
+    #war
+	option = {
+		name = wsv_ww2_japan.1.a
+
+		declare_war_on = {
+			target = CHI
+			type = take_state
+			generator = { 613 606 598 607 597 746 607 608 614 615 621 591 }
+		}
+		CHI = { 	
+			create_faction = "Chinese United Front"
+			add_to_faction = SHX
+			add_to_faction = GXC
+			add_to_faction = XSM
+			add_to_faction = YUN
+		}
+		hidden_effect = {
+			add_threat = -5
+			CHI = {
+				add_political_power = 250
+				add_ideas = generic_chinese_united_front
+			}
+			every_country = {
+				limit = { is_in_faction_with = CHI }
+				add_ideas = generic_chinese_united_front
+			}
+		}
+		
+    	ai_chance = {
+			factor = 100
+		}
+	}
+
+
+	# no war
+	option = {
+		name = wsv_ww2_japan.1.a
+		
+    	ai_chance = {
+			factor = 0
+		}
+	}
 
