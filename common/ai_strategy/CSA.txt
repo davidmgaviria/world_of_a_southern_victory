@@ -600,52 +600,47 @@ CSA_france_fight_your_own_war = {
 
 
 
-# CSA_operation_blackbeard = {
-# 	allowed = {
-# 		original_tag = CSA
-# 		has_start_date > 1937.1.1
-# 	}
-# 	enable = {
-# 		has_government = fascism
-# 		USA = {
-# 			exists = yes
-# 			NOT = { is_in_faction_with = CSA }
-# 		}
-# 		has_completed_focus = CSA2_remilitarize_plebiscite_states
-# 		controls_state = 369
-# 	}
-# 	abort = {
-# 		OR = {
-# 			controls_state = 261
-# 			casualties > 250000
-# 			surrender_progress > 0.1
-# 		}
-# 	}
+CSA_operation_blackbeard = {
+	allowed = {
+		original_tag = CSA
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		USA = {
+			exists = yes
+			NOT = { is_in_faction_with = CSA }
+		}
+		has_completed_focus = CSA2_remilitarize_plebiscite_states
+		controls_state = 369
+	}
+	abort = {
+		has_war = yes
+		OR = {
+			controls_state = 261
+			casualties > 200000
+			surrender_progress > 0.1
+		}
+	}
 
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_america
-# 		value = 50
-# 	}
+	ai_strategy = {
+		type = area_priority
+		id = middle_america
+		value = 50
+	}
 
-# 	#through ohio
-# 	ai_strategy = {
-# 		type = front_control
-# 		state = 261
-# 		priority = 100
-# 		ratio = 0.3	
-# 		ordertype = front
-# 		execution_type = rush_weak
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		state = 261
-# 		value = 250
-# 	}
-# }
+	#through ohio
+	ai_strategy = {
+		type = front_control
+		state = 261
+		priority = 400
+		ratio = 0.3	
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
 
 
 
