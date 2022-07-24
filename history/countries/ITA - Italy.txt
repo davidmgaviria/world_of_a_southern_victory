@@ -59,8 +59,7 @@ set_convoys = 200
 	create_navy_leader={  name = "Luigi Amedeo" id=46001 portrait_path="gfx/portraits/ITA/navy_admirals/ITA_duca_degli_abruzzi.dds" traits={   } skill=2 }
 	create_navy_leader={  name = "Thaon di Revel" id=46075 portrait_path="gfx/portraits/ITA/navy_admirals/ITA_thaon_di_revel.dds" traits={   } skill=2 }
 	create_navy_leader={  name = "Marcello Amero d'Aste-Stella" id=46076 portrait_path="gfx/portraits/ITA/navy_admirals/ITA_marcello_aste_stella.dds" traits={   } skill=1 }
-	}
-
+	
 
 	set_politics = {
 	    ruling_party = democratic
@@ -92,7 +91,7 @@ set_convoys = 200
 		# Infantry
 		infantry_weapons = 1
 		support_weapons = 1
-		mountaineers = 1
+		tech_mountaineers = 1
 
 		# Support
 		tech_support = 1
@@ -129,9 +128,12 @@ set_convoys = 200
 1937.1.1 = {
 	set_political_power = 0
 	oob = "ITA_1937"
-	#load_focus_tree = "generic_2_focus"
 	set_war_support = 0.1
 	load_focus_tree = "generic_2_focus"
+	set_research_slots = 3  #1936 increase
+
+	diplomatic_relation = { country = GER  relation = guarantee  active = no }
+	diplomatic_relation = { country = AUH  relation = guarantee  active = no }
 
 	add_ideas = {
 		civilian_economy
@@ -198,6 +200,30 @@ set_convoys = 200
 	    fascism = 5
 	    communism = 10
 	    neutrality = 10
+	}
+
+
+	### TECH ###
+	full_modernize_tech_effect = yes
+	set_technology = {
+		# Support
+		tech_support = 1
+		tech_engineers = 1
+		tech_recon = 1
+		tech_engineers2 = 1
+		tech_recon2 = 1
+		tech_military_police = 1
+
+		# Naval
+		early_destroyer = 1
+		early_light_cruiser = 1
+		early_heavy_cruiser = 1
+		early_battleship = 1
+		ww1_carrier = 1
+
+		# Aircraft
+		early_fighter = 1
+		ww1_transport_plane = 1
 	}
 
 

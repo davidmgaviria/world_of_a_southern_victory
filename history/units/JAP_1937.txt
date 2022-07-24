@@ -1,7 +1,7 @@
 ﻿division_template = {
-	name = "Hohei Shidan" 		#Infantry Division - Represents both frontline and garrison divisions
+	name = "Hohei Shidan" 			# (Square) Infantry Division - 4 infantry regiments (3k men each), 1 field artillery regiment - abstracted into infantry,
 	division_names_group = JAP_INF_01
-	# Note: In 1940 the IJA reorganized infantry divisions into triangular formations
+									# 1 engineering regiment, 1 recon regiment
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -12,34 +12,11 @@
 		infantry = { x = 2 y = 0 }
 		infantry = { x = 2 y = 1 }
 		infantry = { x = 2 y = 2 }
-		infantry = { x = 3 y = 0 }
-		infantry = { x = 3 y = 1 }
-		infantry = { x = 3 y = 2 }
-	}
-	support = {
-		artillery = { x = 0 y = 0 }
-		engineer = { x = 0 y = 1 }
-		recon = { x = 0 y = 2 }
-	}
-}
-division_template = {
-	name = "Chugata Hohei Shidan" 	# Triangular infantry division
-	division_names_group = JAP_INF_01
-
-	regiments = {
-		infantry = { x = 0 y = 0 }
-		infantry = { x = 0 y = 1 }
-		infantry = { x = 0 y = 2 }
-		infantry = { x = 1 y = 0 }
-		infantry = { x = 1 y = 1 }
-		infantry = { x = 1 y = 2 }
-		infantry = { x = 2 y = 0 }
-		infantry = { x = 2 y = 1 }
-		infantry = { x = 2 y = 2 }
+		artillery_brigade = { x = 3 y = 0 }
 	}
 	support = {
 		engineer = { x = 0 y = 0 }
-		recon = { x = 0 y = 1 }
+		artillery = { x = 0 y = 1 }
 	}
 }
 division_template = {
@@ -53,13 +30,14 @@ division_template = {
 		infantry = { x = 1 y = 0 }
 		infantry = { x = 1 y = 1 }
 		light_armor = { x= 2 y = 0 }
+		light_armor = { x= 2 y = 1 }
 	}
 	support = {
 		engineer = { x = 0 y = 0 }
 	}
 }
 division_template = {
-	name = "Kihei Shidan" 				# Represents both Japanese and Manchurian cavalry (MAN has older equipment, lower experience)
+	name = "Kihei Shidan" 			# Cavalry Division - 2 Cavalry Division regiments (3k men); 1 mounted artillery regiment
 	division_names_group = JAP_CAV_01
 	regiments = {
 		cavalry = { x = 0 y = 0 }
@@ -71,9 +49,9 @@ division_template = {
 	}
 }
 division_template = {
-	name = "Jidousha Shidan" 			#  Motorized Infantry - Represents 5th Infantry Division (later Guards 'Konoe Shidan' Division(s))
+	name = "Jidousha Shidan" 			# Motorized divisions - 4 motorized infantry regiments (3k men each), 1 recon regiment, 
 	division_names_group = JAP_MOT_01
-
+										#1 engineer regiment, 1 mounted artillery regiment
 	regiments = {
 		motorized = { x = 0 y = 0 }
 		motorized = { x = 0 y = 1 }
@@ -89,26 +67,14 @@ division_template = {
 		motorized = { x = 3 y = 2 }
 	}
 	support = {
-		engineer = { x = 0 y = 0 }
-		mot_recon = { x = 0 y = 1 }
+		artillery = { x = 0 y = 0 }
+		engineer = { x = 0 y = 1 }
+		mot_recon = { x = 0 y = 2 }
 	}
 }
 division_template = {
-	name = "Senshadan"				# Tank Group - Groupings of tank 'regiments' (battalion-sized units)
-	division_names_group = JAP_ARM_01
-	regiments = {
-		light_armor = { x = 0 y = 0 }
-		light_armor = { x = 0 y = 1 }
-		light_armor = { x = 0 y = 2 }
-	}
-	support = {
-		engineer = { x = 0 y = 0 }
-	}	
-}
-division_template = {
-	name = "Rikusentai"				# Groupings of various SNLF marine forces (can be 1000-3000 men per 'regiment')
+	name = "Rikusentai"				#This template covers SNLF divisions; historically there were roughly 5 total, with 1 being paratroopers
 	division_names_group = JAP_MAR_01
-
 	regiments = {
 		marine = { x = 0 y = 0 }
 		marine = { x = 0 y = 1 }
@@ -123,9 +89,9 @@ division_template = {
 	priority = 2
 }
 division_template = {
-	name = "Chuton-chi Shidan" 			# Manchukuo Shidan  Represents Imperial Manchukuo Army infantry divisions (militia; lowest experience, oldest equipment)
+	name = "Chuton-chi Shidan" 			# Garrison template - represents Imperial Manchukuo Army infantry divisions: 2 infantry regiments (3k men) -- militia (lowest equipment, experience)
 	division_names_group = JAP_GAR_01
-
+										# Also represents (over-sized) IJN Base Defense Unit (island, city and naval base garrisons): 2 infantry rgts (3k men), 1 field artillery rgt (abstracted), 1 engineering rgt
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -568,8 +534,8 @@ units = {
 			name_order = 35
 		}
 		location = 11752
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "41 'Kawa' Hohei Shidan"
 		division_name = {
@@ -577,8 +543,8 @@ units = {
 			name_order = 41
 		}
 		location = 11752
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "110 Hohei Shidan"
 		division_name = {
@@ -621,9 +587,8 @@ units = {
 		name = "Hankow Kichi Shubitai"
 		location = 10331
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = { # "36 'Yuki' Hohei Shidan"
@@ -632,8 +597,8 @@ units = {
 			name_order = 36
 		}
 		location = 10331
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "37 'Fuyu' Hohei Shidan"
 		division_name = {
@@ -641,8 +606,8 @@ units = {
 			name_order = 37
 		}
 		location = 10331
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	} 
 	division = { # "3 Dokuritsu Konsei Ryodan"
 		division_name = {
@@ -661,8 +626,8 @@ units = {
 			name_order = 21
 		}
 		location = 6898   #Taiyuan
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "27 Hohei Shidan"
 		division_name = {
@@ -670,8 +635,8 @@ units = {
 			name_order = 27
 		}
 		location = 6898   #Taiyuan
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "32 'Kaede' Hohei Shidan"
 		division_name = {
@@ -679,8 +644,8 @@ units = {
 			name_order = 32
 		}
 		location = 6898   #Taiyuan
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "114 Hohei Shidan"
 		division_name = {
@@ -724,8 +689,8 @@ units = {
 			name_order = 26
 		}
 		location = 6898   #Taiyuan
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 
 
@@ -740,75 +705,43 @@ units = {
 		division_template = "Kihei Shidan"
 		start_experience_factor = 0.1
 	}
-	division = { # "4b Mouko Kiheishidan"
-		location = 12392
-		division_template = "Kihei Shidan"
-		start_experience_factor = 0.1
-	}
-	division = { # "5b Mouko Kiheishidan"
-		location = 12319
-		division_template = "Kihei Shidan"
-		start_experience_factor = 0.1
-	}
-	division = { # "6b Mouko Kiheishidan"
-		location = 12008
-		division_template = "Kihei Shidan"
-		start_experience_factor = 0.1
-	}
-	division = { # "7b Mouko Kiheishidan"
-		location = 7518
-		division_template = "Kihei Shidan"
-		start_experience_factor = 0.1
-	}
-	division = { # "8b Mouko Kiheishidan"
-		location = 12065
-		division_template = "Kihei Shidan"
-		start_experience_factor = 0.1
-	}
+	
+	
 	division = { # "35b Hohei Shidan"
 		location = 9948
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "41b 'Kawa' Hohei Shidan"
 		location = 7093
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
-	}
-	division = { # "110b Hohei Shidan"
-		location = 4075
-		division_template = "Hohei Shidan"			
+		division_template = "Hohei Shidan"
 		start_experience_factor = 0.1
 	}
-	division = { # "7b Dokuritsu Konsei Ryodan"
+
+	division = { # "7b Chuton-chi Shidan"
 		location = 4075
-		division_template = "Dokuritsu Konsei Ryodan"
+		division_template = "Chuton-chi Shidan"
 		start_experience_factor = 0.2
 	}
-	division = { # "8b Dokuritsu Konsei Ryodan"
+	division = { # "8b Chuton-chi Shidan"
 		location = 4075
-		division_template = "Dokuritsu Konsei Ryodan"
+		division_template = "Chuton-chi Shidan"
 		start_experience_factor = 0.2
 	}
-	division = { # "9b Dokuritsu Konsei Ryodan"
+	division = { # "9b Chuton-chi Shidan"
 		location = 4075
-		division_template = "Dokuritsu Konsei Ryodan"
+		division_template = "Chuton-chi Shidan"
 		start_experience_factor = 0.2
 	}
-	division = { # "4b Dokuritsu Konsei Ryodan"
+	division = { # "4b Chuton-chi Shidan"
 		location = 4075
-		division_template = "Dokuritsu Konsei Ryodan"
+		division_template = "Chuton-chi Shidan"
 		start_experience_factor = 0.2
 	}
-	division = { # "11b Dokuritsu Konsei Ryodan"
-		location = 4075
-		division_template = "Dokuritsu Konsei Ryodan"
-		start_experience_factor = 0.2
-	}
-	division = { # "1b Kiheishidan"
-		location = 11981
-		division_template = "Kihei Shidan"				# represents both 3rd and 4th independent cavalry brigades
-		start_experience_factor = 0.3
+	division = { # "5b Chuton-chi Shidan"
+		location = 12392
+		division_template = "Chuton-chi Shidan"
+		start_experience_factor = 0.1
 	}
 
 	
@@ -822,7 +755,7 @@ units = {
 		}
 		location = 12421 #Asahigawa
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = { # "Karafuto Dokuritsu Konsei Ryodan"
 		division_name = {
@@ -837,27 +770,24 @@ units = {
 		name = "Ominato Kichi Kaiheidan"
 		location = 9859 #Ominato Naval Base
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 	}
 	division = {
 		name = "Ominato Kichi Shubitai"
 		location = 10125
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 	}
 	division = {
 		name = "Ominato Kichi Shubitai"
 		location = 10125
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 	}
 
 
@@ -867,9 +797,8 @@ units = {
 		name = "Shanghai Kichi Shubitai"
 		location = 7072
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = { # "1 Sasebo Rikustentai"
@@ -921,7 +850,7 @@ units = {
 		}
 		location = 7072
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = { # "33 'Yumi' Hohei Shidan"
 		division_name = {
@@ -929,8 +858,8 @@ units = {
 			name_order = 33
 		}
 		location = 7072
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "101 Hohei Shidan"
 		division_name = {
@@ -957,8 +886,8 @@ units = {
 			name_order = 15
 		}
 		location = 7072
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "17 'Getsu' Hohei Shidan"
 		division_name = {
@@ -967,7 +896,7 @@ units = {
 		}
 		location = 7072
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = { # "22 'Hara' Hohei Shidan"
 		division_name = {
@@ -975,8 +904,8 @@ units = {
 			name_order = 22
 		}
 		location = 7072
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 
 	division = { # "116 Hohei Shidan"
@@ -1005,7 +934,7 @@ units = {
 		}
 		location = 9950	
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = { # "38 'Nagoya' Hohei Shidan"
 		division_name = {
@@ -1013,8 +942,8 @@ units = {
 			name_order = 38
 		}
 		location = 9950	
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "Taiwan Dokuritsu Konsei Ryodan"
 		division_name = {
@@ -1046,15 +975,14 @@ units = {
 		}
 		location = 7087 #Shizuoka
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = {
 		name = "Yokosuka Kichi Kaiheidan"
 		location = 9998 #Yokosuka
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_experience_factor = 0.1start_equipment_factor = 0.6
+		
 			
 
 	}
@@ -1067,7 +995,7 @@ units = {
 		}
 		location = 9950 #Nagasaki
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = { # "9 'Take' Hohei Shidan"
 		division_name = {
@@ -1075,8 +1003,8 @@ units = {
 			name_order = 9
 		}
 		location = 1092 #Hiroshima
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = { # "16 'Kaki' Hohei Shidan"
 		division_name = {
@@ -1084,16 +1012,15 @@ units = {
 			name_order = 16
 		}
 		location = 4102	# Kagoshima
-		division_template = "Chugata Hohei Shidan"
-		start_experience_factor = 0.3
+		division_template = "Hohei Shidan"
+		start_experience_factor = 0.1
 	}
 	division = {
 		name = "Kure Kichi Kaiheidan"
 		location = 1092 #Hiroshima
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1101,9 +1028,8 @@ units = {
 		name = "Sasebo Kichi Kaiheidan"
 		location = 9950 #Sasebo/Nagasaki
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1113,9 +1039,8 @@ units = {
 		name = "Taiwan Kichi Shubitai"
 		location = 12068 # Taiwan
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1143,10 +1068,8 @@ units = {
 		name = "Chinkai Kichi Kaiheidan"
 		location = 4056 #Pusan
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
-			
+		start_equipment_factor = 0.6
 
 	}
 
@@ -1155,9 +1078,8 @@ units = {
 		name = "Okinawa Kichi Shubitai"
 		location = 11932 #Naha
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1168,9 +1090,8 @@ units = {
 		name = "Saipan Kichi Shubitai"
 		location = 3995 #Saipan
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1178,9 +1099,8 @@ units = {
 		name = "Iwoto Kichi Shubitai"
 		location = 13025 #Iwo Jima
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1190,9 +1110,8 @@ units = {
 		name = "Palau Kichi Shubitai"
 		location = 4357 #Palau
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1200,9 +1119,8 @@ units = {
 		name = "Truk Kichi Shubitai"
 		location = 2489 #Truk
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1210,9 +1128,8 @@ units = {
 		name = "Yappu Kichi Shubitai"
 		location = 13028 #Yap
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1220,9 +1137,8 @@ units = {
 		name = "Satawan Kichi Shubitai"
 		location = 13035 #Satawan
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1232,9 +1148,8 @@ units = {
 		name = "Kwajalein Kichi Shubitai"
 		location = 13041 #Kwajalein
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1242,9 +1157,8 @@ units = {
 		name = "Eniwetok Kichi Shubitai"
 		location = 13046 #Eniwetok
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1252,9 +1166,8 @@ units = {
 		name = "Ponape Kichi Shubitai"
 		location = 13036 #Ponape
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1262,15 +1175,10 @@ units = {
 		name = "Mili Kichi Shubitai"
 		location = 13040 #Mili
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 	}
-
-
-
-
 
 
 
@@ -1282,7 +1190,7 @@ units = {
 		}
 		location = 11771 # Mukden
 		division_template = "Hohei Shidan"
-		start_experience_factor = 0.3
+		start_experience_factor = 0.1
 	}
 	division = { # "15 Dokuritsu Konsei Ryodan"
 		division_name = {
@@ -1297,9 +1205,8 @@ units = {
 		name = "Ryojun Kichi Shubitai"
 		location = 1150 # Dalian
 		division_template = "Chuton-chi Shidan"
-		force_equipment_variants = { infantry_equipment_3 = { owner = "JAP" } }
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1309,7 +1216,7 @@ units = {
 		location = 11771 #Mukden
 		division_template = "Chuton-chi Shidan"			# Japanese garrison (better experience, equipment than Manchukuo militia)
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = {
@@ -1317,7 +1224,7 @@ units = {
 		location = 4572 #Hsinking
 		division_template = "Chuton-chi Shidan"			# Japanese garrison (better experience, equipment than Manchukuo militia)
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 	}
 	### 3 Homengun (CO: Suetaka) ###
 	division = { # "8 'Sugi' Hohei Shidan"
@@ -1349,9 +1256,12 @@ units = {
 		location = 1732
 		division_template = "Chuton-chi Shidan"			# Japanese Border Guard garrison (better experience, equipment than Manchukuo militia)
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
+
+
+	### Manchuria ###
 
 	### 4 Homengun (CO: Ushiroku) ###
 	division = { # "1 'Gyoku' Hohei Shidan"
@@ -1374,7 +1284,7 @@ units = {
 		location = 10675
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = {
@@ -1382,7 +1292,7 @@ units = {
 		location = 7848
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = {
@@ -1397,7 +1307,7 @@ units = {
 		location = 1693
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = {
@@ -1405,7 +1315,7 @@ units = {
 		location = 12548
 		division_template = "Chuton-chi Shidan"	
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 
@@ -1430,7 +1340,7 @@ units = {
 		location = 6806
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = {
@@ -1438,7 +1348,7 @@ units = {
 		location = 810
 		division_template = "Chuton-chi Shidan"		
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 
 	}
 	division = {
@@ -1446,7 +1356,7 @@ units = {
 		location = 3843
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1455,7 +1365,7 @@ units = {
 		location = 5427
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1464,7 +1374,7 @@ units = {
 		location = 9798
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1473,7 +1383,7 @@ units = {
 		location = 12500
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
+		start_equipment_factor = 0.6
 			
 
 	}
@@ -1482,9 +1392,7 @@ units = {
 		location = 10521
 		division_template = "Chuton-chi Shidan"			
 		start_experience_factor = 0.1
-		start_equipment_factor = 0.65
-			
-
+		start_equipment_factor = 0.6
 	}
 
 	### 6 Homengun (CO: Yasui) ###	
@@ -1503,7 +1411,7 @@ units = {
 			name_order = 23
 		}
 		location = 7697
-		division_template = "Chugata Hohei Shidan"
+		division_template = "Hohei Shidan"
 		start_experience_factor = 0.2
 	}
 }

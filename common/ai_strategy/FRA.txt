@@ -61,12 +61,12 @@ FRA_area_priority = {
 	ai_strategy = {
 		type = area_priority
 		id = africa
-		value = -50
+		value = -60
 	}
 	ai_strategy = {
         type = area_priority
         id = suez
-        value = -50
+        value = -25
     }
 
 	ai_strategy = {
@@ -166,6 +166,24 @@ FRA_gw_modified_unit_production = {
 }
 
 
+FRA_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1914.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10 # reduce while we build up in case of issues
+	}
+}
+
+
 FRA_greatwar_mobilize = {
 	allowed = {
 		original_tag = FRA		
@@ -181,7 +199,7 @@ FRA_greatwar_mobilize = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "GER"
-		value = 200
+		value = 400
 	}
 
 	ai_strategy = {
@@ -193,7 +211,45 @@ FRA_greatwar_mobilize = {
 	ai_strategy = {
 		type = ignore
 		id = "ENG"
-		value = 75
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -75
+	}
+}
+
+
+FRA_opening_war_assault = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		OR = {
+			NOT = { is_in_faction_with = GER }
+		}
+		threat > 0.2
+	}
+	abort = {
+		has_war_with = GER  #dont abort before
+		OR = {
+			surrender_progress > 0.1
+			casualties > 100000
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		priority = 100
+		ratio = 0.35
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
 	}
 }	
 
@@ -234,176 +290,89 @@ FRA_greatwar_mobilize = {
 
 ########################## WW2 ##########################
 
-FRA_unit_production = {
+#stacks from base production
+FRA_ww2_modified_unit_production = {
 	allowed = {
 		original_tag = FRA
 		has_start_date > 1937.1.1
 	}
 	enable = {
-		has_government = fascism
+		always = yes
 	}
-	abort_when_not_enabled = yes
-	
+
 	ai_strategy = {
 		type = role_ratio
-		id = garrison
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = paratroopers
-		value = 0
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mountaineers
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = marines
-		value = 2
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry 
-		value = -100
+		id = armor
+		value = 8
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = motorized
-		value = 10
+		value = 5
 	}
-	ai_strategy = {
-		type = role_ratio
-		id = mechanized
-		value = 5 
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = -5
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 70
-	}
-	#Air unit factors
+
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 100
+		value = 20   #stacks, total is 100
 	}
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
-		value = 10
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
 		value = 5
 	}
-	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber
-		value = -20
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = naval_bomber
-		value = 5
-	}
-	# Naval unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = capital_ship
-		value = 15
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = submarine
-		value = 10
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = screen_ship
-		value = 40
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = convoy
-		value = 15
-	}
+
 	ai_strategy = {
 		type = equipment_production_factor
-		id = fighter
-		value = 150
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = tactical_bomber
-		value = 40 
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = strategic_bomber
-		value = -100
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 10 #30 to 50
+		id = artillery
+		value = 25
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = anti_tank
-		value = 20
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 55 #20 to 40
+		value = 25
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = armor
-		value = -10
-	} 
-	ai_strategy = {
-		type = equipment_production_min_factories
-		id = fighter
-		value = 4
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = support_equipment
-		value = 25
+		value = 20
 	}
 	ai_strategy = {
 		type = equipment_production_factor
-		id = motorized
-		value = 25
+		id = fighter
+		value = 100
 	}
 	ai_strategy = {
 		type = air_factory_balance
-		value = 100 
-	}
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 20
+		value = 85
 	}
 }
 
 
-#FRA before 1942
-DEFAULT_template_design = {
+FRA_ww2_stockpile_less_early_game = {
+	allowed = {
+		original_tag = FRA
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		date < 1941.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 # reduce while we build up in case of issues
+	}
+}
+
+
+FRA_ww2_modified_template_design = {
 	allowed = {
 		has_start_date > 1937.1.1
 	}
 	enable = {	
-		date < 1943.1.1	
+		date < 1942.1.1	
 		original_tag = FRA
 		has_government = fascism		
 	}
@@ -413,222 +382,26 @@ DEFAULT_template_design = {
 
 	ai_strategy = {
 		type = template_prio
-		id = motorized
-		value = 20
-	}
-
-	ai_strategy = {
-		type = template_prio
-		id = cavalry
-		value = -100
-	}
-	
-	ai_strategy = {
-		type = template_prio
 		id = light_armor
-		value = 40
+		value = 10
 	}
 
 	ai_strategy = {
 		type = template_prio
 		id = medium_armor
-		value = 30
+		value = 10
 	}
 
 	ai_strategy = {
 		type = template_prio
-		id = heavy_armor
-		value = -50
+		id = motorized
+		value = 10
 	}
 
-	ai_strategy = {
-		type = template_prio
-		id = paratroopers
-		value = -50
-	}
-	
 	ai_strategy = {
 		type = template_prio
 		id = infantry
-		value = 50
-	}
-}
-
-
-FRA_stockpile_less_early_game = {
-	allowed = { 
-		original_tag = FRA 
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		has_government = fascism
-	}
-	abort = {
-		has_army_manpower = { size > 1250000 }
-	}
-
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
-	}
-}
-
-
-FRA_armored_production = {
-	allowed = {
-		original_tag = FRA
-	}
-	enable = {
-		date > 140.1.1
-		ai_wants_divisions > 24 #Decreasing the amount of tanks the AI wants
-	}
-	abort = {
-		ai_wants_divisions < 25 #Decreasing the amount of tanks the AI wants
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = 10
-	}
-}
-
-
-FRA_halt_light_armor_production_in_transitioning = {
-	allowed = {
-		original_tag = FRA
-	}
-	enable = {
-		has_template_majority_unit = medium_armor
-		OR = {
-			has_equipment = { light_tank_chassis > 600 }
-			date > 1940.1.1
-		}		
-	}
-	abort = {
-		# once we start we never go back to light armor
-	}
-
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = light_tank_chassis
-		value = -100
-	}
-}
-
-
-
-FRA_highered_armored_production = {
-	allowed = {
-		original_tag = FRA
-	}
-	enable = {
-		num_of_military_factories > 109
-	}
-	abort = {
-		num_of_military_factories < 110
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = 20
-	}
-}
-
-
-FRA_dont_waste_xp_until_medium_armor = {
-	allowed = {
-		original_tag = FRA		
-	}
-	enable = {
-		always = yes
-	}
-	abort = {	
-		has_template_majority_unit = medium_armor
-	}
-
-	ai_strategy = {
-		type = template_prio
-		id = paratrooper
-		value = -100
-	}
-
-	ai_strategy = {
-		type = template_prio
-		id = mountaineers
-		value = -100
-	}
-}
-
-
-FRA_super_boost_light_for_med_armor = {
-	allowed = {
-		original_tag = FRA
-	}
-	enable = {
-		has_tech = basic_medium_tank
-		NOT = { has_template_ai_majority_unit = medium_armor }
-	}
-
-	abort = {	
-		has_template_ai_majority_unit = medium_armor
-	}
-
-	# lets do changes more often during this period too
-	ai_strategy = {
-		type = land_xp_spend_priority
-		id = division_template
-		value = 100
-	}
-
-	# this is gateway
-	ai_strategy = {
-		type = template_prio
-		id = light_armor
-		value = 100
-	}
-
-	ai_strategy = {
-		type = template_prio
-		id = medium_armor
-		value = 150
-	}
-	
-}
-
-
-FRA_super_boost_light_for_modern_armor = {
-	allowed = {
-		original_tag = FRA
-	}
-	enable = {
-		has_tech = main_battle_tank
-		NOT = { has_template_ai_majority_unit = modern_armor }
-	}
-
-	abort = {	
-		has_template_ai_majority_unit = modern_armor
-	}
-
-	# lets do changes more often during this period too
-	ai_strategy = {
-		type = land_xp_spend_priority
-		id = division_template
-		value = 100
-	}
-
-	# this is gateway
-	ai_strategy = {
-		type = template_prio
-		id = medium_armor
-		value = 100
-	}
-
-	ai_strategy = {
-		type = template_prio
-		id = modern_armor
-		value = 150
+		value = -10
 	}
 }
 
@@ -663,110 +436,334 @@ FRA_attack_germany_ww2 = {
 		has_start_date > 1937.1.1
 	}
 	enable = {
-		country_exists = GER
-		has_government = fascism
-		has_global_flag = kaiser_wilhelm_ii_dead
+		has_global_flag = france_demanded_plebicites
+		NOT = { is_in_faction_with = GER }
+		NOT = { has_global_flag = french_plebicites_agreed }
 	}
-	abort = {
-		has_non_aggression_pact_with = GER
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "BEL"			
+		value = 200
 	}
 
 	ai_strategy = {
 		type = conquer
-		id = "GER"			
-		value = 50
+		id = "BEL"			
+		value = 200
 	}
+
 	ai_strategy = {
 		type = prepare_for_war
-		id = "GER"			
+		id = "HOL"			
 		value = 100
 	}
-	ai_strategy = {
-		type = conquer
-		id = "BEL"			
-		value = 100
-	}
+
 	ai_strategy = {
 		type = conquer
 		id = "HOL"			
 		value = 100
-	}
-	ai_strategy = {
-		type = 	spare_unit_factor		
-		value = -100
 	}	
 }
 
 
-FRA_through_benelux = {
-	allowed = {
-		original_tag = FRA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		country_exists = GER
-		has_government = fascism
-		has_global_flag = kaiser_wilhelm_ii_dead
-	}
-	abort = {
-		OR = {
-			has_non_aggression_pact_with = GER
-			AND = {
-				controls_state = 28		#alsace
-				controls_state = 51		#rhineland
-				controls_state = 36		#netherlands
-			}
-			casualties > 400000
-			surrender_progress > 0.1
-		}
-	}
+# FRA_through_benelux = {
+# 	allowed = {
+# 		original_tag = FRA
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = GER
+# 		has_government = fascism
+# 		has_global_flag = kaiser_wilhelm_ii_dead
+# 	}
+# 	abort = {
+# 		OR = {
+# 			has_non_aggression_pact_with = GER
+# 			AND = {
+# 				controls_state = 28		#alsace
+# 				controls_state = 51		#rhineland
+# 				controls_state = 36		#netherlands
+# 			}
+# 			casualties > 400000
+# 			surrender_progress > 0.1
+# 		}
+# 	}
 
-	ai_strategy = {
-		type = declare_war
-		id = "BEL"			
-		value = 2000 
-	}
-	ai_strategy = {
-		type = declare_war
-		id = "HOL"			
-		value = 100 
-	}
+# 	ai_strategy = {
+# 		type = declare_war
+# 		id = "BEL"			
+# 		value = 2000 
+# 	}
+# 	ai_strategy = {
+# 		type = declare_war
+# 		id = "HOL"			
+# 		value = 100 
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = benelux
-		value = 110
-	}
-	ai_strategy = {
-		type = front_armor_score
-		id = "BEL"			
-		value = 100
-	}
-	ai_strategy = {
-		type = front_armor_score
-		id = "GER"			
-		value = -100
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = benelux
+# 		value = 110
+# 	}
+# 	ai_strategy = {
+# 		type = front_armor_score
+# 		id = "BEL"			
+# 		value = 100
+# 	}
+# 	ai_strategy = {
+# 		type = front_armor_score
+# 		id = "GER"			
+# 		value = -100
+# 	}
 
-	ai_strategy = {
-		type = front_control
-		state = 6
-		state = 35
-		state = 36
-		priority = 100
-		ratio = 0.3
-		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
-		manual_attack = yes
-	}
+# 	ai_strategy = {
+# 		type = front_control
+# 		state = 6
+# 		state = 35
+# 		state = 36
+# 		priority = 100
+# 		ratio = 0.3
+# 		ordertype = front
+# 		execution_type = rush_weak
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		tag = BEL
-		value = 200
-	}
-}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		tag = BEL
+# 		value = 200
+# 	}
+# }
+
+
+
+# #FRA before 1942
+# DEFAULT_template_design = {
+# 	allowed = {
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {	
+# 		date < 1943.1.1	
+# 		original_tag = FRA
+# 		has_government = fascism		
+# 	}
+# 	abort = { 
+# 		date > 1942.1.1
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = motorized
+# 		value = 20
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = cavalry
+# 		value = -100
+# 	}
+	
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = light_armor
+# 		value = 40
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = medium_armor
+# 		value = 30
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = heavy_armor
+# 		value = -50
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = paratroopers
+# 		value = -50
+# 	}
+	
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = infantry
+# 		value = 50
+# 	}
+# }
+
+
+# FRA_armored_production = {
+# 	allowed = {
+# 		original_tag = FRA
+# 	}
+# 	enable = {
+# 		date > 140.1.1
+# 		ai_wants_divisions > 24 #Decreasing the amount of tanks the AI wants
+# 	}
+# 	abort = {
+# 		ai_wants_divisions < 25 #Decreasing the amount of tanks the AI wants
+# 	}
+
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = armor
+# 		value = 10
+# 	}
+# }
+
+
+# FRA_halt_light_armor_production_in_transitioning = {
+# 	allowed = {
+# 		original_tag = FRA
+# 	}
+# 	enable = {
+# 		has_template_majority_unit = medium_armor
+# 		OR = {
+# 			has_equipment = { light_tank_chassis > 600 }
+# 			date > 1940.1.1
+# 		}		
+# 	}
+# 	abort = {
+# 		# once we start we never go back to light armor
+# 	}
+
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = light_tank_chassis
+# 		value = -100
+# 	}
+# }
+
+
+
+# FRA_highered_armored_production = {
+# 	allowed = {
+# 		original_tag = FRA
+# 	}
+# 	enable = {
+# 		num_of_military_factories > 109
+# 	}
+# 	abort = {
+# 		num_of_military_factories < 110
+# 	}
+
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = armor
+# 		value = 20
+# 	}
+# }
+
+
+# FRA_dont_waste_xp_until_medium_armor = {
+# 	allowed = {
+# 		original_tag = FRA		
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+# 	abort = {	
+# 		has_template_majority_unit = medium_armor
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = paratrooper
+# 		value = -100
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = mountaineers
+# 		value = -100
+# 	}
+# }
+
+
+# FRA_super_boost_light_for_med_armor = {
+# 	allowed = {
+# 		original_tag = FRA
+# 	}
+# 	enable = {
+# 		has_tech = basic_medium_tank
+# 		NOT = { has_template_ai_majority_unit = medium_armor }
+# 	}
+
+# 	abort = {	
+# 		has_template_ai_majority_unit = medium_armor
+# 	}
+
+# 	# lets do changes more often during this period too
+# 	ai_strategy = {
+# 		type = land_xp_spend_priority
+# 		id = division_template
+# 		value = 100
+# 	}
+
+# 	# this is gateway
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = light_armor
+# 		value = 100
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = medium_armor
+# 		value = 150
+# 	}
+	
+# }
+
+
+# FRA_super_boost_light_for_modern_armor = {
+# 	allowed = {
+# 		original_tag = FRA
+# 	}
+# 	enable = {
+# 		has_tech = main_battle_tank
+# 		NOT = { has_template_ai_majority_unit = modern_armor }
+# 	}
+
+# 	abort = {	
+# 		has_template_ai_majority_unit = modern_armor
+# 	}
+
+# 	# lets do changes more often during this period too
+# 	ai_strategy = {
+# 		type = land_xp_spend_priority
+# 		id = division_template
+# 		value = 100
+# 	}
+
+# 	# this is gateway
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = medium_armor
+# 		value = 100
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = modern_armor
+# 		value = 150
+# 	}
+# }
+
+
+
+
 
 
 

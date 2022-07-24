@@ -10,12 +10,27 @@ division_template = {
 		infantry = { x = 1 y = 2 }
 		infantry = { x = 2 y = 0 }
 		infantry = { x = 2 y = 1 }
+		infantry = { x = 2 y = 2 }
+		artillery_brigade = { x = 3 y = 0 }
 	}
 	support = {
 		engineer = { x = 0 y = 0 }
-		artillery = { x = 0 y = 1 }
 	}
 }
+
+division_template = {
+	name = "Diviziya Opolcheniya"	# Militia
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+	}
+	priority = 0
+}
+
 
 division_template = {
 	name = "GornoPekhotnaya Diviziya"		# Mountain Division
@@ -27,31 +42,12 @@ division_template = {
 		mountaineers = { x = 1 y = 0 }
 		mountaineers = { x = 1 y = 1 }
 		mountaineers = { x = 1 y = 2 }
-		mountaineers = { x = 2 y = 0 }	
-		mountaineers = { x = 2 y = 1 }	
-		mountaineers = { x = 2 y = 2 }	
 	}
 	support = {
 		engineer = { x = 0 y = 0 } 		# Engineer bn
 		artillery = { x = 0 y = 1 } 	# Heavy Arty Regiment had 2x 122mm bn
 	}
-}
-
-division_template = {
-	name = "MotoPekhotnaya Diviziya"		# Motor Rifle Division
-										
-	regiments = {
-		motorized = { x = 0 y = 0 }
-		motorized = { x = 0 y = 1 }
-		motorized = { x = 0 y = 2 }
-		motorized = { x = 1 y = 0 }
-		motorized = { x = 1 y = 1 }
-		motorized = { x = 1 y = 2 }
-	}
-	support = {
-		recon = { x = 0 y = 0 } 		
-		engineer = { x = 0 y = 1 } 	
-	}
+	priority = 2
 }
 
 division_template = {
@@ -62,6 +58,12 @@ division_template = {
 		cavalry = { x = 0 y = 1 }
 		cavalry = { x = 1 y = 0 }
 		cavalry = { x = 1 y = 1 }
+		cavalry = { x = 2 y = 0 }
+		cavalry = { x = 2 y = 1 }
+	}
+
+	support = {
+		recon = { x = 0 y = 0 }
 	}
 }
 
@@ -72,21 +74,16 @@ division_template = {
 	regiments = {
 		light_armor = { x = 0 y = 0 }
 		light_armor = { x = 0 y = 1 }
-		light_armor = { x = 1 y = 0 }		
-		light_armor = { x = 1 y = 1 }		
-		light_armor = { x = 1 y = 2 }		
+		light_armor = { x = 0 y = 2 }		
+		motorized = { x = 1 y = 0 }		
+		motorized = { x = 1 y = 1 }	
 		motorized = { x = 2 y = 0 }		
-		motorized = { x = 2 y = 1 }	
-		motorized = { x = 2 y = 2 }		
-		motorized = { x = 2 y = 3 }		
+		motorized = { x = 2 y = 1 }		
 	}
-}
-division_template = {
-	name = "Vozdushno-Desantnaya Brigada"			
 
-	regiments = {
-		paratrooper = { x = 0 y = 0 }
-		paratrooper = { x = 0 y = 1 }
+	support = {
+		mot_recon = { x = 0 y = 0 }      # Recon Group consisted of 42 ACs + motorcycles
+		engineer = { x = 0 y = 1 }
 	}
 }
 
@@ -523,17 +520,7 @@ units = {
 			
 
 
-	#### Moskva Voennyii Okrug (Moscow Military District) -- Moscow ####
-	# 2ya Strelkoviy Korpus		
-	division= {		# "Moskva Proletarskaya Motostrelk. Div."		
-		division_name = {
-			is_name_ordered = yes
-			name_order = 1
-		}
-		location = 6380
-		division_template = "MotoPekhotnaya Diviziya"
-		start_experience_factor = 0.3
-	}			
+	#### Moskva Voennyii Okrug (Moscow Military District) -- Moscow ####			
 	division= {	# "6ya 'Orlovskaya' Strelk. Div."		
 		division_name = {
 			is_name_ordered = yes
@@ -1583,187 +1570,187 @@ units = {
 	}
 
 
-	################################### Extras ###########################
+	######################### Militia ###########################
 
-	division= {	# "1b Pekhotnaya Diviziya"		
+	division= {	# "1b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "2b Pekhotnaya Diviziya"		
+	division= {	# "2b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "3b Pekhotnaya Diviziya"		
+	division= {	# "3b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "4b Pekhotnaya Diviziya"		
+	division= {	# "4b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "5b Pekhotnaya Diviziya"		
+	division= {	# "5b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "6b Pekhotnaya Diviziya"		
+	division= {	# "6b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "7b Pekhotnaya Diviziya"		
+	division= {	# "7b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "8b Pekhotnaya Diviziya"		
+	division= {	# "8b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "9b Pekhotnaya Diviziya"		
+	division= {	# "9b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "10b Pekhotnaya Diviziya"		
+	division= {	# "10b Diviziya Opolcheniya"		
 		location = 6380  #moscow
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-		division= {	# "11b Pekhotnaya Diviziya"		
+		division= {	# "11b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "12b Pekhotnaya Diviziya"		
+	division= {	# "12b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "13b Pekhotnaya Diviziya"		
+	division= {	# "13b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "14b Pekhotnaya Diviziya"		
+	division= {	# "14b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "15b Pekhotnaya Diviziya"		
+	division= {	# "15b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "16b Pekhotnaya Diviziya"		
+	division= {	# "16b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "17b Pekhotnaya Diviziya"		
+	division= {	# "17b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "18b Pekhotnaya Diviziya"		
+	division= {	# "18b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "19b Pekhotnaya Diviziya"		
+	division= {	# "19b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "20b Pekhotnaya Diviziya"		
+	division= {	# "20b Diviziya Opolcheniya"		
 		location = 3151 #st petersburg
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-		division= {	# "2b Pekhotnaya Diviziya"		
+		division= {	# "2b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "22b Pekhotnaya Diviziya"		
+	division= {	# "22b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "23b Pekhotnaya Diviziya"		
+	division= {	# "23b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "24b Pekhotnaya Diviziya"		
+	division= {	# "24b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "25b Pekhotnaya Diviziya"		
+	division= {	# "25b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "26b Pekhotnaya Diviziya"		
+	division= {	# "26b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "27b Pekhotnaya Diviziya"		
+	division= {	# "27b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "28b Pekhotnaya Diviziya"		
+	division= {	# "28b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "29b Pekhotnaya Diviziya"		
+	division= {	# "29b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
-	division= {	# "30b Pekhotnaya Diviziya"		
+	division= {	# "30b Diviziya Opolcheniya"		
 		location = 3529 #stalingrad
-		division_template = "Pekhotnaya Diviziya"
-		start_experience_factor = 0.1
-		start_equipment_factor = 0.8
+		division_template = "Diviziya Opolcheniya"
+		start_experience_factor = 0.075
+		start_equipment_factor = 0.6
 	}
 }					
 

@@ -17,24 +17,138 @@ wsv_ww2_decisions = {
 				is_in_faction_with = LIT
 				is_in_faction_with = UKR
 			}
-            has_completed_focus = RUS2_demand_eastern_plebicites
+            OR = {
+            	has_completed_focus = RUS2_demand_eastern_plebicites
+            	has_global_flag = kaiser_wilhelm_ii_dead
+            }
 		}
 
-		days_remove = 7
+		days_remove = 5
 
 		fire_only_once = yes
 
 		remove_effect = {
-			GER = { country_event = wsv_ww2_russia.4 }
+			news_event = wsv_ww2_russia.4 
 			custom_effect_tooltip = eastern_plebicite_or_war_tt
 		}
 
 		ai_will_do = {
 			factor = 0
 			modifier = {
-				add = 100
-				has_global_flag = kaiser_wilhelm_ii_dead
+				add = 1
+				GER = { has_war_with = FRA } 
 			}
+			modifier = {
+				add = 1
+				date > 1942.1.1
+			}
+			modifier = {
+				add = 1
+				strength_ratio = {
+				    tag = GER
+				    ratio > 1.7  # number felt right idk lol
+				}
+			}
+		}
+	}
+
+
+	# Russia must decide
+	russia_must_decide = {
+
+		icon = generic_decision
+
+		allowed = {
+			tag = RUS
+		}
+
+		visible = {
+			has_global_flag = eastern_plebicites_rejected
+		}
+
+		fire_only_once = yes
+
+		days_remove = 30
+
+		days_re_enable = 0
+
+		remove_effect = {
+			set_country_flag = russian_ultimatum_expired
+			add_stability = -0.2
+			add_war_support = -0.25
+			add_political_power = -100
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# Russia attack germany
+	russia_attack_germany = {
+
+		icon = infiltrate_state
+
+		allowed = {
+			tag = RUS
+		}
+
+		available = {
+			NOT = { is_in_faction_with = GER }
+		}
+
+		visible = {
+			has_global_flag = eastern_plebicites_rejected
+			NOT = { has_country_flag = russian_ultimatum_expired }
+		}
+
+		fire_only_once = yes
+
+		days_remove = 7
+
+		days_re_enable = 0
+
+		remove_effect = {
+			declare_war_on = {
+			    target = GER
+			    type = topple_government
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = UBD } }
+				declare_war_on = {
+				    target = UBD
+				    type = annex_everything
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = LIT } }
+				declare_war_on = {
+				    target = LIT
+				    type = annex_everything
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = POL } }
+				declare_war_on = {
+				    target = POL
+				    type = annex_everything
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = UKR } }
+				declare_war_on = {
+				    target = UKR
+				    type = annex_everything
+				}
+			}
+			hidden_effect = {
+				remove_decision = russia_must_decide
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
 		}
 	}
 }

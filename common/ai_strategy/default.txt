@@ -19,24 +19,14 @@
 ######################################################################
 
 
-default_unit_production = {
+default_gw_unit_production = {
 	allowed = {
 		has_start_date < 1937.1.1
 	}
-	enable = {	
-		date < 1937.1.1	
-		# NOT = {
-		# 	original_tag = CAN
-		# 	original_tag = USA
-		# 	original_tag = CSA
-		# 	original_tag = ENG
-		# 	original_tag = FRA
-		# 	original_tag = GER
-		# 	original_tag = AUH
-		# 	original_tag = RUS
-		# }
+	enable = {
 		always = yes
 	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = role_ratio
@@ -47,7 +37,7 @@ default_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 2
+		value = 5
 	}
 	
 	ai_strategy = {
@@ -111,7 +101,6 @@ default_unit_production = {
 		value = 1
 	}
 	
-	
 	# Naval unit factors
 	ai_strategy = {
 		type = unit_ratio
@@ -163,17 +152,12 @@ DEFAULT_template_design = {
 	enable = {
 		always = yes
 	}
-	# enable = {	
-	# 	date < 1916.1.1				
-	# }
-	# abort = { 
-	# 	date > 1916.1.1
-	# }
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = template_prio
 		id = infantry
-		value = 50
+		value = 40
 	}
 
 	ai_strategy = {
@@ -190,20 +174,14 @@ DEFAULT_template_design = {
 
 	ai_strategy = {
 		type = template_prio
-		id = motorized
-		value = 10
-	}
-
-	ai_strategy = {
-		type = template_prio
 		id = heavy_armor
-		value = 65
+		value = 50
 	}
 
 	ai_strategy = {
 		type = template_prio
 		id = light_armor
-		value = 40
+		value = 35
 	}
 
 	# these dont exist
@@ -215,69 +193,16 @@ DEFAULT_template_design = {
 
 	ai_strategy = {
 		type = template_prio
+		id = motorized
+		value = -100
+	}
+
+	ai_strategy = {
+		type = template_prio
 		id = paratroopers
 		value = -100
 	}
 }
-
-
-# #GW after 1916
-# DEFAULT_template_design = {
-# 	allowed = {
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {	
-# 		date > 1916.1.1				
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = infantry
-# 		value = 40
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = cavalry
-# 		value = 5
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = armored_car
-# 		value = 5
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = motorized
-# 		value = 0
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = light_armor
-# 		value = 35
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = medium_armor
-# 		value = 0
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = heavy_armor
-# 		value = 65
-# 	}
-
-# 	ai_strategy = {
-# 		type = template_prio
-# 		id = paratroopers
-# 		value = -100
-# 	}
-# }
 
 
 
@@ -303,39 +228,15 @@ GW_reduced_early_air_production = {
 ########################## World War 2  ##############################
 ######################################################################
 
-# No cav if we have motor inf
-no_cavalry = {
-	enable = {
-		has_tech = motorised_infantry2
-	}
-	abort = {
-		always = no
-	}
-	
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry
-		value = -100 
-	}
-}
 
-
-default_unit_production = {
+default_ww2_unit_production = {
 	allowed = {
 		has_start_date > 1937.1.1
 	}
-	enable = {	
-		date > 1937.1.1	
-		NOT = {
-			original_tag = USA
-			original_tag = CSA
-			original_tag = ENG
-			original_tag = FRA
-			original_tag = GER
-			original_tag = AUH
-			original_tag = RUS
-		}	
+	enable = {
+		always = yes
 	}
+	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = role_ratio
@@ -358,7 +259,7 @@ default_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armor
-		value = 2
+		value = 5
 	}
 
 	ai_strategy = {
@@ -446,11 +347,6 @@ default_unit_production = {
 		id = artillery
 		value = 25
 	}
-
-	ai_strategy = {
-		type = air_factory_balance
-		value = 15
-	}
 }
 
 
@@ -460,13 +356,17 @@ DEFAULT_template_design = {
 		has_start_date > 1937.1.1
 	}
 	enable = {	
-		date < 1942.1.1
-		NOT = { tag = CSA   tag = FRA   tag = ENG }				
+		date < 1942.1.1				
 	}
 	abort = { 
 		date > 1942.1.1
 	}
 
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = 60
+	}
 	ai_strategy = {
 		type = template_prio
 		id = motorized
@@ -502,23 +402,18 @@ DEFAULT_template_design = {
 		id = paratroopers
 		value = -50
 	}
-	
-	ai_strategy = {
-		type = template_prio
-		id = infantry
-		value = 60
-	}
 }
+
 
 #WW2 after 1942
 DEFAULT_template_design = {
 	allowed = {
 		has_start_date > 1937.1.1
 	}
-
 	enable = {
 		date > 1942.1.1				
 	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = template_prio
@@ -574,46 +469,68 @@ default_no_ww1_aircraft = {
 	allowed = {
 		has_start_date > 1937.1.1
 	}
-
 	enable = {
 		always = yes
 	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = unit_ratio
-		id = scout_plane
-		value = -100
+		type = equipment_variant_production_factor
+		id = scout_plane_equipment
+		value = -1000
 	}
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = biplane_fighter_equipment
-		value = -100
+		value = -1000
 	}
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = biplane_nav_bomber_equipment
-		value = -100
+		value = -1000
 	}
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = biplane_bomber_equipment
-		value = -100
+		value = -1000
 	}
 	ai_strategy = {
 		type = equipment_variant_production_factor
 		id = airship_bomber_equipment
-		value = -100
+		value = -1000
 	}
 }
+
+
+
+##############################################
+#############  GENERIC STUFF   ###############
+##############################################
+
+
+# No cav if we have motor inf
+no_cavalry = {
+	enable = {
+		has_tech = motorised_infantry2
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = -100 
+	}
+}
+
 
 default_mobile_production = {
 	allowed = {
 		has_start_date > 1937.1.1
 	}
-
 	enable = {
 		ai_wants_divisions > 11
-		has_tech = motorised_infantry
+		has_tech = motorised_infantry2
+		#has_tech = motorised_infantry
 	}
 	abort = {
 		ai_wants_divisions < 12
@@ -626,11 +543,6 @@ default_mobile_production = {
 	}
 }
 
-
-
-##############################################
-#############  GENERIC STUFF   ###############
-##############################################
 
 
 # ai should focus on holding the line if on defensive
@@ -672,22 +584,24 @@ default_infantry_defensive_2 = {
 }
 
 
-# During peace we make more civs
-#default_peacetime_economy = {
-#	enable = {
-#		has_war = no 
-#	}
-#	ai_strategy = {
-#		type = added_military_to_civilian_factory_ratio		
-#		value = -10
-#	}
-#}
+#During peace we make more civs
+default_peacetime_economy = {
+	enable = {
+		has_war = no 
+	}
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -10
+	}
+}
 
 # Industry distribution based on economy status
 default_civ_econ = {
 	enable = {
 		has_idea = civilian_economy
 	}
+	abort_when_not_enabled = yes
+
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
 		value = -25
@@ -698,6 +612,8 @@ default_early_mobil = {
 	enable = {
 		has_idea = low_economic_mobilisation
 	}
+	abort_when_not_enabled = yes
+
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
 		value = -10
@@ -711,6 +627,8 @@ default_war_economy = {
 			has_idea = tot_economic_mobilisation
 		}
 	}
+	abort_when_not_enabled = yes
+	
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
 		value = 15
@@ -720,16 +638,16 @@ default_war_economy = {
 
 
 #combatants historically did not share a lot of divisons
-default_dont_like_sharing = {		
-	enable = {
-		NOT = { tag = ENG }
-	}
-
-	ai_strategy = {
-		type = spare_unit_factor
-		value = -75
-	}
-}
+#default_dont_like_sharing = {		
+#	enable = {
+#		NOT = { tag = ENG }
+#	}
+#
+#	ai_strategy = {
+#		type = spare_unit_factor
+#		value = -75
+#	}
+#}
 
 
 
@@ -868,7 +786,9 @@ default_area_priority = {
 		NOT = { original_tag = USA }
 		NOT = { original_tag = CSA }
 		NOT = { original_tag = GER }
+		NOT = { original_tag = ENG }
 		NOT = { original_tag = FRA }
+		NOT = { original_tag = RUS }
 		NOT = { original_tag = JAP }
 	}
 
@@ -966,7 +886,7 @@ default_stockpile_management = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = 35 # double base stockpile #from 25 to 35
+		value = 35   # double base stockpile #from 25 to 35
 	}
 }
 

@@ -386,11 +386,11 @@ focus_tree = {
 
 		completion_reward = {
 			army_experience = 20
-			add_tech_bonus = {
-				name = land_doc_bonus
-				bonus = 1.0
+			add_doctrine_cost_reduction = { 
+				name = land_doc_bonus  
+				cost_reduction = 0.5 
 				uses = 2
-				category = cat_mobile_warfare
+				category = cat_mobile_warfare 
 			}	
 		}
 	}
@@ -548,9 +548,9 @@ focus_tree = {
 
 		completion_reward = {
 			army_experience = 20
-			add_tech_bonus = {
+			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				bonus = 1.0
+				cost_reduction = 0.5
 				uses = 2
 				category = cat_grand_battle_plan
 			}
@@ -1686,8 +1686,11 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			FRA={ add_to_faction=ROOT }	
+			#FRA={ add_to_faction=ROOT }	
 			hidden_effect = { news_event = wsv_generic.10 }	
+			
+			give_guarantee = FRA
+			FRA = { give_guarantee = ROOT }
 		}
 	}
 
@@ -1796,7 +1799,7 @@ focus_tree = {
 				}
 			}
 			NOT = { is_in_faction_with = USA }
-			has_army_manpower = { size > 899999 }
+			has_army_manpower = { size > 999999 }
 		}
 
 		ai_will_do = { factor = 300 }
@@ -1894,7 +1897,6 @@ focus_tree = {
 
 		completion_reward = {
 			USA = { country_event = wsv_ww2_csa.12 }
-			hidden_effect = { add_threat = 5 }
 		}
 	}
 
@@ -1914,7 +1916,7 @@ focus_tree = {
 		available = {
 			country_exists = USA
 			NOT = { is_in_faction_with = USA }
-			has_army_manpower = { size > 1099999 }
+			has_army_manpower = { size > 1499999 }
 		}
 
 		bypass = { has_war_with = USA }

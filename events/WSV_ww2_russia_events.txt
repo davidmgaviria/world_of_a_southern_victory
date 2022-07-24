@@ -216,31 +216,73 @@ country_event = {
 #################################################################
 
 
-#############################################
-## French territories or war
-
-#russia asks for eastern plebicites (german notifaction)
-country_event = {
+#russia asks for eastern plebicites 
+news_event = {
 	id = wsv_ww2_russia.4
 	title = wsv_ww2_russia.4.t
 	desc = wsv_ww2_russia.4.d
-	#picture = 
+	#picture = news_event_demand_refused
+
+	major = yes
 
 	is_triggered_only = yes
 
+	immediate = {
+		set_global_flag = russia_demanded_plebicites
+		hidden_effect = {
+			RUS = {
+				add_named_threat={
+					threat = 10
+					name = russia_plebicite_ultimatum_tt
+				}
+			}
+			GER = { country_event = { id = wsv_ww2_russia.5  days = 1 } }
+		}
+    }
 
-	#refuse
-	option = {
+    option = {
 		name = wsv_ww2_russia.4.a
+		trigger = { 
+			OR = { tag = RUS   is_in_faction_with = RUS }
+		}
+	}
 
-		set_global_flag = eastern_plebicites_rejected
-		news_event = { id = wsv_ww2_russia.6   days = 1 }  
+	option = {
+		name = wsv_ww2_russia.4.b
+		trigger = { 
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_ww2_russia.4.c
+		trigger = { 
+			NOT = { tag = RUS   is_in_faction_with = RUS }
+			NOT = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+}
+
+
+#russia asks for eastern plebicites (german notifaction)
+country_event = {
+	id = wsv_ww2_russia.5
+	title = wsv_ww2_russia.5.t
+	desc = wsv_ww2_russia.5.d
+	#picture = 
+
+	is_triggered_only = yes
+	
+	# refuse
+	option = {
+		name = wsv_ww2_russia.5.a
+		news_event = { id = wsv_ww2_russia.6   days = 5 }  
 		custom_effect_tooltip = may_result_war_russia_tt
 		
 		ai_chance = {
-			factor = 50
+			factor = 70
 			modifier = {
-				factor = 0.5
+				factor = 0.8
 				NOT = { is_in_faction_with = AUH }
 			}
 		}
@@ -248,16 +290,8 @@ country_event = {
 	
 	#accept
 	option = {
-		name = wsv_ww2_russia.4.b
-		set_global_flag = eastern_plebicites_agreed
-		RUS = {	
-			country_event = { id = wsv_ww2_russia.5    days = 1 } 
-			if = {
-				limit = { any_country = { is_in_faction_with = ROOT } }
-				leave_faction = yes
-			} 
-			diplomatic_relation = { country = GER    relation = non_aggression_pact    active = yes }
-		}
+		name = wsv_ww2_russia.5.b
+		news_event = { id = wsv_ww2_russia.7    days = 5 }
 		custom_effect_tooltip = eastern_plebicites_tt	
 
 		ai_chance = {
@@ -280,24 +314,8 @@ country_event = {
 				factor = 0
 				is_historical_focus_on = yes
 			}
-		}	
-	}
-}
-
-
-#germany accepts (russian notification)
-country_event = {
-	id = wsv_ww2_russia.5
-	title = wsv_ww2_russia.5.t
-	desc = wsv_ww2_russia.5.d
-	#picture = 
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_ww2_russia.5.a
-		
-	}
+		}
+	}	
 }
 
 
@@ -313,31 +331,9 @@ news_event = {
 	is_triggered_only = yes
 
 	 immediate = {
+	 	set_global_flag = eastern_plebicites_rejected
     	hidden_effect = {
-	    	RUS = {
-	    		add_named_threat = { threat = 7.5   name = eastern_plebicites_rejected_tt }
-	    		add_war_support = 0.2
-	    		create_wargoal = {
-	    		    type = topple_government
-	    		    target = GER
-	    		}
-	    		create_wargoal = {
-	    		    type = annex_everything
-	    		    target = UBD
-	    		}
-	    		create_wargoal = {
-	    		    type = annex_everything
-	    		    target = LIT
-	    		}
-	    		create_wargoal = {
-	    		    type = annex_everything
-	    		    target = UKR
-	    		}
-	    		create_wargoal = {
-	    		    type = annex_everything
-	    		    target = POL
-	    		}
-	    	}
+	    	RUS = { activate_decision = russia_must_decide }
 	    }
 	}
 	
@@ -375,34 +371,36 @@ news_event = {
 
 	major = yes
 
-	mean_time_to_happen = {
-		days = 7
-	}
+	is_triggered_only = yes
 
-	trigger = {
-		tag = RUS
-		has_global_flag = eastern_plebicites_agreed
-		country_exists = RUS
-		country_exists = UBD
-		country_exists = LIT
-		country_exists = POL
-		country_exists = UKR
-		RUS = {
-			NOT = { 
-				has_war_with = GER
-				has_war_with = POL
-				has_war_with = UBD
-				has_war_with = LIT
-				has_war_with = UKR
-			}
-		}
-		NOT = { has_global_flag = eastern_plebicites_held }
-	}
+	# mean_time_to_happen = {
+	# 	days = 7
+	# }
+
+	# trigger = {
+	# 	tag = RUS
+	# 	has_global_flag = eastern_plebicites_agreed
+	# 	country_exists = RUS
+	# 	country_exists = UBD
+	# 	country_exists = LIT
+	# 	country_exists = POL
+	# 	country_exists = UKR
+	# 	RUS = {
+	# 		NOT = { 
+	# 			has_war_with = GER
+	# 			has_war_with = POL
+	# 			has_war_with = UBD
+	# 			has_war_with = LIT
+	# 			has_war_with = UKR
+	# 		}
+	# 	}
+	# 	NOT = { has_global_flag = eastern_plebicites_held }
+	# }
 
     immediate = {
+    	set_global_flag = eastern_plebicites_agreed
     	hidden_effect = {
-	    	set_global_flag = eastern_plebicites_held
-	    	RUS = { add_named_threat = { threat = 2.5   name = eastern_plebicites_held_tt } }
+	    	RUS = { diplomatic_relation = { country = GER    relation = non_aggression_pact    active = yes } }
 	    	#baltics
 	    	if = {
 	    		limit = { RUS = { has_completed_focus = RUS2_baltic_unrest } }

@@ -31,7 +31,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 20 
+			factor = 40 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -72,7 +72,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 20 
+			factor = 30 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -118,7 +118,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 20 
+			factor = 25 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -364,12 +364,19 @@ technologies = {
 			name = land_doctrine_folder
 			position = { x = 2 y = 4 }
 		}
-		
+
 		ai_will_do = {
-			factor = 0
+			factor = 25 
 			modifier = {
-				add = 1
-				OR = { 
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# Only want certain countries to pick this
+			modifier = {
+				factor = 0
+				NOT = { 
 					tag = CSA 
 					tag = GER
 					tag = RUS  
@@ -716,14 +723,26 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 0
+			factor = 20 
 			modifier = {
-				add = 1
-				surrender_progress > 0.24
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# Want to pick if war is not going well
+			modifier = {
+				factor = 2
+				surrender_progress > 0.34
+			}
+			# Less likely to pick if not on the brink of collapse
+			modifier = {
+				factor = 0.25
+				surrender_progress < 0.2
 			}
 			modifier = {
-				add = 1
-				surrender_progress > 0.34
+				factor = 0
+				surrender_progress < 0.1
 			}
 		}
 	}
@@ -800,6 +819,11 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			# Dont pick if we dont have enough mils
+			modifier = {
+				factor = 0.25
+				num_of_military_factories < 40
 			}
 		}
 	}
@@ -885,14 +909,26 @@ technologies = {
 			land_doctrine
 			cat_mobile_warfare
 		}
-		
+
 		ai_will_do = {
-			factor = 1 
+			factor = 0 
 			modifier = {
-				factor = 5
-				tag = FRA
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# only want confederates and germans to pick this
+			modifier = {
+				add = 20
+				tag = GER
+			}
+			modifier = {
+				add = 80
+				tag = CSA
 			}
 		}
+		
 		
 		ai_research_weights = {
 			armor = 4.0
@@ -936,6 +972,10 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			modifier = {
+				factor = 2
+				tag = CSA
 			}
 		}
 		
@@ -991,6 +1031,10 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			modifier = {
+				factor = 2
+				tag = CSA
 			}
 		}
 		
@@ -1183,8 +1227,6 @@ technologies = {
 			cat_mobile_warfare
 		}
 
-
-		
 		folder = {
 			name = land_doctrine_folder
 			position = { x = 2 y = 6 }
@@ -1197,6 +1239,10 @@ technologies = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			modifier = {
+				factor = 2
+				tag = CSA
 			}
 		}
 		
@@ -1223,7 +1269,6 @@ technologies = {
 			research_cost_coeff = 1
 		}
 
-		
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
@@ -1256,6 +1301,7 @@ technologies = {
 		}
 	}
 	
+
 	blitzkrieg = {
 
 		category_tanks = {
@@ -1666,12 +1712,23 @@ technologies = {
 			name = land_doctrine_folder
 			position = { x = 0 y = 0 }
 		}
-		
+
+
 		ai_will_do = {
-			factor = 2
+			factor = 10 
 			modifier = {
-				factor = 3
-				OR = { tag = GER  tag = ENG }
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# french and english prefer thi
+			modifier = {
+				factor = 5
+				OR = {
+					tag = ENG
+					tag = FRA
+				}
 			}
 		}
 		
@@ -2388,7 +2445,7 @@ technologies = {
 
 		xor = { mobile_warfare superior_firepower mass_assault } 
 	
-		max_dig_in = 10
+		max_dig_in = 5
 		dig_in_speed_factor = 0.25 #25% bonus
 		
 		
@@ -2414,7 +2471,13 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 3
+			factor = 20 
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
 		}
 		
 		ai_research_weights = {
@@ -3149,12 +3212,24 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 20 
+			factor = 0 
 			modifier = {
 				not = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			# Russia and china like to throw bodies
+			modifier = {
+				add = 50
+				OR = { 
+					tag = RUS
+					tag = CHI
+					tag = SHX
+					tag = GXC
+					tag = XSM
+					tag = YUN
+				}
 			}
 		}
 		

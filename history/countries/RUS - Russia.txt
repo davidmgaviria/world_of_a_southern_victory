@@ -110,7 +110,7 @@ set_convoys = 100
 		RUS_ww1_mixed_railways
 		RUS_peasant_army
 		#RUS_russian_staff
-		RUS_agrarian_empire
+		#RUS_agrarian_empire
 		RUS_threat_of_revolution
 	}
 
@@ -122,7 +122,7 @@ set_convoys = 100
 		# Infantry
 		infantry_weapons = 1
 		infantry_binoculars = 1
-		mountaineers = 1
+		tech_mountaineers = 1
 
 		# Support
 		tech_support = 1
@@ -233,12 +233,14 @@ set_convoys = 100
 	oob = "RUS_1937"
 	load_focus_tree = rus_2_focus
 	end_puppet = MON
+	#create_faction = "Petrograd Accord"
 	
 	set_province_name = { id = 3151   name = "Petrograd" }
 	195 = { set_state_name = "Petrograd" }
 
 	set_stability = 0.54
 	set_war_support = 0.25
+	set_research_slots = 4 
 	
 	add_ideas = {
 		limited_exports
@@ -246,6 +248,7 @@ set_convoys = 100
 		#generic_bitter_losers
 	}
 	remove_ideas = {
+		RUS_threat_of_revolution
 		RUS_ww1_tsushima_humiliation
 		RUS_russian_staff
 	}
@@ -312,10 +315,37 @@ set_convoys = 100
 	    elections_allowed = no
 	}
 	set_popularities = {
-	    democratic = 9
-	    neutrality = 9
-	    communism = 3
-	    fascism = 79
+	    democratic = 10
+	    neutrality = 35
+	    communism = 5
+	    fascism = 50
 	}
 
+
+
+	### TECH ###
+	full_modernize_tech_effect = yes
+	set_technology = {
+		# Infantry 
+		#infantry_weapons1 = 1
+
+		# Support
+		tech_engineers2 = 1
+		tech_recon2 = 1
+		tech_military_police = 1
+
+		# Naval
+		early_destroyer = 1
+		early_light_cruiser = 1
+		early_heavy_cruiser = 1
+		early_battleship = 1
+		basic_battleship = 1
+		early_submarine = 1
+
+		# Aircraft
+		early_fighter = 1
+		ww1_transport_plane = 1
+		early_bomber = 1
+		ww1_transport_plane = 1
+	}
 }
