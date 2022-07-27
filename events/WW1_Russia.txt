@@ -145,39 +145,32 @@ news_event = {
 
 
 	immediate = {
-		hidden_effect = {	
-			ENG = {
-				remove_from_faction = RUS
-				add_opinion_modifier = { 
-					target = RUS 
-					modifier = HOI4TGW_Opinion_Russia_Leave_Entente
-				} 
-			}
+		hidden_effect = {
+
+			if= {
+				limit = { is_in_faction = yes }
+				leave_faction = yes 
+				every_country = {
+					limit = { is_in_faction_with = RUS }
+					add_opinion_modifier = { 
+						target = RUS 
+						modifier = HOI4TGW_Opinion_Russia_Leave_Entente
+					} 
+				}
+			}	
+		
 			SOV = {
 				create_faction = "Comintern"
+				inherit_technology = RUS
 
-				annex_country = {
-					target = MON
-					transfer_troops = yes
-				}
-				
-				declare_war_on = {
-		            type = annex_everything
-		            target = RUS
-		        }
-		        #every_state={
-				#	limit={
-				#		# SOV will get the same core as RUS
-				#		#is_claimed_by = RUS
-				#		is_core_of = RUS
-				#	}
-				#	SOV={
-				#		add_state_claim = PREV
-				#	}
-				#}
 				set_stability = 0.9
 				add_political_power = 800
 				add_manpower = 500000
+
+				every_state={
+					limit={ is_core_of = RUS }
+					add_core_of = SOV
+				}
 				
 				transfer_state = 195
 				transfer_state = 219
@@ -190,23 +183,21 @@ news_event = {
 				transfer_state = 264
 				transfer_state = 253
 				transfer_state = 254
-
-				add_state_claim = 195
-				add_state_claim = 219
-				add_state_claim = 244
-				add_state_claim = 263
-				add_state_claim = 208
-				add_state_claim = 246
-				add_state_claim = 247
-				add_state_claim = 248
-				add_state_claim = 264
-				add_state_claim = 253
-				add_state_claim = 254
 				
 				load_oob = SOV_Revolt_01
-				
+
+				annex_country = {
+					target = MON
+					transfer_troops = yes
+				}
+				declare_war_on = {
+		            type = annex_everything
+		            target = RUS
+		        }
 				country_event = { days = 1 id = ww1_soviet.999 }
 			}
+
+
 			RUS = {
 				set_country_flag = dual_power
 				set_country_flag = kis_tsarnicholasabdicated
@@ -234,10 +225,10 @@ news_event = {
 				    elections_allowed = no
 				}
 				set_popularities = { 
-					neutrality = 0
-					democratic = 70 
-					fascism = 0   
-					communism = 30 
+					neutrality = 25
+					democratic = 50 
+					fascism = 15   
+					communism = 10 
 				}	
 			}
 		}
