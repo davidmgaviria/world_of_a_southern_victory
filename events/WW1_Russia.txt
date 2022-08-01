@@ -112,7 +112,18 @@ news_event = {
 
 	major = yes
 
-	is_triggered_only = yes
+	mean_time_to_happen = {
+		days = 14
+	}
+
+	trigger = {
+		RUS = {
+			NOT = { has_government = communism }
+			communism > 0.4
+			SOV = { exists = no }
+			NOT = { has_country_flag = kis_octoberrevolutioncrushed }
+		}
+	}
 
 	immediate = {
 		hidden_effect = {
