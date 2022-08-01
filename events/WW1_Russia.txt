@@ -112,37 +112,7 @@ news_event = {
 
 	major = yes
 
-	mean_time_to_happen = {
-		days = 0
-	}
-
-	trigger = {
-		date < 1937.1.1
-		SOV = { exists = no }
-		RUS = {
-			exists = yes
-			has_war = yes
-			has_civil_war = no
-			NOT = { has_completed_focus = RUS_ww1_adopt_marxist_ideas }
-			NOT = { has_government = communism }
-			OR = {
-				communism > 0.6
-				AND = {
-					surrender_progress > 0.2
-					OR = { communism > 0.45  	has_stability < 0.31 }
-				}
-				AND = {
-					surrender_progress > 0.3
-					OR = { communism > 0.35  	has_stability < 0.36 }
-				}
-				AND = {
-					surrender_progress > 0.4
-					OR = { communism > 0.25  	has_stability < 0.41 }
-				}
-			}
-		}
-	}
-
+	is_triggered_only = yes
 
 	immediate = {
 		hidden_effect = {
