@@ -1,0 +1,49 @@
+
+wsv_great_war_decisions = {
+	
+	# Germany throws in the towel
+	greatwar_germany_offers_peace = {
+
+		icon = generic_form_nation
+
+		available = {
+			always = yes
+			OR = {
+				casualties > 500000
+				surrender_progress > 0.5
+			}
+		}
+
+		visible = {
+			tag = GER
+			has_war_with = FRA
+			has_global_flag = historical_treaties_on
+			has_start_date < 1937.1.1
+		}
+
+		days_remove = 5
+
+		days_re_enable = 90
+
+		remove_effect = {
+			FRA = { country_event = wsv_ahistorical_treaty.4 }
+			custom_effect_tooltip = versailles_treaty_tt
+		}
+
+		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
+
+
+
+
+
+######################################################################
+#########################  WORLD WAR 2  ##############################
+######################################################################
+
+

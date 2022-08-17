@@ -54,7 +54,7 @@ country_event = {
 	option = {
 		name = wsv_ahistorical_treaty.4.a
 		
-		custom_effect_tooltip = germany-france_armistice_tt
+		custom_effect_tooltip = versailles_treaty_tt
 		hidden_effect = {
 			set_global_flag = treaty_of_versailles
 			add_named_threat = {
@@ -90,6 +90,8 @@ country_event = {
 				transfer_state = 755
 				transfer_state = 539
 				transfer_state = 725
+				transfer_state = 777
+				transfer_state = 774
 			}
 			
 			ENG = {
@@ -104,6 +106,13 @@ country_event = {
 					transfer_state = 546
 					transfer_state = 769
 					transfer_state = 768
+					SAF = {	transfer_state = 541   transfer_state = 829 }
+					AST = {	transfer_state = 523  transfer_state = 737 }
+				}
+				else = {
+					FRA = {
+						transfer_state = 794
+					}
 				}	
 			}
 
@@ -138,8 +147,6 @@ country_event = {
 
 			BEL = {	transfer_state = 793 }
 			DEN = {	transfer_state = 751 }
-			SAF = {	transfer_state = 541 }
-			AST = {	transfer_state = 753   transfer_state = 523  transfer_state = 737 }
 
 			every_country = {
 			    limit = {
@@ -271,9 +278,9 @@ country_event = {
 	option = {
 		name = wsv_ahistorical_treaty.8.a
 		
-		custom_effect_tooltip = auh_armistice_tt
+		custom_effect_tooltip = saint_germain_treaty_tt
 		hidden_effect = {
-			set_global_flag = treaty_of_trianon
+			set_global_flag = treaty_of_trianon  #change to saint_germain
 			add_named_threat = {
 				threat = -5
 				name = "Austria-Hungary Signs Armistice"
@@ -330,7 +337,7 @@ country_event = {
 				transfer_state = 599
 				transfer_state = 736
 				transfer_state = 104
-				annex_country = { target=SER   transfer_troops=yes}
+				annex_country = { target=SER   transfer_troops=yes }
 				every_owned_state = {add_core_of = YUG}
 				change_tag_from = SER
 			}
@@ -527,10 +534,7 @@ country_event = {
 
 			FRA = {
 				if = {
-					limit = {
-						exists = yes
-						has_war_with = TUR
-					}
+					limit = { has_war_with = TUR }
 					transfer_state = 680
 					transfer_state = 554
 					transfer_state = 677
@@ -548,25 +552,21 @@ country_event = {
 
 			ENG = {
 				if = {
-					limit = {
-						exists = yes
-						has_war_with = TUR
-					}
+					limit = { has_war_with = TUR }
 					transfer_state = 454
 					transfer_state = 455
-					transfer_state = 756
 					transfer_state = 293
+					transfer_state = 765
 				}
 				else = {
 					FRA = {
 						transfer_state = 454
 						transfer_state = 455
-						transfer_state = 756
 						transfer_state = 293
+						transfer_state = 765
 					}
 				}	
 			}
-
 
 			IRQ = {
 				transfer_state = 291
@@ -575,33 +575,35 @@ country_event = {
 				every_owned_state = { add_core_of = IRQ }
 			}
 
+			SAU = {
+				transfer_state = 747
+				transfer_state = 679
+				transfer_state = 830
+				annex_country = { target=JBS   transfer_troops=yes }
+				every_owned_state = { add_core_of = SAU }
+			}
 
 			GRE = {
 				if = {
 					limit = { owns_state = 757 }
 					transfer_state = 756
 				}
-				else = {
-					BUL = {
-						transfer_state = 756
-					}
-				}	
+				#else = {
+				#	BUL = {
+				#		transfer_state = 756
+				#	}
+				#}	
 			}
 
-			#what to do with russia
-			if = {
-				limit = {
-					OR = {
-						RUS = { has_capitulated = yes }
-						has_global_flag = treaty_of_brest-litovsk
-					}
-				}
-				RUS = { transfer_state=233   transfer_state=232   transfer_state=231  transfer_state=230  transfer_state=229 }
-			}
-			else = {
-				RUS = {
+			#what to do with straits / russia
+			RUS = {
+				if = {
+					limit = { has_war_with = TUR }
 					transfer_state = 354 
 					transfer_state = 341
+				}
+				else = {
+					341 = { set_demilitarized_zone = yes }
 				}
 			}
 			
@@ -727,7 +729,7 @@ country_event = {
 	option = {
 		name = wsv_ahistorical_treaty.16.a
 		
-		custom_effect_tooltip = usa-csa_armistice_tt
+		custom_effect_tooltip = baltimore_treaty_tt
 		hidden_effect = {
 			set_global_flag = treaty_of_baltimore
 			add_named_threat = {
@@ -756,12 +758,21 @@ country_event = {
 				361 = { set_demilitarized_zone = yes }
 			}
 
+
 			CAN = {	
+				if = {
+					limit = { has_war_with = USA }
+				}
 				transfer_state = 824 
 				transfer_state = 822  
 			}
 
-			MEX = { transfer_state = 837 }
+			MEX = {
+				if = {
+					limit = { has_war_with = USA }
+				}
+				transfer_state = 837 
+			}
 
 			every_country = {
 			    limit = {
