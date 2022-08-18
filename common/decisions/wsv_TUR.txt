@@ -42,6 +42,47 @@ wsv_great_war_decisions = {
 		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
 		ai_will_do = {
 			factor = 0
+
+			# Negatives
+			modifier = {
+				add = -1
+				surrender_progress < 0.10
+			}
+			modifier = {
+				add = -1
+				surrender_progress < 0.15
+			}
+			modifier = {
+				add = -1
+				surrender_progress < 0.25
+			}
+			modifier = {
+				add = -1
+				surrender_progress < 0.35
+			}
+
+			# Positives
+			modifier = {
+				add = 1
+				casualties > 500000
+			}
+			modifier = {
+				add = 1
+				casualties > 800000
+			}
+			modifier = {
+				add = 1
+				casualties > 1100000
+			}
+			modifier = {
+				add = 1
+				casualties > 1600000
+			}
+
+			modifier = {
+				add = 10
+				surrender_progress > 0.55
+			}
 		}
 	}
 }
