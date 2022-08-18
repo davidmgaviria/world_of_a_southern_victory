@@ -15,6 +15,84 @@ on_actions = {
 	}
 
 
+
+	# Russian revolution
+	on_monthly_RUS = {  # Russia is ROOT
+		effect = {
+			if = {
+				limit = {
+					date < 1937.1.1
+					SOV = { exists = no }
+					exists = yes
+					NOT = { has_government = communism }
+				}
+				set_temp_variable = { revolution_desire = 0 }
+
+				## begin adding values ##
+				# casualties
+				if = {
+					limit = { casualties > 500000 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { casualties > 1000000 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { casualties > 1500000 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { casualties > 2000000 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				# surrender progress
+				if = {
+					limit = { surrender_progress > 0.1 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { surrender_progress > 0.2 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { surrender_progress > 0.3 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { surrender_progress > 0.4 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				# communist support
+				if = {
+					limit = { communism > 0.2 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { communism > 0.3 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { communism > 0.4 }
+					add_to_variable = { revolution_desire = 1 } 
+				}
+				if = {
+					limit = { communism > 0.5 }
+					add_to_variable = { revolution_desire = 2 } 
+				}
+				## check variable ##
+				if = {
+					limit = { 
+						communism > 0.1
+						check_variable = { revolution_desire > 5 } 
+					}
+					news_event = { id = ww1_russia.4   days = 7   random_days = 14 }
+				}
+			}
+		}
+	}
+
+
 	#English men to Canada
 	#on_startup = {
 	#	effect = {

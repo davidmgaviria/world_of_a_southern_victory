@@ -113,36 +113,17 @@ news_event = {
 	major = yes
 
 	mean_time_to_happen = {
-		days = 0
+		days = 14
 	}
 
 	trigger = {
-		date < 1937.1.1
-		SOV = { exists = no }
 		RUS = {
-			exists = yes
-			has_war = yes
-			has_civil_war = no
-			NOT = { has_completed_focus = RUS_ww1_adopt_marxist_ideas }
 			NOT = { has_government = communism }
-			OR = {
-				communism > 0.6
-				AND = {
-					surrender_progress > 0.2
-					OR = { communism > 0.45  	has_stability < 0.31 }
-				}
-				AND = {
-					surrender_progress > 0.3
-					OR = { communism > 0.35  	has_stability < 0.36 }
-				}
-				AND = {
-					surrender_progress > 0.4
-					OR = { communism > 0.25  	has_stability < 0.41 }
-				}
-			}
+			communism > 0.4
+			SOV = { exists = no }
+			NOT = { has_country_flag = kis_octoberrevolutioncrushed }
 		}
 	}
-
 
 	immediate = {
 		hidden_effect = {
@@ -165,7 +146,7 @@ news_event = {
 
 				set_stability = 0.9
 				add_political_power = 800
-				add_manpower = 500000
+				add_ideas = { RUS_workers_revolution }
 
 				every_state={
 					limit={ is_core_of = RUS }
@@ -230,6 +211,18 @@ news_event = {
 					fascism = 15   
 					communism = 10 
 				}	
+
+				transfer_units_fraction= {
+					target = SOV
+					size = 0.3
+					stockpile_ratio = 0.3
+					army_ratio = 0.2
+					navy_ratio = 0.3
+					air_ratio = 0.2
+					keep_unit_leaders = {
+						1101 1102 1103 1107 1114 1115 1116 1117
+					}
+				}
 			}
 		}
 	}
