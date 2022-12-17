@@ -1,0 +1,840 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+########################## GENERIC ##########################
+
+
+ENG_area_priority = {
+	allowed = { original_tag = ENG }
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 100 #more focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = scandinavia
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = north_america
+		value = 90
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = south_america
+		value = 40
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = 75
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = middle_east
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = suez
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = pacific
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = oceania
+		value = 75
+	}
+}
+
+
+ENG_britannia_rules_the_waves = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+   		type = dockyard_to_military_factory_ratio
+    	value = 35  
+    }
+
+    #ai_strategy = {
+	#	type = area_priority
+	#	id = britain
+	#	value = 1800
+	#}
+
+	#ai_strategy = {
+	#	type = area_priority
+	#	id = north_sea
+	#	value = 800
+	#}
+}
+
+
+ENG_civilian_focus = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		has_war = no
+	}
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -10
+	}
+}
+
+
+
+ENG_ignore_csa = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		is_in_faction_with = CSA
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "CSA"
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MEX"
+		value = 100
+	}			
+}
+
+
+ENG_ignore_russia = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		is_in_faction_with = RUS
+	}
+	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "RUS"
+		value = 100
+	}		
+}
+
+
+ENG_bef_against_germany = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		is_in_faction_with = FRA
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = contain
+		id = "GER"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "FRA"
+		value = 200
+	}
+	ai_strategy = {
+		type = protect
+		id = "FRA"
+		value = 100
+	}
+
+	ai_strategy = {
+ 		type = force_defend_ally_borders
+    	id = "FRA"
+   		value = 200
+ 	}
+
+ 	ai_strategy = {
+		type = conquer
+		id = "GER"			
+		value = 40
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		area = europe
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		area = africa
+		value = -100
+	}
+
+	#bases in france
+	# ai_strategy = {
+	# 	type = put_unit_buffers
+	# 	order_id = 100
+	# 	# Il-De-Frans
+	# 	states = {
+	# 		16
+	# 		18
+	# 		785
+	# 		17
+	# 		29
+	# 		865
+	# 		15
+	# 	}
+	# 	ratio = 0.25
+	# 	subtract_invasions_from_need = yes
+	# }
+}
+
+
+
+######################### WW1 ##########################
+
+
+# ENG_default_area_priority = {
+# 	allowed = {
+# 		original_tag = ENG
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = europe
+# 		value = 100
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 100
+# 	}
+	
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_america
+# 		value = 85
+# 	}
+	
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = south_america
+# 		value = 50
+# 	}
+	
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 75
+# 	}
+	
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = 50
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = suez
+# 		value = 50
+# 	}
+	
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = 300
+# 	}
+	
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = 80
+# 	}
+# }
+
+
+
+#stacks from base production
+ENG_gw_modified_unit_production = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 2
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armored_car
+		value = 2   
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor   #we love tanks
+		value = 3   
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 10   #we love planes
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 5
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = -10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized 
+		value = 15
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 10
+	}
+}
+
+
+ENG_save_up_equip = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = 15 
+	}
+}
+
+
+
+ENG_protect_canada = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		#NOT = { is_in_faction_with = USA }
+		#CAN = { is_puppet_of = ENG }
+		#threat > 0.35	
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 30
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "USA"
+		value = 100
+	}
+	ai_strategy = {
+		type = protect
+		id = "CAN"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "CAN"
+		value = 200
+	}
+
+	ai_strategy = {
+ 		type = force_defend_ally_borders
+    	id = "CAN"
+   		value = 200
+ 	}
+
+ 	ai_strategy = {
+		type = front_unit_request
+		area = north_america
+		value = 10
+	}
+
+	ai_strategy = {
+        type = area_priority
+        id = north_america
+        value = 10
+    }
+
+    ai_strategy = {
+        type = area_priority
+        id = africa
+        value = -30  	#85
+    }
+
+    #west canada
+    ai_strategy = {
+		type = front_unit_request
+		area = western_canada
+		value = 20
+	}
+
+	#please hold winnipeg & toronto
+	ai_strategy = {
+		type = put_unit_buffers	
+		states = { 
+			467
+			276
+		}
+		ratio = 0.1
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = yes
+	}
+}
+
+
+
+ENG_dont_invade_auh = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = AUH
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = invade
+		id = "AUH"
+		value = -2000
+	}
+}
+
+
+
+
+
+
+########################## WW2 ##########################
+
+
+#stacks from base production
+ENG_ww2_modified_unit_production = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 2
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 4
+	}
+	
+	ai_strategy = {
+		type = role_ratio
+		id = mountaineers
+		value = -2   
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = marines
+		value = 2
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 30  #110
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 2
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 10 
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 25
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = anti_tank
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 80
+	}
+	
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 25
+	}
+
+	ai_strategy = {
+		type = air_factory_balance
+		value = 140
+	}
+}
+
+
+ENG_ww2_stockpile_less_early_game = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		date < 1941.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
+	}
+}
+
+
+
+ENG_ww2_modified_template_design = {
+	allowed = {
+		has_start_date > 1937.1.1
+	}
+	enable = {	
+		date < 1942.1.1	
+		original_tag = ENG
+		has_government = fascism		
+	}
+	abort = { 
+		date > 1942.1.1
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = light_armor
+		value = 20
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = medium_armor
+		value = 10
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = motorized
+		value = 15
+	}
+
+	ai_strategy = {
+		type = template_prio
+		id = infantry
+		value = -20
+	}
+}
+
+
+
+ENG_volunteers_to_spain = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		SPN = { 
+			exists = yes
+			has_war_with = SPR
+			NOT = { has_war_with = ENG } 
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = send_volunteers_desire
+		id = "SPN"			
+		value = 100
+	}
+}
+
+
+
+ENG_dont_take_claims_on_IRE = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		country_exists = IRE
+		NOT = { has_war_with = ENG }
+		date < 1942.1.1
+	}
+	abort = {
+		IRE  = { 
+			NOT = { 
+				is_guaranteed_by = GER 
+				is_guaranteed_by = USA
+			} 
+		}
+	}	
+	ai_strategy = {
+		type = ignore_claim
+		id = "IRE"			
+		value = 1
+	}		
+}
+
+
+ENG_invade_ireland = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		country_exists = IRE
+		focus_progress = { focus = ENG2_invade_ireland 	progress > 0.01 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "IRE"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "IRE"			
+		value = 100
+	}
+
+	# ai_strategy = {
+	# 	type = invasion_unit_request
+	# 	tag = "IRE"			
+	# 	value = 40
+	# }
+}
+
+
+ENG_invade_norway = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		country_exists = NOR
+		focus_progress = { focus = ENG2_invade_norway 	progress > 0.01 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "NOR"			
+		value = 80
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "NOR"			
+		value = 80
+	}
+}
+
+
+ENG_invade_holland = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_government = fascism
+		country_exists = HOL
+		focus_progress = { focus = ENG2_invade_netherlands 	progress > 0.01 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "HOL"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "HOL"			
+		value = 100
+	}
+}
+
+
+
+
+
+# #ENG before 1942
+# DEFAULT_template_design = {
+# 	allowed = {
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {	
+# 		date < 1942.1.1	
+# 		original_tag = ENG
+# 		has_government = fascism		
+# 	}
+# 	abort = { 
+# 		date > 1942.1.1
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = motorized
+# 		value = 25
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = cavalry
+# 		value = -100
+# 	}
+	
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = light_armor
+# 		value = 40
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = medium_armor
+# 		value = 30
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = heavy_armor
+# 		value = -50
+# 	}
+
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = paratroopers
+# 		value = -50
+# 	}
+	
+# 	ai_strategy = {
+# 		type = template_prio
+# 		id = infantry
+# 		value = 45
+# 	}
+# }
+
+
+
