@@ -1,14 +1,23 @@
 technologies = {
-	### GERMAN TANK NAMES IN COMMENTS SO YOU CAN FIND STUFF MORE EASILY
-	gwtank = { # First Armored Car
+
+	@1908 = 0
+	@1915 = 2
+	@1916 = 4
+	@1918 = 6
+	@1936 = 10
+	@1940 = 12
+	@1941 = 14
+	@1943 = 16
+	@1945 = 18
+	@1946 = 20
+
+
+	gwtank = {  #first armored car, called tank to not mess up interface
 
 		enable_equipments = { ww1_armored_car_equipment_1 }
 
 		on_research_complete = {
-
-			hidden_effect = {
-					load_oob = "unlock_ww1_armoredcar"
-			}
+			hidden_effect = { load_oob = "unlock_ww1_armoredcar" }
 			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
 		}
 	
@@ -16,31 +25,22 @@ technologies = {
 			leads_to_tech = ww1_armored_car_2
 			research_cost_coeff = 1
 		}
-		#path = {
-		#	leads_to_tech = ww1_prototype_tank
-		#	research_cost_coeff = 1
-		#}
 
-		path =
-		{
-			leads_to_tech = ww1_light_tank
-			research_cost_coeff = 1
-		}
-		path =
-		{
-			leads_to_tech = ww1_heavy_tank
+		path = {
+			leads_to_tech = tank_unlocker2
 			research_cost_coeff = 1
 		}
 	
 		research_cost = 1.5
-		start_year = 1910
+		start_year = 1908
+
 		folder = {
 			name = armour_folder
-			position = { x = -8 y = 0 }
+			position = { x = -6 y = @1908 }
 		}
 		
 		ai_will_do = {
-			factor = 20
+			factor = 5
 
 			modifier = {
 				factor = 5
@@ -56,149 +56,228 @@ technologies = {
 			armor
 			cat_light_armor
 		}
-	}	
+	}
 
 
-# hoi4tgw
-######################################
+	ww1_armored_car_2 = {
 
-	ww1_armored_car_2 =
-	{
 		enable_equipments = { ww1_armored_car_equipment_2 }
-
+	
+		path = {
+			leads_to_tech = ww1_armored_car_3
+			research_cost_coeff = 1
+		}
+	
 		research_cost = 1.5
-		folder = { name=armour_folder position={ x=-8 y = 2 } }
+		start_year = 1915
+
+		folder = {
+			name = armour_folder
+			position = { x = -6 y = @1915 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				factor = 10
+				is_major = yes
+			}
+		}
+		
 		categories = {
 			armor
 			cat_light_armor
 		}
-
-		path = { leads_to_tech=ww1_armored_car_3 research_cost_coeff=1 }
-		ai_will_do = { factor=1 }
-		start_year = 1913
 	}
 
-	ww1_armored_car_3 =
-	{
+
+	ww1_armored_car_3 = {
+
 		enable_equipments = { ww1_armored_car_equipment_3 }
-
+	
+		path = {
+		 	leads_to_tech = ww1_armored_car_4
+			research_cost_coeff = 1
+		}
+	
 		research_cost = 1.5
-		folder = { name=armour_folder position={ x=-8 y = 6 } }
+		start_year = 1918
+
+		folder = {
+			name = armour_folder
+			position = { x = -6 y = @1918 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				factor = 5
+				is_major = yes
+			}
+		}
+		
 		categories = {
 			armor
 			cat_light_armor
 		}
-		path = { leads_to_tech=ww1_armored_car_4 research_cost_coeff=1 }
-		ai_will_do = { factor=1 }
-		start_year = 1916
 	}
 
-	ww1_armored_car_4 =
-	{
+
+	ww1_armored_car_4 = {
+
 		enable_equipments = { ww1_armored_car_equipment_4 }
-
+	
+		path = {
+		 	leads_to_tech = ww1_armored_car_5
+			research_cost_coeff = 1
+		}
+	
 		research_cost = 1.5
-		folder = { name=armour_folder position={ x=-8 y = 10 } }
+		start_year = 1936
+
+		folder = {
+			name = armour_folder
+			position = { x = -6 y = @1936 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+		
 		categories = {
 			armor
 			cat_light_armor
 		}
-		path = { leads_to_tech=ww1_armored_car_5 research_cost_coeff=1 }
-		ai_will_do = { factor=1 }
-		start_year = 1922
 	}
 
-	ww1_armored_car_5 =
-	{
+
+	ww1_armored_car_5 = {
+
 		enable_equipments = { ww1_armored_car_equipment_5 }
-
+	
 		research_cost = 1.5
-		folder = { name=armour_folder position={ x=-8 y = 18 } }
+		start_year = 1943
+
+		folder = {
+			name = armour_folder
+			position = { x = -6 y = @1943 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+		
 		categories = {
 			armor
 			cat_light_armor
 		}
-
-		ai_will_do = { factor=1 }
-		start_year = 1941
 	}
 
-	#ww1_prototype_tank =
-	#{
-	#	#enable_equipments = { ww1_tank_prototype_equipment } // You can't build That Type of Tank
-	#	path =
-	#	{
-	#		leads_to_tech = ww1_light_tank
-	#		research_cost_coeff = 1
-	#	}
-	#	path =
-	#	{
-	#		leads_to_tech = ww1_heavy_tank
-	#		research_cost_coeff = 1
-	#	}
-	#	research_cost = 2
-	#	folder =
-	#	{
-	#		name = armour_folder
-	#		position = { x = 0 y = 2 }
-	#	}
-	#	categories = { armor }
-	#	ai_will_do = { factor=1 }
-	#	start_year = 1913
-	#}
 
-	ww1_light_tank =
-	{
+	#### GREAT WAR TANK TREE ###
+
+	tank_unlocker2 = {
+		desc = "TANK_UNLOCKER_SPECIAL"
+
+		on_research_complete = {
+			custom_effect_tooltip = TANK_UNLOCKER_RESEARCHED
+		}
+		
+		start_year = 1915
+		research_cost = 1.5
+
+		path = {
+			leads_to_tech = ww1_light_tank
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_heavy_tank
+			research_cost_coeff = 1
+		}
+
+		folder = {
+			name = armour_folder
+			position = { x = 2 y = @1915 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+
+	ww1_light_tank = {
 
 		enable_equipments = { ww1_light_tank_equipment_1 }
 
 		on_research_complete = {
-			hidden_effect = {
-				load_oob = "unlock_ww1_light_tank"
-				if = {
-					limit = { tag = GER }
-					set_cosmetic_tag = GER_earlytank
-				}
-				else_if = {
-					limit = { tag = FRA }
-					set_cosmetic_tag = FRA_earlytank
-				}
-				else = {
-					set_cosmetic_tag = earlytank
-				}
-			}
+			hidden_effect = { load_oob = "unlock_ww1_light_tank" }
 			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
 		}
 
-		dependencies = {
-			tank_unlocker2 = 1
-		}
-
-		path =
-		{
-			leads_to_tech = ww1_light_tank_interwar_1
+		path = {
+			leads_to_tech = basic_light_tank
 			research_cost_coeff = 1
 		}
 
-		path =
-		{
-			leads_to_tech = ww1_heavy_tank2
-			research_cost_coeff = 0.9
-		}
-
 		research_cost = 2
-		folder =
-		{
+
+		folder = {
 			name = armour_folder
-			position = { x = -4 y = 8 }
+			position = { x = -2 y = @1918 }
 		}
+		
+		start_year = 1918
+
 		categories = {
 			armor
 			cat_light_armor
 		}
 
 		ai_will_do = { 
-			factor=1
+			factor = 1
 			modifier = {
 				factor = 2
 				is_major = yes
@@ -208,32 +287,14 @@ technologies = {
 				date > "1936.1.1"
 			}
 		}
-
-		start_year = 1917
 	}
 
 
-
-	ww1_heavy_tank =
-	{
+	ww1_heavy_tank = {
 		enable_equipments = { ww1_heavy_tank_equipment_1 }
 
 		on_research_complete = {
-
-			hidden_effect = {
-				load_oob = "unlock_ww1_heavy_tank"
-				if = {
-					limit = { tag = GER }
-					set_cosmetic_tag = GER_earlytank
-				}
-				else_if = {
-					limit = { tag = FRA }
-					set_cosmetic_tag = FRA_earlytank
-				}
-				else = {
-					set_cosmetic_tag = earlytank
-				}
-			}
+			hidden_effect = { load_oob = "unlock_ww1_heavy_tank" }
 			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
 		}
 
@@ -241,28 +302,25 @@ technologies = {
 			tank_unlocker2 = 1
 		}
 
-		path =
-		{
+		path = {
 			leads_to_tech = ww1_heavy_tank2
 			research_cost_coeff = 1
 		}
 
-		path =
-		{
-			leads_to_tech = ww1_super_heavy_tank
-			research_cost_coeff = 1
+		research_cost = 2.5
+		
+		folder = {
+			name = armour_folder
+			position = { x = 6 y = @1916 }
 		}
 
-		research_cost = 2.5
-		folder =
-		{
-			name = armour_folder
-			position = { x = 4 y = 6 }
-		}
 		categories = {
 			armor
 			cat_heavy_armor
 		}
+
+		start_year = 1916
+
 		ai_will_do = { 
 			factor=1
 			modifier = {
@@ -274,41 +332,35 @@ technologies = {
 				date > "1936.1.1"
 			}
 	 	}
-		start_year = 1916
 	}
 
-	ww1_heavy_tank2 =
-	{
+
+	ww1_heavy_tank2 = {
 		enable_equipments = { ww1_heavy_tank_equipment_2 }
 
-		path =
-		{
+		path = {
 			leads_to_tech = basic_heavy_tank
 			research_cost_coeff = 1
 		}
-
-		path =
-		{
+		path = {
 			leads_to_tech = ww1_super_heavy_tank
-			research_cost_coeff = 0.9
-		}
-
-		path =
-		{
-			leads_to_tech = ww1_light_tank
-			research_cost_coeff = 0.9
+			research_cost_coeff = 1
 		}
 
 		research_cost = 2.5
-		folder =
-		{
+
+		folder = {
 			name = armour_folder
-			position = { x = 4 y = 8 }
+			position = { x = 6 y = @1918 }
 		}
+
 		categories = {
 			armor
 			cat_heavy_armor
 		}
+
+		start_year = 1918
+
 		ai_will_do = { 
 			factor=1
 			modifier = {
@@ -320,8 +372,8 @@ technologies = {
 				date > "1936.1.1"
 			}
 	 	}
-		start_year = 1917
 	}
+
 
 	ww1_super_heavy_tank = { # K-Wagen
 
@@ -330,10 +382,10 @@ technologies = {
 		}
 	
 		research_cost = 3
-		start_year = 1917
+		start_year = 1918
 		folder = {
 			name = armour_folder
-			position = { x = 8 y = 8 }
+			position = { x = 10 y = @1918 }
 		}
 
 		
@@ -347,43 +399,42 @@ technologies = {
 	}
 
 
-	ww1_light_tank_interwar_1 =
-	{
-		enable_equipments = { ww1_light_tank_equipment_2 }
+	# ww1_light_tank_interwar_1 = {
+	# 	enable_equipments = { ww1_light_tank_equipment_2 }
 
-		path = {
-			leads_to_tech = basic_light_tank
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = basic_light_tank
+	# 		research_cost_coeff = 1
+	# 	}
 	
-		research_cost = 2
-		folder =
-		{
-			name = armour_folder
-			position = { x = -4 y = 10 }
-		}
-		categories = {
-			armor
-			cat_light_armor
-		}
-		ai_will_do = { 
-			factor=1
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				date > "1936.1.1"
-			}
-	 	}
-		start_year = 1922
-	}
-
+	# 	research_cost = 2
+	# 	folder =
+	# 	{
+	# 		name = armour_folder
+	# 		position = { x = -2 y = @1918 }
+	# 	}
+	# 	categories = {
+	# 		armor
+	# 		cat_light_armor
+	# 	}
+	# 	ai_will_do = { 
+	# 		factor=1
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 		modifier = {
+	# 			factor = 5
+	# 			date > "1936.1.1"
+	# 		}
+	#  	}
+	# 	start_year = 1922
+	# }
 
 
 ###################################################
 
+	
 
 	basic_light_tank = { #Panzer I
 
@@ -401,10 +452,10 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1934
+		start_year = 1936
 		folder = {
 			name = armour_folder
-			position = { x = -4 y = 14 }
+			position = { x = -2 y = @1936 }
 		}
 		
 		sub_technologies = {
@@ -425,7 +476,7 @@ technologies = {
 			}
 			modifier = {
 				factor = 1.5
-				date > 1941.1.1
+				date > 1940.1.1
 			}
 			modifier = {
 				factor = 2
@@ -453,7 +504,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1934
+		start_year = 1936
 		
 		ai_will_do = {
 			factor = 0
@@ -481,7 +532,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1934
+		start_year = 1936
 		
 		ai_will_do = {
 			factor = 0
@@ -509,7 +560,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1934
+		start_year = 1936
 		
 		ai_will_do = {
 			factor = 0
@@ -547,11 +598,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1938
+		start_year = 1940
 		
 		folder = {
 			name = armour_folder
-			position = { x = -4 y = 16 }
+			position = { x = -2 y = @1940 }
 		}
 		
 		sub_technologies = {
@@ -568,11 +619,11 @@ technologies = {
 			}
 			modifier = {
 				factor = 1.5
-				date > 1940.1.1
+				date > 1941.1.1
 			}
 			modifier = {
 				factor = 1.5
-				date > 1941.1.1
+				date > 1942.1.1
 			}
 			modifier = {
 				factor = 3
@@ -600,7 +651,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1938
+		start_year = 1940
 		
 		ai_will_do = {
 			factor = 0
@@ -628,7 +679,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1938
+		start_year = 1940
 		
 		ai_will_do = {
 			factor = 0
@@ -656,7 +707,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1938
+		start_year = 1940
 		
 		ai_will_do = {
 			factor = 0
@@ -688,7 +739,7 @@ technologies = {
 		
 		folder = {
 			name = armour_folder
-			position = { x = -4 y = 20 }
+			position = { x = -2 y = @1943 }
 		}
 		
 		sub_technologies = {
@@ -788,7 +839,7 @@ technologies = {
 
 		folder = {
 			name = armour_folder
-			position = { x = 0 y = 18 }
+			position = { x = 2 y = @1941 }
 		}
 		
 		sub_technologies = {
@@ -935,7 +986,7 @@ technologies = {
 		
 		folder = {
 			name = armour_folder
-			position = { x = 0 y = 20 }
+			position = { x = 2 y = @1943 }
 		}
 		
 		sub_technologies = {
@@ -1058,11 +1109,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1944
+		start_year = 1945
 		
 		folder = {
 			name = armour_folder
-			position = { x = 0 y = 22 }
+			position = { x = 2 y = @1945 }
 		}
 		
 		sub_technologies = {
@@ -1092,7 +1143,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1120,7 +1171,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1148,7 +1199,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1176,11 +1227,11 @@ technologies = {
 		}	
 		
 		research_cost = 3
-		start_year = 1945
+		start_year = 1946
 		
 		folder = {
 			name = armour_folder
-			position = { x = 2 y = 24 }
+			position = { x = 2 y = @1946 }
 		}
 		
 		sub_technologies = {
@@ -1269,11 +1320,11 @@ technologies = {
 		}
 		
 		research_cost = 2.5
-		start_year = 1934
+		start_year = 1936
 		
 		folder = {
 			name = armour_folder
-			position = { x = 4 y = 14 }
+			position = { x = 6 y = @1936 }
 		}
 		
 		sub_technologies = {
@@ -1318,7 +1369,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1934
+		start_year = 1936
 
 		ai_will_do = {
 			factor = 0
@@ -1346,7 +1397,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1934
+		start_year = 1936
 		
 		ai_will_do = {
 			factor = 0
@@ -1375,7 +1426,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1934
+		start_year = 1936
 		
 		ai_will_do = {
 			factor = 0
@@ -1421,7 +1472,7 @@ technologies = {
 		
 		folder = {
 			name = armour_folder
-			position = { x = 4 y = 20 }
+			position = { x = 6 y = @1943 }
 		}
 		
 		sub_technologies = {
@@ -1564,11 +1615,11 @@ technologies = {
 		}
 		
 		research_cost = 2.5
-		start_year = 1944
+		start_year = 1945
 		
 		folder = {
 			name = armour_folder
-			position = { x = 4 y = 22 }
+			position = { x = 6 y = @1945 }
 		}
 		
 		sub_technologies = {
@@ -1594,7 +1645,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1622,7 +1673,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1650,7 +1701,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1678,10 +1729,10 @@ technologies = {
 		}
 	
 		research_cost = 3
-		start_year = 1944
+		start_year = 1945
 		folder = {
 			name = armour_folder
-			position = { x = 8 y = 22 }
+			position = { x = 10 y = @1945 }
 		}
 		
 		sub_technologies = {
@@ -1707,7 +1758,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1725,7 +1776,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
@@ -1743,7 +1794,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1944
+		start_year = 1945
 		
 		ai_will_do = {
 			factor = 0
