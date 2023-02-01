@@ -1,25 +1,37 @@
 technologies = {
 
+	@1910 = 2
+	@1915 = 4
+	@1916 = 6
+	@1917 = 7
+	@1918 = 8
+	@1927 = 10
+	@1938 = 12
+	@1941 = 14
+	@1944 = 16
+	@1945 = 18
+	@1947 = 20
+
+
+	########## GREAT WAR Light Aircraft ###########
+
 	#scout aircraft
-	ww1_fighter1 = {
+	ww1_scout = {
 
 		enable_equipments = {
-			ww1_fighter_equipment_1
-			#scout_plane_equipment_1
+			ww1_scout_equipment_1
 		}
 	
 		path = {
-			leads_to_tech = ww1_fighter2
+			leads_to_tech = ww1_fighter1
 			research_cost_coeff = 1
 		}
-
-		path = {
-			leads_to_tech = ww1_fighter2b
-			research_cost_coeff = 1
-		}
-
 		path = {
 			leads_to_tech = ww1_seaplane1
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_cas1
 			research_cost_coeff = 1
 		}
 		
@@ -28,7 +40,7 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 2 y = 2 }
+			position = { x = -4 y = @1910 }
 		}
 		
 		categories = {
@@ -58,34 +70,161 @@ technologies = {
 	}
 
 
-
-	ww1_fighter2 = {
+	ww1_fighter1 = {
 
 		enable_equipments = {
-			ww1_fighter_equipment_2
+			ww1_fighter_equipment_1
 		}
-
+	
 		path = {
-			leads_to_tech = ww1_fighter3
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_fighter3b
+			leads_to_tech = ww1_fighter2
 			research_cost_coeff = 1
 		}
 		
 		research_cost = 2
-		start_year = 1914
+		start_year = 1915
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 4 }
+			position = { x = 0 y = @1915 }
 		}
 		
 		categories = {
 			light_air
 			light_fighter
 			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 2
+				date > 1912.1.1
+			}
+
+			modifier = {
+				factor = 2
+				date > 1915.1.1
+			}
+		}
+	}
+
+
+	ww1_fighter2 = {
+
+		enable_equipments = {
+			ww1_fighter_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = ww1_fighter3
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_cas1
+			research_cost_coeff = 0.6
+		}
+		
+		research_cost = 2
+		start_year = 1916
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = @1916 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+
+		sub_technologies = {
+			ww1_triplane1
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 2
+				date > 1912.1.1
+			}
+
+			modifier = {
+				factor = 2
+				date > 1915.1.1
+			}
+		}
+	}
+
+
+	ww1_triplane1 = {   
+
+		enable_equipments = {
+			ww1_triplane_equipment_1
+		}
+		
+		research_cost = 0.5
+		start_year = 1916
+		#sub_tech_index = 1
+
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+		}
+	}
+
+
+	ww1_fighter3 = {
+
+		enable_equipments = {
+			ww1_fighter_equipment_3
+		}
+
+		path = {
+			leads_to_tech = fighter1
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_cas2
+			research_cost_coeff = 0.6
+		}
+		
+		research_cost = 2
+		start_year = 1918
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 0 y = @1918 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+
+		sub_technologies = {
+			ww1_triplane2
 		}
 		
 		ai_will_do = {
@@ -104,19 +243,37 @@ technologies = {
 	}
 
 
-	ww1_fighter3 = {
+	ww1_triplane2 = {   
 
 		enable_equipments = {
-			ww1_fighter_equipment_3
+			ww1_triplane_equipment_2
+		}
+		
+		research_cost = 0.5
+		start_year = 1918
+		#sub_tech_index = 1
+
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+		}
+	}
+
+
+	ww1_cas1 = {   
+
+		enable_equipments = {
+			ww1_cas_equipment_1
 		}
 
 		path = {
-			leads_to_tech = ww1_fighter4
+			leads_to_tech = ww1_cas2
 			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_fighter3b
-			research_cost_coeff = 0.9
 		}
 		
 		research_cost = 2
@@ -124,58 +281,29 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 6 }
+			position = { x = -4 y = @1916 }
 		}
-		
+
 		categories = {
 			light_air
-			light_fighter
+			cas_bomber
 			air_equipment
 		}
 		
 		ai_will_do = {
-			factor = 1
+			factor = 0.5
 		}
 	}
 
-	ww1_fighter3b = {
+
+	ww1_cas2 = {   
 
 		enable_equipments = {
-			ww1_fighter_equipment_3b
+			ww1_cas_equipment_2
 		}
 
 		path = {
-			leads_to_tech = ww1_fighter3
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 2.5
-		start_year = 1916
-
-		folder = {
-			name = air_techs_folder
-			position = { x = -3 y = 6 }
-		}
-		
-		categories = {
-			light_air
-			light_fighter
-			air_equipment
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
-
-	ww1_fighter4 = {
-
-		enable_equipments = {
-			ww1_fighter_equipment_4
-		}
-
-		path = {
-			leads_to_tech = early_fighter
+			leads_to_tech = CAS1
 			research_cost_coeff = 1
 		}
 		
@@ -184,12 +312,44 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 8 }
+			position = { x = -4 y = @1918 }
 		}
-		
+
 		categories = {
 			light_air
-			light_fighter
+			cas_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+		}
+	}
+
+
+	ww1_seaplane1 = {
+
+		enable_equipments = {
+			ww1_seaplane_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_seaplane2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 3
+		start_year = 1915
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 4 y = @1915 }
+		}
+
+		
+		categories = {
+			naval_air
+			naval_bomber
 			air_equipment
 		}
 		
@@ -199,85 +359,255 @@ technologies = {
 	}
 
 
-	early_fighter = {
+	ww1_seaplane2 = {
 
 		enable_equipments = {
-			fighter_equipment_0
+			ww1_seaplane_equipment_2
 		}
 	
 		path = {
-			leads_to_tech = fighter1
+			leads_to_tech = naval_bomber1
 			research_cost_coeff = 1
 		}
-		path = {
-			leads_to_tech = CAS1
-			research_cost_coeff = 1
-		}
-		#path = {
-		#	leads_to_tech = naval_bomber1
-		#	research_cost_coeff = 1
-		#}
 		
 		research_cost = 2
-		start_year = 1930
+		start_year = 1918
+
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 10 }
+			position = { x = 4 y = @1918 }
 		}
 		
 		categories = {
-			light_air
-			light_fighter
+			naval_air
+			naval_bomber
 			air_equipment
 		}
 		
-		sub_technologies = {
-			cv_early_fighter
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+
+	########## GREAT WAR Heavy Aircraft ###########
+
+	ww1_bomber1 = {
+
+		enable_equipments = {
+			ww1_bomber_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_bomber2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2.2
+		start_year = 1915
+		folder = {
+			name = air_techs_folder
+			position = { x = 2 y = @1915 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
 		}
 		
 		ai_will_do = {
-			factor = 3
-			
+			factor = 1
 			modifier = {
-				factor = 2
+				factor = 3
 				is_major = yes
 			}
 		}
 	}
-	
-	cv_early_fighter = {
+
+	ww1_bomber2 = {
 
 		enable_equipments = {
-			cv_fighter_equipment_0
+			ww1_bomber_equipment_2
 		}
 	
-		research_cost = 1.5 #Carrier Variant
-		start_year = 1930
+		path = {
+			leads_to_tech = tactical_bomber1
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.2
+		start_year = 1918
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 2 y = @1918 }
+		}
 		
 		categories = {
-			naval_air
+			medium_air
+			tactical_bomber
 			air_equipment
 		}
 		
 		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 0
-				OR = {
-					has_tech = fighter1
-					is_researching_technology = fighter1
-				}
-			}
+			factor = 1
 			modifier = {
 				factor = 3
-				has_navy_size = { type = carrier size > 3 }# if nation has several carriers, more likely
-			}
-			modifier = {
-				factor = 0
-				has_navy_size = { type = carrier size < 1 }# if nation has no carriers, don't bother
+				is_major = yes
 			}
 		}
 	}
+
+
+	ww1_zeppelin1 = {
+
+		enable_equipments = {
+			ww1_zeppelin_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_zeppelin2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1910
+		folder = {
+			name = air_techs_folder
+			position = { x = 6 y = @1910 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 4
+				tag = GER
+			}
+		}
+	}
+
+	ww1_zeppelin2 = {
+
+		enable_equipments = {
+			ww1_zeppelin_equipment_2
+		}
+
+		research_cost = 2
+		start_year = 1916
+
+		folder = {
+			name = air_techs_folder
+			position = { x = 6 y = @1916 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 4
+				tag = GER
+			}
+		}
+	}
+
+
+	###########################################################################3
+	# Vanilla #
+
+	# early_fighter = {
+
+	# 	enable_equipments = {
+	# 		fighter_equipment_0
+	# 	}
+	
+	# 	path = {
+	# 		leads_to_tech = fighter1
+	# 		research_cost_coeff = 1
+	# 	}
+	# 	# path = {
+	# 	# 	leads_to_tech = CAS1
+	# 	# 	research_cost_coeff = 1
+	# 	# }
+	# 	#path = {
+	# 	#	leads_to_tech = naval_bomber1
+	# 	#	research_cost_coeff = 1
+	# 	#}
+		
+	# 	research_cost = 2
+	# 	start_year = 1930
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 0 y = 10 }
+	# 	}
+		
+	# 	categories = {
+	# 		light_air
+	# 		light_fighter
+	# 		air_equipment
+	# 	}
+		
+	# 	sub_technologies = {
+	# 		cv_early_fighter
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 3
+			
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 	}
+	# }
+	
+	# cv_early_fighter = {
+
+	# 	enable_equipments = {
+	# 		cv_fighter_equipment_0
+	# 	}
+	
+	# 	research_cost = 1.5 #Carrier Variant
+	# 	start_year = 1930
+		
+	# 	categories = {
+	# 		naval_air
+	# 		air_equipment
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 2
+	# 		modifier = {
+	# 			factor = 0
+	# 			OR = {
+	# 				has_tech = fighter1
+	# 				is_researching_technology = fighter1
+	# 			}
+	# 		}
+	# 		modifier = {
+	# 			factor = 3
+	# 			has_navy_size = { type = carrier size > 3 }# if nation has several carriers, more likely
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			has_navy_size = { type = carrier size < 1 }# if nation has no carriers, don't bother
+	# 		}
+	# 	}
+	# }
 	
 	fighter1 = {
 
@@ -291,11 +621,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1936
+		start_year = 1938
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 12 }
+			position = { x = 0 y = @1938 }
 		}
 		
 		categories = {
@@ -329,7 +659,7 @@ technologies = {
 		}
 	
 		research_cost = 1 #Carrier Variant
-		start_year = 1936
+		start_year = 1938
 		
 		categories = {
 			naval_air
@@ -381,10 +711,10 @@ technologies = {
 				
 
 		research_cost = 2
-		start_year = 1940
+		start_year = 1941
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 14 }
+			position = { x = 0 y = @1941 }
 		}
 		
 		categories = {
@@ -418,7 +748,7 @@ technologies = {
 		}
 	
 		research_cost = 1.5 #Carrier Variant
-		start_year = 1940
+		start_year = 1941
 		
 		categories = {
 			naval_air
@@ -462,7 +792,7 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 16 }
+			position = { x = 0 y = @1944 }
 		}
 		
 		categories = {
@@ -537,7 +867,7 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 18 }
+			position = { x = 0 y = @1945 }
 		}
 		
 		categories = {
@@ -569,7 +899,7 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 0 y = 20 }
+			position = { x = 0 y = @1947 }
 		}
 		
 		categories = {
@@ -603,11 +933,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1936
+		start_year = 1938
 
 		folder = {
 			name = air_techs_folder
-			position = { x = -4 y = 12 }
+			position = { x = -4 y = @1938 }
 		}
 		
 		sub_technologies = {
@@ -641,7 +971,7 @@ technologies = {
 		}
 	
 		research_cost = 1.5 #Carrier Variant
-		start_year = 1936
+		start_year = 1938
 		
 		categories = {
 			naval_air
@@ -673,11 +1003,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1940
+		start_year = 1941
 
 		folder = {
 			name = air_techs_folder
-			position = { x = -4 y = 14 }
+			position = { x = -4 y = @1941 }
 		}
 		
 		sub_technologies = {
@@ -711,7 +1041,7 @@ technologies = {
 		}
 	
 		research_cost = 1.5 #Carrier Variant
-		start_year = 1940
+		start_year = 1941
 		
 		categories = {
 			naval_air
@@ -746,7 +1076,7 @@ technologies = {
 		start_year = 1944
 		folder = {
 			name = air_techs_folder
-			position = { x = -4 y = 16 }
+			position = { x = -4 y = @1944 }
 		}
 		
 		sub_technologies = {
@@ -801,69 +1131,6 @@ technologies = {
 	}
 
 
-
-
-	# Seaplane - Sopwith Baby
-	ww1_seaplane1 = {
-
-		enable_equipments = {
-			ww1_seaplane_equipment_1
-		}
-	
-		path = {
-			leads_to_tech = ww1_seaplane2
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 3
-		start_year = 1914
-
-		folder = {
-			name = air_techs_folder
-			position = { x = 4 y = 4 }
-		}
-
-		
-		categories = {
-			naval_air
-			naval_bomber
-			air_equipment
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
-	ww1_seaplane2 = {
-
-		enable_equipments = {
-			ww1_seaplane_equipment_2
-		}
-	
-		path = {
-			leads_to_tech = naval_bomber1
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 2
-		start_year = 1916
-
-		folder = {
-			name = air_techs_folder
-			position = { x = 4 y = 6 }
-		}
-		
-		categories = {
-			naval_air
-			naval_bomber
-			air_equipment
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
-
 	naval_bomber1 = {
 
 		enable_equipments = {
@@ -876,10 +1143,10 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1936
+		start_year = 1938
 		folder = {
 			name = air_techs_folder
-			position = { x = 4 y = 12 }
+			position = { x = 4 y = @1938 }
 		}
 		
 		sub_technologies = {
@@ -921,7 +1188,7 @@ technologies = {
 		}
 	
 		research_cost = 1.5 #Carrier Variant
-		start_year = 1936
+		start_year = 1938
 		
 		categories = {
 			naval_air
@@ -974,10 +1241,10 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1940
+		start_year = 1941
 		folder = {
 			name = air_techs_folder
-			position = { x = 4 y = 14 }
+			position = { x = 4 y = @1941 }
 		}
 		
 		sub_technologies = {
@@ -1019,7 +1286,7 @@ technologies = {
 		}
 	
 		research_cost = 1.5 #Carrier Variant
-		start_year = 1940
+		start_year = 1941
 		
 		categories = {
 			naval_air
@@ -1076,7 +1343,7 @@ technologies = {
 		start_year = 1944
 		folder = {
 			name = air_techs_folder
-			position = { x = 4 y = 16 }
+			position = { x = 4 y = @1944 }
 		}
 		
 		sub_technologies = {
@@ -1152,79 +1419,6 @@ technologies = {
 		}
 	}
 
-	
-
-
-
-	# HOI4 TGW
-
-	ww1_bomber1 = {
-
-		enable_equipments = {
-			ww1_bomber_equipment_1
-		}
-	
-		path = {
-			leads_to_tech = ww1_bomber2
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 2.2
-		start_year = 1914
-		folder = {
-			name = air_techs_folder
-			position = { x = 2 y = 4 }
-		}
-		
-		categories = {
-			medium_air
-			tactical_bomber
-			air_equipment
-		}
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				is_major = yes
-			}
-		}
-	}
-
-	ww1_bomber2 = {
-
-		enable_equipments = {
-			ww1_bomber_equipment_2
-		}
-	
-		path = {
-			leads_to_tech = early_bomber
-			research_cost_coeff = 1
-		}
-
-		research_cost = 2.2
-		start_year = 1916
-
-		folder = {
-			name = air_techs_folder
-			position = { x = 2 y = 6 }
-		}
-		
-		categories = {
-			medium_air
-			tactical_bomber
-			air_equipment
-		}
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				is_major = yes
-			}
-		}
-	}
-
 
 	ww1_transport_plane = {
 
@@ -1234,16 +1428,16 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = -2 y = 9 }
+			position = { x = 0 y = @1927 }
 		}
 
 		folder = {
 			name = infantry_folder
-			position = { x = 0 y = 14 }
+			position = { x = 0  y = 14 }
 		}
 
 		path = {
-			leads_to_tech = early_bomber
+			leads_to_tech = tactical_bomber1
 			research_cost_coeff = 0.6
 		}
 		
@@ -1262,46 +1456,46 @@ technologies = {
 	}
 
 
-	early_bomber = {
+	# early_bomber = {
 
-		enable_equipments = {
-			tac_bomber_equipment_0
-		}
+	# 	enable_equipments = {
+	# 		tac_bomber_equipment_0
+	# 	}
 
-		path = {
-			leads_to_tech = heavy_fighter1
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = tactical_bomber1
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = strategic_bomber1
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = heavy_fighter1
+	# 		research_cost_coeff = 1
+	# 	}
+	# 	path = {
+	# 		leads_to_tech = tactical_bomber1
+	# 		research_cost_coeff = 1
+	# 	}
+	# 	path = {
+	# 		leads_to_tech = strategic_bomber1
+	# 		research_cost_coeff = 1
+	# 	}
 		
-		research_cost = 2.5
-		start_year = 1930
-		folder = {
-			name = air_techs_folder
-			position = { x = 2 y = 10 }
-		}
+	# 	research_cost = 2.5
+	# 	start_year = 1930
+	# 	folder = {
+	# 		name = air_techs_folder
+	# 		position = { x = 2 y = 10 }
+	# 	}
 		
-		categories = {
-			medium_air
-			tactical_bomber
-			air_equipment
-		}
+	# 	categories = {
+	# 		medium_air
+	# 		tactical_bomber
+	# 		air_equipment
+	# 	}
 		
-		ai_will_do = {
-			factor = 2
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 2
+	# 		modifier = {
+	# 			factor = 2
+	# 			is_major = yes
+	# 		}
+	# 	}
+	# }
 	
 	heavy_fighter1 = {
 
@@ -1315,10 +1509,10 @@ technologies = {
 		}
 		
 		research_cost = 2.3
-		start_year = 1936
+		start_year = 1938
 		folder = {
 			name = air_techs_folder
-			position = { x = -2 y = 12 }
+			position = { x = -2 y = @1938 }
 		}
 		
 		categories = {
@@ -1344,10 +1538,10 @@ technologies = {
 		}
 		
 		research_cost = 2.3
-		start_year = 1940
+		start_year = 1941
 		folder = {
 			name = air_techs_folder
-			position = { x = -2 y = 14 }
+			position = { x = -2 y = @1941 }
 		}
 		
 		categories = {
@@ -1376,7 +1570,7 @@ technologies = {
 		start_year = 1944
 		folder = {
 			name = air_techs_folder
-			position = { x = -2 y = 16 }
+			position = { x = -2 y = @1944 }
 		}
 		
 		categories = {
@@ -1395,18 +1589,28 @@ technologies = {
 		enable_equipments = {
 			tac_bomber_equipment_1
 		}
-	
+
 		path = {
 			leads_to_tech = tactical_bomber2
 			research_cost_coeff = 1
 		}
 
+		path = {
+			leads_to_tech = strategic_bomber1
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = heavy_fighter1
+			research_cost_coeff = 1
+		}
+
 		research_cost = 2.5
-		start_year = 1936
+		start_year = 1938
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 2 y = 12 }
+			position = { x = 2 y = @1938 }
 		}
 		
 		categories = {
@@ -1436,7 +1640,7 @@ technologies = {
 			
 			modifier = {
 				factor = 2
-				date > "1940.1.1"
+				date > "1941.1.1"
 			}
 		}
 	}
@@ -1453,10 +1657,10 @@ technologies = {
 		}
 		
 		research_cost = 2.5
-		start_year = 1940
+		start_year = 1941
 		folder = {
 			name = air_techs_folder
-			position = { x = 2 y = 14 }
+			position = { x = 2 y = @1941 }
 		}
 		
 		categories = {
@@ -1508,7 +1712,7 @@ technologies = {
 		start_year = 1944
 		folder = {
 			name = air_techs_folder
-			position = { x = 2 y = 16 }
+			position = { x = 2 y = @1944 }
 		}
 		
 		categories = {
@@ -1561,7 +1765,7 @@ technologies = {
 		
 		folder = {
 			name = air_techs_folder
-			position = { x = 2 y = 18 }
+			position = { x = 2 y = @1945 }
 		}
 		
 		categories = {
@@ -1585,7 +1789,7 @@ technologies = {
 		start_year = 1947
 		folder = {
 			name = air_techs_folder
-			position = { x = 2 y = 20 }
+			position = { x = 2 y = @1947 }
 		}
 		
 		categories = {
@@ -1604,73 +1808,6 @@ technologies = {
 	}
 
 	
-	# HOI4 TGW
-	# Zeppelin
-	ww1_zeppelin1 = {
-
-		enable_equipments = {
-			ww1_zeppelin_equipment_1
-		}
-	
-		path = {
-			leads_to_tech = ww1_zeppelin2
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 2
-		start_year = 1910
-		folder = {
-			name = air_techs_folder
-			position = { x = 6 y = 2 }
-		}
-		
-		categories = {
-			heavy_air
-			air_equipment
-			cat_strategic_bomber
-		}
-		
-		ai_will_do = {
-			factor = 1
-
-			modifier = {
-				factor = 4
-				tag = GER
-			}
-		}
-	}
-
-	ww1_zeppelin2 = {
-
-		enable_equipments = {
-			ww1_zeppelin_equipment_2
-		}
-
-		research_cost = 2
-		start_year = 1916
-
-		folder = {
-			name = air_techs_folder
-			position = { x = 6 y = 6 }
-		}
-		
-		categories = {
-			heavy_air
-			air_equipment
-			cat_strategic_bomber
-		}
-		
-		ai_will_do = {
-			factor = 1
-
-			modifier = {
-				factor = 4
-				tag = GER
-			}
-		}
-	}
-	
-	
 	strategic_bomber1 = {
 
 		enable_equipments = {
@@ -1683,10 +1820,10 @@ technologies = {
 		}
 
 		research_cost = 2.8
-		start_year = 1936
+		start_year = 1938
 		folder = {
 			name = air_techs_folder
-			position = { x = 6 y = 12 }
+			position = { x = 6 y = @1938 }
 		}
 		
 		categories = {
@@ -1717,10 +1854,10 @@ technologies = {
 		}
 		
 		research_cost = 2.8
-		start_year = 1940
+		start_year = 1941
 		folder = {
 			name = air_techs_folder
-			position = { x = 6 y = 14 }
+			position = { x = 6 y = @1941 }
 		}
 		
 		categories = {
@@ -1754,7 +1891,7 @@ technologies = {
 		start_year = 1944
 		folder = {
 			name = air_techs_folder
-			position = { x = 6 y = 16 }
+			position = { x = 6 y = @1944 }
 		}
 		
 		categories = {
@@ -1790,7 +1927,7 @@ technologies = {
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 6 y = 20 }
+			position = { x = 6 y = @1947 }
 		}
 		
 		categories = {
@@ -1825,7 +1962,7 @@ technologies = {
 
 		#folder = {
 		#	name = air_techs_folder
-		#	position = { x = -2 y = 20 }
+		#	position = { x = -2 y = @1945 }
 		#}
 		
 		ai_will_do = {
