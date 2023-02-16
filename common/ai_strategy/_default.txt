@@ -14,9 +14,11 @@
 
 
 
+
 ######################################################################
 ########################## THE GREAT WAR   ##########################
 ######################################################################
+
 
 
 default_gw_unit_production = {
@@ -28,36 +30,37 @@ default_gw_unit_production = {
 	}
 	abort_when_not_enabled = yes
 
+	# Land unit factors
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 70 
+		value = 88 
 	}
-
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4 
+	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 5
+		value = 6
 	}
-	
 	ai_strategy = {
 		type = role_ratio
 		id = paratroopers
 		value = 0
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = mountaineers
 		value = 4
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = marines
 		value = 2
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = armored_car
@@ -68,33 +71,28 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = scout_plane
-		value = 1
+		value = 5
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 65
+		value = 60
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
-		value = 0
+		value = 5
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 10
+		value = 5
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = strategic_bomber
 		value = 2
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = naval_bomber
@@ -105,27 +103,25 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = capital_ship
-		value = 10
+		value = 15
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = submarine
 		value = 5
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
 		value = 40
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = convoy
-		value = 20
+		value = 15
 	}
 
+	# Equipment production
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
@@ -141,7 +137,13 @@ default_gw_unit_production = {
 		id = artillery
 		value = 25
 	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 5
+	}
 }
+
 
 
 #GW before 1916
@@ -206,20 +208,20 @@ DEFAULT_template_design = {
 
 
 
-GW_reduced_early_air_production = {
-	allowed = {
-		has_start_date < 1937.1.1
-	}
-	enable = {	
-		NOT = { has_tech = ww1_fighter2 }		
-	}
-	abort_when_not_enabled = yes
+# GW_reduced_early_air_production = {
+# 	allowed = {
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {	
+# 		NOT = { has_tech = ww1_fighter2 }		
+# 	}
+# 	abort_when_not_enabled = yes
 
-	ai_strategy = {
-		type = air_factory_balance
-		value = -25
-	}
-}
+# 	ai_strategy = {
+# 		type = air_factory_balance
+# 		value = -25
+# 	}
+# }
 
 
 
@@ -238,67 +240,69 @@ default_ww2_unit_production = {
 	}
 	abort_when_not_enabled = yes
 	
+	# Land unit factors
+	ai_strategy = {
+		type = role_ratio
+		id = infantry
+		value = 80 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4 
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 4
+	}
 	ai_strategy = {
 		type = role_ratio
 		id = paratroopers
 		value = 0
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = mountaineers
 		value = 4
 	}
-
 	ai_strategy = {
 		type = role_ratio
 		id = marines
 		value = 2
 	}
-
 	ai_strategy = {
 		type = role_ratio
-		id = armor
-		value = 5
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = 70 
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry
-		value = 5 
+		id = armored_car
+		value = 0
 	}
 	
 	#Air unit factors
 	ai_strategy = {
 		type = unit_ratio
+		id = scout_plane
+		value = 5
+	}
+	ai_strategy = {
+		type = unit_ratio
 		id = fighter
 		value = 80
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
 		value = 5
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
 		value = 5
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = strategic_bomber
-		value = 2
+		value = 1
 	}
-	
 	ai_strategy = {
 		type = unit_ratio
 		id = naval_bomber
@@ -311,43 +315,38 @@ default_ww2_unit_production = {
 		id = capital_ship
 		value = 10
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = submarine
-		value = 10
+		value = 5
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = screen_ship
 		value = 40
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = convoy
 		value = 15
 	}
-	
+
+	# Equipment production
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
 		value = 35
 	}
-	
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 40
+		value = 45
 	}
-	
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
 		value = 25
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = motorized
