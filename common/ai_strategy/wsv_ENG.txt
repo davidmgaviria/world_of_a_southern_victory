@@ -164,76 +164,72 @@ ENG_britannia_rules_the_waves = {
 # }
 
 
-# ENG_bef_against_germany = {
-# 	allowed = {
-# 		original_tag = ENG
-# 	}
-# 	enable = {
-# 		is_in_faction_with = FRA
-# 		has_war_with = GER
-# 	}
-# 	abort_when_not_enabled = yes
+ENG_help_france = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		is_in_faction_with = FRA
+		OR = {
+			threat > 0.25
+			#has_war_with = GER
+		}
+	}
+	abort_when_not_enabled = yes
 
-# 	ai_strategy = {
-# 		type = contain
-# 		id = "GER"
-# 		value = 200
-# 	}
-# 	ai_strategy = {
-# 		type = support
-# 		id = "FRA"
-# 		value = 200
-# 	}
-# 	ai_strategy = {
-# 		type = protect
-# 		id = "FRA"
-# 		value = 100
-# 	}
+	ai_strategy = {
+		type = contain
+		id = "GER"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "FRA"
+		value = 100
+	}
 
-# 	ai_strategy = {
-#  		type = force_defend_ally_borders
-#     	id = "FRA"
-#    		value = 200
-#  	}
+	ai_strategy = {
+		type = protect
+		id = "FRA"
+		value = 100
+	}
 
-#  	ai_strategy = {
-# 		type = conquer
-# 		id = "GER"			
-# 		value = 40
-# 	}
+	ai_strategy = {
+		type = front_unit_request
+		area = europe
+		value = 200
+	}
 
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		tag = GER
-# 		area = europe
-# 		value = 100
-# 	}
+	ai_strategy = {
+ 		type = force_defend_ally_borders
+    	id = "FRA"
+   		value = 200
+ 	}
 
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		tag = GER
-# 		area = africa
-# 		value = -100
-# 	}
+ 	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
 
 	#bases in france
-	# ai_strategy = {
-	# 	type = put_unit_buffers
-	# 	order_id = 100
-	# 	# Il-De-Frans
-	# 	states = {
-	# 		16
-	# 		18
-	# 		785
-	# 		17
-	# 		29
-	# 		865
-	# 		15
-	# 	}
-	# 	ratio = 0.25
-	# 	subtract_invasions_from_need = yes
-	# }
-# }
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		# Il-De-Frans
+		states = {
+			16
+			18
+			785
+			17
+			29
+			865
+			15
+		}
+		ratio = 0.25
+		area = europe
+		subtract_invasions_from_need = yes
+	}
+}
 
 
 
@@ -388,52 +384,6 @@ ENG_save_up_equip = {
 }
 
 
-ENG_help_france = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		is_in_faction_with = FRA
-		has_war_with = GER
-	}
-	abort_when_not_enabled = yes
-
-	# ai_strategy = {
-	# 	type = contain
-	# 	id = "GER"
-	# 	value = 200
-	# }
-	ai_strategy = {
-		type = support
-		id = "FRA"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = protect
-		id = "FRA"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = europe
-		value = 200
-	}
-
-	# ai_strategy = {
- 	# 	type = force_defend_ally_borders
-    # 	id = "FRA"
-   	# 	value = 200
- 	# }
-
- 	ai_strategy = {
-		type = 	spare_unit_factor		
-		value = 50
-	}
-}
-
-
 ENG_protect_canada = {
 	allowed = {
 		original_tag = ENG		
@@ -452,11 +402,11 @@ ENG_protect_canada = {
 		value = 30
 	}
 
-	# ai_strategy = {
-	# 	type = contain
-	# 	id = "USA"
-	# 	value = 100
-	# }
+	ai_strategy = {
+		type = contain
+		id = "USA"
+		value = 100
+	}
 	ai_strategy = {
 		type = protect
 		id = "CAN"
@@ -476,17 +426,17 @@ ENG_protect_canada = {
 		value = 80
 	}
 
-	# ai_strategy = {
- 	# 	type = force_defend_ally_borders
-    # 	id = "CAN"
-   	# 	value = 200
- 	# }
+	ai_strategy = {
+ 		type = force_defend_ally_borders
+    	id = "CAN"
+   		value = 100
+ 	}
 
- 	# ai_strategy = {
-	# 	type = front_unit_request
-	# 	area = north_america
-	# 	value = 10
-	# }
+ 	ai_strategy = {
+		type = front_unit_request
+		area = north_america
+		value = 40
+	}
 
 	# ai_strategy = {
     #     type = area_priority
@@ -507,17 +457,21 @@ ENG_protect_canada = {
 	# 	value = 20
 	# }
 
-	# #please hold winnipeg & toronto
-	# ai_strategy = {
-	# 	type = put_unit_buffers	
-	# 	states = { 
-	# 		467
-	# 		276
-	# 	}
-	# 	ratio = 0.1
-	# 	subtract_invasions_from_need = no
-	# 	subtract_fronts_from_need = yes
-	# }
+	#bases in canada
+	ai_strategy = {
+		type = put_unit_buffers	
+
+		order_id = 2
+		states = { 
+			467
+			276
+			468
+			466
+		}
+		ratio = 0.15
+		area = north_america
+		subtract_invasions_from_need = no
+	}
 }
 
 
