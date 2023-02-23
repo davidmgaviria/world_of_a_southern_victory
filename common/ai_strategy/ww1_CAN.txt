@@ -25,16 +25,16 @@ CAN_gw_modified_unit_production = {
 		always = yes
 	}
 
-	ai_strategy = {
-		type = 	build_army
-		id = garrison	
-		value = 10
-	}
+	# ai_strategy = {
+	# 	type = 	build_army
+	# 	id = garrison	
+	# 	value = 10
+	# }
 
 	ai_strategy = {
-		type = role_ratio
+		type = unit_ratio
 		id = garrison	
-		value = 4
+		value = 10
 	}
 
 	ai_strategy = {
@@ -42,6 +42,36 @@ CAN_gw_modified_unit_production = {
 		id = cavalry	
 		value = 2
 	}
+}
+
+
+CAN_build_army = {
+	allowed = {
+		original_tag = CAN
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1914.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 40
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 5
+	}
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
+	}
+
 }
 
 
@@ -69,45 +99,45 @@ CAN_defend_against_usa = {
 		id = "USA"
 		value = -1000
 	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = europe
-		value = -100
-	}
-	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = -100
-	}
-	ai_strategy = {
-		type = front_unit_request
-		area = asia
-		value = -100
-	}
 	ai_strategy = {
 		type = 	spare_unit_factor		
-		value = -100
+		value = -80
 	}
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = europe
+	# 	value = -100
+	# }
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = africa
+	# 	value = -100
+	# }
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = asia
+	# 	value = -100
+	# }
+	
 
-	#west canada
-    ai_strategy = {
-		type = front_unit_request
-		area = western_canada
-		value = 50
-	}
+	# #west canada
+    # ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = western_canada
+	# 	value = 50
+	# }
 
-	#please hold winnipeg & toronto
-	ai_strategy = {
-		type = put_unit_buffers	
-		states = { 
-			467
-			276
-		}
-		ratio = 0.2
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
-	}
+	# #please hold winnipeg & toronto
+	# ai_strategy = {
+	# 	type = put_unit_buffers	
+	# 	states = { 
+	# 		467
+	# 		276
+	# 	}
+	# 	ratio = 0.2
+	# 	subtract_invasions_from_need = no
+	# 	subtract_fronts_from_need = no
+	# }
 }	
 
 

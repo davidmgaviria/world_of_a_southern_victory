@@ -158,6 +158,24 @@ AUH_gw_modified_unit_production = {
 }
 
 
+AUH_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1914.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
+	}
+}
+
+
 
 AUH_focus_serbia = {
 	allowed = {
@@ -180,34 +198,10 @@ AUH_focus_serbia = {
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
-		id = "SER"
-		value = 200
-	}	
-
-	ai_strategy = {
 		type = conquer
 		id = "SER"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = balkans
 		value = 60
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = SER
-		value = 100
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = RUS
-		value = -4
-	}			
+	}		
 }
 
 

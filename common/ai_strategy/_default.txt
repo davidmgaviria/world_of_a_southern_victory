@@ -34,17 +34,17 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 88 
+		value = 92 
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = garrison
-		value = 4 
+		value = 10 
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 6
+		value = 14
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -64,7 +64,7 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armored_car
-		value = 1
+		value = 4
 	}
 	
 	#Air unit factors
@@ -130,7 +130,7 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 45
+		value = 55
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -791,15 +791,11 @@ default_marines_production = {
 }
 
 
-default_area_priority = {
+efault_area_priority = {
 	enable = {
-		NOT = { original_tag = USA }
-		NOT = { original_tag = CSA }
-		NOT = { original_tag = GER }
-		NOT = { original_tag = ENG }
-		NOT = { original_tag = FRA }
-		NOT = { original_tag = RUS }
-		NOT = { original_tag = JAP }
+		#NOT = { original_tag = GER }
+		#NOT = { original_tag = FRA }
+		#NOT = { original_tag = JAP }
 	}
 
 	ai_strategy = {
@@ -811,7 +807,7 @@ default_area_priority = {
 	ai_strategy = {
 		type = area_priority
 		id = scandinavia
-		value = 50
+		value = 0
 	}
 
 	ai_strategy = {
@@ -861,14 +857,16 @@ default_area_priority = {
 		id = oceania
 		value = 75
 	}
-}
 
+}
 
 default_area_priority_non_africa = {
     enable = {
+        NOT = { original_tag = ITA }
         NOT = { original_tag = FRA }
+        NOT = { original_tag = USA }
         NOT = { original_tag = ENG }
-        NOT = { is_subject_of = ENG }
+        #NOT = { is_subject_of = ENG }
         NOT = { capital_scope = { is_on_continent = africa } }
     }
 
@@ -896,7 +894,7 @@ default_stockpile_management = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = 35   # double base stockpile #from 25 to 35
+		value = 35 # double base stockpile #from 25 to 35
 	}
 }
 

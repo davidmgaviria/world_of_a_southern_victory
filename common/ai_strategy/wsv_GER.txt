@@ -16,73 +16,73 @@
 ######################### GENERIC ##########################
 
 
-GER_area_priority = {
-	allowed = {
-		original_tag = GER
-	}
-	enable = {
-		always = yes
-	}
+# GER_area_priority = {
+# 	allowed = {
+# 		original_tag = GER
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = europe
-		value = 110 #more focus here
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = europe
+# 		value = 110 #more focus here
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = scandinavia
-		value = 80
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 80
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 90
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_america
+# 		value = 90
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = south_america
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = south_america
+# 		value = 75
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = asia
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 75
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = middle_east
-		value = 50
-	}
-	ai_strategy = {
-		type = area_priority
-		id = suez
-		value = 30
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = 50
+# 	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = suez
+# 		value = 30
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = africa
-		value = -300
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = africa
+# 		value = -300
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = pacific
-		value = -120 #less focus here
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = -120 #less focus here
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = oceania
-		value = -80
-	}
-}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = -80
+# 	}
+# }
 
 
 
@@ -103,27 +103,28 @@ GER_francogerman_rivalry = {
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front		
-		value = 40
+		value = 80
 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		area = eastern_front				
-		value = -10
-	}
+	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = eastern_front				
+	# 	value = -10
+	# }
 
-	ai_strategy = {
-		type = area_priority
-		id = western_front
-		value = 10
-	}
+	# ai_strategy = {
+	# 	type = area_priority
+	# 	id = western_front
+	# 	value = 10
+	# }
 
-	ai_strategy = {
-		type = area_priority
-		id = eastern_front
-		value = -30
-	}
+	# ai_strategy = {
+	# 	type = area_priority
+	# 	id = eastern_front
+	# 	value = -30
+	# }
 }
+
 
 
 
@@ -258,6 +259,23 @@ GER_americam_ally_ww1 = {
 }
 
 
+GER_anglo_german_naval_arms_race = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		always = yes
+		date < 1914.1.1
+	}
+
+	ai_strategy = {
+	    type = building_target
+	    id = dockyard
+	    value = 10
+	}
+}
+
+
 GER_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = GER
@@ -353,16 +371,19 @@ GER_greatwar_mobilize = {
 
 
 
+
+
 GER_der_schlieffen_plan = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		OR = {
-			has_idea = schlieffen
-			has_decision = germany_schliffen_plan
-		}
+		threat > 0.25
+		# OR = {
+		# 	has_idea = schlieffen
+		# 	has_decision = germany_schliffen_plan
+		# }
 		casualties < 150000
 	}
 
@@ -406,12 +427,10 @@ GER_der_schlieffen_plan = {
 	#benelux
 	ai_strategy = {
 		type = front_unit_request
-
 		state = 793
 		state = 8
 		state = 34
 		state = 6
-		
 		value = 250
 	}
 
@@ -694,7 +713,7 @@ GER_ww2_modified_unit_production = {
 
 	ai_strategy = {
 		type = air_factory_balance
-		value = 80
+		value = 125
 	}
 }
 

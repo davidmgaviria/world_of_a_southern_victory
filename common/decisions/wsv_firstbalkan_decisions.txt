@@ -69,19 +69,46 @@ firstbalkan_war_decisions = {
 			# start losing interest when casualties mount
 			modifier = {
 				add = 1
-				casualties > 100000
+				OR = {
+					casualties_inflicted_by = {
+					    opponent = ser
+					    thousands > 50
+					}
+					casualties_inflicted_by = {
+					    opponent = BUL
+					    thousands > 50
+					}
+				}
 			}
 
 			# god so many casualties
 			modifier = {
 				add = 1
-				casualties > 150000
+				OR = {
+					casualties_inflicted_by = {
+					    opponent = ser
+					    thousands > 75
+					}
+					casualties_inflicted_by = {
+					    opponent = BUL
+					    thousands > 75
+					}
+				}
 			}
 
 			# balkans isnt worth this much blood
 			modifier = {
 				add = 1
-				casualties > 250000
+				OR = {
+					casualties_inflicted_by = {
+					    opponent = ser
+					    thousands > 100
+					}
+					casualties_inflicted_by = {
+					    opponent = BUL
+					    thousands > 100
+					}
+				}
 			}
 
 			# if we lose istanbul give up

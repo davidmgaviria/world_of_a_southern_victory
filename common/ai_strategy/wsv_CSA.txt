@@ -15,71 +15,71 @@
 
 ########################## GENERIC ##########################
 
-CSA_area_priority = {
-	enable = {
-		tag = CSA
-	}
+# CSA_area_priority = {
+# 	enable = {
+# 		tag = CSA
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 110  #more here
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_america
+# 		value = 110  #more here
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = europe
-		value = 100
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = europe
+# 		value = 100
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = scandinavia
-		value = 10
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 10
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = south_america
-		value = 40
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = south_america
+# 		value = 40
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = asia
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 75
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = middle_east
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = africa
-		value = 10
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = africa
+# 		value = 10
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = suez
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = suez
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = pacific
-		value = -120 
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = -120 
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = oceania
-		value = 75
-	}
-}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = 75
+# 	}
+# }
 
 
 
@@ -179,6 +179,7 @@ CSA_ignore_russia = {
 ########################## GREAT WAR ##########################
 
 
+
 CSA_gw_modified_unit_production = {
 	allowed = {
 		original_tag = CSA
@@ -187,11 +188,17 @@ CSA_gw_modified_unit_production = {
 	enable = {
 		always = yes
 	}
-	
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
+
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 2
+		value = 4
 	}
 
 	ai_strategy = {
@@ -263,31 +270,31 @@ CSA_france_ally = {
 }
 
 
-CSA_defend_richmond = {
-	allowed = {
-		original_tag = CSA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = USA
-		NOT = { is_in_faction_with = USA }
-	}
-	abort_when_not_enabled = yes
+# CSA_defend_richmond = {
+# 	allowed = {
+# 		original_tag = CSA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = USA
+# 		NOT = { is_in_faction_with = USA }
+# 	}
+# 	abort_when_not_enabled = yes
 
-	#protect richmond
-	ai_strategy = {
-		type = front_unit_request
+# 	#protect richmond
+# 	ai_strategy = {
+# 		type = front_unit_request
 
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		state = 813
+# 		state = 840
+# 		state = 362
+# 		state = 361
+# 		state = 360
+# 		state = 814
+# 		state = 813
 		
-		value = 100
-	}
-}	
+# 		value = 100
+# 	}
+# }	
 
 
 CSA_greatwar_mobilize = {
@@ -298,7 +305,7 @@ CSA_greatwar_mobilize = {
 	enable = {
 		country_exists = USA
 		NOT = { is_in_faction_with = USA }
-		threat > 0.3	
+		threat > 0.25	
 	}
 	abort_when_not_enabled = yes
 
@@ -320,7 +327,7 @@ CSA_take_dc = {
 			exists = yes 
 			NOT = { has_non_aggression_pact_with = CSA }
 		}
-		threat > 0.25
+		#threat > 0.1
 	}
 	abort = {
 		has_war_with = USA
@@ -333,8 +340,8 @@ CSA_take_dc = {
 	ai_strategy = {
 		type = front_control
 		state = 361
-		state = 360
-		state = 840
+		#state = 360
+		#state = 840
 		priority = 100
 		ratio = 0.3
 		ordertype = front
@@ -344,14 +351,9 @@ CSA_take_dc = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		#state = 813
-		value = 100
+	    type = theatre_distribution_demand_increase
+	    value = 80
+	    id = 361
 	}
 }
 
@@ -373,7 +375,7 @@ CSA_ww2_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		type = garrison
-		value = 2
+		value = 4
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -430,7 +432,6 @@ CSA_ww2_modified_unit_production = {
 		value = 15
 	}
 
-
 	ai_strategy = {
 		type = air_factory_balance
 		value = 80
@@ -451,7 +452,7 @@ CSA_ww2_stockpile_less_early_game = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -25 # reduce while we build up in case of issues
+		value = -20 # reduce while we build up in case of issues
 	}
 }
 

@@ -17,72 +17,72 @@
 ########################## GENERIC ##########################
 
 
-ENG_area_priority = {
-	allowed = { original_tag = ENG }
-	enable = {
-		always = yes
-	}
+# ENG_area_priority = {
+# 	allowed = { original_tag = ENG }
+# 	enable = {
+# 		always = yes
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = europe
-		value = 100 #more focus here
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = europe
+# 		value = 100 #more focus here
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = scandinavia
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 90
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_america
+# 		value = 90
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = south_america
-		value = 40
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = south_america
+# 		value = 40
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = asia
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 75
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = middle_east
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = africa
-		value = -50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = africa
+# 		value = -50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = suez
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = suez
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = pacific
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = oceania
-		value = 75
-	}
-}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = 75
+# 	}
+# }
 
 
 ENG_britannia_rules_the_waves = {
@@ -94,9 +94,10 @@ ENG_britannia_rules_the_waves = {
 	}
 
 	ai_strategy = {
-   		type = dockyard_to_military_factory_ratio
-    	value = 35  
-    }
+	    type = building_target
+	    id = dockyard
+	    value = 20
+	}
 
     #ai_strategy = {
 	#	type = area_priority
@@ -112,109 +113,108 @@ ENG_britannia_rules_the_waves = {
 }
 
 
-ENG_civilian_focus = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		has_war = no
-	}
+# ENG_civilian_focus = {
+# 	allowed = {
+# 		original_tag = ENG
+# 	}
+# 	enable = {
+# 		has_war = no
+# 	}
 
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -10
-	}
-}
-
-
-
-ENG_ignore_csa = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		is_in_faction_with = CSA
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "CSA"
-		value = 100
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "MEX"
-		value = 100
-	}			
-}
+# 	ai_strategy = {
+# 		type = added_military_to_civilian_factory_ratio		
+# 		value = -10
+# 	}
+# }
 
 
-ENG_ignore_russia = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		is_in_faction_with = RUS
-	}
+# ENG_ignore_csa = {
+# 	allowed = {
+# 		original_tag = ENG
+# 	}
+# 	enable = {
+# 		is_in_faction_with = CSA
+# 	}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "CSA"
+# 		value = 100
+# 	}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "MEX"
+# 		value = 100
+# 	}			
+# }
+
+
+# ENG_ignore_russia = {
+# 	allowed = {
+# 		original_tag = ENG
+# 	}
+# 	enable = {
+# 		is_in_faction_with = RUS
+# 	}
 	
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "RUS"
-		value = 100
-	}		
-}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "RUS"
+# 		value = 100
+# 	}		
+# }
 
 
-ENG_bef_against_germany = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		is_in_faction_with = FRA
-		has_war_with = GER
-	}
-	abort_when_not_enabled = yes
+# ENG_bef_against_germany = {
+# 	allowed = {
+# 		original_tag = ENG
+# 	}
+# 	enable = {
+# 		is_in_faction_with = FRA
+# 		has_war_with = GER
+# 	}
+# 	abort_when_not_enabled = yes
 
-	ai_strategy = {
-		type = contain
-		id = "GER"
-		value = 200
-	}
-	ai_strategy = {
-		type = support
-		id = "FRA"
-		value = 200
-	}
-	ai_strategy = {
-		type = protect
-		id = "FRA"
-		value = 100
-	}
+# 	ai_strategy = {
+# 		type = contain
+# 		id = "GER"
+# 		value = 200
+# 	}
+# 	ai_strategy = {
+# 		type = support
+# 		id = "FRA"
+# 		value = 200
+# 	}
+# 	ai_strategy = {
+# 		type = protect
+# 		id = "FRA"
+# 		value = 100
+# 	}
 
-	ai_strategy = {
- 		type = force_defend_ally_borders
-    	id = "FRA"
-   		value = 200
- 	}
+# 	ai_strategy = {
+#  		type = force_defend_ally_borders
+#     	id = "FRA"
+#    		value = 200
+#  	}
 
- 	ai_strategy = {
-		type = conquer
-		id = "GER"			
-		value = 40
-	}
+#  	ai_strategy = {
+# 		type = conquer
+# 		id = "GER"			
+# 		value = 40
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		tag = GER
-		area = europe
-		value = 100
-	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		tag = GER
+# 		area = europe
+# 		value = 100
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		tag = GER
-		area = africa
-		value = -100
-	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		tag = GER
+# 		area = africa
+# 		value = -100
+# 	}
 
 	#bases in france
 	# ai_strategy = {
@@ -233,7 +233,7 @@ ENG_bef_against_germany = {
 	# 	ratio = 0.25
 	# 	subtract_invasions_from_need = yes
 	# }
-}
+# }
 
 
 
@@ -318,25 +318,25 @@ ENG_gw_modified_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = garrison
-		value = 4
+		value = 2
 	}
 	
 	ai_strategy = {
 		type = role_ratio
 		id = marines
-		value = 2
+		value = 4
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = armored_car
-		value = 2   
+		value = 4   
 	}
 
 	ai_strategy = {
 		type = role_ratio
 		id = armor   #we love tanks
-		value = 3   
+		value = 5   
 	}
 
 	ai_strategy = {
@@ -388,6 +388,51 @@ ENG_save_up_equip = {
 }
 
 
+ENG_help_france = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		is_in_faction_with = FRA
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	# ai_strategy = {
+	# 	type = contain
+	# 	id = "GER"
+	# 	value = 200
+	# }
+	ai_strategy = {
+		type = support
+		id = "FRA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = protect
+		id = "FRA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = europe
+		value = 200
+	}
+
+	# ai_strategy = {
+ 	# 	type = force_defend_ally_borders
+    # 	id = "FRA"
+   	# 	value = 200
+ 	# }
+
+ 	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
+}
+
 
 ENG_protect_canada = {
 	allowed = {
@@ -396,9 +441,9 @@ ENG_protect_canada = {
 	}
 	enable = {
 		country_exists = USA
-		#NOT = { is_in_faction_with = USA }
-		#CAN = { is_puppet_of = ENG }
-		#threat > 0.35	
+		NOT = { is_in_faction_with = USA }
+		CAN = { is_puppet_of = ENG }
+		threat > 0.25	
 	}
 	abort_when_not_enabled = yes
 
@@ -407,64 +452,72 @@ ENG_protect_canada = {
 		value = 30
 	}
 
-	ai_strategy = {
-		type = contain
-		id = "USA"
-		value = 100
-	}
+	# ai_strategy = {
+	# 	type = contain
+	# 	id = "USA"
+	# 	value = 100
+	# }
 	ai_strategy = {
 		type = protect
 		id = "CAN"
 		value = 200
 	}
+
 	ai_strategy = {
 		type = support
 		id = "CAN"
-		value = 200
+		value = 100
 	}
 
-	ai_strategy = {
- 		type = force_defend_ally_borders
-    	id = "CAN"
-   		value = 200
- 	}
-
- 	ai_strategy = {
+	#west canada
+    ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 10
+		value = 80
 	}
 
-	ai_strategy = {
-        type = area_priority
-        id = north_america
-        value = 10
-    }
+	# ai_strategy = {
+ 	# 	type = force_defend_ally_borders
+    # 	id = "CAN"
+   	# 	value = 200
+ 	# }
 
-    ai_strategy = {
-        type = area_priority
-        id = africa
-        value = -30  	#85
-    }
+ 	# ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = north_america
+	# 	value = 10
+	# }
 
-    #west canada
-    ai_strategy = {
-		type = front_unit_request
-		area = western_canada
-		value = 20
-	}
+	# ai_strategy = {
+    #     type = area_priority
+    #     id = north_america
+    #     value = 10
+    # }
 
-	#please hold winnipeg & toronto
-	ai_strategy = {
-		type = put_unit_buffers	
-		states = { 
-			467
-			276
-		}
-		ratio = 0.1
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = yes
-	}
+    # ai_strategy = {
+    #     type = area_priority
+    #     id = africa
+    #     value = -30  	#85
+    # }
+
+    # #west canada
+    # ai_strategy = {
+	# 	type = front_unit_request
+	# 	area = western_canada
+	# 	value = 20
+	# }
+
+	# #please hold winnipeg & toronto
+	# ai_strategy = {
+	# 	type = put_unit_buffers	
+	# 	states = { 
+	# 		467
+	# 		276
+	# 	}
+	# 	ratio = 0.1
+	# 	subtract_invasions_from_need = no
+	# 	subtract_fronts_from_need = yes
+	# }
 }
 
 
