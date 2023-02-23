@@ -165,6 +165,31 @@ FRA_gw_modified_unit_production = {
 	}
 }
 
+FRA_loss_of_alsacelorraine = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = GER
+		NOT = { controls_state = 28 }
+		NOT = { is_in_faction_with = GER }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = antagonize
+		id = "GER"
+		value = 50
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"
+		value = 20
+	}
+}
+
 
 FRA_gw_stockpile_less_early_game = {
 	allowed = {
@@ -178,8 +203,9 @@ FRA_gw_stockpile_less_early_game = {
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
+		type = prepare_for_war
+		id = "GER"
+		value = 10
 	}
 }
 
