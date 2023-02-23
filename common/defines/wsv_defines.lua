@@ -7,7 +7,7 @@ NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 1000			--Max navy experience a country 
 NDefines.NMilitary.MAX_AIR_EXPERIENCE = 1000				--Max air experience a country can store
 
 NDefines.NProduction.BASE_FACTORY_SPEED = 3.75 				-- Base civ factory speed multiplier (how much hoi3 style IC each factory gives).
-NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3.5 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 4 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
 
 NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2
 NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
