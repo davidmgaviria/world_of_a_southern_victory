@@ -236,6 +236,34 @@ USA_gw_stockpile_less_early_game = {
 }
 
 
+
+USA_rememberance = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = CSA
+		#date > 1912.1.1
+		NOT = { is_in_faction_with = CSA }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = antagonize
+		id = "CSA"			
+		value = 60
+	}	
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "CSA"
+		value = 20
+	}
+}
+
+
+
 USA_germany_ally_ww1 = {
 	allowed = {
 		original_tag = USA
@@ -320,30 +348,6 @@ USA_greatwar_mobilize = {
 	}
 }
 
-
-USA_focus_on_confederacy = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CSA = { exists = yes }
-		NOT = { is_in_faction_with = CSA }
-	}
-	abort = {
-		OR = {
-			CSA = { has_capitulated = yes }
-			has_global_flag = treaty_of_richmond
-			USA = { is_in_faction_with = CSA }
-		}
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = CSA		
-		value = 60
-	}		
-}
 
 
 USA_attack_csa_during_black_rebellion = {
