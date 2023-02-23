@@ -16,71 +16,71 @@
 
 ######################### GENERIC ##########################
 
-FRA_area_priority = {
-	allowed = { original_tag = FRA }
-	enable = {
-		always = yes
-	}
+# FRA_area_priority = {
+# 	allowed = { original_tag = FRA }
+# 	enable = {
+# 		always = yes
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = europe
-		value = 110 #more focus here
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = europe
+# 		value = 110 #more focus here
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = scandinavia
-		value = 0
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 0
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 10
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_america
+# 		value = 10
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = south_america
-		value = 10
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = south_america
+# 		value = 10
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = asia
-		value = 75
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = middle_east
-		value = 10
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = -25
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = africa
-		value = -60
-	}
-	ai_strategy = {
-        type = area_priority
-        id = suez
-        value = -25
-    }
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = africa
+# 		value = -200
+# 	}
+# 	ai_strategy = {
+#         type = area_priority
+#         id = suez
+#         value = -25
+#     }
 
-	ai_strategy = {
-		type = area_priority
-		id = pacific
-		value = 10 #less focus here
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = 10 #less focus here
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = oceania
-		value = 10
-	}
-}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = 10
+# 	}
+# }
 
 
 
@@ -179,7 +179,7 @@ FRA_gw_stockpile_less_early_game = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 
@@ -192,32 +192,20 @@ FRA_greatwar_mobilize = {
 	enable = {
 		country_exists = GER
 		NOT = { is_in_faction_with = GER }
-		threat > 0.3	
+		threat > 0.25	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "GER"
-		value = 400
+		value = 200
 	}
 
 	ai_strategy = {
 		type = support
 		id = "RUS"
 		value = 80
-	}
-
-	ai_strategy = {
-		type = ignore
-		id = "ENG"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = -75
 	}
 }
 
@@ -231,7 +219,7 @@ FRA_opening_war_assault = {
 		OR = {
 			NOT = { is_in_faction_with = GER }
 		}
-		threat > 0.2
+		threat > 0.25
 	}
 	abort = {
 		has_war_with = GER  #dont abort before
