@@ -93,9 +93,10 @@ USA_two_oceans_fleet = {
 	}
 
 	ai_strategy = {
-   		type = dockyard_to_military_factory_ratio
-    	value = 25  
-    }
+	    type = building_target
+	    id = industrial_complex
+	    value = 20
+	}
 
     ai_strategy = {
 		type = area_priority
@@ -249,31 +250,31 @@ USA_germany_ally_ww1 = {
 }
 
 
-USA_defend_washington = {
-	allowed = {
-		original_tag = USA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = CSA
-		NOT = { is_in_faction_with = CSA }
-	}
-	abort_when_not_enabled = yes
+# USA_defend_washington = {
+# 	allowed = {
+# 		original_tag = USA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = CSA
+# 		NOT = { is_in_faction_with = CSA }
+# 	}
+# 	abort_when_not_enabled = yes
 
-	#protect washington
-	ai_strategy = {
-		type = front_unit_request
+# 	#protect washington
+# 	ai_strategy = {
+# 		type = front_unit_request
 
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		state = 813
+# 		state = 840
+# 		state = 362
+# 		state = 361
+# 		state = 360
+# 		state = 814
+# 		state = 813
 		
-		value = 60
-	}
-}	
+# 		value = 60
+# 	}
+# }	
 
 
 USA_greatwar_mobilize = {
@@ -284,7 +285,7 @@ USA_greatwar_mobilize = {
 	enable = {
 		CSA = { exists = yes }
 		NOT = { is_in_faction_with = CSA }
-		threat > 0.35
+		threat > 0.25
 	}
 	abort = {
 		OR = {
@@ -334,7 +335,7 @@ USA_focus_on_confederacy = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 20
+		value = 50
 	}		
 }
 
@@ -416,24 +417,6 @@ USA_attack_csa_during_black_rebellion = {
 # 	}
 # }
 
-
-
-USA_attack_csa_during_black_rebellion = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CSA = { has_idea = CSA_black_rebellion_idea }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = consider_weak
-		id = "CSA"			
-		value = 5
-	}
-}
 
 
 ########################## WW2 ##########################

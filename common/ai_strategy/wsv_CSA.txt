@@ -263,31 +263,31 @@ CSA_france_ally = {
 }
 
 
-CSA_defend_richmond = {
-	allowed = {
-		original_tag = CSA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = USA
-		NOT = { is_in_faction_with = USA }
-	}
-	abort_when_not_enabled = yes
+# CSA_defend_richmond = {
+# 	allowed = {
+# 		original_tag = CSA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = USA
+# 		NOT = { is_in_faction_with = USA }
+# 	}
+# 	abort_when_not_enabled = yes
 
-	#protect richmond
-	ai_strategy = {
-		type = front_unit_request
+# 	#protect richmond
+# 	ai_strategy = {
+# 		type = front_unit_request
 
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		state = 813
+# 		state = 840
+# 		state = 362
+# 		state = 361
+# 		state = 360
+# 		state = 814
+# 		state = 813
 		
-		value = 100
-	}
-}	
+# 		value = 100
+# 	}
+# }	
 
 
 CSA_greatwar_mobilize = {
@@ -298,7 +298,7 @@ CSA_greatwar_mobilize = {
 	enable = {
 		country_exists = USA
 		NOT = { is_in_faction_with = USA }
-		threat > 0.3	
+		threat > 0.25	
 	}
 	abort_when_not_enabled = yes
 
@@ -320,7 +320,7 @@ CSA_take_dc = {
 			exists = yes 
 			NOT = { has_non_aggression_pact_with = CSA }
 		}
-		threat > 0.25
+		#threat > 0.1
 	}
 	abort = {
 		has_war_with = USA
@@ -333,8 +333,8 @@ CSA_take_dc = {
 	ai_strategy = {
 		type = front_control
 		state = 361
-		state = 360
-		state = 840
+		#state = 360
+		#state = 840
 		priority = 100
 		ratio = 0.3
 		ordertype = front
@@ -344,14 +344,9 @@ CSA_take_dc = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		#state = 813
-		value = 100
+	    type = theatre_distribution_demand_increase
+	    value = 80
+	    id = 361
 	}
 }
 
