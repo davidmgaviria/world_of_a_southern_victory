@@ -12,22 +12,24 @@ ideas = {
 			removal_cost=-1
 			picture = generic_rememberance_day   #generic_victors_of_ww1
 			modifier = {
-				conscription = 0.005
+				conscription = 0.01
+				mobilization_speed = 0.005
 				war_support_factor = 0.2
-				army_morale_factor = 0.05
-				surrender_limit = -0.1
 				offensive_war_stability_factor = 0.2
+				army_core_defence = 0.1
+				#surrender_limit = -0.1
 			}
 		}
 
 		USA_democrat_dynasty = {
 			allowed={ always=no }
 			allowed_civil_war={ has_government=democratic }
+			cancel = { NOT = { has_government=democratic } }
 			removal_cost=-1
 			picture = generic_pp_unity_bonus
 			modifier = {
-				political_power_gain = 0.1
-				drift_defence_factor = 0.25
+				political_power_gain = 0.15
+				drift_defence_factor = 0.2
 			}
 		}
 
@@ -38,9 +40,24 @@ ideas = {
 			picture= German_staff_ww1
 			
 			modifier = {
-				max_planning = 0.15
+				max_planning = 0.25
 				planning_speed = 0.1
-				army_org_factor = 0.05
+				army_org_factor = 0.1
+			}
+		}
+
+		USA_gilded_age = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_production_bonus
+
+			
+			modifier = {
+				stability_factor = -0.1
+				communism_drift = 0.03
+				industrial_capacity_factory = 0.15
+				production_speed_buildings_factor = 0.1
 			}
 		}
 
