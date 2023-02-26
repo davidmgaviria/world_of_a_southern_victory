@@ -1,178 +1,11 @@
 # For minor countries where advisors are not defined
 # Generate them from a generic template
 
-# Political advisors
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-		# avoid generic advisors in temporary countries
-		is_dynamic_country = no
-		NOT = {
-			has_allowed_idea_with_traits = { idea = communist_revolutionary characters = yes }
-		}
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = TUR tag = GRE }
-		}
-	}
-	generate_character = {
-		token_base = generic_communist_revolutionary # token will be TAG_token_base
-		advisor = {
-			slot = political_advisor
-			traits = { communist_revolutionary }
-			available = {
-				if = {
-					limit = { 
-						original_tag = NZL
-						has_dlc = "Together for Victory"
-					}
-					has_completed_focus = NZL_the_lee_affair
-				}
-				if = {
-					limit = { has_dlc = "Man the Guns" }	
-					NOT = { has_autonomy_state = autonomy_supervised_state }
-				}
-			}
-			ai_will_do = {
-				factor = 0
-			}
-		}
-		portraits = { 
-			army = { small = GFX_idea_generic_communist_revolutionary }
-		}
-	}
-}
 
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-		is_dynamic_country = no
-		NOT = {
-			has_allowed_idea_with_traits = { idea = democratic_reformer characters = yes }
-		}
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = TUR tag = GRE }
-		}
-	}
-	generate_character = {
-		token_base = generic_democratic_reformer # token will be TAG_token_base
-		advisor = {
-			slot = political_advisor
-			traits = { democratic_reformer }
-			available = {
-				if = {
-					limit = { 
-						original_tag = NZL
-						has_dlc = "Together for Victory"
-					}
-					OR = {
-						has_completed_focus = NZL_strengthen_the_commonwealth
-						has_completed_focus = NZL_constitution_amendment_act
-					}
-				}
-				if = {
-					limit = { has_dlc = "Man the Guns" }	
-					NOT = { has_autonomy_state = autonomy_supervised_state }
-				}
-			}
-			ai_will_do = {
-				factor = 0
-			}
-		}
-		portraits = { 
-			army = { small = GFX_idea_generic_democratic_reformer }
-		}
-	}
-}
-
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-		is_dynamic_country = no
-		NOT = {
-			has_allowed_idea_with_traits = { idea = fascist_demagogue characters = yes }
-		}
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = TUR tag = GRE }
-		}
-	}
-	generate_character = {
-		token_base = generic_fascist_demagogue # token will be TAG_token_base
-		advisor = {
-			slot = political_advisor
-			traits = { fascist_demagogue }
-			available = {
-				if = {
-					limit = { 
-						original_tag = NZL
-						has_dlc = "Together for Victory"
-					}
-					has_completed_focus = NZL_in_the_darkness
-				}
-				if = {
-					limit = { has_dlc = "Man the Guns" }	
-					NOT = { has_autonomy_state = autonomy_supervised_state }
-				}				
-			}
-			ai_will_do = {
-				factor = 0
-			}
-		}
-		portraits = { 
-			army = { small = GFX_idea_generic_fascist_demagogue }
-		}
-	}
-}
-
-every_possible_country = {
-	limit = {
-		has_dlc = "La Resistance"
-		# china gets a special one via focus
-		NOT = { original_tag = CHI }
-		#NOT = { is_chinese_warlord = yes }
-		if = {
-			limit = {
-				has_dlc = "Battle for the Bosporus"
-			}
-			NOT = {
-				tag = GRE
-				tag = TUR
-			}
-		}
-		NOT = {
-			has_allowed_idea_with_traits = { idea = head_of_intelligence characters = yes }
-		}
-		is_dynamic_country = no
-	}
-	generate_character = {
-		token_base = generic_head_of_intelligence # token will be TAG_token_base
-		advisor = {
-			slot = political_advisor
-			traits = { head_of_intelligence }
-			available = {
-				has_intelligence_agency = yes
-			}
-			ai_will_do = {
-				factor = 1
-				modifier = {
-					has_intelligence_agency = no
-					factor = 0
-				}
-			}
-		}
-		portraits = { 
-			army = { small = GFX_idea_generic_head_of_intelligence }
-		}
-	}
-}
 
 # Political advisors
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-	}
+USA = {
+	
 	# generic political advisors
 	generate_character = {
 		token_base = generic_captain_of_industry # token will be TAG_token_base
@@ -249,20 +82,20 @@ every_possible_country = {
 
 
 # Military advisors
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }	#we removed usa and csa for now cause theirs are garbage
-	}
+USA = {
 	#army chiefs
 	generate_character = {
 		token_base = generic_army_chief_off # token will be TAG_token_base
+		available = {
+			has_start_date > 1937.1.1  # pershing in ww1
+		}
 		advisor = {
 			slot = army_chief
 			traits = { army_chief_offensive_1 }
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_army_chief_off }
+			army = { small = GFX_idea_USA_army_chief_off }
 		}
 	}
 	generate_character = {
@@ -273,7 +106,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_army_chief_def }
+			army = { small = GFX_idea_USA_army_chief_def }
 		}
 	}
 	# generic navy chiefs
@@ -285,7 +118,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_navy_chief_decisive_bat }
+			army = { small = GFX_idea_USA_navy_chief_decisive_bat }
 		}
 	}
 	generate_character = {
@@ -296,7 +129,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_navy_anti_submarine }
+			army = { small = GFX_idea_USA_navy_anti_submarine }
 		}
 	}
 	# generic air chiefs
@@ -308,7 +141,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_air_close_air_sup }
+			army = { small = GFX_idea_USA_air_close_air_sup }
 		}
 	}
 	generate_character = {
@@ -319,7 +152,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_air_chief_all_weather }
+			army = { small = GFX_idea_USA_air_chief_all_weather }
 		}
 	}
 	# generic high command
@@ -332,7 +165,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_army_art }
+			army = { small = GFX_idea_USA_army_art }
 		}
 	}
 	generate_character = {
@@ -344,7 +177,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_army_infantry }
+			army = { small = GFX_idea_USA_army_infantry }
 		}
 	}
 	generate_character = {
@@ -356,11 +189,11 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_army_log }
+			army = { small = GFX_idea_USA_army_log }
 		}
 	}
 	generate_character = {
-		token_base = generic_army_infantry # token will be TAG_token_base, left this name cause entrenchment wasnt working
+		token_base = generic_army_entrench # token will be TAG_token_base, left this name cause entrenchment wasnt working
 		advisor = {
 			slot = high_command
 			traits = { army_entrenchment_1 }
@@ -368,7 +201,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_army_entrenchment }
+			army = { small = GFX_idea_USA_army_entrenchment }
 		}
 	}
 	generate_character = {
@@ -380,7 +213,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_navy_fleet_log }
+			army = { small = GFX_idea_USA_navy_fleet_log }
 		}
 	}
 	generate_character = {
@@ -392,7 +225,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_air_air_combat_trainer }
+			army = { small = GFX_idea_USA_air_air_combat_trainer }
 		}
 	}
 	# generic theorists
@@ -405,7 +238,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_military_theorist }
+			army = { small = GFX_idea_USA_military_theorist }
 		}
 	}
 	generate_character = {
@@ -417,7 +250,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_naval_theorist }
+			army = { small = GFX_idea_USA_naval_theorist }
 		}
 	}
 	generate_character = {
@@ -429,7 +262,7 @@ every_possible_country = {
 			#cost = 50
 		}
 		portraits = { 
-			army = { small = GFX_idea_generic_air_warfare_theorist }
+			army = { small = GFX_idea_USA_air_warfare_theorist }
 		}
 	}
 }
