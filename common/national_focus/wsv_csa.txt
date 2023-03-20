@@ -5,1644 +5,2019 @@ focus_tree = {
 
 
 	###########################################################################################################################
-	# Political Effort
+	# Domestic/Industrial
 	###########################################################################################################################
 	focus = {
-		id = CSA_political_effort
-		icon = GFX_goal_generic_demand_territory
+		id = CSA_reevaluate_privileges
+		icon = GFX_
+		prerequisite = { focus = }
+		#mutually_exclusive = {}
 		cost = 10
-		x = 4
+		x = 6
 		y = 0
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			add_political_power=100		
+				
 		}
 	}
 
-
 	focus = {
-		id = CSA_status_quo
-		icon = GFX_focus_generic_self_management
-		prerequisite = { focus = CSA_political_effort }
-		mutually_exclusive = { focus = CSA_progressive_movement }
+		id = CSA_economic_stimulus
+		icon = GFX_
+		prerequisite = { focus = CSA_reevaluate_privileges }
+		#mutually_exclusive = {}
 		cost = 10
-		x = -1
+		x = -3
 		y = 1
-		relative_position_id = CSA_political_effort
+		relative_position_id = CSA_reevaluate_privileges
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			add_ideas = { CSA_conservatism_idea }			
+				
 		}
 	}
 
 	focus = {
-		id = CSA_appease_confederate_aristocracy
-		icon = GFX_focus_generic_concessions
-		prerequisite = { focus = CSA_status_quo }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = CSA_status_quo
-
-		ai_will_do = { 
-			factor = 10 
-		}
-
-		completion_reward = { 
-			add_political_power = 120			
-		}
-	}
-
-	focus = {
-		id = CSA_black_interment_camps
-		icon = GFX_focus_imprison_blacks
-		prerequisite = { focus = CSA_appease_confederate_aristocracy }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_appease_confederate_aristocracy
-
-		available = {
-			NOT = { has_completed_focus = CSA_black_soldiers }
-			has_global_flag = csa_black_revolt
-		}
-
-		ai_will_do = { 
-			factor = 5 
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
-
-		completion_reward = { 
-			swap_ideas = {
-				remove_idea = CSA_racial_segregation
-				add_idea = CSA_black_interment_idea
-			}		
-		}
-	}
-
-	focus = {
-		id = CSA_progressive_movement
-		icon = GFX_focus_generic_soviet_politics
-		prerequisite = { focus = CSA_political_effort }
-		mutually_exclusive = { focus = CSA_status_quo }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = CSA_political_effort
-
-		ai_will_do = { 
-			factor = 15 
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
-
-		completion_reward = { 
-			add_ideas = { CSA_progressivism_idea }			
-		}
-	}
-
-	focus = {
-		id = CSA_confront_confederate_aristocracy
-		icon = GFX_focus_eng_concessions_to_the_trade_unions
-		prerequisite = { focus = CSA_progressive_movement }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = CSA_progressive_movement
-
-		ai_will_do = { 
-			factor = 20 
-		}
-
-		completion_reward = { 
-			swap_ideas = {
-				remove_idea = CSA_southern_aristocracy
-				add_idea = CSA_southern_aristocracy_restrained
-			}			
-		}
-	}
-
-	focus = {
-		id = CSA_relax_racial_laws
-		icon = GFX_focus_desegregation
-		prerequisite = { focus = CSA_confront_confederate_aristocracy }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_confront_confederate_aristocracy
-
-		ai_will_do = { 
-			factor = 5 
-		}
-
-		completion_reward = { 
-			swap_ideas = {
-				remove_idea = CSA_racial_segregation 
-				add_idea =  CSA_lax_racial_laws 
-			}	
-		}
-	}
-
-
-	focus = {
-		id = CSA_urbanization_effort1
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = CSA_status_quo   focus = CSA_progressive_movement }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = CSA_status_quo
-
-		ai_will_do = { 
-			factor = 10 
-		}
-
-		completion_reward = { 
-			random_owned_state = {
-				add_building_construction = {
-				    type = infrastructure
-				    level = 1
-				    instant_build = yes
-				}
-			}
-			random_owned_state = {
-				add_building_construction = {
-				    type = infrastructure
-				    level = 1
-				    instant_build = yes
-				}
-			}
-		}
-	}
-
-
-	focus = {
-		id = CSA_urbanization_effort2
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = CSA_urbanization_effort1 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_urbanization_effort1
-
-		ai_will_do = { 
-			factor = 10 
-		}
-
-		completion_reward = { 
-			random_owned_state = {
-				add_building_construction = {
-				    type = infrastructure
-				    level = 1
-				    instant_build = yes
-				}
-			}
-			random_owned_state = {
-				add_building_construction = {
-				    type = infrastructure
-				    level = 1
-				    instant_build = yes
-				}
-			}			
-		}
-	}
-	###########################################################################################################################
-	# Diplomatic Effort
-	###########################################################################################################################
-
-	focus = {
-		id = CSA_diplomatic_effort
-		icon = GFX_goal_generic_intelligence_exchange
-		cost = 10
-		x = 12
-		y = 0
-
-		ai_will_do = { 
-			factor = 40 
-		}
-
-		completion_reward = { 
-			add_political_power=50		
-		}
-	}
-
-
-	focus = {
-		id = CSA_northern_menance
-		icon = GFX_focus_anti_usa
-		prerequisite = { focus = CSA_diplomatic_effort }
+		id = CSA_nashville_arms
+		icon = GFX_
+		prerequisite = { focus = CSA_economic_stimulus}
+		#mutually_exclusive = {}
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = CSA_diplomatic_effort
+		relative_position_id = CSA_economic_stimulus
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			add_political_power = 75
-			add_opinion_modifier={ 
-				target=USA modifier=HOI4TGW_Opinion_anti_usa_policy_malus
-			}			
+				
 		}
 	}
 
 	focus = {
-		id = CSA_strengthen_british_ties
-		icon = GFX_focus_improve_relations_with_eng
-		prerequisite = { focus = CSA_northern_menance }
+		id = CSA_atlanta_arms
+		icon = GFX_
+		prerequisite = { focus = CSA_nashville_arms}
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_nashville_arms
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_civ_factories1
+		icon = GFX_
+		prerequisite = { focus = CSA_economic_stimulus}
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_economic_stimulus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_sloss_steel
+		icon = GFX_
+		prerequisite = { focus = CSA_civ_factories1}
+		#mutually_exclusive = {}
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = CSA_northern_menance
-
-		available = {
-		 	NOT = { has_war_with = ENG }
-		 		
-		 	ENG = {
-		 		exists = yes
-		 	}
-		}
+		relative_position_id = CSA_civ_factories1
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			diplomatic_relation = {
-			    country = ENG
-			    relation = non_aggression_pact
-			    active = yes
-			}
-			USA = {
-				add_opinion_modifier = { 
-					target = CSA
-					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
-				}
-			}		
+				
 		}
 	}
 
-
 	focus = {
-		id = CSA_csa-canadian_partnership
-		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = CSA_strengthen_british_ties }
+		id = CSA_texas_oil
+		icon = GFX_
+		prerequisite = { focus = CSA_sloss_steel}
+		#mutually_exclusive = {}
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = CSA_strengthen_british_ties
+		relative_position_id = CSA_sloss_steel
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			army_experience = 20		
+				
 		}
 	}
 
+	focus = {
+		id = CSA_synth_rubber
+		icon = GFX_
+		prerequisite = { focus = CSA_texas_oil }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_texas_oil
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
 
 	focus = {
-		id = CSA_strengthen_french_ties
-		icon = GFX_hoi4tgw_marianne
-		prerequisite = { focus = CSA_northern_menance }
+		id = CSA_civ_factories2
+		icon = GFX_
+		prerequisite = { focus = CSA_civ_factories1 }
+		#mutually_exclusive = {}
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = CSA_northern_menance
+		relative_position_id = CSA_civ_factories1
 
 		ai_will_do = { 
-			factor = 20 
+			factor = 0 
 		}
 
-		available = {
-		 	NOT = { has_war_with = FRA }
-		 		
-		 	FRA = {
-		 		exists = yes
-		 	}
-		}
+		#bypass = {}
 
 		completion_reward = { 
-			diplomatic_relation = {
-			    country = FRA
-			    relation = non_aggression_pact
-			    active = yes
-			}
-			GER = {
-				add_opinion_modifier = { 
-					target = CSA
-					modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
-				}
-			}		
+				
 		}
 	}
 
 	focus = {
-		id = CSA_join_entente
-		icon = GFX_goal_support_democracy
-		prerequisite = { focus = CSA_strengthen_french_ties }
-		cost = 5
-		x = 0
-		y = 2
-		relative_position_id = CSA_strengthen_french_ties
-
-		available = {
-	 		is_puppet = no
-	 		NOT = { has_war_with = FRA }
-			is_in_faction = no
-	 		FRA = {
-	 			exists = yes
- 				is_faction_leader = yes
-	 		}
-	 		threat > 0.5
-		}
-
-		ai_will_do = { 
-			factor = 40 
-		}
-
-		bypass = {
-			is_in_faction_with = FRA
-		}
-
-		completion_reward = { 
-			FRA={
-				add_to_faction=ROOT
-			}
-			hidden_effect = { news_event = wsv_generic.10 }	
-		}
-	}
-
-
-	focus = {
-		id = CSA_prepare_for_war
-		prerequisite = { focus = CSA_strengthen_british_ties }
-		prerequisite = { focus = CSA_strengthen_french_ties }
-		icon = GFX_goal_demand_sudetenland   
-		available = { threat > 0.25 }
-		completion_reward = {
-			add_war_support = 0.1
-			add_manpower = 100000
-			army_experience=10 navy_experience=35
-		}
-		cancel_if_invalid = yes 
-		ai_will_do = { factor = 50 }
-		cost = 5
-		x = 1
-		y = 1
-		relative_position_id = CSA_strengthen_british_ties
-	}
-
-
-	focus = {
-		id = CSA_extensive_conscription_focus
-		icon = GFX_focus_generic_commonwealth_build_infantry
-		prerequisite = { focus = CSA_prepare_for_war }
+		id = CSA_infrastructure_effort
+		icon = GFX_
+		prerequisite = { focus = CSA_civ_factories2}
+		#mutually_exclusive = {}
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = CSA_prepare_for_war
-		available = {
-			has_war = yes
-			has_idea = limited_conscription
-			has_manpower < 500000
-		}
-
-		bypass = { 
-			OR = {
-				has_idea = extensive_conscription 
-				has_idea = service_by_requirement
-				has_idea = all_adults_serve
-				has_idea = scraping_the_barrel
-			}
-		}
+		relative_position_id = CSA_civ_factories2
 
 		ai_will_do = { 
-			factor = 100 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			add_ideas = { extensive_conscription }			
+				
 		}
 	}
 
-
 	focus = {
-		id = CSA_black_soldiers
-		icon = GFX_focus_black_soldiers
-		prerequisite = { focus = CSA_extensive_conscription_focus }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_extensive_conscription_focus
-		available = {
-			has_war = yes
-			date > 1916.1.1
-			NOT = { has_completed_focus = CSA_black_interment_camps }
-			OR = {
-				has_idea = extensive_conscription
-				has_idea = service_by_requirement
-				has_idea = all_adults_serve
-				has_idea = scraping_the_barrel
-			}
-		}
-
-		ai_will_do = { 
-			factor = 20
-
-			modifier = {
-				factor = 3
-				has_manpower < 10000
-			} 
-		}
-
-		completion_reward = { 
-			add_ideas = { CSA_black_soldiers }			
-		}
-	}
-
-
-	focus = {
-		id = CSA_mexican_question
-		icon = GFX_focus_mexico_flag
-		prerequisite = { focus = CSA_diplomatic_effort }
+		id = CSA_rail_effort
+		icon = GFX_
+		prerequisite = { focus = CSA_civ_factories2 }
+		#mutually_exclusive = {}
 		cost = 10
 		x = 2
-		y = 1
-		relative_position_id = CSA_diplomatic_effort
+		y = 2
+		relative_position_id = CSA_civ_factories2
 
 		ai_will_do = { 
-			factor = 10 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			add_political_power = 75			
+				
 		}
 	}
 
-
 	focus = {
-		id = CSA_loosen_control_mexico
-		icon = GFX_goal_generic_alliance
-		prerequisite = { focus = CSA_mexican_question }
-		mutually_exclusive = { focus = CSA_tighten_control_mexico }
+		id = CSA_black_workers
+		icon = GFX_
+		prerequisite = { focus = CSA_civ_factories1}
+		#mutually_exclusive = {}
 		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = CSA_mexican_question
+		x = 0
+		y = 2
+		relative_position_id = CSA_civ_factories1
 
 		ai_will_do = { 
-			factor = 10 
+			factor = 0 
 		}
 
-		completion_reward = { 
-			#custom_effect_tooltip = CSA_mexico_loosen_tt
-			#hidden_effect = {
-			#	MEX = {	add_autonomy_score = { value = 1000 } }	
-			#}
+		#bypass = {}
 
-			diplomatic_relation = {
-			    country = CSA
-			    relation = non_aggression_pact
-			    active = yes
-			}
-			diplomatic_relation = {
-			    country = MEX
-			    relation = guarantee
-			    active = no
-			}
-			MEX = {
-				diplomatic_relation = {
-				    country = CSA
-				    relation = guarantee
-				    active = no
-				}
-			}
+		completion_reward = { 
+				
 		}
 	}
 
-
 	focus = {
-		id = CSA_tighten_control_mexico
-		icon = GFX_goal_generic_political_pressure
-		prerequisite = { focus = CSA_mexican_question }
-		mutually_exclusive = { focus = CSA_loosen_control_mexico }
+		id = CSA_new_freedom
+		icon = GFX_
+		prerequisite = { focus = CSA_reevaluate_privileges }
+		#mutually_exclusive = {}
 		cost = 10
-		x = 1
+		x = 3
 		y = 1
-		relative_position_id = CSA_mexican_question
+		relative_position_id = CSA_reevaluate_privileges
 
 		ai_will_do = { 
-			factor = 10 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			#custom_effect_tooltip = CSA_mexico_tighten_tt
-			#hidden_effect = {
-			#	MEX = {	add_autonomy_score = { value = -1000 } }	
-			#}	
-			MEX = {
-				diplomatic_relation = {
-				    country = CSA
-				    relation = military_access
-				    active = yes
-				}
-				diplomatic_relation = {
-				    country = CSA
-				    relation = docking_rights
-				    active = yes
-				}
-			}			
+				
 		}
 	}
 
-
 	focus = {
-		id = CSA_financial_aid_mexico
-		icon = GFX_focus_mex_privatisation
-		prerequisite = { focus = CSA_loosen_control_mexico   focus = CSA_tighten_control_mexico}
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = CSA_loosen_control_mexico
-
-		ai_will_do = { 
-			factor = 10 
-		}
-
-		completion_reward = { 
-			custom_effect_tooltip = CSA_fiancial_aid_tt
-			if = {
-				limit = { has_completed_focus = CSA_loosen_control_mexico }
-				MEX = { add_ideas = { CSA_mexican_aid1 }}			
-			}
-			if = {
-				limit = { has_completed_focus = CSA_tighten_control_mexico} 
-				MEX = { add_ideas = { CSA_mexican_aid2 }}			
-			}				
-		}
-	}
-
-
-	focus = {
-		id = CSA_csa-mexico_military
-		icon = GFX_focus_mex_caudillo_private_armies
-		prerequisite = { focus = CSA_financial_aid_mexico }
+		id = CSA_no_child_labor
+		icon = GFX_
+		prerequisite = { focus = CSA_new_freedom }
+		#mutually_exclusive = {}
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = CSA_financial_aid_mexico
-		
+		relative_position_id = CSA_new_freedom 
+
 		ai_will_do = { 
-			factor = 5 
+			factor = 0 
 		}
 
+		#bypass = {}
+
 		completion_reward = { 
-			army_experience = 25
-			MEX = { army_experience = 25 }				
+				
 		}
 	}
 
-
-	# focus = {
-	# 	id = CSA_release_mexico
-	# 	icon = GFX_focus_mexico_csa_unity
-	# 	prerequisite = { focus = CSA_csa-mexico_military }
-	# 	prerequisite = { focus = CSA_loosen_control_mexico }
-	# 	cost = 10
-	# 	x = -1
-	# 	y = 1
-	# 	relative_position_id = CSA_csa-mexico_military
-		
-	# 	ai_will_do = { 
-	# 		factor = 5
-	# 		modifier = {
-	# 			is_historical_focus_on = yes
-	# 			factor = 0
-	# 		} 
-	# 	}
-
-	# 	completion_reward = { 
-	# 		release = MEX			
-	# 	}
-	# }
-
-
 	focus = {
-		id = CSA_annex_mexico
-		icon = GFX_focus_strike_mexico
-		prerequisite = { focus = CSA_csa-mexico_military }
-		prerequisite = { focus = CSA_tighten_control_mexico }
+		id = CSA_university_grants
+		icon = GFX_
+		prerequisite = { focus = CSA_no_child_labor }
+		prerequisite = { focus = CSA_civ_factories1 }
+		#mutually_exclusive = {}
 		cost = 10
-		x = 1
+		x = -1
 		y = 1
-		relative_position_id = CSA_csa-mexico_military
+		relative_position_id = CSA_no_child_labor
 
-		available ={
-			MEX = { exists = yes }
-			NOT = { has_war_with = MEX }
-		}
-		
 		ai_will_do = { 
-			factor = 5
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			} 
+			factor = 0 
 		}
+
+		#bypass = {}
 
 		completion_reward = { 
-			MEX= { country_event = { id = wsv_csa.4 } }		
+				
 		}
 	}
 
-	#-----------------------------------------
+	focus = {
+		id = CSA_fund_highschool
+		icon = GFX_
+		prerequisite = { focus = CSA_no_child_labor }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_no_child_labor
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	###########################################################################################################################
+	# ARMY
+	###########################################################################################################################
 
 	focus = {
-		id = CSA_ww1_army_effort
-		icon = GFX_focus_generic_commonwealth_build_infantry
-		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
-		ai_will_do = { factor = 20 }
-		cost = 10
-		x = 20
+		id = CSA_army_effort
+		icon = GFX_goal_generic_axis_build_infantry
+		x = 15
 		y = 0
+		cost = 10
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		
+		#available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 20
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
-	
-	focus = {
-		id = CSA_ww1_equipment_effort
-		prerequisite = { focus=CSA_ww1_army_effort }
-		icon = GFX_goal_generic_small_arms
-		completion_reward = { army_experience=10 add_tech_bonus={ name=infantry_weapons_bonus bonus=0.15 uses=1 category=infantry_weapons} }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id =CSA_ww1_army_effort
 	}
 
 	focus = {
-		id = CSA_ww1_artillery_effort_1
-		prerequisite = { focus=CSA_ww1_army_effort }
-		icon = GFX_goal_generic_army_artillery2
-		completion_reward = { army_experience=10 add_tech_bonus={ name=infantry_weapons_bonus bonus=0.15 uses=1 category=artillery } }
-		ai_will_do = { factor = 10 }
+		id = CSA_new_officer_schools
+		icon = GFX_
+		prerequisite = { focus = CSA_army_effort }
+		prerequisite = { focus = CSA_reevaluate_privileges }
+		#mutually_exclusive = {}
 		cost = 10
-		x = 1
+		x = -3
 		y = 1
-		relative_position_id = CSA_ww1_army_effort
+		relative_position_id = CSA_army_effort
 
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
 	}
+
 	focus = {
-		id = CSA_ww1_artillery_effort_2
-		prerequisite = { focus=CSA_ww1_artillery_effort_1 }
-		available = { date > 1912.1.1 }
-		icon = GFX_goal_generic_army_artillery2
-		completion_reward = { army_experience=10 add_tech_bonus={ name=infantry_weapons_bonus bonus=0.15 uses=1 category=artillery } }
-		ai_will_do = { factor = 10 }
+		id = CSA_deemphazie_cav
+		icon = GFX_
+		prerequisite = { focus = CSA_new_officer_schools }
+		#mutually_exclusive = {}
 		cost = 10
 		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_artillery_effort_1
-	}
-	focus = {
-		id = CSA_ww1_artillery_effort_3
-		prerequisite = { focus=CSA_ww1_artillery_effort_2 }
-		available = { date > 1914.1.1 }
-		icon = GFX_goal_generic_army_artillery2
-		completion_reward = { army_experience=10 add_tech_bonus={ name=infantry_weapons_bonus bonus=0.15 uses=1 category=artillery } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_artillery_effort_2
+		y = 1
+		relative_position_id = CSA_new_officer_schools
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
 	}
 
 	focus = {
-		id = CSA_ww1_doctrine_effort
-		prerequisite = { focus=CSA_ww1_army_effort }
-		available = { date > 1911.1.1 }
+		id = CSA_reshuffle_high_command
+		icon = GFX_
+		prerequisite = { focus = CSA_deemphazie_cav }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_deemphazie_cav
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_doctrine_effort
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
-		ai_will_do = { factor = 20 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_army_effort
-	}
-
-	focus = {
-		id = CSA_ww1_equipment_effort_2
-		prerequisite = { focus=CSA_ww1_equipment_effort }
-		available = { date > 1912.1.1 }
-		icon = GFX_goal_generic_small_arms
-		completion_reward = { army_experience=10 add_tech_bonus={ name=infantry_artillery_bonus bonus=0.15 uses=1 category=infantry_weapons } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_equipment_effort
-	}
-
-
-	focus = {
-		id = CSA_ww1_trenchwarfare
-		prerequisite = { focus=CSA_ww1_equipment_effort }
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_military_sphere
-		completion_reward = { army_experience=10 add_tech_bonus={ name=trenchwarfare_bonus bonus=0.15 uses=1 technology=support_weapons technology=support_weapons2 technology=support_weapons3 } }
-		ai_will_do = { factor = 10 }
-		cost = 10
+		prerequisite = { focus = CSA_army_effort }
 		x = -1
 		y = 1
-		relative_position_id = CSA_ww1_equipment_effort
-	}
-
-
-	focus = {
-		id = CSA_ww1_gasmask_focus
-		prerequisite = { focus=CSA_ww1_trenchwarfare }
-		available = { date > 1913.1.1 }
-		icon = GFX_hoi4tgw_gasmask
-		completion_reward = { army_experience=15 add_tech_bonus={ name=gasmask_bonus bonus=0.15 uses=1 technology=infantry_gasmask technology=chemical_research2 technology=chemical_research3 } }
-		ai_will_do = { factor = 10 }
+		relative_position_id = CSA_army_effort
 		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_trenchwarfare
-	}
 
-	focus = {
-		id = CSA_ww1_special_forces
-		prerequisite = { focus=CSA_ww1_gasmask_focus }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_special_forces
-		completion_reward = { army_experience=15 add_tech_bonus={ name=special_forces_bonus bonus=0.15 uses=1 technology=marines technology=marines2 technology=tech_mountaineers technology=tech_mountaineers2 } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id =CSA_ww1_gasmask_focus
-	}
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
 
-
-	focus = {
-		id = CSA_ww1_army_motorization_focus
-		available = { date > 1917.1.1 }
-		icon = GFX_goal_generic_army_motorized
-		prerequisite = { focus=CSA_ww1_special_forces }
-		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_special_forces
-		cost = 10
-		ai_will_do = { factor = 10 }
 		completion_reward = {
 			army_experience = 5
 			add_tech_bonus = {
-				name = mech_army_bonus
-				bonus = 0.2
+				name = land_doc_bonus
+				bonus = 1.0
 				uses = 1
-				technology = motorised_infantry
-				#technology = ww1_ambulance2
+				category = land_doctrine
 			}
 		}
 	}
 
 	focus = {
-		id = CSA_ww1_doctrine_effort_2
-		prerequisite = { focus=CSA_ww1_doctrine_effort }
-		available = { date > 1913.1.1 }
+		id = CSA_doctrine_effort_2
 		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
+		prerequisite = { focus = CSA_doctrine_effort }
 		x = 0
-		y = 2
-		relative_position_id =CSA_ww1_doctrine_effort
+		y = 1
+		relative_position_id = CSA_doctrine_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			army_experience = 5
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = land_doctrine
+			}
+		}
 	}
 
 	focus = {
-		id = CSA_ww1_equipment_effort_3
-		prerequisite = { focus=CSA_ww1_equipment_effort_2 }
-		available = { date > 1914.1.1 }
+		id = CSA_infantry_effort
 		icon = GFX_goal_generic_small_arms
-		completion_reward = { army_experience=10 add_tech_bonus={ name=infantry_artillery_bonus bonus=0.15 uses=1 category=infantry_weapons } }
-		ai_will_do = { factor = 10 }
+		prerequisite = { focus = CSA_army_effort }
+		x = 2
+		y = 1
+		relative_position_id = CSA_army_effort
 		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = CSA_ww1_equipment_effort_2
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
 	}
 
 	focus = {
-		id = CSA_ww1_doctrine_effort_3
-		prerequisite = { focus=CSA_ww1_doctrine_effort_2 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_army_doctrines
-		completion_reward = { army_experience=15 add_doctrine_cost_reduction = { name = land_doc_bonus  cost_reduction = 0.5 uses = 1 category = land_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id =CSA_ww1_doctrine_effort_2
-	}
-
-
-	focus = {
-		id = CSA_ww1_equipment_effort_4
-		prerequisite = { focus=CSA_ww1_equipment_effort_3 }
-		available = { date > 1916.1.1 }
-		icon = GFX_goal_generic_small_arms
-		completion_reward = { army_experience=20 add_tech_bonus={ name=infantry_artillery_bonus bonus=0.2 uses=1 category=infantry_weapons } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id =CSA_ww1_equipment_effort_3
-	}
-
-	focus = {
-		id = CSA_ww1_artillery_effort_4
-		prerequisite = { focus=CSA_ww1_artillery_effort_3 }
-		available = { date > 1916.1.1 }
+		id = CSA_canon_modele_75
 		icon = GFX_goal_generic_army_artillery2
-		completion_reward = { army_experience=20 add_tech_bonus={ name=infantry_artillery_bonus bonus=0.2 uses=1 category=artillery } }
-		ai_will_do = { factor = 10 }
+		prerequisite = { focus = CSA_infantry_effort }
+		x = -1
+		y = 1
+		relative_position_id = CSA_infantry_effort
 		cost = 10
-		x = 0
-		y = 2
-		relative_position_id =CSA_ww1_artillery_effort_3
-	}
 
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
 
-	focus = {
-		id = CSA_ww1_armor_effort_1
-		prerequisite = { focus=CSA_ww1_equipment_effort_4 }
-		prerequisite = { focus=CSA_ww1_doctrine_effort_3 }
-		prerequisite = { focus=CSA_ww1_artillery_effort_4 }
-		available = { date > 1917.1.1 }
-		icon = GFX_hoi4tgw_renaultft
-		completion_reward = { army_experience=50 add_tech_bonus={ name=armor_bonus bonus=0.15 uses=2 category=armor } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id =CSA_ww1_doctrine_effort_3
+		completion_reward = {
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				ahead_reduction = 2
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
+		}
 	}
 
 	focus = {
-		id = CSA_ww1_armor_effort_2
-		prerequisite = { focus=CSA_ww1_armor_effort_1 }
-		prerequisite = { focus=CSA_ww1_army_motorization_focus }
-		available = { date > 1918.1.1 }
-		icon = GFX_goal_generic_army_tanks
-		completion_reward = { army_experience=75 add_tech_bonus={ name=armor_bonus bonus=0.1 uses=2 category=armor } }
-		ai_will_do = { factor = 10 }
+		id = CSA_mot_effort
+		icon = GFX_
+		prerequisite = { focus = CSA_canon_modele_75 }
+		prerequisite = { focus = CSA_doctrine_effort }
+		#mutually_exclusive = {}
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = CSA_ww1_armor_effort_1
+		relative_position_id = CSA_canon_modele_75
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
 	}
 
-	#############################################################################
-
 	focus = {
-		id = CSA_ww1_aviation_effort
-		icon = GFX_goal_generic_build_airforce
-		completion_reward = { air_experience=25 if={ limit={ capital_scope={ NOT={ free_building_slots={ building=air_base size > 1 } } } } random_owned_state={ limit={ free_building_slots={ building=air_base size > 1 } } add_building_construction={ type=air_base level=2 instant_build=yes } ROOT={ set_country_flag=aviation_effort_AB } } } if={ limit={ capital_scope={ free_building_slots={ building=air_base size > 1 } } } capital_scope={ add_building_construction={ type=air_base level=2 instant_build=yes } ROOT={ set_country_flag=aviation_effort_AB } } } add_tech_bonus={ name=air_doc_bonus bonus=0.15 uses=1 category=air_doctrine } }
-		complete_tooltip = { air_experience=25 if={ limit={ has_country_flag=aviation_effort_AB } add_building_construction={ type=air_base level=2 instant_build=yes } }			 add_tech_bonus={ name=air_doc_bonus bonus=0.15 uses=1 category=air_doctrine }			 }
-		ai_will_do = { factor = 10 }
+		id = CSA_tanks
+		icon = GFX_
+		prerequisite = { focus = CSA_mot_effort }
+		#mutually_exclusive = {}
 		cost = 10
-		x = 25
-		y = 0
+		x = 0
+		y = 2
+		relative_position_id = CSA_mot_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
 	}
 
+	focus = {
+		id = CSA_streamline_rifle
+		icon = GFX_
+		prerequisite = { focus = CSA_infantry_effort }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_infantry_effort 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
 
 	focus = {
-		id = CSA_ww1_aviation_effort_2
-		prerequisite = { focus=CSA_ww1_aviation_effort }
-		icon = GFX_goal_generic_air_doctrine
-		completion_reward = { air_experience=15 add_tech_bonus={ name=air_doc_bonus bonus=0.15 uses=1 category=air_doctrine } }
-		ai_will_do = { factor = 10 }
+		id = CSA_trench_warfare
+		icon = GFX_
+		prerequisite = { focus = CSA_infantry_effort}
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_infantry_effort 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_assault_units
+		icon = GFX_
+		prerequisite = { focus = CSA_trench_warfare}
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_trench_warfare 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_chemical_gas
+		icon = GFX_
+		prerequisite = { focus = CSA_trench_warfare}
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	###########################################################################################################################
+	# INTERNATIONAL
+	###########################################################################################################################
+
+	### Mexico
+	focus = {
+		id = CSA_wilsonian_era
+		icon = GFX_
+		prerequisite = { focus = }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 34
+		y = 0
+		relative_position_id =  
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_democratic_reform_mexico
+		icon = GFX_
+		prerequisite = { focus = CSA_wilsonian_era }
+		mutually_exclusive = { focus = CSA_support_mexico_emperor }
+		cost = 10
+		x = -11
+		y = 1
+		relative_position_id = CSA_wilsonian_era
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_allow_opposition
+		icon = GFX_
+		prerequisite = { focus = CSA_democratic_reform_mexico }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = CSA_democratic_reform_mexico 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_mexico_agrarian_law
+		icon = GFX_
+		prerequisite = { focus = CSA_allow_opposition }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_allow_opposition 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_mexico_hold_elections
+		icon = GFX_
+		prerequisite = { focus = CSA_allow_opposition }
+		prerequisite = { focus = CSA_mexico_agrarian_law }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_allow_opposition 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_economic_free_trade_mexico
+		icon = GFX_
+		prerequisite = { focus = CSA_democratic_reform_mexico focus = CSA_support_mexico_emperor }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_democratic_reform_mexico
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_mexico_industrial_stimulus
+		icon = GFX_
+		prerequisite = { focus = CSA_economic_free_trade_mexico }
+		#mutually_exclusive = {}
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id =CSA_ww1_aviation_effort
-	}
+		relative_position_id = CSA_economic_free_trade_mexico 
 
+		ai_will_do = { 
+			factor = 0 
+		}
 
-	focus = {
-		id = CSA_ww1_airship_focus
-		prerequisite = { focus=CSA_ww1_aviation_effort_2 }
-		available = { date > 1911.1.1 }
-		icon = GFX_hoi4tgw_zeppelin
-		completion_reward = { add_tech_bonus={ name=fighter_bonus bonus=0.15 uses=1 technology=ww1_zeppelin1 technology=ww1_zeppelin2 } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_2
-	}
+		#bypass = {}
 
-	focus = {
-		id = CSA_ww1_fighter_focus
-		prerequisite = { focus=CSA_ww1_aviation_effort_2 }
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_air_fighter
 		completion_reward = { 
-			add_tech_bonus={ 
-				name=fighter_bonus 
-				bonus=0.15 
-				uses=1 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_mexico_rail_stimulus
+		icon = GFX_
+		prerequisite = { focus = CSA_mexico_industrial_stimulus }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_mexico_industrial_stimulus 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_support_mexico_emperor
+		icon = GFX_
+		prerequisite = { focus = CSA_wilsonian_era }
+		mutually_exclusive = { focus = CSA_democratic_reform_mexico }
+		cost = 10
+		x = 4
+		y = 0
+		relative_position_id = CSA_democratic_reform_mexico 	#connected to democratic reform
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_drill_mexican_troops
+		icon = GFX_
+		prerequisite = { focus = CSA_support_mexico_emperor  focus = CSA_democratic_reform_mexico}
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_support_mexico_emperor 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_chase_down_pancho_villa
+		icon = GFX_
+		prerequisite = { focus = CSA_drill_mexican_troops }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id =CSA_drill_mexican_troops  
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_integreate_sonora_chihuahua
+		icon = GFX_
+		prerequisite = { focus = CSA_chase_down_pancho_villa }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_chase_down_pancho_villa  
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_mexican_arms
+		icon = GFX_
+		prerequisite = { focus = CSA_drill_mexican_troops }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = CSA_drill_mexican_troops 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_mining_rights_mexico
+		icon = GFX_
+		prerequisite = { focus = CSA_support_mexico_emperor }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_support_mexico_emperor 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	### Anti-USA
+
+	focus = {
+		id = CSA_war_plan_defense
+		icon = GFX_
+		prerequisite = { focus = CSA_wilsonian_era }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_wilsonian_era
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_war_plan_offense
+		icon = GFX_
+		prerequisite = { focus = CSA_wilsonian_era }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_wilsonian_era  
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_military_production
+		icon = GFX_
+		prerequisite = { focus = CSA_war_plan_defense focus =  CSA_war_plan_offense }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_war_plan_offense 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_creek_nation_army
+		icon = GFX_
+		prerequisite = { focus = CSA_military_production }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = CSA_military_production 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_support_deseret_rebs
+		icon = GFX_
+		prerequisite = { focus = CSA_military_production }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = CSA_military_production 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_claim_newmexico
+		icon = GFX_
+		prerequisite = { focus = CSA_support_deseret_rebs }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_support_deseret_rebs 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_call_to_arms
+		icon = GFX_
+		prerequisite = { focus = CSA_military_production }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_military_production 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_claim_maryland
+		icon = GFX_
+		prerequisite = { focus = CSA_call_to_arms }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_call_to_arms 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_claim_missouri
+		icon = GFX_
+		prerequisite = { focus = CSA_claim_maryland }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_claim_maryland 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_increase_conscription
+		icon = GFX_
+		prerequisite = { focus = CSA_call_to_arms }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_call_to_arms 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_enlist_black_soldiers
+		icon = GFX_
+		prerequisite = { focus = CSA_increase_conscription}
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_increase_conscription 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_fortify_virginia
+		icon = GFX_
+		prerequisite = { focus = CSA_military_production }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = CSA_military_production 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_fortify_nashville
+		icon = GFX_
+		prerequisite = { focus = CSA_fortify_virginia }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_fortify_virginia 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	### European Allies
+	focus = {
+		id = CSA_british_naval
+		icon = GFX_
+		prerequisite = { focus = CSA_wilsonian_era }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = CSA_wilsonian_era  
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_ambassadors_france
+		icon = GFX_
+		prerequisite = { focus = CSA_british_naval }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_british_naval 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_entente
+		icon = GFX_
+		prerequisite = { focus = CSA_ambassadors_france }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_ambassadors_france 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_planning_canada
+		icon = GFX_
+		prerequisite = { focus = CSA_british_naval }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_british_naval 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_carribean_fleet
+		icon = GFX_
+		prerequisite = { focus = CSA_british_naval }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_british_naval 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_canal_project
+		icon = GFX_
+		prerequisite = { focus = CSA_carribean_fleet }
+		prerequisite = { focus = CSA_entente }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = CSA_carribean_fleet 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	### Latin America
+	focus = {
+		id = CSA_united_fruit
+		icon = GFX_
+		prerequisite = { focus = CSA_wilsonian_era }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 9
+		y = 1
+		relative_position_id = CSA_wilsonian_era  
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_marines
+		icon = GFX_
+		prerequisite = { focus = CSA_united_fruit }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_united_fruit 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_intervene_latin_america
+		icon = GFX_
+		prerequisite = { focus = CSA_marines }
+		prerequisite = { focus = CSA_carribean_fleet }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_marines 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_denoune_haiti
+		icon = GFX_
+		prerequisite = { focus = CSA_marines }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_marines 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	focus = {
+		id = CSA_invade_haiti
+		icon = GFX_
+		prerequisite = { focus = CSA_denoune_haiti }
+		prerequisite = { focus = CSA_intervene_latin_america }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_denoune_haiti
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+				
+		}
+	}
+
+	###########################################################################################################################
+	# Navy
+	###########################################################################################################################
+	focus = {
+		id = CSA_naval_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		x = 48
+		y = 0
+		cost = 10
+
+		search_filters = { FOCUS_FILTER_INDUSTRY }
+		
+		available_if_capitulated = yes
+
+
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+
+		complete_tooltip = {
+			navy_experience = 25
+			add_extra_state_shared_building_slots = 3
+			add_building_construction = {
+				type = dockyard
+				level = 3
+				instant_build = yes
+			}
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			if = {
+				limit = {
+					NOT = {
+						any_owned_state = {
+							dockyard > 0
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+					}
+					any_owned_state = {
+						is_coastal = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				set_country_flag = CSA_naval_effort_built
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = CSA_naval_effort_built }
+					any_owned_state = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						dockyard > 0
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+				set_country_flag = CSA_naval_effort_built
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = CSA_naval_effort_built }
+					NOT = {
+						any_owned_state = {
+							free_building_slots = {
+								building = dockyard
+								size > 2
+								include_locked = yes
+							}
+						}
+					}
+				}
+				random_state = {
+					limit = {
+						controller = { tag = ROOT }
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+			}			
+		}
+	}
+
+	focus = {
+		id = CSA_flexible_navy
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = CSA_naval_effort }
+		mutually_exclusive = { focus = CSA_large_navy }
+		x = -1
+		y = 1
+		relative_position_id = CSA_naval_effort
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = sub_op_bonus
+				bonus = 1.0
+				uses = 2
+				technology = convoy_interdiction_ti
+				technology = unrestricted_submarine_warfare
+				technology = wolfpacks
+				technology = advanced_submarine_warfare
+				technology = combined_operations_raiding
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_large_navy
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = CSA_naval_effort }
+		mutually_exclusive = { focus = CSA_flexible_navy }
+		x = 1
+		y = 1
+		relative_position_id = CSA_naval_effort
+		cost = 10
+		
+		search_filters = {   FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = fleet_in_being_bonus
+				bonus = 1.0
+				uses = 2
+				category = fleet_in_being_tree
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = CSA_flexible_navy focus = CSA_large_navy }
+		x = 0
+		y = 1
+		relative_position_id = CSA_flexible_navy
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = ss_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = ss_tech
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_cruiser_effort
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = CSA_large_navy focus = CSA_flexible_navy }
+		x = 0
+		y = 1
+		relative_position_id = CSA_large_navy
+		cost = 10
+		
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = cr_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_destroyer_effort
+		icon = GFX_goal_generic_wolf_pack
+		prerequisite = { focus = CSA_submarine_effort }
+		x = 0
+		y = 1
+		relative_position_id = CSA_submarine_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = dd_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = dd_tech
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_capital_ships_effort
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = CSA_cruiser_effort }
+		x = 0
+		y = 1
+		relative_position_id = CSA_cruiser_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				all_owned_state = {
+					OR = {
+						is_coastal = no
+						dockyard < 1
+					}
+				}
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 25
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+				category = cv_tech
+			}
+		}
+	}
+
+	###########################################################################################################################
+	# Airforce
+	###########################################################################################################################
+
+	focus = {
+		id = CSA_aviation_effort
+		icon = GFX_goal_generic_build_airforce
+		x = 53
+		y = 0
+		cost = 10
+		
+		search_filters = {   FOCUS_FILTER_RESEARCH }
+
+		available_if_capitulated = yes
+
+
+		complete_tooltip = {
+			air_experience = 25
+			if = { limit = { has_country_flag = CSA_aviation_effort_AB }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}			
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}			
+		}
+
+		completion_reward = {
+			air_experience = 25
+
+			if = {
+				limit = {
+					capital_scope = {
+						NOT = {
+							free_building_slots = {
+								building = air_base
+								size > 1
+							}
+						}
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = CSA_aviation_effort_AB }
+				}
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = CSA_aviation_effort_AB }
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_fighter_focus
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = CSA_aviation_effort }
+		mutually_exclusive = { focus = CSA_bomber_focus }
+		x = -1
+		y = 1
+		relative_position_id = CSA_aviation_effort
+		cost = 10
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
+		completion_reward = {
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 1.0
+				uses = 2
 				category = light_fighter
 			}
-		} 
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_2
-		mutually_exclusive = { focus=CSA_ww1_bomber_focus }
+		}
 	}
 
 	focus = {
-		id = CSA_ww1_bomber_focus
-		prerequisite = { focus=CSA_ww1_aviation_effort_2 }
-		available = { date > 1911.1.1 }
+		id = CSA_bomber_focus
 		icon = GFX_goal_generic_air_bomber
-		completion_reward = { add_tech_bonus={ name=bomber_bonus bonus=0.15 uses=1 category=tactical_bomber } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_2
-		mutually_exclusive = { focus=CSA_ww1_fighter_focus }
-	}
-
-	focus = {
-		id = CSA_ww1_aviation_effort_3
-		prerequisite = { focus=CSA_ww1_bomber_focus focus=CSA_ww1_fighter_focus focus=CSA_ww1_airship_focus }
-		available = { date > 1912.1.1 }
-		icon = GFX_goal_generic_air_doctrine
-		completion_reward = { air_experience=15 add_tech_bonus={ name=air_doc_bonus bonus=0.15 uses=1 category=air_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_bomber_focus
-	}
-
-	focus = {
-		id = CSA_ww1_pilotformation_1
-		prerequisite = { focus=CSA_ww1_aviation_effort_3 }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_CAS
-		completion_reward = { add_tech_bonus={ name=pilotformation1_bonus bonus=0.15 uses=1 technology=dogfighting_experience technology=fighter_ace_initiative technology=dispersed_fighting } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id =  CSA_ww1_aviation_effort_3
-	}
-
-	focus = {
-		id = CSA_ww1_aircraftprod_1
-		prerequisite = { focus=CSA_ww1_aviation_effort_3 }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_air_production
-		completion_reward = { add_tech_bonus={ name=aircraftprod_1_bonus bonus=0.15 uses=1 category=air_equipment } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_ww1_aviation_effort_3
-	}
-
-	focus = {
-		id = CSA_ww1_airbomb_1
-		prerequisite = { focus=CSA_ww1_aviation_effort_3 }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_poland_goal
-		completion_reward = { add_tech_bonus={ name=pilotformation2_bonus bonus=0.15 uses=1 technology=infrastructure_destruction technology=dive_bombing technology=operational_destruction } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = CSA_ww1_aviation_effort_3
-	}
-
-
-	focus = {
-		id = CSA_ww1_aviation_effort_4
-		prerequisite = { focus=CSA_ww1_pilotformation_1 focus=CSA_ww1_aircraftprod_1 focus=CSA_ww1_airbomb_1 }
-		available = { date > 1914.1.1 }
-		icon = GFX_goal_generic_air_doctrine
-		completion_reward = { air_experience=15 add_tech_bonus={ name=air_doc_bonus bonus=0.15 uses=1 category=air_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_aircraftprod_1
-	}
-
-	focus = {
-		id = CSA_ww1_pilotformation_2
-		prerequisite = { focus=CSA_ww1_aviation_effort_4 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_CAS
-		completion_reward = { add_tech_bonus={ name=pilotformation2_bonus bonus=0.15 uses=1 technology=multialtitude_flying technology=hunt_and_destroy technology=fighter_veteran_initiative } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_4
-	}
-
-	focus = {
-		id = CSA_ww1_aircraftprod_2
-		prerequisite = { focus=CSA_ww1_aviation_effort_4 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_air_production
-		completion_reward = { add_tech_bonus={ name=aircraftprod_2_bonus bonus=0.2 uses=1 category=air_equipment } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_4
-	}
-
-	focus = {
-		id = CSA_ww1_airbomb_2
-		prerequisite = { focus=CSA_ww1_aviation_effort_4 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_occupy_start_war
-		completion_reward = { add_tech_bonus={ name=pilotformation2_bonus bonus=0.2 uses=1 technology=logistical_bombing technology=strategic_destruction technology=infiltration_bombing } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_4
-	}
-
-	focus = {
-		id = CSA_ww1_aviation_effort_5
-		prerequisite = { focus=CSA_ww1_pilotformation_2 focus=CSA_ww1_aircraftprod_2  focus=CSA_ww1_airbomb_2 }
-		available = { date > 1916.1.1 }
-		icon = GFX_goal_generic_air_doctrine
-		completion_reward = { air_experience=15 add_tech_bonus={ name=air_doc_bonus bonus=0.15 uses=1 category=air_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_aircraftprod_2
-	}
-
-
-	focus = {
-		id = CSA_ww1_air_innovation
-		prerequisite = { focus=CSA_ww1_aviation_effort_5 }
-		available = { date > 1917.1.1 }
-		icon = GFX_goal_generic_air_fighter2
-		completion_reward = { air_experience=20 add_tech_bonus={ name=ww1_air_innovation_bonus bonus=0.2 uses=1 technology=ww1_fighter3  technology=early_fighter } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_5
-	}
-
-	focus = {
-		id = CSA_ww1_navalair
-		prerequisite = { focus=CSA_ww1_aviation_effort_5 }
-		available = { date > 1917.1.1 }
-		icon = GFX_goal_generic_air_naval_bomber
-		completion_reward = { add_tech_bonus={ name=nav_bomber_bonus bonus=0.15 ahead_reduction=1 uses=1 category=naval_bomber } }
-		ai_will_do = { factor = 10 }
-		cost = 10
+		prerequisite = { focus = CSA_aviation_effort }
+		mutually_exclusive = { focus = CSA_fighter_focus }
 		x = 1
 		y = 1
-		relative_position_id =CSA_ww1_aviation_effort_5
-	}
-
-	###########################################################################################################################
-
-	focus = {
-		id = CSA_ww1_industrial_effort
-		icon = GFX_goal_generic_production
-		completion_reward = { add_tech_bonus={ name=industrial_bonus bonus=0.15 uses=1 category=industry } }
-		ai_will_do = { factor = 10 }
+		relative_position_id = CSA_aviation_effort
 		cost = 10
-		x = 32
-		y = 0
+
+		search_filters = {  FOCUS_FILTER_RESEARCH }
 		
-	}
+		available_if_capitulated = yes
 
-	focus = {
-		id = CSA_ww1_infrastructure_effort
-		prerequisite = { focus=CSA_ww1_industrial_effort }
-		icon = GFX_goal_generic_construct_infrastructure
-		bypass = { custom_trigger_tooltip={ tooltip=infrastructure_effort_tt all_owned_state={			 free_building_slots={ building=infrastructure size < 1 } } } }
 		completion_reward = {
-			random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } }
-
-
-			random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } 
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 2
+				category = cat_strategic_bomber
+				category = tactical_bomber
+			}
 		}
-
-
-		complete_tooltip = { add_building_construction={ type=infrastructure level=1 instant_build=yes } add_building_construction={ type=infrastructure level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_industrial_effort
 	}
 
 	focus = {
-		id = CSA_ww1_construction_effort
-		prerequisite = { focus=CSA_ww1_infrastructure_effort }
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_construct_civ_factory
-		bypass = { custom_trigger_tooltip={ tooltip=construction_effort_tt all_owned_state={ free_building_slots={ building=industrial_complex size < 1 include_locked=yes }					 } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=industrial_complex size > 0 include_locked=yes } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=industrial_complex size > 0 include_locked=yes } is_in_home_area=yes } } } } } add_extra_state_shared_building_slots=1 add_building_construction={ type=industrial_complex level=1 instant_build=yes } } }
-		complete_tooltip = { add_extra_state_shared_building_slots=1 add_building_construction={ type=industrial_complex level=1 instant_build=yes }			 }
-		ai_will_do = { factor = 10 }
-		cost = 10
+		id = CSA_aviation_effort_2
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = CSA_bomber_focus focus = CSA_fighter_focus }
 		x = -1
 		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort
-	}
-
-	focus = {
-		id = CSA_ww1_production_effort
-		prerequisite = { focus=CSA_ww1_infrastructure_effort }
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_construct_mil_factory
-		bypass = { custom_trigger_tooltip={ tooltip=production_effort_tt all_owned_state={ free_building_slots={ building=arms_factory size < 1 include_locked=yes } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=arms_factory size > 0 include_locked=yes } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=arms_factory size > 0 include_locked=yes } is_in_home_area=yes } } } } } add_extra_state_shared_building_slots=1 add_building_construction={ type=arms_factory level=1 instant_build=yes } } }
-		complete_tooltip = { add_extra_state_shared_building_slots=1 add_building_construction={ type=arms_factory level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
+		relative_position_id = CSA_bomber_focus
 		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort
-	}
+
+		search_filters = {   FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
 
 
-	focus = {
-		id = CSA_ww1_dockyard_effort_1
-		prerequisite = { focus=CSA_ww1_infrastructure_effort }
-		prerequisite = { focus=CSA_ww1_naval_effort }
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_construct_naval_dockyard
-		x = 3
-		y = 1
-		relative_position_id = CSA_ww1_infrastructure_effort
-		cost = 10
-		ai_will_do = { factor = 10 }
-		bypass = {
-			custom_trigger_tooltip = {
-
-				NOT = {
-					any_owned_state = {
-						is_in_home_area = yes
-						free_building_slots = {
-							building = dockyard
-							size > 1
-							include_locked = yes
+		complete_tooltip = {
+			air_experience = 25
+			if = { limit = { has_country_flag = CSA_aviation_effort_2_AB }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name =  air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
+		}
+		completion_reward = {
+			air_experience = 25
+			if = {
+				limit = {
+					capital_scope = {
+						OR = {
+							NOT = { is_controlled_by = ROOT }
+							NOT = {
+								free_building_slots = {
+									building = air_base
+									size > 1
+								}
+							}
 						}
 					}
 				}
-			}
-		}
-
-		complete_tooltip = {
-
-			random_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		completion_reward = {
-			random_owned_state = {
-				limit = {
-					is_in_home_area = yes
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-
-
-	focus = {
-		id = CSA_ww1_airfield_expansion_1
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_construction
-		prerequisite = { focus=CSA_ww1_infrastructure_effort }
-		prerequisite = { focus=CSA_ww1_aviation_effort }
-		x = -3
-		y = 1
-		relative_position_id = CSA_ww1_infrastructure_effort
-		cost = 10
-		ai_will_do = { factor = 10 }
-
-		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = air_focus_bypass_tt
-				all_owned_state = {
-					free_building_slots = {
-						building = air_base
-						size < 2
-					}
-				}
-			}
-		}
-
-		completion_reward = {
-
-			random_owned_state = {
-				limit = { 
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 1
-					instant_build = yes
-				}							
-			}
-			random_owned_state = {
-				limit = { 
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 1
-					instant_build = yes
-				}							
-			}
-			random_owned_state = {
-				limit = { 
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 1
-					instant_build = yes
-				}							
-			}			
-		}
-	}
-
-	focus = {
-		id = CSA_ww1_infrastructure_effort_2
-		prerequisite = { focus=CSA_ww1_construction_effort focus=CSA_ww1_production_effort focus=CSA_ww1_dockyard_effort_1 focus=CSA_ww1_airfield_expansion_1 }
-		available = { date > 1912.1.1 }
-		icon = GFX_goal_generic_construct_infrastructure
-		bypass = { custom_trigger_tooltip={ tooltip=infrastructure_effort_tt all_owned_state={			 free_building_slots={ building=infrastructure size < 1 } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } }
-		complete_tooltip = { add_building_construction={ type=infrastructure level=1 instant_build=yes } add_building_construction={ type=infrastructure level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_construction_effort
-	}
-
-	focus = {
-		id = CSA_ww1_construction_effort_2
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_2 }
-		prerequisite = { focus=CSA_ww1_construction_effort }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_construct_civ_factory
-		bypass = { custom_trigger_tooltip={ tooltip=construction_effort_tt all_owned_state={ free_building_slots={ building=industrial_complex size < 1 include_locked=yes } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=industrial_complex size > 0 include_locked=yes } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=industrial_complex size > 0 include_locked=yes } is_in_home_area=yes } } } } } add_extra_state_shared_building_slots=1 add_building_construction={ type=industrial_complex level=1 instant_build=yes } } }
-		complete_tooltip = { add_extra_state_shared_building_slots=1 add_building_construction={ type=industrial_complex level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_2
-	}
-
-	focus = {
-		id = CSA_ww1_production_effort_2
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_2 }
-		prerequisite = { focus=CSA_ww1_production_effort }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_construct_mil_factory
-		bypass = { custom_trigger_tooltip={ tooltip=production_effort_tt all_owned_state={ free_building_slots={ building=arms_factory size < 1 include_locked=yes } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=arms_factory size > 0 include_locked=yes } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=arms_factory size > 0 include_locked=yes } is_in_home_area=yes } } } } } add_extra_state_shared_building_slots=1 add_building_construction={ type=arms_factory level=1 instant_build=yes } } }
-		complete_tooltip = { add_extra_state_shared_building_slots=1 add_building_construction={ type=arms_factory level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_2
-	}
-
-
-	focus = {
-		id = CSA_ww1_dockyard_effort_2
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_2 }
-		prerequisite = { focus=CSA_ww1_dockyard_effort_1 }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_construct_naval_dockyard
-		x = 3
-		y = 1
-		relative_position_id = CSA_ww1_infrastructure_effort_2
-		cost = 10
-		ai_will_do = { factor = 10 }
-		bypass = {
-			custom_trigger_tooltip = {
-
-				NOT = {
-					any_owned_state = {
-						is_in_home_area = yes
-						free_building_slots = {
-							building = dockyard
-							size > 1
-							include_locked = yes
-						}
-					}
-				}
-			}
-		}
-
-		complete_tooltip = {
-
-			random_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		completion_reward = {
-			random_owned_state = {
-				limit = {
-					is_in_home_area = yes
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-	focus = {
-		id = CSA_ww1_airfield_expansion_2
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_construction
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_2 }
-		prerequisite = { focus=CSA_ww1_airfield_expansion_1 }
-		x = -3
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_2
-		cost = 10
-		ai_will_do = { factor = 10 }
-
-		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = air_focus_bypass_tt
-				all_owned_state = {
-					free_building_slots = {
-						building = air_base
-						size < 2
-					}
-				}
-			}
-		}
-
-		completion_reward = {
-
-			random_owned_state = {
-				limit = { 
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 1
-					instant_build = yes
-				}							
-			}
-			random_owned_state = {
-				limit = { 
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 1
-					instant_build = yes
-				}							
-			}
-			random_owned_state = {
-				limit = { 
-					free_building_slots = {
-						building = air_base
-						size > 1
-					}
-				}
-				add_building_construction = {
-					type = air_base
-					level = 1
-					instant_build = yes
-				}							
-			}			
-		}
-	}
-
-
-	focus = {
-		id = CSA_ww1_infrastructure_effort_3
-		prerequisite = { focus=CSA_ww1_construction_effort_2 focus=CSA_ww1_production_effort_2 focus=CSA_ww1_dockyard_effort_1 }
-		available = { date > 1914.1.1 }
-		icon = GFX_goal_generic_construct_infrastructure
-		bypass = { custom_trigger_tooltip={ tooltip=infrastructure_effort_tt all_owned_state={			 free_building_slots={ building=infrastructure size < 1 } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } }
-		complete_tooltip = { add_building_construction={ type=infrastructure level=1 instant_build=yes } add_building_construction={ type=infrastructure level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = CSA_ww1_construction_effort_2
-	}
-
-	focus = {
-		id = CSA_ww1_construction_effort_3
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_3 }
-		prerequisite = { focus=CSA_ww1_construction_effort_2 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_construct_civ_factory
-		bypass = { custom_trigger_tooltip={ tooltip=construction_effort_tt all_owned_state={ free_building_slots={ building=industrial_complex size < 2 include_locked=yes } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=industrial_complex size > 1 include_locked=yes } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=industrial_complex size > 1 include_locked=yes } is_in_home_area=yes } } } } } add_extra_state_shared_building_slots=2 add_building_construction={ type=industrial_complex level=2 instant_build=yes } } }
-		complete_tooltip = { add_extra_state_shared_building_slots=2 add_building_construction={ type=industrial_complex level=2 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_3
-	}
-
-	focus = {
-		id = CSA_ww1_production_effort_3
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_3 }
-		prerequisite = { focus=CSA_ww1_production_effort_2 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_construct_mil_factory
-		bypass = { custom_trigger_tooltip={ tooltip=production_effort_tt all_owned_state={ free_building_slots={ building=arms_factory size < 1 include_locked=yes }					 } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=arms_factory size > 0 include_locked=yes } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=arms_factory size > 0 include_locked=yes } is_in_home_area=yes } } } } } add_extra_state_shared_building_slots=1 add_building_construction={ type=arms_factory level=1 instant_build=yes } } }
-		complete_tooltip = { add_extra_state_shared_building_slots=1 add_building_construction={ type=arms_factory level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_3
-	}
-
-
-	focus = {
-		id = CSA_ww1_dockyard_effort_3
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_3 }
-		prerequisite = { focus=CSA_ww1_dockyard_effort_2 }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_construct_naval_dockyard
-		ai_will_do = { factor = 10 }
-		x = 3
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_3
-		cost = 10
-		ai_will_do = { factor = 0.1 }
-		bypass = {
-			custom_trigger_tooltip = {
-
-				NOT = {
-					any_owned_state = {
-						is_in_home_area = yes
-						free_building_slots = {
-							building = dockyard
-							size > 1
-							include_locked = yes
-						}
-					}
-				}
-			}
-		}
-
-		complete_tooltip = {
-
-			random_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-		completion_reward = {
-			random_owned_state = {
-				limit = {
-					is_in_home_area = yes
-					free_building_slots = {
-						building = dockyard
-						size > 1
-						include_locked = yes
-					}
-				}
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = dockyard
-					level = 2
-					instant_build = yes
-				}
-			}
-		}
-	}
-
-
-	focus = {
-		id = CSA_ww1_airfield_expansion_3
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_construction
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_3 }
-		prerequisite = { focus=CSA_ww1_airfield_expansion_2 }
-		x = -3
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_3
-		cost = 10
-		ai_will_do = { factor = 10 }
-
-		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = air_focus_bypass_tt
-				all_owned_state = {
-					free_building_slots = {
-						building = air_base
-						size < 2
-					}
-				}
-			}
-		}
-
-		completion_reward = {
-
-				random_owned_state = {
-					limit = { 
+				random_owned_controlled_state = {
+					limit = {
 						free_building_slots = {
 							building = air_base
 							size > 1
@@ -1650,322 +2025,64 @@ focus_tree = {
 					}
 					add_building_construction = {
 						type = air_base
-						level = 1
+						level = 2
 						instant_build = yes
-					}							
+					}
+					ROOT = { set_country_flag = CSA_aviation_effort_2_AB }
 				}
-				random_owned_state = {
-					limit = { 
+			}
+			if = {
+				limit = {
+					capital_scope = {
+						is_controlled_by = ROOT
 						free_building_slots = {
 							building = air_base
 							size > 1
 						}
 					}
+				}
+				capital_scope = {
 					add_building_construction = {
 						type = air_base
-						level = 1
+						level = 2
 						instant_build = yes
-					}							
+					}				
+					ROOT = { set_country_flag = CSA_aviation_effort_2_AB }
 				}
-				random_owned_state = {
-					limit = { 
-						free_building_slots = {
-							building = air_base
-							size > 1
-						}
-					}
-					add_building_construction = {
-						type = air_base
-						level = 1
-						instant_build = yes
-					}							
-				}			
+			}
+			add_tech_bonus = {
+				name =  air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
 		}
 	}
 
 	focus = {
-		id = CSA_ww1_extra_tech_slot
-		prerequisite = { focus=CSA_ww1_airfield_expansion_3 focus=CSA_ww1_construction_effort_3 focus=CSA_ww1_production_effort_3 focus=CSA_ww1_dockyard_effort_3}
-		available = { date > 1916.1.1 }
-		icon = GFX_focus_research
-		completion_reward = { add_research_slot=1 }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_construction_effort_3
-	}
-
-
-	focus = {
-		id = CSA_ww1_infrastructure_effort_4
-		prerequisite = { focus=CSA_ww1_extra_tech_slot }
-		available = { date > 1917.1.1 }
-		icon = GFX_goal_generic_construct_infrastructure
-		bypass = { custom_trigger_tooltip={ tooltip=infrastructure_effort_tt all_owned_state={			 free_building_slots={ building=infrastructure size < 1 } } } }
-		completion_reward = { random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } random_owned_state={ limit={ free_building_slots={ building=infrastructure size > 0 } OR={ is_in_home_area=yes NOT={ owner={ any_owned_state={ free_building_slots={ building=infrastructure size > 0 } is_in_home_area=yes } } } } } add_building_construction={ type=infrastructure level=1 instant_build=yes } } }
-		complete_tooltip = { add_building_construction={ type=infrastructure level=1 instant_build=yes } add_building_construction={ type=infrastructure level=1 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_extra_tech_slot
-	}
-
-	focus = {
-		id = CSA_ww1_extra_tech_slot_2
-		prerequisite = { focus=CSA_ww1_infrastructure_effort_4 }
-		available = { date > 1918.1.1 }
-		icon = GFX_focus_research
-		available = { num_of_factories > 50 }
-		completion_reward = { add_research_slot=1 }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_infrastructure_effort_4
-		cancel_if_invalid = no
-	}
-
-	###########################################################################################################################
-
-	focus = {
-		id = CSA_ww1_naval_effort
-		icon = GFX_goal_generic_build_navy 
-		available = { any_state={ is_coastal=yes is_controlled_by=ROOT } }
-		completion_reward = { navy_experience=25 if={ limit={ NOT={ any_owned_state={ dockyard > 0 free_building_slots={ building=dockyard size > 2 include_locked=yes } } } any_owned_state={ is_coastal=yes } } random_owned_state={ limit={ is_coastal=yes free_building_slots={ building=dockyard size > 2 include_locked=yes } } add_extra_state_shared_building_slots=3 add_building_construction={ type=dockyard level=3 instant_build=yes } } set_country_flag=naval_effort_built } if={ limit={ NOT={ has_country_flag=naval_effort_built } any_owned_state={ dockyard > 0 free_building_slots={ building=dockyard size > 2 include_locked=yes } } } random_owned_state={ limit={ dockyard > 0 free_building_slots={ building=dockyard size > 2 include_locked=yes } } add_extra_state_shared_building_slots=3 add_building_construction={ type=dockyard level=3 instant_build=yes } } set_country_flag=naval_effort_built } if={ limit={ NOT={ has_country_flag=naval_effort_built } NOT={ any_owned_state={ free_building_slots={ building=dockyard size > 2 include_locked=yes } } } } random_state={ limit={ controller={ tag=ROOT } free_building_slots={ building=dockyard size > 2 include_locked=yes } } add_extra_state_shared_building_slots=3 add_building_construction={ type=dockyard level=3 instant_build=yes } } }			 }
-		complete_tooltip = { navy_experience=25 add_extra_state_shared_building_slots=3 add_building_construction={ type=dockyard level=3 instant_build=yes } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 38
-		y = 0
-	}
-
-	focus = {
-		id = CSA_ww1_newnavalcanons_1
-		prerequisite = { focus=CSA_ww1_naval_effort }
-		icon = GFX_hoi4tgw_navalcanons
-		completion_reward = { navy_experience=15 add_tech_bonus={ name=newnavalcanons_1_bonus bonus=0.15 uses=1 category=naval_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_naval_effort
-	}
-
-
-	focus = {
-		id = CSA_ww1_dreadnought_effort
-		prerequisite = { focus=CSA_ww1_newnavalcanons_1 }
-		available = { date > 1911.1.1 }
-		icon = GFX_goal_generic_navy_battleship
-		completion_reward = { add_tech_bonus={ name=cr_bonus bonus=0.15 uses=1 category=bb_tech } }
-		ai_will_do = { factor=1 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_newnavalcanons_1
-	}
-
-	focus = {
-		id = CSA_ww1_newnavalcanons_2
-		prerequisite = { focus=CSA_ww1_dreadnought_effort }
-		available = { date > 1912.1.1 }
-		icon = GFX_goal_generic_army_artillery
-		completion_reward = { navy_experience=15 add_tech_bonus={ name=newnavalcanons_2_bonus bonus=0.15 uses=1 category=naval_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_dreadnought_effort
-	}
-
-	focus = {
-		id = CSA_ww1_flexible_navy
-		prerequisite = { focus=CSA_ww1_newnavalcanons_2 }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_occupy_states_coastal
-		completion_reward = { add_tech_bonus={ name=sub_op_bonus bonus=0.2 uses=1 technology=convoy_interdiction_ti technology=unrestricted_submarine_warfare technology=wolfpacks technology=advanced_submarine_warfare } }
-		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
-		cost = 10
+		id = CSA_CAS_effort
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = CSA_aviation_effort_2 }
 		x = -1
 		y = 1
-		relative_position_id =CSA_ww1_newnavalcanons_2
-		mutually_exclusive = { focus=CSA_ww1_large_navy }
-	}
-
-
-	focus = {
-		id = CSA_ww1_large_navy
-		prerequisite = { focus=CSA_ww1_newnavalcanons_2 }
-		available = { date > 1913.1.1 }
-		icon = GFX_goal_generic_navy_doctrines_tactics
-		completion_reward = { add_tech_bonus={ name=fleet_in_being_bonus bonus=0.2 uses=1 category=fleet_in_being_tree } }
-		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
+		relative_position_id = CSA_aviation_effort_2
 		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_newnavalcanons_2
-		mutually_exclusive = { focus=CSA_ww1_flexible_navy }
-	}
 
-	focus = {
-		id = CSA_ww1_submarine_effort
-		prerequisite = { focus=CSA_ww1_flexible_navy focus=CSA_ww1_large_navy }
-		available = { date > 1914.1.1 }
-		icon = GFX_goal_generic_navy_submarine
+		search_filters = {  FOCUS_FILTER_RESEARCH }
+		
+		available_if_capitulated = yes
+
 		completion_reward = {
-			if = { 
-				limit = { 
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 category=ss_tech }
-			}
-			if = { 
-				limit = { 
-					not = { has_dlc = "Man the Guns" }
-				}
-				add_tech_bonus={ name=ss_bonus bonus=0.2 uses=1 category=ss_tech }
+			add_tech_bonus = {
+				name = CAS_bonus
+				bonus = 1.0
+				ahead_reduction = 2
+				uses = 1
+				category = cas_bomber
 			}
 		}
-		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_flexible_navy
-	}
-
-	focus = {
-		id = CSA_ww1_cruiser_effort
-		prerequisite = { focus=CSA_ww1_flexible_navy focus=CSA_ww1_large_navy }
-		available = { date > 1914.1.1 }
-		icon = GFX_goal_generic_navy_cruiser
-		completion_reward = {
-			if = { 
-				limit = { 
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 category=cl_tech }
-			}
-			if = { 
-				limit = { 
-					not = { has_dlc = "Man the Guns" }
-				}
-				add_tech_bonus={ name=cr_bonus bonus=0.2 uses=1 category=cl_tech }
-			}
-		}
-		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_large_navy
-	}
-
-	focus = {
-		id = CSA_ww1_destroyer_effort
-		prerequisite = { focus=CSA_ww1_submarine_effort }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_wolf_pack
-		completion_reward = {
-			if = { 
-				limit = { 
-					has_dlc = "Man the Guns"
-				}
-				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 category=dd_tech }
-			}
-			if = { 
-				limit = { 
-					not = { has_dlc = "Man the Guns" }
-				}
-				add_tech_bonus={ name=dd_bonus bonus=0.2 uses=1 category=dd_tech }
-			}
-		}
-		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_ww1_submarine_effort
-	}
-
-	focus = {
-		id = CSA_ww1_capital_ships_effort
-		prerequisite = { focus=CSA_ww1_cruiser_effort }
-		available = { date > 1915.1.1 }
-		icon = GFX_goal_generic_navy_battleship
-		completion_reward = {
-			if = { 
-				limit = { 
-					has_dlc = "Man the Guns"
-				}
-				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 category=bb_tech category=bc_tech category=cv_tech }
-			}
-			if = { 
-				limit = { 
-					not = { has_dlc = "Man the Guns" }
-				}
-				 navy_experience=25 add_tech_bonus={ name=capital_ships_bonus bonus=0.2 uses=1 category=bb_tech category=bc_tech category=cv_tech }
-			}
-		}
-		ai_will_do = { factor=10 modifier={ factor=0 all_owned_state={ OR={ is_coastal=no dockyard < 1 } } } }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_cruiser_effort
 	}
 
 
-	focus = {
-		id = CSA_ww1_newnavalcanons_3
-		prerequisite = { focus=CSA_ww1_capital_ships_effort }
-		prerequisite = { focus=CSA_ww1_destroyer_effort }
-		available = { date > 1916.1.1 }
-		icon = GFX_goal_generic_army_artillery
-		completion_reward = { navy_experience=15 add_tech_bonus={ name=newnavalcanons_3_bonus bonus=0.2 uses=1 category=naval_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id =CSA_ww1_capital_ships_effort
-	}
-
-	focus = {
-		id = CSA_ww1_navyreform
-		prerequisite = { focus=CSA_ww1_newnavalcanons_3 }
-		available = { date > 1917.1.1 }
-		icon = GFX_goal_generic_amphibious_assault
-		completion_reward = { navy_experience=25 }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id =CSA_ww1_newnavalcanons_3
-	}
-
-	focus = {
-		id = CSA_ww1_carrier_focus
-		prerequisite = { focus=CSA_ww1_navyreform }
-		available = { date > 1918.1.1 }
-		icon = GFX_goal_generic_navy_carrier
-		completion_reward = { navy_experience=25 add_tech_bonus={ name=uk_carrier_focus bonus=0.3 uses=2 category=cv_tech } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id =CSA_ww1_navyreform
-	}
-
-	focus = {
-		id = CSA_ww1_antisubmarine
-		prerequisite = { focus=CSA_ww1_navyreform }
-		available = { date > 1918.1.1 }
-		icon = GFX_goal_generic_navy_anti_submarine
-		completion_reward = { navy_experience=15 add_tech_bonus={ name=newnavalcanons_3_bonus bonus=0.3 uses=1 category=naval_doctrine } }
-		ai_will_do = { factor = 10 }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id =CSA_ww1_navyreform
-	}
-
+	
 }
