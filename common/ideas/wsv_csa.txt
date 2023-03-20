@@ -23,9 +23,9 @@ ideas = {
 			modifier = {
 				industrial_capacity_factory = -0.1
 				production_speed_buildings_factor = -0.2
-				global_building_slots_factor = -0.2
+				global_building_slots_factor = -0.1
 				consumer_goods_factor = -0.05
-				research_speed_factor = -0.2
+				research_speed_factor = -0.15
 			}
 		}
 
@@ -33,7 +33,7 @@ ideas = {
 			allowed={ always=no }
 			#allowed_civil_war={ has_government=democratic }
 			removal_cost=-1
-			picture = idea_tfv_can_conscription_crisis
+			picture = generic_neutral_complacency_icon
 			modifier = {
 				army_org_factor = -0.1
 				army_attack_factor = -0.1
@@ -66,6 +66,141 @@ ideas = {
 				resistance_damage_to_garrison_on_our_occupied_states = 0.2
 			}
 		}
+
+
+		#### New ideas
+
+		# reevaluate privileges
+		CSA_southern_aristocracy_2 = {
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture= GFX_idea_CSA_southern_aristocracy
+			modifier = {
+				political_power_gain = -0.15
+				drift_defence_factor = 0.2
+				stability_factor = 0.15
+				cavalry_attack_factor = 0.15
+			}
+		}
+		# cav debuff
+		CSA_southern_aristocracy_3 = {
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture= GFX_idea_CSA_southern_aristocracy
+			modifier = {
+				political_power_gain = -0.15
+				drift_defence_factor = 0.2
+				stability_factor = 0.12
+				cavalry_attack_factor = 0.075
+			}
+		}
+		# high command changed up
+		CSA_southern_aristocracy_4 = {
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture= GFX_idea_CSA_southern_aristocracy
+			modifier = {
+				political_power_gain = -0.08
+				drift_defence_factor = 0.1
+				stability_factor = 0.04
+				cavalry_attack_factor = 0.075
+			}
+		}
+
+		# new schools
+		CSA_limited_officers_2 = {
+			allowed={ always=no }
+			#allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture = generic_army_war_college
+			modifier = {
+				army_attack_factor = -0.1
+				experience_gain_army_unit_factor = -0.1
+				military_leader_cost_factor = 0.25 
+			}
+		}
+
+		# new freedom bill
+		CSA_industrializng = {   #needs pic
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture = GFX_Idea_SOV_third_five_year_plan_civilian
+			modifier = {
+				industrial_capacity_factory = -0.1
+				production_speed_buildings_factor = -0.1
+				research_speed_factor = -0.15
+			}
+		}
+		# outlaw child labor
+		CSA_industrializng_2 = {  #needs pic
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture = GFX_Idea_SOV_third_five_year_plan_civilian
+			modifier = {
+				industrial_capacity_factory = -0.1
+				production_speed_buildings_factor = -0.12
+				research_speed_factor = -0.1
+			}
+		}
+		# fund schools
+		CSA_industrializng_3 = {  #needs pic
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture = GFX_Idea_SOV_third_five_year_plan_civilian
+			modifier = {
+				industrial_capacity_factory = -0.1
+				production_speed_buildings_factor = -0.12
+			}
+		}
+
+		CSA_racial_segregation_2 = {
+			allowed={ always=no }
+			allowed_civil_war = { has_government=communism }
+			removal_cost=-1
+			picture= GFX_idea_CSA_black_soldiers
+			modifier = {
+				conscription_factor = -0.15
+				industry_free_repair_factor = 0.1
+				consumer_goods_factor = -0.05
+			}
+		}
+
+
+		CSA_streamlined_rifles = {		#needs pic
+			allowed={ always=no }
+			#allowed_civil_war = { has_government=communism }
+			removal_cost=-1
+			picture= GFX_Idea_SOV_third_five_year_plan_military
+
+			equipment_bonus = {
+            	infantry_equipment = {
+            		build_cost_ic = -0.1 instant = yes
+            	}
+            }
+		}
+
+		CSA_black_workers = { 
+			allowed={ always=no }
+			allowed_civil_war={ has_government=democratic }
+			removal_cost=-1
+			picture = generic_production_bonus
+			modifier = {
+				industrial_capacity_factory = 0.1
+				production_speed_buildings_factor = 0.1
+				conscription_factor = 0.05
+			}
+		}
+
+
+	
+
+		##### Old ideas
 
 
 		CSA_conservatism_idea = {
@@ -125,17 +260,6 @@ ideas = {
 			}
 		}
 
-
-		CSA_black_soldiers = {
-			allowed={ always=no }
-			allowed_civil_war = { has_government=communism }
-			removal_cost=-1
-			picture= GFX_idea_CSA_black_soldiers
-			modifier = {
-				conscription_factor = 0.1
-				stability_factor = -0.05
-			}
-		}
 
 		CSA_mexican_aid1 = {
 			allowed={ always=no }
