@@ -453,7 +453,28 @@ country_event = {
 }
 
 
-############################################################
+#CSA joined faction
+news_event = {
+	id = wsv_csa.7
+	title = wsv_csa.7.t
+	desc = wsv_csa.7.d
+	picture = news_event_joined_alliance
+
+	major = yes
+
+    is_triggered_only = yes
+
+	immediate = { 
+    	hidden_effect = { 
+    		add_threat = 3
+    	} 
+    }
+	
+	option = {
+		name = wsv_csa.7.a
+	}
+}
+
 
 #CSA gets remanents of black revolt idea
 country_event = {
@@ -486,6 +507,113 @@ country_event = {
 }
 
 
+##############################################################
+
+# British advisors visit csa
+news_event = {
+	id = wsv_csa.9
+	title = wsv_csa.9.t
+	desc = wsv_csa.9.d
+	#picture = #needs pic
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_csa.9.a
+	}
+}
+
+
+# Request joint defense with canada
+country_event = {
+	id = wsv_csa.10
+	title = wsv_csa.10.t
+	desc = wsv_csa.10.d
+	#picture = #needs pic
+
+    is_triggered_only = yes
+
+    # canada agrees
+	option = {
+		name = wsv_csa.10.a
+		CAN = { 
+			army_experience = 10
+			give_guarantee = CSA 
+		}
+		CSA = { give_guarantee = CAN }
+		hidden_effect = {
+			news_event = wsv_csa.12
+		}
+
+		ai_will_do = {
+			factor = 60
+		}
+	}
+
+	# canada refuses
+	option = {
+		name = wsv_csa.10.b
+		CSA = { country_event = wsv_csa.11 }
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
+
+# Canada refuses
+country_event = {
+	id = wsv_csa.11
+	title = wsv_csa.11.t
+	desc = wsv_csa.11.d
+	#picture = 
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_csa.11.a
+
+	}
+}
+
+
+# Canada agrees
+news_event = {
+	id = wsv_csa.12
+	title = wsv_csa.12.t
+	desc = wsv_csa.12.d
+	#picture = #needs pic
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_csa.12.a
+		trigger = { 
+			OR = {
+				tag = CSA 
+				tag = CAN
+			}
+		}
+	}
+
+	option = {
+		name = wsv_csa.12.b
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_csa.12.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+			NOT = { tag = CAN }
+		}
+	}
+}
+
+
+###################################################
 
 
 

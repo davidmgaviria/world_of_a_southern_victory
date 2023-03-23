@@ -329,6 +329,9 @@ focus_tree = {
 				add_idea = CSA_industrializng
 			}
 			add_stability = 0.03	
+			# hidden_effect = {
+			# 	news_event = wsv_csa.---
+			# }
 		}
 	}
 
@@ -647,7 +650,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_streamline_rifle
-		#icon = GFX_focus_focus_fra_maquis
+		icon = GFX_focus_focus_fra_maquis
 		prerequisite = { focus = CSA_infantry_effort }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1052,9 +1055,9 @@ focus_tree = {
 
 	focus = {
 		id = CSA_war_plan_defense
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_wilsonian_era }
-		#mutually_exclusive = {}
+		mutually_exclusive = { focus = CSA_war_plan_offense }
 		cost = 10
 		x = -1
 		y = 1
@@ -1067,15 +1070,16 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			set_country_flag = CSA_warplan_stonewall_flag	
+			custom_effect_tooltip = CSA_warplan_stonewall_tt
 		}
 	}
 
 	focus = {
 		id = CSA_war_plan_offense
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_wilsonian_era }
-		#mutually_exclusive = {}
+		mutually_exclusive = { focus = CSA_war_plan_defense }
 		cost = 10
 		x = 1
 		y = 1
@@ -1088,7 +1092,8 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			set_country_flag = CSA_waplan_lee_flag
+			custom_effect_tooltip = CSA_warplan_lee_tt
 		}
 	}
 
@@ -1115,10 +1120,10 @@ focus_tree = {
 
 	focus = {
 		id = CSA_creek_nation_army
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_military_production }
 		#mutually_exclusive = {}
-		cost = 10
+		cost = 5
 		x = -2
 		y = 1
 		relative_position_id = CSA_military_production 
@@ -1134,16 +1139,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			hidden_effect = {
+				load_oob = "CSA_creek_soldiers"
+				set_division_template_lock = { division_template = "Creek Regiment"  is_locked = yes }
+			}
+			custom_effect_tooltip = CSA_creek_army_tt
 		}
 	}
 
 	focus = {
 		id = CSA_support_deseret_rebs
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_military_production }
 		#mutually_exclusive = {}
-		cost = 10
+		cost = 5
 		x = -4
 		y = 1
 		relative_position_id = CSA_military_production 
@@ -1152,10 +1161,22 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			DES = {
+				exists = yes
+				has_war_with = USA
+				NOT = { has_war_with = CSA } 
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
-				
+			send_equipment = {
+			    equipment = infantry_equipment
+			    amount = 5000
+			    target = DES
+			}
 		}
 	}
 
@@ -1414,7 +1435,7 @@ focus_tree = {
 	### European Allies
 	focus = {
 		id = CSA_british_naval
-		#icon = GFX_focus_chi_british_cooperation
+		icon = GFX_focus_chi_british_cooperation
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1436,12 +1457,15 @@ focus_tree = {
 				category = bb_tech
 				category = bc_tech
 			}
+			hidden_effect = {
+				news_event = wsv_csa.9
+			}
 		}
 	}
 
 	focus = {
 		id = CSA_ambassadors_france
-		#icon = GFX_focus_chi_reach_out_to_france
+		icon = GFX_focus_chi_reach_out_to_france
 		prerequisite = { focus = CSA_british_naval }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1456,13 +1480,24 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			FRA = {
+				add_opinion_modifier={ 
+					target = CSA 
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}	
+			}	
+			hidden_effect = {
+				add_opinion_modifier={ 
+					target = FRA 
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}	
+			}
 		}
 	}
 
 	focus = {
 		id = CSA_entente
-		#icon = GFX_goal_anschluss
+		icon = GFX_goal_anschluss
 		prerequisite = { focus = CSA_ambassadors_france }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1480,13 +1515,15 @@ focus_tree = {
 			FRA = {
 				add_to_faction = CSA
 			}
-			#event	
+			hidden_effect = { 
+				news_event = wsv_csa.7
+			}
 		}
 	}
 
 	focus = {
 		id = CSA_planning_canada
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_british_naval }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1500,8 +1537,12 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
-			army_experience = 10
+		completion_reward = {
+			army_experience = 10 
+			CAN = { 
+				country_event = wsv_csa.10
+			}
+			custom_effect_tooltip = CSA_canada_defense_treaty_tt
 		}
 	}
 
@@ -1632,7 +1673,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_denoune_haiti
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_marines }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1647,13 +1688,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			HAI = {
+				add_opinion_modifier={ 
+					target = CSA 
+					modifier = WSV_dislikes_country
+				}	
+			}	
 		}
 	}
 
 	focus = {
 		id = CSA_invade_haiti
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_denoune_haiti }
 		prerequisite = { focus = CSA_intervene_latin_america }
 		#mutually_exclusive = {}
@@ -1669,7 +1715,10 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			create_wargoal = {
+				type = annex_everything
+				target = HAI
+			}	
 		}
 	}
 
