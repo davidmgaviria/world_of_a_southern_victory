@@ -11,7 +11,7 @@ focus_tree = {
 	focus = {
 		id = CSA_reevaluate_privileges
 		icon = GFX_focus_generic_population_growth
-		prerequisite = { focus = }
+		#prerequisite = { focus = }
 		#mutually_exclusive = {}
 		cost = 5
 		x = 6
@@ -282,7 +282,11 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-				
+			#build_railway = { #Montreal - Halifax
+			#	path = {
+			#		4345 4417 10320 7433 1284 12291 4362 7379 4432 1424 7304 7644 7361
+			#	}
+			#}	
 		}
 	}
 
@@ -572,7 +576,6 @@ focus_tree = {
 				bonus = 1
 				uses = 1
 				category = infantry_weapons
-				category = support_weapons
 			}
 		}
 	}
@@ -759,12 +762,11 @@ focus_tree = {
 	focus = {
 		id = CSA_wilsonian_era
 		icon = GFX_focus_POL_support_global_falangism
-		prerequisite = { focus = }
+		#prerequisite = { focus = }
 		#mutually_exclusive = {}
 		cost = 5
 		x = 34
 		y = 0
-		relative_position_id =  
 
 		ai_will_do = { 
 			factor = 0 
@@ -1055,7 +1057,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_war_plan_defense
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = CSA_wilsonian_era }
 		mutually_exclusive = { focus = CSA_war_plan_offense }
 		cost = 10
@@ -1077,7 +1079,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_war_plan_offense
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = CSA_wilsonian_era }
 		mutually_exclusive = { focus = CSA_war_plan_defense }
 		cost = 10
@@ -1182,7 +1184,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_claim_newmexico
-		icon = GFX_goal_generic_position_armies
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = CSA_support_deseret_rebs }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1196,11 +1198,11 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				has_state_claim = 376
+				376 = { is_claimed_by = ROOT }
 				owns_state = 376
 			}
 			OR = {
-				has_state_claim = 377
+				377 = { is_claimed_by = ROOT }
 				owns_state = 377
 			}
 		}
@@ -1238,7 +1240,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_claim_maryland
-		icon = GFX_goal_generic_position_armies
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = CSA_call_to_arms }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1252,7 +1254,7 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				has_state_claim = 361
+				361 = { is_claimed_by = ROOT }
 				owns_state = 361
 			}
 		}
@@ -1264,7 +1266,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_claim_missouri
-		icon = GFX_goal_generic_position_armies
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = CSA_claim_maryland }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1278,7 +1280,7 @@ focus_tree = {
 
 		bypass = {
 			OR = {
-				has_state_claim = 373
+				373 = { is_claimed_by = ROOT }
 				owns_state = 373
 			}
 		}
@@ -1523,7 +1525,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_planning_canada
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = CSA_british_naval }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1560,15 +1562,44 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			OR = {
+				315 = { is_owned_and_controlled_by = ROOT }
+				any_owned_and_controlled_state = {
+					region = 211
+					is_coastal = yes
+				}
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
-			add_extra_state_shared_building_slots = 2
-			add_building_construction = {
-				type = dockyard
-				level = 2
-				instant_build = yes
+			if = { 
+				limit = { 
+					315 = { is_owned_and_controlled_by = ROOT }
+				}
+				315 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
 			}
+			else = {
+				random_owned_controlled_state = {
+					limit = { region=211 }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+
 			add_tech_bonus = {
 				bonus = 1
 				uses = 1
@@ -1580,7 +1611,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_canal_project
-		#icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = CSA_carribean_fleet }
 		prerequisite = { focus = CSA_entente }
 		#mutually_exclusive = {}
@@ -1673,7 +1704,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_denoune_haiti
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_dangerous_deal
 		prerequisite = { focus = CSA_marines }
 		#mutually_exclusive = {}
 		cost = 10
@@ -1699,7 +1730,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_invade_haiti
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_occupy_states_ongoing_war
 		prerequisite = { focus = CSA_denoune_haiti }
 		prerequisite = { focus = CSA_intervene_latin_america }
 		#mutually_exclusive = {}
