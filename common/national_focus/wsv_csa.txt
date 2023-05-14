@@ -63,7 +63,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_economic_stimulus}
 		#mutually_exclusive = {}
 		cost = 10
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = CSA_economic_stimulus
 
@@ -317,7 +317,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_reevaluate_privileges }
 		#mutually_exclusive = {}
 		cost = 10
-		x = 3
+		x = 2
 		y = 1
 		relative_position_id = CSA_reevaluate_privileges
 
@@ -417,7 +417,7 @@ focus_tree = {
 	focus = {
 		id = CSA_army_effort
 		icon = GFX_focus_generic_commonwealth_build_infantry
-		x = 15
+		x = 13
 		y = 0
 		cost = 10
 		search_filters = { FOCUS_FILTER_RESEARCH }
@@ -765,7 +765,7 @@ focus_tree = {
 		#prerequisite = { focus = }
 		#mutually_exclusive = {}
 		cost = 5
-		x = 34
+		x = 30
 		y = 0
 
 		ai_will_do = { 
@@ -785,7 +785,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_wilsonian_era }
 		mutually_exclusive = { focus = CSA_support_mexico_emperor }
 		cost = 10
-		x = -11
+		x = -9
 		y = 1
 		relative_position_id = CSA_wilsonian_era
 
@@ -1121,41 +1121,12 @@ focus_tree = {
 	}
 
 	focus = {
-		id = CSA_creek_nation_army
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = CSA_military_production }
-		#mutually_exclusive = {}
-		cost = 5
-		x = -2
-		y = 1
-		relative_position_id = CSA_military_production 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		available = {
-			controls_state = 374
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			hidden_effect = {
-				load_oob = "CSA_creek_soldiers"
-				set_division_template_lock = { division_template = "Creek Regiment"  is_locked = yes }
-			}
-			custom_effect_tooltip = CSA_creek_army_tt
-		}
-	}
-
-	focus = {
 		id = CSA_support_deseret_rebs
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_military_production }
 		#mutually_exclusive = {}
 		cost = 5
-		x = -4
+		x = -3
 		y = 1
 		relative_position_id = CSA_military_production 
 
@@ -1214,134 +1185,12 @@ focus_tree = {
 	}
 
 	focus = {
-		id = CSA_call_to_arms
-		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = CSA_military_production }
-		#mutually_exclusive = {}
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_military_production 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		available = {
-			has_war = yes
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_manpower = 250000	
-		}
-	}
-
-	focus = {
-		id = CSA_claim_maryland
-		icon = GFX_goal_generic_more_territorial_claims
-		prerequisite = { focus = CSA_call_to_arms }
-		#mutually_exclusive = {}
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = CSA_call_to_arms 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		bypass = {
-			OR = {
-				361 = { is_claimed_by = ROOT }
-				owns_state = 361
-			}
-		}
-
-		completion_reward = { 
-			add_state_claim = 361	
-		}
-	}
-
-	focus = {
-		id = CSA_claim_missouri
-		icon = GFX_goal_generic_more_territorial_claims
-		prerequisite = { focus = CSA_claim_maryland }
-		#mutually_exclusive = {}
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_claim_maryland 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		bypass = {
-			OR = {
-				373 = { is_claimed_by = ROOT }
-				owns_state = 373
-			}
-		}
-
-		completion_reward = { 
-			add_state_claim = 373		
-		}
-	}
-
-	focus = {
-		id = CSA_increase_conscription
-		icon = GFX_focus_SOV_mobilization_plan
-		prerequisite = { focus = CSA_call_to_arms }
-		#mutually_exclusive = {}
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = CSA_call_to_arms 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			increase_conscription_tier_effect = yes
-		}
-	}
-
-	focus = {
-		id = CSA_enlist_black_soldiers
-		icon = GFX_focus_ETH_freedom_at_gunpoint#focus_black_soldiers
-		prerequisite = { focus = CSA_increase_conscription}
-		#mutually_exclusive = {}
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = CSA_increase_conscription 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			swap_ideas = {
-				remove_idea = CSA_racial_segregation
-				add_idea = CSA_racial_segregation_2
-			}
-		}
-	}
-
-	focus = {
 		id = CSA_fortify_virginia
 		icon = GFX_goal_generic_construct_military
 		prerequisite = { focus = CSA_military_production }
 		#mutually_exclusive = {}
 		cost = 10
-		x = 3
+		x = -1
 		y = 1
 		relative_position_id = CSA_military_production 
 
@@ -1434,6 +1283,158 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = CSA_call_to_arms
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = CSA_military_production }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_military_production 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war = yes
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_manpower = 250000	
+		}
+	}
+
+
+	focus = {
+		id = CSA_increase_conscription
+		icon = GFX_focus_SOV_mobilization_plan
+		prerequisite = { focus = CSA_call_to_arms }
+		#mutually_exclusive = {}
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CSA_call_to_arms 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			increase_conscription_tier_effect = yes
+		}
+	}
+
+	focus = {
+		id = CSA_enlist_black_soldiers
+		icon = GFX_focus_ETH_freedom_at_gunpoint#focus_black_soldiers
+		prerequisite = { focus = CSA_increase_conscription}
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CSA_increase_conscription 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CSA_racial_segregation
+				add_idea = CSA_racial_segregation_2
+			}
+		}
+	}
+
+	focus = {
+		id = CSA_claim_maryland
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = CSA_call_to_arms }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CSA_call_to_arms 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			OR = {
+				361 = { is_claimed_by = ROOT }
+				owns_state = 361
+			}
+		}
+
+		completion_reward = { 
+			add_state_claim = 361	
+		}
+	}
+
+	focus = {
+		id = CSA_claim_missouri
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = CSA_claim_maryland }
+		#mutually_exclusive = {}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_claim_maryland 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			OR = {
+				373 = { is_claimed_by = ROOT }
+				owns_state = 373
+			}
+		}
+
+		completion_reward = { 
+			add_state_claim = 373		
+		}
+	}
+
+	focus = {
+		id = CSA_creek_nation_army
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CSA_military_production }
+		#mutually_exclusive = {}
+		cost = 5
+		x = 3
+		y = 1
+		relative_position_id = CSA_military_production 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			controls_state = 374
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			hidden_effect = {
+				load_oob = "CSA_creek_soldiers"
+				set_division_template_lock = { division_template = "Creek Regiment"  is_locked = yes }
+			}
+			custom_effect_tooltip = CSA_creek_army_tt
+		}
+	}
+
 	### European Allies
 	focus = {
 		id = CSA_british_naval
@@ -1441,7 +1442,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = {}
 		cost = 10
-		x = 6
+		x = 5
 		y = 1
 		relative_position_id = CSA_wilsonian_era  
 
@@ -1638,7 +1639,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = {}
 		cost = 10
-		x = 9
+		x = 8
 		y = 1
 		relative_position_id = CSA_wilsonian_era  
 
