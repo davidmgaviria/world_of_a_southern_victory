@@ -794,9 +794,6 @@ default_marines_production = {
 default_area_priority = {
 	enable = {
 		always = yes
-		#NOT = { original_tag = GER }
-		#NOT = { original_tag = FRA }
-		NOT = { original_tag = JAP }
 	}
 
 	ai_strategy = {
@@ -865,9 +862,8 @@ default_area_priority_non_africa = {
     enable = {
         NOT = { original_tag = ITA }
         NOT = { original_tag = FRA }
-        NOT = { original_tag = USA }
         NOT = { original_tag = ENG }
-        #NOT = { is_subject_of = ENG }
+        NOT = { original_tag = TUR }
         NOT = { capital_scope = { is_on_continent = africa } }
     }
 
@@ -904,6 +900,7 @@ slightly_naval_focused_nation = {
 	enable = {
 		OR = {
 			tag = JAP
+			tag = GER
 			tag = USA
 			tag = ENG
 			tag = FRA
@@ -968,94 +965,6 @@ more_naval_focused_nation = {
 		id = convoy
 		value = 1
 	}
-}
-
-
-default_area_priority = {
-	enable = {
-		NOT = { original_tag = USA } 
-		NOT = { original_tag = CSA }
-		NOT = { original_tag = GER } 
-		NOT = { original_tag = FRA }
-		NOT = { original_tag = JAP }
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = europe
-		value = 100
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = scandinavia
-		value = 100
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = north_america
-		value = 100
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = south_america
-		value = 50
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = asia
-		value = 75
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = middle_east
-		value = 50
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = suez
-		value = 50
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = pacific
-		value = 50
-	}
-	
-	ai_strategy = {
-		type = area_priority
-		id = oceania
-		value = 25
-	}
-}
-
-
-default_area_priority_non_africa = {
-    enable = {
-        NOT = { original_tag = ITA }
-        NOT = { original_tag = FRA }
-        NOT = { original_tag = ENG }
-        NOT = { original_tag = TUR }
-        NOT = { is_subject_of = ENG }
-        NOT = { capital_scope = { is_on_continent = africa } }
-    }
-
-    ai_strategy = {
-        type = area_priority
-        id = africa
-        value = -90
-    }
-    ai_strategy = {
-        type = area_priority
-        id = suez
-        value = -90
-    }
 }
 
 
