@@ -2,18 +2,20 @@ technologies = {
 
 	@1900 = 0
 	@1910 = 2
-	@1914 = 4
-	@1915 = 6
-	@1916 = 8
-	@1917 = 10
+	@1912 = 4
+	@1914 = 6 
+	@1915 = 8
+	@1916 = 10
 	@1918 = 12
 
-	@1936 = 14
-	@1939 = 16
-	@1941 = 18
-	@1942 = 20
-	@1943 = 22
-	@1944 = 24
+
+	@1926 = 14	
+	@1936 = 16
+	@1939 = 18
+	@1941 = 20
+	@1942 = 22
+	@1943 = 24
+	@1944 = 26
 
 
 
@@ -55,10 +57,10 @@ technologies = {
 	bonus_artillery1 = {
 
 		artillery = {
-			soft_attack = 0.05
+			soft_attack = 0.1
 		}
 		artillery_brigade = {
-			soft_attack = 0.05
+			soft_attack = 0.1
 		}
 		
 		path = {
@@ -68,11 +70,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1910
+		start_year = 1912
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = @1910 }
+			position = { x = 0 y = @1912 }
 		}
 		
 		categories = {
@@ -94,6 +96,14 @@ technologies = {
 		
 		path = {
 			leads_to_tech = bonus_artillery2 
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_antitank
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_antiair 
 			research_cost_coeff = 1
 		}
 		
@@ -158,7 +168,7 @@ technologies = {
 		}
 		
 		path = {
-			leads_to_tech = standard_artillery
+			leads_to_tech = light_field_gun3
 			research_cost_coeff = 1
 		}
 		
@@ -181,47 +191,78 @@ technologies = {
 	}
 
 
-	standard_artillery = {
+	light_field_gun3 = {
 
 		enable_equipments = {
-			artillery_equipment_1
+			light_field_gun_equipment_3
 		}
 		
 		path = {
-			leads_to_tech = interwar_artillery 
+			leads_to_tech = bonus_artillery4 
 			research_cost_coeff = 1
 		}
-
 		path = {
-			leads_to_tech = interwar_antitank
+			leads_to_tech = standard_artillery
 			research_cost_coeff = 1
 		}
-		
-		path = {
-			leads_to_tech = interwar_antiair 
-			research_cost_coeff = 1
-		}
+		# path = {
+		# 	leads_to_tech = heavy_field_gun2 
+		# 	research_cost_coeff = 0.8
+		# }
 		
 		research_cost = 1.5
-
-		start_year = 1917
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 0 y = @1917 }
+			position = { x = 0 y = @1918 }
 		}
+
+		start_year = 1918
 		
 		categories = {
 			artillery
 		}
 		
 		ai_will_do = {
-			factor = 10
+			factor = 5
 		}
 	}
 
 
+	# bonus_artillery4 = {
 
+	# 	artillery = {
+	# 		soft_attack = 0.1
+	# 	}
+	# 	artillery_brigade = {
+	# 		soft_attack = 0.1
+	# 	}
+		
+	# 	path = {
+	# 		leads_to_tech = standard_artillery
+	# 		research_cost_coeff = 1
+	# 	}
+		
+	# 	research_cost = 1.5
+
+	# 	start_year = 1918
+		
+	# 	folder = {
+	# 		name = artillery_folder
+	# 		position = { x = 0 y = @1918 }
+	# 	}
+		
+	# 	categories = {
+	# 		artillery
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 5
+	# 	}
+	# }
+
+
+	## HOWITZERS ##
 	heavy_field_gun1 = {
 
 		enable_equipments = {
@@ -234,7 +275,7 @@ technologies = {
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 5 y = @1910 }
+			position = { x = 3 y = @1910 }
 		}
 
 		path = {
@@ -259,16 +300,12 @@ technologies = {
 
 	bonus_bertha1 = {
 
-		start_year = 1914
-
 		# this is the support company
-		#heavy_artillery = {
-		#	soft_attack = 0.1
-		#	breakthrough = 0.05
-		#}
+		heavy_artillery = {
+			soft_attack = 0.1
+		}
 		heavy_artillery_brigade = {
 			soft_attack = 0.1
-			breakthrough = 0.05
 		}
 		
 		path = {
@@ -278,11 +315,11 @@ technologies = {
 		
 		research_cost = 1.5
 
-		start_year = 1914
+		start_year = 1912
 		
 		folder = {
 			name = artillery_folder
-			position = { x = 5  y = @1914 }
+			position = { x = 3  y = @1912 }
 		}
 		
 		categories = {
@@ -299,13 +336,15 @@ technologies = {
 	}
 
 
-	# 0.5.1 (03/2018)
 	bonus_bertha2 = {
 
 		start_year = 1915
 
+		heavy_artillery = {
+			soft_attack = 0.1
+		}
 		heavy_artillery_brigade = {
-			maximum_speed = 0.1
+			soft_attack = 0.1
 		}
 		
 		research_cost = 1.5
@@ -317,7 +356,7 @@ technologies = {
 
 		folder = {
 			name = artillery_folder
-			position = { x = 5 y = @1915 }
+			position = { x = 3 y = @1915 }
 		}
 		
 		categories = {
@@ -351,7 +390,7 @@ technologies = {
 
 		folder = {
 			name = artillery_folder
-			position = { x = 5 y = @1916 }
+			position = { x = 3 y = @1916 }
 		}
 		
 		categories = {
@@ -370,23 +409,21 @@ technologies = {
 
 	bonus_bertha3 = {
 
-		start_year = 1917
+		start_year = 1918
 
 		# this is the support company
-		#heavy_artillery = {
-		#	soft_attack = 0.1
-		#	breakthrough = 0.05
-		#}
+		heavy_artillery = {
+			soft_attack = 0.1
+		}
 		heavy_artillery_brigade = {
 			soft_attack = 0.1
-			breakthrough = 0.05
 		}
 		
 		research_cost = 1.5
 
 		folder = {
 			name = artillery_folder
-			position = { x = 5 y = @1917 }
+			position = { x = 3 y = @1918 }
 		}
 		
 		categories = {
@@ -402,6 +439,232 @@ technologies = {
 		}
 	}
 
+	## ANTI AIR ##
+	ww1_antiair = {
+
+		enable_equipments = {
+			ww1_anti_air_equipment_1
+		}
+
+		enable_building = {
+			building = anti_air
+			level = 3
+		}
+		
+		path = {
+			leads_to_tech = ww1_antiair_upgrade1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+
+		start_year = 1914
+		
+		folder = {
+			name = artillery_folder
+			position = { x = -3 y = @1914 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			artillery
+		}
+	}
+
+
+	ww1_antiair_upgrade1 = {
+
+		anti_air = {
+			air_attack = 0.1
+		}
+		anti_air_brigade = {
+			air_attack = 0.1
+		}
+		
+		path = {
+			leads_to_tech = ww1_antiair_upgrade2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+
+		start_year = 1916
+		
+		folder = {
+			name = artillery_folder
+			position = { x = -3 y = @1916 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			artillery
+		}
+	}
+
+
+	ww1_antiair_upgrade2 = {
+
+		anti_air = {
+			air_attack = 0.1
+		}
+		anti_air_brigade = {
+			air_attack = 0.1
+		}
+		
+		#path = {
+		#	leads_to_tech = interwar_antiair
+		#	research_cost_coeff = 1
+		#}
+		
+		research_cost = 1.5
+
+		start_year = 1918
+		
+		folder = {
+			name = artillery_folder
+			position = { x = -3 y = @1918 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			artillery
+		}
+	}
+
+
+	## ANTI-TANK ##
+	ww1_antitank = {
+
+		enable_equipments = {
+			ww1_anti_tank_equipment_1
+		}
+		
+		path = {
+			leads_to_tech = ww1_antitank_ugrade1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+
+		start_year = 1916
+		
+		folder = {
+			name = artillery_folder
+			position = { x = 7 y = @1916 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			artillery
+			cat_anti_tank
+		}
+	}
+	
+
+	ww1_antitank_ugrade1 = {
+
+		anti_tank = {
+			hard_attack = 0.1
+			ap_attack = 0.2
+		}
+		anti_tank_brigade = {
+			hard_attack = 0.1
+			ap_attack = 0.2
+		}
+		
+		#path = {
+		#	leads_to_tech = interwar_antitank
+		#	research_cost_coeff = 1
+		#}
+		
+		research_cost = 1.5
+
+		start_year = 1918
+		
+		folder = {
+			name = artillery_folder
+			position = { x = 7 y = @1918 }
+		}
+		
+		ai_will_do = {
+			factor = 3
+		}
+		
+		categories = {
+			artillery
+			cat_anti_tank
+		}
+	}
+
+
+################### VANILLA ####################
+
+	standard_artillery = {
+
+		enable_equipments = {
+			artillery_equipment_1
+		}
+		
+		path = {
+			leads_to_tech = interwar_artillery 
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = interwar_antitank
+			research_cost_coeff = 1
+		}
+		
+		path = {
+			leads_to_tech = interwar_antiair 
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+
+		start_year = 1926
+		
+		folder = {
+			name = artillery_folder
+			position = { x = 0 y = @1926 }
+		}
+		
+		categories = {
+			artillery
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+	}
 
 	
 	interwar_artillery = {
@@ -741,6 +1004,7 @@ technologies = {
 			rocketry
 		}
 	}
+
 	
 	interwar_antiair = {
 
