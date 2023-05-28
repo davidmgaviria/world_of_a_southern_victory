@@ -1,5 +1,16 @@
 technologies = {
 
+	# @1900 = 0
+	# @1910 = 2
+	# @1912 = 
+	# @1915
+	# @1918
+	# @1936
+	# @1938
+	# @1940
+	# @1942
+	# @1944
+
 
 #======================================================
 
@@ -255,7 +266,7 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1910
+		start_year = 1912
 		
 		folder = {
 			name = electronics_folder
@@ -282,7 +293,7 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1914
+		start_year = 1915
 		
 		folder = {
 			name = electronics_folder
@@ -309,7 +320,7 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1918
 		
 		folder = {
 			name = electronics_folder
@@ -329,7 +340,7 @@ technologies = {
 	mechanical_computing = {
 
 		# small boost to research speed
-		research_speed_factor = 0.01
+		research_speed_factor = 0.02
 		
 		path = {
 			leads_to_tech = mechanical_computing2
@@ -347,7 +358,7 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1910
+		start_year = 1912
 		
 		folder = {
 			name = electronics_folder
@@ -371,7 +382,7 @@ technologies = {
 		decryption = 1
 		
 		research_cost = 1.5
-		start_year = 1910
+		start_year = 1912
 		
 		folder = {
 			name = electronics_folder
@@ -394,7 +405,7 @@ technologies = {
 		encryption = 1
 		
 		research_cost = 1.5
-		start_year = 1910
+		start_year = 1912
 		
 		folder = {
 			name = electronics_folder
@@ -415,11 +426,10 @@ technologies = {
 	mechanical_computing2 = {
 
 		# small boost to research speed
-		# research_time_factor = -0.01
-		research_speed_factor = 0.01
+		research_speed_factor = 0.02
 		
 		path = {
-			leads_to_tech = electronic_ww2
+			leads_to_tech = mechanical_computing3
 			research_cost_coeff = 1
 		}
 		path = {
@@ -432,11 +442,11 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1915
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 2 y = 6 }
+			position = { x = 2 y = 4 }
 		}
 		
 		ai_will_do = {
@@ -449,18 +459,17 @@ technologies = {
 		}
 	}
 
-
 	hoi4tgw_decryption2 = {
 
 		# decryption 1
 		decryption = 1
 		
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1915
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 4 y = 6 }
+			position = { x = 4 y = 4 }
 		}
 		
 		ai_will_do = {
@@ -479,7 +488,91 @@ technologies = {
 		encryption = 1
 		
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1915
+		
+		folder = {
+			name = electronics_folder
+			position = { x = 0 y = 4 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			electronics
+			encryption_tech
+		}
+	}
+
+
+	mechanical_computing3 = {
+
+		# small boost to research speed
+		research_speed_factor = 0.02
+		
+		path = {
+			leads_to_tech = electronic_ww2
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = hoi4tgw_decryption3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = hoi4tgw_encryption3
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+		start_year = 1918
+		
+		folder = {
+			name = electronics_folder
+			position = { x = 2 y = 6 }
+		}
+		
+		ai_will_do = {
+			factor = 4
+		}
+		
+		categories = {
+			electronics
+			computing_tech
+		}
+	}
+
+
+	hoi4tgw_decryption3 = {
+
+		# decryption 1
+		decryption = 1
+		
+		research_cost = 1.5
+		start_year = 1918
+		
+		folder = {
+			name = electronics_folder
+			position = { x = 4 y = 6 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			electronics
+			decryption_tech
+		}
+	}
+
+	hoi4tgw_encryption3 = {
+
+		# encryption 1
+		encryption = 1
+		
+		research_cost = 1.5
+		start_year = 1918
 		
 		folder = {
 			name = electronics_folder
@@ -502,7 +595,7 @@ technologies = {
 		army_fuel_consumption_factor = -0.02
 				
 		research_cost = 1.5
-		start_year = 1910
+		start_year = 1900
 
 		path = {
 			leads_to_tech = dingfelder_engine2
@@ -511,7 +604,7 @@ technologies = {
 		
 		folder = {
 			name = electronics_folder
-			position = { x = 6 y = 2 }
+			position = { x = 6 y = 0 }
 		}
 		
 		ai_will_do = {
@@ -529,7 +622,7 @@ technologies = {
 		army_fuel_consumption_factor = -0.03
 				
 		research_cost = 1.5
-		start_year = 1917
+		start_year = 1918
 		
 		folder = {
 			name = electronics_folder
@@ -558,11 +651,11 @@ technologies = {
 			research_cost_coeff = 1
 		}	
 		path = {
-			leads_to_tech = mechanical_computing3
+			leads_to_tech = computing_machine
 			research_cost_coeff = 1
 		}		
 		research_cost = 1.5
-		start_year = 1937		
+		start_year = 1936		
 		folder = {
 			name = electronics_folder
 			position = { x = 0 y = 10 }
@@ -588,7 +681,7 @@ technologies = {
 		}
 		
 		research_cost = 1.5
-		start_year = 1937
+		start_year = 1936
 		
 		folder = {
 			name = electronics_folder
@@ -608,7 +701,6 @@ technologies = {
 			electronics
 		}
 	}
-
 
 	
 	radio_detection = {
