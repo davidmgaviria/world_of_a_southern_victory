@@ -1,18 +1,16 @@
 focus_tree = {
-	id=usa_focus
+	id=USA_focus 
 	default=no
 	country={ factor=0 modifier={ add=50 original_tag=USA } }
-	#continuous_focus_position = { x = 50 y = 1000 }
-
+	continuous_focus_position = { x = 50 y = 1200 }
 
 	focus = {
-		id = USA_production_effort
+		id = USA_progressive_era
 		icon = GFX_focus_chi_legislative_yuan
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
-
 		cost = 10
-		x = 4
+		x = 5
 		y = 0
 		#relative_position_id = 
 
@@ -26,18 +24,16 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_civ_factories1
+		id = USA_northwest_roads
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_production_effort }
+		prerequisite = { focus = USA_progressive_era }
 		#mutually_exclusive = { focus = }
-
 		cost = 10
-		x = -2
+		x = -3
 		y = 1
-		relative_position_id = USA_production_effort
+		relative_position_id = USA_progressive_era
 
 		ai_will_do = { 
 			factor = 0 
@@ -49,14 +45,117 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
+		id = USA_roads_southwest
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_northwest_roads }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_northwest_roads
 
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_centralized_banking
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_progressive_era }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_progressive_era
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_income_tax
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_centralized_banking }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_centralized_banking
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_first_defense_bill
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_centralized_banking}
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_centralized_banking
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_civ_factories1
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_progressive_era }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = USA_progressive_era
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
 		id = USA_civ_factories2
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = USA_civ_factories1 }
 		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
@@ -72,87 +171,16 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_rail_construction
+		id = USA_1912_election
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_civ_factories2 }
+		prerequisite = { focus = USA_centralized_banking }
 		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_civ_factories2
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_pittsburgh_steel
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_civ_factories1 }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = USA_civ_factories1
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_arms_factories1
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_production_effort }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_production_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_arms_factories2
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_arms_factories1 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = USA_arms_factories1
+		relative_position_id = USA_centralized_banking
 
 		ai_will_do = { 
 			factor = 0 
@@ -164,18 +192,79 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
+		id = USA_right_of_workers
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_1912_election }
+		#mutually_exclusive = { focus=USA_police_target_socialist  }
+		cost = 10
+		x = -3
+		y = 1
+		relative_position_id = USA_1912_election
 
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_desegregate_army
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_right_of_workers }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_right_of_workers
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_socialist_paramiliatires
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_desegregate_army }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_desegregate_army
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
 		id = USA_break_trusts
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_production_effort }
+		prerequisite = { focus = USA_1912_election }
 		#mutually_exclusive = { focus = }
-
 		cost = 10
-		x = 2
+		x = 0
 		y = 1
-		relative_position_id = USA_production_effort
+		relative_position_id = USA_1912_election
 
 		ai_will_do = { 
 			factor = 0 
@@ -187,16 +276,78 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
+		id = USA_labor_protections_act
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_right_of_workers }
+		prerequisite = { focus = USA_break_trusts }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_right_of_workers
 
-		id = USA_first_defense_bill
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_goverment_transparency
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_labor_protections_act }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_labor_protections_act
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_social_welfare
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_goverment_transparency }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_goverment_transparency
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_workers_compensation
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = USA_break_trusts }
 		#mutually_exclusive = { focus = }
-
 		cost = 10
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = USA_break_trusts
 
@@ -210,127 +361,13 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_rationing
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_first_defense_bill }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_first_defense_bill
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
 		id = USA_second_defense_bill
 		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_break_trusts }
 		prerequisite = { focus = USA_first_defense_bill }
 		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_first_defense_bill
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = USA_tax_rich
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_rationing }
-		prerequisite = { focus = USA_second_defense_bill }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_rationing
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_work_with_socialists
-		icon = GFX_focus_chi_legislative_yuan
-		#prerequisite = { focus = }
-		mutually_exclusive = { focus=USA_oppose_socialists  }
-		cost = 10
-		x = 9
-		y = 0
-		#relative_position_id = 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_oppose_socialists
-		icon = GFX_focus_chi_legislative_yuan
-		#prerequisite = { focus = }
-		mutually_exclusive = { focus=USA_work_with_socialists  }
-		cost = 10
-		x = 11
-		y = 0
-		#relative_position_id = 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_worker_production_act
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus=USA_break_trusts focus=USA_work_with_socialists  }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -346,87 +383,16 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_outlaw_child_labor
+		id = USA_federal_rationing
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_worker_production_act }
+		prerequisite = { focus = USA_second_defense_bill }
 		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_worker_production_act
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_social_welfare
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_outlaw_child_labor }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_outlaw_child_labor
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_police_target_socialists
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_oppose_socialists }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_oppose_socialists
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-
-		id = USA_unpatriotic_act
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_police_target_socialists }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = USA_police_target_socialists
+		relative_position_id = USA_second_defense_bill
 
 		ai_will_do = { 
 			factor = 0 
@@ -438,18 +404,59 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_american_legions
+		id = USA_tax_rich
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_unpatriotic_act }
+		prerequisite = { focus = USA_workers_compensation }
+		prerequisite = { focus = USA_second_defense_bill }
 		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_workers_compensation
 
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_police_target_socalists
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_1912_election }
+		#mutually_exclusive = { focus=USA_right_of_workers  }
+		cost = 10
+		x = 4
+		y = 1
+		relative_position_id = USA_1912_election
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_unpatriotic_subversives_act
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_police_target_socalists }
+		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_unpatriotic_act
+		relative_position_id = USA_police_target_socalists
 
 		ai_will_do = { 
 			factor = 0 
@@ -461,18 +468,38 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_increase_usgc_power
+		id = USA_grant_usgc_power
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_police_target_socialists }
+		prerequisite = { focus = USA_unpatriotic_subversives_act }
+prerequisite = { focus = USA_second_defense_bill }
 		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_unpatriotic_subversives_act
 
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_american_legions
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_unpatriotic_subversives_act }
+		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = USA_police_target_socialists
+		relative_position_id = USA_unpatriotic_subversives_act
 
 		ai_will_do = { 
 			factor = 0 
@@ -484,19 +511,85 @@ focus_tree = {
 		}
 	}
 
-	
+		
 	focus = {
-
-		id = USA_presidential_power
+		id = USA_presidental_emergency_power
 		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_grant_usgc_power }
 		prerequisite = { focus = USA_american_legions }
-		prerequisite = { focus = USA_increase_usgc_power }
 		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_grant_usgc_power
 
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+
+
+	## ARMY ##
+	focus = {
+		id = USA_army_effort
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 15
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_infantry_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_army_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_trench_warfare
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_infantry_effort }
+		#mutually_exclusive = { focus = }
 		cost = 10
 		x = -1
-		y = 2
-		relative_position_id = USA_increase_usgc_power
+		y = 1
+		relative_position_id = USA_infantry_effort
 
 		ai_will_do = { 
 			factor = 0 
@@ -508,6 +601,1214 @@ focus_tree = {
 		}
 	}
 
+
+		
+	focus = {
+		id = USA_special_forces
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_trench_warfare }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_infantry_effort2
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_infantry_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_infantry_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_artillery_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_infantry_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_infantry_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_howitzer_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_artillery_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_artillery_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_war_games
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_army_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_armored_raids
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_army_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_barrel_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_army_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_armored_raids
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_manuever_warfare
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_games }
+		prerequisite = { focus = USA_barrel_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_barrel_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+	## AIR ##
+	focus = {
+		id = USA_air_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_army_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 4
+		y = 2
+		relative_position_id = USA_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_fighter_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_air_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_cas_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_fighter_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_fighter_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_air_effort_2
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_air_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_bomber_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_air_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_blimp_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_bomber_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_bomber_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+	## NAVAL ##
+	focus = {
+		id = USA_naval_effort
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 23
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_dreadnought_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_naval_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_naval_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_naval_effort2
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_naval_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_naval_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_dreadnought_effort2
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_dreadnought_effort }
+		prerequisite = { focus = USA_naval_effort2 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_dreadnought_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_carrier_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_dreadnought_effort2 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_dreadnought_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_destroyer_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_naval_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_naval_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_cruiser_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_destroyer_effort }
+		prerequisite = { focus = USA_naval_effort2 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_destroyer_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_submarine_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_cruiser_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_cruiser_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_marine_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_destroyer_effort }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_destroyer_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	## INTERNATIONAL ##
+	focus = {
+		id = USA_rememberance
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 34
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_war_plans_dept
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_rememberance }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = USA_rememberance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_war_plan_grey
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_plans_dept }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_war_plans_dept
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_philadelphia_line
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_plan_grey }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_war_plan_grey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_kentuckys_place
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_philadelphia_line }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_philadelphia_line
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_reject_western_claims
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_kentuckys_place }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_kentuckys_place
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_correct_1862
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_kentuckys_place }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_kentuckys_place
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_aid_black_rebels
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_correct_1862 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_correct_1862
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_blockade_csa
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_correct_1862 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_correct_1862
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_barrel_roll_offensive
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_aid_black_rebels }
+prerequisite = { focus = USA_blockade_csa }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_aid_black_rebels
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_protest_confederate_intervention
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_plan_grey }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_war_plan_grey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_denounce_mexican_puppethood
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_protest_confederate_intervention }
+		mutually_exclusive = { focus=USA_forment_unrest_mexico  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_claim_baja
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_denounce_mexican_puppethood }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_denounce_mexican_puppethood
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_forment_unrest_mexico
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_protest_confederate_intervention }
+		mutually_exclusive = { focus=USA_denounce_mexican_puppethood  }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_guns_to_mexico
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_forment_unrest_mexico }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_forment_unrest_mexico
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_promise_mexico_land
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_guns_to_mexico }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_guns_to_mexico
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_mexico_revolution
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_guns_to_mexico }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_guns_to_mexico
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_embargo_united_fruit
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_protest_confederate_intervention }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_warships_to_haiti
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_embargo_united_fruit }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_embargo_united_fruit
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_free_carribean
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_warships_to_haiti }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_warships_to_haiti
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_insult_of_1862
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_rememberance }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 4
+		y = 1
+		relative_position_id = USA_rememberance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_war_plan_red
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_insult_of_1862 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_insult_of_1862
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_fortify_ny
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_plan_red }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_war_plan_red
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_attack_canada
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_plan_red }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_war_plan_red
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_puppet_quebec
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_attack_canada }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_attack_canada
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_expand_atlantic_dockyards
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_insult_of_1862 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_insult_of_1862
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_war_plan_pink
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_expand_atlantic_dockyards }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_expand_atlantic_dockyards
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = USA_aid_irish_rebels
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_expand_atlantic_dockyards }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_expand_atlantic_dockyards
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_strengthen_german_friendship
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_insult_of_1862 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_insult_of_1862
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_diplomats_austria
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_strengthen_german_friendship }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_strengthen_german_friendship
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = USA_join_central_powers
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_diplomats_austria }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_diplomats_austria
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = USA_linking_hands
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_war_plan_pink }
+		prerequisite = { focus = USA_join_central_powers }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_war_plan_pink
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
 
 		
 }
