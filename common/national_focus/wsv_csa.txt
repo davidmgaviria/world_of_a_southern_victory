@@ -8,38 +8,39 @@ focus_tree = {
 	###########################################################################################################################
 	
 	## ECONOMY ##
-	focus = {
-		id = CSA_new_era
-		icon = GFX_focus_chi_legislative_yuan
-		#prerequisite = { focus = }
-		#mutually_exclusive = { focus = }
+	# focus = {
+	# 	id = CSA_new_era
+	# 	icon = GFX_focus_generic_improve_the_administration
+	# 	#prerequisite = { focus = }
+	# 	#mutually_exclusive = { focus = }
 
-		cost = 10
-		x = 6
-		y = 0
-		#relative_position_id = 
+	# 	cost = 5
+	# 	x = 6
+	# 	y = 0
+	# 	#relative_position_id = 
 
-		ai_will_do = { 
-			factor = 0 
-		}
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
 
-		#bypass = {}
+	# 	#bypass = {}
 
-		completion_reward = { 
-		}
-	}
+	# 	completion_reward = { 
+	# 		add_political_power = 75
+	# 	}
+	# }
 
 		
 	focus = {
 		id = CSA_industrial_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_production
 		prerequisite = { focus = CSA_new_era }
 		#mutually_exclusive = { focus = }
 
 		cost = 10
-		x = -3
-		y = 1
-		relative_position_id = CSA_new_era
+		x = 3
+	 	y = 0
+		#relative_position_id = CSA_new_era
 
 		ai_will_do = { 
 			factor = 0 
@@ -47,14 +48,24 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			swap_ideas = {
+				remove_idea = CSA_agricultural_nation
+				add_idea = CSA_industrializing_economy
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_deep_south_roads
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = CSA_industrial_effort }
 		#mutually_exclusive = { focus = }
 
@@ -70,13 +81,34 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			364 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			365 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			367 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 		
 	focus = {
-		id = CSA_southwest_roads
-		icon = GFX_focus_chi_legislative_yuan
+		id = CSA_deep_south_roads2
+		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = CSA_deep_south_roads }
 		#mutually_exclusive = { focus = }
 
@@ -92,13 +124,34 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			370 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			371 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			375 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_mining_subsidies
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construction2
 		prerequisite = { focus = CSA_industrial_effort }
 		#mutually_exclusive = { focus = }
 
@@ -114,13 +167,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_idea = CSA_mining_subsidies
 		}
 	}
 
 		
 	focus = {
 		id = CSA_bauxite_mines
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_aluminum
 		prerequisite = { focus = CSA_deep_south_roads }
 		prerequisite = { focus = CSA_mining_subsidies }
 		#mutually_exclusive = { focus = }
@@ -137,13 +191,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_resource = {
+				type = aluminium
+				amount = 18
+				state = 372
+			}	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_texas_oil
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_stockpile_fuel
 		prerequisite = { focus = CSA_bauxite_mines }
 		#mutually_exclusive = { focus = }
 
@@ -159,13 +218,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_resource = {
+				type = oil
+				amount = 40
+				state = 375
+			}	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_sonora_tungsten
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_tungsten
 		prerequisite = { focus = CSA_texas_oil }
 		prerequisite = { focus = CSA_southwest_roads }
 		#mutually_exclusive = { focus = }
@@ -182,13 +246,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_resource = {
+				type = tungsten
+				amount = 12
+				state = 483
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_civ_factories
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = CSA_industrial_effort }
 		#mutually_exclusive = { focus = }
 
@@ -204,13 +273,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			362 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 
 	focus = {
 		id = CSA_alabama_steel
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_steel
 		prerequisite = { focus = CSA_civ_factories }
 		#mutually_exclusive = { focus = }
 
@@ -226,13 +303,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_resource = {
+				type = steel
+				amount = 25
+				state = 367
+			}
 		}
 	}
 
 
 	focus = {
 		id = CSA_arms_factories
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = CSA_civ_factories }
 		#mutually_exclusive = { focus = }
 
@@ -248,20 +330,28 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			368 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_new_freedom_bill
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_hol_the_foundations_of_defense
 		prerequisite = { focus = CSA_new_era }
 		#mutually_exclusive = { focus = }
 
 		cost = 10
-		x = 3
-		y = 1
-		relative_position_id = CSA_new_era
+		x = 9
+	 	y = 0
+		#relative_position_id = CSA_new_era
 
 		ai_will_do = { 
 			factor = 0 
@@ -270,13 +360,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = 0.08
+			}
+			swap_ideas = {
+				remove_idea = CSA_southern_aristocracy
+				add_idea = CSA_southern_aristocracy_2
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_compromise_with_elites
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = CSA_new_freedom_bill }
 		#mutually_exclusive = { focus = }
 
@@ -292,13 +390,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+			    ideology = democratic
+			    popularity = 0.05
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_income_tax
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_mex_privatisation
 		prerequisite = { focus = CSA_compromise_with_elites }
 		#mutually_exclusive = { focus = }
 
@@ -314,13 +416,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CSA_income_tax
 		}
 	}
 
 		
 	focus = {
 		id = CSA_tarrifs
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_trade
 		prerequisite = { focus = CSA_compromise_with_elites }
 		prerequisite = { focus = CSA_income_tax }
 		#mutually_exclusive = { focus = }
@@ -336,14 +439,23 @@ focus_tree = {
 
 		#bypass = {}
 
+		available = {
+			has_war = no
+			OR = {
+				has_idea = free_trade
+				has_idea = export_focus
+			}
+		}
+
 		completion_reward = { 
+			add_ideas = limited_exports
 		}
 	}
 
 		
 	focus = {
 		id = CSA_educational_grants
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_research
 		prerequisite = { focus = CSA_compromise_with_elites }
 		#mutually_exclusive = { focus = }
 
@@ -359,13 +471,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_research_slot = 1
 		}
 	}
 
 		
 	focus = {
 		id = CSA_mandatory_schooling
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_research2
 		prerequisite = { focus = CSA_educational_grants }
 		#mutually_exclusive = { focus = }
 
@@ -381,13 +494,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CSA_compulsory_schools
 		}
 	}
 
 		
 	focus = {
 		id = CSA_second_industrial_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_production2
 		prerequisite = { focus = CSA_civ_factories }
 		prerequisite = { focus = CSA_income_tax }
 		#mutually_exclusive = { focus = }
@@ -403,14 +517,24 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
+			swap_ideas = {
+				remove_idea = CSA_industrializing_economy
+				add_idea = CSA_industrializing_economy_2
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_arms_factories2
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = CSA_second_industrial_effort }
 		#mutually_exclusive = { focus = }
 
@@ -426,13 +550,28 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = arms_factory
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_improve_living_standards
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_consumer_goods
 		prerequisite = { focus = CSA_second_industrial_effort }
 		#mutually_exclusive = { focus = }
 
@@ -448,13 +587,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_stability = 0.05
 		}
 	}
 
 		
 	focus = {
 		id = CSA_civ_factories2
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = CSA_second_industrial_effort }
 		#mutually_exclusive = { focus = }
 
@@ -470,13 +610,28 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_state = {
+				limit = {
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_roaring_economy
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_positive_trade_relations
 		prerequisite = { focus = CSA_arms_factories2 }
 		prerequisite = { focus = CSA_improve_living_standards }
 		prerequisite = { focus = CSA_civ_factories2 }
@@ -494,6 +649,10 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CSA_industrializing_economy_2
+				add_idea = CSA_industrializing_economy_3
+			}
 		}
 	}	
 
@@ -501,7 +660,7 @@ focus_tree = {
 	## ARMY ##
 	focus = {
 		id = CSA_army_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_commonwealth_build_infantry
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 
@@ -517,13 +676,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 20
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_infantry_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_small_arms
 		prerequisite = { focus = CSA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -539,13 +705,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = infantry_weapons
+				category = artillery
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_trench_warfare
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = CSA_infantry_effort }
 		#mutually_exclusive = { focus = }
 
@@ -561,13 +734,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				#name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = support_tech
+				category = fortification
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_special_forces
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_special_forces
 		prerequisite = { focus = CSA_trench_warfare }
 		#mutually_exclusive = { focus = }
 
@@ -583,13 +763,22 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = special_forces
+			add_tech_bonus = {
+				name = ww2_special_forces_bonus
+				bonus = 1.0
+				uses = 1
+				category = marine_tech
+				category = para_tech
+				category = mountaineers_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_streamlined_rifles
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_focus_fra_maquis
 		prerequisite = { focus = CSA_infantry_effort }
 		#mutually_exclusive = { focus = }
 
@@ -605,13 +794,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CSA_streamlined_rifles
 		}
 	}
 
 		
 	focus = {
 		id = CSA_artillery_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_army_artillery2
 		prerequisite = { focus = CSA_infantry_effort }
 		#mutually_exclusive = { focus = }
 
@@ -627,13 +817,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				#name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = artillery
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_chemical_weapons
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_hoi4tgw_gasmask
 		prerequisite = { focus = CSA_artillery_effort }
 		#mutually_exclusive = { focus = }
 
@@ -649,13 +845,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				#name = infantry_artillery_bonus
+				bonus = 1.0
+				uses = 1
+				category = chemical_weapons
+			}	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_army_doctrine_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_army_doctrines
 		prerequisite = { focus = CSA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -671,13 +873,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 5
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_military_transparency
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_court
 		prerequisite = { focus = CSA_army_doctrine_effort }
 		#mutually_exclusive = { focus = }
 
@@ -693,13 +902,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = -0.02
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_maintain_elite_officers
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = CSA_military_transparency }
 		mutually_exclusive = { focus = CSA_open_officer_schools }
 
@@ -715,13 +928,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = 0.05
+			}
+			swap_ideas = {
+				remove_ideas = CSA_military_nepotism
+				add_ideas = CSA_military_caste
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_legacy_matters_most
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_tripartite_pact
 		prerequisite = { focus = CSA_maintain_elite_officers }
 		#mutually_exclusive = { focus = }
 
@@ -737,13 +958,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 100
+			add_stability = 0.05
 		}
 	}
 
 		
 	focus = {
 		id = CSA_open_officer_schools
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_military_academy
 		prerequisite = { focus = CSA_military_transparency }
 		mutually_exclusive = { focus=CSA_maintain_elite_officers  }
 		cost = 10
@@ -758,13 +981,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = -0.03
+			}
+			swap_ideas = {
+				remove_idea = CSA_military_nepotism
+				add_idea = CSA_reduced_military_nepotism
+			}
 		}
 	}
 
 
 	focus = {
 		id = CSA_promote_veterans
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_manpower 
 		prerequisite = { focus = CSA_open_officer_schools }
 		#mutually_exclusive = { focus = }
 
@@ -780,13 +1011,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 10
+			add_ideas = CSA_veteran_officers
 		}
 	}
 
 		
 	focus = {
 		id = CSA_reshuffle_high_command
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_anti_comintern_pact
 		prerequisite = { focus = CSA_open_officer_schools }
 		#mutually_exclusive = { focus = }
 
@@ -802,13 +1035,23 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_stability = -0.1
+			retire_character = CSA_charles_p_summerall
+			retire_character = CSA_jeb_stuart_jr
+			retire_character = CSA_james_longstreet_iii
+			retire_character = CSA_duncan_n_hood
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = -0.1
+			}
+			remove_ideas = CSA_reduced_military_nepotism
 		}
 	}
 
 		
 	focus = {
 		id = CSA_cavalry_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_cavalry
 		prerequisite = { focus = CSA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -824,13 +1067,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CSA_cavalry_focus
 		}
 	}
 
 		
 	focus = {
 		id = CSA_armored_raids
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = CSA_cavalry_effort }
 		#mutually_exclusive = { focus = }
 
@@ -846,13 +1090,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1
+				category = cat_armored_car
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_armor_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_hoi4tgw_renaultft
 		prerequisite = { focus = CSA_armored_raids }
 		#mutually_exclusive = { focus = }
 
@@ -868,13 +1117,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = cat_light_armor
+				category = cat_heavy_armor
+			}	
 		}
 	}
 
 	## AIR ##		
 	focus = {
 		id = CSA_air_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_build_airforce
 		prerequisite = { focus = CSA_army_effort }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -889,13 +1144,38 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			air_experience = 25
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = ww2_aviation_effort_AB }
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_fighter_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_air_fighter
 		prerequisite = { focus = CSA_air_effort }
 		#mutually_exclusive = { focus = }
 
@@ -910,14 +1190,20 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = fighter_bonus
+				bonus = 1.0
+				uses = 1
+				category = light_fighter
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_cas_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_CAS
 		prerequisite = { focus = CSA_fighter_effort }
 		#mutually_exclusive = { focus = }
 
@@ -932,14 +1218,20 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 1
+				category = cas_bomber
+			}  
 		}
 	}
 
 		
 	focus = {
 		id = CSA_air_effort2
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_air_doctrine
 		prerequisite = { focus = CSA_air_effort }
 		#mutually_exclusive = { focus = }
 
@@ -955,13 +1247,38 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			air_experience = 25
+			if = {
+				limit = {
+					capital_scope = {
+						free_building_slots = {
+							building = air_base
+							size > 1
+						}
+					}
+				}
+				capital_scope = {
+					add_building_construction = {
+						type = air_base
+						level = 2
+						instant_build = yes
+					}
+					ROOT = { set_country_flag = ww2_aviation_effort_AB }
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = air_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_bomber_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_air_bomber
 		prerequisite = { focus = CSA_air_effort }
 		#mutually_exclusive = { focus = }
 
@@ -976,14 +1293,20 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 1
+				category = tactical_bomber
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_blimp_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_hoi4tgw_zeppelin
 		prerequisite = { focus = CSA_bomber_effort }
 		#mutually_exclusive = { focus = }
 
@@ -998,14 +1321,20 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = bomber_bonus
+				bonus = 1.0
+				uses = 1
+				category = cat_strategic_bomber
+			} 
 		}
 	}
 
 
 	focus = {
 		id = CSA_naval_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_naval_dockyard
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 
@@ -1020,14 +1349,51 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		available = {
+			any_state = {
+				is_coastal = yes
+				is_controlled_by = ROOT
+			}
+		}
+		
+		completion_reward = {
+			navy_experience = 25
+			if = {
+				limit = {
+					any_owned_state = {
+						is_coastal = yes
+					}
+				}
+				random_owned_controlled_state = {
+					limit = {
+						is_coastal = yes
+						free_building_slots = {
+							building = dockyard
+							size > 2
+							include_locked = yes
+						}
+					}
+					add_extra_state_shared_building_slots = 3
+					add_building_construction = {
+						type = dockyard
+						level = 3
+						instant_build = yes
+					}
+				}
+			}
+			add_tech_bonus = {
+				#name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}		
 		}
 	}
 
 		
 	focus = {
 		id = CSA_naval_doctrine_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_doctrines_tactics
 		prerequisite = { focus = CSA_naval_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1043,13 +1409,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			navy_experience = 25
+			add_tech_bonus = {
+				#name = air_doc_bonus
+				bonus = 1.0
+				uses = 1
+				category = naval_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_dreadnought_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = CSA_naval_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1064,14 +1437,21 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_dreadnought_effort2
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = CSA_dreadnought_effort }
 		prerequisite = { focus = CSA_naval_doctrine_effort }
 		#mutually_exclusive = { focus = }
@@ -1088,13 +1468,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				uses = 1
+				category = bc_tech
+				category = bb_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_carrier_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_carrier
 		prerequisite = { focus = CSA_dreadnought_effort2 }
 		#mutually_exclusive = { focus = }
 
@@ -1110,13 +1497,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				uses = 1
+				category = cv_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_destroyer_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_destroyer
 		prerequisite = { focus = CSA_naval_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1132,13 +1525,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				uses = 1
+				category = dd_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_cruiser_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_cruiser2
 		prerequisite = { focus = CSA_destroyer_effort }
 		prerequisite = { focus = CSA_naval_doctrine_effort }
 		#mutually_exclusive = { focus = }
@@ -1155,13 +1554,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1
+				uses = 1
+				category = cl_tech
+				category = ca_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_submarine_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_submarine
 		prerequisite = { focus = CSA_cruiser_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1176,14 +1582,19 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_marine_effort
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_amphibious_assault
 		prerequisite = { focus = CSA_destroyer_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1199,13 +1610,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				category = marine_tech
+			}
 		}
 	}
+
 
 	## INTERNATIONAL ##
 	focus = {
 		id = CSA_wilsonian_era
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_POL_support_global_falangism
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 
@@ -1221,13 +1638,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
 		
 	focus = {
 		id = CSA_mexico_focus
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = { focus = }
 
@@ -1249,7 +1667,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_arms_to_mexico
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_mexico_focus }
 		#mutually_exclusive = { focus = }
 
@@ -1271,7 +1689,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_drill_mexican_army
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_arms_to_mexico }
 		#mutually_exclusive = { focus = }
 
@@ -1293,7 +1711,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_invest_in_mexico
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_mexico_focus }
 		#mutually_exclusive = { focus = }
 
@@ -1315,7 +1733,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_expand_mining_rights
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_invest_in_mexico }
 		#mutually_exclusive = { focus = }
 
@@ -1337,7 +1755,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_infrastrucutre_in_mexico
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_invest_in_mexico }
 		#mutually_exclusive = { focus = }
 
@@ -1359,7 +1777,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_schooling_in_mexico
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_expand_mining_rights }
 		prerequisite = { focus = CSA_infrastrucutre_in_mexico }
 		#mutually_exclusive = { focus = }
@@ -1382,7 +1800,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_southern_pride
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_usa_honor_the_confederacy
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = { focus = }
 
@@ -1398,13 +1816,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_manpower = 60000
+			add_war_support = 0.05
 		}
 	}
 
 		
 	focus = {
 		id = CSA_fortify_virginia
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_military
 		prerequisite = { focus = CSA_southern_pride }
 		#mutually_exclusive = { focus = }
 
@@ -1420,13 +1840,33 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			362 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 13236
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 13224
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 13237
+				}
+			}	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_invasion_of_north
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_southern_pride }
 		#mutually_exclusive = { focus = }
 
@@ -1448,7 +1888,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_old_claims
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = CSA_invasion_of_north }
 		mutually_exclusive = { focus=CSA_f  }
 		cost = 10
@@ -1463,13 +1903,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_state_claim = 813
+			# TODO: claim southern missouri
 		}
 	}
 
 		
 	focus = {
 		id = CSA_attack_the_north
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_attack_usa
 		prerequisite = { focus = CSA_old_claims }
 		#mutually_exclusive = { focus = }
 
@@ -1485,13 +1927,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			create_wargoal = {
+				target = USA
+				type = topple_government
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_united_fruit
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = { focus = }
 
@@ -1513,7 +1959,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_intervention_in_carribean
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_united_fruit }
 		#mutually_exclusive = { focus = }
 
@@ -1535,7 +1981,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_pan_carribean_conference
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_intervention_in_carribean }
 		#mutually_exclusive = { focus = }
 
@@ -1557,12 +2003,12 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_call_to_arms
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_propaganda
 		prerequisite = { focus = CSA_fortify_virginia }
 		prerequisite = { focus = CSA_intervention_in_carribean }
 		#mutually_exclusive = { focus = }
 
-		cost = 10
+		cost = 5
 		x = 2
 		y = 1
 		relative_position_id = CSA_fortify_virginia
@@ -1574,13 +2020,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_war_support = 0.1
+			add_manpower = 200000
 		}
 	}
 
 		
 	focus = {
 		id = CSA_support_mormon_rebels
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_call_to_arms }
 		#mutually_exclusive = { focus = }
 
@@ -1602,7 +2050,7 @@ focus_tree = {
 		
 	focus = {
 		id = CSA_claim_new_mexico
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = CSA_support_mormon_rebels }
 		#mutually_exclusive = { focus = }
 
@@ -1618,13 +2066,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_state_claim = 376
+			add_state_claim = 377	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_emergency_military_act
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = CSA_call_to_arms }
 		#mutually_exclusive = { focus = }
 
@@ -1640,13 +2090,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_timed_idea = {
+				idea = CSA_emergency_military_act
+				days = 360
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_nashville_line
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_military
 		prerequisite = { focus = CSA_emergency_military_act }
 		#mutually_exclusive = { focus = }
 
@@ -1662,13 +2116,39 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			368 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 1987
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 12501
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 10281
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 1758
+				}
+			}		
 		}
 	}
 
 		
 	focus = {
 		id = CSA_increase_conscription
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_SOV_mobilization_plan
 		prerequisite = { focus = CSA_call_to_arms }
 		#mutually_exclusive = { focus = }
 
@@ -1684,13 +2164,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			increase_conscription_tier_effect = yes
 		}
 	}
 
 		
 	focus = {
 		id = CSA_allow_blacks_in_factories
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_SOV_organize_wreckers
 		prerequisite = { focus = CSA_emergency_military_act }
 		prerequisite = { focus = CSA_increase_conscription }
 		#mutually_exclusive = { focus = }
@@ -1707,13 +2188,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CSA_racial_segregation
+				add_idea = CSA_racial_segregation_2
+			}
+			add_stability = -0.03
 		}
 	}
 
 		
 	focus = {
 		id = CSA_conscript_blacks
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_ETH_freedom_at_gunpoint#focus_black_soldiers
 		prerequisite = { focus = CSA_allow_blacks_in_factories }
 		prerequisite = { focus = CSA_increase_conscription }
 		#mutually_exclusive = { focus = }
@@ -1730,13 +2216,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CSA_racial_segregation_2
+				add_idea = CSA_racial_segregation_3
+			}
+			add_stability = -0.04
 		}
 	}
 
 		
 	focus = {
 		id = CSA_creek_army
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = CSA_increase_conscription }
 		#mutually_exclusive = { focus = }
 
@@ -1752,13 +2243,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_manpower = 40000
 		}
 	}
 
 		
 	focus = {
 		id = CSA_british_naval_support
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_british_cooperation
 		prerequisite = { focus = CSA_wilsonian_era }
 		#mutually_exclusive = { focus = }
 
@@ -1774,13 +2266,23 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			navy_experience = 20
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = bb_tech
+				category = bc_tech
+			}
+			hidden_effect = {
+				news_event = wsv_csa.9
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_expand_carribean_fleet
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { focus = CSA_british_naval_support }
 		#mutually_exclusive = { focus = }
 
@@ -1793,16 +2295,57 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			OR = {
+				315 = { is_owned_and_controlled_by = ROOT }
+				any_owned_and_controlled_state = {
+					region = 211
+					is_coastal = yes
+				}
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			if = { 
+				limit = { 
+					315 = { is_owned_and_controlled_by = ROOT }
+				}
+				315 = {
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+			else = {
+				random_owned_controlled_state = {
+					limit = { region=211 }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+						instant_build = yes
+					}
+				}
+			}
+
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = dd_tech
+				category = cl_tech
+			}	
 		}
 	}
 
 		
 	focus = {
 		id = CSA_denounce_haiti
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_goal_generic_dangerous_deal
 		prerequisite = { focus = CSA_intervention_in_carribean }
 		prerequisite = { focus = CSA_expand_carribean_fleet }
 		#mutually_exclusive = { focus = }
@@ -1819,13 +2362,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			# TODO: event denouncing haiti
 		}
 	}
 
 		
 	focus = {
 		id = CSA_invade_haiti
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_occupy_states_ongoing_war
 		prerequisite = { focus = CSA_denounce_haiti }
 		#mutually_exclusive = { focus = }
 
@@ -1841,13 +2385,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			create_wargoal = {
+				target = HAI
+				type = annex_everything
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_ambassadors_to_france
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_reach_out_to_france
 		prerequisite = { focus = CSA_british_naval_support }
 		#mutually_exclusive = { focus = }
 
@@ -1863,13 +2411,25 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			FRA = {
+				add_opinion_modifier={ 
+					target = CSA 
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}	
+			}	
+			hidden_effect = {
+				add_opinion_modifier={ 
+					target = FRA 
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}	
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_joint_planning_canada
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = CSA_british_naval_support }
 		#mutually_exclusive = { focus = }
 
@@ -1884,14 +2444,19 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			army_experience = 10 
+			CAN = { 
+				country_event = wsv_csa.10
+			}
+			custom_effect_tooltip = CSA_canada_defense_treaty_tt
 		}
 	}
 
 		
 	focus = {
 		id = CSA_join_entente
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_anschluss
 		prerequisite = { focus = CSA_ambassadors_to_france }
 		#mutually_exclusive = { focus = }
 
@@ -1907,20 +2472,26 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			FRA = {
+				add_to_faction = CSA
+			}
+			#hidden_effect = { 
+			#	news_event = wsv_csa.7
+			#}
 		}
 	}
 
 		
 	focus = {
 		id = CSA_revive_canal_project
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CSA_expand_carribean_fleet }
-		prerequisite = { focus = CSA_ambassadors_to_france }
+		prerequisite = { focus = CSA_join_entente }
 		#mutually_exclusive = { focus = }
 
 		cost = 10
 		x = 0
-		y = 2
+		y = 3
 		relative_position_id = CSA_expand_carribean_fleet
 
 		ai_will_do = { 
