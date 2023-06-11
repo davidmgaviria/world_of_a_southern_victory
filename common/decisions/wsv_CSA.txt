@@ -1,8 +1,194 @@
 
 ### WAR PLANS
 
-CSA_warplans = {
 
+## Influence in Caribbean ##
+
+
+CSA_influence_in_caribbean_category = {
+
+	CSA_conduct_naval_exercise = {
+
+		icon = generic_naval
+
+		visible = {
+			always = yes
+		}
+		available = {
+			NOT = { has_war_with = USA }
+		}
+
+		cost = 50
+		days_remove = 20
+		days_re_enable = 30
+
+		remove_effect = {
+			add_to_variable = { 
+				var = CSA.csa_influence_in_caribbean
+				value = 10 
+			}
+			custom_effect_tooltip = increase_influence_by_10_tt
+			# TODO : naval exercise event
+		}
+
+		ai_will_do = {
+			factor = 0.03
+
+			# increase likelyhood if US is high
+			modifier = {
+				factor = 2
+				check_variable = { var = USA.usa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 2
+				check_variable = { var = USA.usa_influence_in_caribbean value = 40 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 2
+				check_variable = { var = USA.usa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
+			}
+
+			# decrease likelyhood if ours is high
+			modifier = {
+				factor = 0.5
+				check_variable = { var = CSA.csa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { var = CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { var = CSA.csa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
+			}
+		}
+	}
+
+
+	CSA_establish_united_fruit_branch = {
+
+		icon = generic_construction
+
+		visible = {
+			has_completed_focus = CSA_united_fruit
+		}
+
+		targets = { DOM GUA HON ELS NIC COS COL VEN }
+
+		target_trigger = {
+			FROM = {
+				NOT = { has_country_flag = united_fruit_established }
+				NOT = { has_war_with = CSA }
+				is_puppet = no
+			}
+		}
+		
+		cost = 25
+		days_remove = 20
+
+		remove_effect = {
+			FROM = { set_country_flag = united_fruit_established }
+			add_to_variable = { 
+				var = CSA.csa_influence_in_caribbean
+				value = 5 
+			}
+			add_offsite_building = { type = industrial_complex level = 1 }
+			custom_effect_tooltip = increase_influence_by_5_tt
+			# TODO: hidden effect, send event notice to the US
+		}
+
+		ai_will_do = {
+			factor = 0.05
+			modifier = {
+				factor = 4
+				tag = DOM
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					tag = COL
+					tag = NIC
+				}
+			}
+			
+			# increase likelyhood if US is high
+			modifier = {
+				factor = 2
+				check_variable = { var = USA.usa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 2
+				check_variable = { var = USA.usa_influence_in_caribbean value = 40 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 2
+				check_variable = { var = USA.usa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
+			}
+
+			# decrease likelyhood if ours is high
+			modifier = {
+				factor = 0.5
+				check_variable = { var = CSA.csa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { var = CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { var = CSA.csa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
+			}
+		}
+	}
+
+
+	CSA_intervention_in_caribbean = {
+
+		icon = infiltrate_state
+
+		visible = {
+			has_completed_focus = CSA_intervention_in_carribean
+		}
+
+		targets = { DOM GUA HON ELS NIC COS COL VEN }
+
+		target_trigger = {
+			FROM = {
+				has_country_flag = destroyed_united_fruit
+				NOT = { has_war_with = CSA }
+				is_puppet = no
+			}
+		}
+		
+		cost = 30
+		days_remove = 20
+
+		remove_effect = {
+			FROM = {  set_country_flag = occupied_by_csa }
+			add_to_variable = { 
+				var = CSA.csa_influence_in_caribbean
+				value = 10 
+			}
+			puppet = FROM
+			custom_effect_tooltip = increase_influence_by_10_tt
+			# TODO: intervention event
+		}
+
+		ai_will_do = {
+			factor = 0.4  # we will almost certainly do it
+		}
+	}
+}
+
+
+
+
+
+### GREAT WAR SURRENDER
+
+wsv_great_war_decisions = {
+
+	# plan to invade the us
 	CSA_warplan_lee = {
 
 		icon = generic_operation
@@ -11,13 +197,11 @@ CSA_warplans = {
 			has_war_with = USA
 		}
 		visible = {
-			has_country_flag = CSA_waplan_lee_flag
+			has_country_flag = CSA_warplan_lee_flag
 		}
 
 		fire_only_once = yes
-
 		days_remove = 60
-
 		days_re_enable = 0
 
 		targeted_modifier = {
@@ -50,45 +234,6 @@ CSA_warplans = {
 			factor = 10
 		}
 	}
-
-
-	CSA_warplan_stonewall = {
-
-		icon = generic_operation
-
-		available = {
-			has_war_with = USA
-		}
-
-		visible = {
-			has_country_flag = CSA_warplan_stonewall_flag
-		}
-
-		fire_only_once = yes
-
-		days_remove = 90
-
-		days_re_enable = 0
-
-		targeted_modifier = {
-		    tag = USA
-		    attack_bonus_against = -0.1
-		    defense_bonus_against = 0.2
-		    #days = 90
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-	}
-}
-
-
-
-
-### GREAT WAR SURRENDER
-
-wsv_great_war_decisions = {
 	
 	# CSA throws in the towel
 	greatwar_csa_offers_peace = {

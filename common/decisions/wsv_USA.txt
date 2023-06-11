@@ -95,6 +95,105 @@ wsv_great_war_decisions = {
 }
 
 
+## Influence in Caribbean ##
+
+USA_influence_in_caribbean_category = {
+
+	USA_conduct_naval_exercise = {
+
+		icon = generic_operation
+
+		visible = {
+			always = yes
+		}
+		available = {
+			NOT = { has_war_with = CSA }
+		}
+
+		cost = 50
+		days_remove = 20
+		days_re_enable = 30
+
+		remove_effect = {
+			add_to_variable = { 
+				var = USA.usa_influence_in_caribbean
+				value = 10 
+			}
+			custom_effect_tooltip = increase_influence_by_10_tt
+		}
+
+		ai_will_do = {
+			factor = 0.03
+		}
+	}
+
+	# TODO : naval exercise event
+
+
+	# USA_undermine_united_fruit = {
+
+	# 	icon = generic_operation
+
+	# 	visible = {
+	# 		always = yes
+	# 		#has_completed_focus = USA_protest_confederate_intervention
+	# 	}
+	# 	available = {
+	# 		has_equipment = {
+	# 		    infantry_equipment > 800
+	# 		}
+	# 	}
+
+	# 	targets = { DOM GUA HON ELS NIC COS COL VEN HAI }
+
+	# 	target_trigger = {
+	# 		FROM = {
+	# 			has_country_flag = united_fruit_established
+	# 			NOT = { has_war_with = USA }
+	# 			is_puppet = no
+	# 		}
+	# 	}
+		
+	# 	cost = 35
+	# 	days_remove = 30
+
+	# 	remove_effect = {
+	# 		FROM = { 
+	# 			set_country_flag = us_military_aid 
+	# 			army_xp = 20
+	# 		}
+	# 		send_equipment = {
+	# 		    equipment = infantry_equipment
+	# 		    amount = 400
+	# 		    target = FROM
+	# 		}
+	# 		# TODO: event that CS place got destroyed
+	# 		add_to_variable = { 
+	# 			var = USA.usa_influence_in_caribbean
+	# 			value = 5 
+	# 		}
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 0.06
+
+	# 		modifier = {
+	# 			factor = 4
+	# 			tag = HAI
+	# 		}
+	# 		modifier = {
+	# 			factor = 2
+	# 			OR = {
+	# 				tag = DOM
+	# 				tag = NIC
+	# 				tag = COL
+	# 			}
+	# 		}
+	# 	}
+	# }
+}
+
+
 
 
 
