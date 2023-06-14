@@ -1,0 +1,366 @@
+﻿add_namespace = wsv_news
+
+
+
+## Black Revolt 
+news_event = {
+	id = wsv_news.21
+	title = wsv_news.21.t
+	desc = wsv_news.21.d
+	picture = news_event_CSA_black_revolt
+
+	major = yes
+
+	mean_time_to_happen = {	
+        days = 80 	
+    }
+
+    trigger = {
+    	tag = CSA
+        date > 1915.6.1
+        date < 1916.6.1
+        has_war_with = USA
+        NOT = { has_global_flag = csa_black_revolt }
+    }
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = csa_black_revolt
+	    	CSA = {
+		    	add_timed_idea = { idea = CSA_black_rebellion_idea      days = 180 }
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_0
+					amount = -5000
+					producer = CSA
+				}
+				#country_event = { id = wsv_csa.8    days = 180 }
+			}
+		}
+   	}
+	
+	option = {
+		name = wsv_news.21.a
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_news.21.b
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_news.21.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
+
+
+## Fall of Richmond 
+news_event = {
+	id = wsv_news.100
+	title = wsv_news.100.t
+	desc = wsv_news.100.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		362 = { is_owned_by = CSA }
+		USA = {
+			has_war_with = CSA
+			controls_state = 362
+		}
+		NOT = { has_global_flag = fall_of_richmond_usa }
+	}
+	immediate = {
+		set_global_flag = fall_of_richmond_usa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.100.a
+		trigger = { }
+	}
+}
+
+
+## Fall of Nashville 
+news_event = {
+	id = wsv_news.101
+	title = wsv_news.101.t
+	desc = wsv_news.101.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		368 = { is_owned_by = CSA }
+		USA = {
+			has_war_with = CSA
+			controls_state = 368
+		}
+		NOT = { has_global_flag = fall_of_nashville_usa }
+	}
+	immediate = {
+		set_global_flag = fall_of_nashville_usa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.101.a
+		trigger = { }
+	}
+}
+
+
+## Fall of Atlanta 
+news_event = {
+	id = wsv_news.102
+	title = wsv_news.102.t
+	desc = wsv_news.102.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		365 = { is_owned_by = CSA }
+		USA = {
+			has_war_with = CSA
+			controls_state = 365
+		}
+		NOT = { has_global_flag = fall_of_atlanta_usa }
+	}
+	immediate = {
+		set_global_flag = fall_of_atlanta_usa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.102.a
+		trigger = { }
+	}
+}
+
+
+
+## Fall of DC 
+news_event = {
+	id = wsv_news.103
+	title = wsv_news.103.t
+	desc = wsv_news.103.d
+    picture = news_event_confederate_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		361 = { is_owned_by = USA }
+		CSA = {
+			has_war_with = USA
+			controls_state = 361
+		}
+		NOT = { has_global_flag = fall_of_dc_csa }
+	}
+	immediate = {
+		set_global_flag = fall_of_dc_csa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.103.a
+		trigger = { }
+	}
+}
+
+
+## Fall of Philadelphia 
+news_event = {
+	id = wsv_news.104
+	title = wsv_news.104.t
+	desc = wsv_news.104.d
+    picture = news_event_confederate_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		840 = { is_owned_by = USA }
+		CSA = {
+			has_war_with = USA
+			controls_state = 840
+		}
+		NOT = { has_global_flag = fall_of_philadelphia_csa }
+	}
+	immediate = {
+		set_global_flag = fall_of_philadelphia_csa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.104.a
+		trigger = { }
+	}
+}
+
+
+## Fall of New York
+news_event = {
+	id = wsv_news.105
+	title = wsv_news.105.t
+	desc = wsv_news.105.d
+    picture = news_event_confederate_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		358 = { is_owned_by = USA }
+		CSA = {
+			has_war_with = USA
+			controls_state = 358
+		}
+		NOT = { has_global_flag = fall_of_nyc_csa }
+	}
+	immediate = {
+		set_global_flag = fall_of_nyc_csa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.105.a
+		trigger = { }
+	}
+}
+
+
+## Fall of Ottowa 
+news_event = {
+	id = wsv_news.106
+	title = wsv_news.106.t
+	desc = wsv_news.106.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		276 = { is_owned_by = CAN }
+		USA = {
+			has_war_with = CAN
+			controls_province = 3778
+		}
+		NOT = { has_global_flag = fall_of_ottowa_usa }
+	}
+	immediate = {
+		set_global_flag = fall_of_ottowa_usa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.106.a
+		trigger = { }
+	}
+}
+
+
+## Fall of Toronto 
+news_event = {
+	id = wsv_news.107
+	title = wsv_news.107.t
+	desc = wsv_news.107.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		276 = { is_owned_by = CAN }
+		USA = {
+			has_war_with = CAN
+			controls_province = 3775
+		}
+		NOT = { has_global_flag = fall_of_toronto_usa }
+	}
+	immediate = {
+		set_global_flag = fall_of_toronto_usa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.107.a
+		trigger = { }
+	}
+}
+
+
+## Fall of Winnipeg 
+news_event = {
+	id = wsv_news.108
+	title = wsv_news.108.t
+	desc = wsv_news.108.d
+    picture = news_event_usa_soldiers
+
+	major = yes
+	
+	trigger = {
+		has_start_date < 1936.1.1
+		467 = { is_owned_by = CAN }
+		USA = {
+			has_war_with = CAN
+			controls_state = 467
+		}
+		NOT = { has_global_flag = fall_of_winnipeg_usa }
+	}
+	immediate = {
+		set_global_flag = fall_of_winnipeg_usa
+	}
+	mean_time_to_happen = {
+		days = 2
+	}
+	
+	# generic response
+	option = {
+		name = wsv_news.108.a
+		trigger = { }
+	}
+}
+
+
+
+
+
+
+
