@@ -1,5 +1,162 @@
 
+
+USA_warplans_cat = {
+
+	USA_warplan_grey = {
+		icon = generic_operation
+
+		available = {
+			has_war_with = CSA
+		}
+		visible = {
+			has_country_flag = USA_war_plan_grey
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		targeted_modifier = {
+		    tag = CSA
+		    attack_bonus_against = 0.15
+		    #days = 60
+		}
+		
+		remove_effect = {
+		
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+
+	USA_warplan_red = {
+		icon = generic_operation
+
+		available = {
+			has_war_with = CAN
+		}
+		visible = {
+			has_country_flag = USA_war_plan_red
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		targeted_modifier = {
+		    tag = CAN
+		    attack_bonus_against = 0.15
+		    #days = 60
+		}
+		
+		remove_effect = {
+		
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	USA_warplan_pink = {
+		icon = generic_operation
+
+		available = {
+			has_war_with = ENG
+		}
+		visible = {
+			has_country_flag = USA_war_plan_pink
+		}
+
+		fire_only_once = yes
+		days_remove = 30
+		days_re_enable = 0
+
+		complete_effect = {
+			every_state = {
+				limit = {
+					OR = { state = 629  state = 690  state = 693 state = 696 }
+				}
+				add_dynamic_modifier = { modifier = USA_warplan_pink_modifier scope = USA }
+			}
+		}
+
+		remove_effect = {
+			hidden_effect = {
+				every_state = {
+					limit = {
+						OR = {  state = 629  state = 690  state = 693 state = 696 }
+					}
+					remove_dynamic_modifier = { modifier = USA_warplan_pink_modifier }
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+
+	
+
+}
+
+
+
+
+
 wsv_great_war_decisions = {
+
+	USA_barrel_roll_offensive = {
+		icon = generic_operation
+
+		available = {
+			has_war_with = CSA
+		}
+		visible = {
+			has_country_flag = barrel_roll_offensive_flag
+		}
+
+		fire_only_once = yes
+		days_remove = 0
+		days_re_enable = 0
+
+		complete_effect = {
+			set_country_flag = barrel_roll_offensive_started
+			add_timed_idea = {
+				idea = USA_barrel_offensive_idea
+				days = 60
+			}
+			hidden_effect = { activate_mission = USA_barrel_roll_mission }
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	USA_barrel_roll_mission = {
+	    activation = {
+	    	has_country_flag = barrel_roll_offensive_started
+	    }
+	    cancel_trigger = {
+	        NOT = { has_war_with = CSA }
+	    }
+
+	    icon = mission_icon     # For GFX_decision_mission_icon
+	    days_mission_timeout = 90
+
+	    timeout_effect = {
+	        add_war_support = -0.15
+	        add_political_power = -75
+	        hidden_effect = { country_event = wsv_usa.3 }
+	    }
+	}
+
 	
 	# USA throws in the towel
 	greatwar_usa_offers_peace = {

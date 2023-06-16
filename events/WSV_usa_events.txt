@@ -226,6 +226,71 @@ country_event = {
 }
 
 
+## Barrel Roll Offensive Failed 
+country_event = {
+	id = wsv_usa.3
+	title = wsv_usa.3.t
+	desc = wsv_usa.3.d
+	#picture = report_event_sign_paper
+
+    is_triggered_only = yes
+
+	#yes
+	option = {
+		name = wsv_usa.3.a
+	}
+}
+
+
+## Establish Quebec?
+country_event = {
+	id = wsv_usa.4
+	title = wsv_usa.4.t
+	desc = wsv_usa.4.d
+	picture = report_event_sign_paper
+
+	fire_only_once = yes
+
+	mean_time_to_happen = {	days = 10 }
+
+    trigger = {
+    	tag = USA
+    	controls_state = 466
+    	controls_state = 468
+    	CAN = {
+    		OR = {
+    			has_capitulated = yes
+    			exists = no
+    			is_puppet_of = USA
+    		}
+    	}
+    }
+
+    #yes
+	option = {
+		name = wsv_usa.7.a
+		puppet = QUE
+		QUE = { transfer_state = 466   transfer_state = 468   add_state_core = 466   add_state_core = 468 }
+		hidden_effect = {
+			news_event = { id = wsv_news.40 }
+		}
+
+		ai_chance = {
+			factor = 100
+		}
+	}
+
+	#no
+	option = {
+		name = wsv_usa.4.b
+
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+
 
 # #mormon revolt
 # news_event = {
@@ -540,51 +605,6 @@ country_event = {
 # }
 
 
-
-# country_event = {
-# 	id = wsv_usa.7
-# 	title = wsv_usa.7.t
-# 	desc = wsv_usa.7.d
-# 	picture = report_event_sign_paper
-
-# 	fire_only_once = yes
-
-# 	mean_time_to_happen = {	days = 10 }
-
-#     trigger = {
-#     	tag = USA
-#     	controls_state = 466
-#     	controls_state = 468
-#     	CAN = {
-#     		OR = {
-#     			has_capitulated = yes
-#     			exists = no
-#     			is_puppet_of = USA
-#     		}
-#     	}
-#     }
-
-#     #yes
-# 	option = {
-# 		name = wsv_usa.7.a
-# 		puppet = QUE
-# 		QUE = { transfer_state = 466   transfer_state = 468   add_state_core = 466   add_state_core = 468 }
-# 		news_event = { id = wsv_usa.8 }
-
-# 		ai_chance = {
-# 			factor = 80
-# 		}
-# 	}
-
-# 	#no
-# 	option = {
-# 		name = wsv_usa.7.b
-
-# 		ai_chance = {
-# 			factor = 0
-# 		}
-# 	}
-# }
 
 
 # #news event of republic of quebec
