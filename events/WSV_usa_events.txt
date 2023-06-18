@@ -304,7 +304,7 @@ country_event = {
 
 	# do something
 	option = {
-		name = wsv_usa.4.a
+		name = wsv_usa.5.a
 		set_global_flag = haitian_crisis_flag
 		USA = { country_event = { id = wsv_usa.6  days = 3 } }
 		custom_effect_tooltip = may_lead_to_war_with_usa_tt
@@ -313,7 +313,7 @@ country_event = {
 
 	# say nothing
 	option = {
-		name = wsv_usa.4.b
+		name = wsv_usa.5.b
 		add_political_power = -75
 		add_war_support = -0.1
 	}
@@ -335,14 +335,18 @@ country_event = {
 		set_global_flag = haitian_crisis_usa_backed_down
 		add_political_power = -75
 		add_war_support = -0.1
-		# have ships returned to the us, haiti gets mad
-		hidden_effect = { news_event = { id = wsv_news.5  days = 3 } }
+		# haiti gets mad
+		HAI = { add_opinion_modifier = { target = USA modifier = faction_traitor } }
+		diplomatic_relation = { country = HAI   relation = guarantee  active = no }
+		diplomatic_relation = { country = HAI   relation = docking_rights  active = no }
+		news_event = { id = wsv_news.5  days = 2 }
 	}
 
 	# hold firm
 	option = {
 		name = wsv_usa.6.b
 		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
+		HAI = { country_event = wsv_usa.12 }
 		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
 		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
 	}
@@ -356,7 +360,7 @@ country_event = {
 
 	# ask britain for help
 	option = {
-		name = wsv_usa.6.d
+		name = wsv_usa.6.e  #d is description
 		custom_effect_tooltip = haitian_crisis_british_mediation_tt
 		ENG = { country_event = { id = wsv_usa.8  days = 2 } }
 	}
@@ -416,18 +420,20 @@ country_event = {
 	option = {
 		name = wsv_usa.9.a
 		# crisis averted by buying ships news event
-		hidden_effect = { 
-			FROM = { save_event_target_as = bought_cruisers }
-			news_event = { id = wsv_news.7  days = 2 } 
+		FROM = { 
+			save_event_target_as = bought_cruisers 
+			country_event = wsv_usa.12
 		}
+		news_event = { id = wsv_news.7  days = 2 } 
 	}
 
 	# stick to our guns
 	option = {
 		name = wsv_usa.9.b
 		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
+		HAI = { country_event = wsv_usa.12 }
 		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
-		hidden_effect = { news_event = { id = wsv_news.6  days = 2 }
+		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
 		# crisis to turn to war news event
 	}
 }
@@ -446,6 +452,7 @@ country_event = {
 	option = {
 		name = wsv_usa.10.a
 		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
+		HAI = { country_event = wsv_usa.12 }
 		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
 		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
 	}
@@ -456,7 +463,10 @@ country_event = {
 		set_global_flag = haitian_crisis_usa_backed_down
 		add_political_power = -75
 		add_war_support = -0.1
-		# have ships returned to the us, haiti gets mad
+		# haiti gets mad
+		HAI = { add_opinion_modifier = { target = USA modifier = faction_traitor } }
+		diplomatic_relation = { country = HAI   relation = guarantee  active = no }
+		diplomatic_relation = { country = HAI   relation = docking_rights  active = no }
 		hidden_effect = { news_event = { id = wsv_news.5  days = 2 } }
 	}
 }
@@ -477,11 +487,11 @@ country_event = {
 		
 		declare_war_on = {
 		    target = HAI
-		    type = annex_everything
+		    type = puppet_wargoal_focus
 		}
-		HAI = {
+		USA = {
 			add_to_war = {
-			    targeted_alliance = USA
+			    targeted_alliance = HAI
 			    enemy = CSA
 			    hostility_reason = asked_to_join
 			}
@@ -497,6 +507,43 @@ country_event = {
 	}
 }
 
+
+# US transferred ships
+country_event = {
+	id = wsv_usa.12
+	title = wsv_usa.12.t
+	desc = wsv_usa.12.d
+	#picture = report_event_sign_paper   #TODO: needs picture
+
+    is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+    		USA = {
+    			transfer_ship = {
+    			    #prefer_name = "HMS Achilles"
+    			    type = heavy_cruiser
+    			    target = ROOT
+    			    exclude_refitting = no
+    			}
+    			transfer_ship = {
+    			    #prefer_name = "HMS Achilles"
+    			    type = heavy_cruiser
+    			    target = ROOT
+    			    exclude_refitting = no
+    			}
+    		}
+    	}
+    }
+
+	# war it is
+	option = {
+		name = wsv_usa.12.a
+	}
+}
+
+
+			
 
 
 
