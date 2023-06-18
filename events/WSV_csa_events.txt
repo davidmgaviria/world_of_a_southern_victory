@@ -214,7 +214,7 @@ country_event = {
 }
 
 
-# Canada agrees
+# Canada agrees  //should be in news?? idk
 news_event = {
 	id = wsv_csa.6
 	title = wsv_csa.6.t
@@ -251,8 +251,260 @@ news_event = {
 }
 
 
-###################################################
 
+
+###########################################
+## CSA - Occupies Latin American Country ##
+###########################################
+
+
+# CSA decision to intervene or not (FROM is target country)
+country_event = {
+	id = wsv_csa.10
+	title = wsv_csa.10.t
+	desc = wsv_csa.10.d
+	#picture = 
+
+    is_triggered_only = yes
+
+    # Choose to intervene
+	option = {
+		name =  wsv_csa.10.a
+		FROM = {
+			save_event_target_as = target_of_csa_intervention
+			#country_event = { id = wsv_csa.10 days = 1} }
+		}
+		custom_effect_tooltip = attempt_to_puppet_tt
+		USA = { country_event = { id = wsv_csa.11 days = 1 } }
+
+		ai_chance = { 
+			factor = 80
+			modifier = {
+				factor = 0.5
+				has_global_flag = us_threatened_cs_over_caribbean
+			}
+			modifier = {
+				factor = 0
+				AND = {
+					has_global_flag = us_threatened_cs_over_caribbean
+					is_historical_focus_on = yes
+				}
+			}
+		}
+	}
+
+    # Dont intervene
+	option = {
+		name =  wsv_csa.10.b
+		add_political_power = -25
+
+		ai_chance = {
+			factor = 40
+		}
+	}
+}
+
+
+# Notice to US 
+country_event = {
+	id = wsv_csa.11
+	title = wsv_csa.11.t
+	desc = wsv_csa.11.d
+	#picture = #needs pic
+
+	#is_major = yes
+    is_triggered_only = yes
+
+    # Just protest
+	option = {
+		name =  wsv_csa.11.a
+		add_opinion_modifier = {
+			target = CSA
+			modifier = protest_action_light
+		}
+		hidden_effect = {
+			CSA = { country_event = { id = wsv_csa.12  days = 2 } }
+		}
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	# Issue ultimatum
+	option = {
+		trigger = { 
+			check_variable = { USA.usa_influence_in_caribbean value >= 30 }
+		}
+		name =  wsv_csa.11.b
+		add_opinion_modifier = {
+			target = CSA
+			modifier = protest_action_strong
+		}
+		CSA = { country_event = { id = wsv_csa.13  days = 2 } } 
+		set_global_flag = us_threatened_cs_over_caribbean
+		hidden_effect = { news_event = { id = wsv_news.1  days = 1 } }
+
+		ai_chance = {
+			factor = 40
+
+			modifier = {
+				factor = 1.5
+				check_variable = { CSA.csa_influence_in_caribbean value >= 50 }
+			}
+			modifier = {
+				factor = 2
+				has_army_manpower > 1000000
+			}
+		}
+	}
+}
+
+
+# CSA recieves US protest - nothing happens
+country_event = {
+	id = wsv_csa.12
+	title = wsv_csa.12.t
+	desc = wsv_csa.12.d
+	#picture = #needs pic
+
+	#is_major = yes
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.12.a
+		hidden_effect = { country_event = wsv_csa.15  }   # we puppet 
+	}
+}
+
+
+# CSA receives US ultimatum 
+country_event = {
+	id = wsv_csa.13
+	title = wsv_csa.13.t
+	desc = wsv_csa.13.d
+	#picture = #needs pic
+
+	#is_major = yes
+    is_triggered_only = yes
+
+    # Back down
+	option = {
+		name =  wsv_csa.13.a
+		add_political_power = -50
+		add_war_support = -0.1
+		hidden_effect = { news_event = { id = wsv_news.2  days = 3 } }
+
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	# Stand your ground
+	option = {
+		name =  wsv_csa.13.b
+		USA = { country_event = { id = wsv_csa.14  days = 4 } }
+		hidden_effect = { 
+			country_event = wsv_csa.15  # we puppet 
+			news_event = { id = wsv_news.3  days = 3 }
+		}   
+
+		ai_chance = {
+			factor = 20
+
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					is_in_faction_with = FRA
+					is_in_faction_with = ENG
+				}
+			}
+			modifier = {
+				factor = 2
+				has_army_manpower > 800000
+			}
+		}
+	}
+}
+
+
+# CSA did not back down
+country_event = {
+	id = wsv_csa.14
+	title = wsv_csa.14.t
+	desc = wsv_csa.14.d
+	#picture = 
+
+	#is_major = yes
+    is_triggered_only = yes
+
+    # Declare war
+	option = {
+		name =  wsv_csa.14.a
+		declare_war_on = {
+		    target = CSA
+		    type = topple_government
+		}
+		# add_to_war = {
+		#     targeted_alliance = event_target:target_of_csa_intervention
+		#     enemy = CSA
+		#     hostility_reason = asked_to_join
+		# }
+		# news event
+	}
+
+	# Back down
+	option = {
+		name =  wsv_csa.14.b
+		add_political_power = -100
+		add_war_support = -0.2
+		# news event
+	}
+}
+
+
+# Successfully puppeted
+country_event = {
+	id = wsv_csa.15
+	title = wsv_csa.15.t
+	desc = wsv_csa.15.d
+	#picture =
+
+	#is_major = yes
+    is_triggered_only = yes
+
+    # FROM is Latin country
+	option = {
+		name =  wsv_csa.15.a
+		puppet = event_target:target_of_csa_intervention
+		add_to_variable = { 
+			var = CSA.csa_influence_in_caribbean
+			value = 5 
+		}
+		custom_effect_tooltip = increase_influence_by_5_tt
+	}
+}
+
+
+# # Notice to CSA (FROM is Latin country)
+# country_event = {
+# 	id = wsv_csa.11
+# 	title = wsv_csa.11.t
+# 	desc = wsv_csa.11.d
+# 	#picture = #needs pic
+
+# 	#is_major = yes
+#     is_triggered_only = yes
+
+#     # FROM is Latin country
+# 	option = {
+# 		name =  wsv_csa.11.a
+# 	}
+# }
 
 
 # ## Mormon Revolt aid

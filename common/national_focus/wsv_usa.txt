@@ -1397,7 +1397,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_war_plan_grey
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = USA_war_plans_dept }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1491,7 +1491,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_reject_western_claims
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = USA_philadelphia_line }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1514,7 +1514,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_correct_1862
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_attack_CSA
 		prerequisite = { focus = USA_philadelphia_line }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1526,7 +1526,13 @@ prerequisite = { focus = USA_second_defense_bill }
 			factor = 0 
 		}
 
-		#bypass = {}
+		available = {
+			date > 1915.1.1
+		}
+
+		bypass = {
+			has_war_with = CSA
+		}
 
 		completion_reward = { 
 			create_wargoal = {
@@ -1562,7 +1568,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_blockade_csa
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_anti_submarine
 		prerequisite = { focus = USA_correct_1862 }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1594,7 +1600,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_barrel_roll_offensive
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_army_tanks
 		prerequisite = { focus = USA_aid_black_rebels }
 		prerequisite = { focus = USA_blockade_csa }
 		#mutually_exclusive = { focus = }
@@ -1624,8 +1630,8 @@ prerequisite = { focus = USA_second_defense_bill }
 
 		
 	focus = {
-		id = USA_protest_confederate_intervention
-		#icon = GFX_focus_chi_legislative_yuan
+		id = USA_position_in_latin_america
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = USA_war_plan_grey }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1640,6 +1646,14 @@ prerequisite = { focus = USA_second_defense_bill }
 		#bypass = {}
 
 		completion_reward = { 
+			add_to_variable = { 
+				var = USA.usa_influence_in_caribbean
+				value = 5 
+			}
+			custom_effect_tooltip = increase_influence_by_5_tt
+
+			set_country_flag = arms_shipment_to_carribean_flag
+			custom_effect_tooltip = arms_shipment_to_caribbean_tt
 		}
 	}
 
@@ -1648,12 +1662,12 @@ prerequisite = { focus = USA_second_defense_bill }
 	focus = {
 		id = USA_denounce_mexican_puppethood
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_protest_confederate_intervention }
+		prerequisite = { focus = USA_position_in_latin_america }
 		mutually_exclusive = { focus=USA_forment_unrest_mexico  }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = USA_protest_confederate_intervention
+		relative_position_id = USA_position_in_latin_america
 
 		ai_will_do = { 
 			factor = 0 
@@ -1675,7 +1689,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_claim_baja
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_CSA_demand_baja
 		prerequisite = { focus = USA_denounce_mexican_puppethood }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1700,12 +1714,12 @@ prerequisite = { focus = USA_second_defense_bill }
 	focus = {
 		id = USA_forment_unrest_mexico
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_protest_confederate_intervention }
+		prerequisite = { focus = USA_position_in_latin_america }
 		mutually_exclusive = { focus=USA_denounce_mexican_puppethood  }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_protest_confederate_intervention
+		relative_position_id = USA_position_in_latin_america
 
 		ai_will_do = { 
 			factor = 0 
@@ -1784,16 +1798,88 @@ prerequisite = { focus = USA_second_defense_bill }
 	}
 
 
+	focus = {
+		id = USA_warships_to_haiti
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_position_in_latin_america }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_position_in_latin_america
+
+		available = {
+			is_in_faction_with = HAI
+			date > 1913.1.1
+			# 
+			#TODO: switch to checking threat
+		}
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			transfer_ship = {
+			    #prefer_name = "HMS Achilles"
+			    type = heavy_cruiser
+			    target = HAI
+			    exclude_refitting = no
+			}
+			transfer_ship = {
+			    #prefer_name = "HMS Achilles"
+			    type = heavy_cruiser
+			    target = HAI
+			    exclude_refitting = no
+			}
+			add_to_variable = { 
+				var = USA.usa_influence_in_caribbean
+				value = 10 
+			}
+			custom_effect_tooltip = increase_influence_by_10_tt
+			CSA = { country_event = { id = wsv_usa.5  days = 1 } }
+		}
+	}
+
+
+	focus = {
+		id = USA_secure_the_caribbean
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_warships_to_haiti }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_warships_to_haiti
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			check_variable = { var = USA.usa_influence_in_caribbean value = 70 compare = greater_than_or_equals }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			
+		}
+	}
+
+
 		
 	# focus = {
-	# 	id = USA_embargo_united_fruit
+	# 	id = USA_free_carribean
 	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_protest_confederate_intervention }
+	# 	prerequisite = { focus = USA_warships_to_haiti }
 	# 	#mutually_exclusive = { focus = }
 	# 	cost = 10
-	# 	x = 2
-	# 	y = 1
-	# 	relative_position_id = USA_protest_confederate_intervention
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = USA_warships_to_haiti
 
 	# 	ai_will_do = { 
 	# 		factor = 0 
@@ -1808,52 +1894,8 @@ prerequisite = { focus = USA_second_defense_bill }
 
 		
 	focus = {
-		id = USA_warships_to_haiti
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_protest_confederate_intervention }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = USA_protest_confederate_intervention
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_free_carribean
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_warships_to_haiti }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_warships_to_haiti
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-
-		
-	focus = {
 		id = USA_insult_of_1862
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_AST_never_gallipoli
 		prerequisite = { focus = USA_rememberance }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1883,7 +1925,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_war_plan_red
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = USA_insult_of_1862 }
 		prerequisite = { focus = USA_war_plans_dept }
 		#mutually_exclusive = { focus = }
@@ -1908,7 +1950,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_fortify_ny
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_military
 		prerequisite = { focus = USA_war_plan_red }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1970,7 +2012,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_attack_canada
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_attack_canada
 		prerequisite = { focus = USA_war_plan_red }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -2040,7 +2082,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_expand_atlantic_dockyards
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { focus = USA_insult_of_1862 }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -2107,7 +2149,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_war_plan_pink
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = USA_expand_atlantic_dockyards }
 		prerequisite = { focus = USA_war_plans_dept }
 		#mutually_exclusive = { focus = }
@@ -2131,7 +2173,7 @@ prerequisite = { focus = USA_second_defense_bill }
 
 	focus = {
 		id = USA_aid_irish_rebels
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_trade
 		prerequisite = { focus = USA_expand_atlantic_dockyards }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -2156,8 +2198,8 @@ prerequisite = { focus = USA_second_defense_bill }
 		#bypass = {}
 		completion_reward = { 
 			send_equipment = {
-				type = infantry_equipment_1
-				amount = 4000
+				type = infantry_equipment
+				amount = 3000
 				target = IRE
 			}
 		}
@@ -2166,7 +2208,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_strengthen_german_friendship
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_hoi4tgw_ironcross
 		prerequisite = { focus = USA_insult_of_1862 }
 		#mutually_exclusive = { focus = }
 		cost = 5
@@ -2238,7 +2280,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_join_central_powers
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_territory_or_war
 		prerequisite = { focus = USA_strengthen_german_friendship }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -2262,7 +2304,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_linking_hands
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = USA_war_plan_pink }
 		prerequisite = { focus = USA_join_central_powers }
 		#mutually_exclusive = { focus = }

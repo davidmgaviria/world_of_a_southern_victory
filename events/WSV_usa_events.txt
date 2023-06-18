@@ -291,6 +291,214 @@ country_event = {
 }
 
 
+#### HAITIAN CRISIS ###
+
+# CSA gets informed of haitian ships
+country_event = {
+	id = wsv_usa.5
+	title = wsv_usa.5.t
+	desc = wsv_usa.5.d
+	#picture = report_event_sign_paper  
+
+    is_triggered_only = yes
+
+	# do something
+	option = {
+		name = wsv_usa.4.a
+		set_global_flag = haitian_crisis_flag
+		USA = { country_event = { id = wsv_usa.6  days = 3 } }
+		custom_effect_tooltip = may_lead_to_war_with_usa_tt
+		hidden_effect = { news_event = { id = wsv_news.4  days = 2 } }
+	}
+
+	# say nothing
+	option = {
+		name = wsv_usa.4.b
+		add_political_power = -75
+		add_war_support = -0.1
+	}
+}
+
+
+# US gets cs ultimatum
+country_event = {
+	id = wsv_usa.6
+	title = wsv_usa.6.t
+	desc = wsv_usa.6.d
+	#picture = report_event_sign_paper  #TODO: need picture
+
+    is_triggered_only = yes
+
+	# bow to csa ultimatum
+	option = {
+		name = wsv_usa.6.a
+		set_global_flag = haitian_crisis_usa_backed_down
+		add_political_power = -75
+		add_war_support = -0.1
+		# have ships returned to the us, haiti gets mad
+		hidden_effect = { news_event = { id = wsv_news.5  days = 3 } }
+	}
+
+	# hold firm
+	option = {
+		name = wsv_usa.6.b
+		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
+		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
+		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
+	}
+
+	# ask germany for help
+	option = {
+		name = wsv_usa.6.c
+		custom_effect_tooltip = haitian_crisis_german_mediation_tt
+		GER = { country_event = { id = wsv_usa.7  days = 2 } }
+	}
+
+	# ask britain for help
+	option = {
+		name = wsv_usa.6.d
+		custom_effect_tooltip = haitian_crisis_british_mediation_tt
+		ENG = { country_event = { id = wsv_usa.8  days = 2 } }
+	}
+}
+
+
+# US requests germany for mediation (German event)
+country_event = {
+	id = wsv_usa.7
+	title = wsv_usa.7.t
+	desc = wsv_usa.7.d
+	#picture = report_event_sign_paper  #TODO: need picture
+
+    is_triggered_only = yes
+
+	# offer to buy the ships
+	option = {
+		name = wsv_usa.7.a
+		USA = { country_event = { id = wsv_usa.9  days = 2 } }
+	}
+}
+
+
+# US requests britain for mediation (British event)
+country_event = {
+	id = wsv_usa.8
+	title = wsv_usa.8.t
+	desc = wsv_usa.8.d
+	#picture = report_event_sign_paper  #TODO: need picture
+
+    is_triggered_only = yes
+
+	# offer to buy the ships
+	option = {
+		name = wsv_usa.8.a
+		USA = { country_event = { id = wsv_usa.9  days = 2 } }
+	}
+
+	# side with cs
+	option = {
+		name = wsv_usa.8.b
+		USA = { country_event = { id = wsv_usa.10  days = 2 } }
+	}
+}
+
+
+# Country offered to buy ships (US event)
+country_event = {
+	id = wsv_usa.9
+	title = wsv_usa.9.t
+	desc = wsv_usa.9.d
+	#picture = report_event_sign_paper  #TODO: need picture
+
+    is_triggered_only = yes
+
+	# accept offer
+	option = {
+		name = wsv_usa.9.a
+		# crisis averted by buying ships news event
+		hidden_effect = { 
+			FROM = { save_event_target_as = bought_cruisers }
+			news_event = { id = wsv_news.7  days = 2 } 
+		}
+	}
+
+	# stick to our guns
+	option = {
+		name = wsv_usa.9.b
+		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
+		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
+		hidden_effect = { news_event = { id = wsv_news.6  days = 2 }
+		# crisis to turn to war news event
+	}
+}
+
+
+# Britain sided with csa (US event)
+country_event = {
+	id = wsv_usa.10
+	title = wsv_usa.10.t
+	desc = wsv_usa.10.d
+	#picture = report_event_sign_paper  #TODO: need picture
+
+    is_triggered_only = yes
+
+	# stick to our guns
+	option = {
+		name = wsv_usa.10.a
+		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
+		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
+		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
+	}
+
+	# back down
+	option = {
+		name = wsv_usa.10.b
+		set_global_flag = haitian_crisis_usa_backed_down
+		add_political_power = -75
+		add_war_support = -0.1
+		# have ships returned to the us, haiti gets mad
+		hidden_effect = { news_event = { id = wsv_news.5  days = 2 } }
+	}
+}
+
+
+# US rejected our ultimatum (CS event)
+country_event = {
+	id = wsv_usa.11
+	title = wsv_usa.11.t
+	desc = wsv_usa.11.d
+	#picture = report_event_sign_paper 
+
+    is_triggered_only = yes
+
+	# war it is
+	option = {
+		name = wsv_usa.11.a
+		
+		declare_war_on = {
+		    target = HAI
+		    type = annex_everything
+		}
+		HAI = {
+			add_to_war = {
+			    targeted_alliance = USA
+			    enemy = CSA
+			    hostility_reason = asked_to_join
+			}
+		}
+	}
+
+	# back down
+	option = {
+		name = wsv_usa.11.b
+		set_global_flag = haitian_crisis_csa_backed_down
+		add_political_power = -100
+		add_war_support = -0.2
+	}
+}
+
+
+
 
 # #mormon revolt
 # news_event = {

@@ -70,7 +70,7 @@ CSA_influence_in_caribbean_category = {
 		icon = generic_construction
 
 		visible = {
-			has_completed_focus = CSA_united_fruit
+			has_country_flag = unlocked_united_fruit_flag
 		}
 
 		targets = { DOM GUA HON ELS NIC COS COL VEN }
@@ -86,7 +86,12 @@ CSA_influence_in_caribbean_category = {
 		cost = 25
 		days_remove = 20
 
+		complete_effect = {
+			set_country_flag = building_fruit_branch
+		}
+
 		remove_effect = {
+			clr_country_flag = building_fruit_branch
 			FROM = { set_country_flag = united_fruit_established }
 			add_to_variable = { 
 				var = CSA.csa_influence_in_caribbean
@@ -99,6 +104,11 @@ CSA_influence_in_caribbean_category = {
 
 		ai_will_do = {
 			factor = 0.05
+
+			modifier = {
+				factor = 0
+				has_country_flag = building_fruit_branch
+			}
 			modifier = {
 				factor = 4
 				tag = DOM
@@ -142,42 +152,46 @@ CSA_influence_in_caribbean_category = {
 	}
 
 
-	CSA_intervention_in_caribbean = {
+	# CSA_intervention_in_caribbean = {
 
-		icon = infiltrate_state
+	# 	icon = infiltrate_state
 
-		visible = {
-			has_completed_focus = CSA_intervention_in_carribean
-		}
+	# 	visible = {
+	# 		has_country_flag = unlocked_carribean_intervention_flag
+	# 	}
 
-		targets = { DOM GUA HON ELS NIC COS COL VEN }
+	# 	targets = { DOM GUA HON ELS NIC COS COL VEN }
 
-		target_trigger = {
-			FROM = {
-				has_country_flag = destroyed_united_fruit
-				NOT = { has_war_with = CSA }
-				is_puppet = no
-			}
-		}
+	# 	target_trigger = {
+	# 		FROM = {
+	# 			has_country_flag = destroyed_united_fruit
+	# 			NOT = { has_war_with = CSA }
+	# 			is_puppet = no
+	# 		}
+	# 	}
 		
-		cost = 30
-		days_remove = 20
+	# 	cost = 30
+	# 	days_remove = 20
 
-		remove_effect = {
-			FROM = {  set_country_flag = occupied_by_csa }
-			add_to_variable = { 
-				var = CSA.csa_influence_in_caribbean
-				value = 10 
-			}
-			puppet = FROM
-			custom_effect_tooltip = increase_influence_by_10_tt
-			# TODO: intervention event
-		}
+	# 	remove_effect = {
+	# 		hidden_effect = {
+	# 			FROM = { 
+	# 				set_country_flag = occupied_by_csa 
+	# 				country_event = wsv_csa.10 # notice to latin country, which then sends notice to US & CS to get proper FROM reference
+	# 			}
+	# 		}
+	# 		add_to_variable = { 
+	# 			var = CSA.csa_influence_in_caribbean
+	# 			value = 10 
+	# 		}
+	# 		puppet = FROM
+	# 		custom_effect_tooltip = increase_influence_by_10_tt
+	# 	}
 
-		ai_will_do = {
-			factor = 0.4  # we will almost certainly do it
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 0.4  # we will almost certainly do it
+	# 	}
+	# }
 }
 
 
