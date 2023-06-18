@@ -195,6 +195,89 @@ CSA_influence_in_caribbean_category = {
 }
 
 
+## Red Rebellion ##
+
+CSA_red_rebellion_decision_cat = {
+
+	CSA_red_rebels_resistance_escalation_mission = {
+	
+		priority = 9
+
+		icon = generic_scorched_earth
+
+		allowed = { 
+			original_tag = CSA
+		}
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			OR = {
+		    	371 = { is_core_of = CSA }
+				370 = { is_core_of = CSA }
+				367 = { is_core_of = CSA }
+				365 = { is_core_of = CSA }
+				364 = { is_core_of = CSA }
+				363 = { is_core_of = CSA }
+				362 = { is_core_of = CSA }
+			}
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = no
+
+		activation = {
+			has_global_flag = csa_black_revolt_occured
+			any_owned_state = {
+				OR = {
+					has_dynamic_modifier = { modifier = CSA_red_insurgents }
+					has_dynamic_modifier = { modifier = CSA_red_enclave }
+					has_dynamic_modifier = { modifier = CSA_red_stronghold }
+				}
+			}
+			NOT = {
+				has_country_flag = CSA_red_rebels_resistance_cooldown
+			}
+		}
+
+		is_good = no
+
+		timeout_effect = {
+			random_owned_state = {
+				limit = {
+					OR = {
+						has_dynamic_modifier = { modifier = CSA_red_insurgents }
+						has_dynamic_modifier = { modifier = CSA_red_enclave }
+						has_dynamic_modifier = { modifier = CSA_red_stronghold }
+					}
+				}
+				save_global_event_target_as = CSA_red_rebels_state_event_target
+			}
+			random_list = {
+				88 = {
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_escalate_state_effect = yes
+					}
+					# TODO: escalation event
+				}
+				22 = {
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes
+					}
+					# TODO: deescalation event
+				}
+			}
+			set_country_flag = {
+				flag = CSA_red_rebels_resistance_cooldown
+				value = 1
+				days = 15
+			}
+		}
+	}
+
+}
+
+
 
 
 

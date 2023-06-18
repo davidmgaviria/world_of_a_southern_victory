@@ -248,21 +248,28 @@ news_event = {
         date > 1915.6.1
         date < 1916.6.1
         has_war_with = USA
-        NOT = { has_global_flag = csa_black_revolt }
+        NOT = { has_global_flag = csa_black_revolt_occured }
     }
 
     immediate = {
     	hidden_effect = {
-	    	set_global_flag = csa_black_revolt
-	    	CSA = {
-		    	add_timed_idea = { idea = CSA_black_rebellion_idea      days = 180 }
-				add_equipment_to_stockpile = {
-					type = infantry_equipment_0
-					amount = -5000
-					producer = CSA
-				}
-				#country_event = { id = wsv_csa.8    days = 180 }
-			}
+	    	set_global_flag = csa_black_revolt_occured
+	    	371 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+			370 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+			367 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+			365 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+			364 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+			363 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+			362 = { add_dynamic_modifier = { modifier = CSA_red_insurgents } }
+	    	# CSA = {
+		    # 	add_timed_idea = { idea = CSA_black_rebellion_idea      days = 180 }
+			# 	add_equipment_to_stockpile = {
+			# 		type = infantry_equipment_0
+			# 		amount = -5000
+			# 		producer = CSA
+			# 	}
+			# 	#country_event = { id = wsv_csa.8    days = 180 }
+			# }
 		}
    	}
 	
