@@ -354,7 +354,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				has_army_manpower > 1000000
+				USA = { has_army_manpower > 1000000 }
 			}
 		}
 	}
@@ -425,7 +425,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				has_army_manpower > 800000
+				CSA = { has_army_manpower > 800000 }
 			}
 		}
 	}
@@ -505,6 +505,111 @@ country_event = {
 # 		name =  wsv_csa.11.a
 # 	}
 # }
+
+
+
+
+## Red Rebellion Action Events ##
+
+
+# Take action information decision
+country_event = {
+	id = wsv_csa.25
+	title = wsv_csa.25.t
+	desc = wsv_csa.25.d
+	#picture = 
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.25.a
+	}
+}
+
+
+# Situation deteriorates 
+country_event = {
+	id = wsv_csa.26
+	title = wsv_csa.26.t
+	desc = wsv_csa.26.d
+	#picture = # TODO: needs pic
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.26.a
+		event_target:CSA_red_rebels_state_event_target = {
+			damage_building = {
+			    type = infrastructure
+			    damage = 1
+			}
+			damage_building = {
+			    type = industrial_complex
+			    damage = 1
+			}
+			damage_building = {
+			    type = arms_factory
+			    damage = 1
+			}
+		}
+		add_manpower = -2000
+		add_stability = -0.01
+	}
+}
+
+
+# Successful counter offensive 
+country_event = {
+	id = wsv_csa.27
+	title = wsv_csa.27.t
+	desc = wsv_csa.27.d
+	#picture = # TODO: needs pic
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.27.a
+		#add_stability = 0.005
+	}
+}
+
+
+# Failed counter offensive 
+country_event = {
+	id = wsv_csa.28
+	title = wsv_csa.28.t
+	desc = wsv_csa.28.d
+	#picture = # TODO: needs pic
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.28.a
+		#add_stability = -0.01
+		add_manpower = -3000
+	}
+}
+
+
+# Black insurgents defeated
+country_event = {
+	id = wsv_csa.29
+	title = wsv_csa.29.t
+	desc = wsv_csa.29.d
+	#picture = # TODO: needs pic
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.29.a
+		add_stability = 0.02
+		CSA_red_rebels_state_event_target = {
+			add_dynamic_modifier = { modifier = CSA_recovering_from_rebellion  days = 90  }
+		}
+	}
+}
+
+
 
 
 # ## Mormon Revolt aid

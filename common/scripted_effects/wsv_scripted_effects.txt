@@ -49,10 +49,6 @@ increase_conscription_tier_effect = {
 
 # scope is state
 CSA_black_rebels_escalate_state_effect = {
-	#if = {
-	#	limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-	#	# NOTHING
-	#}
 	if = {
 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
 		hidden_effect = { 
@@ -74,6 +70,7 @@ CSA_black_rebels_pacify_state_effect = {
 	if = {
 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
 		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+		clr_state_flag = contains_red_rebels
 	}
 	if = {
 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }

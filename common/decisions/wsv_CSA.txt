@@ -197,43 +197,37 @@ CSA_influence_in_caribbean_category = {
 
 ## Red Rebellion ##
 
-CSA_red_rebellion_decision_cat = {
+CSA_red_rebellion_management_cat = {
+
 
 	CSA_red_rebels_resistance_escalation_mission = {
 	
 		priority = 9
-
 		icon = generic_scorched_earth
 
 		allowed = { 
 			original_tag = CSA
 		}
-
 		available = {
-			has_global_flag = csa_black_revolt_occured
-			OR = {
-		    	371 = { is_core_of = CSA }
-				370 = { is_core_of = CSA }
-				367 = { is_core_of = CSA }
-				365 = { is_core_of = CSA }
-				364 = { is_core_of = CSA }
-				363 = { is_core_of = CSA }
-				362 = { is_core_of = CSA }
+			NOT = {
+		    	371 = { has_state_flag = contains_red_rebels }
+				370 = { has_state_flag = contains_red_rebels }
+				367 = { has_state_flag = contains_red_rebels }
+				365 = { has_state_flag = contains_red_rebels }
+				364 = { has_state_flag = contains_red_rebels }
+				363 = { has_state_flag = contains_red_rebels }
+				362 = { has_state_flag = contains_red_rebels }
 			}
 		}
 
-		days_mission_timeout = 30
+		days_mission_timeout = 21
 
 		fire_only_once = no
 
 		activation = {
 			has_global_flag = csa_black_revolt_occured
 			any_owned_state = {
-				OR = {
-					has_dynamic_modifier = { modifier = CSA_red_insurgents }
-					has_dynamic_modifier = { modifier = CSA_red_enclave }
-					has_dynamic_modifier = { modifier = CSA_red_stronghold }
-				}
+				has_state_flag = contains_red_rebels
 			}
 			NOT = {
 				has_country_flag = CSA_red_rebels_resistance_cooldown
@@ -245,36 +239,683 @@ CSA_red_rebellion_decision_cat = {
 		timeout_effect = {
 			random_owned_state = {
 				limit = {
-					OR = {
-						has_dynamic_modifier = { modifier = CSA_red_insurgents }
-						has_dynamic_modifier = { modifier = CSA_red_enclave }
-						has_dynamic_modifier = { modifier = CSA_red_stronghold }
-					}
+					has_state_flag = contains_red_rebels
 				}
 				save_global_event_target_as = CSA_red_rebels_state_event_target
 			}
 			random_list = {
-				88 = {
+				# black rebels escalate
+				88 = { 
 					event_target:CSA_red_rebels_state_event_target = { 
 						CSA_black_rebels_escalate_state_effect = yes
 					}
-					# TODO: escalation event
+					country_event = wsv_csa.26  # notice of escalation
 				}
+				# black rebels pushed back
 				22 = {
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes
+						CSA_black_rebels_pacify_state_effect = yes   
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
 					}
-					# TODO: deescalation event
 				}
 			}
 			set_country_flag = {
 				flag = CSA_red_rebels_resistance_cooldown
 				value = 1
-				days = 15
+				days = 14
 			}
 		}
 	}
 
+
+	CSA_counter_rebels_in_virginia = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 362
+			362 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 362
+			362 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 362 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			362 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.3  # virginia more important
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
+
+
+	CSA_counter_rebels_in_north_carolina = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 363
+			363 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 363
+			363 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 363 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			363 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
+
+
+	CSA_counter_rebels_in_south_carolina = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 364
+			364 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 364
+			364 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 364 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			364 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
+
+
+	CSA_counter_rebels_in_gerogia = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 365
+			365 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 365
+			365 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 365 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			365 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.2 #georgia a little more importanmt
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
+
+
+	CSA_counter_rebels_in_alabama = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 367
+			367 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 367
+			367 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 367 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			367 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.2  #alabama a little more importanmt
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
+
+
+	CSA_counter_rebels_in_missisippi = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 370
+			370 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 370
+			370 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 370 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			370 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
+
+
+	CSA_counter_rebels_in_louisiana = {
+
+		icon = red_rebellion_state
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			controls_state = 371
+			371 = { 
+				has_state_flag = contains_red_rebels 
+				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+		}
+
+		visible = {
+			controls_state = 371
+			371 = { has_state_flag = contains_red_rebels }
+		}
+
+		highlight_states = {
+			highlight_states_trigger = { state = 371 }
+		}
+
+		on_map_mode = map_only
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+
+		custom_cost_text = CSA_decision_cost_red_rebels
+
+		complete_effect = {
+			add_command_power = -25
+			371 = { 
+				save_global_event_target_as = CSA_red_rebels_state_event_target 
+				set_state_flag = {
+					flag = anti_rebel_operation_cooldown
+					value = 1
+					days = 14
+				}
+			}
+			random_list = {
+				65 = {
+					modifier = {
+						factor = 0.7
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
+					}
+					modifier = {
+						factor = 0.4
+						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						CSA_black_rebels_pacify_state_effect = yes 
+						if = { 
+							limit = { has_state_flag = contains_red_rebels } 
+							ROOT = { country_event = wsv_csa.27 }   # successful attack
+						}
+						else = {
+							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
+						}
+					}
+				}
+				35 = {
+					country_event = wsv_csa.28  # notice of failed attack
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			#try to prevent enclaves becoming strongholds
+			modifier = {
+				factor = 4
+				has_dynamic_modifier = { modifier = CSA_red_enclave } 
+			}
+			#if its a stronghold leave it for the end
+			modifier = {
+				factor = 0.5
+				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
+			}
+			# dont burn command power
+			modifier = {
+				factor = 0.5
+				command_power < 41
+			}
+			modifier = {
+				factor = 0.5
+				command_power < 21
+			}
+		}
+	}
 }
 
 
