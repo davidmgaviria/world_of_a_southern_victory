@@ -298,6 +298,44 @@ news_event = {
 }
 
 
+## Black Revolt Defeated
+news_event = {
+	id = wsv_news.22
+	title = wsv_news.22.t
+	desc = wsv_news.22.d
+	picture = #TODO: needs picture
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = csa_red_rebellion_defeated
+	    	CSA = { add_stability = 0.05 }
+		}
+   	}
+	
+	option = {
+		name = wsv_news.22.a
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_news.22.b
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_news.22.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
 
 
 ## Establish Quebec ##

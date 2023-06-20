@@ -1546,7 +1546,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		
 	focus = {
 		id = USA_aid_black_rebels
-		#icon = GFX_focus_generic_supply_guns
+		icon = GFX_focus_generic_supply_guns
 		prerequisite = { focus = USA_correct_1862 }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -1558,9 +1558,35 @@ prerequisite = { focus = USA_second_defense_bill }
 			factor = 0 
 		}
 
-		#bypass = {}
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			has_war_with = CSA
+		}
+
+		bypass = {
+			has_global_flag = csa_red_rebellion_defeated
+		}
 
 		completion_reward = { 
+			custom_effect_tooltip = aid_black_rebels_tt
+			hidden_effect = {
+				random_state = {
+					limit = {
+						is_owned_by = CSA
+						is_controlled_by = CSA
+						has_state_flag = contains_red_rebels
+					}
+					CSA_black_rebels_escalate_state_effect = yes
+				}
+				random_state = {
+					limit = {
+						is_owned_by = CSA
+						is_controlled_by = CSA
+						has_state_flag = contains_red_rebels
+					}
+					CSA_black_rebels_escalate_state_effect = yes
+				}
+			}
 		}
 	}
 
