@@ -1,7 +1,18 @@
 focus_tree = {
 	id=csa_focus
 	default=no
-	country={ factor=0 modifier={ add=50 original_tag=CSA } }
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = CSA 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
 	continuous_focus_position = { x = 50 y = 1200 }
 
 

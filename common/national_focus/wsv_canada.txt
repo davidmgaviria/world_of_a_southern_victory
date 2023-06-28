@@ -1,7 +1,19 @@
 focus_tree = {
 	id=can_focus
 	default=no
-	country={ factor=0 modifier={ add=50 tag=CAN } }
+
+		country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = CAN 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
+	###########################################################################################################################
 
 	focus = {
 		id = CAN_political_effort

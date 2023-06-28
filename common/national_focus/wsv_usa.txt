@@ -1,12 +1,25 @@
 focus_tree = {
 	id=USA_focus 
 	default=no
-	country={ factor=0 modifier={ add=60 original_tag=USA } }
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = USA 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
 	continuous_focus_position = { x = 50 y = 1200 }
 
+	###########################################################################################################################
+
 	focus = {
-		id = USA_progressive_era
-		#icon = GFX_focus_chi_legislative_yuan
+		id = USA_industrial_effort
+		#icon = GFX_goal_generic_production
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 		cost = 10
@@ -20,7 +33,13 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.5
+				uses = 1
+				category = industry
+			}
 		}
 	}
 
@@ -28,12 +47,12 @@ focus_tree = {
 	focus = {
 		id = USA_northwest_roads
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_progressive_era }
+		prerequisite = { focus = USA_industrial_effort }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = -3
+		x = -2
 		y = 1
-		relative_position_id = USA_progressive_era
+		relative_position_id = USA_industrial_effort
 
 		ai_will_do = { 
 			factor = 0 
@@ -52,7 +71,7 @@ focus_tree = {
 		prerequisite = { focus = USA_northwest_roads }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = USA_northwest_roads
 
@@ -68,56 +87,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = USA_centralized_banking
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_progressive_era }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_progressive_era
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = USA_income_tax
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_centralized_banking }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_centralized_banking
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
 		id = USA_first_defense_bill
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_centralized_banking}
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = USA_industrial_effort }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = USA_centralized_banking
+		relative_position_id = USA_industrial_effort
 
 		ai_will_do = { 
 			factor = 0 
@@ -126,6 +103,28 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = {
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -133,12 +132,12 @@ focus_tree = {
 	focus = {
 		id = USA_civ_factories1
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_progressive_era }
+		prerequisite = { focus = USA_industrial_effort }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 3
 		y = 1
-		relative_position_id = USA_progressive_era
+		relative_position_id = USA_industrial_effort
 
 		ai_will_do = { 
 			factor = 0 
@@ -147,6 +146,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			368 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+					instant_build = yes
+				}
+			}	
 		}
 	}
 
@@ -173,14 +180,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = USA_1912_election
+		id = USA_break_trusts
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_centralized_banking }
+		prerequisite = { focus = USA_industrial_effort }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = USA_centralized_banking
+		relative_position_id = USA_industrial_effort
 
 		ai_will_do = { 
 			factor = 0 
@@ -196,12 +203,12 @@ focus_tree = {
 	focus = {
 		id = USA_right_of_workers
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_1912_election }
+		prerequisite = { focus = USA_break_trusts }
 		#mutually_exclusive = { focus=USA_police_target_socialist  }
 		cost = 10
 		x = -3
 		y = 1
-		relative_position_id = USA_1912_election
+		relative_position_id = USA_break_trusts
 
 		ai_will_do = { 
 			factor = 0 
@@ -259,12 +266,12 @@ focus_tree = {
 	focus = {
 		id = USA_break_trusts
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_1912_election }
+		prerequisite = { focus = USA_break_trusts }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_1912_election
+		relative_position_id = USA_break_trusts
 
 		ai_will_do = { 
 			factor = 0 
@@ -364,7 +371,7 @@ focus_tree = {
 		
 	focus = {
 		id = USA_second_defense_bill
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = USA_break_trusts }
 		prerequisite = { focus = USA_first_defense_bill }
 		#mutually_exclusive = { focus = }
@@ -380,6 +387,28 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = {
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
 		}
 	}
 
@@ -430,12 +459,12 @@ focus_tree = {
 	focus = {
 		id = USA_police_target_socalists
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_1912_election }
+		prerequisite = { focus = USA_break_trusts }
 		#mutually_exclusive = { focus=USA_right_of_workers  }
 		cost = 10
 		x = 4
 		y = 1
-		relative_position_id = USA_1912_election
+		relative_position_id = USA_break_trusts
 
 		ai_will_do = { 
 			factor = 0 
