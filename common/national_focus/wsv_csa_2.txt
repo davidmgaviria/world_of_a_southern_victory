@@ -1,6 +1,16 @@
 focus_tree = {
 	id = csa_2_focus
-	country={ factor=0 modifier={ add=10 original_tag=CSA } modifier={ factor=10 has_start_date<1937.1.1 } }
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = CSA 
+				has_start_date > 1918.1.1
+			}
+		} 
+	}
 	
 	initial_show_position = {
 		focus = CSA2_industrial_effort
