@@ -105,6 +105,29 @@ on_actions = {
 		}
 	}
 
+	# remembance day event
+	on_monthly_USA = {   # USA is root
+		effect = {
+			if = {
+				limit = { 
+					has_start_date < 1918.1.1
+					has_idea = USA_remembrance_day
+				}
+			}
+			add_to_variable = { USA.months_to_rememberance_day = -1 }
+			if = { 
+				limit = {
+					check_variable = { USA.months_to_rememberance_day < 1 }
+				}
+				set_variable = { USA.months_to_rememberance_day = 12 }
+				news_event = {
+					id = wsv_usa.13
+					days = 21
+				}
+			}
+		}
+	}
+
 
 	#English men to Canada
 	#on_startup = {
