@@ -4,7 +4,6 @@
 
 ## Influence in Caribbean ##
 
-
 CSA_influence_in_caribbean_category = {
 
 	CSA_conduct_naval_exercise = {
@@ -15,183 +14,294 @@ CSA_influence_in_caribbean_category = {
 			always = yes
 		}
 		available = {
-			NOT = { has_war_with = USA }
+			has_war = no
 		}
 
-		cost = 50
-		days_remove = 20
-		days_re_enable = 30
+		cost = 15
+		days_remove = 14
+		days_re_enable = 120
 
 		remove_effect = {
+			add_to_variable = { 
+				var = CSA.csa_influence_in_caribbean
+				value = 5 
+			}
+			custom_effect_tooltip = increase_influence_by_5_tt
+		}
+
+		ai_will_do = {
+			factor = 0.03
+			# make confederates spend to get up quickly
+			modifier = {
+				factor = 500
+				check_variable = { CSA.csa_influence_in_caribbean  < 10 }
+			}
+
+			#increase likelyhood if US is close to us
+			modifier = {
+				factor = 2
+				check_variable = { CSA.csa_influence_edge < 10 }
+			}
+			modifier = {
+				factor = 1.5
+				check_variable = { CSA.csa_influence_edge < 20 }
+			}
+			# decrease if we have over 30
+			modifier = {
+				factor = 0.25
+				check_variable = { CSA.csa_influence_edge < 30 }
+			}
+		}
+	}
+
+	## temporary ##
+	CSA_expand_united_fruit_branch = {
+
+		icon = generic_construction
+
+		visible = {
+			always = yes
+			has_country_flag = unlocked_united_fruit_flag
+		}
+		available = {
+			has_war = no
+		}
+
+		cost = 25
+		days_remove = 14
+		days_re_enable = 180
+
+		remove_effect = {
+			add_offsite_building = { type = industrial_complex level = 1 }
 			add_to_variable = { 
 				var = CSA.csa_influence_in_caribbean
 				value = 10 
 			}
 			custom_effect_tooltip = increase_influence_by_10_tt
-			# TODO : naval exercise event
 		}
 
 		ai_will_do = {
 			factor = 0.03
 
-			# increase likelyhood if US is high
-			modifier = {
-				factor = 2
-				check_variable = { var = USA.usa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 2
-				check_variable = { var = USA.usa_influence_in_caribbean value = 40 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 2
-				check_variable = { var = USA.usa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
-			}
-
-			# decrease likelyhood if ours is high
-			modifier = {
-				factor = 0.5
-				check_variable = { var = CSA.csa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 0.5
-				check_variable = { var = CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 0.5
-				check_variable = { var = CSA.csa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
-			}
+			# increase likelyhood if US is close to us
+			# modifier = {
+			# 	factor = 2
+			# 	check_variable = { CSA.csa_influence_edge < 10 }
+			# }
+			# modifier = {
+			# 	factor = 1.5
+			# 	check_variable = { CSA.csa_influence_edge < 20 }
+			# }
+			# # decrease if we have over 30
+			# modifier = {
+			# 	factor = 0.25
+			# 	check_variable = { CSA.csa_influence_edge < 30 }
+			# }
 		}
 	}
 
+	## temporary ##
+	CSA_intervention_in_caribbean = {
 
-	CSA_establish_united_fruit_branch = {
-
-		icon = generic_construction
+		icon = infiltrate_state
 
 		visible = {
-			has_country_flag = unlocked_united_fruit_flag
+			has_country_flag = unlocked_intervention_flag
+		}
+		available = {
+			has_war = no
+			NOT= { has_country_flag = CSA_recently_conducted_intervention_flag }
+			FROM = {
+				NOT = { is_guaranteed_by = USA }
+				NOT = { is_in_faction_with = USA }
+			}
 		}
 
-		targets = { DOM GUA HON ELS NIC COS COL VEN }
+		targets = { GUA HON ELS NIC COS }
 
 		target_trigger = {
 			FROM = {
-				NOT = { has_country_flag = united_fruit_established }
 				NOT = { has_war_with = CSA }
 				is_puppet = no
 			}
 		}
 		
-		cost = 25
-		days_remove = 20
+		cost = 75
+		days_remove = 25
 
 		complete_effect = {
-			set_country_flag = building_fruit_branch
+			set_country_flag = {
+				flag = CSA_recently_conducted_intervention_flag
+				days = 115
+			}
 		}
 
 		remove_effect = {
-			clr_country_flag = building_fruit_branch
-			FROM = { set_country_flag = united_fruit_established }
+			add_threat = 2
+			puppet = FROM
 			add_to_variable = { 
 				var = CSA.csa_influence_in_caribbean
-				value = 5 
+				value = 10 
 			}
-			add_offsite_building = { type = industrial_complex level = 1 }
-			custom_effect_tooltip = increase_influence_by_5_tt
-			# TODO: hidden effect, send event notice to the US
+			custom_effect_tooltip = increase_influence_by_10_tt
+			#hidden_effect = { news_event = { id =  days = 1 } }
+			# TOOD: news event of intervention
 		}
 
 		ai_will_do = {
-			factor = 0.05
-
+			factor = 0.003  
 			modifier = {
-				factor = 0
-				has_country_flag = building_fruit_branch
-			}
-			modifier = {
-				factor = 4
-				tag = DOM
-			}
-			modifier = {
-				factor = 2
-				OR = {
-					tag = COL
-					tag = NIC
-				}
-			}
-			
-			# increase likelyhood if US is high
-			modifier = {
-				factor = 2
-				check_variable = { var = USA.usa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 2
-				check_variable = { var = USA.usa_influence_in_caribbean value = 40 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 2
-				check_variable = { var = USA.usa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
-			}
-
-			# decrease likelyhood if ours is high
-			modifier = {
-				factor = 0.5
-				check_variable = { var = CSA.csa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 0.5
-				check_variable = { var = CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
-			}
-			modifier = {
-				factor = 0.5
-				check_variable = { var = CSA.csa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
+				factor = 1.5
+				tag = NIC
 			}
 		}
 	}
 
 
-	# CSA_intervention_in_caribbean = {
+	## (FUTURE WORK) ##
+	# CSA_establish_united_fruit_branch = {
 
-	# 	icon = infiltrate_state
+	# 	icon = generic_construction
 
 	# 	visible = {
-	# 		has_country_flag = unlocked_carribean_intervention_flag
+	# 		has_country_flag = unlocked_united_fruit_flag
 	# 	}
 
 	# 	targets = { DOM GUA HON ELS NIC COS COL VEN }
 
 	# 	target_trigger = {
 	# 		FROM = {
-	# 			has_country_flag = destroyed_united_fruit
+	# 			NOT = { has_country_flag = united_fruit_established }
 	# 			NOT = { has_war_with = CSA }
 	# 			is_puppet = no
 	# 		}
 	# 	}
 		
-	# 	cost = 30
-	# 	days_remove = 20
+	# 	cost = 40
+	# 	days_remove = 14
+
+	# 	complete_effect = {
+	# 		set_country_flag = building_fruit_branch
+	# 	}
 
 	# 	remove_effect = {
-	# 		hidden_effect = {
-	# 			FROM = { 
-	# 				set_country_flag = occupied_by_csa 
-	# 				country_event = wsv_csa.10 # notice to latin country, which then sends notice to US & CS to get proper FROM reference
-	# 			}
-	# 		}
+	# 		clr_country_flag = building_fruit_branch
+	# 		FROM = { set_country_flag = united_fruit_established }
 	# 		add_to_variable = { 
 	# 			var = CSA.csa_influence_in_caribbean
-	# 			value = 10 
+	# 			value = 5 
 	# 		}
-	# 		puppet = FROM
-	# 		custom_effect_tooltip = increase_influence_by_10_tt
+	# 		add_offsite_building = { type = industrial_complex level = 1 }
+	# 		custom_effect_tooltip = increase_influence_by_5_tt
+	# 		# TODO: hidden effect, send event notice to the US
 	# 	}
 
 	# 	ai_will_do = {
-	# 		factor = 0.4  # we will almost certainly do it
+	# 		factor = 0.01
+
+	# 		modifier = {
+	# 			factor = 0
+	# 			has_country_flag = building_fruit_branch
+	# 		}
+	# 		modifier = {
+	# 			factor = 4
+	# 			tag = DOM
+	# 		}
+	# 		modifier = {
+	# 			factor = 2
+	# 			OR = {
+	# 				tag = COL
+	# 				tag = NIC
+	# 			}
+	# 		}
+			
+	# 		# increase likelyhood if US is high
+	# 		modifier = {
+	# 			factor = 2
+	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
+	# 		}
+	# 		modifier = {
+	# 			factor = 2
+	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 40 compare = greater_than_or_equals }
+	# 		}
+	# 		modifier = {
+	# 			factor = 2
+	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
+	# 		}
+
+	# 		# decrease likelyhood if ours is high
+	# 		modifier = {
+	# 			factor = 0.5
+	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.5
+	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.5
+	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
+	# 		}
 	# 	}
 	# }
+
+	## (FUTURE WORK) ##
+	# CSA_intervention_in_caribbean = {
+
+	# 	icon = infiltrate_state
+
+	# 	visible = {
+	# 		has_country_flag = unlocked_intervention_flag
+	# 		FROM = {
+	# 			has_country_flag = csa_can_intervene_flag
+	# 		}
+	# 	}
+	# 	available = {
+	# 		FROM = {
+	# 			NOT = { is_guaranteed_by = USA }
+	# 			NOT = { is_in_faction_with = USA }
+	# 		}
+	# 	}
+
+	# 	targets = { DOM GUA HON ELS NIC COS }
+
+	# 	target_trigger = {
+	# 		FROM = {
+	# 			NOT = { has_war_with = CSA }
+	# 			is_puppet = no
+	# 		}
+	# 	}
+		
+	# 	cost = 50
+	# 	days_remove = 14
+
+	# 	remove_effect = {
+	# 		FROM = {
+	# 			save_event_target_as = target_of_csa_intervention
+	# 		}
+	# 		USA = { country_event = { id = wsv_csa.11 days = 1 } }   #us gets info that csa invaded, which starts intervention chain
+	# 		custom_effect_tooltip = attempt_to_puppet_tt
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 0.005  
+	# 		modifier = {
+	# 			factor = 2
+	# 			OR = { tag = DOM   tag = NIC }
+	# 		}
+	# 		modifier = {
+	# 			factor = 0.5
+	# 			has_global_flag = us_threatened_cs_over_caribbean
+	# 		}
+	# 		modifier = {
+	# 			factor = 0
+	# 			AND = {
+	# 				has_global_flag = us_threatened_cs_over_caribbean
+	# 				is_historical_focus_on = yes
+	# 			}
+	# 		}
+	# 	}
+	#}
 }
 
 

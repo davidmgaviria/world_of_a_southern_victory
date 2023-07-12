@@ -168,11 +168,11 @@ USA_gw_modified_unit_production = {
 		always = yes
 	}
 
-	ai_strategy = {
-		type = role_ratio
-		id = garrison	
-		value = 4
-	}
+	# ai_strategy = {
+	# 	type = role_ratio
+	# 	id = garrison	
+	# 	value = 2
+	# }
 
 	ai_strategy = {
 		type = role_ratio
@@ -182,86 +182,39 @@ USA_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = unit_ratio
-		id = marines
-		value = 2
-	}
-
-	ai_strategy = {
-		type = unit_ratio
 		id = armor  #we love tanks
 		value = 5   
 	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = -5
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 25
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized
-		value = 5
-	}
-
-	ai_strategy = {
-		type = equipment_production_min_factories 
-		id = motorized
-		value = 2
-	}
 }
 
 
-USA_gw_stockpile_less_early_game = {
+USA_build_army = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date < 1914.1.1
+		num_divisions < 170
 		has_war = no
 	}
 	abort_when_not_enabled = yes
+
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 600
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 5
+	}
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
+		value = -10 # reduce while we build up in case of issues
 	}
 }
-
-
-
-USA_rememberance = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = CSA
-		#date > 1912.1.1
-		NOT = { is_in_faction_with = CSA }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = antagonize
-		id = "CSA"			
-		value = 60
-	}	
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CSA"
-		value = 20
-	}
-}
-
 
 
 USA_germany_ally_ww1 = {
@@ -272,7 +225,6 @@ USA_germany_ally_ww1 = {
 	enable = {
 		country_exists = GER
 		NOT = { has_war_with = GER }
-		NOT = { has_completed_focus = USA_end_german-american_partnership }
 	}
 	abort_when_not_enabled = yes
 	
@@ -283,32 +235,26 @@ USA_germany_ally_ww1 = {
 	}	
 }
 
-
-# USA_defend_washington = {
-# 	allowed = {
-# 		original_tag = USA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = CSA
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	#protect washington
-# 	ai_strategy = {
-# 		type = front_unit_request
-
-# 		state = 840
-# 		state = 362
-# 		state = 361
-# 		state = 360
-# 		state = 814
-# 		state = 813
-		
-# 		value = 60
-# 	}
-# }	
+# dont join central powers until we are fighting the csa
+USA_dont_join_central_powers_yet = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+	abort = {
+		has_war_with = CSA
+		has_war_together_with = GER
+	}
+	
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = -1000
+	}	
+}
 
 
 USA_greatwar_mobilize = {
@@ -344,28 +290,80 @@ USA_greatwar_mobilize = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "CAN"			
-		value = 50
+		value = 100
 	}
 }
 
 
 
-USA_attack_csa_during_black_rebellion = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CSA = { has_idea = CSA_black_rebellion_idea }
-	}
-	abort_when_not_enabled = yes
+# USA_rememberance = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = CSA
+# 		#date > 1912.1.1
+# 		NOT = { is_in_faction_with = CSA }
+# 	}
+# 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-		type = consider_weak
-		id = "CSA"			
-		value = 5
-	}
-}
+# 	ai_strategy = {
+# 		type = antagonize
+# 		id = "CSA"			
+# 		value = 60
+# 	}	
+
+# 	ai_strategy = {
+# 		type = prepare_for_war
+# 		id = "CSA"
+# 		value = 20
+# 	}
+# }
+
+# USA_defend_washington = {
+# 	allowed = {
+# 		original_tag = USA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = CSA
+# 		NOT = { is_in_faction_with = CSA }
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	#protect washington
+# 	ai_strategy = {
+# 		type = front_unit_request
+
+# 		state = 840
+# 		state = 362
+# 		state = 361
+# 		state = 360
+# 		state = 814
+# 		state = 813
+		
+# 		value = 60
+# 	}
+# }	
+
+
+# USA_attack_csa_during_black_rebellion = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		CSA = { has_idea = CSA_black_rebellion_idea }
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = consider_weak
+# 		id = "CSA"			
+# 		value = 5
+# 	}
+# }
 
 
 # USA_attack_canada = {
@@ -391,9 +389,6 @@ USA_attack_csa_during_black_rebellion = {
 # 		value = 75
 # 	}
 # }
-
-
-
 
 # USA_take_english_islands = {
 # 	allowed = {

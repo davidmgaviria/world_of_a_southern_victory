@@ -4,11 +4,11 @@ ideas = {
 
 		CSA_southern_aristocracy = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
 			picture= GFX_idea_CSA_southern_aristocracy
 			modifier = {
-				political_power_gain = -0.3
+				political_power_gain = -0.4
 				drift_defence_factor = 0.25
 				stability_factor = 0.1
 				consumer_goods_factor = -0.1
@@ -18,26 +18,28 @@ ideas = {
 
 		CSA_agricultural_nation = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = GFX_idea_CSA_agricultural_nation
+			picture = generic_agrarian_reform
 			modifier = {
 				industrial_capacity_factory = -0.15
 				industrial_capacity_dockyard = -0.15
 				production_factory_max_efficiency_factor = -0.2 
-				global_building_slots_factor = -0.2
 				local_resources_factor = -0.2
 			}
 		}
 
 		CSA_military_nepotism = {
-			allowed={ always=no }
-			#allowed_civil_war={ has_government=democratic }
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
 			removal_cost=-1
-			picture = generic_neutral_complacency_icon  #TODO needs picture
+			picture = generic_army_issues
 			modifier = {
-				army_org_factor = -0.1
-				army_attack_factor = -0.15
+				army_attack_factor = -0.1
 				experience_gain_army_unit_factor = -0.1
 				military_leader_cost_factor = 0.5 
 			}
@@ -61,34 +63,31 @@ ideas = {
 			removal_cost=-1
 			picture= CSA_southern_militarism
 			modifier = {
-				conscription = 0.015
-				army_defence_factor = 0.1
+				conscription = 0.02
+				army_core_defence_factor = 0.2
 				resistance_damage_to_garrison_on_our_occupied_states = 0.1
 			}
 		}
 
 
-		#### New ideas
-
 		CSA_industrializing_economy = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			#picture = GFX_idea_CSA_agricultural_nation  #TODO needs picture
+			picture = generic_five_year_plan_industry 
 			modifier = {
 				industrial_capacity_factory = -0.1
 				industrial_capacity_dockyard = -0.1
 				production_factory_max_efficiency_factor = -0.1
-				global_building_slots_factor = -0.1
 				local_resources_factor = -0.2
 			}
 		}
 
 		CSA_industrializing_economy_2 = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			#picture = GFX_idea_CSA_agricultural_nation  #TODO needs picture
+			picture = generic_five_year_plan_industry  
 			modifier = {
 				industrial_capacity_factory = -0.05
 				industrial_capacity_dockyard = -0.05
@@ -99,9 +98,9 @@ ideas = {
 
 		CSA_industrializing_economy_3 = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			#picture = GFX_idea_CSA_agricultural_nation  #TODO needs picture
+			picture = generic_five_year_plan_industry 
 			modifier = {
 				industrial_capacity_factory = 0.05
 				production_factory_max_efficiency_factor = 0.1
@@ -111,9 +110,9 @@ ideas = {
 
 		CSA_mining_subsidies = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			#picture = GFX_idea_CSA_agricultural_nation  #TODO needs picture
+			picture = generic_exploit_mines  #TODO needs picture
 			modifier = {
 				local_resources_factor = 0.075
 			}
@@ -121,11 +120,11 @@ ideas = {
 
 		CSA_southern_aristocracy_2 = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
 			picture= GFX_idea_CSA_southern_aristocracy
 			modifier = {
-				political_power_gain = -0.20
+				political_power_gain = -0.3
 				drift_defence_factor = 0.20
 				stability_factor = 0.05
 				consumer_goods_factor = -0.05
@@ -135,20 +134,20 @@ ideas = {
 
 		CSA_income_tax = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture= GFX_idea_CSA_southern_aristocracy   #TODO needs picture
+			picture= generic_foreign_capital 
 			modifier = {
-				political_power_gain = 0.1
+				political_power_gain = 0.15
 				stability_factor = -0.03
 			}
 		}
 
 		CSA_compulsory_schools = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture= GFX_idea_CSA_southern_aristocracy
+			picture= generic_army_war_college
 			modifier = {
 				drift_defence_factor = -0.1
 				production_factory_efficiency_gain_factor = 0.1
@@ -159,9 +158,9 @@ ideas = {
 
 		CSA_streamlined_rifles = {		
 			allowed={ always=no }
-			#allowed_civil_war = { has_government=communism }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture= GFX_Idea_SOV_third_five_year_plan_military  #TODO needs picture
+			picture = generic_rifle_icon
 
 			equipment_bonus = {
             	infantry_equipment = {
@@ -172,9 +171,9 @@ ideas = {
 
 		CSA_cavalry_focus = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			#picture= GFX_idea_CSA_southern_aristocracy #TODO needs picture
+			picture= generic_cavalry_focus
 			modifier = {
 				cavalry_attack_factor = 0.1
 				cavalry_defence_factor = 0.1
@@ -183,10 +182,14 @@ ideas = {
 		}
 
 		CSA_military_caste = {
-			allowed={ always=no }
-			#allowed_civil_war={ has_government=democratic }
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
 			removal_cost=-1
-			picture = generic_neutral_complacency_icon  #TODO needs picture
+			picture = generic_forced_conscription
 			modifier = {
 				army_org_factor = -0.1
 				army_attack_factor = -0.05
@@ -197,10 +200,14 @@ ideas = {
 		}
 
 		CSA_reduced_military_nepotism = {
-			allowed={ always=no }
-			#allowed_civil_war={ has_government=democratic }
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
 			removal_cost=-1
-			picture = generic_neutral_complacency_icon  #TODO needs picture
+			picture = generic_army_issues
 			modifier = {
 				army_org_factor = -0.05
 				army_attack_factor = -0.1
@@ -210,10 +217,14 @@ ideas = {
 		}
 
 		CSA_veteran_officers = {
-			allowed={ always=no }
-			#allowed_civil_war={ has_government=democratic }
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
 			removal_cost=-1
-			picture = generic_neutral_complacency_icon
+			picture = generic_infantry_bonus
 			modifier = {
 				army_org_factor = 0.05
 				experience_gain_army_unit_factor = 0.1
@@ -248,7 +259,7 @@ ideas = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			#picture = GFX_idea_CSA_racial_segregation  #TODO needs picture
+			picture = SOV_third_five_year_plan_military
 			modifier = {
 				conversion_cost_civ_to_mil_factor = -0.25
 				production_speed_arms_factory_factor = 0.15
@@ -256,150 +267,69 @@ ideas = {
 			}
 		}
 
-
-	
-
-	
-
-		##### Old ideas
-
-
-		CSA_conservatism_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { has_government=democratic }
-			removal_cost=-1
-			picture= generic_democratic_drift_bonus
-			modifier = {
-				democratic_drift = 0.05
-			}
-		}
-
-
-		CSA_progressivism_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { has_government=communism }
-			removal_cost=-1
-			picture= generic_communism_drift_bonus
-			modifier = {
-				communism_drift = 0.05
-			}
-		}
-
-
-		CSA_southern_aristocracy_restrained = {
-			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
-			removal_cost=-1
-			picture= GFX_idea_CSA_southern_aristocracy_restrained
-			modifier = {
-				political_power_factor = -0.05
-				military_leader_cost_factor = 0.25
-				stability_factor = 0.05
-			}
-		}
-
-		
-		CSA_lax_racial_laws = {
-			allowed={ always=no }
-			allowed_civil_war = { has_government=communism }
-			removal_cost=-1
-			picture= generic_black_white_handshake
-			modifier = {
-				conscription_factor = -0.15
-				stability_factor = -0.05
-			}
-		}
-
-		CSA_black_interment_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { has_government=communism }
-			removal_cost=-1
-			picture= generic_racial_segregation2
-			modifier = {
-				conscription_factor = -0.35
-				stability_factor = 0.05
-			}
-		}
-
-
-		CSA_mexican_aid1 = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			picture= generic_financial_aid
-			modifier = {
-				consumer_goods_factor = -0.05
-				production_speed_buildings_factor = 0.2
-				autonomy_gain = 1.5
-			}
-		}
-
-		CSA_mexican_aid2 = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			picture= generic_financial_aid
-			modifier = {
-				consumer_goods_factor = -0.05
-				production_speed_buildings_factor = 0.2
-				autonomy_gain = -1.5
-			}
-		}
-
-
-		CSA_mexican_aid3 = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			picture= generic_financial_aid
-			modifier = {
-				consumer_goods_factor = -0.05
-				production_speed_buildings_factor = 0.2
-			}
-		}
-
-
-		CSA_black_rebellion_idea = {
+		CSA_streamlined_battleships_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = generic_black_rebels
-			modifier = {
-				stability_factor = -0.1
-				attrition = 0.1
-				conscription = -0.005
-			}
+			picture = generic_navy_bonus 
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+            		build_cost_ic = -0.1 instant = yes
+            	}
+            }
 		}
 
-		CSA_black_rebellion_remanents_idea = {
+		CSA_joint_plans_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = CSA_black_rebellion_remanents_icon
-			modifier = {
-				stability_factor = -0.05
-				attrition = 0.05
-				conscription = -0.002
-			}
-		}
+			picture = generic_intel_bonus
 
-		CSA_legacy_of_lee = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			picture= generic_robert_e_lee
 			targeted_modifier = {
                 tag = USA
-                attack_bonus_against = 0.25
-                breakthrough_bonus_against = 0.5
-            }
-
-            modifier = { 
-                army_morale_factor = 0.1
-                org_loss_when_moving = -0.1
-                land_reinforce_rate = 0.01
+                attack_bonus_against = 0.1
+                defense_bonus_against = 0.1
             }
 		}
+
+
+		CSA_caribbean_empire_1 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_trade_boost  
+			modifier = {
+				industrial_capacity_factory = 0.1
+				production_speed_buildings_factor = 0.05
+				consumer_goods_factor = -0.03
+			}
+		}
+
+		CSA_caribbean_empire_2 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_trade_boost  
+			modifier = {
+				industrial_capacity_factory = 0.2
+				production_speed_buildings_factor = 0.1
+				consumer_goods_factor = -0.06
+			}
+		}
+
+		CSA_caribbean_empire_3 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_trade_boost  
+			modifier = {
+				industrial_capacity_factory = 0.3
+				production_speed_buildings_factor = 0.15
+				consumer_goods_factor = -0.1
+			}
+		}
+	
 
 		#################
 		###### WW2 ######

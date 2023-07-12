@@ -18,9 +18,11 @@ technologies = {
 	#scout aircraft
 	ww1_scout = {
 
-		enable_equipments = {
-			ww1_scout_equipment_1
-		}
+		#enable_equipments = {
+		#	ww1_scout_equipment_1
+		#}
+		recon_factor = 0.2
+		land_reinforce_rate = 0.01
 	
 		path = {
 			leads_to_tech = ww1_fighter1
@@ -80,6 +82,11 @@ technologies = {
 			leads_to_tech = ww1_fighter2
 			research_cost_coeff = 1
 		}
+
+		path = {
+			leads_to_tech = ww1_cas1
+			research_cost_coeff = 0.8
+		}
 		
 		research_cost = 2
 		start_year = 1915
@@ -103,15 +110,15 @@ technologies = {
 				is_major = yes
 			}
 
-			modifier = {
-				factor = 2
-				date > 1912.1.1
-			}
+			# modifier = {
+			# 	factor = 2
+			# 	date > 1916.1.1
+			# }
 
-			modifier = {
-				factor = 2
-				date > 1915.1.1
-			}
+			# modifier = {
+			# 	factor = 2
+			# 	date > 1915.1.1
+			# }
 		}
 	}
 
@@ -125,11 +132,6 @@ technologies = {
 		path = {
 			leads_to_tech = ww1_fighter3
 			research_cost_coeff = 1
-		}
-
-		path = {
-			leads_to_tech = ww1_cas1
-			research_cost_coeff = 0.6
 		}
 		
 		research_cost = 2
@@ -158,15 +160,15 @@ technologies = {
 				is_major = yes
 			}
 
-			modifier = {
-				factor = 2
-				date > 1912.1.1
-			}
+			# modifier = {
+			# 	factor = 2
+			# 	date > 1912.1.1
+			# }
 
-			modifier = {
-				factor = 2
-				date > 1915.1.1
-			}
+			# modifier = {
+			# 	factor = 2
+			# 	date > 1915.1.1
+			# }
 		}
 	}
 
@@ -188,17 +190,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 0.5
-
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-
-			modifier = {
-				factor = 2
-				date > 1918.1.1
-			}
+			factor = 0
 		}
 	}
 
@@ -238,17 +230,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 1
-
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-
-			modifier = {
-				factor = 2
-				date > 1915.1.1
-			}
+			factor = 0
 		}
 	}
 
@@ -270,17 +252,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 0.5
-
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-
-			modifier = {
-				factor = 2
-				date > 1920.1.1
-			}
+			factor = 0
 		}
 	}
 
@@ -297,11 +269,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1916
+		start_year = 1915
 
 		folder = {
 			name = air_techs_folder
-			position = { x = -4 y = @1916 }
+			position = { x = -4 y = @1915 }
 		}
 
 		categories = {
@@ -312,16 +284,6 @@ technologies = {
 		
 		ai_will_do = {
 			factor = 1
-
-			modifier = {
-				factor = 1.5
-				is_major = yes
-			}
-
-			modifier = {
-				factor = 1.5
-				date > 1918.1.1
-			}
 		}
 	}
 
@@ -353,16 +315,6 @@ technologies = {
 		
 		ai_will_do = {
 			factor = 1
-
-			modifier = {
-				factor = 1.5
-				is_major = yes
-			}
-
-			modifier = {
-				factor = 1.5
-				date > 1918.1.1
-			}
 		}
 	}
 
@@ -462,12 +414,7 @@ technologies = {
 
 			modifier = {
 				factor = 2
-				is_major = yes
-			}
-
-			modifier = {
-				factor = 2
-				date > 1918.1.1
+				OR  { tag = GER  tag = USA }
 			}
 		}
 	}
@@ -499,15 +446,10 @@ technologies = {
 		
 		ai_will_do = {
 			factor = 1
-
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
 			
 			modifier = {
 				factor = 2
-				date > 1920.1.1
+				OR  { tag = GER  tag = USA }
 			}
 		}
 	}
@@ -525,10 +467,10 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1910
+		start_year = 1915
 		folder = {
 			name = air_techs_folder
-			position = { x = 6 y = @1910 }
+			position = { x = 6 y = @1915 }
 		}
 		
 		categories = {
@@ -538,10 +480,10 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 1
+			factor = 0.5
 
 			modifier = {
-				factor = 4
+				factor = 2
 				tag = GER
 			}
 		}
@@ -554,11 +496,11 @@ technologies = {
 		}
 
 		research_cost = 2
-		start_year = 1916
+		start_year = 1918
 
 		folder = {
 			name = air_techs_folder
-			position = { x = 6 y = @1916 }
+			position = { x = 6 y = @1918 }
 		}
 		
 		categories = {
@@ -568,10 +510,10 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 1
+			factor = 0.5
 
 			modifier = {
-				factor = 4
+				factor = 2
 				tag = GER
 			}
 		}

@@ -251,6 +251,98 @@ news_event = {
 }
 
 
+###########################################
+## CSA - Dealing with Central America ##
+###########################################
+
+
+# CSA demands nonaggression from LA country
+country_event = {
+	id = wsv_csa.7
+	title = wsv_csa.7.t
+	desc = wsv_csa.7.d
+	#picture = 
+
+    is_triggered_only = yes
+
+    # Bow to CSA
+	option = {
+		name =  wsv_csa.7.a
+		diplomatic_relation = {
+		    country = CSA
+		    relation = non_aggression_pact
+		    active = yes
+		}
+		CSA = {
+			diplomatic_relation = {
+			    country = ROOT
+			    relation = docking_rights
+			    active = yes
+			}
+		}
+		set_country_flag = agreed_to_csa_military_access
+		CSA = { country_event = { id = wsv_csa.8  days = 2 } }
+
+		ai_chance = { 
+			factor = 40
+			modifier = {
+				factor = 2
+				has_country_flag = united_fruit_established
+			}
+		}
+	}
+
+    # Refuse
+	option = {
+		name =  wsv_csa.7.b
+		CSA = { country_event = { id = wsv_csa.9  days = 2 } }
+		set_country_flag = refused_csa_military_access
+		custom_effect_tooltip = csa_will_embargo_tt
+
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 3
+				is_guaranteed_by = USA
+			}
+		}
+	}
+}
+
+
+# LA country agreed 
+country_event = {
+	id = wsv_csa.8
+	title = wsv_csa.8.t
+	desc = wsv_csa.8.d
+	#picture = 
+
+    is_triggered_only = yes
+
+    # Choose to intervene
+	option = {
+		name =  wsv_csa.8.a
+	}
+}
+
+
+# LA country refused 
+country_event = {
+	id = wsv_csa.9
+	title = wsv_csa.9.t
+	desc = wsv_csa.9.d
+	#picture = 
+
+    is_triggered_only = yes
+
+    # Choose to intervene
+	option = {
+		name =  wsv_csa.9.a
+		send_embargo = FROM
+	}
+}
+
+
 
 
 ###########################################
@@ -258,51 +350,51 @@ news_event = {
 ###########################################
 
 
-# CSA decision to intervene or not (FROM is target country)
-country_event = {
-	id = wsv_csa.10
-	title = wsv_csa.10.t
-	desc = wsv_csa.10.d
-	#picture = 
+# # CSA decision to intervene or not (FROM is target country)
+# country_event = {
+# 	id = wsv_csa.10
+# 	title = wsv_csa.10.t
+# 	desc = wsv_csa.10.d
+# 	#picture = 
 
-    is_triggered_only = yes
+#     is_triggered_only = yes
 
-    # Choose to intervene
-	option = {
-		name =  wsv_csa.10.a
-		FROM = {
-			save_event_target_as = target_of_csa_intervention
-			#country_event = { id = wsv_csa.10 days = 1} }
-		}
-		custom_effect_tooltip = attempt_to_puppet_tt
-		USA = { country_event = { id = wsv_csa.11 days = 1 } }
+#     # Choose to intervene
+# 	option = {
+# 		name =  wsv_csa.10.a
+# 		FROM = {
+# 			save_event_target_as = target_of_csa_intervention
+# 			#country_event = { id = wsv_csa.10 days = 1} }
+# 		}
+# 		custom_effect_tooltip = attempt_to_puppet_tt
+# 		USA = { country_event = { id = wsv_csa.11 days = 1 } }
 
-		ai_chance = { 
-			factor = 80
-			modifier = {
-				factor = 0.5
-				has_global_flag = us_threatened_cs_over_caribbean
-			}
-			modifier = {
-				factor = 0
-				AND = {
-					has_global_flag = us_threatened_cs_over_caribbean
-					is_historical_focus_on = yes
-				}
-			}
-		}
-	}
+# 		ai_chance = { 
+# 			factor = 80
+# 			modifier = {
+# 				factor = 0.5
+# 				has_global_flag = us_threatened_cs_over_caribbean
+# 			}
+# 			modifier = {
+# 				factor = 0
+# 				AND = {
+# 					has_global_flag = us_threatened_cs_over_caribbean
+# 					is_historical_focus_on = yes
+# 				}
+# 			}
+# 		}
+# 	}
 
-    # Dont intervene
-	option = {
-		name =  wsv_csa.10.b
-		add_political_power = -25
+#     # Dont intervene
+# 	option = {
+# 		name =  wsv_csa.10.b
+# 		add_political_power = -25
 
-		ai_chance = {
-			factor = 40
-		}
-	}
-}
+# 		ai_chance = {
+# 			factor = 40
+# 		}
+# 	}
+# }
 
 
 # Notice to US 
@@ -334,7 +426,7 @@ country_event = {
 	# Issue ultimatum
 	option = {
 		trigger = { 
-			check_variable = { USA.usa_influence_in_caribbean value >= 30 }
+			check_variable = { USA.usa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
 		}
 		name =  wsv_csa.11.b
 		add_opinion_modifier = {
@@ -350,11 +442,11 @@ country_event = {
 
 			modifier = {
 				factor = 1.5
-				check_variable = { CSA.csa_influence_in_caribbean value >= 50 }
+				check_variable = { CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
 			}
 			modifier = {
 				factor = 2
-				USA = { has_army_manpower > 1000000 }
+				USA = { has_army_manpower = { size > 1000000 } }
 			}
 		}
 	}
@@ -425,7 +517,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				CSA = { has_army_manpower > 800000 }
+				CSA = { has_army_manpower = { size > 800000 } }
 			}
 		}
 	}
@@ -490,21 +582,21 @@ country_event = {
 }
 
 
-# # Notice to CSA (FROM is Latin country)
-# country_event = {
-# 	id = wsv_csa.11
-# 	title = wsv_csa.11.t
-# 	desc = wsv_csa.11.d
-# 	#picture = #needs pic
+# Notice to CSA (FROM is Latin country)
+country_event = {
+	id = wsv_csa.11
+	title = wsv_csa.11.t
+	desc = wsv_csa.11.d
+	#picture = #needs pic
 
-# 	#is_major = yes
-#     is_triggered_only = yes
+	#is_major = yes
+    is_triggered_only = yes
 
-#     # FROM is Latin country
-# 	option = {
-# 		name =  wsv_csa.11.a
-# 	}
-# }
+    # FROM is Latin country
+	option = {
+		name =  wsv_csa.11.a
+	}
+}
 
 
 
@@ -532,7 +624,7 @@ country_event = {
 	id = wsv_csa.26
 	title = wsv_csa.26.t
 	desc = wsv_csa.26.d
-	#picture = # TODO: needs pic
+	picture = report_event_wsv_battle
 
     is_triggered_only = yes
 
@@ -563,7 +655,7 @@ country_event = {
 	id = wsv_csa.27
 	title = wsv_csa.27.t
 	desc = wsv_csa.27.d
-	#picture = # TODO: needs pic
+	picture = report_event_skirmish_fighting
 
     is_triggered_only = yes
 
@@ -579,7 +671,7 @@ country_event = {
 	id = wsv_csa.28
 	title = wsv_csa.28.t
 	desc = wsv_csa.28.d
-	#picture = # TODO: needs pic
+	picture = report_event_wsv_soldiers_running
 
     is_triggered_only = yes
 
@@ -596,7 +688,7 @@ country_event = {
 	id = wsv_csa.29
 	title = wsv_csa.29.t
 	desc = wsv_csa.29.d
-	#picture = # TODO: needs pic
+	picture = report_event_black_soldiers_marching
 
     is_triggered_only = yes
 

@@ -8,32 +8,20 @@ ideas = {
 
 		USA_remembrance_day = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
 			picture = generic_rememberance_day   #generic_victors_of_ww1
 			modifier = {
 				conscription = 0.005
-				mobilization_speed = 0.005
+				mobilization_speed = 0.002
 				war_support_factor = 0.25
-				offensive_war_stability_factor = 0.2
+				#offensive_war_stability_factor = 0.2
 				army_core_defence_factor = 0.1
 				#surrender_limit = -0.1
 			}
 		}
 
-		# USA_democrat_dynasty = {
-		# 	allowed={ always=no }
-		# 	allowed_civil_war={ has_government=democratic }
-		# 	cancel = { NOT = { has_government=democratic } }
-		# 	removal_cost=-1
-		# 	picture = generic_pp_unity_bonus
-		# 	modifier = {
-		# 		political_power_gain = 0.15
-		# 		drift_defence_factor = 0.2
-		# 	}
-		# }
-
-		USA_usgc = {
+		USA_usgc_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
@@ -42,6 +30,7 @@ ideas = {
 			modifier = {
 				planning_speed = 0.25
 				max_planning = 0.1
+				army_org_factor = 0.05
 			}
 		}
 
@@ -53,50 +42,38 @@ ideas = {
 
 			modifier = {
 				stability_factor = -0.1
-				drift_defence_factor = -0.2
-				communism_drift = 0.04
-				industrial_capacity_factory = 0.1
+				industrial_capacity_factory = 0.2
+				production_factory_max_efficiency_factor = 0.1
 				production_factory_efficiency_gain_factor = 0.1
-				production_factory_max_efficiency_factor = 0.2 
+				drift_defence_factor = -0.2
+			}
+		}
+
+		USA_rationing_board = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_supply_depot  #TODO: needs picture
+
+			modifier = {
 				consumer_goods_factor = -0.05
+				fuel_gain_factor = 0.1
 			}
 		}
 
-		USA_military_focused_budget = {
+		USA_socialist_opposition = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
+			cancel = { has_government=communism }
 			removal_cost=-1
-			picture = SOV_third_five_year_plan_military 
-			
-			modifier = {
-				industrial_capacity_factory = 0.1
-				industrial_capacity_dockyard = 0.1
-				production_speed_industrial_complex_factor = -0.15
-			}
-		}
+			picture = idea_USA_socialist_opposition 
 
-		USA_balanced_budget = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = SOV_third_five_year_plan
-			
 			modifier = {
-				#production_speed_arms_complex_factor = 0.05
-				#production_speed_dockyards_factor = 0.05
-			}
-		}
-
-		USA_civilian_focused_budget = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = SOV_third_five_year_plan_civilian
-			
-			modifier = {
-				industrial_capacity_factory = -0.1
-				industrial_capacity_dockyard = -0.1
-				production_speed_industrial_complex_factor = 0.15
+				political_power_gain = -0.2
+				stability_factor = -0.1
+				war_support_factor = -0.1
+				recruitable_population_factor = -0.1
+				communism_drift = 0.01
 			}
 		}
 
@@ -118,247 +95,182 @@ ideas = {
 		}
 
 
-		# USA_trust_dominated_economy = {
-		# 	allowed={ always=no }
-		# 	allowed_civil_war={ always = yes }
-		# 	removal_cost=-1
-		# 	picture = generic_production_bonus
-
-		# 	modifier = {
-		# 		political_power_gain = -0.3
-		# 		production_speed_industrial_complex_factor = 0.25
-		# 		production_speed_railway_factor = 0.25 
-		# 		production_factory_efficiency_growth_factor = -0.1
-		# 		research_speed_factor = -0.1
-		# 		local_resource_factor = 0.1
-		# 	}
-		# }
-
-
-		# USA_lassiez_faire_economy = {
-		# 	allowed={ always=no }
-		# 	allowed_civil_war={ always = yes }
-		# 	removal_cost=-1
-		# 	picture = generic_production_bonus
-			
-		# 	modifier = {
-		# 		production_speed_arms_factory_factor = -0.2
-		# 		industrial_capacity_factory = -0.1
-		# 		industrial_capacity_dockyard = -0.1
-		# 	}
-		# }
-
-
-		#### new ideas
-
-		USA_strong_dems = {
+		USA_labor_batallions_idea = {
 			allowed={ always=no }
-			allowed_civil_war={ always = no }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = generic_democratic_drift_bonus
-			
+			picture = generic_manpower_bonus
+
 			modifier = {
-				democratic_drift = 0.05
-				drift_defence_factor = 0.1
-				political_power_factor = 0.05
+				production_speed_buildings_factor = 0.1
+				industry_repair_factor = 0.1 
+				communism_drift = 0.03
 			}
 		}
 
 
-		USA_weak_dems = {
+		USA_socialist_opposition_appeased = {
 			allowed={ always=no }
-			allowed_civil_war={ always = no }
+			allowed_civil_war={ always = yes }
+			cancel = { has_government=communism }
 			removal_cost=-1
-			picture= generic_disjointed_gov
-			
-			modifier = {
-				democratic_drift = -0.05
-				drift_defence_factor = -0.1
-				political_power_factor = -0.1
-			}
-		}
+			picture = idea_USA_socialist_opposition  
 
-		USA_protected_parks = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= GFX_idea_USA_protected_parks
-			
 			modifier = {
-				stability_factor = 0.05
-				local_building_slots_factor = -0.05
-				local_resources_factor = -0.05
-			}
-		}
-
-
-		USA_side_with_trusts = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= GFX_idea_USA_side_with_trusts
-			
-			modifier = {
+				political_power_gain = -0.3
 				stability_factor = -0.05
-				industrial_capacity_factory = 0.05
-				industrial_capacity_dockyard = 0.05
+				war_support_factor = -0.1
+				recruitable_population_factor = -0.1
+				communism_drift = 0.005
+				consumer_goods_factor = 0.1
 			}
 		}
 
 
-		USA_cutthroat_capitalism_idea = {
+		USA_socialist_opposition_opposed = {
 			allowed={ always=no }
-			allowed_civil_war={ always = no }
+			allowed_civil_war={ always = yes }
+			cancel = { has_government=communism }
 			removal_cost=-1
-			picture = generic_risk_of_famine
-			
-			modifier = {
-				stability_factor = -0.1
-				industrial_capacity_factory = 0.05
-				industrial_capacity_dockyard = 0.05
-				production_speed_buildings_factor = 0.05
-				local_resources_factor = 0.05
-			}
-		}
+			picture = idea_USA_socialist_opposition 
 
-
-		USA_break_trusts = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= GFX_idea_USA_break_trusts
-			
-			modifier = {
-				stability_factor = 0.05
-				industrial_capacity_factory = -0.05
-				industrial_capacity_dockyard = -0.05
-			}
-		}
-
-
-		USA_crush_trusts = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			#picture= GFX_idea_USA_break_trusts
-			
-			modifier = {
-				stability_factor = 0.1
-				industrial_capacity_factory = -0.1
-				industrial_capacity_dockyard = -0.1
-			}
-		}
-
-
-		USA_increased_military_budget = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture = GFX_idea_USA_increase_military_budget
-			
-			modifier = {
-				political_power_gain = -0.1
-				production_speed_arms_factory_factor = 0.1
-				production_speed_dockyard_factor = 0.1
-			}
-		}
-
-
-		USA_american_patriot_rallies = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= generic_fascism_drift_bonus
-			
-			modifier = {
-				fascism_drift = 0.1
-			}
-		}
-
-
-		USA_worker_rallies = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= generic_communism_drift_bonus
-			
-			modifier = {
-				communism_drift = 0.1
-			}
-		}
-
-
-
-		USA_slash_military_budget = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= GFX_idea_USA_slash_military_budget
-			
-			modifier = {
-				political_power_gain = 0.1
-				production_speed_arms_factory_factor = -0.1
-				production_speed_dockyard_factor = -0.1
-			}
-		}
-
-
-		USA_fair_labor_laws = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= generic_production_bonus
-			
-			modifier = {
-				stability_factor = 0.1
-				consumer_goods_factor = 0.05
-			}
-		}
-
-
-		USA_social_security = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			removal_cost=-1
-			picture= new_deal
-			
 			modifier = {
 				political_power_gain = -0.2
-				consumer_goods_factor = 0.05
-				stability_factor = 0.2
+				stability_factor = -0.2
+				war_support_factor = -0.2
+				recruitable_population_factor = -0.1
+				communism_drift = 0.02
 			}
 		}
 
 
-		USA_equality_for_all = {
+		USA_gilded_age_2 = {
 			allowed={ always=no }
-			allowed_civil_war={ always = no }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture= GFX_idea_USA_equality_for_all
+			picture = generic_production_bonus
+
+			modifier = {
+				stability_factor = -0.07
+				industrial_capacity_factory = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.1
+				drift_defence_factor = -0.15
+			}
+		}
+
+		USA_gilded_age_3 = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_production_bonus
+
+			modifier = {
+				stability_factor = -0.04
+				industrial_capacity_factory = 0.1
+				production_factory_efficiency_gain_factor = 0.05
+				drift_defence_factor = -0.05
+			}
+		}
+
+
+		USA_usgc_2_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = usa_war_department
 			
 			modifier = {
-				political_power_gain = 0.05
-				stability_factor = 0.1
+				planning_speed = 0.25
+				max_planning = 0.1
+				army_org_factor = 0.05
+				industrial_capacity_factory = 0.1
+		 		industrial_capacity_dockyard = 0.1
+		 		consumer_goods_factor = -0.05
+		 		drift_defence_factor = -0.1
+		 		stability_factor = -0.1
+		 		neutrality_drift = 0.02
 			}
 		}
 
 
-		USA_black_asylum = {
+		USA_usgc_3_idea = {
 			allowed={ always=no }
-			allowed_civil_war={ always = no }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture= generic_black_asylum_icon
+			picture = usa_war_department
 			
 			modifier = {
-				monthly_population = 0.02
-				stability_factor = -0.05
+				planning_speed = 0.25
+				max_planning = 0.1
+				army_org_factor = 0.05
+				industrial_capacity_factory = 0.25
+		 		industrial_capacity_dockyard = 0.2
+		 		consumer_goods_factor = -0.1
+		 		drift_defence_factor = -0.2
+		 		stability_factor = -0.2
+		 		neutrality_drift = 0.05
 			}
 		}
 
+		USA_sedition_act_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_forceful_treaty 
+			
+			modifier = {
+		 		drift_defence_factor = 0.1
+		 		stability_weekly = 0.001
+		 		war_support_weekly = 0.002
+			}
+		}
+
+
+		USA_espionage_act_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_forceful_treaty
+			
+			modifier = {
+		 		drift_defence_factor = 0.15
+		 		stability_weekly = 0.001
+		 		communism_drift = -0.02
+			}
+		}
+
+
+		USA_american_legions = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_manpower_bonus 
+			
+			modifier = {
+				conscription = 0.002
+		 		training_time_factor = -0.1
+		 		minimum_training_level = -0.1
+		 		army_core_defence_factor = 0.1
+			}
+		}
+
+
+		USA_socialists_banned_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = FRA_matignon_agreements
+			
+			modifier = {
+		 		stability_weekly = 0.001
+		 		communism_drift = -0.03
+			}
+		}
 
 		USA_come_ye_saints = {
 			allowed={ always=no }
-			allowed_civil_war={ has_government=democratic }
+			allowed_civil_war={ always = yes }
 			removal_cost=-1
 			picture = generic_come_ye_saints
 			modifier = {

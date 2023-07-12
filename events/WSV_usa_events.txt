@@ -329,15 +329,15 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				CSA = { has_army_manpower < 700000 }
+				CSA = { has_army_manpower = { size < 700000 } }
 			}
 			modifier = {
 				factor = 2
-				CSA = { has_army_manpower < 500000 }
+				CSA = { has_army_manpower = { size < 500000 } }
 			}	
 			modifier = {
 				factor = 2 
-				CSA = { has_army_manpower < 400000 }
+				CSA = { has_army_manpower = { size < 400000 } }
 			}
 		}
 	}
@@ -390,11 +390,11 @@ country_event = {
 			}
 			modifier = {
 				factor = 1.5 
-				USA = { has_army_manpower > 1000000 }
+				USA = { has_army_manpower = { size > 1000000 } }
 			}
 			modifier = {
 				factor = 2 
-				USA = { has_army_manpower >. 1500000 }
+				USA = { has_army_manpower = { size > 1500000 } }
 			}
 		}
 	}
@@ -472,7 +472,7 @@ country_event = {
 
 			modifier = {
 				factor = 2 
-				USA = { has_army_manpower < 1200000 }
+				USA = { has_army_manpower = { size < 1200000 } }
 			}
 		}
 	}
@@ -523,7 +523,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 3 
-				USA = { has_army_manpower > 1400000 }
+				USA = { has_army_manpower = { size > 1400000 } }
 			}
 		}
 	}
@@ -551,7 +551,7 @@ country_event = {
 			factor = 80
 			modifier = {
 				factor = 1.5
-				USA = { has_army_manpower > 1600000 }
+				USA = { has_army_manpower = { size > 1600000 } }
 			}
 		}
 	}
@@ -572,11 +572,11 @@ country_event = {
 			factor = 20
 			modifier = {
 				factor = 2
-				USA = { has_army_manpower < 1500000 }
+				USA = { has_army_manpower = { size < 1500000 } }
 			}
 			modifier = {
 				factor = 3
-				USA = { has_army_manpower < 1000000 }
+				USA = { has_army_manpower = { size < 1000000 } }
 			}
 		}
 	}
@@ -612,7 +612,7 @@ country_event = {
 			factor = 100
 			modifier = {
 				factor = 0.5 
-				CSA = { has_army_manpower < 600000 }
+				CSA = { has_army_manpower = { size < 600000 } }
 			}
 		}
 	}
@@ -664,94 +664,7 @@ country_event = {
 		name = wsv_usa.12.a
 	}
 }
-
-
-			
-
-
-
-# #mormon revolt
-# news_event = {
-# 	id = wsv_usa.2
-# 	title = wsv_usa.2.t
-# 	desc = wsv_usa.2.d
-# 	picture = news_event_USA_mormon_revolt
-
-# 	major = yes
-
-# 	mean_time_to_happen = {	
-#         days = 45 		#around easter
-#     }
-
-#     trigger = {
-#     	tag = USA
-#         date > 1915.3.1	
-#         date < 1916.3.1		
-#         USA = { 
-#      		has_war_with = CSA
-#      		NOT =  { has_war_with = DES }
-#      	}
-#        	DES = { NOT = { has_full_control_of_state = 380 } }
-#         NOT = { has_global_flag = second_mormon_revolt }
-#     }
-
-#     immediate = {
-#     	hidden_effect = {
-# 	    	set_global_flag = second_mormon_revolt
-# 	    	DES = {
-# 				transfer_state = 380
-# 				add_state_core = 380
-# 				set_stability = 0.9
-# 				set_war_support = 0.6
-# 				load_oob = "DES_revolt"
-# 				set_division_template_lock = { division_template = "Mormon Fighters"   is_locked = yes }
-# 				add_political_power = 500
-# 				add_equipment_to_stockpile = {
-# 				    type = infantry_equipment_0
-# 				    amount = 5000
-# 				    producer = USA
-# 				}
-# 				delete_unit_template_and_units = { division_template = "Infantry Division" }
-# 				delete_unit_template_and_units = { division_template = "Siege Division" }
-# 				delete_unit_template_and_units = { division_template = "National Guard" }
-# 				delete_unit_template_and_units = { division_template = "Dragoon Division" }		
-# 			}
-# 			USA =  {
-# 				load_oob = "USA_mormon_revolt"
-# 				set_division_template_lock = { division_template = "State Troopers"   is_locked = yes }
-# 				add_equipment_to_stockpile = {
-# 				    type = infantry_equipment_0
-# 				    amount = -5000
-# 				    producer = USA
-# 				}
-# 				remove_state_core = 380
-# 				add_state_claim = 380
-# 				declare_war_on = {
-# 				    target = DES
-# 				    type = annex_everything
-# 				}
-# 			}
-# 		}
-#     }
-	
-# 	option = {
-# 		name = wsv_usa.2.a
-# 		trigger = { tag = USA }
-# 	}
-
-# 	option = {
-# 		name = wsv_usa.2.b
-# 		trigger = { tag = CSA }
-# 	}
-
-# 	option = {
-# 		name = wsv_usa.2.c
-# 		trigger = { 
-# 			NOT = { tag = USA }
-# 			NOT = { tag = CSA }
-# 		}
-# 	}
-# }
+		
 
 
 # #black revolt aid

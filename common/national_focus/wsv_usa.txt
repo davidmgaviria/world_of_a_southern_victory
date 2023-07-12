@@ -18,22 +18,22 @@ focus_tree = {
 	###########################################################################################################################
 
 	focus = {
-		id = USA_industrial_effort
-		#icon = GFX_goal_generic_production
+		id = USA_homefront
+		icon = GFX_goal_generic_production
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 5
+		x = 3
 		y = 0
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
-		completion_reward = {
+		completion_reward = { 		
 			add_tech_bonus = {
 				name = industrial_bonus
 				bonus = 0.5
@@ -45,68 +45,453 @@ focus_tree = {
 
 		
 	focus = {
-		id = USA_northwest_roads
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_industrial_effort }
-		#mutually_exclusive = { focus = }
-		cost = 10
+		id = USA_socialist_movement
+		icon = GFX_goal_support_communism
+		prerequisite = { focus = USA_homefront }
+		mutually_exclusive = { focus = USA_democrat_movement }
+
+		cost = 5
 		x = -2
 		y = 1
-		relative_position_id = USA_industrial_effort
+		relative_position_id = USA_homefront
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+			    ideology = communism
+			    popularity = 0.05
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_roads_southwest
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_northwest_roads }
+		id = USA_labor_batallions
+		icon = GFX_focus_YUG_pan_slavic_congress
+		prerequisite = { focus = USA_socialist_movement }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = -1
+		x = 0
 		y = 1
-		relative_position_id = USA_northwest_roads
+		relative_position_id = USA_socialist_movement
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = USA_labor_batallions_idea
 		}
 	}
 
 		
 	focus = {
-		id = USA_first_defense_bill
-		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = USA_industrial_effort }
+		id = USA_democrat_movement
+		icon = GFX_focus_usa_recruit_the_free_corps
+		prerequisite = { focus = USA_homefront }
+		mutually_exclusive = { focus = USA_socialist_movement }
+
+		cost = 5
+		x = 2
+		y = 1
+		relative_position_id = USA_homefront
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_popularity = {
+			    ideology = democratic
+			    popularity = 0.05
+			}
+			add_war_support = 0.05
+		}
+	}
+
+		
+	focus = {
+		id = USA_gain_socialist_support
+		icon = GFX_goal_generic_improve_relations  
+		prerequisite = { focus = USA_democrat_movement }
+		mutually_exclusive = { focus = USA_reject_socialist_support  }
+		cost = 5
+		x = -1
+		y = 1
+		relative_position_id = USA_democrat_movement
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = USA_socialist_opposition
+				add_idea = USA_socialist_opposition_appeased
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_reject_socialist_support
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = USA_democrat_movement }
+		mutually_exclusive = { focus = USA_gain_socialist_support  }
+
+		cost = 5
+		x = 1
+		y = 1
+		relative_position_id = USA_democrat_movement
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		#bypass = {}
+
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = USA_socialist_opposition
+				add_idea = USA_socialist_opposition_opposed
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = USA_outlaw_child_labor
+		icon = GFX_focus_generic_population_growth
+		prerequisite = { focus=USA_labor_batallions focus=USA_gain_socialist_support  }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = USA_industrial_effort
+		relative_position_id = USA_labor_batallions
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			random_owned_controlled_state = {
-				limit = {
-					is_in_home_area = yes
+			swap_ideas = {
+				remove_idea = USA_gilded_age
+				add_idea = USA_gilded_age_2
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_civ_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = USA_outlaw_child_labor focus = USA_arms_factories }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_outlaw_child_labor
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 391
+			controls_state = 392
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			391 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
 				}
+			}
+			392 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = USA_educational_grants
+		icon = GFX_focus_research
+		prerequisite = { focus = USA_civ_factories }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_civ_factories
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+
+		
+	focus = {
+		id = USA_infrastructure_1
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = USA_civ_factories }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_civ_factories
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 392
+			controls_state = 373
+			controls_state = 383
+			controls_state = 384
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			392 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			373 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			383 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			384 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_civ_factories_2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = USA_outlaw_child_labor  focus = USA_arms_factories  }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_outlaw_child_labor
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 261
+			controls_state = 393
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			261 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			393 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_infrastructure_2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = USA_civ_factories_2 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_civ_factories_2
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 361
+			controls_state = 396
+			controls_state = 395
+			controls_state = 393
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			261 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			396 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			395 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+			393 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_worker_compensation_act
+		icon = GFX_focus_eng_concessions_to_the_trade_unions
+		prerequisite = { focus = USA_outlaw_child_labor }
+		prerequisite = { focus = USA_civ_factories }
+		prerequisite = { focus = USA_civ_factories_2 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_outlaw_child_labor
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			date > 1913.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = USA_gilded_age_2
+				add_idea = USA_gilded_age_3
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_end_of_gilded
+		icon = GFX_goal_support_democracy
+		prerequisite = { focus = USA_worker_compensation_act }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_worker_compensation_act
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			date > 1915.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			remove_ideas = USA_gilded_age_3
+		}
+	}
+
+		
+	focus = {
+		id = USA_arms_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus=USA_gain_socialist_support focus=USA_reject_socialist_support  }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_gain_socialist_support
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 358
+			controls_state = 359
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			358 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
@@ -114,10 +499,7 @@ focus_tree = {
 					instant_build = yes
 				}
 			}
-			random_owned_controlled_state = {
-				limit = {
-					is_in_home_area = yes
-				}
+			359 = {
 				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
@@ -130,28 +512,369 @@ focus_tree = {
 
 		
 	focus = {
-		id = USA_civ_factories1
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_industrial_effort }
+		id = USA_arms_factories2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = USA_arms_factories }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 3
-		y = 1
-		relative_position_id = USA_industrial_effort
+		x = 0
+		y = 2
+		relative_position_id = USA_arms_factories
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+			controls_state = 839
+			controls_state = 261
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			368 = {
-				add_extra_state_shared_building_slots = 2
+			839 = {
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = arms_factory
-					level = 2
+					level = 1
 					instant_build = yes
+				}
+			}
+			261 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_police_crackdown
+		icon = GFX_focus_eng_move_to_secure_the_dominions
+		prerequisite = { focus = USA_reject_socialist_support }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_reject_socialist_support
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_popularity = {
+			    ideology = communism
+			    popularity = -0.1
+			}
+			add_stability = -0.05
+		}
+	}
+
+		
+	focus = {
+		id = USA_usgc_1
+		icon = GFX_focus_generic_military_dictatorship
+		prerequisite = { focus = USA_police_crackdown }
+		prerequisite = { focus = USA_arms_factories }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_police_crackdown
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+			OR = {
+				surrender_progress > 0.15
+				casualties > 500000
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = 0.1
+			}
+			swap_ideas = {
+				remove_idea = USA_usgc_idea
+				add_idea = USA_usgc_2_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_usgc_2
+		icon = GFX_focus_generic_military_dictatorship
+		prerequisite = { focus = USA_usgc_1 }
+		prerequisite = { focus = USA_arms_factories2 }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_usgc_1
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+			OR = {
+				surrender_progress > 0.25
+				casualties > 900000
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_popularity = {
+			    ideology = neutrality
+			    popularity = 0.1
+			}
+			swap_ideas = {
+				remove_idea = USA_usgc_2_idea
+				add_idea = USA_usgc_3_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_sedition_act
+		icon = GFX_goal_generic_forceful_treaty
+		prerequisite = { focus = USA_police_crackdown }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_police_crackdown
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = USA_sedition_act_idea
+		}
+	}
+
+		
+	focus = {
+		id = USA_american_legions
+		icon = GFX_focus_generic_fascist_troops
+		prerequisite = { focus = USA_usgc_1 }
+		prerequisite = { focus = USA_sedition_act }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_usgc_1
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+			neutrality > 0.2
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = USA_american_legions
+		}
+	}
+
+		
+	focus = {
+		id = USA_espionage_act
+		icon = GFX_goal_tfv_saf_anti_colonialist_crusade
+		prerequisite = { focus = USA_sedition_act }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_sedition_act
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+			neutrality > 0.2
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = USA_espionage_act_idea
+		}
+	}
+
+		
+	focus = {
+		id = USA_ban_socialists
+		icon = GFX_goal_generic_attack_allies
+		prerequisite = { focus = USA_usgc_2 }
+		prerequisite = { focus = USA_espionage_act }
+		prerequisite = { focus = USA_american_legions }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_usgc_2
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war = yes
+			neutrality > 0.4
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_popularity = {
+			    ideology = communism
+			    popularity = -0.1
+			}
+			add_stability = -0.1
+			add_ideas = USA_socialists_banned_idea
+		}
+	}
+
+
+	## INTERNATIONAL ##
+	focus = {
+		id = USA_rememberance
+		icon = GFX_focus_USA_rememberance
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 17
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 100
+		}
+	}
+
+		
+	focus = {
+		id = USA_war_plan_grey
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = USA_rememberance }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = -6
+		y = 1
+		relative_position_id = USA_rememberance
+
+		available = {
+			country_exists = CSA
+			NOT = { is_in_faction_with = CSA }
+		}
+
+		bypass = {
+			has_war_with = CSA
+		}
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			custom_effect_tooltip = unlocks_warplan_grey_tt
+			set_country_flag = USA_war_plan_grey
+		}
+	}
+
+		
+	focus = {
+		id = USA_fortify_philli
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = USA_war_plan_grey }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_war_plan_grey
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 840
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			362 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 11785
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 3824
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 9758
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 9820
 				}
 			}	
 		}
@@ -159,254 +882,913 @@ focus_tree = {
 
 		
 	focus = {
-		id = USA_civ_factories2
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_civ_factories1 }
+		id = USA_attack_csa
+		icon = GFX_focus_attack_CSA
+		prerequisite = { focus = USA_war_plan_grey }
+		prerequisite = { focus = USA_haitian_crisis } 
 		#mutually_exclusive = { focus = }
-		cost = 10
+		cost = 5
 		x = 0
-		y = 1
-		relative_position_id = USA_civ_factories1
+		y = 4
+		relative_position_id = USA_war_plan_grey
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
-		#bypass = {}
+		available = {
+			date > 1915.1.1
+			country_exists = CSA
+			NOT = { is_in_faction_with = CSA }
+		}
+
+		bypass = {
+			has_war_with = CSA
+		}
 
 		completion_reward = { 
+			create_wargoal = {
+				target = CSA
+				type = topple_government
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_break_trusts
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_industrial_effort }
+		id = USA_aid_black_rebels
+		icon = GFX_focus_generic_supply_guns
+		prerequisite = { focus = USA_attack_csa }
+		#mutually_exclusive = { focus=  }
+		cost = 5
+		x = -1
+		y = 1
+		relative_position_id = USA_attack_csa
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_global_flag = csa_black_revolt_occured
+			NOT = { has_global_flag = csa_red_rebellion_defeated }
+			has_war_with = CSA
+		}
+
+		completion_reward = { 
+			custom_effect_tooltip = aid_black_rebels_tt
+			hidden_effect = {
+				random_state = {
+					limit = {
+						is_owned_by = CSA
+						is_controlled_by = CSA
+						has_state_flag = contains_red_rebels
+					}
+					CSA_black_rebels_escalate_state_effect = yes
+				}
+				random_state = {
+					limit = {
+						is_owned_by = CSA
+						is_controlled_by = CSA
+						has_state_flag = contains_red_rebels
+					}
+					CSA_black_rebels_escalate_state_effect = yes
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_expand_western_claims
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = USA_attack_csa }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = 1
+		y = 1
+		relative_position_id = USA_attack_csa
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_war_with = CSA
+			CSA = {
+				owns_state = 374
+				owns_state = 815
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_state_claim = 374
+			add_state_claim = 815
+		}
+	}
+
+		
+	focus = {
+		id = USA_barrel_roll_offensive
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = USA_attack_csa }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = USA_industrial_effort
+		relative_position_id = USA_attack_csa
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			has_war_with = CSA
+			casualties > 600000
+			date > 1917.1.1
+		}
+
+		ai_will_do = {	 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			custom_effect_tooltip = unlocks_barrel_roll_tt
+			set_country_flag = barrel_roll_offensive_flag
 		}
 	}
 
 		
 	focus = {
-		id = USA_right_of_workers
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_break_trusts }
-		#mutually_exclusive = { focus=USA_police_target_socialist  }
-		cost = 10
-		x = -3
+		id = USA_protest_confederate_intervention
+		icon = GFX_goal_generic_more_territorial_claims  
+		prerequisite = { focus = USA_rememberance }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = -2
 		y = 1
-		relative_position_id = USA_break_trusts
+		relative_position_id = USA_rememberance
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			country_exists = CSA
+			NOT = { is_in_faction_with = CSA }
 		}
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			set_country_flag = arms_shipment_to_carribean_flag
+			custom_effect_tooltip = can_send_arms_to_caribbean_tt 
 		}
 	}
 
 		
 	focus = {
-		id = USA_desegregate_army
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_right_of_workers }
+		id = USA_advisors_to_haiti
+		icon = GFX_focus_generic_military_mission
+		prerequisite = { focus = USA_protest_confederate_intervention}
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = -2
+		y = 1
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = HAI
+			has_guaranteed = HAI
+			has_equipment = {
+				infantry_equipment > 1999
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			HAI = {
+				army_experience = 10
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.5
+					uses = 1
+					category = land_doctrine
+				}
+			}
+			send_equipment = {
+				type = infantry_equipment
+				amount = 2000
+				target = HAI
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_invest_in_haiti
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = USA_advisors_to_haiti }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_advisors_to_haiti
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = HAI
+			has_guaranteed = HAI
+			HAI = {
+				owns_state = 318
+				controls_state = 318
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			318 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_haitian_crisis
+		icon = GFX_focus_USA_haitian_crisis
+		prerequisite = { focus = USA_invest_in_haiti }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = USA_invest_in_haiti
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			threat > 0.1
+			country_exists = HAI
+			has_guaranteed = HAI
+			country_exists = CSA
+			NOT = { is_in_faction_with = CSA }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_to_variable = { 
+				var = USA.usa_influence_in_caribbean
+				value = 10 
+			}
+			custom_effect_tooltip = increase_influence_by_10_tt
+			news_event = { id = wsv_news.4  days = 1 }
+			custom_effect_tooltip = may_lead_to_war_with_csa_tt
+		}
+	}
+
+		
+	# focus = {
+	# 	id = USA_guarantee_central_america
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = USA_protest_confederate_intervention }
+	# 	#mutually_exclusive = { focus = }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = USA_protest_confederate_intervention
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+		
+	focus = {
+		id = USA_secure_central_america
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = USA_protest_confederate_intervention }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			threat > 0.2
+	 		OR = {
+	 			country_exists = GUA
+	 			country_exists = HON
+	 			country_exists = ELS
+	 			country_exists = NIC
+	 			country_exists = COS
+	 		}
+	 	}
+	 	bypass = {
+	 		has_guaranteed = GUA
+	 		has_guaranteed = HON
+	 		has_guaranteed = ELS
+	 		has_guaranteed = NIC
+	 		has_guaranteed = COS
+	 	}
+
+		completion_reward = { 
+			set_country_flag = unlocked_guarantee_caribbean_flag
+			custom_effect_tooltip = can_guarantee_caribbean_tt 
+		}
+	}
+
+		
+	focus = {
+		id = USA_denounce_mexican_statehood
+		icon = GFX_focus_anti_mexico
+		prerequisite = { focus = USA_protest_confederate_intervention }
+		mutually_exclusive = { focus = USA_forment_unrest_in_mexico }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = MEX
+			NOT = { is_in_faction_with = MEX }
+		}
+
+		bypass = {
+			has_war_with = MEX
+		}
+
+		completion_reward = { 
+			MEX = {
+				add_opinion_modifier = {
+					target = USA
+					modifier = wsv_dislikes_country
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_claim_baja_california
+		icon = GFX_focus_CSA_demand_baja
+		prerequisite = { focus = USA_denounce_mexican_statehood }
+		prerequisite = { focus = USA_secure_central_america }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_denounce_mexican_statehood
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			OR = {
+				country_exists = MEX
+				has_war_with = MEX
+			}
+			NOT = { is_in_faction_with = MEX }
+			MEX = { owns_state = 484 }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_state_claim = 484
+		}
+	}
+
+		
+	focus = {
+		id = USA_forment_unrest_in_mexico
+		icon = GFX_focus_generic_conspiracy
+		prerequisite = { focus = USA_protest_confederate_intervention }
+		mutually_exclusive = { focus = USA_denounce_mexican_statehood }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_protest_confederate_intervention
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = MEX
+			NOT = { is_in_faction_with = MEX }
+			MEX = { NOT = { has_government = democratic } }
+		}
+
+		completion_reward = { 
+			MEX = {
+				add_stability = -0.05
+				add_timed_idea = { idea = democratic_influence  days = 720 }
+			}
+		}
+	}
+
+	###### TODO: with Latin Americ update ######
+	# focus = {
+	# 	id = USA_guns_to_mexico
+	# 	#icon = GFX_focus_generic_supply_guns
+	# 	prerequisite = { focus = USA_forment_unrest_in_mexico }
+	# 	prerequisite = { focus = USA_secure_central_america }
+	# 	#mutually_exclusive = { focus = }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = USA_forment_unrest_in_mexico
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_promise_mexico_old_landd
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = USA_guns_to_mexico }
+	# 	#mutually_exclusive = { focus = }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = USA_guns_to_mexico
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_mexican_revolution
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = USA_guns_to_mexico }
+	# 	#mutually_exclusive = { focus = }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = USA_guns_to_mexico
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+	##########################################
+
+		
+	focus = {
+		id = USA_british_threat
+		icon = GFX_focus_AST_never_gallipoli
+		prerequisite = { focus = USA_rememberance }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = 5
+		y = 1
+		relative_position_id = USA_rememberance
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = ENG
+			NOT = { is_in_faction_with = ENG }
+		}
+
+		bypass = {
+			has_war_with = ENG
+		}
+
+		completion_reward = { 
+			add_opinion_modifier= {
+				target = ENG
+				modifier = WSV_dislikes_country
+			}
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_war_plan_red
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = USA_british_threat }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = -2
+		y = 1
+		relative_position_id = USA_british_threat
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = CAN
+			NOT = { is_in_faction_with = CAN }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			custom_effect_tooltip = unlocks_warplan_red_tt
+			set_country_flag = USA_war_plan_red
+		}
+	}
+
+		
+	focus = {
+		id = USA_fortify_new_england
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = USA_war_plan_red }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = USA_right_of_workers
+		relative_position_id = USA_war_plan_red
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 845
+			controls_state = 844
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			845 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 6778
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 598
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 3602
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 11662
+				}
+			}
+			844 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 7629
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 10481
+				}
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_socialist_paramiliatires
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_desegregate_army }
+		id = USA_fortify_rust_belt
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = USA_fortify_new_england }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_desegregate_army
+		relative_position_id = USA_fortify_new_england
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
-		#bypass = {}
+		available = {
+			controls_state = 358
+			controls_state = 393
+			controls_state = 822
+		}
 
 		completion_reward = { 
+			358 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 11654
+				}
+			}
+			393 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 9724
+				}
+				add_building_construction = {
+				    type = bunker
+				    level = 2
+				    instant_build = yes
+				    province = 6710
+				}
+			}
+			822 = {
+				add_building_construction = {
+				    type = bunker
+				    level = 1
+				    instant_build = yes
+				    province = 5205
+				}
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_break_trusts
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_break_trusts }
+		id = USA_frontier_units
+		icon = GFX_focus_ETH_freedom_at_gunpoint
+		prerequisite = { focus = USA_war_plan_red }
 		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
+		cost = 5
+		x = 1
 		y = 1
-		relative_position_id = USA_break_trusts
+		relative_position_id = USA_war_plan_red
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			threat > 0.1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			hidden_effect = {
+				load_oob = "USA_frontiers_milita"
+				set_division_template_lock = { division_template = "American Frontiersmen"   is_locked = yes }
+			}
+			custom_effect_tooltip = us_frontiers_milita_tt
 		}
 	}
 
 		
 	focus = {
-		id = USA_labor_protections_act
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_right_of_workers }
-		prerequisite = { focus = USA_break_trusts }
+		id = USA_attack_canada
+		icon = GFX_focus_attack_canada
+		prerequisite = { focus = USA_frontier_units }
+		prerequisite = { focus = USA_fortify_rust_belt }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = USA_right_of_workers
+		relative_position_id = USA_fortify_rust_belt
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
-		#bypass = {}
+		available = {
+			date > 1915.1.1
+			country_exists = CAN
+			NOT = { is_in_faction_with = CAN }
+		}
+		bypass = {
+			has_war_with = CAN
+		}
 
 		completion_reward = { 
+			create_wargoal = {
+				target = CAN
+				type = annex_everything
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_goverment_transparency
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_labor_protections_act }
+		id = USA_american_german_drills
+		icon = GFX_focus_USA_german_drills
+		prerequisite = { focus = USA_british_threat }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_labor_protections_act
+		relative_position_id = USA_british_threat
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			country_exists = GER
+			has_non_aggression_pact_with = GER
+			NOT = { is_in_faction_with = ENG }
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			navy_experience = 20
+			GER = {
+				add_opinion_modifier={ 
+					target = USA 
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+				diplomatic_relation = { country = USA  relation = docking_rights  active = yes }
+			}
+			hidden_effect = {
+				add_opinion_modifier={ 
+					target = GER 
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+				diplomatic_relation = { country = GER  relation = docking_rights  active = yes }	
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
+			}
+			## TODO: event
 		}
 	}
 
 		
 	focus = {
-		id = USA_social_welfare
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_goverment_transparency }
+		id = USA_join_central_powers
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = USA_american_german_drills }
 		#mutually_exclusive = { focus = }
-		cost = 10
+		cost = 5
 		x = 0
-		y = 1
-		relative_position_id = USA_goverment_transparency
+		y = 2
+		relative_position_id = USA_american_german_drills
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
-		#bypass = {}
+		available = {
+			threat > 0.1
+			country_exists = GER
+			has_non_aggression_pact_with = GER
+			is_in_faction = no
+			GER = {
+				is_faction_leader = yes
+			}
+		}
+
+		bypass = {
+			is_in_faction_with = GER
+		}
 
 		completion_reward = { 
+			GER = {
+				add_to_faction = ROOT
+			}
+			add_named_threat = { threat = 3 name = "United States Joins the Central Powers" }
+			#give_guarantee = GER
+			#GER = { give_guarantee = ROOT }
 		}
 	}
 
 		
 	focus = {
-		id = USA_workers_compensation
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_break_trusts }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_break_trusts
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = USA_second_defense_bill
-		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = USA_break_trusts }
-		prerequisite = { focus = USA_first_defense_bill }
+		id = USA_atlantic_dockyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = USA_british_threat }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = USA_break_trusts
+		relative_position_id = USA_british_threat
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			357 = { is_owned_and_controlled_by = ROOT }
+			358 = { is_owned_and_controlled_by = ROOT }
+			359 = { is_owned_and_controlled_by = ROOT }
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			random_owned_controlled_state = {
-				limit = {
-					is_in_home_area = yes
+			if = { 
+				limit = { 
+					357 = { is_owned_and_controlled_by = ROOT }
 				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
+				357 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
-			random_owned_controlled_state = {
-				limit = {
-					is_in_home_area = yes
+			if = { 
+				limit = { 
+					358 = { is_owned_and_controlled_by = ROOT }
 				}
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-					instant_build = yes
+				358 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = { 
+				limit = { 
+					359 = { is_owned_and_controlled_by = ROOT }
+				}
+				359 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
 				}
 			}
 		}
@@ -414,155 +1796,400 @@ focus_tree = {
 
 		
 	focus = {
-		id = USA_federal_rationing
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_second_defense_bill }
+		id = USA_aid_irish_rebels
+		icon = GFX_focus_generic_supply_guns
+		prerequisite = { focus = USA_american_german_drills }
+		prerequisite = { focus = USA_atlantic_dockyards }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = -1
+		x = 1
 		y = 1
-		relative_position_id = USA_second_defense_bill
+		relative_position_id = USA_american_german_drills
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			IRE = {
+				exists = yes
+				has_war_with = ENG
+				NOT = { has_war_with = USA }
+			}
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			send_equipment = {
+				type = infantry_equipment
+				amount = 3000
+				target = IRE
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_tax_rich
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_workers_compensation }
-		prerequisite = { focus = USA_second_defense_bill }
+		id = USA_cruiser_production
+		icon = GFX_focus_generic_cruiser2
+		prerequisite = { focus = USA_atlantic_dockyards }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = USA_workers_compensation
+		relative_position_id = USA_atlantic_dockyards
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1
+				uses = 1
+				category = cl_tech
+				category = ca_tech
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_police_target_socalists
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_break_trusts }
-		#mutually_exclusive = { focus=USA_right_of_workers  }
+		id = USA_linking_hands
+		icon = GFX_focus_USA_linking_hands
+		prerequisite = { focus = USA_join_central_powers }
+		prerequisite = { focus = USA_cruiser_production }
+		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 4
-		y = 1
-		relative_position_id = USA_break_trusts
+		x = 1
+		y = 2
+		relative_position_id = USA_join_central_powers
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			is_in_faction_with = GER
+			has_war_with = ENG
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CSA_streamlined_battleships_idea
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_unpatriotic_subversives_act
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_police_target_socalists }
+		id = USA_convoy_raids
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = USA_cruiser_production }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_police_target_socalists
+		relative_position_id = USA_cruiser_production
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 1
+				category = ss_tech
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_grant_usgc_power
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_unpatriotic_subversives_act }
-prerequisite = { focus = USA_second_defense_bill }
+		id = USA_war_plan_pink
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = USA_atlantic_dockyards }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = 1
+		y = 1
+		relative_position_id = USA_atlantic_dockyards
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = ENG
+			NOT = { is_in_faction_with = ENG }
+			ENG = {
+				owns_state = 696
+				owns_state = 690
+				owns_state = 693
+			}
+		}
+		bypass = {
+			controls_state = 696
+			controls_state = 690
+			controls_state = 693
+		}
+
+		completion_reward = { 
+			custom_effect_tooltip = unlocks_warplan_pink_tt
+			set_country_flag = USA_war_plan_pink
+		}
+	}
+
+		
+	focus = {
+		id = USA_pacific_dockyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = USA_atlantic_dockyards }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = USA_atlantic_dockyards
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			controls_state = 386
+			controls_state = 385
+			controls_state = 378
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			if = { 
+				limit = { 
+					386 = { is_owned_and_controlled_by = ROOT }
+				}
+				386 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = { 
+				limit = { 
+					385 = { is_owned_and_controlled_by = ROOT }
+				}
+				385 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			if = { 
+				limit = { 
+					378 = { is_owned_and_controlled_by = ROOT }
+				}
+				378 = {
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+						instant_build = yes
+					}
+				}
+				
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_destroyer_effort
+		icon = GFX_focus_generic_destroyer
+		prerequisite = { focus = USA_pacific_dockyards }
 		#mutually_exclusive = { focus = }
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = USA_unpatriotic_subversives_act
+		relative_position_id = USA_pacific_dockyards
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				uses = 1
+				category = dd_tech
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_american_legions
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_unpatriotic_subversives_act }
+		id = USA_carrier_effort
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = { focus = USA_destroyer_effort }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_unpatriotic_subversives_act
+		x = 0
+		y = 2
+		relative_position_id = USA_destroyer_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				name = capital_ships_bonus
+				bonus = 1.0
+				uses = 1
+				category = cv_tech
+			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_presidental_emergency_power
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_grant_usgc_power }
-		prerequisite = { focus = USA_american_legions }
+		id = USA_marine_corps
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = USA_pacific_dockyards }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_grant_usgc_power
+		x = 0
+		y = 2
+		relative_position_id = USA_pacific_dockyards
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2
+				uses = 1
+				category = marine_tech
+			}
 		}
 	}
 
+		
+	focus = {
+		id = USA_war_plan_purple
+		icon = GFX_goal_generic_position_armies
+		prerequisite = { focus = USA_pacific_dockyards }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = 1
+		y = 1
+		relative_position_id = USA_pacific_dockyards
 
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = ENG
+			NOT = { is_in_faction_with = ENG }
+			ENG = {
+				owns_state = 629
+			}
+		}
+		bypass = {
+			controls_state = 629
+		}
+
+		completion_reward = { 
+			custom_effect_tooltip = unlocks_warplan_purple_tt
+			set_country_flag = USA_war_plan_purple
+		}
+	}
+
+		
+	focus = {
+		id = USA_embargo_japan
+		icon = GFX_goal_generic_trade
+		prerequisite = { focus = USA_war_plan_purple }
+		#mutually_exclusive = { focus = }
+		cost = 5
+		x = 1
+		y = 1
+		relative_position_id = USA_war_plan_purple
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = JAP
+			NOT = { is_in_faction_with = JAP }
+		}
+		bypass = {
+			has_war_with = JAP
+		}
+
+		completion_reward = { 
+			send_embargo = GER
+		}
+	}
+
+		
+	focus = {
+		id = USA_attack_japan
+		icon = GFX_focus_USA_attack_monarchy_japan
+		prerequisite = { focus = USA_embargo_japan }
+		prerequisite = { focus = USA_marine_corps }
+		#mutually_exclusive = { focus = }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_embargo_japan
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			country_exists = JAP
+			NOT = { is_in_faction_with = JAP }
+		}
+		bypass = {
+			has_war_with = JAP
+		}
+
+		completion_reward = { 
+			create_wargoal = {
+				target = JAP
+				type = topple_government
+			}
+		}
+	}
 
 
 	## ARMY ##
@@ -572,21 +2199,20 @@ prerequisite = { focus = USA_second_defense_bill }
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 		cost = 10
-		x = 15
+		x = 34
 		y = 0
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
 			army_experience = 20
-			add_tech_bonus = {
-				name = land_doc_bonus
-				bonus = 0.5
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
 				uses = 1
 				category = land_doctrine
 			}
@@ -606,7 +2232,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -635,7 +2261,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_infantry_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -664,7 +2290,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_trench_warfare
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -695,7 +2321,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_infantry_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -724,7 +2350,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_infantry_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -752,7 +2378,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_artillery_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -780,7 +2406,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -809,7 +2435,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -836,7 +2462,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_armored_raids
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -865,7 +2491,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_barrel_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -893,7 +2519,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -940,7 +2566,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_air_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -968,7 +2594,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_fighter_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -996,7 +2622,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_air_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1043,7 +2669,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_air_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1071,7 +2697,7 @@ prerequisite = { focus = USA_second_defense_bill }
 		relative_position_id = USA_bomber_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1085,1299 +2711,4 @@ prerequisite = { focus = USA_second_defense_bill }
 			} 
 		}
 	}
-
-	## NAVAL ##
-	focus = {
-		id = USA_naval_effort
-		icon = GFX_goal_generic_construct_naval_dockyard
-		#prerequisite = { focus = }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 23
-		y = 0
-		#relative_position_id = 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		available = {
-			any_state = {
-				is_coastal = yes
-				is_controlled_by = ROOT
-			}
-		}
-		
-		completion_reward = {
-			navy_experience = 25
-			if = {
-				limit = {
-					any_owned_state = {
-						is_coastal = yes
-					}
-				}
-				random_owned_controlled_state = {
-					limit = {
-						is_coastal = yes
-						free_building_slots = {
-							building = dockyard
-							size > 2
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 3
-					add_building_construction = {
-						type = dockyard
-						level = 3
-						instant_build = yes
-					}
-				}
-			}
-			add_tech_bonus = {
-				#name = air_doc_bonus
-				bonus = 1.0
-				uses = 1
-				category = naval_doctrine
-			}		
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_dreadnought_effort
-		icon = GFX_goal_generic_navy_battleship
-		prerequisite = { focus = USA_naval_effort }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_naval_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = {
-			add_tech_bonus = {
-				name = capital_ships_bonus
-				bonus = 1.0
-				uses = 1
-				category = bc_tech
-				category = bb_tech
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_naval_effort2
-		icon = GFX_goal_generic_navy_doctrines_tactics
-		prerequisite = { focus = USA_naval_effort }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_naval_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			navy_experience = 25
-			add_tech_bonus = {
-				#name = air_doc_bonus
-				bonus = 1.0
-				uses = 1
-				category = naval_doctrine
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_dreadnought_effort2
-		icon = GFX_goal_generic_navy_battleship
-		prerequisite = { focus = USA_dreadnought_effort }
-		prerequisite = { focus = USA_naval_effort2 }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_dreadnought_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = {
-			add_tech_bonus = {
-				name = capital_ships_bonus
-				bonus = 1.0
-				uses = 1
-				category = bc_tech
-				category = bb_tech
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_carrier_effort
-		icon = GFX_goal_generic_navy_carrier
-		prerequisite = { focus = USA_dreadnought_effort2 }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_dreadnought_effort2
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				name = capital_ships_bonus
-				bonus = 1.0
-				uses = 1
-				category = cv_tech
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_destroyer_effort
-		icon = GFX_focus_generic_destroyer
-		prerequisite = { focus = USA_naval_effort }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_naval_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				name = capital_ships_bonus
-				bonus = 1.0
-				uses = 1
-				category = dd_tech
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_cruiser_effort
-		icon = GFX_focus_generic_cruiser2
-		prerequisite = { focus = USA_destroyer_effort }
-		prerequisite = { focus = USA_naval_effort2 }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_destroyer_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				name = capital_ships_bonus
-				bonus = 1
-				uses = 1
-				category = cl_tech
-				category = ca_tech
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_submarine_effort
-		icon = GFX_goal_generic_navy_submarine
-		prerequisite = { focus = USA_cruiser_effort }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_cruiser_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = {
-			add_tech_bonus = {
-				bonus = 1.0
-				uses = 1
-				category = ss_tech
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_marine_effort
-		icon = GFX_goal_generic_amphibious_assault
-		prerequisite = { focus = USA_destroyer_effort }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_destroyer_effort
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				ahead_reduction = 2
-				uses = 1
-				category = marine_tech
-			}
-		}
-	}
-
-
-	## INTERNATIONAL ##
-	focus = {
-		id = USA_rememberance
-		icon = GFX_focus_USA_rememberance
-		#prerequisite = { focus = }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 34
-		y = 0
-		#relative_position_id = 
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_political_power = 100
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_war_plans_dept
-		icon = GFX_focus_usa_recruit_the_free_corps
-		prerequisite = { focus = USA_rememberance }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -4
-		y = 1
-		relative_position_id = USA_rememberance
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 10
-			add_popularity = {
-			    ideology = neutrality
-			    popularity = 0.05
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_war_plan_grey
-		icon = GFX_goal_generic_position_armies
-		prerequisite = { focus = USA_war_plans_dept }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_war_plans_dept
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = unlocks_warplan_grey_tt
-			set_country_flag = USA_war_plan_grey
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_philadelphia_line
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = USA_war_plan_grey }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = USA_war_plan_grey
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			362 = {
-				add_building_construction = {
-				    type = bunker
-				    level = 2
-				    instant_build = yes
-				    province = 11785
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 2
-				    instant_build = yes
-				    province = 3824
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 9758
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 9820
-				}
-			}	
-		}
-	}
-
-
-		
-	# focus = {
-	# 	id = USA_kentuckys_place
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_philadelphia_line }
-	# 	#mutually_exclusive = { focus = }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = USA_philadelphia_line
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-
-		
-	focus = {
-		id = USA_reject_western_claims
-		icon = GFX_goal_generic_more_territorial_claims
-		prerequisite = { focus = USA_philadelphia_line }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_philadelphia_line
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_state_claim = 374
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_correct_1862
-		icon = GFX_focus_attack_CSA
-		prerequisite = { focus = USA_philadelphia_line }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_philadelphia_line
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		available = {
-			date > 1915.1.1
-		}
-
-		bypass = {
-			has_war_with = CSA
-		}
-
-		completion_reward = { 
-			create_wargoal = {
-				target = CAN
-				type = topple_government
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_aid_black_rebels
-		icon = GFX_focus_generic_supply_guns
-		prerequisite = { focus = USA_correct_1862 }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_correct_1862
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		available = {
-			has_global_flag = csa_black_revolt_occured
-			has_war_with = CSA
-		}
-
-		bypass = {
-			has_global_flag = csa_red_rebellion_defeated
-		}
-
-		completion_reward = { 
-			custom_effect_tooltip = aid_black_rebels_tt
-			hidden_effect = {
-				random_state = {
-					limit = {
-						is_owned_by = CSA
-						is_controlled_by = CSA
-						has_state_flag = contains_red_rebels
-					}
-					CSA_black_rebels_escalate_state_effect = yes
-				}
-				random_state = {
-					limit = {
-						is_owned_by = CSA
-						is_controlled_by = CSA
-						has_state_flag = contains_red_rebels
-					}
-					CSA_black_rebels_escalate_state_effect = yes
-				}
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_blockade_csa
-		icon = GFX_goal_generic_navy_anti_submarine
-		prerequisite = { focus = USA_correct_1862 }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_correct_1862
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				ahead_reduction = 1.0
-				uses = 1
-				category = ss_tech
-			}
-			add_tech_bonus = {
-				bonus = 1.0
-				uses = 1
-				category = naval_doctrine
-			}	
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_barrel_roll_offensive
-		icon = GFX_goal_generic_army_tanks
-		prerequisite = { focus = USA_aid_black_rebels }
-		prerequisite = { focus = USA_blockade_csa }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_aid_black_rebels
-
-		available = {
-			has_war_with = CSA
-			casualties > 600000
-			date > 1917.1.1
-		}
-
-		ai_will_do = {	 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = unlocks_barrel_roll_tt
-			set_country_flag = barrel_roll_offensive_flag
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_position_in_latin_america
-		icon = GFX_goal_generic_demand_territory
-		prerequisite = { focus = USA_war_plan_grey }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = USA_war_plan_grey
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_to_variable = { 
-				var = USA.usa_influence_in_caribbean
-				value = 5 
-			}
-			custom_effect_tooltip = increase_influence_by_5_tt
-
-			set_country_flag = arms_shipment_to_carribean_flag
-			custom_effect_tooltip = arms_shipment_to_caribbean_tt
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_denounce_mexican_puppethood
-		icon = GFX_focus_anti_mexico
-		prerequisite = { focus = USA_position_in_latin_america }
-		mutually_exclusive = { focus=USA_forment_unrest_mexico  }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = USA_position_in_latin_america
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			MEX = {
-				add_opinion_modifier = {
-					target = USA
-					modifier = wsv_dislikes_country
-				}
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_claim_baja
-		icon = GFX_focus_CSA_demand_baja
-		prerequisite = { focus = USA_denounce_mexican_puppethood }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_denounce_mexican_puppethood
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_state_claim = 484
-
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_forment_unrest_mexico
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_position_in_latin_america }
-		mutually_exclusive = { focus=USA_denounce_mexican_puppethood  }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_position_in_latin_america
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_guns_to_mexico
-		#icon = GFX_focus_generic_supply_guns
-		prerequisite = { focus = USA_forment_unrest_mexico }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_forment_unrest_mexico
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_promise_mexico_land
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_guns_to_mexico }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_guns_to_mexico
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_mexico_revolution
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_guns_to_mexico }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_guns_to_mexico
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = USA_warships_to_haiti
-		icon = GFX_focus_generic_cruiser2
-		prerequisite = { focus = USA_position_in_latin_america }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = USA_position_in_latin_america
-
-		available = {
-			is_in_faction_with = HAI
-			date > 1913.1.1
-			# 
-			#TODO: switch to checking threat
-		}
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = sell_haiti_ships_tt
-			add_to_variable = { 
-				var = USA.usa_influence_in_caribbean
-				value = 10 
-			}
-			custom_effect_tooltip = increase_influence_by_10_tt
-			CSA = { country_event = { id = wsv_usa.5  days = 1 } }
-		}
-	}
-
-
-	focus = {
-		id = USA_secure_the_caribbean
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = USA_warships_to_haiti }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_warships_to_haiti
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		available = {
-			check_variable = { var = USA.usa_influence_in_caribbean value = 70 compare = greater_than_or_equals }
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			
-		}
-	}
-
-
-		
-	# focus = {
-	# 	id = USA_free_carribean
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_warships_to_haiti }
-	# 	#mutually_exclusive = { focus = }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = USA_warships_to_haiti
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-
-		
-	focus = {
-		id = USA_insult_of_1862
-		icon = GFX_focus_AST_never_gallipoli
-		prerequisite = { focus = USA_rememberance }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 4
-		y = 1
-		relative_position_id = USA_rememberance
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_opinion_modifier = {
-				target = ENG
-				modifier = wsv_dislikes_country
-			}
-			add_opinion_modifier = {
-				target = CAN
-				modifier = wsv_dislikes_country
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_war_plan_red
-		icon = GFX_goal_generic_position_armies
-		prerequisite = { focus = USA_insult_of_1862 }
-		prerequisite = { focus = USA_war_plans_dept }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = USA_insult_of_1862
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = unlocks_warplan_red_tt
-			set_country_flag = USA_war_plan_red
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_fortify_ny
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = USA_war_plan_red }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_war_plan_red
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			358 = {
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 6778
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 3602
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 598
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 11662
-				}
-			}
-			357 = {
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 7629
-				}
-				add_building_construction = {
-				    type = bunker
-				    level = 1
-				    instant_build = yes
-				    province = 10481
-				}
-			}
-		}
-	}
-
-
-		
-	focus = {
-		id = USA_attack_canada
-		icon = GFX_focus_attack_canada
-		prerequisite = { focus = USA_war_plan_red }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 3
-		relative_position_id = USA_war_plan_red
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		available = {
-			date > 1915.1.1
-		}
-
-		bypass = { has_war_with = CAN }
-
-		completion_reward = { 
-			create_wargoal = {
-				target = CAN
-				type = annex_everything
-			}
-		}
-	}
-
-
-		
-	# focus = {
-	# 	id = USA_puppet_quebec
-	# 	icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_attack_canada }
-	# 	#mutually_exclusive = { focus = }
-	# 	cost = 5
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = USA_attack_canada
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	available = {
-	# 	   	controls_state = 466
-	# 	   	controls_state = 468
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 		puppet = QUE
-	# 		hidden_effect = { 
-	# 			QUE = { transfer_state = 466   transfer_state = 468   add_state_core = 466   add_state_core = 468 }
-	# 			news_event = wsv_news.40 
-	# 			if = {
-	# 				limit = { has_war_with = CAN }
-	# 				add_to_war = {
-	# 				    targeted_alliance = QUE
-	# 				    enemy = CAN
-	# 				    hostility_reason = asked_to_join
-	# 				}
-	# 			}
-	# 		}
-	# 	}
-	# }
-
-
-		
-	focus = {
-		id = USA_expand_atlantic_dockyards
-		icon = GFX_goal_generic_construct_naval_dockyard
-		prerequisite = { focus = USA_insult_of_1862 }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_insult_of_1862
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		available = {
-			359 = { is_owned_and_controlled_by = ROOT }
-			358 = { is_owned_and_controlled_by = ROOT }
-			357 = { is_owned_and_controlled_by = ROOT }
-		}
-
-		completion_reward = { 
-			navy_experience = 25
-			if = { 
-				limit = { 
-					359 = { is_owned_and_controlled_by = ROOT }
-				}
-				359 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = { 
-				limit = { 
-					358 = { is_owned_and_controlled_by = ROOT }
-				}
-				358 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			if = { 
-				limit = { 
-					357 = { is_owned_and_controlled_by = ROOT }
-				}
-				357 = {
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_war_plan_pink
-		icon = GFX_goal_generic_position_armies
-		prerequisite = { focus = USA_expand_atlantic_dockyards }
-		prerequisite = { focus = USA_war_plans_dept }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_expand_atlantic_dockyards
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = unlocks_warplan_pink_tt
-			set_country_flag = USA_war_plan_pink
-		}
-	}
-
-
-	focus = {
-		id = USA_aid_irish_rebels
-		icon = GFX_focus_generic_supply_guns
-		prerequisite = { focus = USA_expand_atlantic_dockyards }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_expand_atlantic_dockyards
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		available = {
-			IRE = {
-				exists = yes
-				has_war_with = ENG
-				NOT = { has_war_with = USA }
-			}
-		}
-
-		#bypass = {}
-		completion_reward = { 
-			send_equipment = {
-				type = infantry_equipment
-				amount = 3000
-				target = IRE
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_strengthen_german_friendship
-		icon = GFX_focus_USA_diplomatic_germany
-		prerequisite = { focus = USA_insult_of_1862 }
-		#mutually_exclusive = { focus = }
-		cost = 5
-		x = 2
-		y = 1
-		relative_position_id = USA_insult_of_1862
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			diplomatic_relation = { country = GER  relation = docking_rights  active = yes }
-			GER = {
-				add_opinion_modifier={ 
-					target = USA 
-					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
-				}
-				diplomatic_relation = { country = USA  relation = docking_rights  active = yes }
-			}
-			
-				
-			hidden_effect = {
-				add_opinion_modifier={ 
-					target = GER 
-					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
-				}	
-			}
-		}
-	}
-
-
-		
-	# focus = {
-	# 	id = USA_diplomats_austria
-	# 	icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_strengthen_german_friendship }
-	# 	#mutually_exclusive = { focus = }
-	# 	cost = 5
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = USA_strengthen_german_friendship
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 		AUH = {
-	# 			add_opinion_modifier={ 
-	# 				target = USA 
-	# 				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
-	# 			}	
-	# 		}	
-	# 		hidden_effect = {
-	# 			add_opinion_modifier={ 
-	# 				target = AUH 
-	# 				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
-	# 			}	
-	# 		}
-	# 	}
-	# }
-
-
-		
-	focus = {
-		id = USA_join_central_powers
-		icon = GFX_goal_generic_territory_or_war
-		prerequisite = { focus = USA_strengthen_german_friendship }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_strengthen_german_friendship
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			GER = {
-				add_to_faction = USA
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_linking_hands
-		icon = GFX_goal_generic_navy_battleship
-		prerequisite = { focus = USA_war_plan_pink }
-		prerequisite = { focus = USA_join_central_powers }
-		#mutually_exclusive = { focus = }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_war_plan_pink
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			navy_experience = 25
-			add_tech_bonus = {
-				uses = 1
-				ahead_reduction = 2
-				category = bc_tech
-				category = bb_tech
-			}
-			add_tech_bonus = {
-				uses = 1
-				ahead_reduction = 2
-				category = cl_tech
-				category = dd_tech
-			}
-		}
-	}
 }
-	

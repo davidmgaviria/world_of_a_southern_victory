@@ -8,7 +8,7 @@ news_event = {
 	id = wsv_news.1
 	title = wsv_news.1.t
 	desc = wsv_news.1.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	#picture = news_event_CSA_black_revolt  #TODO: needs picture
 
 	major = yes
 
@@ -39,7 +39,7 @@ news_event = {
 	id = wsv_news.2
 	title = wsv_news.2.t
 	desc = wsv_news.2.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	#picture = news_event_CSA_black_revolt  #TODO: needs picture
 
 	major = yes
 
@@ -70,7 +70,7 @@ news_event = {
 	id = wsv_news.3
 	title = wsv_news.3.t
 	desc = wsv_news.3.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	#picture = news_event_CSA_black_revolt  #TODO: needs picture
 
 	major = yes
 
@@ -102,10 +102,19 @@ news_event = {
 	id = wsv_news.4
 	title = wsv_news.4.t
 	desc = wsv_news.4.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	picture = news_event_haitian_crisis
 
 	major = yes
 	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = haitian_crisis_occured
+		hidden_effect = {
+			USA = {
+				add_named_threat = { threat = 10 name = "Haitian Crisis" }
+			}
+		}
+	}
 
 	option = {
 		name = wsv_news.4.a
@@ -138,7 +147,7 @@ news_event = {
 	id = wsv_news.5
 	title = wsv_news.5.t
 	desc = wsv_news.5.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	#picture = news_event_CSA_black_revolt  #TODO: needs picture
 
 	major = yes
 	is_triggered_only = yes
@@ -170,7 +179,7 @@ news_event = {
 	id = wsv_news.6
 	title = wsv_news.6.t
 	desc = wsv_news.6.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	#picture = news_event_CSA_black_revolt  #TODO: needs picture
 
 	major = yes
 	is_triggered_only = yes
@@ -207,7 +216,7 @@ news_event = {
 	id = wsv_news.7
 	title = wsv_news.7.t
 	desc = wsv_news.7.d
-	picture = #news_event_CSA_black_revolt  #TODO: needs picture
+	#picture = news_event_CSA_black_revolt  #TODO: needs picture
 
 	major = yes
 	is_triggered_only = yes
@@ -303,7 +312,7 @@ news_event = {
 	id = wsv_news.22
 	title = wsv_news.22.t
 	desc = wsv_news.22.d
-	picture = #TODO: needs picture
+	picture = news_event_black_rebellion_defeated
 
 	major = yes
 
@@ -328,6 +337,91 @@ news_event = {
 
 	option = {
 		name = wsv_news.22.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
+## Mormon Revolt ##
+news_event = {
+	id = wsv_news.23
+	title = wsv_news.23.t
+	desc = wsv_news.23.d
+	picture = news_event_USA_mormon_revolt
+
+	major = yes
+
+	mean_time_to_happen = {	
+        days = 45 		#around easter
+    }
+
+    trigger = {
+    	tag = USA
+        date > 1915.3.1	
+        date < 1916.3.1		
+        USA = { 
+     		has_war_with = CSA
+     		NOT =  { has_war_with = DES }
+     	}
+       	DES = { NOT = { has_full_control_of_state = 380 } }
+        NOT = { has_global_flag = second_mormon_revolt }
+    }
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = second_mormon_revolt
+	    	DES = {
+				transfer_state = 380
+				add_state_core = 380
+				set_stability = 0.9
+				set_war_support = 0.6
+				load_oob = "DES_revolt"
+				set_division_template_lock = { division_template = "Mormon Fighters"   is_locked = yes }
+				add_political_power = 500
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment_0
+				    amount = 5000
+				    producer = USA
+				}
+				delete_unit_template_and_units = { division_template = "Infantry Division" }
+				delete_unit_template_and_units = { division_template = "Siege Division" }
+				delete_unit_template_and_units = { division_template = "National Guard" }
+				delete_unit_template_and_units = { division_template = "Dragoon Division" }		
+			}
+			USA =  {
+				load_oob = "USA_mormon_revolt"
+				set_division_template_lock = { division_template = "State Troopers"   is_locked = yes }
+				add_equipment_to_stockpile = {
+				    type = infantry_equipment_0
+				    amount = -5000
+				    producer = USA
+				}
+				remove_state_core = 380
+				add_state_claim = 380
+				declare_war_on = {
+				    target = DES
+				    type = annex_everything
+				}
+			}
+		}
+    }
+	
+	option = {
+		name = wsv_news.23.a
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_news.23.b
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_news.23.c
 		trigger = { 
 			NOT = { tag = USA }
 			NOT = { tag = CSA }
