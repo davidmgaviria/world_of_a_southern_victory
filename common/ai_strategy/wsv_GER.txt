@@ -97,56 +97,49 @@ GER_francogerman_rivalry = {
 		}
 	}
 	abort = {
-		FRA = { has_capitulated = yes }
+		has_war_with = RUS
+		NOT = { has_war_with = FRA }
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front		
-		value = 150
-	}
-
-	# ai_strategy = {
-	# 	type = front_unit_request
-	# 	area = eastern_front				
-	# 	value = -10
-	# }
-
-	# ai_strategy = {
-	# 	type = area_priority
-	# 	id = western_front
-	# 	value = 10
-	# }
-
-	# ai_strategy = {
-	# 	type = area_priority
-	# 	id = eastern_front
-	# 	value = -30
-	# }
-}
-
-
-
-
-GER_protect_north_coast = {
-	allowed = {
-		original_tag = GER
-	}
-	enable = {
-		always = yes
+		value = 200
 	}
 
 	ai_strategy = {
 		type = area_priority
-		id = baltic_sea
-		value = 3000
+		id = western_front
+		value = 10
 	}
+
 	ai_strategy = {
 		type = area_priority
-		id = north_sea
-		value = 1800
+		id = eastern_front
+		value = -15
 	}
 }
+
+
+# GER_protect_north_coast = {
+# 	allowed = {
+# 		original_tag = GER
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = baltic_sea
+# 		value = 3000
+# 	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = north_sea
+# 		value = 1800
+# 	}
+# }
 
 
 GER_ignore_north_america = {
@@ -190,7 +183,7 @@ GER_gw_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = strategic_bomber	#we love blimps
-		value = 5
+		value = 2
 	}
 
 	ai_strategy = {
@@ -219,12 +212,6 @@ GER_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = equipment_variant_production_factor
-		id = airship_bomber_equipment	#we like blimps
-		value = 50
-	}
-
-	ai_strategy = {
-		type = equipment_variant_production_factor
 		id = armored_car_equipment
 		value = -60
 	}
@@ -233,6 +220,23 @@ GER_gw_modified_unit_production = {
 		type = equipment_production_factor
 		id = convoy
 		value = 10
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 20   #stacks, total is 100
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+
+	ai_strategy = {
+		type = air_factory_balance
+		value = 80
 	}
 }
 
@@ -295,7 +299,7 @@ GER_gw_stockpile_less_early_game = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
+		value = -10 # reduce while we build up in case of issues
 	}
 }
 
@@ -412,19 +416,19 @@ GER_der_schlieffen_plan = {
 	ai_strategy = {
 		type = conquer
 		id = "BEL"			
-		value = 400
+		value = 200
 	}
 
 	ai_strategy = {
 		type = conquer
 		id = "LUX"			
-		value = 400
+		value = 200
 	}
 
 	ai_strategy = {
 		type = conquer
 		id = "FRA"			
-		value = 150
+		value = 100
 	}
 
 	ai_strategy = {

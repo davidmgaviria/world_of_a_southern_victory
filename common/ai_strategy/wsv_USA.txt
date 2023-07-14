@@ -183,7 +183,24 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = armor  #we love tanks
-		value = 5   
+		value = 2   
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 20   #stacks, total is 100
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5
+	}
+
+	ai_strategy = {
+		type = air_factory_balance
+		value = 90
 	}
 }
 
@@ -286,11 +303,35 @@ USA_greatwar_mobilize = {
 		id = "MEX"			
 		value = 10
 	}
+}
+
+
+USA_take_CAN = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		CAN = { exists = yes }
+		NOT = { is_in_faction_with = CAN }
+		threat > 0.25
+	}
+	abort = {
+		OR = {
+			CAN = { has_capitulated = yes }
+		}
+	}
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "CAN"			
 		value = 100
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "CAN"			
+		value = 10
 	}
 }
 

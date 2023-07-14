@@ -126,6 +126,11 @@ CSA_ignore_europe = {
 		type = dont_defend_ally_borders
 		id = "SER"
 		value = 100
+	}
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = -80
 	}				
 }
 
@@ -239,6 +244,11 @@ CSA_gw_modified_unit_production = {
 		id = artillery
 		value = -10
 	}
+
+	ai_strategy = {
+		type = air_factory_balance
+		value = 50
+	}
 }
 
 
@@ -248,7 +258,7 @@ CSA_build_army = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		num_divisions < 105
+		num_divisions < 110
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -261,7 +271,7 @@ CSA_build_army = {
 	ai_strategy = {
 	    type = build_army
 	    id = garrison
-	    value = 10
+	    value = 5
 	}
 
 	ai_strategy = {
@@ -397,7 +407,7 @@ CSA_take_dc = {
 	abort = {
 		OR = {
 			surrender_progress > 0.1
-			casualties > 90000
+			casualties > 100000
 		}
 	}
 
@@ -407,7 +417,7 @@ CSA_take_dc = {
 		#state = 360
 		#state = 840
 		priority = 100
-		ratio = 0.3
+		ratio = 0.35
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -415,9 +425,14 @@ CSA_take_dc = {
 	}
 
 	ai_strategy = {
-	    type = theatre_distribution_demand_increase
-	    value = 40
-	    id = 361
+		type = front_unit_request
+		state = 840
+		state = 362
+		state = 361
+		state = 360
+		state = 814
+		state = 813
+		value = 25
 	}
 }
 
@@ -443,7 +458,6 @@ CSA_defend_richmond = {
 		state = 360
 		state = 814
 		state = 813
-		
 		value = 20
 	}
 }	

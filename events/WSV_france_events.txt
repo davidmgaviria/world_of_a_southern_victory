@@ -18,10 +18,26 @@ news_event = {
 		tag = FRA
     	FRA = { 
     		has_war_with = GER 
-    		has_stability < 0.5
-    		casualties > 800000
+    		OR = {
+    			AND = {
+    				casualties > 800000
+    				surrender_progress > 0.15
+    			}
+    			AND = {
+    				casualties > 1000000
+    				GER = { surrender_progress < 0.1 }
+    			}
+    			AND = {
+    				casualties > 1300000
+    				GER = { surrender_progress < 0.25 }
+    			}
+    			AND = {
+    				casualties > 1800000
+    				GER = { surrender_progress < 0.45 }
+    			}
+    		}
     	}
-    	GER = { surrender_progress < 0.1 }
+    	
         NOT = { has_global_flag = french_army_mutinies }       
     }
 

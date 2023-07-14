@@ -167,28 +167,39 @@ TUR_prepare_for_first_balkan = {
 
 
 ## After the first balkan, turkey built up rapidly
-# TUR_build_up_army = {
-# 	allowed = {
-# 		original_tag = TUR
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		tag = TUR
-# 		has_global_flag = kis_firstbalkanwar_victory
-# 		has_war = no
-# 	}
-# 	#abort_when_not_enabled = yes
+TUR_build_up_army = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		has_global_flag = kis_firstbalkanwar_victory
+		has_war = no
+	}
+	#abort_when_not_enabled = yes
 	
-# 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = -20 # reduce while we build up in case of issues
-# 	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 200
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 10
+	}
 
-# 	ai_strategy = {
-#         type = force_build_armies
-#         value = 200
-# 	}
-# }
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
+	}
+}
 
 
 

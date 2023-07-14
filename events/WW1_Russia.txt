@@ -119,9 +119,27 @@ news_event = {
 	trigger = {
 		RUS = {
 			NOT = { has_government = communism }
-			communism > 0.4
 			SOV = { exists = no }
 			NOT = { has_country_flag = kis_octoberrevolutioncrushed }
+			OR = {
+				AND = {
+					casualties > 400000
+					surrender_progress > 0.4
+				}
+				AND = {
+					casualties > 1000000
+					surrender_progress > 0.3
+				}
+				AND = {
+					casualties > 1600000
+					surrender_progress > 0.2
+				}
+				AND = {
+					casualties > 2000000
+					surrender_progress > 0.1
+				}
+				casualties > 3000000
+			}
 		}
 	}
 
