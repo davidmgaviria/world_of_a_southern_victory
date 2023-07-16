@@ -25,29 +25,29 @@ CAN_gw_modified_unit_production = {
 		always = yes
 	}
 
-	# ai_strategy = {
-	# 	type = unit_ratio
-	# 	id = garrison	
-	# 	value = 4
-	# }
-
 	ai_strategy = {
-		type = role_ratio
-		id = cavalry	
+		type = unit_ratio
+		id = garrison	
 		value = 2
 	}
 
-	# ai_strategy = {
-	# 	type = equipment_production_factor
-	# 	id = infantry
-	# 	value = 15
-	# }
+	ai_strategy = {
+		type = role_ratio
+		id = armored_car  #we cant spare eq
+		value = -5
+	}
 
-	# ai_strategy = {
-	# 	type = equipment_production_factor
-	# 	id = artillery
-	# 	value = -10
-	# }
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = -10
+	}
 }
 
 
@@ -57,7 +57,7 @@ CAN_build_army = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		num_divisions < 55
+		num_divisions < 60
 		has_war = no
 	}
 	abort_when_not_enabled = yes
