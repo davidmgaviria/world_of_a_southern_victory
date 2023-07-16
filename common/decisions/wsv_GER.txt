@@ -35,13 +35,10 @@ wsv_great_war_decisions = {
 			factor = 0
 
 			# Negatives
+			# not inclined to surrender if we're doing well
 			modifier = {
 				add = -1
-				surrender_progress < 0.10
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.15
+				surrender_progress < 0.1
 			}
 			modifier = {
 				add = -1
@@ -49,7 +46,16 @@ wsv_great_war_decisions = {
 			}
 			modifier = {
 				add = -1
-				surrender_progress < 0.35
+				surrender_progress < 0.4
+			}
+			# we're motivated if we're pushing France
+			modifier = {
+				add = -1
+				FRA = { surrender_progress > 0.1 }
+			}
+			modifier = {
+				add = -1
+				FRA = { surrender_progress > 0.2 }
 			}
 
 			# Positives
@@ -62,13 +68,10 @@ wsv_great_war_decisions = {
 				casualties > 1500000
 			}
 			modifier = {
-				add = 1
+				add = 2
 				casualties > 2000000
 			}
-			modifier = {
-				add = 1
-				casualties > 3000000
-			}
+
 			# Big blow if austria falls
 			modifier = {
 				add = 2

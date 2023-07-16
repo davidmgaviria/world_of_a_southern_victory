@@ -354,7 +354,7 @@ garrison_generic = {
 }
 
 
-
+# BLOCKED cause we dont want ai to produce
 # cavalry_generic = {
 
 # 	roles = {
@@ -381,7 +381,7 @@ garrison_generic = {
 # 			}
 # 		}
 		
-# 		target_width = 12.0
+# 		target_width = 16.0
 # 		width_weight = 1.0
 # 		column_swap_factor = 0.5
 		
@@ -434,7 +434,7 @@ garrison_generic = {
 # 			}
 			
 # 			regiments = {
-# 				cavalry = 6
+# 				cavalry = 8
 # 			}
 # 		}
 		
@@ -544,7 +544,7 @@ garrison_generic = {
 # 			}
 			
 # 			regiments = {
-# 				armored_car = 2
+# 				armored_car = 3
 # 				cavalry = 4
 # 			}
 # 		}
@@ -567,241 +567,240 @@ garrison_generic = {
 # }
 
 
-# greatwar_lightarmor_generic = {
+early_light_armor_generic = {
 
-# 	roles = {
-# 		armor
-# 	}
+	roles = {
+		armor
+	}
 	
-# 	upgrade_prio = {
-# 		factor = 2
+	upgrade_prio = {
+		factor = 2
 
-# 		modifier = {
-# 			factor = 7
-# 			has_tech = ww1_light_tank
-# 		}
+		modifier = {
+			factor = 7
+			has_tech = ww1_light_tank
+		}
 		
-# 		modifier = {
-# 			factor = 0
-# 			has_tech = basic_light_tank
-# 		}
-# 	}
+		modifier = {
+			factor = 0
+			has_tech = basic_light_tank
+		}
+	}
 	
-# 	match_to_count = 0.5
+	match_to_count = 0.5
 
-# 	gw_light_armor_default = {
-# 		upgrade_prio = {
-# 			factor = 2
-# 		}
+	gw_light_armor_default = {
+		upgrade_prio = {
+			factor = 2
+		}
 		
-# 		production_prio = {
-# 			factor = 1
+		production_prio = {
+			factor = 1
 
-# 			modifier = {
-# 				factor = 2
-# 				num_of_military_factories > 35
-# 			}
-# 		}
+			modifier = {
+				factor = 2
+				num_of_military_factories > 35
+			}
+		}
 		
-# 		#can_upgrade_in_field = {
-# 		#	has_equipment = { light_tank_chassis < 500 } 
-# 		#}
+		#can_upgrade_in_field = {
+		#	has_equipment = { light_tank_chassis < 500 } 
+		#}
 		
-# 		target_width = 18.0
-# 		width_weight = 1.0
-# 		column_swap_factor = 0.5
+		target_width = 14.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
 		
-# 		stat_weights = {
-# 			0.00 #-- default_morale
-# 			1.10 #-- defense
-# 			1.10 #-- breakthrough
-# 			0.60 #-- hardness
-# 			1.00 #-- soft_attack
-# 			0.00 #-- hard_attack
-# 			0.10 #-- recon
-# 			0.01 #-- entrenchment
-# 			0.10 #-- initiative
-# 			0.01 #-- casualty_trickleback
-# 			-0.05 #-- supply_consumption_factor
-# 			-0.01 #-- supply_consumption
-# 			0.00 #-- suppression
-# 			0.00 #-- suppression_factor
-# 			0.01 #-- experience_loss_factor
-# 			0.00 #-- equipment_capture_factor
-# 			0.00 #-- fuel_capacity
-# 			#-- Air Values
-# 			0.02 #-- air_attack
-# 			#-- Common Values
-# 			30.00 #-- max_organisation
-# 			0.80 #-- max_strength
-# 			2.0 #-- maximum_speed
-# 			0.20 #-- armor_value
-# 			0.05 #-- ap_attack
-# 			0.10 #-- reliability
-# 			0.10 #-- reliability_factor
-# 			0.00 #-- weight
-# 			0.00 #-- fuel_consumption
-# 			0.00 #-- fuel_consumption_factor
-# 			0.00 #-- strat_attack
-# 			0.00 #-- carrier_size
-# 			0.00 #-- acc_hot_gain
-# 			0.00 #-- acc_cold_gain
-# 			0.00 #-- build_cost_ic
-# 		}
+		stat_weights = {
+			0.00 #-- default_morale
+			1.10 #-- defense
+			1.10 #-- breakthrough
+			0.60 #-- hardness
+			1.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.10 #-- recon
+			0.01 #-- entrenchment
+			0.10 #-- initiative
+			0.01 #-- casualty_trickleback
+			-0.05 #-- supply_consumption_factor
+			-0.01 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.01 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.02 #-- air_attack
+			#-- Common Values
+			30.00 #-- max_organisation
+			0.80 #-- max_strength
+			2.0 #-- maximum_speed
+			0.20 #-- armor_value
+			0.05 #-- ap_attack
+			0.10 #-- reliability
+			0.10 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
 		
-# 		target_template = {
-# 			weight = 0.9
-# 			match_value = 4000.0
+		target_template = {
+			weight = 0.9
+			match_value = 4000.0
 			
-# 			support = {
-# 				engineer = 1
-# 				mot_recon = 1
-# 				artillery = 1
-# 				anti_tank = 1
-# 			}
+			support = {
+				engineer = 1
+				mot_recon = 1
+				artillery = 1
+				anti_tank = 1
+			}
 			
-# 			regiments = {
-# 				light_armor = 3
-# 				infantry = 6
-# 			}
-# 		}
+			regiments = {
+				early_light_armor = 3
+				infantry = 4
+			}
+		}
 		
-# 		allowed_types = {
-# 			light_armor
-# 			heavy_armor
-# 			motorized
-# 			engineer
-# 			mot_recon
-# 			armored_car_recon
-# 			light_tank_recon
-# 			artillery
-# 			anti_tank
-# 		}
+		allowed_types = {
+			early_light_armor
+			early_armor
+			motorized
+			engineer
+			mot_recon
+			armored_car_recon
+			#light_tank_recon
+			artillery
+			anti_tank
+		}
 		
-# 		#replace_at_match = 0.4
-# 		#replace_with = medium_armor_default
-# 		#target_min_match = 0.5
-# 	}
-# }
+		#replace_at_match = 0.4
+		#replace_with = medium_armor_default
+		#target_min_match = 0.5
+	}
+}
 
 
-# greatwar_heavyarmor_generic = {
+early_armor_generic = {
 
-# 	roles = {
-# 		armor
-# 	}
+	roles = {
+		armor
+	}
 	
-# 	upgrade_prio = {
-# 		factor = 3
+	upgrade_prio = {
+		factor = 3
 
-# 		modifier = {
-# 			factor = 10
-# 			has_tech = ww1_heavy_tank
-# 		}
+		modifier = {
+			factor = 10
+			has_tech = ww1_heavy_tank
+		}
 		
-# 		modifier = {
-# 			factor = 0
-# 			has_tech = basic_heavy_tank
-# 		}
-# 	}
+		modifier = {
+			factor = 0
+			has_tech = basic_heavy_tank
+		}
+	}
 	
-# 	match_to_count = 0.5
+	match_to_count = 0.5
 
-# 	### Heavy Armor ###
-# 	gw_heavy_armor_default = {
-# 		upgrade_prio = {
-# 			factor = 2
-# 		}
+	### Heavy Armor ###
+	gw_heavy_armor_default = {
+		upgrade_prio = {
+			factor = 2
+		}
 		
-# 		production_prio = {
-# 			factor = 1
+		production_prio = {
+			factor = 1
 
-# 			modifier = {
-# 				factor = 5
-# 				num_of_military_factories > 50
-# 			}
-# 		}
+			modifier = {
+				factor = 5
+				num_of_military_factories > 50
+			}
+		}
 		
-# 		#can_upgrade_in_field = {
-# 		#	has_equipment = { light_tank_chassis < 500 } 
-# 		#}
+		#can_upgrade_in_field = {
+		#	has_equipment = { light_tank_chassis < 500 } 
+		#}
 		
-# 		target_width = 18.0
-# 		width_weight = 1.0
-# 		column_swap_factor = 0.5
+		target_width = 14.0
+		width_weight = 1.0
+		column_swap_factor = 0.5
 		
-# 		stat_weights = {
-# 			0.00 #-- default_morale
-# 			1.10 #-- defense
-# 			1.10 #-- breakthrough
-# 			0.60 #-- hardness
-# 			1.00 #-- soft_attack
-# 			0.00 #-- hard_attack
-# 			0.10 #-- recon
-# 			0.01 #-- entrenchment
-# 			0.10 #-- initiative
-# 			0.01 #-- casualty_trickleback
-# 			-0.05 #-- supply_consumption_factor
-# 			-0.01 #-- supply_consumption
-# 			0.00 #-- suppression
-# 			0.00 #-- suppression_factor
-# 			0.01 #-- experience_loss_factor
-# 			0.00 #-- equipment_capture_factor
-# 			0.00 #-- fuel_capacity
-# 			#-- Air Values
-# 			0.02 #-- air_attack
-# 			#-- Common Values
-# 			30.00 #-- max_organisation
-# 			0.80 #-- max_strength
-# 			2.0 #-- maximum_speed
-# 			0.20 #-- armor_value
-# 			0.05 #-- ap_attack
-# 			0.10 #-- reliability
-# 			0.10 #-- reliability_factor
-# 			0.00 #-- weight
-# 			0.00 #-- fuel_consumption
-# 			0.00 #-- fuel_consumption_factor
-# 			0.00 #-- strat_attack
-# 			0.00 #-- carrier_size
-# 			0.00 #-- acc_hot_gain
-# 			0.00 #-- acc_cold_gain
-# 			0.00 #-- build_cost_ic
-# 		}
+		stat_weights = {
+			0.00 #-- default_morale
+			1.10 #-- defense
+			1.10 #-- breakthrough
+			0.60 #-- hardness
+			1.00 #-- soft_attack
+			0.00 #-- hard_attack
+			0.10 #-- recon
+			0.01 #-- entrenchment
+			0.10 #-- initiative
+			0.01 #-- casualty_trickleback
+			-0.05 #-- supply_consumption_factor
+			-0.01 #-- supply_consumption
+			0.00 #-- suppression
+			0.00 #-- suppression_factor
+			0.01 #-- experience_loss_factor
+			0.00 #-- equipment_capture_factor
+			0.00 #-- fuel_capacity
+			#-- Air Values
+			0.02 #-- air_attack
+			#-- Common Values
+			30.00 #-- max_organisation
+			0.80 #-- max_strength
+			2.0 #-- maximum_speed
+			0.20 #-- armor_value
+			0.05 #-- ap_attack
+			0.10 #-- reliability
+			0.10 #-- reliability_factor
+			0.00 #-- weight
+			0.00 #-- fuel_consumption
+			0.00 #-- fuel_consumption_factor
+			0.00 #-- strat_attack
+			0.00 #-- carrier_size
+			0.00 #-- acc_hot_gain
+			0.00 #-- acc_cold_gain
+			0.00 #-- build_cost_ic
+		}
 		
-# 		target_template = {
-# 			weight = 0.9
-# 			match_value = 4000.0
+		target_template = {
+			weight = 0.9
+			match_value = 4000.0
 			
-# 			support = {
-# 				engineer = 1
-# 				mot_recon = 1
-# 				artillery = 1
-# 				anti_tank = 1
-# 			}
+			support = {
+				engineer = 1
+				recon = 1
+				artillery = 1
+			}
 			
-# 			regiments = {
-# 				heavy_armor = 19
-# 				infantry = 6
-# 			}
-# 		}
+			regiments = {
+				early_armor = 3
+				infantry = 4
+			}
+		}
 		
-# 		allowed_types = {
-# 			light_armor
-# 			heavy_armor
-# 			motorized
-# 			engineer
-# 			mot_recon
-# 			armored_car_recon
-# 			light_tank_recon
-# 			artillery
-# 			anti_tank
-# 		}
+		allowed_types = {
+			early_light_armor
+			early_armor
+			motorized
+			engineer
+			mot_recon
+			armored_car_recon
+			#light_tank_recon
+			artillery
+			anti_tank
+		}
 		
-# 		#replace_at_match = 0.4
-# 		#replace_with = medium_armor_default
-# 		#target_min_match = 0.5
-# 	}
-# }
+		#replace_at_match = 0.4
+		#replace_with = medium_armor_default
+		#target_min_match = 0.5
+	}
+}
 
 
 

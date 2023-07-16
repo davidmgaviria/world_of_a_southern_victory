@@ -163,6 +163,11 @@ FRA_gw_modified_unit_production = {
 		id = artillery
 		value = -5
 	}
+
+	ai_strategy = {
+		type = air_factory_balance
+		value = 60
+	}
 }
 
 FRA_loss_of_alsacelorraine = {
@@ -191,21 +196,37 @@ FRA_loss_of_alsacelorraine = {
 }
 
 
-FRA_gw_stockpile_less_early_game = {
+
+FRA_build_army = {
 	allowed = {
 		original_tag = FRA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date < 1914.1.1
+		has_army_manpower = { size < 1100000 }
 		has_war = no
 	}
 	abort_when_not_enabled = yes
+
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 400
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 5
+	}
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
 	
 	ai_strategy = {
-		type = prepare_for_war
-		id = "GER"
-		value = 10
+		type = equipment_stockpile_surplus_ratio
+		value = -10 # reduce while we build up in case of issues
 	}
 }
 

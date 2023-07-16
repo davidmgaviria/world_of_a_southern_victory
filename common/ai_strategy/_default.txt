@@ -34,17 +34,12 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 92 
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = garrison
-		value = 10 
+		value = 88 
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 14
+		value = 5
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -64,29 +59,29 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armored_car
-		value = 4
+		value = 1
 	}
 	
 	#Air unit factors
-	ai_strategy = {
-		type = unit_ratio
-		id = scout_plane
-		value = 5
-	}
+	# ai_strategy = {
+	# 	type = unit_ratio
+	# 	id = scout_plane
+	# 	value = 2
+	# }
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 60
+		value = 70
 	}
 	ai_strategy = {
 		type = unit_ratio
 		id = cas
-		value = 5
+		value = 30
 	}
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 5
+		value = 10
 	}
 	ai_strategy = {
 		type = unit_ratio
@@ -130,23 +125,23 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 55
+		value = 45
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 25
+		value = 20
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = motorized
-		value = 5
+		value = 10
 	}
 }
 
 
 
-#GW before 1916
+#Great war templates
 DEFAULT_template_design = {
 	allowed = {
 		has_start_date < 1937.1.1
@@ -176,13 +171,13 @@ DEFAULT_template_design = {
 
 	ai_strategy = {
 		type = template_prio
-		id = heavy_armor
+		id = early_armor
 		value = 50
 	}
 
 	ai_strategy = {
 		type = template_prio
-		id = light_armor
+		id = early_light_armor
 		value = 35
 	}
 
@@ -208,23 +203,6 @@ DEFAULT_template_design = {
 
 
 
-# GW_reduced_early_air_production = {
-# 	allowed = {
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {	
-# 		NOT = { has_tech = ww1_fighter2 }		
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = air_factory_balance
-# 		value = -25
-# 	}
-# }
-
-
-
 
 ######################################################################
 ########################## World War 2  ##############################
@@ -245,11 +223,6 @@ default_ww2_unit_production = {
 		type = role_ratio
 		id = infantry
 		value = 80 
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = garrison
-		value = 4 
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -552,113 +525,6 @@ default_mobile_production = {
 		value = 2
 	}
 }
-
-
-
-# ai should focus on holding the line if on defensive
-default_infantry_defensive = {
-	enable = {
-		surrender_progress > 0.25
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = -5 
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = garrison
-		value = 5
-	}
-}
-
-# ai should focus on holding the line if on defensive
-default_infantry_defensive_2 = {
-	enable = {
-		surrender_progress > 0.4
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = role_ratio
-		id = infantry
-		value = -5
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = garrison
-		value = 5
-	}
-}
-
-
-#During peace we make more civs
-default_peacetime_economy = {
-	enable = {
-		has_war = no 
-	}
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -10
-	}
-}
-
-# Industry distribution based on economy status
-default_civ_econ = {
-	enable = {
-		has_idea = civilian_economy
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -25
-	}
-}
-
-default_early_mobil = {
-	enable = {
-		has_idea = low_economic_mobilisation
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -10
-	}
-}
-
-default_war_economy = {
-	enable = {
-		OR = {
-			has_idea = war_economy
-			has_idea = tot_economic_mobilisation
-		}
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 15
-	}
-}
-
-
-
-#combatants historically did not share a lot of divisons
-#default_dont_like_sharing = {		
-#	enable = {
-#		NOT = { tag = ENG }
-#	}
-#
-#	ai_strategy = {
-#		type = spare_unit_factor
-#		value = -75
-#	}
-#}
-
 
 
 default_armored_production = {

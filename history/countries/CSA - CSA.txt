@@ -2,9 +2,9 @@ capital = 362
 
 
 set_fuel_ratio = 0.35
-set_research_slots = 4 #was 4, then 3, now 4
-set_stability = 0.55
-set_war_support = 0.21
+set_research_slots = 3 #was 4
+set_stability = 0.6
+set_war_support = 0.3
 set_convoys = 200
 set_major = yes		#gotta make sure its a major
 
@@ -14,50 +14,41 @@ set_major = yes		#gotta make sure its a major
 1910.1.1 = {
 	oob = "CSA_1910"
 
-	give_guarantee = MEX  	# Pact with mexico
-	#add_opinion_modifier = {  target = USA   modifier = WSV_bitter_enemies }
-	
+	add_opinion_modifier = {  target = USA   modifier = WSV_old_wounds }
+	#create_faction = "Confederate Sphere"
+	#add_to_faction = MEX
 
+	set_variable = { 
+		var = csa_influence_in_caribbean 
+		value = 0 
+	}
+	set_variable = { 
+		var = csa_influence_edge
+		value = 0 
+	}
+
+	
 
 	#---------------- CHARACTERS ----------------#
 	if = { limit = { has_start_date < 1937.1.1 }
-	
+		
+		recruit_character = CSA_gabriel_semmes
 		# Active Leader
 		recruit_character = CSA_woodrow_wilson
 		promote_character = CSA_woodrow_wilson
 
-		# Civil Advisors
-		recruit_character = CSA_robert_sloss
-		recruit_character = CSA_martin_ensley
-		recruit_character = CSA_albert_h_roberts
-		recruit_character = CSA_thomas_m_campbell
-
 		# Generals
-		recruit_character = CSA_j.e.b._stuart_jr
-		recruit_character = CSA_william_h._hay
-		recruit_character = CSA_tasker_h._bliss
-		recruit_character = CSA_ewing_e._booth
-		recruit_character = CSA_samuel_rockenbach
-		recruit_character = CSA_samson_l._faison
-		recruit_character = CSA_james_mcrea
-		recruit_character = CSA_robert_l._bullard
-		recruit_character = CSA_william_l._sibert
-		recruit_character = CSA_william_r._smith
-		recruit_character = CSA_guy_v._henry_jr
-		recruit_character = CSA_george_b._duncan
-		recruit_character = CSA_clint_c._hearn
-		recruit_character = CSA_meriwether_walker
-
-		# Admirals
-		recruit_character = CSA_hiram_king_williams
-		recruit_character = CSA_levon_helm
-		recruit_character = CSA_earl_e._scruggs
-
-		# Military Advisors
-		#recruit_character = CSA_edward_p_alexander
-		#recruit_character = CSA_henry_p_mccain
-		#recruit_character = CSA_anson_pendleton
-		#recruit_character = CSA_robert_k_evans
+		recruit_character = CSA_charles_p_summerall
+		recruit_character = CSA_robert_l_bullard
+		recruit_character = CSA_jeb_stuart_jr
+		recruit_character = CSA_james_longstreet_iii
+		recruit_character = CSA_thomas_jj_christian
+		recruit_character = CSA_duncan_n_hood
+		recruit_character = CSA_frank_parker
+		recruit_character = CSA_generic_general_1
+		recruit_character = CSA_generic_general_2
+		recruit_character = CSA_generic_general_3
+		recruit_character = CSA_generic_general_4
 	}
 
 
@@ -69,17 +60,17 @@ set_major = yes		#gotta make sure its a major
 	    elections_allowed = yes
 	}
 	set_popularities = {
-	    democratic = 77
-	    fascism = 14
-	    communism = 9
-	    neutrality = 0
+	    democratic = 74
+	    communism = 12
+	    neutrality = 14
 	}
 
 	add_ideas = {
 		CSA_racial_segregation
-		#CSA_agricultural_nation
+		CSA_agricultural_nation
 		CSA_southern_aristocracy
 		CSA_military_traditions
+		CSA_military_nepotism
 		limited_conscription
 		free_trade 
 	}
@@ -93,7 +84,7 @@ set_major = yes		#gotta make sure its a major
 		infantry_weapons = 1
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
-		infantry_binoculars = 1
+		#infantry_binoculars = 1
 		motorised_infantry = 1
 		marines = 1
 

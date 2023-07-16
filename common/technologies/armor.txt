@@ -5,11 +5,11 @@ technologies = {
 	@1916 = 4
 	@1918 = 6
 	@1936 = 10
-	@1940 = 12
+	@1938 = 12
 	@1941 = 14
 	@1943 = 16
 	@1945 = 18
-	@1946 = 20
+	@1947 = 20
 
 
 	gwtank = {  #first armored car, called tank to not mess up interface
@@ -42,19 +42,12 @@ technologies = {
 		ai_will_do = {
 			factor = 5
 
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-			modifier = {
-				factor = 10
-				is_major = yes
-			}
+			
 		}
 		
 		categories = {
 			armor
-			cat_light_armor
+			cat_armored_car
 		}
 	}
 
@@ -77,21 +70,12 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 2
-
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-			modifier = {
-				factor = 10
-				is_major = yes
-			}
+			factor = 1
 		}
 		
 		categories = {
 			armor
-			cat_light_armor
+			cat_armored_car
 		}
 	}
 
@@ -128,7 +112,7 @@ technologies = {
 		
 		categories = {
 			armor
-			cat_light_armor
+			cat_armored_car
 		}
 	}
 
@@ -152,20 +136,11 @@ technologies = {
 		
 		ai_will_do = {
 			factor = 1
-
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
 		}
 		
 		categories = {
 			armor
-			cat_light_armor
+			cat_armored_car
 		}
 	}
 
@@ -184,20 +159,11 @@ technologies = {
 		
 		ai_will_do = {
 			factor = 1
-
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
 		}
 		
 		categories = {
 			armor
-			cat_light_armor
+			cat_armored_car
 		}
 	}
 
@@ -233,12 +199,20 @@ technologies = {
 			factor = 1
 
 			modifier = {
-				factor = 5
-				has_war = yes
-			}
-			modifier = {
 				factor = 2
 				is_major = yes
+			}
+			modifier = {
+				factor = 4
+				OR = { tag = USA  tag = ENG }
+			}
+			modifier = {
+				factor = 3
+				date > 1916.1.1
+			}
+			modifier = {
+				factor = 3
+				date > 1917.1.1
 			}
 		}
 		
@@ -278,13 +252,10 @@ technologies = {
 
 		ai_will_do = { 
 			factor = 1
+
 			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				date > "1936.1.1"
+				factor = 6
+				tag = FRA
 			}
 		}
 	}
@@ -323,13 +294,18 @@ technologies = {
 
 		ai_will_do = { 
 			factor=1
+
 			modifier = {
-				factor = 2
+				factor = 3
 				is_major = yes
 			}
 			modifier = {
-				factor = 5
-				date > "1936.1.1"
+				factor = 4
+				OR = { tag = USA  tag = ENG }
+			}
+			modifier = {
+				factor = 3
+				date > 1917.1.1
 			}
 	 	}
 	}
@@ -363,13 +339,14 @@ technologies = {
 
 		ai_will_do = { 
 			factor=1
+			
 			modifier = {
-				factor = 2
+				factor = 3
 				is_major = yes
 			}
 			modifier = {
-				factor = 5
-				date > "1936.1.1"
+				factor = 4
+				date > 1919.1.1
 			}
 	 	}
 	}
@@ -420,7 +397,7 @@ technologies = {
 	# 	ai_will_do = { 
 	# 		factor=1
 	# 		modifier = {
-	# 			factor = 2
+	# 			factor = 1
 	# 			is_major = yes
 	# 		}
 	# 		modifier = {
@@ -476,10 +453,10 @@ technologies = {
 			}
 			modifier = {
 				factor = 1.5
-				date > 1940.1.1
+				date > 1938.1.1
 			}
 			modifier = {
-				factor = 2
+				factor = 1
 				OR = { tag = CSA   tag = FRA   tag = JAP }
 			}
 			modifier = {
@@ -598,11 +575,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1940
+		start_year = 1938
 		
 		folder = {
 			name = armour_folder
-			position = { x = -2 y = @1940 }
+			position = { x = -2 y = @1938 }
 		}
 		
 		sub_technologies = {
@@ -651,7 +628,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1940
+		start_year = 1938
 		
 		ai_will_do = {
 			factor = 0
@@ -679,7 +656,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1940
+		start_year = 1938
 		
 		ai_will_do = {
 			factor = 0
@@ -707,7 +684,7 @@ technologies = {
 		}
 	
 		research_cost = 0.5
-		start_year = 1940
+		start_year = 1938
 		
 		ai_will_do = {
 			factor = 0
@@ -751,7 +728,7 @@ technologies = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 2
+				factor = 1
 				is_major = yes
 			}
 			modifier = {
@@ -996,7 +973,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 2
+			factor = 1
 			modifier = {
 				factor = 3
 				is_major = yes
@@ -1123,7 +1100,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 2
+			factor = 1
 			modifier = {
 				factor = 3
 				is_major = yes
@@ -1227,11 +1204,11 @@ technologies = {
 		}	
 		
 		research_cost = 3
-		start_year = 1946
+		start_year = 1947
 		
 		folder = {
 			name = armour_folder
-			position = { x = 2 y = @1946 }
+			position = { x = 2 y = @1947 }
 		}
 		
 		sub_technologies = {
@@ -1241,7 +1218,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 2
+			factor = 1
 			modifier = {
 				factor = 4
 				is_major = yes
@@ -1336,12 +1313,12 @@ technologies = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 2
+				factor = 1
 				is_major = yes
 			}
 			modifier = {
 				factor = 1.5
-				date > 1940.1.1
+				date > 1938.1.1
 			}
 			modifier = {
 				factor = 1.5
@@ -1484,7 +1461,7 @@ technologies = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
-				factor = 2
+				factor = 1
 				is_major = yes
 			}
 			modifier = {
@@ -1496,7 +1473,7 @@ technologies = {
 				date > 1944.1.1
 			}
 			modifier = {
-				factor = 2
+				factor = 1
 				AND = {
 					tag = CSA
 					has_war_with_major = yes

@@ -2,54 +2,35 @@
 NDefines.NGame.START_DATE = "1910.1.1.12"						
 NDefines.NGame.END_DATE = "1950.1.1.1"
 
-NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 1000			--Max army experience a country can store
-NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 1000			--Max navy experience a country can store
-NDefines.NMilitary.MAX_AIR_EXPERIENCE = 1000				--Max air experience a country can store
+-- Country stats
+NDefines.NMilitary.MAX_ARMY_EXPERIENCE = 1000						-- vanilla is 500 
+NDefines.NMilitary.MAX_NAVY_EXPERIENCE = 1000						-- vanilla is 500
+NDefines.NMilitary.MAX_AIR_EXPERIENCE = 1000						-- vanilla is 500
+NDefines.NProduction.BASE_FACTORY_SPEED = 3.5 						-- vanilla is 5
+NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 3						-- vanilla is 4.5
+NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2							-- vanilla is 0.5
+NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.1
+NDefines.NCountry.WAR_SUPPORT_OFFNSIVE_WAR = -0.1							-- Vanilla is 25
+NDefines.NCountry.MAX_BOMBING_WAR_SUPPORT_IMPACT = -0.1 					-- Vanilla is -0.3, it is not ww2
+NDefines.NCountry.MAX_CONVOYS_BEING_RAIDED_WAR_SUPPORT_IMPACT = -0.5 		-- Vanilla is -0.3, it is not ww2
+NDefines.NDiplomacy.TENSION_DECAY_DAILY = 0.003											-- vanilla is 0.005
+ 
+-- Politics stats
+NDefines.NCharacter.DEFAULT_PP_COST_FOR_MILITARY_ADVISOR = 100  	-- vanilla is 50
+NDefines.NAI.POLITICAL_ADVISOR_SCORE_MULTIPLIER = 2.5           	-- vanilla is 1.25
+NDefines.NAI.DESIGN_COMPANY_SCORE_MULTIPLIER = 2.0              	-- vanilla is 1.25
+NDefines.NAI.ARMY_CHIEF_SCORE_MULTIPLIER = 1.5                 	 	-- vanilla is 2
+NDefines.NAI.AIR_CHIEF_SCORE_MULTIPLIER = 1.0                   	-- vanilla is 2
+NDefines.NAI.NAVY_CHIEF_SCORE_MULTIPLIER = 0.8                  	-- vanilla is 2
 
-NDefines.NProduction.BASE_FACTORY_SPEED = 3.75 				-- Base civ factory speed multiplier (how much hoi3 style IC each factory gives).
-NDefines.NProduction.BASE_FACTORY_SPEED_MIL = 4 				-- Base mil factory speed multiplier (how much hoi3 style IC each factory gives).
+-- Combat stats
+NDefines.NMilitary.DIG_IN_FACTOR = 0.04								-- vanilla is 0.02, entrenchment should be more effective
+NDefines.NMilitary.UNIT_DIGIN_SPEED = 0.5 							-- vanilla is 1, takes longer to dig in
+NDefines.NMilitary.ENTRENCHMENT_WEIGHT = 5.0		 				-- vanilla is 2.0, double it cause we doubled entrenchment
+NDefines.NMilitary.PLAN_EXECUTE_CAREFUL_LIMIT = 35					-- vanilla is 25, dont do suicide offensives
+NDefines.NMilitary.PLAN_EXECUTE_BALANCED_LIMIT = 10					-- vanilla is 0, dont do suicide offensives
 
-NDefines.NCountry.DEFAULT_WAR_SUPPORT = 0.2
-NDefines.NCountry.BASE_STABILITY_WAR_FACTOR = -0.2
-
-NDefines.NCharacter.DEFAULT_PP_COST_FOR_MILITARY_ADVISOR = 100
-
-
-NDefines.NAI.POLITICAL_ADVISOR_SCORE_MULTIPLIER = 2.5           -- score multiplier for hiring political advisors
-NDefines.NAI.DESIGN_COMPANY_SCORE_MULTIPLIER = 2.0              -- score multiplier for hiring a design company
-NDefines.NAI.ARMY_CHIEF_SCORE_MULTIPLIER = 1.5                  -- score multiplier for hiring an army chief
-NDefines.NAI.AIR_CHIEF_SCORE_MULTIPLIER = 1.0                   -- score multiplier for hiring an air chief
-NDefines.NAI.NAVY_CHIEF_SCORE_MULTIPLIER = 0.8                  -- score multiplier for hiring an navy chief
-
-
-
---[[
-
-
-NDefines.NMilitary.EXILE_ORG = 0.2					--they need to be able to move
-
-NDefines.NNavy.NAVAL_SUPREMACY_CAN_INVADE = 0.75
-NDefines.NAI.MAX_DISTANCE_NALAV_INVASION = 125.0
-
-
-
---give states
-NDefines.NAI.GIVE_STATE_CONTROL_BASE_SCORE = 60			-- (Originally 50) Base diplo score for giving away control of states
-NDefines.NAI.GIVE_STATE_CONTROL_DIFF_FACTOR = 0.9		-- (Originally 2) Diplo score multiplier for state control compared to war participation difference
-NDefines.NAI.GIVE_STATE_CONTROL_NEIGHBOR_SCORE = 20		-- (Originally 20) Diplo score for each neighboring state controlled by the target
-NDefines.NAI.GIVE_STATE_CONTROL_NEIGHBOR_ACTOR_SCORE = -25 -- (Originally -5) Diplo score for each neighboring state that is controlled by the sender
-NDefines.NAI.GIVE_STATE_CONTROL_NEIGHBOR_OTHER_SCORE = 5 -- (Originally 5) Diplo score for each neighboring state controlled by someone else
-NDefines.NAI.GIVE_STATE_CONTROL_MAX_SCORE_DIST = 600	-- (Originally 600) A State that is closer to the recipient capital than this gets a score bonus based on the below value
-NDefines.NAI.GIVE_STATE_CONTROL_DIST_SCORE_MULT = 0.2	-- (Originally 0.2) Multiplier for the score gained from distance ( GIVE_STATE_CONTROL_MAX_SCORE_DIST - distance ) * this
-
-
---resistance and compliance
-NDefines.NResistance.INITIAL_STATE_RESISTANCE = 10.0  --inital resistance when taking over a state
-NDefines.NResistance.COMPLIANCE_GROWTH_IS_AT_PEACE = 5 -- compliance growth buff at peace
-
-
---]]
-
+	
 
 
 
