@@ -36,6 +36,7 @@ replace_path="history/countries"
 replace_path="history/general"
 replace_path="history/states"
 replace_path="map/strategicregions"
+replace_path="map"
 tags={
 	"Alternative History"
 	"Events"
@@ -49,5 +50,5 @@ tags={
 }
 version="2.0.1"
 picture="thumbnail.png"
-supported_version="1.12.*"
+supported_version="1.13.*"
 remote_file_id="2126619761"
