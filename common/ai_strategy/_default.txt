@@ -28,7 +28,7 @@ default_gw_unit_production = {
 	enable = {
 		always = yes
 	}
-	abort_when_not_enabled = yes
+	abort = { always = no }
 
 	# Land unit factors
 	ai_strategy = {
@@ -149,7 +149,7 @@ DEFAULT_template_design = {
 	enable = {
 		always = yes
 	}
-	abort_when_not_enabled = yes
+	abort = { always = no }
 
 	ai_strategy = {
 		type = template_prio
@@ -216,7 +216,7 @@ default_ww2_unit_production = {
 	enable = {
 		always = yes
 	}
-	abort_when_not_enabled = yes
+	abort = { always = no }
 	
 	# Land unit factors
 	ai_strategy = {
@@ -450,7 +450,7 @@ default_no_ww1_aircraft = {
 	enable = {
 		always = yes
 	}
-	abort_when_not_enabled = yes
+	abort = { always = no }
 
 	ai_strategy = {
 		type = equipment_variant_production_factor
@@ -567,6 +567,7 @@ default_pp_spend_amount = {
 	enable = {
 		always = yes
 	}
+	abort = { always = no }
 	
 	ai_strategy = {
 		type = pp_spend_amount
@@ -661,6 +662,7 @@ default_area_priority = {
 	enable = {
 		always = yes
 	}
+	abort = { always = no }
 
 	ai_strategy = {
 		type = area_priority
@@ -732,6 +734,7 @@ default_area_priority_non_africa = {
         NOT = { original_tag = TUR }
         NOT = { capital_scope = { is_on_continent = africa } }
     }
+	abort_when_not_enabled = yes
 
     ai_strategy = {
         type = area_priority
@@ -773,6 +776,7 @@ slightly_naval_focused_nation = {
 			tag = ITA
 		}
 	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = unit_ratio
@@ -807,6 +811,8 @@ more_naval_focused_nation = {
 			tag = ENG
 		}
 	}
+	abort_when_not_enabled = yes
+
 
 	ai_strategy = {
 		type = unit_ratio
@@ -937,11 +943,13 @@ do_not_waste_pp_if_saving_for_manpower_laws = {
 build_intelligence_agency_as_major = {
 	enable = {
 		is_major = yes
-		OR = {
-			has_war = yes
-			date > 1937.1.1
-		}
+		#OR = {
+		#	has_war = yes
+		#	date > 197.1.1
+		#}
 	}
+	abort_when_not_enabled = yes
+
 
 	ai_strategy = {
 		type = intelligence_agency_usable_factories
@@ -1008,6 +1016,7 @@ addintelligence_agency_normal_upgrade_prio = {
 	enable = {
 		always = yes
 	}
+	abort = { always = no }
 
 	ai_strategy = {
 		type = intelligence_agency_branch_desire_factor
@@ -1079,6 +1088,7 @@ put_garrisons_on_high_prio = {
 	enable = {
 		always = yes
 	}
+	abort = { always = no }
 	
 	ai_strategy = {
 		type = garrison_reinforcement_priority
