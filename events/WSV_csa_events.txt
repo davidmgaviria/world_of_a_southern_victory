@@ -222,7 +222,6 @@ news_event = {
 	#picture = #needs pic
 
 	is_major = yes
-
     is_triggered_only = yes
 
 	option = {
@@ -426,7 +425,7 @@ country_event = {
 	# Issue ultimatum
 	option = {
 		trigger = { 
-			check_variable = { USA.usa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
+			check_variable = { USA.usa_influence_in_caribbean value >= 50 }
 		}
 		name =  wsv_csa.11.b
 		add_opinion_modifier = {
@@ -442,7 +441,7 @@ country_event = {
 
 			modifier = {
 				factor = 1.5
-				check_variable = { CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
+				check_variable = { CSA.csa_influence_in_caribbean value >= 50 }
 			}
 			modifier = {
 				factor = 2
@@ -695,7 +694,7 @@ country_event = {
 	option = {
 		name =  wsv_csa.29.a
 		add_stability = 0.02
-		CSA_red_rebels_state_event_target = {
+		event_target:CSA_red_rebels_state_event_target = {
 			add_dynamic_modifier = { modifier = CSA_recovering_from_rebellion  days = 90  }
 		}
 	}
