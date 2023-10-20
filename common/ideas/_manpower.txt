@@ -88,16 +88,17 @@ ideas = {
 
 		## Extensive conscription ##
 		extensive_conscription = {
-			
+
 			available = {
-				has_war_support > 0.25
+				has_war_support > 0.2
 				OR = {
 					has_government = fascism
-					custom_trigger_tooltip = { tooltip = above_clarification_tooltip always = no }
+					has_government = communism
+					# add for neutrality??
 					AND = {
 						has_war = yes
 						enemies_strength_ratio > 0.5
-					}					
+					}
 				}
 			}
 			
@@ -138,9 +139,10 @@ ideas = {
 		service_by_requirement = {
 			
 			available = {
+				has_war_support > 0.3
 				OR = {
 					has_government = fascism
-					custom_trigger_tooltip = { tooltip = above_clarification_tooltip always = no }
+					has_government = communism
 					AND = {
 						has_war = yes
 						enemies_strength_ratio > 0.6
@@ -193,8 +195,8 @@ ideas = {
 		## All adaults serve ##
 		all_adults_serve = {
 			
-			
 			available = {
+				has_war_support > 0.3
 				has_war = yes
 				OR = {
 					has_war_support > 0.7
@@ -246,7 +248,7 @@ ideas = {
 			
 			
 			available = {
-				#has_manpower_for_recruit_change_to =  { value = 0.25 group = mobilization_laws }
+				has_war_support > 0.3
 				has_war = yes
 				OR = {
 					has_war_support > 0.85
