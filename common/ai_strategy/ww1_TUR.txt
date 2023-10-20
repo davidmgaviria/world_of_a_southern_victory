@@ -1,205 +1,205 @@
-# # befriend
-# # conquer
-# # antagonize
-# # build_ship
-# # build_army
-# # unit_ratio
-# # build_building
-# # research_tech
-# # garrison
-# # protect
-# # influence
-# # contain
-# # area_priority
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
 
 
 
-# ######################### GENERIC ##########################
+######################### GENERIC ##########################
 
 
-# TUR_garrison_anatolia = {
-# 	enable = {
-# 		tag = TUR
-# 	}
-# 	abort_when_not_enabled = yes
+TUR_garrison_anatolia = {
+	enable = {
+		tag = TUR
+	}
+	abort_when_not_enabled = yes
 	
-# 	ai_strategy = {
-# 		type = put_unit_buffers
+	ai_strategy = {
+		type = put_unit_buffers
 				
-# 		states = { 
-# 			341
-# 			340
-# 			342
-# 			345
-# 			344
-# 			356
-# 			355
-# 			354
-# 		}
-# 		ratio = 0.15
-# 		subtract_invasions_from_need = yes
-# 	}	
-# }
+		states = { 
+			341
+			340
+			342
+			345
+			344
+			356
+			355
+			354
+		}
+		ratio = 0.15
+		subtract_invasions_from_need = yes
+	}	
+}
 
 
-# TUR_garrison_middle_east = {
-# 	enable = {
-# 		tag = TUR
-# 	}
-# 	abort_when_not_enabled = yes
+TUR_garrison_middle_east = {
+	enable = {
+		tag = TUR
+	}
+	abort_when_not_enabled = yes
 	
-# 	ai_strategy = {
-# 		type = put_unit_buffers
+	ai_strategy = {
+		type = put_unit_buffers
 				
-# 		states = { 
-# 			657
-# 			553
-# 			454
-# 			291
-# 		}
-# 		ratio = 0.1
-# 		subtract_invasions_from_need = yes
-# 	}	
-# }
+		states = { 
+			657
+			553
+			454
+			291
+		}
+		ratio = 0.1
+		subtract_invasions_from_need = yes
+	}	
+}
 
 
 
-# ######################### GREAT WAR ##########################
+######################### GREAT WAR ##########################
 
-# TUR_gw_modified_unit_production = {
-# 	allowed = {
-# 		original_tag = TUR
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
+TUR_gw_modified_unit_production = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
 
-# 	ai_strategy = {
-# 		type = role_ratio
-# 		id = garrison
-# 		value = 4
-# 	}
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 4
+	}
 	
-# 	ai_strategy = {
-# 		type = role_ratio
-# 		id = cavalry
-# 		value = 2
-# 	}
-# }
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry
+		value = 2
+	}
+}
 
 
-# TUR_libya_buffers = {
-# 	allowed = {
-# 		original_tag = TUR
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		tag = TUR
-# 		controls_state = 448
-# 		controls_state = 450
-# 		controls_state = 451
-# 		has_war = no
-# 	}
-# 	abort_when_not_enabled = yes
+TUR_libya_buffers = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		controls_state = 448
+		controls_state = 450
+		controls_state = 451
+		has_war = no
+	}
+	abort_when_not_enabled = yes
 	
-# 	ai_strategy = {
-# 		type = put_unit_buffers
+	ai_strategy = {
+		type = put_unit_buffers
 				
-# 		states = { 
-# 			448
-# 			450
-# 			451
-# 		}
+		states = { 
+			448
+			450
+			451
+		}
 
-# 		ratio = 0.1
-# 		subtract_invasions_from_need = yes
-# 	}	
-# }
-
-
-# TUR_italoturkish_war = {
-# 	allowed = {
-# 		original_tag = TUR
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		original_tag = TUR
-# 		has_war_with = ITA
-# 	}
-# 	abort = {
-# 		has_country_flag = ITA_Lib_War_End
-# 	}
-
-# 	ai_strategy = {
-# 		type = 	naval_avoid_region
-# 		id = 29   	#libyan coast
-# 		value = 75
-# 	}
-# }
+		ratio = 0.1
+		subtract_invasions_from_need = yes
+	}	
+}
 
 
-# # reversed strategy, makes turkey prepare against anyone in the league
-# TUR_prepare_for_first_balkan = {
-# 	# eligible candidates to prepare against cant be turkey
-#     allowed = {
-#         NOT = { original_tag = TUR }
-#         has_start_date < 1937.1.1
-#     }
-#     # candidates must have this flag
-#     enable = {
-#         has_country_flag = in_balkan_league
-#     }
-#     # turkey is the country doing the preparing
-#     enable_reverse = {
-#         tag = TUR 
-#     }
-#     reversed = yes
-#     abort_when_not_enabled = yes
+TUR_italoturkish_war = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		original_tag = TUR
+		has_war_with = ITA
+	}
+	abort = {
+		has_country_flag = ITA_Lib_War_End
+	}
 
-#     ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "TUR"			
-# 		value = 10
-# 	}	
-# }
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 29   	#libyan coast
+		value = 75
+	}
+}
 
 
+# reversed strategy, makes turkey prepare against anyone in the league
+TUR_prepare_for_first_balkan = {
+	# eligible candidates to prepare against cant be turkey
+    allowed = {
+        NOT = { original_tag = TUR }
+        has_start_date < 1937.1.1
+    }
+    # candidates must have this flag
+    enable = {
+        has_country_flag = in_balkan_league
+    }
+    # turkey is the country doing the preparing
+    enable_reverse = {
+        tag = TUR 
+    }
+    reversed = yes
+    abort_when_not_enabled = yes
 
-# ## After the first balkan, turkey built up rapidly
-# TUR_build_up_army = {
-# 	allowed = {
-# 		original_tag = TUR
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		tag = TUR
-# 		has_global_flag = kis_firstbalkanwar_victory
-# 		has_war = no
-# 	}
-# 	#abort_when_not_enabled = yes
+    ai_strategy = {
+		type = prepare_for_war
+		id = "TUR"			
+		value = 10
+	}	
+}
+
+
+
+## After the first balkan, turkey built up rapidly
+TUR_build_up_army = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		has_global_flag = kis_firstbalkanwar_victory
+		has_war = no
+	}
+	#abort_when_not_enabled = yes
 	
-# 	ai_strategy = {
-# 	    type = build_army
-# 	    id = infantry
-# 	    value = 200
-# 	}
-# 	ai_strategy = {
-# 	    type = build_army
-# 	    id = garrison
-# 	    value = 10
-# 	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 200
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 10
+	}
 
-# 	ai_strategy = {
-#     	type = force_build_armies
-#     	value = 100
-# 	}
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
 	
-# 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = -15 # reduce while we build up in case of issues
-# 	}
-# }
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
+	}
+}
 
 
 

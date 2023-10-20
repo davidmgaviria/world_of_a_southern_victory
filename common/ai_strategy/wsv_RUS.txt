@@ -1,578 +1,578 @@
-# # befriend
-# # conquer
-# # antagonize
-# # build_ship
-# # build_army
-# # unit_ratio
-# # build_building
-# # research_tech
-# # garrison
-# # protect
-# # influence
-# # contain
-# # area_priority
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
 
 
 
-# ######################### GENERIC ##########################
+######################### GENERIC ##########################
 
 
-# # RUS_area_priority = {
-# # 	allowed = {
-# # 		original_tag = RUS
-# # 	}
-# # 	enable = {
-# # 		always = yes
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = europe
-# # 		value = 110 #more focus here
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = scandinavia
-# # 		value = 80
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = north_america
-# # 		value = 25
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = south_america
-# # 		value = -25
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = asia
-# # 		value = 75
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = middle_east
-# # 		value = 50
-# # 	}
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = suez
-# # 		value = 30
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = africa
-# # 		value = -300
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = pacific
-# # 		value = -50 #less focus here
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = area_priority
-# # 		id = oceania
-# # 		value = -80
-# # 	}
-# # }
-
-
-# # Russia makes more mils
-# # RUS_militarized_society = {
-# # 	allowed = {
-# # 		original_tag = RUS 
-# # 	}
-# # 	enable = {
-# # 		always = yes
-# # 	}
-	
-# # 	ai_strategy = {
-# # 		type = added_military_to_civilian_factory_ratio		
-# # 		value = 10
-# # 	}
-# # }
-
-
-
-# RUS_ignore_north_america = {
+# RUS_area_priority = {
 # 	allowed = {
 # 		original_tag = RUS
-# 	}
-# 	enable = {
-# 		OR = {
-# 			is_in_faction_with = CSA
-# 			is_in_faction_with = CAN
-# 		}
-# 	}
-# 	abort = { 
-# 		GER = { has_capitulated = yes }
-# 	}
-
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "CSA"
-# 		value = 100
-# 	}
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "MEX"
-# 		value = 100
-# 	}
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "CAN"
-# 		value = 100
-# 	}			
-# }
-
-
-# # RUS_focus_on_europe = {
-# # 	allowed = {
-# # 		original_tag = RUS
-# # 	}
-# # 	enable = {
-# # 		always = yes
-# # 	}
-# # 	abort_when_not_enabled = yes
-	
-# # 	ai_strategy = {
-# # 		type = front_unit_request
-# # 		area = europe
-# # 		value = 60
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = front_unit_request
-# # 		area = asia
-# # 		value = -40
-# # 	}
-# # }
-
-
-# RUS_ignore_western_europe = {
-# 	allowed = {
-# 		original_tag = RUS
-# 	}
-# 	enable = {
-# 		date > 1914.1.1
-# 		#has_war_with = GER
-# 	}
-	
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "ENG"
-# 		value = 100
-# 	}
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "FRA"
-# 		value = 100
-# 	}
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "BEL"
-# 		value = 100
-# 	}
-# 	ai_strategy = {
-# 		type = dont_defend_ally_borders
-# 		id = "LUX"
-# 		value = 100
-# 	}				
-# }
-
-
-# RUS_no_naval_invasions = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		OR = {
-# 			has_war_with = USA
-# 			has_war_with = GER
-# 			has_war_with = AUH
-# 			has_war_with = TUR
-# 			has_war_with = BUL
-# 		}
-# 	}
-# 	ai_strategy = {
-#  		type = invade
-#   		id = "USA"
-#    		value = -1000
-#    	}
-# 	ai_strategy = {
-#  		type = invade
-#   		id = "GER"
-#    		value = -1000
-#    	}
-#    	ai_strategy = {
-#  		type = invade
-#   		id = "AUH"
-#    		value = -1000
-#    	}
-#    	ai_strategy = {
-#  		type = invade
-#   		id = "TUR"
-#    		value = -1000
-#    	}
-#    	ai_strategy = {
-#  		type = invade
-#   		id = "BUL"
-#    		value = -1000
-#    	}	
-# }
-
-
-
-# ######################### GREAT WAR ##########################
-
-# #stacks from base production
-# RUS_gw_modified_unit_production = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date < 1937.1.1
 # 	}
 # 	enable = {
 # 		always = yes
 # 	}
 
 # 	ai_strategy = {
-# 		type = role_ratio
-# 		id = garrison	
-# 		value = 4
+# 		type = area_priority
+# 		id = europe
+# 		value = 110 #more focus here
 # 	}
 
 # 	ai_strategy = {
-# 		type = role_ratio
-# 		id = cavalry	
-# 		value = 3
+# 		type = area_priority
+# 		id = scandinavia
+# 		value = 80
 # 	}
 
 # 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = infantry
-# 		value = 5
+# 		type = area_priority
+# 		id = north_america
+# 		value = 25
 # 	}
 
 # 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = artillery
+# 		type = area_priority
+# 		id = south_america
+# 		value = -25
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = asia
+# 		value = 75
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = middle_east
+# 		value = 50
+# 	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = suez
+# 		value = 30
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = africa
+# 		value = -300
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = pacific
+# 		value = -50 #less focus here
+# 	}
+
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = oceania
+# 		value = -80
+# 	}
+# }
+
+
+# Russia makes more mils
+# RUS_militarized_society = {
+# 	allowed = {
+# 		original_tag = RUS 
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+	
+# 	ai_strategy = {
+# 		type = added_military_to_civilian_factory_ratio		
 # 		value = 10
 # 	}
 # }
 
 
 
-# RUS_gw_stockpile_less_early_game = {
-# 	allowed = {
-# 		original_tag = FRA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		date < 1914.1.1
-# 		has_war = no
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = -15 # reduce while we build up in case of issues
-# 	}
-# }
+RUS_ignore_north_america = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		OR = {
+			is_in_faction_with = CSA
+			is_in_faction_with = CAN
+		}
+	}
+	abort = { 
+		GER = { has_capitulated = yes }
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "CSA"
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MEX"
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "CAN"
+		value = 100
+	}			
+}
 
 
-
-# RUS_mobilize_for_serbia = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		SER = { 
-# 			exists = yes 
-# 			NOT = { is_puppet_of = AUH }
-# 		}
-# 		has_global_flag = kis_franzferdinand_murdered
-# 	}
-
-# 	ai_strategy = {
-# 		type = contain
-# 		id = "AUH"
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "AUH"
-# 		value = 100
-# 	}	
-
-# 	ai_strategy = {
-# 		type = protect
-# 		id = "SER"
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = support
-# 		id = "SER"
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "GER"
-# 		value = 50
-# 	}
-# }
-
-
-# RUS_opening_war_assault = {
+# RUS_focus_on_europe = {
 # 	allowed = {
 # 		original_tag = RUS
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		OR = {
-# 			NOT = { is_in_faction_with = GER }
-# 			NOT = { is_in_faction_with = AUH }
-# 		}
-# 		threat > 0.2
-# 	}
-# 	abort = {
-# 		OR = {
-# 			has_war_with = GER
-# 			has_war_with = AUH
-# 		}
-# 		OR = {
-# 			surrender_progress > 0.1
-# 			casualties > 200000
-# 		}
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		tag = AUH
-# 		priority = 100
-# 		ratio = 0.35
-# 		ordertype = front
-# 		execution_type = balanced
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-# }
-
-
-# ########################## WW2 ##########################
-
-
-# #stacks from base production
-# RUS_ww2_modified_unit_production = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date > 1937.1.1
 # 	}
 # 	enable = {
 # 		always = yes
 # 	}
-
-# 	ai_strategy = {
-# 		type = role_ratio
-# 		id = garrison
-# 		value = 6
-# 	}
-# 	ai_strategy = {
-# 		type = role_ratio
-# 		id = armor
-# 		value = 4
-# 	}
-# 	ai_strategy = {
-# 		type = role_ratio
-# 		id = motorized
-# 		value = 4
-# 	}
-
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = artillery
-# 		value = 50
-# 	}
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = armor
-# 		value = 20
-# 	}
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = armor
-# 		value = 20
-# 	}
-# 	ai_strategy = {
-# 		type = air_factory_balance
-# 		value = 45
-# 	}
-# }
-
-
-# RUS_gw_stockpile_less_early_game = {
-# 	allowed = {
-# 		original_tag = FRA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		date < 1941.1.1
-# 		has_war = no
-# 	}
 # 	abort_when_not_enabled = yes
 	
 # 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = -25 # reduce while we build up in case of issues
+# 		type = front_unit_request
+# 		area = europe
+# 		value = 60
+# 	}
+
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		area = asia
+# 		value = -40
 # 	}
 # }
 
 
-# RUS_attack_germany_ww2 = {
-# 	allowed = { 
-# 		original_tag = RUS 
-# 		has_start_date > 1937.1.1
-# 	}
-# 	enable = {
-# 		has_global_flag = russia_demanded_plebicites
-# 		NOT = { is_in_faction_with = GER }
-# 		NOT = { has_global_flag = eastern_plebicites_agreed }
-# 	}
-# 	abort = {
-# 		has_non_aggression_pact_with = GER
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "GER"			
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "UKR"			
-# 		value = 200
-# 	}
-
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "UKR"			
-# 		value = 200
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "POL"			
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "LIT"			
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "UBD"			
-# 		value = 100
-# 	}
-# }
+RUS_ignore_western_europe = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		date > 1914.1.1
+		#has_war_with = GER
+	}
+	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "ENG"
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "FRA"
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "BEL"
+		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "LUX"
+		value = 100
+	}				
+}
 
 
-# RUS_dont_take_claims_on_UBD = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date > 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = UBD
-# 		NOT = { has_war_with = GER }
-# 		date < 1942.1.1
-# 	}
-# 	abort = {
-# 		UBD  = { NOT = { is_in_faction_with = GER } }
-# 	}	
-# 	ai_strategy = {
-# 		type = ignore_claim
-# 		id = "UBD"			
-# 		value = 1
-# 	}		
-# }
+RUS_no_naval_invasions = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		OR = {
+			has_war_with = USA
+			has_war_with = GER
+			has_war_with = AUH
+			has_war_with = TUR
+			has_war_with = BUL
+		}
+	}
+	ai_strategy = {
+ 		type = invade
+  		id = "USA"
+   		value = -1000
+   	}
+	ai_strategy = {
+ 		type = invade
+  		id = "GER"
+   		value = -1000
+   	}
+   	ai_strategy = {
+ 		type = invade
+  		id = "AUH"
+   		value = -1000
+   	}
+   	ai_strategy = {
+ 		type = invade
+  		id = "TUR"
+   		value = -1000
+   	}
+   	ai_strategy = {
+ 		type = invade
+  		id = "BUL"
+   		value = -1000
+   	}	
+}
 
-# RUS_dont_take_claims_on_LIT = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date > 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = LIT
-# 		NOT = { has_war_with = GER }
-# 		date < 1942.1.1
-# 	}
-# 	abort = {
-# 		LIT  = { NOT = { is_in_faction_with = GER } }
-# 	}	
-# 	ai_strategy = {
-# 		type = ignore_claim
-# 		id = "LIT"			
-# 		value = 1
-# 	}		
-# }
 
-# RUS_dont_take_claims_on_POL = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date > 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = POL
-# 		NOT = { has_war_with = GER }
-# 		date < 1942.1.1
-# 	}
-# 	abort = {
-# 		POL  = { NOT = { is_in_faction_with = GER } }
-# 	}	
-# 	ai_strategy = {
-# 		type = ignore_claim
-# 		id = "POL"			
-# 		value = 1
-# 	}		
-# }
 
-# RUS_dont_take_claims_on_UKR = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date > 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = UKR
-# 		NOT = { has_war_with = GER }
-# 		date < 1942.1.1
-# 	}
-# 	abort = {
-# 		UKR  = { NOT = { is_in_faction_with = GER } }
-# 	}	
-# 	ai_strategy = {
-# 		type = ignore_claim
-# 		id = "UKR"			
-# 		value = 1
-# 	}		
-# }
+######################### GREAT WAR ##########################
+
+#stacks from base production
+RUS_gw_modified_unit_production = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison	
+		value = 4
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = cavalry	
+		value = 3
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 5
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 10
+	}
+}
+
+
+
+RUS_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1914.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 # reduce while we build up in case of issues
+	}
+}
+
+
+
+RUS_mobilize_for_serbia = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		SER = { 
+			exists = yes 
+			NOT = { is_puppet_of = AUH }
+		}
+		has_global_flag = kis_franzferdinand_murdered
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "AUH"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "AUH"
+		value = 100
+	}	
+
+	ai_strategy = {
+		type = protect
+		id = "SER"
+		value = 50
+	}
+
+	ai_strategy = {
+		type = support
+		id = "SER"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"
+		value = 50
+	}
+}
+
+
+RUS_opening_war_assault = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		OR = {
+			NOT = { is_in_faction_with = GER }
+			NOT = { is_in_faction_with = AUH }
+		}
+		threat > 0.2
+	}
+	abort = {
+		OR = {
+			has_war_with = GER
+			has_war_with = AUH
+		}
+		OR = {
+			surrender_progress > 0.1
+			casualties > 200000
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		tag = AUH
+		priority = 100
+		ratio = 0.35
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
+########################## WW2 ##########################
+
+
+#stacks from base production
+RUS_ww2_modified_unit_production = {
+	allowed = {
+		original_tag = RUS
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+
+	ai_strategy = {
+		type = role_ratio
+		id = garrison
+		value = 6
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = 4
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = motorized
+		value = 4
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 50
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = 20
+	}
+	ai_strategy = {
+		type = air_factory_balance
+		value = 45
+	}
+}
+
+
+RUS_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1941.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -25 # reduce while we build up in case of issues
+	}
+}
+
+
+RUS_attack_germany_ww2 = {
+	allowed = { 
+		original_tag = RUS 
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		has_global_flag = russia_demanded_plebicites
+		NOT = { is_in_faction_with = GER }
+		NOT = { has_global_flag = eastern_plebicites_agreed }
+	}
+	abort = {
+		has_non_aggression_pact_with = GER
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "UKR"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "UKR"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "POL"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "LIT"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "UBD"			
+		value = 100
+	}
+}
+
+
+RUS_dont_take_claims_on_UBD = {
+	allowed = {
+		original_tag = RUS
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		country_exists = UBD
+		NOT = { has_war_with = GER }
+		date < 1942.1.1
+	}
+	abort = {
+		UBD  = { NOT = { is_in_faction_with = GER } }
+	}	
+	ai_strategy = {
+		type = ignore_claim
+		id = "UBD"			
+		value = 1
+	}		
+}
+
+RUS_dont_take_claims_on_LIT = {
+	allowed = {
+		original_tag = RUS
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		country_exists = LIT
+		NOT = { has_war_with = GER }
+		date < 1942.1.1
+	}
+	abort = {
+		LIT  = { NOT = { is_in_faction_with = GER } }
+	}	
+	ai_strategy = {
+		type = ignore_claim
+		id = "LIT"			
+		value = 1
+	}		
+}
+
+RUS_dont_take_claims_on_POL = {
+	allowed = {
+		original_tag = RUS
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		country_exists = POL
+		NOT = { has_war_with = GER }
+		date < 1942.1.1
+	}
+	abort = {
+		POL  = { NOT = { is_in_faction_with = GER } }
+	}	
+	ai_strategy = {
+		type = ignore_claim
+		id = "POL"			
+		value = 1
+	}		
+}
+
+RUS_dont_take_claims_on_UKR = {
+	allowed = {
+		original_tag = RUS
+		has_start_date > 1937.1.1
+	}
+	enable = {
+		country_exists = UKR
+		NOT = { has_war_with = GER }
+		date < 1942.1.1
+	}
+	abort = {
+		UKR  = { NOT = { is_in_faction_with = GER } }
+	}	
+	ai_strategy = {
+		type = ignore_claim
+		id = "UKR"			
+		value = 1
+	}		
+}
 
 
 

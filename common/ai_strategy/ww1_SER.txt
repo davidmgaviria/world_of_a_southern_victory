@@ -1,71 +1,71 @@
-# # befriend
-# # conquer
-# # antagonize
-# # build_ship
-# # build_army
-# # unit_ratio
-# # build_building
-# # research_tech
-# # garrison
-# # protect
-# # influence
-# # contain
-# # area_priority
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
 
 
-# # SER_build_up_army = {
-# # 	enable = {
-# # 		tag = SER
-# # 		has_global_flag = kis_firstbalkanwar_victory
-# # 		has_army_manpower = { size < 200000 }
-# # 		has_war = no
-# # 		has_start_date < 1937.1.1
-# # 	}
-# # 	abort_when_not_enabled = yes
-	
-# # 	ai_strategy = {
-# # 		type = equipment_stockpile_surplus_ratio
-# # 		value = -10 # reduce while we build up in case of issues
-# # 	}
-# # 	ai_strategy = {
-# # 		type = force_build_armies
-# # 		value = 100
-# # 	}
-# # }
-
-
-# SER_first_balkan = {
+# SER_build_up_army = {
 # 	enable = {
 # 		tag = SER
-# 		has_country_flag = in_balkan_league
+# 		has_global_flag = kis_firstbalkanwar_victory
+# 		has_army_manpower = { size < 200000 }
+# 		has_war = no
 # 		has_start_date < 1937.1.1
 # 	}
 # 	abort_when_not_enabled = yes
 	
 # 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "TUR"			
-# 		value = 75
-# 	}		
-# }
-
-
-# SER_july_crisis = {
-# 	enable = {
-# 		tag = SER
-# 		has_country_flag = murder_of_franz_ferdinand
-# 		has_start_date < 1937.1.1
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = -10 # reduce while we build up in case of issues
 # 	}
-# 	abort_when_not_enabled = yes
-
 # 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "AUH"			
+# 		type = force_build_armies
 # 		value = 100
 # 	}
-# 	ai_strategy = {
-# 		type = protect
-# 		id = "MNT"			
-# 		value = 50
-# 	}
 # }
+
+
+SER_first_balkan = {
+	enable = {
+		tag = SER
+		has_country_flag = in_balkan_league
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "TUR"			
+		value = 75
+	}		
+}
+
+
+SER_july_crisis = {
+	enable = {
+		tag = SER
+		has_country_flag = murder_of_franz_ferdinand
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "AUH"			
+		value = 100
+	}
+	ai_strategy = {
+		type = protect
+		id = "MNT"			
+		value = 50
+	}
+}

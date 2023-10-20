@@ -1,142 +1,142 @@
-# # befriend
-# # conquer
-# # antagonize
-# # build_ship
-# # build_army
-# # unit_ratio
-# # build_building
-# # research_tech
-# # garrison
-# # protect
-# # influence
-# # contain
-# # area_priority
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
 
 
-# CSA_low_tech_army = {
-# 	allowed = {
-# 		OR = {
-# 			original_tag = CHI
-# 			original_tag = QIN
-# 			original_tag = SHX
-# 			original_tag = XSM
-# 			original_tag = GXC
-# 			original_tag = YUN
-# 		}
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
+CSA_low_tech_army = {
+	allowed = {
+		OR = {
+			original_tag = CHI
+			original_tag = QIN
+			original_tag = SHX
+			original_tag = XSM
+			original_tag = GXC
+			original_tag = YUN
+		}
+	}
+	enable = {
+		always = yes
+	}
 	
-# 	ai_strategy = {
-# 		type = role_ratio
-# 		id = armor
-# 		value = -5
-# 	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor
+		value = -5
+	}
 
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = infantry
-# 		value = 40
-# 	}
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = artillery
-# 		value = 10
-# 	}
-# 	ai_strategy = {
-# 		type = equipment_variant_production_factor
-# 		id = support_equipment
-# 		value = -20
-# 	}
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = armor
-# 		value = -90
-# 	}
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = motorized
-# 		value = -80
-# 	}
-# 	ai_strategy = {
-# 		type = air_factory_balance
-# 		value = -60 
-# 	}
-# }
-
-
-# CHI-QIN_dont_join_european_war = {
-# 	enable = {
-# 		OR = {
-# 			tag = QIN
-# 			tag = CHI
-# 		}	
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = alliance
-# 		id = "GER"			
-# 		value = -1000
-# 	}
-# 	ai_strategy = {
-# 		type = alliance
-# 		id = "FRA"			
-# 		value = -1000
-# 	}
-# 	ai_strategy = {
-# 		type = alliance
-# 		id = "ENG"			
-# 		value = -1000
-# 	}
-# }
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 40
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_variant_production_factor
+		id = support_equipment
+		value = -20
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = armor
+		value = -90
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = -80
+	}
+	ai_strategy = {
+		type = air_factory_balance
+		value = -60 
+	}
+}
 
 
-# # CHI_conserve_equipment = {
-# # 	allowed = { 
-# # 		original_tag = CHI 
-# # 		has_start_date > 1937.1.1
-# # 	}
-# # 	enable = {		
-# # 		has_war_with = JAP
-# # 		casualties > 500000
-# # 	}
-# # 	abort = {
-# # 		JAP = { surrender_progress > 0.15 }
-# # 	}
+CHI-QIN_dont_join_european_war = {
+	enable = {
+		OR = {
+			tag = QIN
+			tag = CHI
+		}	
+	}
+	abort_when_not_enabled = yes
 
-# # 	ai_strategy = {
-# # 		type = front_control
-# # 		tag = JAP
-# # 		tag = MEN
-# # 		tag = MAN
-# # 		priority = 100
-# # 		ratio = 0.8
-# # 		ordertype = front
-# # 		execution_type = careful
-# # 		execute_order = yes
-# # 		manual_attack = yes
-# # 	}
-# # }
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = -1000
+	}
+	ai_strategy = {
+		type = alliance
+		id = "FRA"			
+		value = -1000
+	}
+	ai_strategy = {
+		type = alliance
+		id = "ENG"			
+		value = -1000
+	}
+}
 
 
-# CHI_defend_chinese_allies = {
+# CHI_conserve_equipment = {
 # 	allowed = { 
 # 		original_tag = CHI 
 # 		has_start_date > 1937.1.1
 # 	}
 # 	enable = {		
 # 		has_war_with = JAP
-# 		is_in_faction = yes
+# 		casualties > 500000
 # 	}
-# 	abort_when_not_enabled = yes
+# 	abort = {
+# 		JAP = { surrender_progress > 0.15 }
+# 	}
 
 # 	ai_strategy = {
-# 		type = 	spare_unit_factor		
-# 		value = 50
+# 		type = front_control
+# 		tag = JAP
+# 		tag = MEN
+# 		tag = MAN
+# 		priority = 100
+# 		ratio = 0.8
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = yes
+# 		manual_attack = yes
 # 	}
 # }
+
+
+CHI_defend_chinese_allies = {
+	allowed = { 
+		original_tag = CHI 
+		has_start_date > 1937.1.1
+	}
+	enable = {		
+		has_war_with = JAP
+		is_in_faction = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
+}
 
 
 
