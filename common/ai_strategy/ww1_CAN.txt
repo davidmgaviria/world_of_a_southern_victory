@@ -1,140 +1,140 @@
-# befriend
-# conquer
-# antagonize
-# build_ship
-# build_army
-# unit_ratio
-# build_building
-# research_tech
-# garrison
-# protect
-# influence
-# contain
-# area_priority
+# # befriend
+# # conquer
+# # antagonize
+# # build_ship
+# # build_army
+# # unit_ratio
+# # build_building
+# # research_tech
+# # garrison
+# # protect
+# # influence
+# # contain
+# # area_priority
 
 
 
 
-#stacks from base production
-CAN_gw_modified_unit_production = {
-	allowed = {
-		original_tag = CAN
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = garrison	
-		value = 2
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armored_car  #we cant spare eq
-		value = -5
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 10
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = -10
-	}
-}
-
-
-CAN_build_army = {
-	allowed = {
-		original_tag = CAN
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		num_divisions < 55
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 100
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 5
-	}
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
-	}
-}
-
-
-CAN_defend_against_usa = {
-	enable = {
-		tag = CAN
-		USA = { exists = yes }
-		NOT = {
-			is_in_faction_with = USA
-			has_non_aggression_pact_with = USA
-		}
-		has_start_date < 1937.1.1
-		threat > 0.15
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "USA"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = invade
-		id = "USA"
-		value = -1000
-	}
-	
-	ai_strategy = {
-		type = 	spare_unit_factor		
-		value = -90
-	}
-}	
-
-
-# CAN_on_the_defensive = {
-# 	allowed = { 
-# 		original_tag = CAN 
+# #stacks from base production
+# CAN_gw_modified_unit_production = {
+# 	allowed = {
+# 		original_tag = CAN
 # 		has_start_date < 1937.1.1
 # 	}
-# 	enable = {		
-# 		has_war_with = USA
-# 	}
-# 	abort = {
-# 		USA = { surrender_progress > 0.15 }
+# 	enable = {
+# 		always = yes
 # 	}
 
 # 	ai_strategy = {
-# 		type = front_control
-# 		tag = USA
-# 		priority = 50
-# 		ratio = 0.35
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = yes
-# 		manual_attack = yes
+# 		type = unit_ratio
+# 		id = garrison	
+# 		value = 2
+# 	}
+
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = armored_car  #we cant spare eq
+# 		value = -5
+# 	}
+
+# 	ai_strategy = {
+# 		type = equipment_production_factor
+# 		id = infantry
+# 		value = 10
+# 	}
+
+# 	ai_strategy = {
+# 		type = equipment_production_factor
+# 		id = artillery
+# 		value = -10
 # 	}
 # }
+
+
+# CAN_build_army = {
+# 	allowed = {
+# 		original_tag = CAN
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		num_divisions < 55
+# 		has_war = no
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = infantry
+# 	    value = 100
+# 	}
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = garrison
+# 	    value = 5
+# 	}
+	
+# 	ai_strategy = {
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = -10 # reduce while we build up in case of issues
+# 	}
+# }
+
+
+# CAN_defend_against_usa = {
+# 	enable = {
+# 		tag = CAN
+# 		USA = { exists = yes }
+# 		NOT = {
+# 			is_in_faction_with = USA
+# 			has_non_aggression_pact_with = USA
+# 		}
+# 		has_start_date < 1937.1.1
+# 		threat > 0.15
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 		type = prepare_for_war
+# 		id = "USA"
+# 		value = 100
+# 	}
+
+# 	ai_strategy = {
+# 		type = invade
+# 		id = "USA"
+# 		value = -1000
+# 	}
+	
+# 	ai_strategy = {
+# 		type = 	spare_unit_factor		
+# 		value = -90
+# 	}
+# }	
+
+
+# # CAN_on_the_defensive = {
+# # 	allowed = { 
+# # 		original_tag = CAN 
+# # 		has_start_date < 1937.1.1
+# # 	}
+# # 	enable = {		
+# # 		has_war_with = USA
+# # 	}
+# # 	abort = {
+# # 		USA = { surrender_progress > 0.15 }
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = front_control
+# # 		tag = USA
+# # 		priority = 50
+# # 		ratio = 0.35
+# # 		ordertype = front
+# # 		execution_type = careful
+# # 		execute_order = yes
+# # 		manual_attack = yes
+# # 	}
+# # }
 
 
 

@@ -1,407 +1,306 @@
-# befriend
-# conquer
-# antagonize
-# build_ship
-# build_army
-# unit_ratio
-# build_building
-# research_tech
-# garrison
-# protect
-# influence
-# contain
-# area_priority
+# # befriend
+# # conquer
+# # antagonize
+# # build_ship
+# # build_army
+# # unit_ratio
+# # build_building
+# # research_tech
+# # garrison
+# # protect
+# # influence
+# # contain
+# # area_priority
 
 
-######################### GENERIC ##########################
+# ######################### GENERIC ##########################
 
 
-# USA_area_priority = {
+# # USA_area_priority = {
+# # 	enable = {
+# # 		tag = USA
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = north_america
+# # 		value = 110  #more here
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = europe
+# # 		value = 100
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = scandinavia
+# # 		value = 10
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = south_america
+# # 		value = 40
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = asia
+# # 		value = 75
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = middle_east
+# # 		value = 50
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = africa
+# # 		value = 10
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = suez
+# # 		value = 50
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = pacific
+# # 		value = 120 
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = area_priority
+# # 		id = oceania
+# # 		value = 75
+# # 	}
+# # }
+
+
+
+# USA_two_oceans_fleet = {
+# 	allowed = {
+# 		original_tag = USA
+# 	}
 # 	enable = {
-# 		tag = USA
+# 		always = yes
 # 	}
 
 # 	ai_strategy = {
+# 	    type = building_target
+# 	    id = dockyard
+# 	    value = 10
+# 	}
+
+#     ai_strategy = {
 # 		type = area_priority
-# 		id = north_america
-# 		value = 110  #more here
+# 		id = eastern_seaboard
+# 		value = 1400
+# 	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = western_seaboard
+# 		value = 800
+# 	}
+# }
+
+
+# USA_ignore_europe = {
+# 	allowed = {
+# 		original_tag = USA
+# 	}
+# 	enable = {
+# 		OR = {
+# 			is_in_faction_with = GER
+# 			is_in_faction_with = AUH
+# 		}
+# 	}
+# 	abort = { 
+# 		CSA = { has_capitulated = yes }
+# 		CAN = { has_capitulated = yes }
 # 	}
 
 # 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
+# 		type = front_unit_request
+# 		area = europe		
+# 		value = -1000
+# 	}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "GER"
+# 		value = 100
+# 	}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "AUH"
+# 		value = 100
+# 	}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "BUL"
+# 		value = 100
+# 	}
+# 	ai_strategy = {
+# 		type = dont_defend_ally_borders
+# 		id = "TUR"
+# 		value = 100
+# 	}				
+# }
+
+
+
+# ######################### GREAT WAR ##########################
+
+
+# #stacks from base production
+# USA_gw_modified_unit_production = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = garrison	
+# 		value = 2
+# 	}
+
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = marines	
+# 		value = 2
+# 	}
+
+# 	ai_strategy = {
+# 		type = unit_ratio
+# 		id = fighter
+# 		value = 20   #stacks, total is 100
+# 	}
+
+# 	ai_strategy = {
+# 		type = unit_ratio
+# 		id = tactical_bomber
+# 		value = 5
+# 	}
+
+# 	ai_strategy = {
+# 		type = air_factory_balance
+# 		value = 90
+# 	}
+# }
+
+
+# USA_build_army = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		num_divisions < 180
+# 		has_war = no
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = infantry
+# 	    value = 600
+# 	}
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = garrison
+# 	    value = 5
+# 	}
+	
+# 	ai_strategy = {
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = -10 # reduce while we build up in case of issues
+# 	}
+# }
+
+
+# USA_germany_ally_ww1 = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		country_exists = GER
+# 		NOT = { has_war_with = GER }
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = befriend
+# 		id = "GER"			
+# 		value = 50
+# 	}	
+# }
+
+# # dont join central powers until we are fighting the csa
+# USA_dont_join_central_powers_yet = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+# 	abort = {
+# 		has_war_with = CSA
+# 		has_war_together_with = GER
+# 	}
+	
+# 	ai_strategy = {
+# 		type = alliance
+# 		id = "GER"			
+# 		value = -1000
+# 	}	
+# }
+
+
+# USA_greatwar_mobilize = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		CSA = { exists = yes }
+# 		NOT = { is_in_faction_with = CSA }
+# 		threat > 0.25
+# 	}
+# 	abort = {
+# 		OR = {
+# 			CSA = { has_capitulated = yes }
+# 			has_global_flag = treaty_of_richmond
+# 			USA = { is_in_faction_with = CSA }
+# 		}
+# 	}
+
+# 	ai_strategy = {
+# 		type = prepare_for_war
+# 		id = "CSA"			
 # 		value = 100
 # 	}
 
 # 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = 40
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = 120 
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = 75
-# 	}
-# }
-
-
-
-USA_two_oceans_fleet = {
-	allowed = {
-		original_tag = USA
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-	    type = building_target
-	    id = dockyard
-	    value = 10
-	}
-
-    ai_strategy = {
-		type = area_priority
-		id = eastern_seaboard
-		value = 1400
-	}
-	ai_strategy = {
-		type = area_priority
-		id = western_seaboard
-		value = 800
-	}
-}
-
-
-USA_ignore_europe = {
-	allowed = {
-		original_tag = USA
-	}
-	enable = {
-		OR = {
-			is_in_faction_with = GER
-			is_in_faction_with = AUH
-		}
-	}
-	abort = { 
-		CSA = { has_capitulated = yes }
-		CAN = { has_capitulated = yes }
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = europe		
-		value = -1000
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "GER"
-		value = 100
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "AUH"
-		value = 100
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "BUL"
-		value = 100
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "TUR"
-		value = 100
-	}				
-}
-
-
-
-######################### GREAT WAR ##########################
-
-
-#stacks from base production
-USA_gw_modified_unit_production = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = garrison	
-		value = 2
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = marines	
-		value = 2
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 20   #stacks, total is 100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
-	}
-
-	ai_strategy = {
-		type = air_factory_balance
-		value = 90
-	}
-}
-
-
-USA_build_army = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		num_divisions < 180
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 600
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 5
-	}
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
-	}
-}
-
-
-USA_germany_ally_ww1 = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = GER
-		NOT = { has_war_with = GER }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = befriend
-		id = "GER"			
-		value = 50
-	}	
-}
-
-# dont join central powers until we are fighting the csa
-USA_dont_join_central_powers_yet = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-	abort = {
-		has_war_with = CSA
-		has_war_together_with = GER
-	}
-	
-	ai_strategy = {
-		type = alliance
-		id = "GER"			
-		value = -1000
-	}	
-}
-
-
-USA_greatwar_mobilize = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CSA = { exists = yes }
-		NOT = { is_in_faction_with = CSA }
-		threat > 0.25
-	}
-	abort = {
-		OR = {
-			CSA = { has_capitulated = yes }
-			has_global_flag = treaty_of_richmond
-			USA = { is_in_faction_with = CSA }
-		}
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CSA"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "MEX"			
-		value = 10
-	}
-}
-
-
-USA_take_CAN = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CAN = { exists = yes }
-		NOT = { is_in_faction_with = CAN }
-		threat > 0.25
-	}
-	abort = {
-		OR = {
-			CAN = { has_capitulated = yes }
-		}
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CAN"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "CAN"			
-		value = 10
-	}
-}
-
-
-
-# USA_rememberance = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = CSA
-# 		#date > 1912.1.1
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = antagonize
-# 		id = "CSA"			
-# 		value = 60
-# 	}	
-
-# 	ai_strategy = {
 # 		type = prepare_for_war
-# 		id = "CSA"
-# 		value = 20
-# 	}
-# }
-
-# USA_defend_washington = {
-# 	allowed = {
-# 		original_tag = USA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = CSA
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	#protect washington
-# 	ai_strategy = {
-# 		type = front_unit_request
-
-# 		state = 840
-# 		state = 362
-# 		state = 361
-# 		state = 360
-# 		state = 814
-# 		state = 813
-		
-# 		value = 60
-# 	}
-# }	
-
-
-# USA_attack_csa_during_black_rebellion = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		CSA = { has_idea = CSA_black_rebellion_idea }
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = "CSA"			
-# 		value = 5
+# 		id = "MEX"			
+# 		value = 10
 # 	}
 # }
 
 
-# USA_attack_canada = {
+# USA_take_CAN = {
 # 	allowed = {
 # 		original_tag = USA
 # 		has_start_date < 1937.1.1
@@ -409,235 +308,336 @@ USA_take_CAN = {
 # 	enable = {
 # 		CAN = { exists = yes }
 # 		NOT = { is_in_faction_with = CAN }
+# 		threat > 0.25
 # 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "CAN"			
-# 		value = 50
+# 	abort = {
+# 		OR = {
+# 			CAN = { has_capitulated = yes }
+# 		}
 # 	}
 
 # 	ai_strategy = {
 # 		type = prepare_for_war
 # 		id = "CAN"			
-# 		value = 75
+# 		value = 100
 # 	}
-# }
-
-# USA_take_english_islands = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = ENG
-# 		ENG = {
-# 			OR = {
-# 				controls_state = 696 #bermuda
-# 				controls_state = 690 #north bermuda
-# 				controls_state = 693 #south bermuda
-# 				controls_state = 629 #hawaii
-# 			}
-# 		}
-# 	}
-# 	abort_when_not_enabled = yes
 
 # 	ai_strategy = {
-# 		type = front_control
-# 		state = 696 #bermuda
-# 		state = 690 #north bermuda
-# 		state = 693 #south bermuda
-# 		state = 629 #hawaii
-# 		ratio = 0.6
-# 		priority = 100
-# 		ordertype = invasion
-# 		execution_type = balanced
-# 		execute_order = yes
+# 		type = conquer
+# 		id = "CAN"			
+# 		value = 10
 # 	}
 # }
 
 
 
-########################## WW2 ##########################
-
-
-
-#stacks from base production
-USA_ww2_modified_unit_production = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = armor
-		value = 4
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = garrison
-		value = 6
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = mountaineers
-		value = -2   
-	}
-	ai_strategy = {
-		type = role_ratio
-		id = marines
-		value = 2
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 20   #stacks, total is 100
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
-	}
-
-	ai_strategy = {
-		type = air_factory_balance
-		value = 120
-	}
-}
-
-
-
-USA_focus_on_civs = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		has_war = no
-		#has_idea = USA_socialist_policies
-		#has_idea = USA_great_depression_1
-		NOT = { has_global_flag = CSA_richmond_agreement_broken }
-	}
-	abort_when_not_enabled = yes
+# # USA_rememberance = {
+# # 	allowed = {
+# # 		original_tag = USA
+# # 		has_start_date < 1937.1.1
+# # 	}
+# # 	enable = {
+# # 		country_exists = CSA
+# # 		#date > 1912.1.1
+# # 		NOT = { is_in_faction_with = CSA }
+# # 	}
+# # 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = -25
-	}
-}
+# # 	ai_strategy = {
+# # 		type = antagonize
+# # 		id = "CSA"			
+# # 		value = 60
+# # 	}	
+
+# # 	ai_strategy = {
+# # 		type = prepare_for_war
+# # 		id = "CSA"
+# # 		value = 20
+# # 	}
+# # }
+
+# # USA_defend_washington = {
+# # 	allowed = {
+# # 		original_tag = USA		
+# # 		has_start_date < 1937.1.1
+# # 	}
+# # 	enable = {
+# # 		country_exists = CSA
+# # 		NOT = { is_in_faction_with = CSA }
+# # 	}
+# # 	abort_when_not_enabled = yes
+
+# # 	#protect washington
+# # 	ai_strategy = {
+# # 		type = front_unit_request
+
+# # 		state = 840
+# # 		state = 362
+# # 		state = 361
+# # 		state = 360
+# # 		state = 814
+# # 		state = 813
+		
+# # 		value = 60
+# # 	}
+# # }	
 
 
-USA_prepare_against_featherstone = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		has_global_flag = CSA_richmond_agreement_broken
-		has_war = no 
-	}
-	abort_when_not_enabled = yes
+# # USA_attack_csa_during_black_rebellion = {
+# # 	allowed = {
+# # 		original_tag = USA
+# # 		has_start_date < 1937.1.1
+# # 	}
+# # 	enable = {
+# # 		CSA = { has_idea = CSA_black_rebellion_idea }
+# # 	}
+# # 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-		type = prepare_for_war
-		id = "CSA"
-		value = 200
-	}
-
-	# Protect dc
-	ai_strategy = {
-		type = front_unit_request
-		state = 361
-		state = 362
-		state = 814
-		state = 840
-		value = 40
-	}
-
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 25
-	}
-}
+# # 	ai_strategy = {
+# # 		type = consider_weak
+# # 		id = "CSA"			
+# # 		value = 5
+# # 	}
+# # }
 
 
-USA_no_one_gets_our_troops = {
-	allowed = {
-		original_tag = USA
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		is_historical_focus_on = yes
-	}
-	abort_when_not_enabled = yes
+# # USA_attack_canada = {
+# # 	allowed = {
+# # 		original_tag = USA
+# # 		has_start_date < 1937.1.1
+# # 	}
+# # 	enable = {
+# # 		CAN = { exists = yes }
+# # 		NOT = { is_in_faction_with = CAN }
+# # 	}
+# # 	abort_when_not_enabled = yes
+
+# # 	ai_strategy = {
+# # 		type = conquer
+# # 		id = "CAN"			
+# # 		value = 50
+# # 	}
+
+# # 	ai_strategy = {
+# # 		type = prepare_for_war
+# # 		id = "CAN"			
+# # 		value = 75
+# # 	}
+# # }
+
+# # USA_take_english_islands = {
+# # 	allowed = {
+# # 		original_tag = USA
+# # 		has_start_date < 1937.1.1
+# # 	}
+# # 	enable = {
+# # 		has_war_with = ENG
+# # 		ENG = {
+# # 			OR = {
+# # 				controls_state = 696 #bermuda
+# # 				controls_state = 690 #north bermuda
+# # 				controls_state = 693 #south bermuda
+# # 				controls_state = 629 #hawaii
+# # 			}
+# # 		}
+# # 	}
+# # 	abort_when_not_enabled = yes
+
+# # 	ai_strategy = {
+# # 		type = front_control
+# # 		state = 696 #bermuda
+# # 		state = 690 #north bermuda
+# # 		state = 693 #south bermuda
+# # 		state = 629 #hawaii
+# # 		ratio = 0.6
+# # 		priority = 100
+# # 		ordertype = invasion
+# # 		execution_type = balanced
+# # 		execute_order = yes
+# # 	}
+# # }
+
+
+
+# ########################## WW2 ##########################
+
+
+
+# #stacks from base production
+# USA_ww2_modified_unit_production = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = armor
+# 		value = 4
+# 	}
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = garrison
+# 		value = 6
+# 	}
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = mountaineers
+# 		value = -2   
+# 	}
+# 	ai_strategy = {
+# 		type = role_ratio
+# 		id = marines
+# 		value = 2
+# 	}
+
+# 	ai_strategy = {
+# 		type = unit_ratio
+# 		id = fighter
+# 		value = 20   #stacks, total is 100
+# 	}
+# 	ai_strategy = {
+# 		type = unit_ratio
+# 		id = tactical_bomber
+# 		value = 5
+# 	}
+
+# 	ai_strategy = {
+# 		type = air_factory_balance
+# 		value = 120
+# 	}
+# }
+
+
+
+# USA_focus_on_civs = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war = no
+# 		#has_idea = USA_socialist_policies
+# 		#has_idea = USA_great_depression_1
+# 		NOT = { has_global_flag = CSA_richmond_agreement_broken }
+# 	}
+# 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "GER"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "AUH"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "BEL"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "HOL"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "DEN"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "UBD"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "LIT"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "POL"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "UKR"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "MTK"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "SER"
-		value = -999
-	}
-	ai_strategy = {
-		type = send_volunteers_desire
-		id = "ALB"
-		value = -999
-	}
-}
+# 	ai_strategy = {
+# 		type = added_military_to_civilian_factory_ratio		
+# 		value = -25
+# 	}
+# }
+
+
+# USA_prepare_against_featherstone = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {
+# 		has_global_flag = CSA_richmond_agreement_broken
+# 		has_war = no 
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = prepare_for_war
+# 		id = "CSA"
+# 		value = 200
+# 	}
+
+# 	# Protect dc
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		state = 361
+# 		state = 362
+# 		state = 814
+# 		state = 840
+# 		value = 40
+# 	}
+
+# 	ai_strategy = {
+# 		type = added_military_to_civilian_factory_ratio		
+# 		value = 25
+# 	}
+# }
+
+
+# USA_no_one_gets_our_troops = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {
+# 		is_historical_focus_on = yes
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "GER"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "AUH"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "BEL"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "HOL"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "DEN"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "UBD"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "LIT"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "POL"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "UKR"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "MTK"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "SER"
+# 		value = -999
+# 	}
+# 	ai_strategy = {
+# 		type = send_volunteers_desire
+# 		id = "ALB"
+# 		value = -999
+# 	}
+# }
 
 
 
