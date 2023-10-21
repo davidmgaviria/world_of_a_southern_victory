@@ -1,8 +1,11 @@
+## For democratic states ##
+
 autonomy_state = {
 	id = autonomy_informal_protectorate
-	
+
+	is_puppet = yes
 	min_freedom_level = 0.8
-	manpower_influence = 0.0
+	manpower_influence = 0.0 	# colonial divisons
 	
 	rule = {
 		desc = "RULE_DESC_IS_A_SUBJECT"
@@ -10,6 +13,7 @@ autonomy_state = {
 		can_not_declare_war = yes
 		can_decline_call_to_war = yes
 		can_be_spymaster = yes
+		contributes_operatives = no
 	}
 	
 	modifier = {
@@ -33,12 +37,13 @@ autonomy_state = {
 	}
 
 	allowed = {
+		has_dlc = "Together for Victory"
 		OR = {
 			OVERLORD = { has_government = democratic }
 			OVERLORD = { has_government = democratic_socialism }
 		}
 	}
-	
+
 	can_take_level = {
 		
 	}

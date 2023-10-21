@@ -1,3 +1,5 @@
+## For colonial democratic states ##
+
 autonomy_state = {
 	id = autonomy_colony
 	
@@ -43,10 +45,22 @@ autonomy_state = {
 
 	allowed = {
 		has_dlc = "Together for Victory"
-
-		if = {
-			limit = { has_dlc = "Death or Dishonor" }
-			OVERLORD = { NOT = { has_government = fascism } }
+		AND = {
+			OR = {
+				OVERLORD = { has_government = democratic }
+				OVERLORD = { has_government = democratic_socialism }
+			}
+			OR = {
+				OVERLORD = { original_tag = ENG }
+				OVERLORD = { original_tag = FRA }
+				OVERLORD = { original_tag = ITA }
+				OVERLORD = { original_tag = SPR }
+				OVERLORD = { original_tag = BEL }
+				OVERLORD = { original_tag = HOL }
+				OVERLORD = { original_tag = DEN }
+				OVERLORD = { original_tag = NOR }
+				OVERLORD = { original_tag = SWE }
+			}
 		}
 	}
 	
