@@ -1,0 +1,86 @@
+wsv_july_crisis_cat = {
+	
+	# Austrian investigation timer
+	austrian_investigation_countdown_mission = {
+	
+		priority = 200
+		icon = generic_ignite_civil_war
+
+		allowed = { 
+			always = yes
+		}
+		available = {
+			AUH = { has_country_flag = completed_sarajevo_investigation } 		# we want to let it run out
+		}
+
+		days_mission_timeout = 25
+
+		fire_only_once = no
+
+		activation = {
+			has_global_flag = franzferdinand_murdered
+			has_country_flag = got_july_crisis_mission
+			AUH = { 
+				NOT = { has_country_flag = completed_sarajevo_investigation }
+			}
+		}
+
+		is_good = no
+
+		timeout_effect = {
+			if = {
+				limit = { original_tag = AUH }
+				set_country_flag = completed_sarajevo_investigation
+				country_event = wsv_franzferdinand.5
+			}
+		}
+
+		# complete_effect = {
+			
+		# }
+	}
+
+
+
+	# Russia back Serbia
+	russia_back_serbia_decision = {
+
+		priority = 100
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			original_tag = RUS
+		}
+
+		visible = {
+			has_global_flag = franzferdinand_murdered
+			NOT = { has_global_flag = july_crisis_over }
+		}
+
+		available = {
+			has_war = no
+			NOT = { is_in_faction_with = AUH }
+			NOT = { has_war_with = SER }
+		}
+
+		fire_only_once = yes
+
+		cost = 0
+		days_remove = 3
+		days_re_enable = 0
+
+		remove_effect = {
+			give_guarantee = SER
+			custom_effect_tooltip = july_russian_intervention_tt
+			hidden_effect = {
+				news_event = { id = wsv_franzferdinand.11 days = 1 }
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+}
