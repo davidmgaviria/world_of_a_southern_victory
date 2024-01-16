@@ -2,9 +2,9 @@
 ### WAR PLANS
 
 
-## Influence in Caribbean ##
+## Intervene in the Dominican Republic ##
 
-CSA_intervention_in_dr = {
+CSA_intervention_in_dr_cat = {
 
 	CSA_send_arms_to_rebels = {
 
@@ -22,12 +22,23 @@ CSA_intervention_in_dr = {
 		fire_only_once = yes
 		days_remove = 3
 
+		complete_effect = {
+			set_country_flag = {
+				flag = recently_took_action_in_dr
+				value = 1
+				days = 21
+			}
+		}
+
 		remove_effect = {
+			set_country_flag = sent_weapons_to_dr
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
 				amount = -1000
 			}
-			set_country_flag = sent_weapons_to_dr
+			hidden_effect = {
+				country_event = wsv_carib.2
+			}
 		}
 
 		ai_will_do = {
@@ -37,7 +48,6 @@ CSA_intervention_in_dr = {
 
 
 	CSA_send_warship = {
-
 		icon = generic_naval
 
 		visible = {
@@ -47,6 +57,9 @@ CSA_intervention_in_dr = {
 		available = {
 			has_war = no
 			has_country_flag = sent_weapons_to_dr
+			NOT = {
+				has_country_flag = recently_took_action_in_dr
+			}
 		}
 
 		cost = 15
@@ -63,7 +76,7 @@ CSA_intervention_in_dr = {
 		}
 	}
 
-	CSA_relevance_of_dr_crisis = {
+	CSA_relevance_of_dr_conflict = {
 	
 		priority = 4
 		icon = generic_ignite_civil_war
@@ -71,11 +84,13 @@ CSA_intervention_in_dr = {
 		allowed = { 
 			original_tag = CSA
 		}
-		available = {
+
+		activation = {
 			has_global_flag = dr_civil_war
-			NOT = {
-		    	has_country_flag = dr_intervention_completed
-			}
+		}
+
+		available = {
+			has_country_flag = dr_intervention_completed
 		}
 
 		days_mission_timeout = 180
@@ -85,12 +100,63 @@ CSA_intervention_in_dr = {
 		is_good = no
 
 		timeout_effect = {
-			add_political_power = -75
-			add_war_support = -0.1
+			add_political_power = -50
+			add_war_support = -0.05
 			set_country_flag = failed_to_intervene_in_dr
 		}
 	}
 }
+
+
+## Intervention in Nicaragua ##
+
+CSA_intervention_in_nic_cat = {
+
+	CSA_intervene_in_nic_conflict = {
+		priority = 4
+		icon = generic_ignite_civil_war
+
+		allowed = { 
+			original_tag = CSA
+		}
+
+		activation = {
+			has_global_flag = nic_civil_war
+		}
+
+		# available = {
+		# 	has_country_flag = nic_intervention
+		# }
+		
+		fire_only_once = yes
+		days_mission_timeout = 180
+		
+		selectable_mission = yes
+		cost = 50
+
+		is_good = no
+
+		timeout_effect = {
+			add_political_power = -50
+			add_war_support = -0.05
+			set_country_flag = failed_to_intervene_in_nic
+		}
+
+		complete_effect = {
+			set_global_flag = csa_intervened_in_nicaragua
+			set_country_flag = nic_intervention
+			USA = { country_event = { id = wsv_carib.10  days = 2 } }
+			## TODO: puppet nicaragua?
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	## TODO: decision to integrate nicaragua
+}
+
 
 
 
@@ -821,8 +887,6 @@ CSA_red_rebellion_management_cat = {
 		}
 	}
 }
-
-
 
 
 
