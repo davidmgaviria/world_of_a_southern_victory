@@ -93,18 +93,56 @@ technology_categories = {
 }
 
 technology_folders = {
+
+	############### GREAT WAR TABS ###############
+	gw_infantry_folder = {
+		available = {
+			has_start_date < 1936.1.1
+		}
+		ledger = army
+	}
+	# gw_support_folder = {
+	# 	available = {
+	# 		has_start_date < 1936.1.1
+	# 	}
+	# 	ledger = army
+	# }
+	# gw_armor_folder = {
+	# 	available = {
+	# 		has_start_date < 1936.1.1
+	# 	}
+	# 	ledger = army
+	# }
+	# gw_artillery_folder = {
+	# 	available = {
+	# 		has_start_date < 1936.1.1
+	# 	}
+	# 	ledger = army
+	# }
+	#############################################
+
 	infantry_folder = {
+		available = {
+			has_start_date > 1918.1.1
+		}
 		ledger = army
 	}
 	support_folder = {
 		ledger = army
+		available = {
+			has_start_date > 1918.1.1
+		}
 	}
 	armour_folder = {
 		ledger = army
 		available = {
-			NOT = {
-				has_dlc = "No Step Back"
-			}
+			has_start_date > 1918.1.1
+		}
+	}
+	artillery_folder = {
+		ledger = army
+		available = {
+			has_start_date > 1918.1.1
 		}
 	}
 	nsb_armour_folder = {
@@ -113,9 +151,7 @@ technology_folders = {
 			has_dlc = "No Step Back"
 		}
 	}
-	artillery_folder = {
-		ledger = army
-	}
+	
 	air_techs_folder = {
 		ledger = air
 	}
