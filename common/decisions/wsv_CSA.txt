@@ -1,117 +1,144 @@
 
-### WAR PLANS
 
 
-## Intervene in the Dominican Republic ##
+CSA_loans_to_allies_cat = {
 
-CSA_intervention_in_dr_cat = {
+	# Send economic loan to ally in war
+	CSA_send_loan_to_country = {
+		icon = decision_ger_mefo_bills
 
-	CSA_send_arms_to_rebels = {
+		targets = { ENG FRA RUS ITA SER BEL }
 
-		icon = generic_prepare_civil_war
-
+		# triggers for entire cat in decision cat
 		visible = {
-			has_global_flag = dr_civil_war
-			NOT = { has_country_flag = failed_to_intervene_in_dr }
+			FROM = { 
+				has_war_with = GER
+				has_capitulated = no
+				is_puppet = no
+				NOT = { has_war_with = CSA }
+				NOT = { has_idea = CSA_confederate_war_loan }
+			}
 		}
 		available = {
-			has_war = no
+			has_completed_focus = CSA_loans_to_allies
 		}
 
-		cost = 10
-		fire_only_once = yes
-		days_remove = 3
+		cost = 100
+		days_re_enable = 360
 
 		complete_effect = {
-			set_country_flag = {
-				flag = recently_took_action_in_dr
-				value = 1
-				days = 21
-			}
-		}
-
-		remove_effect = {
-			set_country_flag = sent_weapons_to_dr
-			add_equipment_to_stockpile = {
-				type = infantry_equipment
-				amount = -1000
-			}
-			hidden_effect = {
-				country_event = wsv_carib.2
+			FROM = {
+				add_timed_idea = {
+					idea = CSA_confederate_war_loan
+					days = 360
+				}
 			}
 		}
 
 		ai_will_do = {
-			factor = 1
-		}
-	}
+			factor = 0
 
-
-	CSA_send_warship = {
-		icon = generic_naval
-
-		visible = {
-			has_global_flag = dr_civil_war
-			NOT = { has_country_flag = failed_to_intervene_in_dr }
-		}
-		available = {
-			has_war = no
-			has_country_flag = sent_weapons_to_dr
-			NOT = {
-				has_country_flag = recently_took_action_in_dr
+			modifier = {
+				add = 0.5
+				OR = {
+					tag = ENG
+					tag = FRA
+				}
 			}
-		}
-
-		cost = 15
-		fire_only_once = yes
-		days_remove = 3
-
-		remove_effect = {
-			country_event = wsv_carib.3
-			set_country_flag = dr_intervention_completed
-		}
-
-		ai_will_do = {
-		 	factor = 1
-		}
-	}
-
-	CSA_relevance_of_dr_conflict = {
-	
-		priority = 4
-		icon = generic_ignite_civil_war
-
-		allowed = { 
-			original_tag = CSA
-		}
-
-		activation = {
-			has_global_flag = dr_civil_war
-		}
-
-		available = {
-			has_country_flag = dr_intervention_completed
-		}
-
-		days_mission_timeout = 180
-
-		fire_only_once = yes
-
-		is_good = no
-
-		timeout_effect = {
-			add_political_power = -50
-			add_war_support = -0.05
-			set_country_flag = failed_to_intervene_in_dr
+			modifier = {
+				add = 0.2
+				OR = {
+					tag = RUS
+					tag = ITA
+				}
+			}
 		}
 	}
 }
 
 
-## Intervention in Nicaragua ##
 
-CSA_intervention_in_nic_cat = {
+############################################
+########## Actions in Latin America ########
+############################################
 
+CSA_actions_in_latam_category = {
+
+	# Expand United Fruit
+	CSA_expand_confederate_business = {
+		#icon = generic_prepare_civil_war
+
+		visible = {
+			always = yes
+		}
+		available = {
+			has_completed_focus = CSA_wilsonian_doctrine
+			has_war = no
+		}
+
+		cost = 25
+		days_remove = 7
+		days_re_enable = 90
+
+		remove_effect = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			increase_latam_influence_by_5_effect = yes
+		}
+
+		ai_will_do = {
+			factor = 0.5
+
+			modifier = {
+				factor = 0.1
+				check_variable = { CSA.csa_influence_in_latam > 50 }
+			}
+		}
+	}
+
+
+	# Send rifles to LATAM
+	CSA_support_conservative_regimes = {
+		#icon = generic_prepare_civil_war
+
+		visible = {
+			always = yes
+		}
+		available = {
+			has_completed_focus = CSA_wilsonian_doctrine
+			has_war = no
+		}
+
+		days_remove = 7
+		days_re_enable = 90
+
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 1000 }
+		}
+		custom_cost_text = CSA_decision_cost_support_conservatives
+
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -1000
+			}
+			increase_latam_influence_by_5_effect = yes
+		}
+
+		ai_will_do = {
+			factor = 0.5
+
+			modifier = {
+				factor = 0.1
+				check_variable = { CSA.csa_influence_in_latam > 50 }
+			}
+		}
+	}
+
+
+	# Intervention in Nicaragua 
 	CSA_intervene_in_nic_conflict = {
 		priority = 4
 		icon = generic_ignite_civil_war
@@ -119,56 +146,56 @@ CSA_intervention_in_nic_cat = {
 		allowed = { 
 			original_tag = CSA
 		}
-
 		activation = {
 			has_global_flag = nic_civil_war
 		}
-
-		# available = {
-		# 	has_country_flag = nic_intervention
-		# }
+		available = {
+			has_war = no
+			has_completed_focus = CSA_wilsonian_doctrine
+			custom_trigger_tooltip = {
+				tooltip = has_70_latam_influence_tt
+				check_variable = { CSA.csa_influence_in_latam > 69 } 
+			}
+		}
 		
 		fire_only_once = yes
-		days_mission_timeout = 180
+		days_mission_timeout = 200  #put as 400 if conflict starts in 1912
 		
 		selectable_mission = yes
+		is_good = yes
 		cost = 50
+		days_remove = 7
 
-		is_good = no
-
+		remove_effect = {
+			set_global_flag = csa_intervened_in_nicaragua
+			USA = { country_event = { id = wsv_carib.2 } }
+		}
+		
 		timeout_effect = {
 			add_political_power = -50
 			add_war_support = -0.05
 			set_country_flag = failed_to_intervene_in_nic
 		}
 
-		complete_effect = {
-			set_global_flag = csa_intervened_in_nicaragua
-			set_country_flag = nic_intervention
-			USA = { country_event = { id = wsv_carib.10  days = 2 } }
-			## TODO: puppet nicaragua?
-		}
-
 		ai_will_do = {
 			factor = 1
 		}
 	}
-
-	## TODO: decision to integrate nicaragua
 }
 
 
 
-
-## Red Rebellion ##
+#####################################################
+################## Red Rebellion ####################
+#####################################################
 
 CSA_red_rebellion_management_cat = {
 
-
+	## red rebellion escalation timeout
 	CSA_red_rebels_resistance_escalation_mission = {
 	
 		priority = 9
-		icon = generic_scorched_earth
+		icon = decision_revolt #generic_scorched_earth
 
 		allowed = { 
 			original_tag = CSA
@@ -239,7 +266,7 @@ CSA_red_rebellion_management_cat = {
 
 		complete_effect = {
 			set_global_flag = csa_red_rebellion_defeated
-			hidden_effect = { news_event = { id = wsv_news.22  days = 2 } }
+			hidden_effect = { news_event = { id = wsv_csa.30  days = 2 } }
 		}
 	}
 

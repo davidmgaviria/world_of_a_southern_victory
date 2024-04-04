@@ -1,0 +1,168 @@
+﻿add_namespace = wsv_usa_labor
+
+
+#########################################################
+############### Socialist decision events ###############
+#########################################################
+
+# Socialist rally event
+country_event = {
+	id = wsv_usa_labor.1
+	title = wsv_usa_labor.1.t
+	desc = wsv_usa_labor.1.d
+	#picture =   #TODO: needs picture
+
+	is_triggered_only = yes
+
+	# thats not good
+	option = {
+		name = wsv_usa_labor.1.a
+
+		add_popularity = {
+			ideology = communism
+			popularity = 0.02
+		}
+		add_stability = -0.01
+	}
+}
+
+# Strike event
+country_event = {
+	id = wsv_usa_labor.2
+	title = wsv_usa_labor.2.t
+	desc = wsv_usa_labor.2.d
+	#picture =   #TODO: needs picture
+
+	mean_time_to_happen = {
+		days = 10
+	}
+
+	trigger = {
+		tag = USA
+		NOT = {
+			has_active_mission = USA_strike_ongoing
+			has_country_flag = strike_cooldown
+			# dont have strikes once this focus is done
+			AND = {
+				has_completed_focus = USA_wartime_industry_protection
+				has_war = yes
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			add_ideas = USA_worker_strikes
+			activate_mission = USA_strike_ongoing
+		}
+	}
+
+	# thats not good
+	option = {
+		name = wsv_usa_labor.2.a
+	}
+}
+
+# Strike ends (normally)
+country_event = {
+	id = wsv_usa_labor.3
+	title = wsv_usa_labor.3.t
+	desc = wsv_usa_labor.3.d
+	#picture =   #TODO: needs picture
+
+	is_triggered_only = yes
+
+	# thats not good
+	option = {
+		name = wsv_usa_labor.3.a
+	}
+}
+
+
+######################################################
+######################################################
+
+
+## American Socialist Party splits ##
+country_event = {
+	id = wsv_usa_labor.90
+	title = wsv_usa_labor.90.t
+	desc = wsv_usa_labor.90.d
+	#picture =   #TODO: needs picture
+
+	fire_only_once = yes
+
+	mean_time_to_happen = {	days = 90 }
+
+    trigger = {
+    	tag = USA
+        NOT = { has_government = communism }
+		has_war = yes
+		has_global_flag = russian_revolution_occured
+		NOT = { has_country_flag = USA_socialist_party_split }
+    }
+
+	immediate = {
+		set_country_flag = USA_socialist_party_split
+		set_country_flag = {
+			flag = revolution_delay		# delays revolution from starting for a little bit
+			days = 200
+			value = 1
+		}
+    }
+
+	# thats not good
+	option = {
+		name = wsv_usa_labor.90.a
+
+		if = {
+			limit = { check_variable = { USA.usa_socialist_militancy < 40 } }
+			hidden_effect = { set_variable = { USA.usa_socialist_militancy = 50 } }
+			#custom_effect_tooltip = set_militancy_50_tt
+		}
+		else = {
+			increase_militancy_by_10_effect = yes
+		}
+		add_stability = -0.05
+	}
+}
+
+
+## TODO - militants??
+
+
+##TODO: complete socialist revolution event (and loc)
+news_event = {
+	id = wsv_usa_labor.100
+	title = wsv_usa_labor.100.t
+	desc = wsv_usa_labor.100.d
+	#picture = #TODO: needs picture
+
+	major = yes
+
+	mean_time_to_happen = { days = 20 }
+
+	trigger = {
+		USA = {
+			check_variable = { USA.usa_socialist_militancy > 89 }
+			NOT = { has_government = communism }
+		}
+		NOT = { has_global_flag = american_socialist_revolution }
+	}
+
+	immediate = {
+		set_global_flag = american_socialist_revolution
+	}
+
+	option = {
+		name = wsv_usa_labor.100.a
+	}
+}
+
+
+
+
+
+
+
+

@@ -45,6 +45,75 @@ increase_conscription_tier_effect = {
 
 
 
+
+########### LATAM Influence ############
+
+increase_latam_influence_by_5_effect = {
+	add_to_variable = { CSA.csa_influence_in_latam = 5 }
+	custom_effect_tooltip = increase_latam_influence_by_5_tt
+}
+
+increase_latam_influence_by_10_effect = {
+	add_to_variable = { CSA.csa_influence_in_latam = 10 }
+	custom_effect_tooltip = increase_latam_influence_by_10_tt
+}
+
+
+
+########### Socialist Militancy ############
+
+increase_militancy_by_5_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 95 } }
+		add_to_variable = { USA.usa_socialist_militancy = 5 }
+		custom_effect_tooltip = increase_militancy_by_5_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+increase_militancy_by_10_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 90 } }
+		add_to_variable = { USA.usa_socialist_militancy = 10 }
+		custom_effect_tooltip = increase_militancy_by_10_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+decrease_militancy_by_5_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy > 5 } }
+		subtract_from_variable = { USA.usa_socialist_militancy = 5 }
+		custom_effect_tooltip = decrease_militancy_by_5_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 0 }
+		custom_effect_tooltip = set_militancy_at_0_tt
+	}
+}
+
+decrease_militancy_by_10_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy > 10 } }
+		subtract_from_variable = { USA.usa_socialist_militancy = 10 }
+		custom_effect_tooltip = decrease_militancy_by_10_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 0 }
+		custom_effect_tooltip = set_militancy_at_0_tt
+	}
+}
+
+##############################################################
+
+
+
 ### Red Rebellion ###
 
 # scope is state
@@ -95,35 +164,7 @@ CSA_black_rebels_pacify_state_effect = {
 	}
 }
 
-#################################################
 
-
-update_latin_american_exploitation_effect = {
-
-	# first check csa's edge on influence
-	set_temp_variable = { temp_influence_edge = CSA.csa_influence_in_caribbean }
-	subtract_from_temp_variable = { temp_influence_edge = USA.usa_influence_in_caribbean }
-	# update csa influence edge
-	set_variable = { CSA.csa_influence_edge = temp_influence_edge }
-
-	# clear first
-	CSA = { remove_ideas = CSA_caribbean_empire_1 }
-	CSA = { remove_ideas = CSA_caribbean_empire_2 }
-	CSA = { remove_ideas = CSA_caribbean_empire_3 }
-	# update accordingly 
-	if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 30  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_3 }
-	}
-	else_if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 20  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_2 }
-	}
-	else_if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 10  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_1 }
-	}
-}
 
 
 

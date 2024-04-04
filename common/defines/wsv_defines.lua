@@ -26,9 +26,11 @@ NDefines.NAI.NAVY_CHIEF_SCORE_MULTIPLIER = 0.8                  	-- vanilla is 2
 -- Combat stats
 NDefines.NMilitary.DIG_IN_FACTOR = 0.04								-- vanilla is 0.02, entrenchment should be more effective
 NDefines.NMilitary.UNIT_DIGIN_SPEED = 0.5 							-- vanilla is 1, takes longer to dig in
-NDefines.NMilitary.ENTRENCHMENT_WEIGHT = 5.0		 				-- vanilla is 2.0, double it cause we doubled entrenchment
-NDefines.NMilitary.PLAN_EXECUTE_CAREFUL_LIMIT = 35					-- vanilla is 25, dont do suicide offensives
-NDefines.NMilitary.PLAN_EXECUTE_BALANCED_LIMIT = 10					-- vanilla is 0, dont do suicide offensives
+
+-- turned off these as we changed casualty loss
+--NDefines.NMilitary.ENTRENCHMENT_WEIGHT = 5.0		 				-- vanilla is 2.0, double it cause we doubled entrenchment
+--NDefines.NMilitary.PLAN_EXECUTE_CAREFUL_LIMIT = 35					-- vanilla is 25, dont do suicide offensives
+--NDefines.NMilitary.PLAN_EXECUTE_BALANCED_LIMIT = 10					-- vanilla is 0, dont do suicide offensives
 
 	
 
