@@ -1,0 +1,767 @@
+focus_tree = {
+	id= germany_focus
+	default=no
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = GER 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
+	continuous_focus_position = { x = 50 y = 1600 }
+
+
+	focus = {
+		id = GER_our_place_in_the_sun
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 12
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_triple_alliance
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_our_place_in_the_sun }
+		mutually_exclusive = { focus=GER_f  }
+		cost = 10
+		x = -5
+		y = 1
+		relative_position_id = GER_our_place_in_the_sun
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_support_italy
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_triple_alliance }
+		mutually_exclusive = { focus=GER_back_auh  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_triple_alliance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_alliance_with_rom
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_support_italy }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = GER_support_italy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_backstab_auh
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_alliance_with_rom }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_alliance_with_rom
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_promise_italy_french_land
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_support_italy }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_support_italy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_back_auh
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_triple_alliance }
+		mutually_exclusive = { focus=GER_support_italy  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_triple_alliance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_loan_to_auh
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_back_auh }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_back_auh
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_serb_enemy
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_loan_to_auh }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_loan_to_auh
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_agadir_crisis
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_our_place_in_the_sun }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_our_place_in_the_sun
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_anti_france_propaganda
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_agadir_crisis }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = GER_agadir_crisis
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_counter_french_forts
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_anti_france_propaganda }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_anti_france_propaganda
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_british_enemy
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_agadir_crisis }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_agadir_crisis
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_outreach_to_usa
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_british_enemy }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_british_enemy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_fund_high_seas_fleet
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_british_enemy }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_british_enemy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_propose_pact_with_americans
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_outreach_to_usa }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_outreach_to_usa
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_schliffen_plan
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=GER_counter_french_forts focus=GER_fund_high_seas_fleet  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_counter_french_forts
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_septemberprogram
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_schliffen_plan }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_schliffen_plan
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_blimp_bombing
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_septemberprogram }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = GER_septemberprogram
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_strangle_britain
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_blimp_bombing }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_blimp_bombing
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+
+	focus = {
+		id = GER_expand_ohl_authority
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_septemberprogram }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_septemberprogram
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_hindenburg_line
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_expand_ohl_authority }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = GER_expand_ohl_authority
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = GER_further_expand_ohl_authority
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_expand_ohl_authority }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_expand_ohl_authority
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_spring_offensive
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=GER_strangle_britain focus=GER_hindenburg_line  focus=GER_further_expand_ohl_authority}
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_strangle_britain
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_control_auh_military
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_serb_enemy }
+		prerequisite = { focus = GER_schliffen_plan }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_serb_enemy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = GER_call_bulgaria_to_war
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_control_auh_military }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_control_auh_military
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_defense_of_the_east
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_our_place_in_the_sun }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 5
+		y = 1
+		relative_position_id = GER_our_place_in_the_sun
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_eastern_expansion
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_defense_of_the_east }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = GER_defense_of_the_east
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_establish_polish_puppet
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_eastern_expansion }
+		prerequisite = { focus = GER_schliffen_plan }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = GER_eastern_expansion
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_lenin_to_russia
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_establish_polish_puppet }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_establish_polish_puppet
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_alliance_with_sweden
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_eastern_expansion }
+		prerequisite = { focus = GER_schliffen_plan }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = GER_eastern_expansion
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_outreach_turkey
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_defense_of_the_east }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 2
+		relative_position_id = GER_defense_of_the_east
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_call_turkey_to_war
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_outreach_turkey }
+		prerequisite = { focus = GER_schliffen_plan }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = GER_outreach_turkey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = GER_berlin-baghdad_railway
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_call_turkey_to_war }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_call_turkey_to_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+}
