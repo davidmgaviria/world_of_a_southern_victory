@@ -117,6 +117,10 @@ country_event = {
 		name = wsv_agadir.3.a
 		news_event = { id = wsv_agadir.4  days = 1 }
 		FRA = { country_event = { id = wsv_agadir.6  days = 2 } }
+
+		ai_chance = {
+			base = 100
+		}
 	}
 
 	# Dont intervene
@@ -127,6 +131,14 @@ country_event = {
 			add_opinion_modifier = { target = ENG  modifier = WSV_dislikes_country }
 		}
 		custom_effect_tooltip = france_less_likely_ally_tt
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
 	}
 }
 
@@ -194,6 +206,9 @@ country_event = {
 	# Thank them
 	option = {
 		name = wsv_agadir.6.a
+		ai_chance = {
+			base = 100
+		}
 	}
 	
 	#TODO - allow france to rebuff the British
@@ -222,6 +237,10 @@ country_event = {
 		name = wsv_agadir.8.a
 		news_event = { id = wsv_agadir.9  days = 2 }
 		custom_effect_tooltip = give_germany_congo_tt
+
+		ai_chance = {
+			base = 80
+		}
 	}
 
 	# Reject
@@ -233,6 +252,18 @@ country_event = {
 			GER = { country_event = { id = wsv_agadir.14  days = 3 } }
 		}
 		custom_effect_tooltip = war_with_germany_tt
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				has_global_flag = britain_intervenes_in_agadir
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
 	}
 }
 
@@ -301,6 +332,10 @@ country_event = {
 		name = wsv_agadir.11.a
 		news_event = { id = wsv_agadir.12  days = 2 }
 		custom_effect_tooltip = withdraw_from_morocco_tt
+
+		ai_chance = {
+			factor = 20
+		}
 	}
 
 	# Reject
@@ -312,6 +347,14 @@ country_event = {
 			GER = { country_event = { id = wsv_agadir.14  days = 3 } }
 		}
 		custom_effect_tooltip = war_with_germany_tt
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_global_flag = britain_intervenes_in_agadir
+			}
+		}
 	}
 }
 
