@@ -1,0 +1,129 @@
+
+
+##################################################
+###########  AGADIR CRISIS DECISIONS ##########
+##################################################
+
+agadir_crisis_cat = {
+
+	# time limit for intervening mission (on timeout Germany fails)
+	relevance_of_morocco_occupation = {
+		priority = 100
+		icon = generic_ignite_civil_war
+
+		visible = {
+			OR = {
+				tag = GER
+				tag = FRA
+				tag = ENG
+			}
+		}
+
+		#TODO - make sure it automatically cancels once timer expires
+		activation = {
+			has_global_flag = france_occupies_morocco
+			NOT = { has_global_flag = agadir_crisis_over }
+		}
+
+		available = {   # conditions that 'terminate' the mission
+			has_global_flag = agadir_crisis_over  
+		}
+
+		days_mission_timeout = 180
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			set_global_flag = agadir_crisis_over
+			if = {
+				limit = { tag = GER }
+				add_political_power = -100
+				add_war_support = -0.1
+				add_stability = -0.05
+			}
+		}
+	}
+
+
+	# # Germany sends demands to France
+	germany_send_gunboat = {
+		icon = generic_naval
+
+		visible = {
+			has_active_mission = relevance_of_morocco_occupation
+			tag = GER
+		}
+		available = {
+			has_completed_focus = GER_agadir_crisis
+		}
+
+		fire_only_once = yes
+		days_remove = 2
+		cost = 10
+
+		remove_effect = {
+			news_event = wsv_agadir.2
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	## Germany sends demands to France
+	germany_demands_compensation = {
+		icon = generic_operation
+
+		visible = {
+			has_active_mission = relevance_of_morocco_occupation
+			has_global_flag = agadir_crisis
+			tag = GER
+		}
+		available = {
+			has_completed_focus = GER_agadir_crisis
+		}
+
+		fire_only_once = yes
+		days_remove = 3
+		cost = 0
+
+		remove_effect = {
+			FRA = { country_event = wsv_agadir.8 }
+			custom_effect_tooltip = compensation_in_congo_tt
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# Germany escalates by demanding withdrawal
+	germany_escalates_crisis = {
+		icon = generic_prepare_civil_war
+
+		visible = {
+			has_active_mission = relevance_of_morocco_occupation
+			has_global_flag = agadir_crisis
+			tag = GER
+		}
+		available = {
+			has_completed_focus = GER_agadir_crisis
+			has_global_flag = agadir_crisis
+		}
+
+		fire_only_once = yes
+		days_remove = 3
+		cost = 75
+
+		remove_effect = {
+			FRA = { country_event = wsv_agadir.11 }
+			custom_effect_tooltip = likely_war_with_france_tt
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
