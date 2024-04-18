@@ -32,6 +32,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
@@ -40,8 +41,7 @@ focus_tree = {
 		id = FRA_occupy_morocco
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_international_stage }
-		#mutually_exclusive = { focus = }
-
+		
 		cost = 10
 		x = -6
 		y = 1
@@ -53,14 +53,19 @@ focus_tree = {
 
 		#bypass = {}
 
+		available = {
+			date > 1911.3.1
+		}
+
 		completion_reward = { 
+			news_event = wsv_agadir.1
 		}
 	}
 
 		
 	focus = {
 		id = FRA_franco_british_split
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_occupy_morocco }
 		mutually_exclusive = { focus=FRA_reaffirm_ties_britain  }
 
@@ -82,9 +87,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_coastal_defences
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_british_split }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = -2
@@ -104,9 +109,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_build_french_fleet
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_coastal_defences }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -126,9 +131,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_neutralize_belgium
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_british_split }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -148,9 +153,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_integrate_belgium
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_neutralize_belgium }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -170,9 +175,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_pressure_switzerland
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_integrate_belgium }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = -1
@@ -192,9 +197,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_claim_natural_borders
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_integrate_belgium }
-		#mutually_exclusive = { focus = }
+		
 	
 		cost = 10
 		x = 0
@@ -214,7 +219,7 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_alpine_front
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_british_split  focus = FRA_reaffirm_ties_britain }
 		mutually_exclusive = { focus = FRA_recognize_italian_claims }
 
@@ -236,9 +241,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_march_into_italy
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_alpine_front }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -270,16 +275,33 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_global_flag = britain_supported_france_agadir_tt
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 50
+			ENG = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = wsv_improve_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ENG
+					modifier = wsv_improve_relations
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = FRA_recognize_italian_claims
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_british_split  focus = FRA_reaffirm_ties_britain }
 		mutually_exclusive = { focus=FRA_alpine_front  }
 		cost = 10
@@ -300,9 +322,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_loans_to_italy
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_recognize_italian_claims }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -322,9 +344,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_call_italy_to_war
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_loans_to_italy }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -346,8 +368,7 @@ focus_tree = {
 		id = FRA_franco_british_military_drills
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_reaffirm_ties_britain }
-		#mutually_exclusive = { focus = }
-
+	
 		cost = 10
 		x = 0
 		y = 2
@@ -360,16 +381,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 10
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}	
 		}
 	}
 
-		
-	focus = {
-		id = FRA_modernize_french_forts
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_international_stage }
-		#mutually_exclusive = { focus = }
 
+	focus = {
+		id = FRA_improve_french_industry
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_international_stage }
+	
 		cost = 10
 		x = 0
 		y = 2
@@ -387,37 +413,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_revanchist_propaganda
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_modernize_french_forts }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_modernize_french_forts
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = FRA_improve_french_industry
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_modernize_french_forts }
-		#mutually_exclusive = { focus = }
+		id = FRA_modernize_french_forts
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_improve_french_industry }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = FRA_modernize_french_forts
+		relative_position_id = FRA_improve_french_industry
 
 		ai_will_do = { 
 			factor = 0 
@@ -431,11 +434,33 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_beyond_fear
-		icon = GFX_focus_chi_legislative_yuan
+		id = FRA_revanchist_propaganda
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_improve_french_industry }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_improve_french_industry
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+		
+	focus = {
+		id = FRA_beyond_fear
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_modernize_french_forts }
 		prerequisite = { focus = FRA_revanchist_propaganda }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 1
@@ -455,9 +480,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_retake_alsace_lorraine
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_beyond_fear }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -477,9 +502,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_conscript_colonials
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_retake_alsace_lorraine }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = -1
@@ -499,9 +524,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_boost_war_effort
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_retake_alsace_lorraine }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 1
@@ -521,9 +546,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_they_shall_not_pass
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus=FRA_conscript_colonials focus=FRA_boost_war_effort  }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 1
@@ -545,7 +570,6 @@ focus_tree = {
 		id = FRA_franco_russian_alliance
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_international_stage }
-		#mutually_exclusive = { focus = }
 
 		cost = 10
 		x = 4
@@ -559,16 +583,28 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 50
+			RUS = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = wsv_improve_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = RUS
+					modifier = wsv_improve_relations
+				}
+			}
 		}
 	}
 
 		
 	focus = {
-		id = FRA_advisors_to_russia
-		icon = GFX_focus_chi_legislative_yuan
+		id = FRA_arms_to_russia
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_russian_alliance }
-		#mutually_exclusive = { focus = }
-
+	
 		cost = 10
 		x = -1
 		y = 1
@@ -581,15 +617,26 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			RUS = {
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 3000
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 100
+				}
+				#TODO: country event
+			}
 		}
 	}
 
 		
 	focus = {
 		id = FRA_loans_to_russia
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_russian_alliance }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 1
@@ -603,43 +650,49 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			RUS = {
+				add_timed_idea = {
+					idea = FRA_french_industry_loans
+					days = 360
+				}
+			}
 		}
 	}
 
 		
-	focus = {
-		id = FRA_recognize_russia_in_balkans
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_loans_to_russia }
-		prerequisite = { focus = FRA_advisors_to_russia }
-		#mutually_exclusive = { focus = }
+	# focus = {
+	# 	id = FRA_recognize_russia_in_balkans
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = FRA_loans_to_russia }
+	# 	prerequisite = { focus = FRA_advisors_to_russia }
+		
 
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_loans_to_russia
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = FRA_loans_to_russia
 
-		ai_will_do = { 
-			factor = 0 
-		}
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
 
-		#bypass = {}
+	# 	#bypass = {}
 
-		completion_reward = { 
-		}
-	}
+	# 	completion_reward = { 
+	# 	}
+	# }
 
 		
 	focus = {
 		id = FRA_champion_of_the_weak
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_recognize_russia_in_balkans }
-		#mutually_exclusive = { focus = }
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_loans_to_russia }
+	 	prerequisite = { focus = FRA_arms_to_russia }
 
 		cost = 10
-		x = 0
+		x = 1
 		y = 1
-		relative_position_id = FRA_recognize_russia_in_balkans
+		relative_position_id = FRA_arms_to_russia
 
 		ai_will_do = { 
 			factor = 0 
@@ -654,10 +707,10 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_army_to_serbia
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_champion_of_the_weak }
 		prerequisite = { focus = FRA_retake_alsace_lorraine }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
@@ -677,9 +730,9 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_army_to_greece
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_army_to_serbia }
-		#mutually_exclusive = { focus = }
+		
 
 		cost = 10
 		x = 0
