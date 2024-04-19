@@ -2,15 +2,13 @@ ideas = {
 	
 	country = {
 
-
 		FRA_disjointed_government = {
-            allowed = {
-                original_tag = FRA always = no
-            }
-            allowed_civil_war = {
-                has_government = democratic
-            }
-            removal_cost = -1 picture = generic_disjointed_gov modifier = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+			picture = generic_disjointed_gov 
+
+			modifier = {
                 political_power_gain = -0.3
             }
         }
@@ -36,7 +34,7 @@ ideas = {
 			modifier = {
 				surrender_limit = -0.25
 				conscription_factor = -0.2
-				mobilization_speed = -0.1
+				mobilization_speed = -0.05
 				army_morale_factor = -0.1
 			}
 		}
@@ -60,16 +58,86 @@ ideas = {
 
 		###################
 
+		FRA_french_revanchism = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_victors_of_ww1
+
+            modifier = {
+                conscription = 0.01
+                army_attack_factor = 0.1
+				justify_war_goal_time = -0.1
+            }
+		}
+
 		FRA_french_industry_loans = {
 			allowed={ always=no }
 			allowed_civil_war = { always = no }
 			removal_cost=-1
-			picture = #
+			picture = generic_foreign_capital
 
 			modifier = {
 				consumer_goods_factor = 0.1
 				production_speed_industrial_complex_factor = 0.1
 				production_speed_infrastructure_factor = 0.5  
+			}
+		}
+
+		FRA_champion_of_weak_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			#picture = TODO needs picture
+
+			modifier = {
+				guarantee_tension = -0.25
+				guarantee_cost = -0.5 
+				lend_lease_tension = -0.35
+				send_volunteers_tension = -0.25
+				send_volunteer_size = 1
+			}
+		}
+
+
+		FRA_conscript_colonials_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = { has_war = no }
+			#picture = TODO needs picture
+
+			modifier = {
+				non_core_manpower = 0.02
+				army_org_factor = -0.05
+			}
+		}
+
+		FRA_boost_war_effort_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = { has_war = no }
+			#picture = TODO needs picture
+
+			modifier = {
+				consumer_goods_factor = -0.1
+				industrial_capacity_factory = 0.1
+				production_speed_arms_factory_factor = 0.15
+			}
+		}
+
+		FRA_they_shall_not_pass_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = { has_war = no }
+			#picture = TODO needs picture
+
+			modifier = {
+				army_core_defence_factor = 0.15
+				army_morale_factor = 0.1
+				surrender_limit = 0.1
 			}
 		}
 
