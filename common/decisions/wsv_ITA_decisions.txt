@@ -1,0 +1,269 @@
+
+ITA_libyan_ambitions_cat = {
+
+	# Italian expedition timer
+	ITA_claim_libya = {
+		icon = generic_operation
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1911.1.1
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			has_war = no
+		}
+
+		cost = 25
+		days_remove = 150
+		fire_only_once = yes
+
+		remove_effect = {
+			set_country_flag = fabricated_libyan_claims
+			custom_effect_tooltip = claim_libya_tt
+			hidden_effect = {
+				add_state_claim = 448
+				add_state_claim = 449
+				add_state_claim = 450
+				add_state_claim = 451
+				add_state_claim = 663
+				add_state_claim = 662
+				add_state_claim = 661
+				add_state_claim = 273
+			}
+			TUR = { country_event = wsv_italy.1 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# Italian expedition timer
+	ITA_prepare_invasion_force = {
+		icon = generic_operation
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1911.1.1
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			has_war = no
+			has_country_flag = fabricated_libyan_claims
+		}
+
+		cost = 25
+		days_remove = 90
+		fire_only_once = yes
+
+		remove_effect = {
+			set_country_flag = prepared_libyan_invasion
+			# makes ai prepare invasion
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# Italian expedition timer
+	ITA_invade_libya = {
+		icon = generic_operation
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			date > 1911.1.1
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			has_war = no
+			has_country_flag = prepared_libyan_invasion
+		}
+
+		cost = 25
+		days_remove = 14
+		fire_only_once = yes
+
+		remove_effect = {
+			news_event = wsv_italy.2
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+}
+
+
+
+italoturkish_war_cat = {
+	
+	# Italian expedition timer
+	italoturkish_expedition_deadline = {
+		icon = generic_operation
+
+		allowed = {
+			tag = ITA
+		}
+		activation = {
+			has_war_with = TUR
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			NOT = { has_global_flag = italoturkish_war_over }  # will cancel once war is over
+		}
+
+		days_mission_timeout = 540
+		fire_only_once = yes
+
+		remove_effect = {
+			add_war_support = -0.3
+			add_stability = -0.2
+			add_political_power = -100
+			TUR = { country_event = wsv_italy.6 }
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# Italy throws in the towel
+	italoturkish_italy_offers_peace = {
+		icon = generic_form_nation
+
+		allowed = {
+			tag = ITA
+		}
+		available = {
+			has_war_with = TUR
+			casualties > 10000
+		}
+		visible = {
+			has_war_with = TUR
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+
+		days_remove = 4
+		fire_only_once = yes
+
+		remove_effect = {
+			add_war_support = -0.3
+			add_stability = -0.2
+			add_political_power = -100
+			TUR = { country_event = wsv_italy.6 }
+		}
+
+		ai_will_do = {
+			factor = 0
+
+			modifier = {
+				add = 1
+				NOT = {
+					controls_state = 448
+					controls_state = 450
+					controls_state = 451
+					controls_state = 661
+					controls_state = 662
+					controls_state = 663
+				}
+			}
+			modifier = {
+				add = 1
+				casualties_inflicted_by = {
+				    opponent = TUR
+				    thousands > 35
+				}
+			}
+			modifier = {
+				add = 1
+				casualties_inflicted_by = {
+				    opponent = TUR
+				    thousands > 60
+				}
+			}
+		}
+	}
+
+
+	# Turkey throws in the towel
+	italoturkish_turkey_offers_peace = {
+		icon = generic_form_nation
+
+		allowed = {
+			tag = TUR
+		}
+		available = {
+			OR = {
+				casualties_inflicted_by = {
+				    opponent = ITA
+				    thousands > 50
+				}
+				AND = {
+					ITA = {
+						controls_state = 448
+						controls_state = 450
+						controls_state = 451
+					}
+				}
+			}
+		}
+		visible = {
+			has_war_with = ITA
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+
+		days_remove = 4
+
+		remove_effect = {
+			add_war_support = -0.2
+			add_stability = -0.1
+			add_political_power = -100
+			ITA = { country_event = wsv_italy.4 }
+		}
+
+		
+		ai_will_do = {
+			factor = 0
+			#if we've lost everything give up
+			modifier = {
+				add = 1
+				NOT = {
+					controls_state = 448
+					controls_state = 450
+					controls_state = 451
+					controls_state = 661
+					controls_state = 662
+					controls_state = 663
+				}
+			}
+			#libya isnt worth the blood
+			modifier = {
+					add = 1
+					casualties_inflicted_by = {
+					    opponent = ITA
+					    thousands > 60
+					}
+				}
+			#libya def isnt worth the blood
+			modifier = {
+				add = 1
+				casualties_inflicted_by = {
+				    opponent = ITA
+				    thousands > 80
+				}
+			}
+		}
+	}
+}

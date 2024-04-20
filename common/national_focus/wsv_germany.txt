@@ -775,11 +775,9 @@ focus_tree = {
 		
 	focus = {
 		id = GER_establish_polish_puppet
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_eastern_expansion }
 		prerequisite = { focus = GER_schliffen_plan }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 3
@@ -789,9 +787,30 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_war_with = RUS
+			controls_state = 10
+			controls_state = 90
+			controls_state = 92
+			controls_state = 97
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			POL = {
+				transfer_state = 10
+				transfer_state = 90
+				transfer_state = 92
+				transfer_state = 97
+			}
+			puppet = POL
+			hidden_effect = {
+				add_to_war = {
+					targeted_alliance = POL
+					enemy = RUS
+				}
+			}
 		}
 	}
 
