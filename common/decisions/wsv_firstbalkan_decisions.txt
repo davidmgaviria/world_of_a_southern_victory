@@ -1,22 +1,144 @@
-firstbalkan_war_decisions = {
-	
+###################################################
+# -- Forming Balkan League
+###################################################
+
+balkan_league_cat = {
+
+	# Send request to form Balkan League
+	request_balkanleauge_formation = {
+		icon = generic_civil_support
+
+		allowed = {
+			OR = {
+				original_tag = SER
+				original_tag = BUL
+			}
+		}
+		visible = {
+			OR = {
+				date > 1912.1.1
+				NOT = { has_global_flag = italoturkish_war }
+			}
+		}
+		available = {
+			has_war = no
+			NOT = { has_global_flag = balkanleague_request_sent }
+		}
+
+		cost = 25
+		fire_only_once = yes
+
+		complete_effect = {
+			set_global_flag = balkanleague_request_sent
+			create_faction = "Balkan League"
+			if = {
+			if = {
+				limit = { tag = SER }
+				## send request to bulgaria, greece, montenegro, whoever accepts gets added
+			}
+			if = {
+				limit = { tag = BUL }
+				## send request to serbia, greece, montenegro, whoever accepts gets added
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# Convene summit to work out territorial differences
+	covene_balkan_summit = {
+		icon = generic_civil_support
+
+		allowed = {
+			# can trigger if in balkan league
+		}
+		visible = {
+			OR = {
+				date > 1912.1.1
+				has_global_flag = italoturkish_war
+			}
+		}
+		available = {
+			has_war = no
+			# balkan league formed
+		}
+
+		cost = 50
+		days_remove = 180
+		fire_only_once = yes
+		
+		complete_effect = {
+			set_global_flag = balkan_summit_convened
+		}
+
+		remove_effect = {
+			set_global_flag = balkan_summit_over
+			# news event to countries
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	# Declare the balkan war
+	begin_liberation_war = {
+		icon = generic_civil_support
+
+		allowed = {
+			# only faction leader can trigger
+		}
+		visible = {
+			OR = {
+				date > 1912.1.1
+				has_global_flag = italoturkish_war
+			}
+		}
+		available = {
+			has_war = no
+			has_global_flag = balkan_summit_over
+		}
+
+		cost = 25
+		fire_only_once = yes
+		days_remove = 7
+
+		remove_effect = {
+			set_global_flag = balkanleague_request_sent
+			# balkan war news event
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+
+
+
+
+###################################################
+# -- First Balkan War
+###################################################
+
+firstbalkan_war_cat = {
 
 	# Turkey throws in the towel
 	firstbalkan_turkey_offers_peace = {
-
 		icon = generic_form_nation
 
 		allowed = {
 			tag = TUR
 		}
-
 		available = {
 			OR = {
 				casualties > 50000
 				surrender_progress > 0.25
 			}
 		}
-
 		visible = {
 			has_global_flag = kis_firstbalkan_war
 			NOT = { has_global_flag = kis_firstbalkanwar_victory }
@@ -120,11 +242,8 @@ firstbalkan_war_decisions = {
 	}
 
 
-
-
 	# Balkan league offers peace
 	firstbalkan_league_offers_peace = {
-
 		icon = generic_form_nation
 
 		allowed = {
@@ -133,7 +252,6 @@ firstbalkan_war_decisions = {
 				tag = BUL
 			}
 		}
-
 		available = {
 			casualties_inflicted_by = {
 			    opponent = TUR
@@ -144,7 +262,6 @@ firstbalkan_war_decisions = {
 				TUR = { surrender_progress < 0.05 }
 			}
 		}
-
 		visible = {
 			has_global_flag = kis_firstbalkan_war
 			NOT = { has_global_flag = kis_firstbalkanwar_victory }

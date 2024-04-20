@@ -3,7 +3,7 @@ ITA_libyan_ambitions_cat = {
 
 	# Italian expedition timer
 	ITA_claim_libya = {
-		icon = generic_operation
+		icon = generic_civil_support
 
 		allowed = {
 			tag = ITA
@@ -17,7 +17,7 @@ ITA_libyan_ambitions_cat = {
 		}
 
 		cost = 25
-		days_remove = 150
+		days_remove = 120
 		fire_only_once = yes
 
 		remove_effect = {
@@ -75,7 +75,7 @@ ITA_libyan_ambitions_cat = {
 
 	# Italian expedition timer
 	ITA_invade_libya = {
-		icon = generic_operation
+		icon = generic_prepare_civil_war
 
 		allowed = {
 			tag = ITA
@@ -90,7 +90,7 @@ ITA_libyan_ambitions_cat = {
 		}
 
 		cost = 25
-		days_remove = 14
+		days_remove = 7
 		fire_only_once = yes
 
 		remove_effect = {
@@ -111,6 +111,7 @@ italoturkish_war_cat = {
 	# Italian expedition timer
 	italoturkish_expedition_deadline = {
 		icon = generic_operation
+		priority = 10
 
 		allowed = {
 			tag = ITA
@@ -120,13 +121,13 @@ italoturkish_war_cat = {
 			NOT = { has_global_flag = italoturkish_war_over }
 		}
 		available = {
-			NOT = { has_global_flag = italoturkish_war_over }  # will cancel once war is over
+			has_global_flag = italoturkish_war_over  # condition for event to cancel
 		}
 
 		days_mission_timeout = 540
 		fire_only_once = yes
 
-		remove_effect = {
+		timeout_effect = {
 			add_war_support = -0.3
 			add_stability = -0.2
 			add_political_power = -100
@@ -168,30 +169,33 @@ italoturkish_war_cat = {
 		ai_will_do = {
 			factor = 0
 
+			# keep holding on if we have ports
 			modifier = {
-				add = 1
-				NOT = {
-					controls_state = 448
-					controls_state = 450
-					controls_state = 451
-					controls_state = 661
-					controls_state = 662
-					controls_state = 663
-				}
+				add = -1
+				controls_state = 448 
 			}
 			modifier = {
-				add = 1
-				casualties_inflicted_by = {
-				    opponent = TUR
-				    thousands > 35
-				}
+				add = -1
+				controls_state = 450 
 			}
 			modifier = {
+				add = -1
+				controls_state = 451 
+			}
+			# if we have no ports under our control and lost this many men, give up
+			modifier = {
 				add = 1
-				casualties_inflicted_by = {
-				    opponent = TUR
-				    thousands > 60
-				}
+				casualties_inflicted_by = { opponent = ITA thousands > 25 }
+			}
+			# if we have only 1 port and have lost this many men, give up
+			modifier = {
+				add = 1
+				casualties_inflicted_by = { opponent = ITA thousands > 75 }
+			}
+			# if we have two ports but huge casualties, give up
+			modifier = {
+				add = 1
+				casualties_inflicted_by = { opponent = ITA thousands > 150 }
 			}
 		}
 	}
@@ -236,33 +240,36 @@ italoturkish_war_cat = {
 		
 		ai_will_do = {
 			factor = 0
-			#if we've lost everything give up
+			# keep holding on if we have ports
 			modifier = {
-				add = 1
-				NOT = {
-					controls_state = 448
-					controls_state = 450
-					controls_state = 451
-					controls_state = 661
-					controls_state = 662
-					controls_state = 663
-				}
+				add = -1
+				controls_state = 448 
 			}
-			#libya isnt worth the blood
 			modifier = {
-					add = 1
-					casualties_inflicted_by = {
-					    opponent = ITA
-					    thousands > 60
-					}
-				}
-			#libya def isnt worth the blood
+				add = -1
+				controls_state = 450 
+			}
+			modifier = {
+				add = -1
+				controls_state = 451 
+			}
+			# if completely pushed out of libya, give up
 			modifier = {
 				add = 1
-				casualties_inflicted_by = {
-				    opponent = ITA
-				    thousands > 80
-				}
+				NOT = { controls_state =  449 }
+				NOT = { controls_state =  661 }
+				NOT = { controls_state =  662 }
+				NOT = { controls_state =  663 }
+			}
+			# if we're holding out in the hinter lands but lost all ports and have lost this many men, give up
+			modifier = {
+				add = 1
+				casualties_inflicted_by = { opponent = ITA thousands > 50 } 
+			}
+			# if we still have 1 port but have lost all this men, give up
+			modifier = {
+				add = 1
+				casualties_inflicted_by = { opponent = ITA thousands > 150 }
 			}
 		}
 	}
