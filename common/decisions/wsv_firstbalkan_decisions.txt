@@ -173,9 +173,9 @@ balkan_league_cat = {
 
 
 
-###################################################
+###############################################################################
 # -- First Balkan War
-###################################################
+###############################################################################
 
 firstbalkan_war_cat = {
 
@@ -201,18 +201,16 @@ firstbalkan_war_cat = {
 			}
 		}
 
-		days_remove = 3
-
-		days_re_enable = 60
+		days_remove = 4
 
 		remove_effect = {
 			if = {
 				limit = { SER = { is_faction_leader = yes } }
-				SER = { country_event = ww1_firstbalkan.6 }
+				SER = { country_event = wsv_firstbalkan.7 }
 			}
 			if = {
 				limit = { BUL = { is_faction_leader = yes } }
-				BUL = { country_event = ww1_firstbalkan.6 }
+				BUL = { country_event = wsv_firstbalkan.7 }
 			}
 			custom_effect_tooltip = firstbalkan_league_wins_tt
 		}
@@ -220,7 +218,6 @@ firstbalkan_war_cat = {
 		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
 		ai_will_do = {
 			factor = 0
-
 			# less likely to give up if holding northern balkans
 			modifier = {
 				add = -1
@@ -231,7 +228,6 @@ firstbalkan_war_cat = {
 				controls_state = 803
 				controls_state = 758
 			}
-
 			# less likely to give up if holding southern balkans
 			modifier = {
 				add = -1
@@ -240,53 +236,23 @@ firstbalkan_war_cat = {
 				controls_state = 788
 				controls_state = 184
 			}
-
-			# start losing interest when casualties mount
+			# must take at least 100k to even consider giving up (and dont count if at war with ITA)
 			modifier = {
 				add = 1
-				OR = {
-					casualties_inflicted_by = {
-					    opponent = ser
-					    thousands > 50
-					}
-					casualties_inflicted_by = {
-					    opponent = BUL
-					    thousands > 50
-					}
-				}
+				casualties > 100000
+				NOT = { has_war_with = ITA }
 			}
-
-			# god so many casualties
+			# give up if only holding part of Balkans but have a ton of casualties
 			modifier = {
 				add = 1
-				OR = {
-					casualties_inflicted_by = {
-					    opponent = ser
-					    thousands > 75
-					}
-					casualties_inflicted_by = {
-					    opponent = BUL
-					    thousands > 75
-					}
-				}
+				casualties > 250000
 			}
-
-			# balkans isnt worth this much blood
+			# give up entirely
 			modifier = {
 				add = 1
-				OR = {
-					casualties_inflicted_by = {
-					    opponent = ser
-					    thousands > 100
-					}
-					casualties_inflicted_by = {
-					    opponent = BUL
-					    thousands > 100
-					}
-				}
+				casualties > 400000
 			}
-
-			# if we lose istanbul give up
+			# if we lose istanbul give up at once
 			modifier = {
 				add = 10
 				NOT = { controls_state = 341 }  
@@ -306,13 +272,12 @@ firstbalkan_war_cat = {
 			}
 		}
 		available = {
-			casualties_inflicted_by = {
-			    opponent = TUR
-			    thousands > 50
-			}
 			OR = {
-				alliance_strength_ratio < 1
-				TUR = { surrender_progress < 0.05 }
+				casualties_inflicted_by = {
+					opponent = TUR
+					thousands > 50
+				}
+				surrender_progress > 0
 			}
 		}
 		visible = {
@@ -322,78 +287,72 @@ firstbalkan_war_cat = {
 			is_faction_leader = yes
 		}
 
-		days_remove = 3
-
-		days_re_enable = 60
+		days_remove = 4
 
 		remove_effect = {
-			TUR = { country_event =  ww1_firstbalkan.7 }
-			custom_effect_tooltip = firstbalkan_turkey_wins_tt
+			TUR = { country_event =  wsv_firstbalkan.9 }
+			custom_effect_tooltip = firstbalkan_turkey_wins_tt  	# white peace
 		}
 
+
 		ai_will_do = {
-			factor = 0
+			factor = -2		# default is we dont want to surrender
 
-			# less likely to give up if holding northern balkans
+			# serbia falling is bad
 			modifier = {
-				add = -1
-				controls_state = 760
-				controls_state = 761
-				controls_state = 44
-				controls_state = 106
-				controls_state = 803
-				controls_state = 758
+				add = 1
+				SER = {
+					has_war_with = TUR
+					surrender_progress > 0.5
+				}
 			}
-
-			# less likely to give up if holding southern balkans
 			modifier = {
-				add = -1
-				controls_state = 759
-				controls_state = 731
-				controls_state = 788
-				controls_state = 184
+				add = 1
+				SER = {
+					has_war_with = TUR
+					has_capitulated = yes
+				}
 			}
-
+			# bulgaria falling is bad
+			modifier = {
+				add = 1
+				BUL = {
+					has_war_with = TUR
+					surrender_progress > 0.5
+				}
+			}
+			modifier = {
+				add = 1
+				BUL = {
+					has_war_with = TUR
+					has_capitulated = yes
+				}
+			}
 			# start losing interest when casualties mount
 			modifier = {
 				add = 1
-				OR = { 
-					AND = {
-						tag = BUL
-						casualties > 75000
-					}
-					AND = {
-						tag = SER
-						casualties > 60000
-					}
+				any_country = {
+					has_war_with = TUR
+					has_capitulated = no
+					casualties > 100000
 				}
 			}
-
+			# start losing interest when casualties mount
 			modifier = {
 				add = 1
-				OR = { 
-					AND = {
-						tag = BUL
-						casualties > 100000
-					}
-					AND = {
-						tag = SER
-						casualties > 85000
-					}
+				any_country = {
+					has_war_with = TUR
+					has_capitulated = no
+					casualties > 150000
 				}
 			}
-
+			# start losing interest when casualties mount
 			modifier = {
 				add = 1
-				OR = { 
-					AND = {
-						tag = BUL
-						casualties > 150000
-					}
-					AND = {
-						tag = SER
-						casualties > 125000
-					}
+				any_country = {
+					has_war_with = TUR
+					has_capitulated = no
+					casualties > 200000
 				}
 			}
 		}
