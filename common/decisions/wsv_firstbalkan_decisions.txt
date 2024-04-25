@@ -4,9 +4,9 @@
 
 balkan_league_cat = {
 
-	# Send request to form Balkan League
+	# Serbia / Bulgaria asks the other to form Balkan League
 	request_balkanleauge_formation = {
-		icon = generic_civil_support
+		#icon = generic_civil_support  #generic icon
 
 		allowed = {
 			OR = {
@@ -17,28 +17,79 @@ balkan_league_cat = {
 		visible = {
 			OR = {
 				date > 1912.1.1
-				NOT = { has_global_flag = italoturkish_war }
+				has_global_flag = italoturkish_war
 			}
+			NOT = { has_global_flag = balkan_requests_sent_out }
 		}
 		available = {
 			has_war = no
-			NOT = { has_global_flag = balkanleague_request_sent }
+			# TODO: check if anyone can join balkan league
 		}
 
 		cost = 25
 		fire_only_once = yes
 
 		complete_effect = {
-			set_global_flag = balkanleague_request_sent
-			create_faction = "Balkan League"
-			if = {
-			if = {
-				limit = { tag = SER }
-				## send request to bulgaria, greece, montenegro, whoever accepts gets added
+			set_global_flag = balkan_requests_sent_out
+			every_country = {
+				limit = {
+					NOT = { tag = ROOT }
+					OR = {
+						tag = SER
+						tag = BUL
+						tag = GRE
+						tag = MNT
+					}
+					has_war = no
+					is_in_faction = no
+					is_puppet = no	
+				}
+				country_event = wsv_firstbalkan.1
 			}
-			if = {
-				limit = { tag = BUL }
-				## send request to serbia, greece, montenegro, whoever accepts gets added
+			custom_effect_tooltip = balkan_league_join_conditions_tt
+		}
+
+		ai_will_do = {
+			factor = 0.5
+			modifier = {
+				factor = 10
+				tag = SER
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 0
+				tag = BUL
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+
+	# Negociate territorial differences
+	balkanleague_territorial_negociations = {
+		icon = generic_political_discourse
+
+		visible = {
+			OR = {
+				date > 1912.1.1
+				has_global_flag = italoturkish_war
+			}
+			has_country_flag = balkan_league_memeber
+			NOT = { has_global_flag = balkan_league_negociations }
+		}
+		available = {
+			has_war = no
+			has_global_flag = balkan_league_formed
+		}
+
+		cost = 50
+		fire_only_once = yes
+		
+		complete_effect = {
+			set_global_flag = balkan_league_negociations
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				country_event = wsv_firstbalkan.4
 			}
 		}
 
@@ -47,59 +98,49 @@ balkan_league_cat = {
 		}
 	}
 
+	# Ongoing negociations mission
+	balkanleague_ongoing_negociations = {
+		icon = generic_political_discourse
 
-	# Convene summit to work out territorial differences
-	covene_balkan_summit = {
-		icon = generic_civil_support
-
-		allowed = {
-			# can trigger if in balkan league
-		}
 		visible = {
-			OR = {
-				date > 1912.1.1
-				has_global_flag = italoturkish_war
-			}
+			has_country_flag = balkan_league_memeber
+		}
+		activation = {
+			has_global_flag = balkan_league_negociations
 		}
 		available = {
-			has_war = no
-			# balkan league formed
+			has_global_flag = balkan_league_negociations_over  # mission to cancel
 		}
 
-		cost = 50
-		days_remove = 180
-		fire_only_once = yes
+		days_mission_timeout = 180
+		is_good = no
 		
-		complete_effect = {
-			set_global_flag = balkan_summit_convened
-		}
-
-		remove_effect = {
-			set_global_flag = balkan_summit_over
-			# news event to countries
-		}
-
-		ai_will_do = {
-			factor = 1
+		timeout_effect = {
+			set_global_flag = balkan_league_negociations_over
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				country_event = wsv_firstbalkan.5
+			}
 		}
 	}
 
 	# Declare the balkan war
-	begin_liberation_war = {
-		icon = generic_civil_support
+	balkanleague_begin_war = {
+		icon = generic_prepare_civil_war
 
-		allowed = {
-			# only faction leader can trigger
-		}
 		visible = {
 			OR = {
 				date > 1912.1.1
 				has_global_flag = italoturkish_war
 			}
+			has_global_flag = balkan_league_formed
+			has_country_flag = balkan_league_memeber
+			NOT = { has_global_flag =  kis_firstbalkan_war }
 		}
 		available = {
 			has_war = no
-			has_global_flag = balkan_summit_over
+			has_global_flag = balkan_league_negociations_over
+			is_faction_leader = yes
 		}
 
 		cost = 25
@@ -107,8 +148,20 @@ balkan_league_cat = {
 		days_remove = 7
 
 		remove_effect = {
-			set_global_flag = balkanleague_request_sent
-			# balkan war news event
+			declare_war_on = {
+				target = TUR
+				type = take_core_state
+			}
+			hidden_effect = {
+				every_country = {
+					limit = { is_in_faction_with = ROOT }
+					add_to_war = {
+						targeted_alliance = ROOT
+						enemy = TUR
+					}
+				}
+			}
+			news_event = wsv_firstbalkan.6
 		}
 
 		ai_will_do = {
