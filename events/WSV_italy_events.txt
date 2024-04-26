@@ -1,0 +1,222 @@
+﻿add_namespace = wsv_italy
+
+## Italy fabricates claims in Libya
+country_event = {
+	id = wsv_italy.1
+	title = wsv_italy.1.t
+	desc = wsv_italy.1.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.1.a
+	}
+}
+
+
+#######################################################################
+# -- Italo-Turkish War
+#######################################################################
+
+# Italian invasion of Libya - Global News
+news_event = {
+	id = wsv_italy.2
+	title = wsv_italy.2.t
+	desc = wsv_italy.2.d
+	picture = EVENT_hoi4tgw_italo_turkish_war
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = italoturkish_war
+	    hidden_effect = {
+			ITA = {
+				declare_war_on = {
+					type = take_state_focus
+					target = TUR
+				}
+				451 = { set_state_controller_to = ITA }	
+	        	load_oob = "ITA_Tobruk" # Italian troops on Tobruk
+				add_named_threat = {
+					threat = 5
+					name = "Italo-Turkish War"
+				}
+        		set_country_flag = italian_libya_war
+        		activate_decision = italoturkish_expedition_deadline
+        		add_war_support = 0.3
+	        }
+		    TUR = {
+		        country_event = { id = wsv_italy.3 days = 1 }
+		        remove_ideas = neutrality_idea
+		    }
+	    }
+	}
+		
+	option = {
+		name = wsv_italy.2.a
+		trigger = { 
+			NOT = { TAG = ITA }
+			NOT = { TAG = TUR }
+		}
+	}
+	option = {
+		name = wsv_italy.2.b
+		trigger = { 
+			TAG = ITA
+			TAG = TUR
+		}
+	}
+}
+
+
+
+# Pop some troops to Ottomans
+country_event = {
+	id = wsv_italy.3
+	title = wsv_italy.3.t
+	desc = wsv_italy.3.d
+	picture = GFX_report_event_generic_read_write
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.3.a
+	
+		TUR = {
+			load_oob = "Libyan"
+		}
+	}
+}
+
+
+# Italy accepts Ottoman's reddition
+country_event = {
+	id = wsv_italy.4
+	title = wsv_italy.4.t
+	desc = wsv_italy.4.d
+	picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+
+	#Accept surrender
+	option = {
+		name = wsv_italy.4.a
+		white_peace = TUR
+
+		transfer_state = 164
+		transfer_state = 273
+		transfer_state = 448
+		transfer_state = 449
+		transfer_state = 450
+		transfer_state = 451
+		transfer_state = 661
+		transfer_state = 662
+		transfer_state = 663
+		transfer_state = 663
+		
+		hidden_effect = {
+			news_event = { days = 1 id = wsv_italy.5 }
+		}
+	}
+}
+
+
+# Italo-Turkish War - Italy Wins - Global News
+news_event = {
+	id = wsv_italy.5
+	title = wsv_italy.5.t
+	desc = wsv_italy.5.d
+	picture = GFX_news_event_generic_sign_treaty2
+	
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = italoturkish_war_over
+	}
+		
+	option = {
+		name = wsv_italy.5.a
+		trigger = { 
+			NOT = { TAG = ITA }
+			NOT = { TAG = TUR }
+		}
+	}
+	option = {
+		name = wsv_italy.5.b
+		trigger = { 
+			TAG = ITA
+		}
+	}
+	option = {
+		name = wsv_italy.5.c
+		trigger = { 
+			TAG = TUR
+		}
+	}
+}
+
+
+#Ottomans Accepts Italy's reddition
+country_event = {
+	id = wsv_italy.6
+	title = wsv_italy.6.t
+	desc = wsv_italy.6.d
+	picture = GFX_report_event_generic_read_write
+	
+	is_triggered_only = yes
+
+	#Accept surrender
+	option = {
+		name = wsv_italy.6.a
+		
+		white_peace = ITA
+
+		hidden_effect = {
+			news_event = { days = 1 id = wsv_italy.7 }
+		}
+	}
+}
+
+
+# Italo-turkish War - Italy Looses - Global News
+news_event = {
+	id = wsv_italy.7
+	title = wsv_italy.7.t
+	desc = wsv_italy.7.d
+	picture = GFX_news_event_generic_sign_treaty2
+	
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = italoturkish_war_over
+	}
+		
+	option = {
+		name = wsv_italy.7.a
+		trigger = { 
+			NOT = { TAG = ITA }
+			NOT = { TAG = TUR }
+		}
+	}
+	option = {
+		name = wsv_italy.7.b
+		trigger = { 
+			TAG = ITA
+		}
+	}
+	option = {
+		name = wsv_italy.7.c
+		trigger = { 
+			TAG = TUR
+		}
+	}
+}
+
+#######################################################################
+
+

@@ -1,0 +1,405 @@
+﻿add_namespace = wsv_secondbalkan
+
+
+
+#######################################################################
+# -- Lead Up to War
+#######################################################################
+
+
+## Bulgaria unsatisfied with London Treaty
+country_event = {
+	id = wsv_secondbalkan.1
+	title = wsv_secondbalkan.1.t
+	desc = wsv_secondbalkan.1.d
+
+	is_triggered_only = yes
+	
+	# Prepare for war (activates countdown decision)
+	option = {
+		name = wsv_secondbalkan.1.a
+		set_country_flag = criticized_london_peace_conference
+		activate_mission = secondbalkan_countdown_to_war
+		hidden_effect = {
+			SER = { country_event = { id = wsv_secondbalkan.2  days = 1 } }
+		}
+		custom_effect_tooltip = war_with_serbia_and_greece_tt
+		ai_chance = { base = 100 }
+	}
+
+	# No
+	option = {
+		name = wsv_secondbalkan.1.b
+		add_political_power = -75
+		add_war_support = -0.1
+	}
+}
+
+
+## Serbia informed of Bulgarian preparations
+country_event = {
+	id = wsv_secondbalkan.2
+	title = wsv_secondbalkan.2.t
+	desc = wsv_secondbalkan.2.d
+
+	is_triggered_only = yes
+	
+	# Ask greece for help
+	option = {
+		name = wsv_secondbalkan.2.a
+		create_faction = "Anti-Bulgarian Coalition"
+		GRE = { country_event = { id = wsv_secondbalkan.3  days = 1 } }
+		custom_effect_tooltip = defensive_treaty_with_greece_tt
+	}
+}
+
+
+## Greece asked by Serbia to join defensive alliance
+country_event = {
+	id = wsv_secondbalkan.3
+	title = wsv_secondbalkan.3.t
+	desc = wsv_secondbalkan.3.d
+
+	is_triggered_only = yes
+	
+	# Yes
+	option = {
+		name = wsv_secondbalkan.3.a
+		SER = {
+			country_event = { id = wsv_secondbalkan.4  days = 1 }
+		}
+		custom_effect_tooltip = defensive_treaty_with_greece_tt
+		ai_chance = { base = 100 }
+	}
+
+	# No
+	option = {
+		name = wsv_secondbalkan.3.b
+		SER = { 
+			country_event = { id = wsv_secondbalkan.5  days = 1 }
+		}
+	}
+}
+
+
+## Greece says yes
+country_event = {
+	id = wsv_secondbalkan.4
+	title = wsv_secondbalkan.4.t
+	desc = wsv_secondbalkan.4.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_secondbalkan.4.a
+		add_to_faction = GRE
+	}
+}
+
+
+## Greece said no
+country_event = {
+	id = wsv_secondbalkan.5
+	title = wsv_secondbalkan.5.t
+	desc = wsv_secondbalkan.5.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_secondbalkan.5.a
+	}
+}
+
+
+
+#######################################################################
+# -- Second Balkan War
+#######################################################################
+
+
+# Second Balkan War Starts
+news_event = {
+	id = wsv_secondbalkan.6
+	title = wsv_secondbalkan.6.t
+	desc = wsv_secondbalkan.6.d
+	picture = EVENT_hoi4tgw_second_balkan_war
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = secondbalkan_war
+		hidden_effect = {
+			ROM = { country_event = { id = wsv_secondbalkan.7  days = 7 } }
+			TUR = { country_event = { id = wsv_secondbalkan.8  days = 10 } }  # joined a little after
+		}
+	}
+	
+	option = {
+		name = wsv_secondbalkan.6.a
+	}
+}
+
+
+## Romanian Intervention
+country_event = {
+	id = wsv_secondbalkan.7
+	title = wsv_secondbalkan.7.t
+	desc = wsv_secondbalkan.7.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_secondbalkan.7.a
+		trigger = {
+			SER = { has_war_with = BUL }
+		}
+		ROM = {
+			set_country_flag = secondbalkanwar_romanian_intervention
+	        add_to_war = {
+	            targeted_alliance = SER  enemy = BUL
+	        }
+		}
+		hidden_effect = { news_event =  wsv_secondbalkan.9 }
+		ai_chance = { factor = 100 }
+	}
+
+	option = {
+		name = wsv_secondbalkan.7.b
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## Ottoman Intervention
+country_event = {
+	id = wsv_secondbalkan.8
+	title = wsv_secondbalkan.8.t
+	desc = wsv_secondbalkan.8.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_secondbalkan.8.a
+		trigger = {
+			SER = { has_war_with = BUL }
+		}
+		set_country_flag = secondbalkanwar_ottoman_intervention
+		add_to_war = {
+			targeted_alliance = SER  enemy = BUL
+		}
+		hidden_effect = { news_event =  wsv_secondbalkan.10 }
+		ai_chance = { factor = 100 }
+	}
+
+	option = {
+		name = wsv_secondbalkan.8.b
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+# Romania joins the Second Balkan War
+news_event = {
+	id = wsv_secondbalkan.9
+	title = wsv_secondbalkan.9.t
+	desc = wsv_secondbalkan.9.d
+	picture = EVENT_hoi4tgw_second_balkan_war
+
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_secondbalkan.9.a
+	}
+}
+
+
+# Ottoman joins the Second Balkan War
+news_event = {
+	id = wsv_secondbalkan.10
+	title = wsv_secondbalkan.10.t
+	desc = wsv_secondbalkan.10.d
+	picture = EVENT_hoi4tgw_second_balkan_war
+
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_secondbalkan.10.a
+	}
+}
+
+
+
+#######################################################################
+# -- Peace Treaties
+#######################################################################
+
+
+# Serbia gets peace offer from Bulgaria
+country_event = {
+	id = wsv_secondbalkan.11
+	title = wsv_secondbalkan.11.t
+	desc = wsv_secondbalkan.11.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# End the war
+	option = { 
+		name = wsv_secondbalkan.11.a
+		news_event = { days = 1  id = wsv_secondbalkan.12 }
+	}
+}
+
+
+# Second Balkan War Bulgarian Defeat
+news_event = {
+	id = wsv_secondbalkan.12
+	title = wsv_secondbalkan.12.t
+	desc = wsv_secondbalkan.12.d
+	picture = EVENT_hoi4tgw_second_balkan_war_end
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = secondbalkanwar_over
+			set_global_flag = secondbalkanwar_bulgarian_defeat
+			SER = {
+				transfer_state = 759
+			}
+			GRE = {
+				if = {
+					limit = { has_war_with = BUL }
+					transfer_state = 184
+				}
+			}
+			ROM = {
+				if = {
+					limit = { has_war_with = BUL }
+					transfer_state = 77
+				}
+			}
+			TUR = {
+				if = {
+					limit = { has_war_with = BUL }
+					transfer_state = 756
+				}
+			}
+			# league peaces out
+			SER = {
+				white_peace = BUL
+				if = { 
+					limit = { is_faction_leader = yes }
+					dismantle_faction = yes
+				}
+			}
+			BUL = { dismantle_faction = yes }
+		}
+	}
+	
+	option = {
+		name = wsv_secondbalkan.12.a
+	}
+}
+
+
+# Bulgaria gets peace offer from Serbia
+country_event = {
+	id = wsv_secondbalkan.13
+	title = wsv_secondbalkan.13.t
+	desc = wsv_secondbalkan.13.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# End the war
+	option = { 
+		name = wsv_secondbalkan.13.a
+		news_event = { days = 1 id = wsv_secondbalkan.14 }
+	}
+}
+
+
+# Second Balkan War Bulgarian Victory
+news_event = {
+	id = wsv_secondbalkan.14
+	title = wsv_secondbalkan.14.t
+	desc = wsv_secondbalkan.14.d
+	picture = EVENT_hoi4tgw_second_balkan_war_end
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = secondbalkanwar_over
+			set_global_flag = secondbalkanwar_bulgarian_victory
+			# transfer to bulgaria
+			BUL = {
+				# transfer serb territory
+				transfer_state = 818
+				transfer_state = 106
+				# transfer greek territory
+				if = {
+					limit = { has_war_with = GRE }
+					transfer_state = 731
+				}
+				# transfer romanian territory
+				if = {
+					limit = { has_war_with = ROM }
+					transfer_state = 842
+				}
+			}
+			# peace out
+			SER = {
+				white_peace = BUL
+				if = { 
+					limit = { is_faction_leader = yes }
+					dismantle_faction = yes
+				}
+			}
+			BUL = { dismantle_faction = yes }
+		}
+	}
+	
+	option = {
+		name = wsv_secondbalkan.14.a
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

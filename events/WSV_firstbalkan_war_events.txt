@@ -1,0 +1,310 @@
+﻿add_namespace = wsv_firstbalkan
+
+#######################################################################
+# -- Formation of Balkan League
+#######################################################################
+
+## Counntry gets request to form Balkan League
+country_event = {
+	id = wsv_firstbalkan.1
+	title = wsv_firstbalkan.1.t
+	desc = wsv_firstbalkan.1.d
+
+	is_triggered_only = yes
+	
+	# Yes (FROM is faction leader)
+	option = {
+		name = wsv_firstbalkan.1.a
+		set_country_flag = balkan_league_member
+		FROM = { 
+			set_country_flag = balkan_league_member
+			country_event = { id = wsv_firstbalkan.2  days = 3 } 
+		}
+
+		ai_chance = { base = 100 }
+	}
+
+	# No (FROM is faction leader)
+	option = {
+		name = wsv_firstbalkan.1.b
+		FROM = {
+			country_event = { id = wsv_firstbalkan.3  days = 3 }
+		}
+	}
+}
+
+
+## Country agreed
+country_event = {
+	id = wsv_firstbalkan.2
+	title = wsv_firstbalkan.2.t
+	desc = wsv_firstbalkan.2.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.2.a
+		if = {
+			limit = { is_in_faction = no }
+			create_faction = "Balkan League"
+		}
+		add_to_faction = FROM   # the person that responded to us
+		set_global_flag = balkan_league_formed
+	}
+}
+
+
+## Country refused
+country_event = {
+	id = wsv_firstbalkan.3
+	title = wsv_firstbalkan.3.t
+	desc = wsv_firstbalkan.3.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.3.a
+	}
+}
+
+
+## Territory negociations begun
+country_event = {
+	id = wsv_firstbalkan.4
+	title = wsv_firstbalkan.4.t
+	desc = wsv_firstbalkan.4.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.4.a
+	}
+}
+
+## Territory negociations over
+country_event = {
+	id = wsv_firstbalkan.5
+	title = wsv_firstbalkan.5.t
+	desc = wsv_firstbalkan.5.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.5.a
+	}
+}
+
+
+
+###################################################################
+# -- First Balkan War
+####################################################################
+
+# First Balkan War Starts
+news_event = {
+	id = wsv_firstbalkan.6
+	title = wsv_firstbalkan.6.t
+	desc = wsv_firstbalkan.6.d
+	picture = EVENT_hoi4tgw_first_balkan_war
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = kis_firstbalkan_war
+	}
+	
+	option = {
+		name = wsv_firstbalkan.6.a
+	}
+}
+
+
+# Serbia receive Peace Offer from Ottoman
+country_event = {
+	id = wsv_firstbalkan.7
+	title = wsv_firstbalkan.7.t
+	desc = wsv_firstbalkan.7.d
+	#picture = wsv_firstbalkan_6
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	# SER Yes
+	option = {
+		name = wsv_firstbalkan.7.a
+		news_event = { days = 1  id = wsv_firstbalkan.8 }
+		custom_effect_tooltip = firstbalkan_league_wins_tt
+	}
+}
+
+
+# Balkan League Victory - First Balkan War
+news_event = {
+	id = wsv_firstbalkan.8
+	title = wsv_firstbalkan.8.t
+	desc = wsv_firstbalkan.8.d
+	picture = EVENT_hoi4tgw_first_balkan_war_end
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = kis_firstbalkanwar_victory
+		hidden_effect = {
+			# peace out
+			every_country = {
+				limit = {
+					has_war_with = TUR
+					has_country_flag = balkan_league_member
+					is_faction_leader = yes
+				}
+				white_peace = TUR			# peaces out everyone
+				dismantle_faction = yes
+			}
+
+			SER = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 106
+					transfer_state = 760
+					add_state_core = 106
+					add_state_core = 760
+					diplomatic_relation = {
+						country = TUR
+						relation = non_aggression_pact
+					}
+					#remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+				}
+			}
+			GRE = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 731
+					transfer_state = 758
+
+					add_state_core = 731
+					add_state_core = 758
+					diplomatic_relation = {
+						country = TUR
+						relation = non_aggression_pact
+					}
+					#remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+				}
+			}
+			BUL = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 184
+					transfer_state = 756
+					transfer_state = 757
+					transfer_state = 788
+					transfer_state = 759	
+					add_state_core = 184
+					add_state_core = 756
+					add_state_core = 757
+					add_state_core = 788
+					add_state_core = 759
+					diplomatic_relation = {
+						country = TUR
+						relation = non_aggression_pact
+					}
+					#remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+					country_event = { id = wsv_secondbalkan.1  days = 5 }   # second balkan war
+				}
+			}
+			MNT = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 761
+					add_state_core = 761
+					diplomatic_relation = {
+						country = TUR
+						relation = non_aggression_pact
+					}
+					#remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+				}
+			}
+			ALB = {
+				transfer_state = 44
+				transfer_state = 803
+				add_state_core = 44
+				add_state_core = 803
+				diplomatic_relation = {
+					country = TUR
+					relation = non_aggression_pact
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = wsv_firstbalkan.8.a
+	}
+}
+
+
+# Ottomans receive Peace Offer from League
+country_event = {
+	id = wsv_firstbalkan.9
+	title = wsv_firstbalkan.9.t
+	desc = wsv_firstbalkan.9.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	# Yes
+	option = {
+		name = wsv_firstbalkan.9.a
+		news_event = { id = wsv_firstbalkan.10  days = 1 }
+		custom_effect_tooltip = firstbalkan_turkey_wins_tt
+	}
+}
+
+
+# Balkan League Defeat - First Balkan War
+news_event = {
+	id = wsv_firstbalkan.10
+	title = wsv_firstbalkan.10.t
+	desc = wsv_firstbalkan.10.d
+	picture = EVENT_hoi4tgw_first_balkan_war_end
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_war_with = TUR
+					has_country_flag = balkan_league_member
+				}
+				white_peace = TUR			# peaces out everyone
+				dismantle_faction = yes
+			}
+			every_country = {
+				limit = {
+					has_country_flag = balkan_league_member
+				}
+				clr_country_flag = balkan_league_member
+				add_stability = -0.25
+				add_war_support = -0.3
+				add_political_power = -250
+				diplomatic_relation = {
+					country = TUR
+					relation = non_aggression_pact
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = wsv_firstbalkan.10.a
+	}
+}
+
+
