@@ -50,11 +50,10 @@ balkan_league_cat = {
 		}
 
 		ai_will_do = {
-			factor = 0.5
+			factor = 10
 			modifier = {
-				factor = 10
-				tag = SER
-				is_historical_focus_on = yes
+				factor = 0.5
+				tag = BUL
 			}
 			modifier = {
 				factor = 0
@@ -74,7 +73,7 @@ balkan_league_cat = {
 				date > 1912.1.1
 				has_global_flag = italoturkish_war
 			}
-			has_country_flag = balkan_league_memeber
+			has_country_flag = balkan_league_member
 			NOT = { has_global_flag = balkan_league_negociations }
 		}
 		available = {
@@ -88,13 +87,20 @@ balkan_league_cat = {
 		complete_effect = {
 			set_global_flag = balkan_league_negociations
 			every_country = {
-				limit = { has_country_flag = balkan_league_member }
+				limit = { 
+					has_country_flag = balkan_league_member 
+					NOT = { tag = THIS }
+				}
 				country_event = wsv_firstbalkan.4
 			}
 		}
 
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				factor = 5
+				is_faction_leader = yes
+			}
 		}
 	}
 
@@ -103,7 +109,7 @@ balkan_league_cat = {
 		icon = generic_political_discourse
 
 		visible = {
-			has_country_flag = balkan_league_memeber
+			has_country_flag = balkan_league_member
 		}
 		activation = {
 			has_global_flag = balkan_league_negociations
@@ -112,7 +118,7 @@ balkan_league_cat = {
 			has_global_flag = balkan_league_negociations_over  # mission to cancel
 		}
 
-		days_mission_timeout = 180
+		days_mission_timeout = 300
 		is_good = no
 		
 		timeout_effect = {
@@ -134,7 +140,7 @@ balkan_league_cat = {
 				has_global_flag = italoturkish_war
 			}
 			has_global_flag = balkan_league_formed
-			has_country_flag = balkan_league_memeber
+			has_country_flag = balkan_league_member
 			NOT = { has_global_flag =  kis_firstbalkan_war }
 		}
 		available = {
@@ -166,6 +172,10 @@ balkan_league_cat = {
 
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				factor = 10
+				date > 1912.10.1  # historical date
+			}
 		}
 	}
 }
@@ -334,7 +344,7 @@ firstbalkan_war_cat = {
 				any_country = {
 					has_war_with = TUR
 					has_capitulated = no
-					casualties > 100000
+					casualties > 50000
 				}
 			}
 			# start losing interest when casualties mount
@@ -343,10 +353,10 @@ firstbalkan_war_cat = {
 				any_country = {
 					has_war_with = TUR
 					has_capitulated = no
-					casualties > 150000
+					casualties > 100000
 				}
 			}
-			# start losing interest when casualties mount
+			# give up if this many casualties from anyone
 			modifier = {
 				add = 1
 				any_country = {
