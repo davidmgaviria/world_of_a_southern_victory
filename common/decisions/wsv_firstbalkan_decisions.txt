@@ -110,9 +110,11 @@ balkan_league_cat = {
 
 		visible = {
 			has_country_flag = balkan_league_member
+			NOT = { has_global_flag = balkan_league_negociations_over }
 		}
 		activation = {
 			has_global_flag = balkan_league_negociations
+			NOT = { has_global_flag = balkan_league_negociations_over }
 		}
 		available = {
 			has_global_flag = balkan_league_negociations_over  # mission to cancel
@@ -171,10 +173,10 @@ balkan_league_cat = {
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 0
 			modifier = {
-				factor = 10
-				date > 1912.10.1  # historical date
+				add = 10
+				date > 1912.9.30  # historical date is 10/8/1912
 			}
 		}
 	}
