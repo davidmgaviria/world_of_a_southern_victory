@@ -1,5 +1,54 @@
 
 wsv_great_war_decisions = {
+
+	# Schliffen plan
+	germany_schliffen_plan = {
+
+		icon = infiltrate_state
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			has_war_with = FRA
+			OR = {
+				NOT = { has_war_with = BEL }
+				NOT = { has_war_with = LUX }
+			}
+			
+		}
+
+		visible = {
+			NOT = { is_in_faction_with = FRA }
+			NOT = { is_in_faction_with = BEL }
+			NOT = { is_in_faction_with = LUX }
+		}
+
+		fire_only_once = yes
+		days_remove = 6
+
+		remove_effect = {
+			set_country_flag = schliffen_plan_began
+			add_timed_idea = {	idea = GER_schlieffen_plan	days = 60 }
+			declare_war_on = {
+			    target = BEL
+			    type = puppet_wargoal_focus
+			}
+			declare_war_on = {
+			    target = LUX
+			    type = annex_everything
+			}
+			if = {
+				limit = { ENG = { has_guaranteed = BEL } }
+				custom_effect_tooltip = war_with_england_tt
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
 	
 	# Germany throws in the towel
 	greatwar_germany_offers_peace = {

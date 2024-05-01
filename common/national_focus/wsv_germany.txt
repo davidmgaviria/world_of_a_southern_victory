@@ -72,6 +72,10 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_country_flag = path_complete
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
@@ -450,6 +454,10 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_country_flag = path_complete
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
@@ -600,7 +608,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_hindenburg_line
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_expand_ohl_authority }
 		#mutually_exclusive = { focus = }
 
@@ -613,10 +621,25 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_war_with = FRA
+			casualties > 500000
+			controls_state = 828
+			controls_state = 34
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
-			
+			828 = {
+				add_building_construction = { type = bunker  level = 2  province = 11516 }
+				add_building_construction = { type = bunker  level = 2  province = 5291 }
+				add_building_construction = { type = bunker  level = 2  province = 3560 }
+			}
+			34 = {
+				add_building_construction = { type = bunker  level = 2  province = 9444 }
+				add_building_construction = { type = bunker  level = 2  province = 6535 }
+			}
 		}
 	}
 
@@ -647,10 +670,8 @@ focus_tree = {
 		
 	focus = {
 		id = GER_spring_offensive
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus=GER_strangle_britain focus=GER_hindenburg_line  focus=GER_further_expand_ohl_authority}
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 1
 		y = 1
@@ -660,9 +681,20 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_war_with = FRA
+			FRA = { surrender_progress > 0 }
+			casualties > 1600000
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_timed_idea = {
+				idea = GER_kaisers_battle
+				days = 90
+			}
+			set_country_flag = kaisers_battle_began
 		}
 	}
 
@@ -693,22 +725,30 @@ focus_tree = {
 
 	focus = {
 		id = GER_call_bulgaria_to_war
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_control_auh_military }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = GER_control_auh_military
 
-		ai_will_do = { 
-			factor = 0 
+		available = {
+			date > 1915.6.1
+			has_war_with = SER
+			is_faction_leader = yes
+			BUL = {
+				is_in_faction = no
+				is_puppet = no
+				has_war = no
+			}
 		}
 
-		#bypass = {}
+		bypass = {
+			is_in_faction_with = BUL
+		}
 
 		completion_reward = { 
+			BUL = { country_event = wsv_germany.3 }
 		}
 	}
 
@@ -830,6 +870,11 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_country_flag = path_complete
+		}
+
+
 		#bypass = {}
 
 		completion_reward = { 
@@ -839,11 +884,9 @@ focus_tree = {
 		
 	focus = {
 		id = GER_alliance_with_sweden
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_eastern_expansion }
 		prerequisite = { focus = GER_schliffen_plan }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -1
 		y = 2
@@ -853,9 +896,24 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
+		available = {
+			date > 1915.1.1
+			has_war_with = RUS
+			is_faction_leader = yes
+			SWE = {
+				is_in_faction = no
+				is_puppet = no
+				has_war = no
+			}
+		}
+
+		bypass = {
+			is_in_faction_with = SWE
+		}
 
 		completion_reward = { 
+			SWE = { country_event = wsv_germany.6 }
+			custom_effect_tooltip = sweden_join_germany_conditions_tt
 		}
 	}
 
@@ -903,11 +961,9 @@ focus_tree = {
 		
 	focus = {
 		id = GER_call_turkey_to_war
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_outreach_turkey }
 		prerequisite = { focus = GER_schliffen_plan }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 3
@@ -917,9 +973,22 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
+		available = {
+			has_war_with = RUS
+			is_faction_leader = yes
+			TUR = {
+				is_in_faction = no
+				is_puppet = no
+				has_war = no
+			}
+		}
+
+		bypass = {
+			is_in_faction_with = TUR
+		}
 
 		completion_reward = { 
+			TUR = { country_event = wsv_germany.3 }
 		}
 	}
 
@@ -938,6 +1007,11 @@ focus_tree = {
 		ai_will_do = { 
 			factor = 0 
 		}
+
+		available = {
+			has_country_flag = path_complete
+		}
+
 
 		#bypass = {}
 
