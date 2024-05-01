@@ -143,26 +143,35 @@ italoturkish_war_cat = {
 		}
 	}
 
-
-	# Italy throws in the towel
+	
+	# Italy builds supply lines
 	italoturkish_supply_line = {
-		icon = 
+		icon = ger_military_buildup
 
 		allowed = {
 			original_tag = ITA
 		}
-		# available = {	
-		# }
+		available = {	
+			OR = {
+				controls_state = 451
+				controls_state = 450
+				controls_state = 448
+			}
+			custom_trigger_tooltip = {
+				tooltip = italoturkish_two_months_tt
+				NOT = { has_country_flag = italoturkish_two_month_countdown }
+			}
+		}
 		visible = {
 			has_war_with = TUR
 			NOT = { has_global_flag = italoturkish_war_over }
 		}
 
-		days_remove = 90
+		days_remove = 80
 		fire_only_once = yes
 
 		remove_effect = {
-			
+			add_ideas = ITA_libyan_supply_lines
 		}
 
 		ai_will_do = {
