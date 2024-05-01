@@ -117,6 +117,7 @@ country_event = {
 		name = wsv_agadir.3.a
 		news_event = { id = wsv_agadir.4  days = 1 }
 		FRA = { country_event = { id = wsv_agadir.6  days = 2 } }
+		set_global_flag = britain_response_to_agadir
 
 		ai_chance = {
 			base = 100
@@ -131,6 +132,7 @@ country_event = {
 			add_opinion_modifier = { target = ENG  modifier = WSV_dislikes_country }
 		}
 		custom_effect_tooltip = france_less_likely_ally_tt
+		set_global_flag = britain_response_to_agadir
 
 		ai_chance = {
 			base = 10
@@ -154,7 +156,6 @@ news_event = {
     is_triggered_only = yes
 
 	immediate = {
-		set_global_flag = britain_intervenes_in_agadir
 		set_global_flag = britain_backs_france_in_agadir
 	}
 
@@ -247,18 +248,21 @@ country_event = {
 	# Reject
 	option = {
 		name = wsv_agadir.8.b
-		news_event = { id = wsv_agadir.10  days = 2 }
-		ENG = { give_guarantee = FRA }
-		hidden_effect = {
-			GER = { country_event = { id = wsv_agadir.14  days = 3 } }
+		news_event = { id = wsv_agadir.10  days = 2 } 
+		hidden_effect = { 
+			GER = { country_event = { id = wsv_agadir.14  days = 3 } } 
 		}
 		custom_effect_tooltip = war_with_germany_tt
+		if = { 
+			limit =  { has_global_flag = britain_backs_france_in_agadir }
+			ENG = { give_guarantee = FRA }
+		}
 
 		ai_chance = {
 			base = 10
 			modifier = {
 				factor = 2
-				has_global_flag = britain_intervenes_in_agadir
+				has_global_flag = britain_backs_france_in_agadir
 			}
 			modifier = {
 				factor = 0
@@ -343,17 +347,20 @@ country_event = {
 	option = {
 		name = wsv_agadir.11.b
 		news_event = { id = wsv_agadir.13  days = 2 }
-		ENG = { give_guarantee = FRA }
 		hidden_effect = {
 			GER = { country_event = { id = wsv_agadir.14  days = 3 } }
 		}
 		custom_effect_tooltip = war_with_germany_tt
+		if = { 
+			limit =  { has_global_flag = britain_backs_france_in_agadir }
+			ENG = { give_guarantee = FRA }
+		}
 
 		ai_chance = {
 			factor = 40
 			modifier = {
 				factor = 2
-				has_global_flag = britain_intervenes_in_agadir
+				has_global_flag = britain_backs_france_in_agadir
 			}
 		}
 	}

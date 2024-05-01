@@ -48,7 +48,6 @@ country_event = {
     # canada agrees -- ask british for approval
 	option = {
 		name = wsv_csa.2.a
-		
 		ENG = { 
 			country_event = { id = wsv_csa.4  days = 2 }
 		}
@@ -62,7 +61,6 @@ country_event = {
 	# canada refuses
 	option = {
 		name = wsv_csa.2.b
-
 		CSA = { 
 			country_event = { id = wsv_csa.3  days = 2 } 
 			add_opinion_modifier = {
@@ -104,7 +102,7 @@ country_event = {
     # Britain agrees -- triggeres news event
 	option = {
 		name = wsv_csa.4.a
-
+		set_global_flag = confederate_canadian_british_pact
 		CAN = { give_guarantee = CSA }
 		CSA = { give_guarantee = CAN }
 		diplomatic_relation = {
@@ -171,15 +169,13 @@ news_event = {
 
     is_triggered_only = yes
 
-	immediate = {
-		hidden_effect = {
-			CSA = {
-				add_threat =  3
-			}
-		}
-	}
+	# immediate = {
+	# 	hidden_effect = {
+			
+	# 		#CSA = { add_threat =  3 }
+	# 	}
+	# }
 	
-
 	option = {
 		name = wsv_csa.6.a
 		trigger = { 
