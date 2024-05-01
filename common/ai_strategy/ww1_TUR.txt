@@ -140,30 +140,37 @@ TUR_libya_buffers = {
 # }
 
 
-# reversed strategy, makes turkey prepare against anyone in the league
 TUR_prepare_for_first_balkan = {
-	# eligible candidates to prepare against cant be turkey
-    allowed = {
-        NOT = { original_tag = TUR }
-        has_start_date < 1937.1.1
-    }
-    # candidates must have this flag
-    enable = {
-        has_country_flag = in_balkan_league
-    }
-    # turkey is the country doing the preparing
-    enable_reverse = {
-        tag = TUR 
-    }
-    reversed = yes
-    abort_when_not_enabled = yes
+	enable = {
+		tag = TUR
+		has_global_flag = balkan_league_formed
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes	
 
-    ai_strategy = {
+	ai_strategy = {
 		type = prepare_for_war
-		id = "TUR"			
-		value = 10
+		id = "SER"			
+		value = 25
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "MNT"			
+		value = 25
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "BUL"			
+		value = 25
 	}	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GRE"			
+		value = 25
+	}
 }
+
 
 
 
@@ -175,7 +182,7 @@ TUR_build_up_army = {
 	}
 	enable = {
 		tag = TUR
-		has_global_flag = kis_firstbalkanwar_victory
+		has_global_flag = firstbalkan_war_over
 		has_war = no
 	}
 	abort_when_not_enabled = yes
