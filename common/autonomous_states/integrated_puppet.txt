@@ -1,12 +1,8 @@
-## For all states ##
-
 autonomy_state = {
 	id = autonomy_integrated_puppet
 	
 	is_puppet = yes
-	
 	min_freedom_level = 0.2
-	
 	manpower_influence = 1.0
 	
 	rule = {
@@ -46,9 +42,22 @@ autonomy_state = {
 	}
 
 	allowed = {
-		has_dlc = "Together for Victory"
+		OR = {
+			NOT = { has_government = neutrality }			# non neutral nations can always use this
+			OVERLORD = {									# only blocked if overlord is imperial germany
+				OR = {
+					NOT = { original_tag = GER }
+					NOT = {	has_government = neutrality }
+				}
+			}
+		}
 	}
-	
+
+	allowed_levels_filter = {
+		autonomy_puppet
+		autonomy_integrated_puppet
+	}
+
 	can_take_level = {
 		#trigger here
 	}

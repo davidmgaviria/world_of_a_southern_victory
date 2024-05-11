@@ -18,17 +18,18 @@ set_convoys = 300
 	#---------------- GEOPOLITICS ----------------#
 	create_faction = entente # France is now Leader of the Entente | Since Beta 0.2
 	add_to_faction = RUS
-	puppet = MOR
-	puppet = TUN
 	give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of London (1839)
 	add_opinion_modifier = {  target = USA   modifier = WSV_dislikes_country }
 
 	if = { limit = { has_dlc = "Together for Victory" }
 		set_autonomy = {
-			target = TUN
-			autonomous_state = autonomy_integrated_puppet
+			target = MOR
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.5
 		}
-		else = {}
+		else = {
+			puppet = MOR
+		}
 	}
 
 

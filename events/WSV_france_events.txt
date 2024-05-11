@@ -118,18 +118,25 @@ country_event = {
 
 	trigger = {
 		tag = FRA
-		has_war = yes
+		has_war_with_major = yes
 		OR = {
-			# if surrendering, less casualties
+			# historical trigger
 			AND = {
-				casualties > 1000000
+				is_historical_focus_on = yes
+				date > 1917.5.1
+				date < 1917.8.1
+				war_length_with = { tag = GER  months > 24 }
+			}
+			# if surrendering, less casualties to trigger
+			AND = {
+				casualties > 1300000
 				surrender_progress > 0
 			}
 			# if winning but high casualties, still trigger
-			casualties > 1500000
+			casualties > 1800000
+
 		}
 		NOT = { has_country_flag = first_army_mutiny }
-		# TODO - add historical trigger
 	}
 
 	fire_only_once = yes
@@ -298,7 +305,7 @@ country_event = {
 
 	trigger = {
 		tag = FRA
-		has_war = yes
+		has_war_with_major = yes
 		has_country_flag = first_army_mutiny_over
 		NOT = { has_country_flag = army_mutiny_cooldown }
 		NOT = { has_country_flag = second_army_mutiny }

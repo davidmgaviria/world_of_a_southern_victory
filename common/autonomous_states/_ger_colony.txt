@@ -1,10 +1,7 @@
-## For authoritarian, fascist, and communist states ##
-
-
 autonomy_state = {
-	id = autonomy_satellite
+	id = autonomy_ger_colony
 	
-	min_freedom_level = 0.7
+	min_freedom_level = 0.3
 	
 	manpower_influence = 0.5
 	
@@ -18,13 +15,17 @@ autonomy_state = {
 	}
 	
 	modifier = {
-		autonomy_manpower_share = 0.4
-		extra_trade_to_overlord_factor = 0.4
-		overlord_trade_cost_factor = -0.4
+		autonomy_manpower_share = 0.9
+		can_master_build_for_us = 1
+		conscription_factor = -0.5
+		extra_trade_to_overlord_factor = 1.0
+		overlord_trade_cost_factor = -0.9
+		cic_to_overlord_factor = 0.25
+		mic_to_overlord_factor = 0.50
 		license_subject_master_purchase_cost = -1
 		autonomy_gain_global_factor = -0.3
 		peace_score_ratio_transferred_to_overlord = 0.1
-		lend_lease_tension_with_overlord = 0.-30
+		lend_lease_tension_with_overlord = -0.40
 	}
 	
 	ai_subject_wants_higher = {
@@ -40,14 +41,19 @@ autonomy_state = {
 	}
 
 	allowed = {
-		has_dlc = "Together for Victory"
-		OR = {
-			OVERLORD = { has_government = neutrality }
-			OVERLORD = { has_government = fascism }
-			OVERLORD = { has_government = communism }
+		OVERLORD = {
+			original_tag = GER
+			has_government = neutrality
 		}
+		ROOT = { has_government = neutrality }
 	}
-	
+
+	allowed_levels_filter = {
+		autonomy_ger_satellite
+		autonomy_ger_puppet
+		autonomy_ger_colony
+	}
+
 	can_take_level = {
 		#trigger here
 	}

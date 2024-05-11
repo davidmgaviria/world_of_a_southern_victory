@@ -13,22 +13,22 @@ focus_tree = {
 		} 
 	}
 
-	continuous_focus_position = { x = 50 y = 1600 }
+	continuous_focus_position = { x = 50 y = 2000 }
+	
 
+	#######################################
+	## - International
+	#######################################
 
 	focus = {
 		id = GER_our_place_in_the_sun
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_ger_return_of_the_kaiser
 		cost = 10
-		x = 12
+		x = 15
 		y = 0
 		#relative_position_id = 
 
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 			add_political_power = 100
@@ -38,18 +38,18 @@ focus_tree = {
 		
 	focus = {
 		id = GER_triple_alliance
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = GER_our_place_in_the_sun }
-		cost = 10
-		x = -5
+		cost = 5
+		x = -4
 		y = 1
 		relative_position_id = GER_our_place_in_the_sun
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			is_faction_leader = yes
+		}
 
 		completion_reward = { 
 			add_political_power = 50
@@ -60,23 +60,19 @@ focus_tree = {
 		
 	focus = {
 		id = GER_support_italy
-		#icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_befriend_italy
 		prerequisite = { focus = GER_triple_alliance }
 		mutually_exclusive = { focus=GER_support_auh  }
-		cost = 10
+		cost = 5
 		x = -2
 		y = 1
 		relative_position_id = GER_triple_alliance
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_country_flag = path_complete
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			ITA = {
@@ -112,11 +108,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_support_italy
 
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 		}
@@ -132,11 +124,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_support_italy
 
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 		}
@@ -145,7 +133,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_backstab_auh
-		#icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_generic_conspiracy
 		prerequisite = { focus = GER_alliance_with_rom }
 		prerequisite = { focus = GER_formalize_alliance_italy }
 		cost = 10
@@ -153,11 +141,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_alliance_with_rom
 
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 		}
@@ -166,19 +150,19 @@ focus_tree = {
 
 	focus = {
 		id = GER_support_auh
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_GER_befriend_AUH
 		prerequisite = { focus = GER_triple_alliance }
 		mutually_exclusive = { focus=GER_support_italy  }
-		cost = 10
+		cost = 5
 		x = 1
 		y = 1
 		relative_position_id = GER_triple_alliance
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			is_in_faction_with = AUH
+		}
 
 		completion_reward = { 
 			AUH = {
@@ -211,18 +195,18 @@ focus_tree = {
 		
 	focus = {
 		id = GER_loan_to_auh
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_consumer_goods
 		prerequisite = { focus = GER_support_auh }
 		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = GER_support_auh
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			is_in_faction_with = AUH
+		}
 
 		completion_reward = { 
 			AUH = {
@@ -240,20 +224,28 @@ focus_tree = {
 		
 	focus = {
 		id = GER_serb_enemy
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_anti_serbia
 		prerequisite = { focus = GER_loan_to_auh }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
+		#mutually_exclusive = { focus = }=
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = GER_loan_to_auh
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+
+		bypass = {
+			has_war_with = SER
 		}
 
-		#bypass = {}
+		available = {
+			is_in_faction_with = AUH
+			SER = {
+				is_puppet = no
+				NOT = { is_in_faction_with = GER }
+			}
+		}
+
 
 		completion_reward = { 
 			send_embargo = SER
@@ -269,7 +261,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_agadir_crisis
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_africa_naval
 		prerequisite = { focus = GER_our_place_in_the_sun }
 		#mutually_exclusive = { focus = }
 
@@ -294,15 +286,17 @@ focus_tree = {
 		
 	focus = {
 		id = GER_anti_france_propaganda
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_anti_france
 		prerequisite = { focus = GER_agadir_crisis }
-		cost = 10
+		cost = 5
 		x = -1
 		y = 1
 		relative_position_id = GER_agadir_crisis
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+		
+		available = {
+			NOT = { is_in_faction_with = FRA }
 		}
 
 		completion_reward = { 
@@ -317,15 +311,17 @@ focus_tree = {
 		
 	focus = {
 		id = GER_counter_french_forts
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_build_tank
 		prerequisite = { focus = GER_anti_france_propaganda }
 		cost = 10
 		x = 0
 		y = 2
 		relative_position_id = GER_anti_france_propaganda
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+
+		available = {
+			NOT = { is_in_faction_with = FRA }
 		}
 
 		completion_reward = { 
@@ -349,14 +345,17 @@ focus_tree = {
 		
 	focus = {
 		id = GER_british_enemy
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_AST_never_gallipoli
 		prerequisite = { focus = GER_agadir_crisis }
+		cost = 5
 		x = 1
 		y = 1
 		relative_position_id = GER_agadir_crisis
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+
+		available = {
+			NOT = { is_in_faction_with = ENG }
 		}
 
 		completion_reward = { 
@@ -371,15 +370,26 @@ focus_tree = {
 		
 	focus = {
 		id = GER_outreach_to_usa
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_wsv_generic_befriend_usa
 		prerequisite = { focus = GER_british_enemy }
 		cost = 10
 		x = 1
 		y = 1
 		relative_position_id = GER_british_enemy
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+
+		available = {
+			country_exists = USA
+			NOT = { has_war_with = USA }
+			USA = { is_in_faction = no }
+		}
+
+		bypass = {
+			OR = {
+				is_in_faction_with = USA
+				has_global_flag = american_german_pact
+			}
 		}
 
 		completion_reward = { 
@@ -401,7 +411,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_fund_high_seas_fleet
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = GER_british_enemy }
 		#mutually_exclusive = { focus = }
 
@@ -410,11 +420,15 @@ focus_tree = {
 		y = 2
 		relative_position_id = GER_british_enemy
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			NOT = { is_in_faction_with = ENG }
+			any_owned_state = {
+				is_core_of = ROOT
+				is_coastal = yes
+			}
+		}
 
 		completion_reward = { 
 			navy_experience = 25
@@ -439,43 +453,41 @@ focus_tree = {
 	}
 
 		
-	focus = {
-		id = GER_propose_pact_with_americans
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_outreach_to_usa }
-		#mutually_exclusive = { focus = }
+	# focus = {
+	# 	id = GER_propose_pact_with_americans
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = GER_outreach_to_usa }
+	# 	#mutually_exclusive = { focus = }
 
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = GER_outreach_to_usa
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = GER_outreach_to_usa
 
-		ai_will_do = { 
-			factor = 0 
-		}
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
 
-		available = {
-			has_country_flag = path_complete
-		}
+	# 	available = {
+	# 		has_country_flag = path_complete
+	# 	}
 
-		#bypass = {}
+	# 	#bypass = {}
 
-		completion_reward = { 
-		}
-	}
+	# 	completion_reward = { 
+	# 	}
+	# }
 
 		
 	focus = {
 		id = GER_schliffen_plan
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_attack_france
 		prerequisite = { focus=GER_counter_french_forts focus=GER_fund_high_seas_fleet  }cost = 10
 		x = 1
 		y = 1
 		relative_position_id = GER_counter_french_forts
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			date > 1915.1.1
@@ -496,18 +508,18 @@ focus_tree = {
 		
 	focus = {
 		id = GER_septemberprogram
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = GER_schliffen_plan }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = GER_schliffen_plan
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_war_with = FRA
+		}
 
 		completion_reward = { 
 			add_state_claim = 828
@@ -519,18 +531,21 @@ focus_tree = {
 		
 	focus = {
 		id = GER_blimp_bombing
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_occupy_start_war
 		prerequisite = { focus = GER_septemberprogram }
 		cost = 10
 		x = -1
 		y = 1
 		relative_position_id = GER_septemberprogram
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			war_length_with = {
+				tag = ENG
+				months > 5
+			}
+		}
 
 		completion_reward = { 
 			ENG = {
@@ -546,26 +561,24 @@ focus_tree = {
 		
 	focus = {
 		id = GER_strangle_britain
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_navy_anti_submarine
 		prerequisite = { focus = GER_blimp_bombing }
 		cost = 10
 		x = 0
 		y = 2
 		relative_position_id = GER_blimp_bombing
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			war_length_with = {
+				tag = ENG
+				months > 11
+			}
+		}
 
 		completion_reward = { 
 			navy_experience = 25
-			add_tech_bonus = {
-				bonus = 1.0
-				uses = 1
-				category = ss_tech
-			}
 			random_owned_controlled_state = {
 				limit = {
 					is_coastal = yes
@@ -577,6 +590,7 @@ focus_tree = {
 					level = 2
 				}
 			}
+			add_ideas = generic_submarine_production
 		}
 	}
 
@@ -584,18 +598,27 @@ focus_tree = {
 
 	focus = {
 		id = GER_expand_ohl_authority
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_military_dictatorship
 		prerequisite = { focus = GER_septemberprogram }
 		cost = 10
 		x = 1
 		y = 1
 		relative_position_id = GER_septemberprogram
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			OR = {
+				war_length_with = {
+					tag = FRA
+					months > 5
+				}
+				war_length_with = {
+					tag = RUS
+					months > 5
+				}
+			}
+		}
 
 		completion_reward = { 
 			swap_ideas = {
@@ -608,7 +631,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_hindenburg_line
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_SWE_hedgehog_defense
 		prerequisite = { focus = GER_expand_ohl_authority }
 		#mutually_exclusive = { focus = }
 
@@ -617,9 +640,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_expand_ohl_authority
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_war_with = FRA
@@ -627,8 +648,6 @@ focus_tree = {
 			controls_state = 828
 			controls_state = 34
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			828 = {
@@ -646,18 +665,27 @@ focus_tree = {
 
 	focus = {
 		id = GER_further_expand_ohl_authority
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_military_dictatorship
 		prerequisite = { focus = GER_expand_ohl_authority }
 		cost = 10
 		x = 0
 		y = 2
 		relative_position_id = GER_expand_ohl_authority
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			OR = {
+				war_length_with = {
+					tag = FRA
+					months > 23
+				}
+				war_length_with = {
+					tag = RUS
+					months > 23
+				}
+			}
+		}
 
 		completion_reward = { 
 			swap_ideas = {
@@ -670,24 +698,25 @@ focus_tree = {
 		
 	focus = {
 		id = GER_spring_offensive
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_major_war
 		prerequisite = { focus=GER_strangle_britain focus=GER_hindenburg_line  focus=GER_further_expand_ohl_authority}
 		cost = 10
 		x = 1
 		y = 1
 		relative_position_id = GER_strangle_britain
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_war_with = FRA
 			FRA = { surrender_progress > 0 }
-			casualties > 1600000
+			OR = {
+				war_length_with = {
+					tag = FRA
+					months > 35
+				}
+			}
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_timed_idea = {
@@ -701,7 +730,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_control_auh_military
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_rhineland
 		prerequisite = { focus = GER_serb_enemy }
 		prerequisite = { focus = GER_schliffen_plan }
 		cost = 10
@@ -709,11 +738,18 @@ focus_tree = {
 		y = 2
 		relative_position_id = GER_serb_enemy
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_war_together_with = AUH
+			AUH = {
+				war_length_with = {
+					tag = RUS
+					months > 5
+				}
+				surrender_progress > 0
+			}
+		}
 
 		completion_reward = { 
 			AUH = {
@@ -725,7 +761,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_call_bulgaria_to_war
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_befriend_bulgaria
 		prerequisite = { focus = GER_control_auh_military }
 		cost = 10
 		x = 0
@@ -733,8 +769,8 @@ focus_tree = {
 		relative_position_id = GER_control_auh_military
 
 		available = {
-			date > 1915.6.1
 			has_war_with = SER
+			surrender_progress < 0.05
 			is_faction_leader = yes
 			BUL = {
 				is_in_faction = no
@@ -755,18 +791,21 @@ focus_tree = {
 		
 	focus = {
 		id = GER_defense_of_the_east
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = GER_our_place_in_the_sun }
 		cost = 10
-		x = 5
+		x = 4
 		y = 1
 		relative_position_id = GER_our_place_in_the_sun
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			controls_state = 5
+			controls_state = 85
+			controls_state = 86
+			NOT = { is_in_faction_with = RUS }
+		}
 
 		completion_reward = { 
 			hidden_effect = {
@@ -791,7 +830,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_eastern_expansion
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = GER_defense_of_the_east }
 		#mutually_exclusive = { focus = }
 
@@ -800,11 +839,11 @@ focus_tree = {
 		y = 3
 		relative_position_id = GER_defense_of_the_east
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			NOT = { is_in_faction_with = RUS }
+		}
 
 		completion_reward = { 
 			add_state_claim = 87
@@ -815,7 +854,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_establish_polish_puppet
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_POL_expand_polish_intelligence
 		prerequisite = { focus = GER_eastern_expansion }
 		prerequisite = { focus = GER_schliffen_plan }
 		cost = 10
@@ -823,28 +862,32 @@ focus_tree = {
 		y = 3
 		relative_position_id = GER_eastern_expansion
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_war_with = RUS
+			controls_state = 87
+			controls_state = 98
 			controls_state = 10
 			controls_state = 90
 			controls_state = 92
 			controls_state = 97
 		}
 
-		#bypass = {}
-
 		completion_reward = { 
 			POL = {
+				transfer_state = 87
+				transfer_state = 98
 				transfer_state = 10
 				transfer_state = 90
 				transfer_state = 92
 				transfer_state = 97
 			}
-			puppet = POL
+			set_autonomy = {
+			    target = POL
+			    autonomy_state = autonomy_ger_puppet
+			    freedom_level = 0.5
+			}
 			hidden_effect = {
 				add_to_war = {
 					targeted_alliance = POL
@@ -855,36 +898,36 @@ focus_tree = {
 	}
 
 		
-	focus = {
-		id = GER_lenin_to_russia
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_establish_polish_puppet }
-		#mutually_exclusive = { focus = }
+	# focus = {
+	# 	id = GER_lenin_to_russia
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = GER_establish_polish_puppet }
+	# 	#mutually_exclusive = { focus = }
 
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = GER_establish_polish_puppet
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = GER_establish_polish_puppet
 
-		ai_will_do = { 
-			factor = 0 
-		}
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
 
-		available = {
-			has_country_flag = path_complete
-		}
+	# 	available = {
+	# 		has_country_flag = path_complete
+	# 	}
 
 
-		#bypass = {}
+	# 	#bypass = {}
 
-		completion_reward = { 
-		}
-	}
+	# 	completion_reward = { 
+	# 	}
+	# }
 
 		
 	focus = {
 		id = GER_alliance_with_sweden
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_befriend_sweden
 		prerequisite = { focus = GER_eastern_expansion }
 		prerequisite = { focus = GER_schliffen_plan }
 		cost = 10
@@ -892,14 +935,15 @@ focus_tree = {
 		y = 2
 		relative_position_id = GER_eastern_expansion
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
-			date > 1915.1.1
-			has_war_with = RUS
 			is_faction_leader = yes
+			war_length_with = {
+				tag = RUS
+				months > 5
+			}
+			surrender_progress < 0.1
 			SWE = {
 				is_in_faction = no
 				is_puppet = no
@@ -920,18 +964,24 @@ focus_tree = {
 		
 	focus = {
 		id = GER_outreach_turkey
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_positive_trade_relations
 		prerequisite = { focus = GER_defense_of_the_east }
 		cost = 10
 		x = 2
 		y = 2
 		relative_position_id = GER_defense_of_the_east
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+
+		available = {
+			country_exists = TUR
+			TUR = { is_puppet = no }
+			NOT = { has_war_with = TUR }
 		}
 
-		#bypass = {}
+		bypass = {
+			is_in_faction_with = TUR
+		}
 
 		completion_reward = { 
 			add_offsite_building = {
@@ -961,20 +1011,19 @@ focus_tree = {
 		
 	focus = {
 		id = GER_call_turkey_to_war
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_befriend_turkey
 		prerequisite = { focus = GER_outreach_turkey }
 		prerequisite = { focus = GER_schliffen_plan }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 3
 		relative_position_id = GER_outreach_turkey
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_war_with = RUS
+			surrender_progress < 0.1
 			is_faction_leader = yes
 			TUR = {
 				is_in_faction = no
@@ -1004,18 +1053,1199 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_call_turkey_to_war
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_country_flag = path_complete
 		}
 
 
-		#bypass = {}
+		completion_reward = { 
+		}
+	}
+
+
+	####################################
+	## -- Industrial
+	####################################
+	focus = {
+		id = GER_industrial_effort
+		icon = GFX_goal_generic_production2
+		cost = 10
+		x = 3
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_civ_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = GER_industrial_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_infrastructure_effort
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = GER_industrial_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_mil_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_industrial_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_industrial_effort2
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = GER_civ_factories }
+		prerequisite = { focus = GER_mil_factories }
+		prerequisite = { focus = GER_infrastructure_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_infrastructure_effort
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1912.1.1
+		}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_civ_factories2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = GER_industrial_effort2 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_infrastructure_effort2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = GER_industrial_effort2 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_mil_factories2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_industrial_effort2 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = GER_industrial_effort3
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = GER_civ_factories2 }
+		prerequisite = { focus = GER_mil_factories2 }
+		prerequisite = { focus = GER_infrastructure_effort2 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_infrastructure_effort2
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1914.1.1
+		}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_research_effort1
+		icon = GFX_focus_research
+		prerequisite = { focus = GER_industrial_effort3 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_industrial_effort3
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			num_of_factories > 50
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+
+		
+	focus = {
+		id = GER_civ_factories3
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = GER_industrial_effort3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_industrial_effort3
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_infrastructure_effort3
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = GER_civ_factories3 }
+		prerequisite = { focus = GER_research_effort1 }
+		prerequisite = { focus = GER_mil_factories3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_industrial_effort3
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_mil_factories3
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = GER_industrial_effort3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_industrial_effort3
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_research_effort2
+		icon = GFX_focus_research2
+		prerequisite = { focus = GER_infrastructure_effort3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_infrastructure_effort3
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			amount_research_slots < 5
+			num_of_factories > 100
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+	
+	
+	####################################
+	## -- Army / Air
+	####################################
+
+	focus = {
+		id = GER_army_effort
+		icon = GFX_goal_generic_axis_build_infantry
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 26
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_infantry_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = GER_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_truck_effort
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = GER_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		bypass = {
+			has_tech = motorised_infantry
+		}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				technology = motorised_infantry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_artillery_effort
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = GER_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_trench_warfare
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = GER_infantry_effort }
+		prerequisite = { focus = GER_artillery_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_infantry_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_infantry_effort2
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = GER_trench_warfare }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_artillery_effort2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = GER_trench_warfare }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_defensive_warfare
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = GER_trench_warfare }
+		mutually_exclusive = { focus = GER_offensive_warfare }
+
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = GER_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = fortification
+				category = cat_anti_tank
+				category = cat_anti_air
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_offensive_warfare
+		icon = GFX_hoi4tgw_renaultft
+		prerequisite = { focus = GER_trench_warfare }
+		mutually_exclusive = { focus = GER_defensive_warfare }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = GER_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = armor
+				category = cat_armored_car
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = GER_infantry_effort2 }
+		prerequisite = { focus = GER_offensive_warfare focus = GER_defensive_warfare  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_infantry_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				name = generic_special_forces_bonus 
+				bonus = 1.0
+				uses = 1
+				category = marine_tech
+				category = para_tech
+				category = mountaineers_tech
+			}
+			add_ideas = special_forces
+		}
+	}
+
+		
+	focus = {
+		id = GER_chemical_weapons
+		icon = GFX_hoi4tgw_gasmask
+		prerequisite = { focus = GER_artillery_effort2 }
+		prerequisite = { focus=GER_offensive_warfare focus=GER_efensive_warfare  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_artillery_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				category = chemical_weapons
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_army_doctrine3
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus=GER_offensive_warfare focus=GER_defensive_warfare  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = GER_defensive_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_air_effort
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = GER_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = GER_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { is_capital = yes }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_light_aircraft
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = GER_air_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_air_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+				category = cat_scout_plane
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_blimp_effort
+		icon = GFX_hoi4tgw_zeppelin
+		prerequisite = { focus = GER_air_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_air_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cat_airship
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = GER_heavy_aircraft
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = GER_air_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_air_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_air_doctrine1
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = GER_light_aircraft focus = GER_heavy_aircraft  focus = GER_blimp_effort}
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_light_aircraft
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					any_neighbor_state = {
+						NOT = { is_controlled_by = ROOT }
+					}
+				 }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_fighter_effort
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = GER_air_doctrine1 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_air_doctrine1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_cas_effort
+		icon = GFX_goal_poland_goal
+		prerequisite = { focus = GER_air_doctrine1 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_air_doctrine1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cas_bomber
+			}  
+		}
+	}
+
+		
+	focus = {
+		id = GER_bomber_effort
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = GER_air_doctrine1 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_air_doctrine1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_air_doctrine2
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = GER_fighter_effort }
+		prerequisite = { focus = GER_bomber_effort }
+		prerequisite = { focus = GER_cas_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_fighter_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					any_neighbor_state = {
+						NOT = { is_controlled_by = ROOT }
+					}
+				 }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+	####################################
+	## -- Naval
+	####################################
+
+	focus = {
+		id = GER_navy_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 10
+		x = 11
+		y = 0
+		relative_position_id = GER_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = naval_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = GER_destroyer_effort
+		icon = GFX_focus_generic_destroyer
+		prerequisite = { focus = GER_navy_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = GER_navy_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = dd_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_cruiser_effort
+		icon = GFX_focus_generic_cruiser2
+		prerequisite = { focus = GER_navy_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_navy_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_battleship_effort
+		icon = GFX_focus_generic_navy_battleship2  
+		prerequisite = { focus = GER_navy_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = GER_navy_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_improved_nav_doctrine
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = GER_destroyer_effort }
+		prerequisite = { focus = GER_cruiser_effort }
+		prerequisite = { focus = GER_battleship_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = GER_cruiser_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 2
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = GER_improved_nav_doctrine }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = GER_improved_nav_doctrine
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = ss_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_gunnery_school
+		icon = GFX_focus_SWE_coastal_support
+		prerequisite = { focus = GER_improved_nav_doctrine }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_improved_nav_doctrine
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_ideas = generic_naval_guns_school
+		}
+	}
+
+		
+	focus = {
+		id = GER_more_dockyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = GER_improved_nav_doctrine }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_improved_nav_doctrine
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = GER_new_approach
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = { focus = GER_submarine_effort }
+		mutually_exclusive = { focus=generic_battleship_supremacy  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_submarine_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cv_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = GER_battleship_supremacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = GER_gunnery_school }
+		mutually_exclusive = { focus=generic_new_approach  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = GER_gunnery_school
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = shbb_tech
+			}
 		}
 	}
 }

@@ -185,11 +185,17 @@ country_event = {
 			NOT = { has_global_flag = nicaragua_crisis_over }
 		}
 		name = wsv_carib.4.a
+
 		set_global_flag = nicaragua_crisis_over
-		CSA = { puppet = NIC }
 		set_global_flag = csa_recognize_us_influence_in_haiti
+		set_autonomy = {
+			target = NIC
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.5
+		}
 		custom_effect_tooltip = csa_recognize_us_in_haiti_tt
 		news_event = { id = wsv_carib.5  days = 1 }
+
 		ai_chance = {
 			base = 60
 		}
@@ -276,7 +282,12 @@ news_event = {
     is_triggered_only = yes
 
 	immediate = {
-		CSA = { clr_country_flag = sent_peace_terms_nicaragua }
+		CSA = { 
+			clr_country_flag = sent_peace_terms_nicaragua 
+			hidden_effect = {
+				add_political_power = 50  # so they can free their troops
+			}
+		}
 	}
 
 	option = {
@@ -341,33 +352,34 @@ news_event = {
 }
 
 
-# ## USA gets notice that CSA forced open blockade
-# country_event = {
-# 	id = wsv_carib.8
-# 	title = wsv_carib.8.t
-# 	desc = wsv_carib.8.d
+## USA gets notice that CSA forced open blockade
+country_event = {
+	id = wsv_carib.8
+	title = wsv_carib.8.t
+	desc = wsv_carib.8.d
 
-# 	fire_only_once = yes
-#     is_triggered_only = yes
+	fire_only_once = yes
+    is_triggered_only = yes
 
-# 	## Time for war
-# 	option = {
-# 		name = wsv_carib.8.a
-# 		declare_war_on = {
-# 			target = CSA
-# 			type = topple_government
-# 		}
-# 		hidden_effect = {
-# 			CSA = {
-# 				declare_war_on = {
-# 					target = NIC
-# 					type = annex_everything
-# 				}
-# 				load_oob = CSA_nicaragua_invasion
-# 			}
-# 		}
-# 	}
-# }
+	## Time for war
+	option = {
+		name = wsv_carib.8.a
+		declare_war_on = {
+			target = CSA
+			type = topple_government
+		}
+		if = {
+			limit = { has_global_flag = confederate_canadian_british_pact }
+			CAN = {
+				add_to_war = {
+					targeted_alliance = CSA
+					enemy = USA
+				}
+			}
+		}
+		news_event = wsv_carib.7
+	}
+}
 
 
 ## Nicaragua crisis failure -- CSA garrison surrendered

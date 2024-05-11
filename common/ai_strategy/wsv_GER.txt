@@ -121,25 +121,25 @@ GER_francogerman_rivalry = {
 }
 
 
-# GER_protect_north_coast = {
-# 	allowed = {
-# 		original_tag = GER
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
+GER_protect_north_coast = {
+	allowed = {
+		original_tag = GER
+	}
+	enable = {
+		always = yes
+	}
 
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = baltic_sea
-# 		value = 3000
-# 	}
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_sea
-# 		value = 1800
-# 	}
-# }
+	ai_strategy = {
+		type = area_priority
+		id = baltic_sea
+		value = 250
+	}
+	ai_strategy = {
+		type = area_priority
+		id = north_sea
+		value = 100
+	}
+}
 
 
 GER_ignore_north_america = {
@@ -383,22 +383,24 @@ GER_greatwar_mobilize = {
 
 
 
-
-
 GER_der_schlieffen_plan = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		threat > 0.25
-		# OR = {
-		# 	has_idea = schlieffen
-		# 	has_decision = germany_schliffen_plan
-		# }
-		casualties < 150000
+		OR = {
+			# is doing schliffen focus
+			focus_progress = { focus = GER_schliffen_plan  progress > 0.1 }
+			# july crisis (serbia hasnt submitted)
+			AND = {
+				has_global_flag = news_of_european_mobilization
+				NOT = { has_global_flag = serbia_submitted_to_austria }
+			}
+		}
 	}
 	abort = {
+		FRA = { has_capitulated = yes }
 		casualties > 150000
 	}
 
@@ -431,12 +433,6 @@ GER_der_schlieffen_plan = {
 		type = conquer
 		id = "FRA"			
 		value = 100
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = 5   #benelux
-		value = 80 
 	}
 
 	#benelux

@@ -1,19 +1,16 @@
-## For democratic states ##
-
 autonomy_state = {
-	id = autonomy_informal_protectorate
-
-	is_puppet = yes
+	id = autonomy_dominion
+	
 	min_freedom_level = 0.8
-	manpower_influence = 0.0 	# colonial divisons
+	
+	manpower_influence = 0.2
 	
 	rule = {
 		desc = "RULE_DESC_IS_A_SUBJECT"
 	
 		can_not_declare_war = yes
-		can_decline_call_to_war = yes
+		can_decline_call_to_war = no
 		can_be_spymaster = yes
-		contributes_operatives = no
 	}
 	
 	modifier = {
@@ -37,12 +34,32 @@ autonomy_state = {
 	}
 
 	allowed = {
-		has_dlc = "Together for Victory"
-		OVERLORD = { has_government = democratic }			# make sure eng doesnt clash with this
+		OVERLORD = {
+			original_tag = ENG
+			has_government = democratic
+		}
+		ROOT = {
+			OR = {
+				original_tag = AST
+				original_tag = NZL
+				original_tag = CAN
+				original_tag = SAF
+				original_tag = RAJ
+			}
+		}
+	}
+	
+	# is part of commonwealth, so commonwealth levels
+	allowed_levels_filter = {
+		autonomy_dominion
+		autonomy_colony
+		autonomy_puppet
+		autonomy_integrated_puppet
 	}
 
+	# condition to become free
 	can_take_level = {
-		
+		always = no		
 	}
 
 	can_lose_level = {
