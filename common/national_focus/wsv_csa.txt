@@ -2046,7 +2046,6 @@ focus_tree = {
 
 		#ai_will_do = {	factor = 1}
 
-
 		available = {
 			has_war = yes
 			custom_trigger_tooltip = {
@@ -2054,15 +2053,22 @@ focus_tree = {
 				has_extensive_conscription_or_more = yes
 			}
 			OR = {
-				has_manpower < 500000
-				surrender_progress > 0.1
+				war_length_with = {
+					tag = USA
+					months > 23
+				}
+				surrender_progress > 0.3
 			}
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_stability = -0.05
 			add_ideas = CSA_black_soldiers
+			hidden_effect = {
+				news_event = wsv_csa.108
+			}
 		}
 	}
 

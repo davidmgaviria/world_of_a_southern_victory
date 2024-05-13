@@ -1,5 +1,8 @@
 ﻿add_namespace = wsv_csa
 
+###-----------------------------------------------------------------------------------------------------------###
+###---------------------------------------------- INTERNATIONAL ----------------------------------------------###
+###-----------------------------------------------------------------------------------------------------------###
 
 # Announcement of Wilsonian Doctrine
 news_event = {
@@ -207,7 +210,6 @@ news_event = {
 ######################################################
 
 
-
 # CSA buys rifles from england
 news_event = {
 	id = wsv_csa.7
@@ -268,15 +270,220 @@ news_event = {
 
 
 
+###-----------------------------------------------------------------------------------------------------------###
+###---------------------------------------------- DOMESTIC  --------------------------------------------------###
+###-----------------------------------------------------------------------------------------------------------###
+
+
+
+# ###########################################
+# ## CSA - Red Rebellion ##
+# ###########################################
+
+## Black Revolt 
+news_event = {
+	id = wsv_csa.100
+	title = wsv_csa.100.t
+	desc = wsv_csa.100.d
+	picture = news_event_CSA_black_revolt
+
+	major = yes
+
+	mean_time_to_happen = {	
+        days = 80 	
+    }
+
+    trigger = {
+    	tag = CSA
+        date > 1915.6.1
+        date < 1916.6.1
+        has_war_with = USA
+        NOT = { has_global_flag = csa_black_revolt_occured }
+    }
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = csa_black_revolt_occured
+	    	CSA = { 
+	    		add_stability = -0.1 
+	    		country_event = { id = wsv_csa.101  days = 1 }
+	    	}
+	    	371 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
+			370 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
+			367 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
+			365 = { add_dynamic_modifier = { modifier = CSA_red_enclave }  set_state_flag = contains_red_rebels }
+			364 = { add_dynamic_modifier = { modifier = CSA_red_enclave }  set_state_flag = contains_red_rebels }
+			363 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
+			362 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
+		}
+   	}
+	
+	option = {
+		name = wsv_csa.100.a
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_csa.100.b
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_csa.100.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+# Take action information decision
+country_event = {
+	id = wsv_csa.101
+	title = wsv_csa.101.t
+	desc = wsv_csa.101.d
+	#picture = 
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.101.a
+	}
+}
+
+
+# Situation deteriorates 
+country_event = {
+	id = wsv_csa.102
+	title = wsv_csa.102.t
+	desc = wsv_csa.102.d
+	picture = report_event_wsv_battle
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.102.a
+		event_target:CSA_red_rebels_state_event_target = {
+			damage_building = {
+			    type = infrastructure
+			    damage = 1
+			}
+			damage_building = {
+			    type = industrial_complex
+			    damage = 1
+			}
+			damage_building = {
+			    type = arms_factory
+			    damage = 1
+			}
+		}
+		add_manpower = -2000
+		add_stability = -0.01
+	}
+}
+
+
+# Successful counter offensive 
+country_event = {
+	id = wsv_csa.103
+	title = wsv_csa.103.t
+	desc = wsv_csa.103.d
+	picture = report_event_skirmish_fighting
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.103.a
+		#add_stability = 0.005
+	}
+}
+
+
+# Failed counter offensive 
+country_event = {
+	id = wsv_csa.104
+	title = wsv_csa.104.t
+	desc = wsv_csa.104.d
+	picture = report_event_wsv_soldiers_running
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.104.a
+		#add_stability = -0.01
+		add_manpower = -3000
+	}
+}
+
+
+# Black insurgents defeated
+country_event = {
+	id = wsv_csa.105
+	title = wsv_csa.105.t
+	desc = wsv_csa.105.d
+	picture = report_event_black_soldiers_marching
+
+    is_triggered_only = yes
+
+	option = {
+		name =  wsv_csa.105.a
+		add_stability = 0.02
+		event_target:CSA_red_rebels_state_event_target = {
+			add_dynamic_modifier = { modifier = CSA_recovering_from_rebellion  days = 90  }
+		}
+	}
+}
+
+
+## Black Revolt Defeated
+news_event = {
+	id = wsv_csa.106
+	title = wsv_csa.106.t
+	desc = wsv_csa.106.d
+	picture = news_event_black_rebellion_defeated
+
+	major = yes
+
+	is_triggered_only = yes
+
+    immediate = {
+    	hidden_effect = {
+	    	set_global_flag = csa_red_rebellion_defeated
+	    	CSA = { add_stability = 0.05 }
+		}
+   	}
+	
+	option = {
+		name = wsv_csa.106.a
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_csa.106.b
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_csa.106.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
 # ##########################################
 # #### 1916 CSA Election #####
 # ##########################################
 
 ## 1916 Election 
 country_event = {
-	id = wsv_csa.10
-	title = wsv_csa.10.t
-	desc = wsv_csa.10.d
+	id = wsv_csa.107
+	title = wsv_csa.107.t
+	desc = wsv_csa.107.d
 
 	fire_only_once = yes
 
@@ -297,7 +504,7 @@ country_event = {
 
     #democrat
 	option = {
-		name = wsv_csa.10.a
+		name = wsv_csa.107.a
 		custom_effect_tooltip = gabriel_becomes_president_tt
     	hidden_effect = {
     		retire_country_leader = yes
@@ -332,254 +539,265 @@ country_event = {
 		}
 	}
 
-	#radical lib
-	option = {
-		name = wsv_csa.10.b
-		custom_effect_tooltip = doroteo_becomes_president_tt
-		hidden_effect = {
-			retire_country_leader = yes
-			set_politics = {
-			    ruling_party = communism
-			    last_election = "1916.11.5"
-			    election_frequency = 72
-			    elections_allowed = yes
-			}
-	        create_country_leader = { 
-				name = "Doroteo Arango" 
-				#desc = USA_eugene_v_debs_DESC 
-				picture = "gfx/portraits/AST/country_leaders/AST_r_h_william_ward.dds" 
-				expire = "1935.1.1" 
-				ideology = lincolnism 
-				traits = { } 
-			}
-			if = {
-				limit = { communism < 0.51 }
-				set_political_party = { ideology = communism	popularity = 60	}
-			}
-			set_country_flag = new_1916_president_csa
-		}
+	## only one choice lol
+	# #radical lib
+	# option = {
+	# 	name = wsv_csa.107.b
+	# 	custom_effect_tooltip = doroteo_becomes_president_tt
+	# 	hidden_effect = {
+	# 		retire_country_leader = yes
+	# 		set_politics = {
+	# 		    ruling_party = communism
+	# 		    last_election = "1916.11.5"
+	# 		    election_frequency = 72
+	# 		    elections_allowed = yes
+	# 		}
+	#         create_country_leader = { 
+	# 			name = "Doroteo Arango" 
+	# 			#desc = USA_eugene_v_debs_DESC 
+	# 			picture = "gfx/portraits/AST/country_leaders/AST_r_h_william_ward.dds" 
+	# 			expire = "1935.1.1" 
+	# 			ideology = lincolnism 
+	# 			traits = { } 
+	# 		}
+	# 		if = {
+	# 			limit = { communism < 0.51 }
+	# 			set_political_party = { ideology = communism	popularity = 60	}
+	# 		}
+	# 		set_country_flag = new_1916_president_csa
+	# 	}
 			
 
-    	ai_chance = {
-			factor = 20
+    # 	ai_chance = {
+	# 		factor = 20
 
-			modifier = {
-				factor = 2
-				communism > 0.3
-			}
-			modifier = {
-				factor = 2
-				communism > 0.5
-			}
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
-	}
+	# 		modifier = {
+	# 			factor = 2
+	# 			communism > 0.3
+	# 		}
+	# 		modifier = {
+	# 			factor = 2
+	# 			communism > 0.5
+	# 		}
+	# 		modifier = {
+	# 			is_historical_focus_on = yes
+	# 			factor = 0
+	# 		}
+	# 	}
+	# }
 }
 
 
 
-# ###########################################
-# ## CSA - Red Rebellion ##
-# ###########################################
+###########################################
+# -- Black Soldiers Enlisted (and issues)
+###########################################
 
-## Black Revolt 
+## CSA begins to enlist Black troops (news event)
 news_event = {
-	id = wsv_csa.24
-	title = wsv_csa.24.t
-	desc = wsv_csa.24.d
-	picture = news_event_CSA_black_revolt
+	id = wsv_csa.108
+	title = wsv_csa.108.t
+	desc = wsv_csa.108.d
+	#picture = # TODO picture 
 
 	major = yes
-
-	mean_time_to_happen = {	
-        days = 80 	
-    }
-
-    trigger = {
-    	tag = CSA
-        date > 1915.6.1
-        date < 1916.6.1
-        has_war_with = USA
-        NOT = { has_global_flag = csa_black_revolt_occured }
-    }
-
-    immediate = {
-    	hidden_effect = {
-	    	set_global_flag = csa_black_revolt_occured
-	    	CSA = { 
-	    		add_stability = -0.1 
-	    		country_event = { id = wsv_csa.25  days = 1 }
-	    	}
-	    	371 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			370 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			367 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			365 = { add_dynamic_modifier = { modifier = CSA_red_enclave }  set_state_flag = contains_red_rebels }
-			364 = { add_dynamic_modifier = { modifier = CSA_red_enclave }  set_state_flag = contains_red_rebels }
-			363 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			362 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-		}
-   	}
-	
-	option = {
-		name = wsv_csa.24.a
-		trigger = { tag = CSA }
-	}
-
-	option = {
-		name = wsv_csa.24.b
-		trigger = { tag = USA }
-	}
-
-	option = {
-		name = wsv_csa.24.c
-		trigger = { 
-			NOT = { tag = USA }
-			NOT = { tag = CSA }
-		}
-	}
-}
-
-
-# Take action information decision
-country_event = {
-	id = wsv_csa.25
-	title = wsv_csa.25.t
-	desc = wsv_csa.25.d
-	#picture = 
-
-    is_triggered_only = yes
-
-	option = {
-		name =  wsv_csa.25.a
-	}
-}
-
-
-# Situation deteriorates 
-country_event = {
-	id = wsv_csa.26
-	title = wsv_csa.26.t
-	desc = wsv_csa.26.d
-	picture = report_event_wsv_battle
-
-    is_triggered_only = yes
-
-	option = {
-		name =  wsv_csa.26.a
-		event_target:CSA_red_rebels_state_event_target = {
-			damage_building = {
-			    type = infrastructure
-			    damage = 1
-			}
-			damage_building = {
-			    type = industrial_complex
-			    damage = 1
-			}
-			damage_building = {
-			    type = arms_factory
-			    damage = 1
-			}
-		}
-		add_manpower = -2000
-		add_stability = -0.01
-	}
-}
-
-
-# Successful counter offensive 
-country_event = {
-	id = wsv_csa.27
-	title = wsv_csa.27.t
-	desc = wsv_csa.27.d
-	picture = report_event_skirmish_fighting
-
-    is_triggered_only = yes
-
-	option = {
-		name =  wsv_csa.27.a
-		#add_stability = 0.005
-	}
-}
-
-
-# Failed counter offensive 
-country_event = {
-	id = wsv_csa.28
-	title = wsv_csa.28.t
-	desc = wsv_csa.28.d
-	picture = report_event_wsv_soldiers_running
-
-    is_triggered_only = yes
-
-	option = {
-		name =  wsv_csa.28.a
-		#add_stability = -0.01
-		add_manpower = -3000
-	}
-}
-
-
-# Black insurgents defeated
-country_event = {
-	id = wsv_csa.29
-	title = wsv_csa.29.t
-	desc = wsv_csa.29.d
-	picture = report_event_black_soldiers_marching
-
-    is_triggered_only = yes
-
-	option = {
-		name =  wsv_csa.29.a
-		add_stability = 0.02
-		event_target:CSA_red_rebels_state_event_target = {
-			add_dynamic_modifier = { modifier = CSA_recovering_from_rebellion  days = 90  }
-		}
-	}
-}
-
-
-## Black Revolt Defeated
-news_event = {
-	id = wsv_csa.30
-	title = wsv_csa.30.t
-	desc = wsv_csa.30.d
-	picture = news_event_black_rebellion_defeated
-
-	major = yes
-
 	is_triggered_only = yes
 
     immediate = {
-    	hidden_effect = {
-	    	set_global_flag = csa_red_rebellion_defeated
-	    	CSA = { add_stability = 0.05 }
-		}
+    	set_global_flag = csa_arming_black_troops
    	}
 	
 	option = {
-		name = wsv_csa.30.a
+		name = wsv_csa.108.a
 		trigger = { tag = CSA }
+		# time till first tension event
+		set_country_flag = { flag = blacksoldiers_civilian_effect_cooldown  days = 90  value = 1 }
+		# time till demands
+		set_country_flag = { flag = blacksoldiers_demands_wait  days = 360  value = 1 }
 	}
 
 	option = {
-		name = wsv_csa.30.b
-		trigger = { tag = USA }
-	}
-
-	option = {
-		name = wsv_csa.30.c
+		name = wsv_csa.108.b
 		trigger = { 
-			NOT = { tag = USA }
 			NOT = { tag = CSA }
 		}
 	}
 }
 
 
-###########################################################
+# Social problems from black troops (repeating event)
+country_event = {
+	id = wsv_csa.109
+	title = wsv_csa.109.t
+	desc = wsv_csa.109.d
+	#picture = # TODO picture 
+
+	trigger = {
+		tag = CSA
+		has_global_flag = csa_arming_black_troops
+		has_war = yes
+		NOT = { has_country_flag = blacksoldiers_civilian_effect_cooldown }
+		NOT = { has_global_flag = csa_black_soldiers_revolt }
+	}
+
+   	immediate = {
+		set_country_flag = { flag = blacksoldiers_civilian_effect_cooldown  days = 80  value = 1 }
+   	}
+
+	option = {
+		name =  wsv_csa.109.a
+		add_stability = -0.02
+	}
+}
+
+
+## Black soldiers tired of mistreatment (demand better conditions) -- fires one year in
+country_event = {
+	id = wsv_csa.110
+	title = wsv_csa.110.t
+	desc = wsv_csa.110.d
+	#picture = # TODO picture 
+
+	fire_only_once = yes
+
+    trigger = {
+		tag = CSA
+		has_global_flag = csa_arming_black_troops
+		has_war = yes
+		NOT = { has_country_flag = blacksoldiers_demands_wait }
+		NOT = { has_global_flag = csa_black_soldiers_revolt }
+	}
+
+	immediate = {
+		set_country_flag = black_soldiers_made_demands
+	}
+
+	## Ignore their demands
+	option = {
+		name =  wsv_csa.110.a
+		set_country_flag = blacksoldiers_demands_ignored
+		swap_ideas = {
+			remove_idea = CSA_black_soldiers
+			add_idea = CSA_black_soldiers_worsened_rights
+		}
+		custom_effect_tooltip = blacksoldiers_revolt_sooner_tt
+		# tension events will happen more frequently
+		set_country_flag = { flag = blacksoldiers_soldier_effect_cooldown  days = 25  value = 1 }
+		# revolt happens way sooner
+		set_country_flag = { flag = blacksoldiers_revolt_countdown  days = 300  value = 1 }
+
+		ai_chance = { base = 40 }
+	}
+	
+	## Restrict conduct of white officers
+	option = {
+		name =  wsv_csa.110.b
+		swap_ideas = {
+			remove_idea = CSA_black_soldiers
+			add_idea = CSA_black_soldiers_improved_rights
+		}
+		add_political_power = -75
+		# tension events happen less frequently
+		set_country_flag = { flag = blacksoldiers_soldier_effect_cooldown  days = 50  value = 1 }
+		# revolt happens much later
+		set_country_flag = { flag = blacksoldiers_revolt_countdown  days = 600  value = 1 }
+
+		ai_chance = { 
+			base = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			} 
+		}
+	}
+}
+
+
+# Tensions between white officers and black troops
+country_event = {
+	id = wsv_csa.111
+	title = wsv_csa.111.t
+	desc = wsv_csa.111.d
+	#picture = # TODO picture 
+
+    trigger = {
+		tag = CSA
+		has_global_flag = csa_arming_black_troops
+		has_country_flag = black_soldiers_made_demands
+		has_war = yes
+		NOT = { has_country_flag = blacksoldiers_soldier_effect_cooldown }
+		NOT = { has_global_flag = csa_black_soldiers_revolt }
+	}
+
+   	immediate = {
+		if = {
+			limit = { has_country_flag = blacksoldiers_demands_ignored }
+			set_country_flag = { flag = blacksoldiers_soldier_effect_cooldown   days = 100  value = 1 }
+		}
+		else = {
+			set_country_flag = { flag = blacksoldiers_soldier_effect_cooldown   days = 160  value = 1 }
+		}
+   	}
+
+	option = {
+		name =  wsv_csa.111.a
+		add_war_support = -0.02
+		add_command_power = -10
+	}
+}
+
+
+
+###########################################
+# -- Black Soldiers Revolt / 
+###########################################
+
+
+# Tensions reached a boiling point
+country_event = {
+	id = wsv_csa.112
+	title = wsv_csa.112.t
+	desc = wsv_csa.112.d
+
+	fire_only_once = yes
+
+    trigger = {
+		tag = CSA
+		has_global_flag = csa_arming_black_troops
+		has_country_flag = black_soldiers_made_demands
+		has_war = yes
+		NOT = { has_country_flag = blacksoldiers_revolt_countdown }
+		NOT = { has_global_flag = csa_black_soldiers_revolt }
+	}
+
+   	immediate = {
+		set_global_flag = csa_black_soldiers_revolt
+   	}
+
+	option = {
+		name =  wsv_csa.112.a
+		add_ideas = generic_army_collapse_idea
+		news_event = { id = wsv_csa.113  days =  1 }
+	}
+}
+
+
+## Black soldiers revolt / confederate army collapse (news event)
+news_event = {
+	id = wsv_csa.113
+	title = wsv_csa.113.t
+	desc = wsv_csa.113.d
+	#picture = # TODO picture 
+
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_csa.113.a
+	}
+}
+
+
 
 
 
