@@ -308,13 +308,83 @@ news_event = {
 	    		add_stability = -0.1 
 	    		country_event = { id = wsv_csa.101  days = 1 }
 	    	}
-	    	371 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			370 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			367 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			365 = { add_dynamic_modifier = { modifier = CSA_red_enclave }  set_state_flag = contains_red_rebels }
-			364 = { add_dynamic_modifier = { modifier = CSA_red_enclave }  set_state_flag = contains_red_rebels }
-			363 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
-			362 = { add_dynamic_modifier = { modifier = CSA_red_insurgents }  set_state_flag = contains_red_rebels }
+	    	371 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
+			370 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
+			367 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
+			365 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
+			364 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
+			363 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
+			362 = { 
+				if = {
+					limit = { is_owned_and_controlled_by = CSA }
+					set_border_war = yes   set_state_flag = contains_red_rebels 
+					random_list = {
+						30 = { damage_building = { type = industrial_complex  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						30 = { damage_building = { type = arms_factory  damage = 1 }  damage_building = { type = infrastructure  damage = 1 } }
+						40 = { ROOT = { add_manpower = -4000 } }
+					}
+				}
+			}
 		}
    	}
 	
@@ -353,35 +423,35 @@ country_event = {
 }
 
 
-# Situation deteriorates 
-country_event = {
-	id = wsv_csa.102
-	title = wsv_csa.102.t
-	desc = wsv_csa.102.d
-	picture = report_event_wsv_battle
+# # Situation deteriorates 
+# country_event = {
+# 	id = wsv_csa.102
+# 	title = wsv_csa.102.t
+# 	desc = wsv_csa.102.d
+# 	picture = report_event_wsv_battle
 
-    is_triggered_only = yes
+#     is_triggered_only = yes
 
-	option = {
-		name =  wsv_csa.102.a
-		event_target:CSA_red_rebels_state_event_target = {
-			damage_building = {
-			    type = infrastructure
-			    damage = 1
-			}
-			damage_building = {
-			    type = industrial_complex
-			    damage = 1
-			}
-			damage_building = {
-			    type = arms_factory
-			    damage = 1
-			}
-		}
-		add_manpower = -2000
-		add_stability = -0.01
-	}
-}
+# 	option = {
+# 		name =  wsv_csa.102.a
+# 		event_target:CSA_red_rebels_state_event_target = {
+# 			damage_building = {
+# 			    type = infrastructure
+# 			    damage = 1
+# 			}
+# 			damage_building = {
+# 			    type = industrial_complex
+# 			    damage = 1
+# 			}
+# 			damage_building = {
+# 			    type = arms_factory
+# 			    damage = 1
+# 			}
+# 		}
+# 		add_manpower = -2000
+# 		add_stability = -0.01
+# 	}
+# }
 
 
 # Successful counter offensive 
@@ -395,7 +465,7 @@ country_event = {
 
 	option = {
 		name =  wsv_csa.103.a
-		#add_stability = 0.005
+		add_stability = 0.01
 	}
 }
 
@@ -411,29 +481,27 @@ country_event = {
 
 	option = {
 		name =  wsv_csa.104.a
-		#add_stability = -0.01
-		add_manpower = -3000
 	}
 }
 
 
-# Black insurgents defeated
-country_event = {
-	id = wsv_csa.105
-	title = wsv_csa.105.t
-	desc = wsv_csa.105.d
-	picture = report_event_black_soldiers_marching
+# # Black insurgents defeated
+# country_event = {
+# 	id = wsv_csa.105
+# 	title = wsv_csa.105.t
+# 	desc = wsv_csa.105.d
+# 	picture = report_event_black_soldiers_marching
 
-    is_triggered_only = yes
+#     is_triggered_only = yes
 
-	option = {
-		name =  wsv_csa.105.a
-		add_stability = 0.02
-		event_target:CSA_red_rebels_state_event_target = {
-			add_dynamic_modifier = { modifier = CSA_recovering_from_rebellion  days = 90  }
-		}
-	}
-}
+# 	option = {
+# 		name =  wsv_csa.105.a
+# 		add_stability = 0.02
+# 		event_target:CSA_red_rebels_state_event_target = {
+# 			add_dynamic_modifier = { modifier = CSA_recovering_from_rebellion  days = 90  }
+# 		}
+# 	}
+# }
 
 
 ## Black Revolt Defeated
