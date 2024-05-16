@@ -4,48 +4,47 @@
 
 USA_socialist_movement_cat = {
 
-	## socialist assembly incoming mission
-	USA_socialist_rally_soon = {
-		priority = 10
-		icon = generic_form_nation
+	# ## socialist assembly incoming mission
+	# USA_socialist_rally_soon = {
+	# 	priority = 10
+	# 	icon = generic_form_nation
 
-		allowed = { 
-			original_tag = USA
-		}
+	# 	allowed = { 
+	# 		original_tag = USA
+	# 	}
 
-		activation = {
-			NOT = { has_country_flag =  rally_cooldown }
-		}
+	# 	activation = {
+	# 		NOT = { has_country_flag =  rally_cooldown }
+	# 	}
 		
-		days_mission_timeout = 30
-		selectable_mission = yes
-		cost = 10
+	# 	days_mission_timeout = 30
+	# 	selectable_mission = yes
+	# 	cost = 10
 
-		is_good = yes
+	# 	is_good = yes
 
-		timeout_effect = {
-			country_event = wsv_usa_labor.1
-			set_country_flag = {
-				flag = rally_cooldown
-				value = 1
-				days = 180
-			}
-		}
+	# 	timeout_effect = {
+	# 		country_event = wsv_usa_labor.1
+	# 		set_country_flag = {
+	# 			flag = rally_cooldown
+	# 			value = 1
+	# 			days = 180
+	# 		}
+	# 	}
 
-		complete_effect = {
-			set_country_flag = {
-				flag = rally_cooldown
-				value = 1
-				days = 200
-			}
-		}
+	# 	complete_effect = {
+	# 		set_country_flag = {
+	# 			flag = rally_cooldown
+	# 			value = 1
+	# 			days = 200
+	# 		}
+	# 	}
 
-		ai_will_do = {
-			factor = 0.02
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 0.02
+	# 	}
+	# }
 	
-
 	################ STRIKES ################
 
 	## strike mission (triggered by event)
@@ -76,13 +75,7 @@ USA_socialist_movement_cat = {
 			hidden_effect = {
 				country_event = wsv_usa.3
 				remove_ideas = USA_worker_strikes
-				if = {
-					limit = { has_country_flag = tightened_strike_laws }
-					set_country_flag = { flag = strike_cooldown  value = 1  days = 350 }
-				}
-				else = {
-					set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
-				}
+				set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
 			}
 		}
 	}
@@ -107,13 +100,7 @@ USA_socialist_movement_cat = {
 				popularity = 0.02
 			}
 			custom_effect_tooltip = ends_current_strike_tt
-			if = {
-				limit = { has_country_flag = tightened_strike_laws }
-				set_country_flag = { flag = strike_cooldown  value = 1  days = 175 }
-			}
-			else = {
-				set_country_flag = { flag = strike_cooldown  value = 1  days = 100 }
-			}
+			set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
 		}
 
 		ai_will_do = {
@@ -144,13 +131,7 @@ USA_socialist_movement_cat = {
 			}
 			custom_effect_tooltip = ends_current_strike_tt
 			add_stability = -0.03
-			if = {
-				limit = { has_country_flag = tightened_strike_laws }
-				set_country_flag = { flag = strike_cooldown  value = 1  days = 175 }
-			}
-			else = {
-				set_country_flag = { flag = strike_cooldown  value = 1  days = 100 }
-			}
+			set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
 		}
 
 		ai_will_do = {

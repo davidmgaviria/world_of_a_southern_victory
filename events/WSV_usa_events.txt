@@ -1,4 +1,4 @@
-﻿add_namespace = wsv_usa
+add_namespace = wsv_usa
 
 ## Rememberance Day parade
 news_event = {
@@ -32,13 +32,44 @@ news_event = {
 		
 	}
 }
-	
 
-## Election of 1912 ## (between TR & Wood)
+
+## State of US politics
 country_event = {
 	id = wsv_usa.2
 	title = wsv_usa.2.t
 	desc = wsv_usa.2.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+    # side with socialists
+	option = {
+		name = wsv_usa.2.a
+		set_country_flag = usa_work_with_socialists
+		ai_chance = { base = 60 }
+	}
+
+	# favour the army
+	option = {
+		name = wsv_usa.2.b
+		set_country_flag = usa_favour_the_army
+		ai_chance = {
+			base = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+	
+## Election of 1912 ## (between TR & Wood) 
+country_event = {
+	id = wsv_usa.3
+	title = wsv_usa.3.t
+	desc = wsv_usa.3.d
 
 	fire_only_once = yes
 
@@ -55,7 +86,8 @@ country_event = {
 
     #teddy roosevelt
 	option = {
-		name = wsv_usa.2.a
+		name = wsv_usa.3.a
+		trigger = { has_country_flag = usa_work_with_socialists }
 		set_country_flag = USA_1912_election_occured
 
 		custom_effect_tooltip = teddy_becomes_president_tt
@@ -76,6 +108,7 @@ country_event = {
 			    election_frequency = 48
 			    elections_allowed = yes
 			}
+			news_event = { id = wsv_usa.4  days = 1 }
     	}
     	
     	ai_chance = {
@@ -85,7 +118,8 @@ country_event = {
 
 	#leonard wood
 	option = {
-		name = wsv_usa.2.b
+		name = wsv_usa.3.b
+		trigger = { has_country_flag = usa_favour_the_army }
 		set_country_flag = USA_1912_election_occured
 		
 		custom_effect_tooltip = wood_becomes_president_tt
@@ -102,6 +136,7 @@ country_event = {
 			    election_frequency = 48
 			    elections_allowed = yes
 			}
+			news_event = { id = wsv_usa.5  days = 1 }
     	}
 			
     	ai_chance = {
@@ -116,34 +151,15 @@ country_event = {
 }
 
 
-
-## US Outreach to Socialists
-country_event = {
-	id = wsv_usa.3
-	title = wsv_usa.3.t
-	desc = wsv_usa.3.d
-	#picture = #TODO needs picture
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_usa.3.a
-	}
-}
-
-
-## Worker's Rights Bill passed
-country_event = {
+# Teddy Roosevelt wins Presidency of USA
+news_event = {
 	id = wsv_usa.4
 	title = wsv_usa.4.t
 	desc = wsv_usa.4.d
-	#picture = #TODO needs picture
-
-	fire_only_once = yes
+	#picture =   #TODO: needs picture
 
 	is_triggered_only = yes
+	major = yes
 
 	option = {
 		name = wsv_usa.4.a
@@ -151,16 +167,15 @@ country_event = {
 }
 
 
-## Socialists Sidelined
-country_event = {
+# Leonard Wood wins Presidency of USA
+news_event = {
 	id = wsv_usa.5
 	title = wsv_usa.5.t
 	desc = wsv_usa.5.d
-	#picture = #TODO needs picture
-
-	fire_only_once = yes
+	#picture =   #TODO: needs picture
 
 	is_triggered_only = yes
+	major = yes
 
 	option = {
 		name = wsv_usa.5.a
@@ -168,309 +183,68 @@ country_event = {
 }
 
 
-## American Paramilitaries
+
+# Strike event
 country_event = {
 	id = wsv_usa.6
 	title = wsv_usa.6.t
 	desc = wsv_usa.6.d
-	#picture = #TODO needs picture
-
-	fire_only_once = yes
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_usa.6.a
-		add_stability = -0.03
-	}
-}
-
-
-
-#########################################################
-################# Anti War Demonstrations ###############
-#########################################################
-
-
-## Anti war demonstrations
-country_event = {
-	id = wsv_usa.7
-	title = wsv_usa.7.t
-	desc = wsv_usa.7.d
-	picture = news_event_wsv_gathering_protest
+	#picture =   #TODO: needs picture
 
 	mean_time_to_happen = {
-		days = 20
+		days = 10
 	}
 
 	trigger = {
 		tag = USA
-		has_war = yes
-		casualties > 100000
-		NOT = { has_country_flag = antiwar_protest_cooldown }
+		NOT = {
+			has_active_mission = USA_strike_ongoing
+			has_country_flag = strike_cooldown
+			# dont have strikes once this focus is done
+			has_country_flag = end_chronic_strikes
+		}
 	}
 
 	immediate = {
-		if = {
-			## TR gets protests less often
-			limit = { has_country_leader = USA_theodore_roosevelt }
-			set_country_flag = {
-				flag = antiwar_protest_cooldown
-				days = 280
-				value = 1
-			}
-		}
-		else = {
-			set_country_flag = {
-				flag = antiwar_protest_cooldown
-				days = 200
-				value = 1
-			}
+		hidden_effect = {
+			add_ideas = USA_worker_strikes
+			activate_mission = USA_strike_ongoing
 		}
 	}
 
+	# thats not good
 	option = {
-		name = wsv_usa.7.a
-		add_war_support = -0.03
+		name = wsv_usa.6.a
 	}
 }
 
 
-
-## 1915 Rememberance day riots
+# Strike ends (normally)
 country_event = {
-	id = wsv_usa.10
-	title = wsv_usa.10.t
-	desc = wsv_usa.10.d
-	picture = news_event_generic_riot
+	id = wsv_usa.7
+	title = wsv_usa.7.t
+	desc = wsv_usa.7.d
 
-	fire_only_once = yes
-
-	is_triggered_only = yes   # triggered by rememberance day event
-
-	option = {
-		name = wsv_usa.10.a
-		add_stability = -0.03
-		#increase_militancy_by_5_effect = yes
-	}
-}
-
-
-#########################################################
-################# 1916 Election Options #################
-#########################################################
-
-## Election of 1916 - Peace time ##
-country_event = {
-	id = wsv_usa.11
-	title = wsv_usa.11.t
-	desc = wsv_usa.11.d
- 
-	fire_only_once = yes
-	mean_time_to_happen = {	days = 4 }
-
-    trigger = {
-    	tag = USA
-        date > 1916.11.1
-        date < 1917.10.10
-        has_elections = yes
-		has_war = no
-		NOT = { has_country_flag = USA_1916_election }
-    }
-
-	immediate = {
-		set_country_flag = USA_1916_election
-	}
-
-	#current president
-	option = {
-		name = wsv_usa.11.a
-		custom_effect_tooltip = incumbent_remains_president_tt
-    	hidden_effect = {
-    		set_politics = {
-			    ruling_party = democratic
-			    last_election = "1916.11.5"
-			    election_frequency = 48
-			    elections_allowed = yes
-			}
-    	}
-
-    	ai_chance = {
-			base = 100
-		}
-	}
-
-	# eugene debs
-	option = {
-		name = wsv_usa.11.b
-		custom_effect_tooltip = debs_becomes_president_tt
-		add_popularity = {
-			ideology = communism
-			popularity = 0.1
-		}
-		add_ideas = USA_socialist_administration_idea
-    	hidden_effect = {
-    		retire_country_leader = yes
-			promote_character = USA_eugene_debs
-    		set_politics = {
-			    ruling_party = communism
-			    last_election = "1916.11.5"
-			    election_frequency = 48
-			    elections_allowed = yes
-			}
-    	}
-			
-    	ai_chance = {
-			base = 40
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-		}
-	}
-}
-
-
-## Election of 1916 - TR is president & war time ##  
-country_event = {
-	id = wsv_usa.12
-	title = wsv_usa.12.t
-	desc = wsv_usa.12.d
-
-	fire_only_once = yes
-	mean_time_to_happen = {	days = 4 }
-
-    trigger = {
-    	tag = USA
-        date > 1916.11.1
-        date < 1917.10.10
-        has_elections = yes
-		USA_theodore_roosevelt = { is_country_leader = yes }
-		has_war = yes
-		NOT = { has_country_flag = USA_1916_election }
-    }
-
-	immediate = {
-		set_country_flag = USA_1916_election
-    }
-
-	#teddy roosevelt
-	option = {
-		name = wsv_usa.12.a
-		custom_effect_tooltip = TR_remains_president_tt
-    	hidden_effect = {
-    		set_politics = {
-			    ruling_party = democratic
-			    last_election = "1916.11.5"
-			    election_frequency = 48
-			    elections_allowed = yes
-			}
-    	}
-
-    	ai_chance = {
-			base = 100
-		}
-	}
-}
-
-
-
-## Election of 1916 - Wood is president & war time (event occurs before election) ##
-country_event = {
-	id = wsv_usa.13
-	title = wsv_usa.13.t
-	desc = wsv_usa.13.d
-
-	fire_only_once = yes
-	mean_time_to_happen = {	days = 4 }
-
-    trigger = {
-    	tag = USA
-        date > 1916.10.15
-        date < 1917.10.10
-        has_elections = yes
-		USA_leonard_wood = { is_country_leader = yes }
-		has_war = yes
-		NOT = { has_country_flag = USA_1916_election }
-    }
-
-	immediate = {
-		set_country_flag = USA_1916_election
-    }
-
-  
-	# suspend the election
-	option = {
-		name = wsv_usa.13.a
-		set_country_flag = wood_suspended_elections
-		set_politics = {
-			ruling_party = democratic  
-			last_election = "1916.11.5"
-			election_frequency = 48
-			elections_allowed = no
-		}
-		add_popularity = {
-			ideology = neutrality
-			popularity = 0.1
-		}
-	}
-}
-
-
-## news event of US army suspending elections
-news_event = {
-	id = wsv_usa.14
-	title = wsv_usa.14.t
-	desc = wsv_usa.14.d
-	#picture = #TODO: needs picture
-
-	major = yes
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_usa.14.a
+		name = wsv_usa.7.a
 	}
 }
 
-
-## Mass protest against election overturn
-country_event = {
-	id = wsv_usa.15
-	title = wsv_usa.15.t
-	desc = wsv_usa.15.d
-	picture = report_event_generic_riot
-
-	fire_only_once = yes
-
-	trigger = {
-		has_country_flag = wood_suspended_elections
-	}
-
-	option = {
-		name = wsv_usa.15.a
-		add_war_support = -0.1
-		add_stability = -0.1
-	}
-}
-
-
-########################################################
 
 ## Revise the naval budget
 country_event = {
-	id = wsv_usa.16
-	title = wsv_usa.16.t
-	desc = wsv_usa.16.d
+	id = wsv_usa.9
+	title = wsv_usa.9.t
+	desc = wsv_usa.9.d
 
 	fire_only_once = yes
-
-	trigger = {
-		has_country_flag = wood_suspended_elections
-	}
+	is_triggered_only = yes
 
 	# large naval funding increase
 	option = {
-		name = wsv_usa.16.a
+		name = wsv_usa.9.a
 		add_political_power = -75
 		random_owned_controlled_state = {
 			limit = { is_coastal = yes }
@@ -496,7 +270,7 @@ country_event = {
 
 	# small naval funding increase
 	option = {
-		name = wsv_usa.16.b
+		name = wsv_usa.9.b
 		add_political_power = -25
 		random_owned_controlled_state = {
 			limit = { is_coastal = yes }
@@ -514,7 +288,7 @@ country_event = {
 
 	# no change
 	option = {
-		name = wsv_usa.16.c
+		name = wsv_usa.9.c
 		add_political_power = 25
 		ai_chance = {
 			base = 0
@@ -527,6 +301,458 @@ country_event = {
 }
 
 
+
+#######################################################################
+## -- War Issues During Teddy Roosevelt Presidency
+#######################################################################
+
+
+## 1915 Rememberance day riots
+country_event = {
+	id = wsv_usa.10
+	title = wsv_usa.10.t
+	desc = wsv_usa.10.d
+	picture = news_event_generic_riot
+
+	fire_only_once = yes
+	is_triggered_only = yes   # triggered by original rememberance event
+
+	option = {
+		name = wsv_usa.10.a
+		add_stability = -0.03
+		add_war_support = -0.05
+	}
+}
+
+
+## Election of 1916 - TR is president & war time ##  
+country_event = {
+	id = wsv_usa.11
+	title = wsv_usa.11.t
+	desc = wsv_usa.11.d
+
+	fire_only_once = yes
+	mean_time_to_happen = {	days = 4 }
+
+    trigger = {
+    	tag = USA
+        date > 1916.11.1
+        date < 1917.10.10
+        has_elections = yes
+		USA_theodore_roosevelt = { is_country_leader = yes }
+		has_war = yes
+		NOT = { has_country_flag = USA_1916_election }
+    }
+
+	immediate = {
+		set_country_flag = USA_1916_election
+    }
+
+	#teddy roosevelt
+	option = {
+		name = wsv_usa.11.a
+		custom_effect_tooltip = TR_remains_president_tt
+    	hidden_effect = {
+    		set_politics = {
+			    ruling_party = democratic
+			    last_election = "1916.11.5"
+			    election_frequency = 48
+			    elections_allowed = yes
+			}
+			set_country_flag = {
+				flag = socialist_block_funds_countdown
+				days = 350
+				value = 1
+			}
+    	}
+
+
+    	ai_chance = {
+			base = 100
+		}
+	}
+}
+
+
+# ## Anti war demonstrations
+# country_event = {
+# 	id = wsv_usa.12
+# 	title = wsv_usa.12.t
+# 	desc = wsv_usa.12.d
+# 	picture = news_event_wsv_gathering_protest
+
+# 	mean_time_to_happen = {
+# 		days = 20
+# 	}
+
+# 	trigger = {
+# 		tag = USA
+# 		has_war = yes
+# 		casualties > 600000  # roughly 1.5 years?
+# 		NOT = { has_country_flag = antiwar_protest_cooldown }
+# 	}
+
+# 	immediate = {
+# 		if = {
+# 			## TR gets protests less often
+# 			limit = { has_country_leader = USA_theodore_roosevelt }
+# 			set_country_flag = {
+# 				flag = antiwar_protest_cooldown
+# 				days = 200
+# 				value = 1
+# 			}
+# 		}
+# 		else = {
+# 			set_country_flag = {
+# 				flag = antiwar_protest_cooldown
+# 				days = 150
+# 				value = 1
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_usa.12.a
+# 		add_war_support = -0.03
+# 	}
+# }
+
+
+# # Socialist block war funding
+# country_event = {
+# 	id = wsv_usa.13
+# 	title = wsv_usa.13.t
+# 	desc = wsv_usa.13.d
+
+# 	mean_time_to_happen = {
+# 		days = 1
+# 	}
+
+# 	# TODO - change this to be less hardcoded
+# 	trigger = {
+# 		tag = USA
+# 		has_war = yes
+# 		has_country_flag = USA_1916_election
+# 		has_country_leader = USA_theodore_roosevelt
+# 		date > 1918.2.1			# TODO - change this to be less hardcoded
+# 		date < 1918.4.15
+# 		#war_length_with = { tag = CSA  months = 42 }   # war length greater than 3.5 years -- canonically would trigger beginning of 1918
+# 	}
+
+# 	option = {
+# 		name = wsv_usa.13.a
+# 		add_war_support = -0.1
+# 		add_ideas = USA_socialist_block_war_funds
+# 		set_country_flag = {
+# 			flag = socialist_block_funds_countdown
+# 			days = 360
+# 			value = 1
+# 		} 
+# 	}
+# }
+
+
+# # American Socialist Party splits ##
+# country_event = {
+# 	id = wsv_usa.14
+# 	title = wsv_usa.14.t
+# 	desc = wsv_usa.14.d
+# 	#picture =   #TODO: needs picture
+
+# 	fire_only_once = yes
+# 	mean_time_to_happen = {	days = 100 }
+
+#     trigger = {
+#     	tag = USA
+#         NOT = { has_government = communism }
+# 		has_war = yes
+# 		has_global_flag = russian_revolution_occured
+# 		NOT = { has_country_flag = USA_socialist_party_split }
+#     }
+
+# 	immediate = {
+# 		set_country_flag = USA_socialist_party_split
+#     }
+
+# 	# thats not good
+# 	option = {
+# 		name = wsv_usa.14.a
+# 		add_stability = -0.05
+# 	}
+# }
+
+
+# # American Socialist Revolt ##  
+# # TODO - complete
+# news_event = {
+# 	id = wsv_usa.15
+# 	title = wsv_usa.15.t
+# 	desc = wsv_usa.15.d
+# 	#picture =   #TODO: needs picture
+
+# 	fire_only_once = yes
+# 	mean_time_to_happen = {	days = 20 }
+
+#     trigger = {
+#     	tag = USA
+# 		has_global_flag = russian_revolution_occured
+# 		date > 1919.3.1   # TODO - change to be less hard coded
+# 		# OR = {
+# 		# 	surrender_progress > 0.45
+# 		# 	war_length_with = { tag = CSA  months = 54 }   # war length greater than 4.5 years
+# 		# }
+#     }
+
+# 	immediate = {
+# 		set_global_flag = usa_socialist_revolt
+# 		hidden_effect = {
+# 			start_civil_war = {
+# 				ideology = communism
+# 				size = 0.2
+# 				states = {
+# 					358 395
+# 				}
+# 			}
+# 		}
+#     }
+
+# 	# thats not good
+# 	option = {
+# 		name = wsv_usa.14.a
+# 	}
+# }
+
+
+
+
+#######################################################################
+## -- Woods Presidency  (20 and up)
+#######################################################################
+
+
+# ## US Outreach to Socialists
+# country_event = {
+# 	id = wsv_usa.3
+# 	title = wsv_usa.3.t
+# 	desc = wsv_usa.3.d
+# 	#picture = #TODO needs picture
+
+# 	fire_only_once = yes
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_usa.3.a
+# 	}
+# }
+
+
+# ## Worker's Rights Bill passed
+# country_event = {
+# 	id = wsv_usa.4
+# 	title = wsv_usa.4.t
+# 	desc = wsv_usa.4.d
+# 	#picture = #TODO needs picture
+
+# 	fire_only_once = yes
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_usa.4.a
+# 	}
+# }
+
+
+# ## Socialists Sidelined
+# country_event = {
+# 	id = wsv_usa.5
+# 	title = wsv_usa.5.t
+# 	desc = wsv_usa.5.d
+# 	#picture = #TODO needs picture
+
+# 	fire_only_once = yes
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_usa.5.a
+# 	}
+# }
+
+
+# ## American Paramilitaries
+# country_event = {
+# 	id = wsv_usa.6
+# 	title = wsv_usa.6.t
+# 	desc = wsv_usa.6.d
+# 	#picture = #TODO needs picture
+
+# 	fire_only_once = yes
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_usa.6.a
+# 		add_stability = -0.03
+# 	}
+# }
+
+
+
+
+#########################################################
+################# 1916 Election Options #################
+#########################################################
+
+# ## Election of 1916 - Peace time ##
+# country_event = {
+# 	id = wsv_usa.11
+# 	title = wsv_usa.11.t
+# 	desc = wsv_usa.11.d
+ 
+# 	fire_only_once = yes
+# 	mean_time_to_happen = {	days = 4 }
+
+#     trigger = {
+#     	tag = USA
+#         date > 1916.11.1
+#         date < 1917.10.10
+#         has_elections = yes
+# 		has_war = no
+# 		NOT = { has_country_flag = USA_1916_election }
+#     }
+
+# 	immediate = {
+# 		set_country_flag = USA_1916_election
+# 	}
+
+# 	#current president
+# 	option = {
+# 		name = wsv_usa.11.a
+# 		custom_effect_tooltip = incumbent_remains_president_tt
+#     	hidden_effect = {
+#     		set_politics = {
+# 			    ruling_party = democratic
+# 			    last_election = "1916.11.5"
+# 			    election_frequency = 48
+# 			    elections_allowed = yes
+# 			}
+#     	}
+
+#     	ai_chance = {
+# 			base = 100
+# 		}
+# 	}
+
+# 	# eugene debs
+# 	option = {
+# 		name = wsv_usa.11.b
+# 		custom_effect_tooltip = debs_becomes_president_tt
+# 		add_popularity = {
+# 			ideology = communism
+# 			popularity = 0.1
+# 		}
+# 		add_ideas = USA_socialist_administration_idea
+#     	hidden_effect = {
+#     		retire_country_leader = yes
+# 			promote_character = USA_eugene_debs
+#     		set_politics = {
+# 			    ruling_party = communism
+# 			    last_election = "1916.11.5"
+# 			    election_frequency = 48
+# 			    elections_allowed = yes
+# 			}
+#     	}
+			
+#     	ai_chance = {
+# 			base = 40
+# 			modifier = {
+# 				is_historical_focus_on = yes
+# 				factor = 0
+# 			}
+# 		}
+# 	}
+# }
+
+
+# ## Election of 1916 - Wood is president & war time (event occurs before election) ##
+# country_event = {
+# 	id = wsv_usa.13
+# 	title = wsv_usa.13.t
+# 	desc = wsv_usa.13.d
+
+# 	fire_only_once = yes
+# 	mean_time_to_happen = {	days = 4 }
+
+#     trigger = {
+#     	tag = USA
+#         date > 1916.10.15
+#         date < 1917.10.10
+#         has_elections = yes
+# 		USA_leonard_wood = { is_country_leader = yes }
+# 		has_war = yes
+# 		NOT = { has_country_flag = USA_1916_election }
+#     }
+
+# 	immediate = {
+# 		set_country_flag = USA_1916_election
+#     }
+
+  
+# 	# suspend the election
+# 	option = {
+# 		name = wsv_usa.13.a
+# 		set_country_flag = wood_suspended_elections
+# 		set_politics = {
+# 			ruling_party = democratic  
+# 			last_election = "1916.11.5"
+# 			election_frequency = 48
+# 			elections_allowed = no
+# 		}
+# 		add_popularity = {
+# 			ideology = neutrality
+# 			popularity = 0.1
+# 		}
+# 	}
+# }
+
+
+# ## news event of US army suspending elections
+# news_event = {
+# 	id = wsv_usa.14
+# 	title = wsv_usa.14.t
+# 	desc = wsv_usa.14.d
+# 	#picture = #TODO: needs picture
+
+# 	major = yes
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_usa.14.a
+# 	}
+# }
+
+
+# ## Mass protest against election overturn
+# country_event = {
+# 	id = wsv_usa.15
+# 	title = wsv_usa.15.t
+# 	desc = wsv_usa.15.d
+# 	picture = report_event_generic_riot
+
+# 	fire_only_once = yes
+
+# 	trigger = {
+# 		has_country_flag = wood_suspended_elections
+# 	}
+
+# 	option = {
+# 		name = wsv_usa.15.a
+# 		add_war_support = -0.1
+# 		add_stability = -0.1
+# 	}
+# }
 
 
 ##########################################################

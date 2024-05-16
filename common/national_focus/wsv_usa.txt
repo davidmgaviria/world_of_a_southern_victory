@@ -175,9 +175,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = USA_industrial_efforft
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			owns_state = 839
@@ -235,9 +233,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = USA_civ_factories2
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_war = yes
@@ -260,7 +256,7 @@ focus_tree = {
 		icon = GFX_focus_USA_rememberance
 		#prerequisite = { focus = }
 
-		cost = 10
+		cost = 5
 		x = 19
 		y = 0
 		#relative_position_id = 
@@ -269,7 +265,7 @@ focus_tree = {
 		#bypass = {}
 		
 		completion_reward = { 
-			add_political_power = 100
+			add_war_support = 0.2
 			add_opinion_modifier = {
 				target = CSA
 				modifier = wsv_old_wounds
@@ -423,7 +419,7 @@ focus_tree = {
 
 	focus = {
 		id = USA_military_advisors_to_haiti
-		icon = GFX_focus_SWI_issue_war_bonds
+		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = USA_influence_in_caribbean }
 		cost = 10
 		x = -1
@@ -1201,15 +1197,103 @@ focus_tree = {
 	#########################################
 
 	focus = {
+		id = USA_state_us_politics
+		icon = GFX_focus_generic_improve_the_administration
+		cost = 10
+		x = 10
+		y = 0
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_political_power = 100
+			country_event = wsv_usa.2
+		}
+	}
+
+		
+	focus = {
+		id = USA_increase_army_influence
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = USA_state_us_politics }
+		mutually_exclusive = { focus=USA_negociations_with_socialists  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_state_us_politics
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = usa_favour_the_army
+		}
+
+		completion_reward = { 
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.1
+			}
+			add_war_support = 0.1
+		}
+	}
+
+		
+	focus = {
+		id = USA_secret_military_funding
+		icon = GFX_focus_SWI_issue_war_bonds
+		prerequisite = { focus = USA_increase_army_influence }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_increase_army_influence
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = usa_favour_the_army
+		}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = USA_throttled_military_spending
+				add_idea = USA_secret_military_funds_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_negociations_with_socialists
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = USA_state_us_politics }
+		mutually_exclusive = { focus=USA_increase_army_influence  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_state_us_politics
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = usa_work_with_socialists
+		}
+
+		completion_reward = { 
+			add_political_power = 50
+		}
+	}
+
+		
+	focus = {
 		id = USA_1912_election
 		icon = GFX_focus_NOR_restore_public_trust_in_the_storting
-		prerequisite = { focus = USA_rememberance }
+		prerequisite = {  focus = USA_secret_military_funding  focus = USA_negociations_with_socialists }
 		cost = 0
-		x = -9
+		x = 1
 		y = 1
-		relative_position_id = USA_rememberance
+		relative_position_id = USA_secret_military_funding
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 1 }
 
 		available = { 
 			has_country_flag = USA_1912_election_occured 
@@ -1224,12 +1308,14 @@ focus_tree = {
 		}
 	}
 
-		
+
+	############
+
 	focus = {
 		id = USA_empower_executive_branch
-		icon = GFX_goal_generic_forceful_treaty 
+		#icon = GFX_goal_generic_forceful_treaty 
 		prerequisite = { focus = USA_1912_election }
-		mutually_exclusive = { focus=USA_outreach_to_socialists  }
+		mutually_exclusive = { focus = USA_finalize_negociations_with_socialists }
 		cost = 10
 		x = -2
 		y = 1
@@ -1247,38 +1333,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_ideas = USA_empowered_executive_branch_idea
-			add_political_power = 120
+			# add_ideas = USA_empowered_executive_branch_idea
+			# add_political_power = 100
 		}
 	}
 
-		
+
 	focus = {
-		id = USA_obtain_secret_funds
-		icon = GFX_focus_USA_secret_military_funds
+		id = USA_sideline_congress
+		#icon = GFX_goal_generic_political_pressure
 		prerequisite = { focus = USA_empower_executive_branch }
 
 		cost = 10
 		x = -1
-		y = 1
-		relative_position_id = USA_empower_executive_branch
-
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
-		
-		completion_reward = { 
-			remove_ideas = USA_throttled_military_spending
-		}
-	}
-
-		
-	focus = {
-		id = USA_sideline_socialists
-		icon = GFX_goal_generic_political_pressure
-		prerequisite = { focus = USA_empower_executive_branch }
-
-		cost = 10
-		x = 1
 		y = 1
 		relative_position_id = USA_empower_executive_branch
 
@@ -1288,108 +1355,42 @@ focus_tree = {
 		completion_reward = { 
 			swap_ideas = {
 				remove_idea = USA_socialist_opposition
-				add_idea = USA_socialist_sidelined_idea
+				add_idea = USA_angered_socialists_idea
 			}
-			hidden_effect = { country_event = wsv_usa.5 }
 		}
 	}
 
-		
-	focus = {
-		id = USA_usgc_economic_power
-		icon = GFX_focus_USA_usgc_power_goal
-		prerequisite = { focus = USA_obtain_secret_funds }
-		prerequisite = { focus = USA_sideline_socialists }
 
+
+	focus = {
+		id = USA_full_military_funding
+		#icon = GFX_focus_eng_move_to_secure_the_dominions
+		prerequisite = { focus = USA_sideline_congress }
 		cost = 10
 		x = 0
-		y = 2
-		relative_position_id = USA_obtain_secret_funds
-
-		#ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-		}
-
-		#bypass = {}
-
-		completion_reward = {
-			#increase_militancy_by_5_effect = yes
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.05
-			}
-			swap_ideas = {
-				remove_idea = USA_usgc_idea
-				add_idea = USA_usgc_empowered_idea
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_extend_usgc_power
-		icon = GFX_focus_USA_usgc_power_goal
-		prerequisite = { focus = USA_usgc_economic_power }
-
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_usgc_economic_power
-
-		#ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-			date > 1916.1.1
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			#increase_militancy_by_5_effect = yes
-			add_popularity = {
-				ideology = neutrality
-				popularity = 0.05
-			}
-			swap_ideas = {
-				remove_idea = USA_usgc_empowered_idea
-				add_idea = USA_usgc_empowered_2_idea
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_american_militarism
-		icon = GFX_focus_USA_american_militarism
-		prerequisite = { focus = USA_sideline_socialists }
-
-		cost = 10
-		x = -1
 		y = 1
-		relative_position_id = USA_sideline_socialists
+		relative_position_id = USA_sideline_congress
 
 		#ai_will_do = { factor = 1 }
 		#bypass = {}
 		
 		completion_reward = { 
 			#increase_militancy_by_5_effect = yes
-			add_ideas = USA_american_militarism
+			add_stability = -0.05
+			remove_ideas = USA_secret_military_funds_idea
 		}
 	}
 
-		
+
 	focus = {
 		id = USA_tighten_strike_laws
-		icon = GFX_focus_eng_move_to_secure_the_dominions
-		prerequisite = { focus = USA_sideline_socialists }
+		#icon = GFX_focus_eng_move_to_secure_the_dominions
+		prerequisite = { focus = USA_empower_executive_branch }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = USA_sideline_socialists
+		relative_position_id = USA_empower_executive_branch
 
 		#ai_will_do = { factor = 1 }
 		#bypass = {}
@@ -1402,17 +1403,38 @@ focus_tree = {
 		}
 	}
 
+
+			
+	# focus = {
+	# 	id = USA_american_militarism
+	# 	icon = GFX_focus_USA_american_militarism
+	# 	prerequisite = { focus = USA_full_military_funding }
+
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = USA_full_military_funding
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+		
+	# 	completion_reward = { 
+	# 		#increase_militancy_by_5_effect = yes
+	# 		add_ideas = USA_american_militarism
+	# 	}
+	# }
+
 		
 	focus = {
 		id = USA_wartime_emergency_act
-		icon = GFX_focus_generic_military_dictatorship
-		prerequisite = { focus = USA_american_militarism }
+		#icon = GFX_focus_generic_military_dictatorship
+		prerequisite = { focus = USA_full_military_funding }
 		prerequisite = { focus = USA_tighten_strike_laws }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = USA_american_militarism
+		relative_position_id = USA_full_military_funding
 
 		#ai_will_do = { factor = 1 }
 
@@ -1441,20 +1463,17 @@ focus_tree = {
 		}
 	}
 
-		
+
 	focus = {
-		id = USA_american_home_legions
-		icon = GFX_focus_generic_fascist_troops
-		prerequisite = { focus = USA_american_militarism }
-
+		id = USA_usgc_economic_power
+		#icon = GFX_focus_USA_usgc_power_goal
+		prerequisite = { focus = USA_wartime_emergency_act }
 		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_american_militarism
+		x = -1
+		y = 1
+		relative_position_id = USA_wartime_emergency_act
 
-		ai_will_do = {
-			factor = 1
-		}
+		#ai_will_do = { factor = 1 }
 
 		available = {
 			has_war = yes
@@ -1462,22 +1481,28 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
-			#increase_militancy_by_10_effect = yes
-			add_ideas = USA_american_paramilitaries
-			hidden_effect = { country_event = wsv_usa.6 }
+		completion_reward = {
+			#increase_militancy_by_5_effect = yes
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			swap_ideas = {
+				remove_idea = USA_usgc_idea
+				add_idea = USA_usgc_empowered_idea
+			}
 		}
 	}
 
-		
+
 	focus = {
 		id = USA_suppress_dissidents
-		icon = GFX_focus_spr_crush_the_revolution
+		#icon = GFX_focus_spr_crush_the_revolution
 		prerequisite = { focus = USA_wartime_emergency_act }
 
 		cost = 10
-		x = 0
-		y = 2
+		x = 1
+		y = 1
 		relative_position_id = USA_wartime_emergency_act
 
 		#ai_will_do = { factor = 1 }
@@ -1505,218 +1530,14 @@ focus_tree = {
 	}
 
 		
-	# focus = {
-	# 	id = USA_military_dictatorship
-	# 	#icon = GFX_focus_generic_military_dictatorship
-	# 	prerequisite = { focus = USA_suppress_dissidents }
-
-	# 	cost = 5
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = USA_suppress_dissidents
-
-	# 	#ai_will_do = { factor = 1 }
-
-	# 	#bypass = {}
-
-	# 	available = {
-	# 		has_country_flag = path_completed
-	# 	}
-
-	# 	available = {
-	# 		neutrality > 0.4
-	# 	}
-
-	# 	completion_reward = { 
-	# 		#increase_militancy_by_10_effect = yes
-	# 		# set_politics = {
-	# 		# 	ruling_party = neutrality
-	# 		# 	elections_allowed = no
-	# 		# 	last_election = "1916.11.5"
-	# 		# }
-	# 		#TOOD - event
-	# 		#TODO - modify us neutrality flag and name
-	# 	}
-	# }
-
-
 	focus = {
-		id = USA_outreach_to_socialists
-		icon = GFX_goal_generic_improve_relations
-		prerequisite = { focus = USA_1912_election }
-		mutually_exclusive = { focus=USA_empower_executive_branch  }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = USA_1912_election
-
-		#ai_will_do = { factor = 1 }
-
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = tr_is_president_tt
-				USA_theodore_roosevelt = { is_country_leader = yes }
-			}
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_political_power = 75
-			hidden_effect = { country_event = wsv_usa.3 }
-		}
-	}
-
-		
-	focus = {
-		id = USA_establish_labor_dept
-		icon = GFX_focus_generic_self_management
-		prerequisite = { focus = USA_outreach_to_socialists }
-
+		id = USA_extend_usgc_power
+		#icon = GFX_focus_USA_usgc_power_goal
+		prerequisite = { focus = USA_usgc_economic_power }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = USA_outreach_to_socialists
-
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
-		
-		completion_reward = { 
-			add_ideas = USA_labor_dept_idea
-			add_stability = 0.05
-			#decrease_militancy_by_5_effect = yes
-		}
-	}
-
-		
-	focus = {
-		id = USA_secure_miltiary_funding
-		icon = GFX_focus_generic_reorient_production
-		prerequisite = { focus = USA_establish_labor_dept }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_establish_labor_dept
-
-		#ai_will_do = { factor = 1 }
-
-		bypass = {
-			has_war = yes
-		}
-
-		completion_reward = { 
-			swap_ideas = {
-				remove_idea = USA_throttled_military_spending
-				add_idea = USA_limited_military_spending
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_state_of_war
-		icon = GFX_goal_generic_attack_allies
-		prerequisite = { focus = USA_secure_miltiary_funding }
-
-		cost = 5
-		x = 0
-		y = 1
-		relative_position_id = USA_secure_miltiary_funding
-
-		#ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			if = {
-				limit = { 
-					has_completed_focus = USA_secure_miltiary_funding
-					has_idea = USA_throttled_military_spending
-				}
-				remove_ideas = USA_throttled_military_spending
-			}
-			else = {
-				remove_ideas = USA_limited_military_spending
-			}
-			swap_ideas = {
-				remove_idea = USA_socialist_opposition
-				add_idea = USA_limited_socialist_opposition
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_codify_labor_union_protection
-		icon = GFX_focus_eng_concessions_to_the_trade_unions
-		prerequisite = { focus = USA_establish_labor_dept }
-
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = USA_establish_labor_dept
-
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
-		
-		completion_reward = { 
-			#decrease_militancy_by_10_effect = yes
-			add_stability = 0.1
-		}
-	}
-
-		
-	focus = {
-		id = USA_workers_rights_bill
-		icon = GFX_focus_generic_treaty
-		prerequisite = { focus = USA_codify_labor_union_protection }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_codify_labor_union_protection
-
-		#ai_will_do = { factor = 1 }
-
-		available = {
-			custom_trigger_tooltip = {
-				tooltip = no_current_strike_tt
-				NOT = { has_active_mission = USA_strike_ongoing }
-			}
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = halt_strikes_for_few_years_tt
-			add_stability = 0.1
-			set_country_flag = {
-				flag = strike_cooldown
-				value = 1
-				days = 960
-			}
-			add_ideas = USA_workers_rights_idea
-			hidden_effect = {
-				country_event = wsv_usa.4
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_tax_rich
-		icon = GFX_focus_mex_privatisation
-		prerequisite = { focus = USA_state_of_war }
-
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = USA_state_of_war
+		relative_position_id = USA_usgc_economic_power
 
 		#ai_will_do = { factor = 1 }
 
@@ -1728,14 +1549,217 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_ideas = USA_wealh_tax_idea
+			#increase_militancy_by_5_effect = yes
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			swap_ideas = {
+				remove_idea = USA_usgc_empowered_idea
+				add_idea = USA_usgc_empowered_2_idea
+			}
+		}
+	}
+
+
+
+	###########
+
+	focus = {
+		id = USA_finalize_negociations_with_socialists
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = USA_1912_election }
+		mutually_exclusive = { focus = USA_empower_executive_branch }
+		cost = 5
+		x = 2
+		y = 1
+		relative_position_id = USA_1912_election
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tr_is_president_tt
+				USA_theodore_roosevelt = { is_country_leader = yes }
+			}
+		}
+
+		completion_reward = { 
+			add_political_power = 75
+		}
+	}
+
+	focus = {
+		id = USA_workers_protection_act
+		icon = GFX_focus_generic_treaty
+		prerequisite = { focus = USA_finalize_negociations_with_socialists }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_finalize_negociations_with_socialists
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tr_is_president_tt
+				USA_theodore_roosevelt = { is_country_leader = yes }
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = USA_workers_rights_idea
+		}
+	}
+
+
+	focus = {
+		id = USA_antitrust_act
+		icon = GFX_focus_generic_court
+		prerequisite = { focus = USA_finalize_negociations_with_socialists }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_finalize_negociations_with_socialists
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tr_is_president_tt
+				USA_theodore_roosevelt = { is_country_leader = yes }
+			}
+		}
+
+		completion_reward = { 
+			remove_ideas = USA_corporate_trusts
+		}
+	}
+
+
+	focus = {
+		id = USA_secure_miltiary_funding
+		icon = GFX_focus_generic_reorient_production
+		prerequisite = { focus = USA_workers_protection_act }
+		prerequisite = { focus =  USA_antitrust_act }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_workers_protection_act
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			remove_ideas = USA_throttled_military_spending
+			if = {
+				limit = { has_idea = civilian_economy }
+				add_ideas = low_economic_mobilisation
+			}
+		}
+	}
+
+
+	focus = {
+		id = USA_tackle_strikes
+		icon = GFX_focus_generic_workers
+		prerequisite = { focus = USA_antitrust_act }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_antitrust_act
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			custom_trigger_tooltip = {
+				tooltip = tr_is_president_tt
+				USA_theodore_roosevelt = { is_country_leader = yes }
+			}
+		}
+
+		completion_reward = { 
+			set_country_flag = end_chronic_strikes
+			custom_effect_tooltip = end_chronic_strikes_tt
 		}
 	}
 
 		
 	focus = {
+		id = USA_state_of_war
+		icon = GFX_goal_generic_attack_allies
+		prerequisite = { focus = USA_secure_miltiary_funding }
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = USA_secure_miltiary_funding
+
+		#ai_will_do = { factor = 1 }
+
+		available = {
+			has_war = yes
+		}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = USA_socialist_opposition
+				add_idea = USA_limited_socialist_opposition
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_idea = civilian_economy
+						has_idea = low_economic_mobilisation 
+					}
+				}
+				add_ideas = partial_economic_mobilisation
+			}
+		}
+	}
+
+	
+	focus = {
 		id = USA_nationalize_industry
 		icon = GFX_focus_DEN_heavy_regulations
+		prerequisite = { focus = USA_state_of_war }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = USA_state_of_war
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war = yes
+			date > 1916.1.1
+		}
+
+		completion_reward = { 
+			add_ideas = USA_nationalize_industries_idea
+			random_owned_controlled_state = {
+				limit = { industrial_complex > 1 }
+				remove_building = { type = industrial_complex  level = 1 }
+				add_building_construction = { type = arms_factory  level = 1  instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { industrial_complex > 1 }
+				remove_building = { type = industrial_complex  level = 1 }
+				add_building_construction = { type = arms_factory  level = 1  instant_build = yes }
+			}
+			random_owned_controlled_state = {
+				limit = { industrial_complex > 1 }
+				remove_building = { type = industrial_complex  level = 1 }
+				add_building_construction = { type = arms_factory  level = 1  instant_build = yes }
+			}
+		}
+	}
+
+
+	focus = {
+		id = USA_tax_rich
+		icon = GFX_focus_mex_privatisation
 		prerequisite = { focus = USA_state_of_war }
 
 		cost = 10
@@ -1753,35 +1777,229 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_ideas = USA_nationalize_industries_idea
+			add_ideas = USA_wealth_tax_idea
 		}
 	}
+
+
+
+
+	# focus = {
+	# 	id = USA_expanded_social_programs
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = USA_state_of_war }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = USA_state_of_war
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		has_war = yes
+	# 		has_idea = USA_socialist_block_war_funds
+	# 	}
+
+	# 	completion_reward = { 
+	# 		remove_ideas = USA_socialist_block_war_funds
+	# 	}
+	# }
+
+
+	
 
 		
-	focus = {
-		id = USA_wartime_industry_protection
-		icon = GFX_goal_generic_construction
-		prerequisite = { focus = USA_state_of_war }
+	# focus = {
+	# 	id = USA_obtain_secret_funds
+	# 	icon = GFX_focus_USA_secret_military_funds
+	# 	prerequisite = { focus = USA_empower_executive_branch }
 
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_state_of_war
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = USA_empower_executive_branch
 
-		#ai_will_do = { factor = 1 }
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+		
+	# 	completion_reward = { 
+	# 		remove_ideas = USA_throttled_military_spending
+	# 	}
+	# }
+		
+	
 
-		available = {
-			has_war = yes
-			date > 1916.1.1
-		}
+		
+	# focus = {
+	# 	id = USA_american_home_legions
+	# 	icon = GFX_focus_generic_fascist_troops
+	# 	prerequisite = { focus = USA_american_militarism }
 
-		#bypass = {}
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = USA_american_militarism
 
-		completion_reward = { 
-			custom_effect_tooltip = end_strikes_during_war_tt
-			add_stability = -0.1
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 	}
+
+	# 	available = {
+	# 		has_war = yes
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		#increase_militancy_by_10_effect = yes
+	# 		add_ideas = USA_american_paramilitaries
+	# 		hidden_effect = { country_event = wsv_usa.6 }
+	# 	}
+	# }
+
+		
+	# # focus = {
+	# # 	id = USA_military_dictatorship
+	# # 	#icon = GFX_focus_generic_military_dictatorship
+	# # 	prerequisite = { focus = USA_suppress_dissidents }
+
+	# # 	cost = 5
+	# # 	x = 0
+	# # 	y = 1
+	# # 	relative_position_id = USA_suppress_dissidents
+
+	# # 	#ai_will_do = { factor = 1 }
+
+	# # 	#bypass = {}
+
+	# # 	available = {
+	# # 		has_country_flag = path_completed
+	# # 	}
+
+	# # 	available = {
+	# # 		neutrality > 0.4
+	# # 	}
+
+	# # 	completion_reward = { 
+	# # 		#increase_militancy_by_10_effect = yes
+	# # 		# set_politics = {
+	# # 		# 	ruling_party = neutrality
+	# # 		# 	elections_allowed = no
+	# # 		# 	last_election = "1916.11.5"
+	# # 		# }
+	# # 		#TOOD - event
+	# # 		#TODO - modify us neutrality flag and name
+	# # 	}
+	# # }
+
+
+	# focus = {
+	# 	id = USA_outreach_to_socialists
+	# 	icon = GFX_goal_generic_improve_relations
+	# 	prerequisite = { focus = USA_1912_election }
+	# 	mutually_exclusive = { focus=USA_empower_executive_branch  }
+	# 	cost = 10
+	# 	x = 2
+	# 	y = 1
+	# 	relative_position_id = USA_1912_election
+
+	# 	#ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = tr_is_president_tt
+	# 			USA_theodore_roosevelt = { is_country_leader = yes }
+	# 		}
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_political_power = 75
+	# 		hidden_effect = { country_event = wsv_usa.3 }
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_establish_labor_dept
+	# 	icon = GFX_focus_generic_self_management
+	# 	prerequisite = { focus = USA_outreach_to_socialists }
+
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = USA_outreach_to_socialists
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+		
+	# 	completion_reward = { 
+	# 		add_ideas = USA_labor_dept_idea
+	# 		add_stability = 0.05
+	# 		#decrease_militancy_by_5_effect = yes
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_codify_labor_union_protection
+	# 	icon = GFX_focus_eng_concessions_to_the_trade_unions
+	# 	prerequisite = { focus = USA_establish_labor_dept }
+
+	# 	cost = 10
+	# 	x = 2
+	# 	y = 1
+	# 	relative_position_id = USA_establish_labor_dept
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+		
+	# 	completion_reward = { 
+	# 		#decrease_militancy_by_10_effect = yes
+	# 		add_stability = 0.1
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_workers_rights_bill
+	# 	icon = GFX_focus_generic_treaty
+	# 	prerequisite = { focus = USA_codify_labor_union_protection }
+
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = USA_codify_labor_union_protection
+
+	# 	#ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = no_current_strike_tt
+	# 			NOT = { has_active_mission = USA_strike_ongoing }
+	# 		}
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		custom_effect_tooltip = halt_strikes_for_few_years_tt
+	# 		add_stability = 0.1
+	# 		set_country_flag = {
+	# 			flag = strike_cooldown
+	# 			value = 1
+	# 			days = 960
+	# 		}
+	# 		add_ideas = USA_workers_rights_idea
+	# 		hidden_effect = {
+	# 			country_event = wsv_usa.4
+	# 		}
+	# 	}
+	# }
+
+		
+
 
 
 	######################################
@@ -2299,7 +2517,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			country_event = wsv_usa.16
+			country_event = wsv_usa.9
 		}
 	}
 
