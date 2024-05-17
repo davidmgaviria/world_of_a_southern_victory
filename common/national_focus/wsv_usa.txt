@@ -307,7 +307,7 @@ focus_tree = {
 		id = USA_establish_war_dept
 		icon = GFX_focus_usa_recruit_the_free_corps
 		prerequisite = { focus = USA_rememberance }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = USA_rememberance
@@ -333,7 +333,7 @@ focus_tree = {
 		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = USA_establish_war_dept }
 
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = USA_establish_war_dept
@@ -390,7 +390,7 @@ focus_tree = {
 		id = USA_influence_in_caribbean
 		icon = GFX_goal_generic_demand_territory
 		prerequisite = { focus = USA_war_plan_csa }
-		cost = 10
+		cost = 5
 		x = -2
 		y = 1
 		relative_position_id = USA_war_plan_csa
@@ -444,7 +444,7 @@ focus_tree = {
 				amount = 2000
 				target = HAI
 			}
-			HAI = { country_event = wsv_usa.58 }
+			HAI = { country_event = wsv_usa.111 }
 			custom_effect_tooltip = haiti_gets_mil_aid_tt
 		}
 	}
@@ -528,7 +528,7 @@ focus_tree = {
 		#bypass = {}
 		
 		completion_reward = { 
-			country_event = wsv_usa.65
+			country_event = wsv_usa.115
 		}
 	}
 
@@ -690,7 +690,7 @@ focus_tree = {
 		}
 
 		bypass = {
-			owns_state = 376
+			owns_state = 374
 		}
 
 		completion_reward = { 
@@ -778,7 +778,7 @@ focus_tree = {
 		id = USA_face_the_british
 		icon = GFX_goal_generic_occupy_states_coastal #GFX_focus_AST_never_gallipoli
 		prerequisite = { focus = USA_reaffirm_ties_germany }
-		cost = 10
+		cost = 5
 		x = -1
 		y = 1
 		relative_position_id = USA_reaffirm_ties_germany
@@ -823,9 +823,8 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_canada
 		icon = GFX_goal_generic_position_armies
-		prerequisite = { focus = USA_war_plan_csa }
 		prerequisite = { focus = USA_face_the_british }
-		cost = 10
+		cost = 5
 		x = -1
 		y = 1
 		relative_position_id = USA_face_the_british
@@ -1077,7 +1076,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			AUH = { country_event = { id = wsv_usa.59  days = 3 } }
+			AUH = { country_event = { id = wsv_usa.112  days = 3 } }
 			send_equipment = {
 				equipment = infantry_equipment
 				amount = 3000
@@ -1091,7 +1090,7 @@ focus_tree = {
 		id = USA_joint_naval_exercises
 		icon = GFX_goal_generic_navy_battleship
 		prerequisite = { focus = USA_face_the_british }
-		cost = 10
+		cost = 5
 		x = 1
 		y = 1
 		relative_position_id = USA_face_the_british
@@ -1141,7 +1140,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			country_event = { id = wsv_usa.50  days = 2 }
+			country_event = { id = wsv_usa.103  days = 2 }
 			custom_effect_tooltip = american_german_pact_nf_conditions_tt
 		}
 	}
@@ -1199,7 +1198,7 @@ focus_tree = {
 	focus = {
 		id = USA_state_us_politics
 		icon = GFX_focus_generic_improve_the_administration
-		cost = 10
+		cost = 5
 		x = 10
 		y = 0
 
@@ -1217,7 +1216,7 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = USA_state_us_politics }
 		mutually_exclusive = { focus=USA_negociations_with_socialists  }
-		cost = 10
+		cost = 5
 		x = -1
 		y = 1
 		relative_position_id = USA_state_us_politics
@@ -1267,7 +1266,7 @@ focus_tree = {
 		icon = GFX_goal_generic_improve_relations
 		prerequisite = { focus = USA_state_us_politics }
 		mutually_exclusive = { focus=USA_increase_army_influence  }
-		cost = 10
+		cost = 5
 		x = 1
 		y = 1
 		relative_position_id = USA_state_us_politics
@@ -1782,31 +1781,28 @@ focus_tree = {
 	}
 
 
+	focus = {
+		id = USA_expanded_social_programs
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = USA_state_of_war }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_state_of_war
 
+		ai_will_do = { factor = 1 }
 
-	# focus = {
-	# 	id = USA_expanded_social_programs
-	# 	icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_state_of_war }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = USA_state_of_war
+		available = {
+			has_war = yes
+			has_idea = USA_socialist_block_war_funds
+		}
 
-	# 	ai_will_do = { factor = 1 }
+		completion_reward = { 
+			remove_ideas = USA_socialist_block_war_funds
+			custom_effect_tooltip = socialist_expectations_post_war_tt
+		}
+	}
 
-	# 	available = {
-	# 		has_war = yes
-	# 		has_idea = USA_socialist_block_war_funds
-	# 	}
-
-	# 	completion_reward = { 
-	# 		remove_ideas = USA_socialist_block_war_funds
-	# 	}
-	# }
-
-
-	
 
 		
 	# focus = {
