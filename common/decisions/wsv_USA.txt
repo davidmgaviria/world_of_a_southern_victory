@@ -198,37 +198,37 @@ USA_socialist_movement_cat = {
 	# 	}
 	# }
 
-	## socialist revolution
-	USA_imminent_revolution = {
-		priority = 1
-		icon = decision_revolt
+	# ## socialist revolution
+	# USA_imminent_revolution = {
+	# 	priority = 1
+	# 	icon = decision_revolt
 
-		allowed = { 
-			original_tag = USA
-		}
+	# 	allowed = { 
+	# 		original_tag = USA
+	# 	}
 
-		activation = {
-			OR = {
-				AND = {
-					has_country_flag = wood_suspended_elections
-					NOT = { has_country_flag = woods_stepped_down }
-				}
-				AND = {
-					has_war = yes
-					has_country_flag = USA_socialist_party_split
-					NOT = { has_country_flag = revolution_delay }
-				}
-			}
-		}
+	# 	activation = {
+	# 		OR = {
+	# 			AND = {
+	# 				has_country_flag = wood_suspended_elections
+	# 				NOT = { has_country_flag = woods_stepped_down }
+	# 			}
+	# 			AND = {
+	# 				has_war = yes
+	# 				has_country_flag = USA_socialist_party_split
+	# 				NOT = { has_country_flag = revolution_delay }
+	# 			}
+	# 		}
+	# 	}
 
-		days_mission_timeout = 200
-		selectable_mission = no
-		is_good = no
+	# 	days_mission_timeout = 200
+	# 	selectable_mission = no
+	# 	is_good = no
 
-		timeout_effect = {
-			news_event = wsv_usa_labor.100
-		}
-	}
+	# 	timeout_effect = {
+	# 		news_event = wsv_usa_labor.100
+	# 	}
+	# }
 
 	## TODO - decision allowing woods to step down (cancels revolution)
 }
@@ -391,7 +391,7 @@ USA_warplans_cat = {
 		days_re_enable = 0
 
 		complete_effect = {
-			news_event = { id = wsv_usa.60  days = 1 }
+			news_event = { id = wsv_usa.113  days = 1 }
 			random_country = {
 				limit = { controls_state = 629 }
 				save_event_target_as = country_that_holds_hawaii
@@ -415,51 +415,51 @@ USA_warplans_cat = {
 
 wsv_great_war_decisions = {
 
-	USA_barrel_roll_offensive = {
-		icon = generic_operation
+	# USA_barrel_roll_offensive = {
+	# 	icon = generic_operation
 
-		available = {
-			has_war_with = CSA
-		}
-		visible = {
-			has_country_flag = barrel_roll_offensive_flag
-		}
+	# 	available = {
+	# 		has_war_with = CSA
+	# 	}
+	# 	visible = {
+	# 		has_country_flag = barrel_roll_offensive_flag
+	# 	}
 
-		fire_only_once = yes
-		days_remove = 0
-		days_re_enable = 0
+	# 	fire_only_once = yes
+	# 	days_remove = 0
+	# 	days_re_enable = 0
 
-		complete_effect = {
-			set_country_flag = barrel_roll_offensive_started
-			add_timed_idea = {
-				idea = USA_barrel_offensive_idea
-				days = 60
-			}
-			hidden_effect = { activate_mission = USA_barrel_roll_mission }
-		}
+	# 	complete_effect = {
+	# 		set_country_flag = barrel_roll_offensive_started
+	# 		add_timed_idea = {
+	# 			idea = USA_barrel_offensive_idea
+	# 			days = 60
+	# 		}
+	# 		hidden_effect = { activate_mission = USA_barrel_roll_mission }
+	# 	}
 
-		ai_will_do = {
-			factor = 10
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 10
+	# 	}
+	# }
 
-	USA_barrel_roll_mission = {
-	    activation = {
-	    	has_country_flag = barrel_roll_offensive_started
-	    }
-	    cancel_trigger = {
-	        NOT = { has_war_with = CSA }
-	    }
+	# USA_barrel_roll_mission = {
+	#     activation = {
+	#     	has_country_flag = barrel_roll_offensive_started
+	#     }
+	#     cancel_trigger = {
+	#         NOT = { has_war_with = CSA }
+	#     }
 
-	    icon = mission_icon     # For GFX_decision_mission_icon
-	    days_mission_timeout = 90
+	#     icon = mission_icon     # For GFX_decision_mission_icon
+	#     days_mission_timeout = 90
 
-	    timeout_effect = {
-	        add_war_support = -0.15
-	        add_political_power = -75
-	        hidden_effect = { country_event = wsv_usa.3 }
-	    }
-	}
+	#     timeout_effect = {
+	#         add_war_support = -0.15
+	#         add_political_power = -75
+	#         hidden_effect = { country_event = wsv_usa.3 }
+	#     }
+	# }
 
 	
 	# USA throws in the towel

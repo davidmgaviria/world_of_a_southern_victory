@@ -444,7 +444,7 @@ focus_tree = {
 				amount = 2000
 				target = HAI
 			}
-			HAI = { country_event = wsv_usa.58 }
+			HAI = { country_event = wsv_usa.111 }
 			custom_effect_tooltip = haiti_gets_mil_aid_tt
 		}
 	}
@@ -528,7 +528,7 @@ focus_tree = {
 		#bypass = {}
 		
 		completion_reward = { 
-			country_event = wsv_usa.65
+			country_event = wsv_usa.115
 		}
 	}
 
@@ -823,7 +823,6 @@ focus_tree = {
 	focus = {
 		id = USA_war_plan_canada
 		icon = GFX_goal_generic_position_armies
-		prerequisite = { focus = USA_war_plan_csa }
 		prerequisite = { focus = USA_face_the_british }
 		cost = 10
 		x = -1
@@ -1077,7 +1076,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			AUH = { country_event = { id = wsv_usa.59  days = 3 } }
+			AUH = { country_event = { id = wsv_usa.112  days = 3 } }
 			send_equipment = {
 				equipment = infantry_equipment
 				amount = 3000
@@ -1141,7 +1140,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			country_event = { id = wsv_usa.50  days = 2 }
+			country_event = { id = wsv_usa.103  days = 2 }
 			custom_effect_tooltip = american_german_pact_nf_conditions_tt
 		}
 	}
@@ -1782,31 +1781,28 @@ focus_tree = {
 	}
 
 
+	focus = {
+		id = USA_expanded_social_programs
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = USA_state_of_war }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = USA_state_of_war
 
+		ai_will_do = { factor = 1 }
 
-	# focus = {
-	# 	id = USA_expanded_social_programs
-	# 	icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_state_of_war }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = USA_state_of_war
+		available = {
+			has_war = yes
+			has_idea = USA_socialist_block_war_funds
+		}
 
-	# 	ai_will_do = { factor = 1 }
+		completion_reward = { 
+			remove_ideas = USA_socialist_block_war_funds
+			custom_effect_tooltip = socialist_expectations_post_war_tt
+		}
+	}
 
-	# 	available = {
-	# 		has_war = yes
-	# 		has_idea = USA_socialist_block_war_funds
-	# 	}
-
-	# 	completion_reward = { 
-	# 		remove_ideas = USA_socialist_block_war_funds
-	# 	}
-	# }
-
-
-	
 
 		
 	# focus = {
