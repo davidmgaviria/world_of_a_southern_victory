@@ -1387,26 +1387,27 @@ country_event = {
 	fire_only_once = yes
 
 	trigger = {
+		tag = USA
+		NOT = { has_war_with = ENG }
 		has_global_flag = american_german_pact
 		GER = { has_war_with = ENG }
-		USA = { NOT = { has_war_with = ENG } }
 	}
 
 	mean_time_to_happen = { days = 3 }
 
-	# us joins war
+	# USA (ROOT) joins war
 	option = {
 		name = wsv_usa.107.a
 		add_to_war = {
 			targeted_alliance = GER
 			enemy = ENG
 		}
+		# declare war on Canada & CSA if they are allied with England
 		if = {
-			limit = { CAN = { is_puppet_of = ENG } }
-			declare_war_on = { target = CAN }
-			if = {
-				limit = { CAN = { is_guaranteed_by = CSA } }
-				declare_war_on = { target = CSA }
+			limit = { has_global_flag = confederate_canadian_british_pact }
+			declare_war_on = { 
+				target = CSA 
+				type = topple_government
 			}
 		}
 		GER = { country_event = wsv_usa.110 }
@@ -1416,7 +1417,7 @@ country_event = {
 		}
 	}
 
-	# usa rejects
+	# USA (ROOT) rejects
 	option = {
 		name = wsv_usa.107.b
 		clr_global_flag = american_german_pact
@@ -1453,20 +1454,22 @@ country_event = {
 	fire_only_once = yes
 
 	trigger = {
+		tag = GER
+		NOT = { has_war_with = ENG }
 		has_global_flag = american_german_pact
 		USA = { has_war_with = ENG }
-		GER = { NOT = { has_war_with = ENG } }
 	}
 
 	mean_time_to_happen = { days = 3 }
 
-	# germany joins war
+	# Germany (ROOT) joins war
 	option = {
 		name = wsv_usa.108.a
 		add_to_war = {
 			targeted_alliance = USA
 			enemy = ENG
 		}
+		# declare war on France & Russia if they are allied with England
 		if = {
 			limit = { FRA = { is_in_faction_with = ENG } }
 			declare_war_on = { target = FRA }
@@ -1482,7 +1485,7 @@ country_event = {
 		}
 	}
 
-	# germany rejects
+	# Germany (ROOT) rejects
 	option = {
 		name = wsv_usa.108.b
 		clr_global_flag = american_german_pact

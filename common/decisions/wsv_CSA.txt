@@ -78,7 +78,7 @@ CSA_actions_in_latam_category = {
 
 		cost = 25
 		days_remove = 7
-		days_re_enable = 90
+		days_re_enable = 120
 
 		remove_effect = {
 			add_offsite_building = {
@@ -93,7 +93,7 @@ CSA_actions_in_latam_category = {
 
 			modifier = {
 				factor = 0.1
-				check_variable = { CSA.csa_influence_in_latam > 50 }
+				check_variable = { CSA.csa_influence_in_latam > 60 }
 			}
 		}
 	}
@@ -112,7 +112,7 @@ CSA_actions_in_latam_category = {
 		}
 
 		days_remove = 7
-		days_re_enable = 90
+		days_re_enable = 120
 
 		custom_cost_trigger = {
 			has_equipment = { infantry_equipment > 1000 }
@@ -131,8 +131,8 @@ CSA_actions_in_latam_category = {
 			factor = 0.5
 
 			modifier = {
-				factor = 0.1
-				check_variable = { CSA.csa_influence_in_latam > 50 }
+				factor = 0.01
+				check_variable = { CSA.csa_influence_in_latam > 60 }
 			}
 		}
 	}
@@ -154,12 +154,12 @@ CSA_actions_in_latam_category = {
 			has_completed_focus = CSA_wilsonian_doctrine
 			custom_trigger_tooltip = {
 				tooltip = has_latam_influence_2_tt
-				check_variable = { CSA.csa_influence_in_latam > 69 } 
+				check_variable = { CSA.csa_influence_in_latam > 79 } 
 			}
 		}
 		
 		fire_only_once = yes
-		days_mission_timeout = 200  #put as 400 if conflict starts in 1912
+		days_mission_timeout = 300  #put as 400 if conflict starts in 1912
 		
 		selectable_mission = yes
 		is_good = yes
@@ -168,7 +168,11 @@ CSA_actions_in_latam_category = {
 
 		remove_effect = {
 			set_global_flag = csa_intervened_in_nicaragua
-			USA = { country_event = { id = wsv_carib.2 } }
+			add_named_threat = {
+				threat = 3
+				name = "Confederates Occupy Nicaragua"
+			}
+			USA = { country_event = { id = wsv_carib.2  days = 5 } }
 		}
 		
 		timeout_effect = {

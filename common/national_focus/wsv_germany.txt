@@ -92,6 +92,13 @@ focus_tree = {
 					target = ITA
 					modifier = wsv_improve_relations
 				}
+				AUH = {
+					diplomatic_relation = {
+						country = ITA
+						relation = guarantee
+						active = no
+					}
+				}
 			}
 		}
 	}
@@ -126,7 +133,23 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		completion_reward = { 
+		completion_reward = {
+			ITA = {
+				diplomatic_relation = {
+					country = AUH
+					relation = guarantee
+					active = no
+				}
+			} 
+			hidden_effect = {
+				AUH = {
+					diplomatic_relation = {
+						country = ITA
+						relation = guarantee
+						active = no
+					}
+				}
+			}
 		}
 	}
 
@@ -178,6 +201,13 @@ focus_tree = {
 					active = no
 				}
 			}
+			ITA = {
+				diplomatic_relation = {
+					country = AUH
+					relation = guarantee
+					active = no
+				}
+			}
 			hidden_effect = {
 				add_opinion_modifier = {
 					target = AUH
@@ -187,6 +217,13 @@ focus_tree = {
 					country = ITA
 					relation = guarantee
 					active = no
+				}
+				AUH = {
+					diplomatic_relation = {
+						country = ITA
+						relation = guarantee
+						active = no
+					}
 				}
 			}
 		}
@@ -264,13 +301,13 @@ focus_tree = {
 		icon = GFX_focus_generic_africa_naval
 		prerequisite = { focus = GER_our_place_in_the_sun }
 		#mutually_exclusive = { focus = }
-
-		cost = 0
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = GER_our_place_in_the_sun
 
 		available = { 
+			#has_global_flag = france_occupies_morocco
 			has_global_flag =  agadir_crisis_over
 		}
 
@@ -279,6 +316,8 @@ focus_tree = {
 		}
 
 		completion_reward = { 
+			#add_political_power = 75
+			#custom_effect_tooltip = unlocks_agadir_decisions_tt
 			custom_effect_tooltip = focus_auto_completes_tt
 		}
 	}

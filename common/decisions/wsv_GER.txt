@@ -39,6 +39,22 @@ wsv_great_war_decisions = {
 			    target = LUX
 			    type = annex_everything
 			}
+			hidden_effect = {
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						BEL = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = BEL }
+				}
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						LUX = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = LUX }
+				}
+			}
 			if = {
 				limit = { ENG = { has_guaranteed = BEL } }
 				custom_effect_tooltip = war_with_england_tt
