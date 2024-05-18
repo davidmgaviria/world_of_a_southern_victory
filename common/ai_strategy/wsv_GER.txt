@@ -294,7 +294,7 @@ GER_gw_stockpile_less_early_game = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date < 1914.1.1
+		date < 1914.5.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -400,6 +400,7 @@ GER_der_schlieffen_plan = {
 		}
 	}
 	abort = {
+		has_war_with = FRA  #dont abort before
 		FRA = { has_capitulated = yes }
 		casualties > 150000
 	}
@@ -408,11 +409,10 @@ GER_der_schlieffen_plan = {
 		type = front_control
 		tag = BEL
 		tag = LUX
-		tag = FRA
 		priority = 600
 		ratio = 0.35
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = rush
 		execute_order = yes
 		manual_attack = yes
 	}
