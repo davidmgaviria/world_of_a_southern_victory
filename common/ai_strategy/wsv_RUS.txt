@@ -305,7 +305,7 @@ RUS_mobilize_for_serbia = {
 			exists = yes 
 			NOT = { is_puppet_of = AUH }
 		}
-		has_global_flag = kis_franzferdinand_murdered
+		has_global_flag = franzferdinand_assassinated
 	}
 	abort_when_not_enabled = yes
 
@@ -337,7 +337,19 @@ RUS_mobilize_for_serbia = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "GER"
-		value = 50
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		value = 100	 #should be 12 divisions
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = AUH
+		value = 100	 #should be 12 divisions
 	}
 }
 
@@ -349,32 +361,27 @@ RUS_opening_war_assault = {
 	}
 	enable = {
 		OR = {
-			NOT = { is_in_faction_with = GER }
-			NOT = { is_in_faction_with = AUH }
-		}
-		threat > 0.2
-	}
-	abort = {
-		OR = {
 			has_war_with = GER
 			has_war_with = AUH
 		}
+	}
+	abort = {
 		OR = {
-			surrender_progress > 0.1
-			casualties > 200000
+			surrender_progress > 0.15
+			casualties > 500000
 		}
 	}
 
 	ai_strategy = {
-		type = front_control
-		tag = GER
-		tag = AUH
-		priority = 100
-		ratio = 0.35
-		ordertype = front
-		execution_type = rush_weak
-		execute_order = yes
-		manual_attack = yes
+		type = consider_weak
+		id = AUH
+		value = 50
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = GER
+		value = 50
 	}
 }
 

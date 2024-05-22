@@ -331,6 +331,25 @@ GER_no_one_gets_our_troops = {
 }
 
 
+GER_ignore_africa = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = FRA
+		NOT = { is_in_faction_with = FRA }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -75
+	}
+}
+
+
 
 GER_greatwar_mobilize = {
 	allowed = {
@@ -359,25 +378,19 @@ GER_greatwar_mobilize = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "FRA"
-		value = 200
+		value = 50
 	}
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "RUS"
-		value = 40
+		value = 50
 	}
 
 	ai_strategy = {
 		type = support
 		id = "AUH"
 		value = 80
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = -75
 	}
 }
 
@@ -407,9 +420,8 @@ GER_der_schlieffen_plan = {
 
 	ai_strategy = {
 		type = front_control
-		tag = BEL
-		tag = LUX
-		priority = 600
+		strategic_region = 5
+		priority = 2000
 		ratio = 0.35
 		ordertype = front
 		execution_type = rush
@@ -418,31 +430,33 @@ GER_der_schlieffen_plan = {
 	}
 
 	ai_strategy = {
-		type = conquer
+		type = prepare_for_war
 		id = "BEL"			
-		value = 200
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "LUX"			
-		value = 200
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = "FRA"			
 		value = 100
 	}
-
-	#benelux
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "LUX"			
+		value = 100
+	}
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "RUS"			
+		value = 20
+	}
+	
 	ai_strategy = {
 		type = front_unit_request
-		state = 793
-		state = 8
-		state = 34
-		state = 6
-		value = 250
+		tag = BEL
+		value = 250	 #should be 12 divisions
+	}
+	
+	ai_strategy = {
+		type = consider_weak
+		id = BEL
+		value = 150
 	}
 
 	ai_strategy = {
@@ -450,7 +464,30 @@ GER_der_schlieffen_plan = {
 		id = "AUH"
 		value = 100
 	}	
+}
 
+
+GER_let_austria_defend_itself = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = AUH
+	}
+	abort = {
+		has_war_together_with = AUH
+		OR = {
+			AUH = { surrender_progress > 0.2 }
+			war_length_with = { tag = RUS  months > 18 }   # start helping austria in
+		}
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "AUH"
+		value = 100
+	}	
 }
 
 
