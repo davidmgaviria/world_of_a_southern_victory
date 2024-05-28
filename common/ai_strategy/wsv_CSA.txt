@@ -411,10 +411,8 @@ CSA_take_dc = {
 	ai_strategy = {
 		type = front_control
 		state = 361
-		#state = 360
-		#state = 840
 		priority = 100
-		ratio = 0.35
+		ratio = 0.4
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -460,23 +458,97 @@ CSA_defend_richmond = {
 }	
 
 
+CSA_avoid_fighting_american_fleet = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = USA
+		naval_strength_ratio = {
+			tag = USA
+			ratio < 0.7
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 54 #north east coast
+		value = 600 # avoid doing missions as well
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 55 # north atlantic
+		value = 600 # avoid doing missions as well
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 57 # mid atlantic
+		value = 600 # avoid doing missions as well
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 89 # west coast
+		value = 600 # avoid doing missions as well
+	}
+	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 170 #south east coast
+		value = 25
+	}
+}
+
+
 CSA_invade_haiti = {
 	allowed = { 
 		original_tag = CSA 
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = HAI
-		#OR = { country_exists = HAI }
-		#focus_progress = {  focus = CSA2_fate_of_hispanola	 progress > 0.1 }
+		OR = { 
+			has_war_with = HAI
+			focus_progress = {  focus = CSA_attack_haiti	progress > 0.5 }
+		}
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		HAI = { has_capitulated = yes }
+	}
 
 	ai_strategy = {
 		type = conquer
 		id = "HAI"			
 		value = 100
 	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = HAI
+		value = 100  
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = caribbean_sea
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = caribbean_sea
+		value = 25
+	}
+
+	ai_strategy = {
+		type = put_unit_buffers	
+		states = { 
+			318
+		}
+		ratio = 0.02
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}	
 }
 
 
