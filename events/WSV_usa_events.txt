@@ -1734,6 +1734,75 @@ country_event = {
 }
 
 
+###################################
+
+###################################
+
+
+# US gets notice whether to aid black rebels or not
+country_event = {
+	id = wsv_usa.116
+	title = wsv_usa.116.t
+	desc = wsv_usa.116.d
+
+	fire_only_once = yes
+	trigger = {
+		tag = USA
+		has_war_with = CSA
+		has_global_flag = csa_black_revolt_occured
+		NOT = { has_global_flag = csa_red_rebellion_defeated }
+	}
+
+	# aid rebels
+	option = {
+		name = wsv_usa.116.a
+		set_global_flag = usa_aiding_black_rebels
+		add_equipment_to_stockpile = {
+			type = infantry_equipment_0
+			amount = -8000
+		}
+		custom_effect_tooltip = longer_black_rebellion_tt
+
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				surrender_progress > 0.2
+			}
+		}
+	}
+
+	# no
+	option = {
+		name = wsv_usa.116.b
+	}
+}
+
+
+# CSA informed that the US is helping black rebels
+country_event = {
+	id = wsv_usa.117
+	title = wsv_usa.117.t
+	desc = wsv_usa.117.d
+
+	fire_only_once = yes
+	trigger = {
+		tag = CSA
+		has_global_flag = csa_black_revolt_occured
+		has_global_flag = usa_aiding_black_rebels
+		NOT = { has_global_flag = csa_red_rebellion_defeated }
+	}
+	mean_time_to_happen = { days = 10 }
+
+	option = {
+		name = wsv_usa.117.a
+	}
+}
+
+
+
+
+
 
 
 # ## Barrel Roll Offensive Failed 
