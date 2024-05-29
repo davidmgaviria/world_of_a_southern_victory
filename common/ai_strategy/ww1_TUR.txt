@@ -119,25 +119,37 @@ TUR_libya_buffers = {
 }
 
 
-# TUR_italoturkish_war = {
-# 	allowed = {
-# 		original_tag = TUR
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		original_tag = TUR
-# 		has_war_with = ITA
-# 	}
-# 	abort = {
-# 		has_country_flag = ITA_Lib_War_End
-# 	}
+TUR_italoturkish_war = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = ITA
+	}
+	abort = {
+		has_global_flag = italoturkish_war_over
+	}
 
-# 	ai_strategy = {
-# 		type = 	naval_avoid_region
-# 		id = 29   	#libyan coast
-# 		value = 75
-# 	}
-# }
+	# dont lose our navy
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 69   #turkish coast
+		value = 500
+	}
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 29   #libyan coast
+		value = 500
+	}
+
+	# dont bleed over libya
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -60
+	}
+}
 
 
 TUR_prepare_for_first_balkan = {

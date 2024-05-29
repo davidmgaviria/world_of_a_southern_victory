@@ -145,111 +145,110 @@ italoturkish_war_cat = {
 
 	
 	# Italy builds supply lines
-	italoturkish_supply_line = {
-		icon = ger_military_buildup
+	# italoturkish_supply_line = {
+	# 	icon = ger_military_buildup
 
-		allowed = {
-			original_tag = ITA
-		}
-		available = {	
-			OR = {
-				controls_state = 451
-				controls_state = 450
-				controls_state = 448
-			}
-			custom_trigger_tooltip = {
-				tooltip = italoturkish_two_months_tt
-				NOT = { has_country_flag = italoturkish_two_month_countdown }
-			}
-		}
-		visible = {
-			has_war_with = TUR
-			NOT = { has_global_flag = italoturkish_war_over }
-		}
+	# 	allowed = {
+	# 		original_tag = ITA
+	# 	}
+	# 	available = {	
+	# 		OR = {
+	# 			controls_state = 451
+	# 			controls_state = 450
+	# 			controls_state = 448
+	# 		}
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = italoturkish_two_months_tt
+	# 			NOT = { has_country_flag = italoturkish_two_month_countdown }
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		has_war_with = TUR
+	# 		NOT = { has_global_flag = italoturkish_war_over }
+	# 	}
 
-		days_remove = 80
-		fire_only_once = yes
+	# 	days_remove = 80
+	# 	fire_only_once = yes
 
-		remove_effect = {
-			add_ideas = ITA_libyan_supply_lines
-		}
+	# 	remove_effect = {
+	# 		add_ideas = ITA_libyan_supply_lines
+	# 	}
 
-		ai_will_do = {
-			factor = 10
-		}
-	}
-
+	# 	ai_will_do = {
+	# 		factor = 10
+	# 	}
+	# }
 
 	# Turkey throws in the towel
-	italoturkish_turkey_offers_peace = {
-		icon = generic_form_nation
+	# italoturkish_turkey_offers_peace = {
+	# 	icon = generic_form_nation
 
-		allowed = {
-			tag = TUR
-		}
-		available = {
-			OR = {
-				casualties_inflicted_by = {
-				    opponent = ITA
-				    thousands > 50
-				}
-				AND = {
-					ITA = {
-						controls_state = 448
-						controls_state = 450
-						controls_state = 451
-					}
-				}
-			}
-		}
-		visible = {
-			has_war_with = ITA
-			NOT = { has_global_flag = italoturkish_war_over }
-		}
+	# 	allowed = {
+	# 		tag = TUR
+	# 	}
+	# 	available = {
+	# 		OR = {
+	# 			casualties_inflicted_by = {
+	# 			    opponent = ITA
+	# 			    thousands > 50
+	# 			}
+	# 			AND = {
+	# 				ITA = {
+	# 					controls_state = 448
+	# 					controls_state = 450
+	# 					controls_state = 451
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		has_war_with = ITA
+	# 		NOT = { has_global_flag = italoturkish_war_over }
+	# 	}
 
-		days_remove = 4
+	# 	days_remove = 4
 
-		remove_effect = {
-			add_war_support = -0.2
-			add_stability = -0.1
-			add_political_power = -100
-			ITA = { country_event = wsv_italy.4 }
-		}
+	# 	remove_effect = {
+	# 		add_war_support = -0.2
+	# 		add_stability = -0.1
+	# 		add_political_power = -100
+	# 		ITA = { country_event = wsv_italy.4 }
+	# 	}
 
 		
-		ai_will_do = {
-			factor = 0
-			# keep holding on if we have ports
-			modifier = {
-				add = -1
-				controls_state = 448 
-			}
-			modifier = {
-				add = -1
-				controls_state = 450 
-			}
-			modifier = {
-				add = -1
-				controls_state = 451 
-			}
-			# if completely pushed out of libya, give up
-			modifier = {
-				add = 1
-				NOT = { controls_state =  449 }
-				NOT = { controls_state =  661 }
-				NOT = { controls_state =  662 }
-				NOT = { controls_state =  663 }
-			}
-			# if we're holding out in the hinter lands but lost all ports and have lost this many men, give up
-			modifier = {
-				add = 1
-				casualties > 70000
-			}
-			# if we still have 1 port but have lost all this men, give up
-			modifier = {
-				add = 1
-				casualties > 100000
-			}
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 0
+	# 		# keep holding on if we have ports
+	# 		modifier = {
+	# 			add = -1
+	# 			controls_state = 448 
+	# 		}
+	# 		modifier = {
+	# 			add = -1
+	# 			controls_state = 450 
+	# 		}
+	# 		modifier = {
+	# 			add = -1
+	# 			controls_state = 451 
+	# 		}
+	# 		# if completely pushed out of libya, give up
+	# 		modifier = {
+	# 			add = 1
+	# 			NOT = { controls_state =  449 }
+	# 			NOT = { controls_state =  661 }
+	# 			NOT = { controls_state =  662 }
+	# 			NOT = { controls_state =  663 }
+	# 		}
+	# 		# if we're holding out in the hinter lands but lost all ports and have lost this many men, give up
+	# 		modifier = {
+	# 			add = 1
+	# 			casualties > 70000
+	# 		}
+	# 		# if we still have 1 port but have lost all this men, give up
+	# 		modifier = {
+	# 			add = 1
+	# 			casualties > 100000
+	# 		}
+	# 	}
+	# }
 }
