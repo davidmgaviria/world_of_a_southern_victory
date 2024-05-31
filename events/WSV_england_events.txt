@@ -1,42 +1,194 @@
 ﻿add_namespace = wsv_england
 
-
-#send men to canada
-country_event = {
+## Pass Parliment Act
+news_event = {
 	id = wsv_england.1
 	title = wsv_england.1.t
 	desc = wsv_england.1.d
-	#picture = report_event_deal_made
+	#picture = # TODO needs picture
+
+	# Not major, only for England
 
 	fire_only_once = yes
-
     is_triggered_only = yes
 
 	option = {
 		name = wsv_england.1.a
-		
-		ENG = {
-			transfer_units_fraction= {
-				target = CAN
-				size = 0.25
-				stockpile_ratio = 0.25
-			}
-			add_ideas = ENG_canadian_expeditionary_force_sender
-			set_country_flag = england_canadian_expeditionary_force
+	}
+}
+
+
+
+##########################################################
+# -- Formalize Entente with France
+##########################################################
+
+
+## Ask France for defense pact
+country_event = {
+	id = wsv_england.2
+	title = wsv_england.2.t
+	desc = wsv_england.2.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# yes
+	option = {
+		name = wsv_england.2.a
+		give_guarantee = ENG
+		ENG = { 
+			give_guarantee = FRA
+			country_event = { id = wsv_england.3  days = 1 }
 		}
-		CAN = { 
-			add_ideas = ENG_canadian_expeditionary_force_reciever 
-			#load_oob = "CAN_militia"
+		ai_chance = { factor = 100 }
+	}
+
+	# no
+	option = {
+		name = wsv_england.2.b
+		ENG = { 
+			country_event = { id = wsv_england.4  days = 1 }
 		}
 	}
 }
 
 
-#irish revolt
+## France agrees
+country_event = {
+	id = wsv_england.3
+	title = wsv_england.3.t
+	desc = wsv_england.3.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.3.a
+	}
+}
+
+
+## France rejects
+country_event = {
+	id = wsv_england.4
+	title = wsv_england.4.t
+	desc = wsv_england.4.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.4.a
+	}
+}
+
+
+##########################################################
+# -- British Intervention on the Continent
+##########################################################
+
+## News event of British intervention
 news_event = {
-	id = wsv_england.2
-	title = wsv_england.2.t
-	desc = wsv_england.2.d
+	id = wsv_england.5
+	title = wsv_england.5.t
+	desc = wsv_england.5.d
+	#picture = # TODO needs picture
+
+	major = yes
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.5.a
+	}
+}
+
+
+##########################################################
+
+## Britain sent loans
+country_event = {
+	id = wsv_england.10
+	title = wsv_england.10.t
+	desc = wsv_england.10.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.10.a
+	}
+}
+
+## France stuff
+
+
+
+
+##########################################################
+# -- Home Rule & Irish revolt
+##########################################################
+
+
+## British home rule negociations event
+country_event = {
+	id = wsv_england.12
+	title = wsv_england.12.t
+	desc = wsv_england.12.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.12.a
+	}
+}
+
+
+## Ireland released as puppet
+news_event = {
+	id = wsv_england.13
+	title = wsv_england.13.t
+	desc = wsv_england.13.d
+	#picture = # TODO needs picture
+
+	major = yes
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = ireland_granted_home_rule
+		hidden_effect = {
+			IRE = {
+				transfer_state = 134
+				transfer_state = 113
+				transfer_state = 135
+				set_stability = 0.65
+				set_war_support = 0.4
+			}
+			ENG = {
+				set_autonomy = {
+					target = IRE
+					autonomous_state = autonomy_puppet
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_england.13.a
+	}
+}
+
+
+# Irish Easter Rising
+news_event = {
+	id = wsv_england.14
+	title = wsv_england.14.t
+	desc = wsv_england.14.d
 	picture = EVENT_hoi4tgw_interwar_irish_war_of_independence
 
 	major = yes
@@ -49,69 +201,133 @@ news_event = {
     	tag = ENG
         date > 1916.3.1
        	date < 1916.7.1
-        NOT = { IRE = { has_full_control_of_state = 134   has_full_control_of_state = 135  has_full_control_of_state = 113 } } 
-        NOT = { IRE = { has_war_with = ENG } }
-        NOT = { has_global_flag = irish_revolt }
+        IRE = { exists = no }
+		NOT = { has_global_flag = irish_easter_rising }
     }
 
     immediate = { 
     	hidden_effect = {
-    		set_global_flag = irish_revolt
-    		IRE = {
-				transfer_state = 113
-				load_oob = "IRE_revolt"
-				add_political_power = 500
-				add_manpower = 26000
-				set_stability = 0.8
-				set_war_support = 0.5
-				add_ideas = { generic_defiant_spirit_idea }
-				add_equipment_to_stockpile = {
-				    type = infantry_equipment_0
-				    amount = 5000
-				    producer = ENG
-				}		
-			}
+    		set_global_flag = irish_easter_rising
 			ENG =  {
-				load_oob = "ENG_irish_revolt"
-				set_division_template_lock = { division_template = "Ireland Garrison"   is_locked = yes }
-				add_equipment_to_stockpile = {
-				    type = infantry_equipment_0
-				    amount = -5000
-				    producer = ENG
-				}
-				remove_state_core = 135
-				remove_state_core = 134
 				remove_state_core = 113
-				remove_state_core = 19
-				declare_war_on = {
-				    target = IRE
-				    type = annex_everything
+				remove_state_core = 134
+				remove_state_core = 135
+				113 = { # dublin has the highest
+					set_resistance = 45  set_compliance = 18  add_resistance_target = 50 
+					#set_border_war = yes
 				}
-			}		
+				135 = {
+					set_resistance = 23  set_compliance = 24  add_resistance_target = 40 
+					#set_border_war = yes
+				}
+				134 = {
+					set_resistance = 22  set_compliance = 25 add_resistance_target = 40 
+					#set_border_war = yes
+				}
+			}
     	}
    	}
 	
 	option = {
-		name = wsv_england.2.a
-		trigger = { tag = ENG }
-	}
-
-	option = {
-		name = wsv_england.2.b
-		trigger = { tag = USA }
-	}
-
-
-	option = {
-		name = wsv_england.2.c
-		trigger = { 
-			NOT = { tag = USA }
-			NOT = { tag = ENG }
-		}
+		name = wsv_england.14.a
 	}
 }
 
 
+##########################################################
+# -- Sykes Picot agreement
+##########################################################
+
+
+## Britain asks France on Sykes Picot
+country_event = {
+	id = wsv_england.15
+	title = wsv_england.15.t
+	desc = wsv_england.15.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# France agrees
+	option = {
+		name = wsv_england.15.a
+		set_global_flag = sykes_picot_agreement_signed
+		ENG = { country_event = { id = wsv_england.16  days = 1 } }
+		custom_effect_tooltip = sykes_picot_tt
+		ai_chance = { factor = 100 }
+	}
+
+	# France rejects
+	option = {
+		name = wsv_england.15.b
+		ENG = { country_event = { id = wsv_england.17  days = 1 } }
+	}
+}
+
+
+## France agrees
+country_event = {
+	id = wsv_england.16
+	title = wsv_england.16.t
+	desc = wsv_england.16.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.16.a
+	}
+}
+
+
+## France rejects
+country_event = {
+	id = wsv_england.17
+	title = wsv_england.17.t
+	desc = wsv_england.17.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.17.a
+	}
+}
+
+
+
+
+
+
+# #send men to canada
+# country_event = {
+# 	id = wsv_england.1
+# 	title = wsv_england.1.t
+# 	desc = wsv_england.1.d
+# 	#picture = report_event_deal_made
+
+# 	fire_only_once = yes
+
+#     is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_england.1.a
+		
+# 		ENG = {
+# 			transfer_units_fraction= {
+# 				target = CAN
+# 				size = 0.25
+# 				stockpile_ratio = 0.25
+# 			}
+# 			add_ideas = ENG_canadian_expeditionary_force_sender
+# 			set_country_flag = england_canadian_expeditionary_force
+# 		}
+# 		CAN = { 
+# 			add_ideas = ENG_canadian_expeditionary_force_reciever 
+# 			#load_oob = "CAN_militia"
+# 		}
+# 	}
+# }
 
 
 

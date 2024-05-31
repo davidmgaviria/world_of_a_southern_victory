@@ -72,11 +72,19 @@ focus_tree = {
 
 		available = {
 			has_global_flag = path_complete
+			has_global_flag = britain_abandoned_france_in_agadir
+
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			diplomatic_relation = {
+				country = ENG
+				relation = non_aggression_pact
+				active = no
+			}
+			# - TOOD - country event for britain
 		}
 	}
 
@@ -276,9 +284,13 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 
 		available = {
-			has_global_flag = britain_backs_france_in_agadir
-			NOT = {
-				has_war_with = ENG
+			# has_global_flag = britain_backs_france_in_agadir
+			# NOT = {
+			# 	has_war_with = ENG
+			# }
+			ENG = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
 			}
 		}
 
@@ -858,6 +870,7 @@ focus_tree = {
 	####################################
 	## -- Industrial
 	####################################
+	
 	focus = {
 		id = FRA_industrial_effort
 		icon = GFX_goal_generic_production2
@@ -906,8 +919,6 @@ focus_tree = {
 		id = FRA_infrastructure_effort
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = FRA_industrial_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
@@ -938,8 +949,6 @@ focus_tree = {
 		id = FRA_mil_factories
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = FRA_industrial_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -966,8 +975,6 @@ focus_tree = {
 		prerequisite = { focus = FRA_civ_factories }
 		prerequisite = { focus = FRA_mil_factories }
 		prerequisite = { focus = FRA_infrastructure_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
@@ -995,8 +1002,6 @@ focus_tree = {
 		id = FRA_civ_factories2
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = FRA_industrial_effort2 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -2
 		y = 1
@@ -1016,13 +1021,11 @@ focus_tree = {
 		}
 	}
 
-		
-	focus = {
-		id = FRA_infrastructure_effort2
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = FRA_industrial_effort2 }
-		#mutually_exclusive = { focus = }
 
+	focus = {
+		id = FRA_research_effort1
+		icon = GFX_focus_research
+		prerequisite = { focus = FRA_industrial_effort2 }
 		cost = 10
 		x = 0
 		y = 1
@@ -1030,31 +1033,29 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		completion_reward = { 
-			random_owned_controlled_state = {
-				limit = { infrastructure < 5 }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
+		available = {
+			OR = {
+				AND = {
+					amount_research_slots < 3
+					num_of_factories > 50
 				}
-			}
-			random_owned_controlled_state = {
-				limit = { infrastructure < 5 }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
+				AND = {
+					amount_research_slots < 4
+					num_of_factories > 100
 				}
 			}
 		}
-	}
 
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
 		
+
 	focus = {
 		id = FRA_mil_factories2
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = FRA_industrial_effort2 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1074,12 +1075,42 @@ focus_tree = {
 		}
 	}
 
+	
+	focus = {
+		id = FRA_infrastructure_effort2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = FRA_civ_factories2 }
+		prerequisite = { focus = FRA_mil_factories2 }
+		prerequisite = { focus = FRA_research_effort1 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_research_effort1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
 
 	focus = {
 		id = FRA_industrial_effort3
 		icon = GFX_goal_generic_construction
-		prerequisite = { focus = FRA_civ_factories2 }
-		prerequisite = { focus = FRA_mil_factories2 }
 		prerequisite = { focus = FRA_infrastructure_effort2 }
 		cost = 10
 		x = 0
@@ -1103,36 +1134,13 @@ focus_tree = {
 		}
 	}
 
-		
-	focus = {
-		id = FRA_research_effort1
-		icon = GFX_focus_research
-		prerequisite = { focus = FRA_industrial_effort3 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = FRA_industrial_effort3
 
-		ai_will_do = { factor = 1 }
-
-		available = {
-			num_of_factories > 50
-		}
-
-		completion_reward = { 
-			add_research_slot = 1
-		}
-	}
-
-		
 	focus = {
 		id = FRA_civ_factories3
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = FRA_industrial_effort3 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = FRA_industrial_effort3
 
@@ -1152,47 +1160,11 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_infrastructure_effort3
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = FRA_civ_factories3 }
-		prerequisite = { focus = FRA_research_effort1 }
-		prerequisite = { focus = FRA_mil_factories3 }
-		#mutually_exclusive = { focus = }
-
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = FRA_industrial_effort3
-
-		ai_will_do = { factor = 1 }
-
-		completion_reward = { 
-			random_owned_controlled_state = {
-				limit = { infrastructure < 5 }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-				}
-			}
-			random_owned_controlled_state = {
-				limit = { infrastructure < 5 }
-				add_building_construction = {
-					type = infrastructure
-					level = 1
-				}
-			}
-		}
-	}
-
-		
-	focus = {
 		id = FRA_mil_factories3
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = FRA_industrial_effort3 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
-		x = 2
+		x = 1
 		y = 1
 		relative_position_id = FRA_industrial_effort3
 
@@ -1210,23 +1182,22 @@ focus_tree = {
 		}
 	}
 
-		
+
 	focus = {
 		id = FRA_research_effort2
 		icon = GFX_focus_research2
-		prerequisite = { focus = FRA_infrastructure_effort3 }
-		#mutually_exclusive = { focus = }
-
+		prerequisite = { focus = FRA_civ_factories3 }
+		prerequisite = { focus = FRA_mil_factories3 }
 		cost = 10
-		x = 0
+		x = 1
 		y = 1
-		relative_position_id = FRA_infrastructure_effort3
+		relative_position_id = FRA_civ_factories3
 
 		ai_will_do = { factor = 1 }
 
 		available = {
 			amount_research_slots < 5
-			num_of_factories > 100
+			has_war = yes
 		}
 
 		completion_reward = { 

@@ -2,76 +2,106 @@ ideas = {
 
 	country = {
 
-		ENG_british_regulars = {
-
-			allowed = {
-				always = no
+		ENG_professional_army = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			cancel = { 
+				has_any_conscription = yes 
 			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			cancel = {
-				NOT = {	has_idea = volunteer_only }
-			}
-
-			removal_cost = -1
-
 			picture = british_regulars_icon
 			
 			modifier = {
 				army_infantry_attack_factor = 0.1
 				army_infantry_defence_factor = 0.1
-				army_org = 5
+				conscription_factor = -0.1
+				army_org_factor = 0.1
 				training_time_factor = 0.2
 			}
 		}
 
-		ENG_canadian_expeditionary_force_sender = {
+		ENG_imperial_overextension = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = ENG_the_sun_never_sets
+			
+			modifier = {
+				political_power_gain = -0.2
+				non_core_manpower = 0.01
+			}
+		}
+
+		ENG_lords_opposition = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			picture = ENG_tackle_capitalism
+			
+			modifier = {
+				political_power_gain = -0.5
+				stability_factor = -0.1
+			}
+		}
+
+		ENG_usual_business_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			cancel = {
+				has_war = no
+			}
+			picture = POL_succesful_four_year_plan
+			
+			modifier = {
+				consumer_goods_factor = -0.2
+			}
+		}
+
+		# ENG_canadian_expeditionary_force_sender = {
 		
-			allowed = {
-				always = no
-			}
+		# 	allowed = {
+		# 		always = no
+		# 	}
 
-			allowed_civil_war = {
-				always = yes
-			}
+		# 	allowed_civil_war = {
+		# 		always = yes
+		# 	}
 
-			#cancel = { NOT = { has_global_flag = england_canadian_expeditionary_force } }
+		# 	#cancel = { NOT = { has_global_flag = england_canadian_expeditionary_force } }
 
-			removal_cost = -1
+		# 	removal_cost = -1
 
-			picture = generic_manpower_bonus
+		# 	picture = generic_manpower_bonus
 			
-			modifier = {
-				conscription = -0.015
-				industrial_capacity_factory = -0.2
-			}
-		}
+		# 	modifier = {
+		# 		conscription = -0.015
+		# 		industrial_capacity_factory = -0.2
+		# 	}
+		# }
 
 
-		ENG_canadian_expeditionary_force_reciever = {
+		# ENG_canadian_expeditionary_force_reciever = {
 
-			allowed = {
-				always = no
-			}
+		# 	allowed = {
+		# 		always = no
+		# 	}
 
-			allowed_civil_war = {
-				always = yes
-			}
+		# 	allowed_civil_war = {
+		# 		always = yes
+		# 	}
 
-			#cancel = { NOT = { has_global_flag = england_canadian_expeditionary_force } }
+		# 	#cancel = { NOT = { has_global_flag = england_canadian_expeditionary_force } }
 
-			removal_cost = -1
+		# 	removal_cost = -1
 
-			picture = generic_manpower_bonus
+		# 	picture = generic_manpower_bonus
 			
-			modifier = {
-				conscription = 0.025
-				industrial_capacity_factory = 0.35
-			}
-		}
+		# 	modifier = {
+		# 		conscription = 0.025
+		# 		industrial_capacity_factory = 0.35
+		# 	}
+		# }
 
 		ENG_british_industry_loans = {
 			allowed={ always=no }

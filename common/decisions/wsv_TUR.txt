@@ -1,4 +1,131 @@
 
+
+############################################
+########## Turkish Military Reforms ########
+############################################
+
+TUR_military_reforms_cat = {
+
+	# Get more manpower
+	TUR_reform_conscription_law = {
+		icon = generic_military
+
+		visible = {
+			has_global_flag = firstbalkan_war_over
+		}
+		available = {
+			NOT = { has_country_flag = conducting_ottoman_army_reform }
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 99
+		}
+		custom_cost_text = TUR_military_reform_cost
+		
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = conducting_ottoman_army_reform
+		}
+
+		remove_effect = {
+			improve_turkish_military_effect = yes
+			add_manpower = 100000
+		}
+
+		ai_will_do = {
+			factor = 3
+		}
+	}
+
+
+	# Get more manpower
+	TUR_purge_army_officers = {
+		icon = generic_army_support
+
+		visible = {
+			has_global_flag = firstbalkan_war_over
+		}
+		available = {
+			NOT = { has_country_flag = conducting_ottoman_army_reform }
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 99
+		}
+		custom_cost_text = TUR_military_reform_cost
+		
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = conducting_ottoman_army_reform
+		}
+
+		remove_effect = {
+			improve_turkish_military_effect = yes
+			add_manpower = 100000
+		}
+
+		ai_will_do = {
+			factor = 2
+		}
+	}
+
+
+	# Get more manpower
+	TUR_purchase_foriegn_equipment = {
+		icon = generic_industry
+
+		visible = {
+			has_global_flag = firstbalkan_war_over
+		}
+		available = {
+			NOT = { has_country_flag = conducting_ottoman_army_reform }
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 99
+		}
+		custom_cost_text = TUR_military_reform_cost
+		
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = conducting_ottoman_army_reform
+		}
+
+		remove_effect = {
+			improve_turkish_military_effect = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 10000
+			}
+			add_equipment_to_stockpile = {
+				type = light_field_gun_equipment_1
+				amount = 300
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+
+
+
+
+############################################
+############ Great War Surrender ###########
+############################################
+
+
 wsv_great_war_decisions = {
 	
 	# Turkey throws in the towel
