@@ -1,868 +1,419 @@
-# technologies = {
+technologies = {
 	
-# 	@1890 = 0
-# 	@1905 = 2
-# 	@1912 = 4
-# 	@1914 = 6
-# 	@1915 = 8
-# 	@1916 = 10
-# 	@1917 = 12
-# 	@1918 = 14
-# 	@1936 = 18
-# 	@1938 = 20
-# 	@1940 = 22
-# 	@1942 = 24
-# 	@1943 = 26
-# 	@1944 = 28
-# 	@1945 = 30
-# 	@1947 = 32
+	@1918 = 0
+	@1936 = 4
+	@1939 = 6
+	@1942 = 8
+	@1943 = 10
+	@1944 = 12
+	@1945 = 14
+	@1947 = 16
 
 
-# 	infantry_weapons = {
-
-# 		enable_equipments = {
-# 			infantry_equipment_0
-# 		}
-		
-# 		enable_subunits = {
-# 			infantry
-# 		}
-		
-# 		path = {
-# 			leads_to_tech = ww1infantry_weapons1
-# 			research_cost_coeff = 1
-# 		}		
-
-# 		path = {
-# 			leads_to_tech = infantry_binoculars
-# 			research_cost_coeff = 1
-# 		}	
-
-# 		research_cost = 1.0
-# 		start_year = 1890
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = -1 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 5
-# 		}
-# 	}
-
-
-# 	ww1infantry_weapons1 = {
-
-# 		enable_equipments = {
-# 			infantry_equipment_1
-# 		}
+	ww2_infantry_weapons = {
+		enable_equipments = {
+			infantry_equipment_3
+		}
+		enable_subunits = {
+			infantry
+		}
 				
-# 		path = {
-# 			leads_to_tech = ww1_infantry_equip1
-# 			research_cost_coeff = 1
-# 		}		
+		path = {
+			leads_to_tech = infantry_weapons1
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww2_at_rifle
+			research_cost_coeff = 1
+		}		
 
-# 		research_cost = 1.2
-# 		start_year = 1905
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1905 }
-# 		}
+		research_cost = 1.5
+		start_year = 1918
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1918 }
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		ai_will_do = {
-# 			factor = 2
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}	
 
 
-# 	ww1_infantry_equip1 = {
+	infantry_weapons1 = {
 
-# 		category_all_infantry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		cavalry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		path = {
-# 			leads_to_tech = ww1infantry_weapons2
-# 			research_cost_coeff = 1
-# 		}		
+		enable_equipments = {
+			infantry_equipment_4
+		}
 
-# 		research_cost = 1.2
-# 		start_year = 1912
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1912 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-
-# 	ww1infantry_weapons2 = {
-
-# 		enable_equipments = {
-# 			infantry_equipment_2
-# 		}
+		enable_subunits = {
+			infantry
+		}
 				
-# 		path = {
-# 			leads_to_tech = ww1_helmet_equip
-# 			research_cost_coeff = 1
-# 		}		
+		path = {
+			leads_to_tech = infantry_upgrade_1
+			research_cost_coeff = 1
+		}		
 
-# 		path = {
-# 			leads_to_tech = infantry_flamethrower1
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 1.5
-# 		start_year = 1914
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1914 }
-# 		}
+		research_cost = 1.5
+		start_year = 1936
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1936 }
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}
-
-
-# 	ww1_helmet_equip = { 
-
-# 		category_all_infantry = {
-# 			defense = 0.05
-# 		}
-# 		cavalry = {
-# 			defense = 0.05
-# 		}
-
-# 		# on_research_complete_limit = {
-# 		# 	has_cosmetic_tag = yes
-# 		# }
-# 		# on_research_complete = {
-# 		# 	custom_effect_tooltip = units_get_helmets_tt
-# 		# 	hidden_effect = { drop_cosmetic_tag = yes }
-# 		# }
-		
-# 		path = {
-# 			leads_to_tech = ww1_infantry_equip2
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 1.2
-# 		start_year = 1915
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1915 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 2
-# 		}
-# 	}
-
-
-# 	ww1_infantry_equip2 = {
-
-# 		category_all_infantry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		cavalry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		path = {
-# 			leads_to_tech = ww1infantry_weapons3
-# 			research_cost_coeff = 1
-# 		}		
-
-# 		research_cost = 1.5
-# 		start_year = 1916
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1916 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	ww1infantry_weapons3 = {
-
-# 		enable_equipments = {
-# 			infantry_equipment_3
-# 		}
-				
-# 		path = {
-# 			leads_to_tech = ww1_infantry_equip3
-# 			research_cost_coeff = 1
-# 		}		
-
-# 		research_cost = 1.5
-# 		start_year = 1917
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1917 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}
-
-
-# 	ww1_infantry_equip3 = {
-
-# 		category_all_infantry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		cavalry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		path = {
-# 			leads_to_tech = infantry_weapons1
-# 			research_cost_coeff = 1
-# 		}		
-
-# 		research_cost = 1.5
-# 		start_year = 1918
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1918 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}	
 	
-# 	infantry_weapons1 = {
+	infantry_upgrade_1 = {
 
-# 		enable_equipments = {
-# 			infantry_equipment_4
-# 		}
-
-# 		enable_subunits = {
-# 			infantry
-# 		}
-				
-# 		path = {
-# 			leads_to_tech = infantry_upgrade_1
-# 			research_cost_coeff = 1
-# 		}		
-
-# 		research_cost = 1.5
-# 		start_year = 1936
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1936 }
-# 		}
+		category_all_infantry = {
+			soft_attack = 0.05
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		cavalry = {
+			soft_attack = 0.05
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}	
-	
-# 	infantry_upgrade_1 = {
+		path = {
+			leads_to_tech = improved_infantry_weapons
+			research_cost_coeff = 1
+		}		
 
-# 		category_all_infantry = {
-# 			soft_attack = 0.05
-# 		}
+		research_cost = 1.8
+		start_year = 1939
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1939 }
+		}
 		
-# 		cavalry = {
-# 			soft_attack = 0.05
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		path = {
-# 			leads_to_tech = improved_infantry_weapons
-# 			research_cost_coeff = 1
-# 		}		
-
-# 		research_cost = 1.8
-# 		start_year = 1938
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1938 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 5
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}
 
 
-# 	improved_infantry_weapons = {
+	improved_infantry_weapons = {
 
-# 		enable_equipments = {
-# 			infantry_equipment_5
-# 		}
+		enable_equipments = {
+			infantry_equipment_5
+		}
 		
-# 		path = {
-# 			leads_to_tech = infantry_upgrade_2
-# 			research_cost_coeff = 1
-# 		}	
+		path = {
+			leads_to_tech = infantry_upgrade_2
+			research_cost_coeff = 1
+		}	
 
-# 		research_cost = 1.8
-# 		start_year = 1942
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1942 }
-# 		}
+		path = {
+			leads_to_tech = infantry_at
+			research_cost_coeff = 1
+		}	
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		research_cost = 1.8
+		start_year = 1942
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1942 }
+		}
 		
-# 		ai_will_do = {
-# 			factor = 5
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 			modifier = {
-# 				factor = 10
-# 				has_completed_focus =  CSA2_more_lead_in_air
-# 			}
-# 		}
-# 	}
-
-
-# 	infantry_upgrade_2 = {
-
-# 		category_all_infantry = {
-# 			soft_attack = 0.05
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		cavalry = {
-# 			soft_attack = 0.05
-# 		}
-		
-# 		path = {
-# 			leads_to_tech = advanced_infantry_weapons
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 1.8
-# 		start_year = 1943
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1943 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 10
+				has_completed_focus =  CSA2_more_lead_in_air
+			}
+		}
+	}
 
 
-# 	advanced_infantry_weapons = {
+	infantry_upgrade_2 = {
 
-# 		enable_equipments = {
-# 			infantry_equipment_6
-# 		}	
+		category_all_infantry = {
+			soft_attack = 0.05
+		}
 		
-# 		path = {
-# 			leads_to_tech = infantry_upgrade_3
-# 			research_cost_coeff = 1
-# 		}
+		cavalry = {
+			soft_attack = 0.05
+		}
+		
+		path = {
+			leads_to_tech = advanced_infantry_weapons
+			research_cost_coeff = 1
+		}
 
-# 		research_cost = 1.8
-# 		start_year = 1945
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1945 }
-# 		}
+		research_cost = 1.8
+		start_year = 1943
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1943 }
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}
+
+
+	advanced_infantry_weapons = {
+
+		enable_equipments = {
+			infantry_equipment_6
+		}	
+		
+		path = {
+			leads_to_tech = infantry_upgrade_3
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1.8
+		start_year = 1945
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1945 }
+		}
+		
+		categories = {
+			infantry_weapons
+		}
+		
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}
 	
 
-# 	infantry_upgrade_3 = {
+	infantry_upgrade_3 = {
 
-# 		category_light_infantry = {
-# 			soft_attack = 0.05
-# 		}
-# 		cavalry = {
-# 			soft_attack = 0.1
-# 		}		
+		category_light_infantry = {
+			soft_attack = 0.05
+		}
+		cavalry = {
+			soft_attack = 0.1
+		}		
 
-# 		motorized = {
-# 			soft_attack = 0.1
-# 		}
-# 		mechanized = {
-# 			soft_attack = 0.1
-# 		}		
+		motorized = {
+			soft_attack = 0.1
+		}
+		mechanized = {
+			soft_attack = 0.1
+		}		
 
-# 		path = {
-# 			leads_to_tech = modern_infantry_weapons
-# 			research_cost_coeff = 1
-# 		}
+		path = {
+			leads_to_tech = modern_infantry_weapons
+			research_cost_coeff = 1
+		}
 
-# 		research_cost = 1.8
-# 		start_year = 1947
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1947 }
-# 		}
+		research_cost = 1.8
+		start_year = 1947
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1947 }
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 			modifier = {
-# 				factor = 2
-# 				is_major = yes
-# 			}
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+	}
 
 
-# 	infantry_flamethrower1 = {
+	ww2_at_rifle = {
 
-# 		engineer = {
-# 			breakthrough = 0.05
-# 			soft_attack = 0.05
-# 		}
+		category_all_infantry = {
+			hard_attack = 0.25
+			ap_attack = 0.5
+		}
+		cavalry = {
+			hard_attack = 0.25
+			ap_attack = 0.5
+		}
+
+		path = {
+			leads_to_tech = ww2_flamethrower
+			research_cost_coeff = 1
+		}	
 		
-# 		research_cost = 2.0
-# 		start_year = 1915
+		research_cost = 1.5
+		start_year = 1918
 
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 2 y = @1915 }
-# 		}
+		folder = {
+			name = infantry_folder
+			position = { x = 2 y = @1918 }
+		}
 
-# 		path = {
-# 			leads_to_tech = infantry_at_rifle
-# 			research_cost_coeff = 1
-# 		}	
+		categories = {
+			infantry_weapons
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	ww2_flamethrower = {
+
+		engineer = {
+			breakthrough = 0.05
+			soft_attack = 0.05
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
+		research_cost = 2.0
+		start_year = 1936
 
+		folder = {
+			name = infantry_folder
+			position = { x = 2 y = @1936 }
+		}
 
-
-# 	# infantry_binoculars = {
-
-# 	# 	category_army = {
-# 	# 		max_organisation = 2
-# 	# 	}
-
-# 	# 	recon = {
-# 	# 		recon = 0.5
-# 	# 	}
+		path = {
+			leads_to_tech = ww2_at_rifle_2
+			research_cost_coeff = 1
+		}	
 		
-# 	# 	research_cost = 1.0
-# 	# 	start_year = 1890
-
-# 	# 	folder = {
-# 	# 		name = infantry_folder
-# 	# 		position = { x = 3 y = @1890 }
-# 	# 	}
-
-# 	# 	path = {
-# 	# 		leads_to_tech = infantry_grenade
-# 	# 		research_cost_coeff = 1
-# 	# 	}	
+		categories = {
+			infantry_weapons
+		}
 		
-# 	# 	categories = {
-# 	# 		infantry_weapons
-# 	# 	}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	ww2_at_rifle_2 = {
+
+		category_all_infantry = {
+			hard_attack = 0.25
+			ap_attack = 0.5
+		}
+		cavalry = {
+			hard_attack = 0.25
+			ap_attack = 0.5
+		}
 		
-# 	# 	ai_will_do = {
-# 	# 		factor = 1
-# 	# 	}
-# 	# }
+		research_cost = 1.5
+		start_year = 1939
 
+		folder = {
+			name = infantry_folder
+			position = { x = 2 y = @1939 }
+		}
 
-# 	# infantry_grenade = {
-
-# 	# 	category_all_infantry = {
-# 	# 		soft_attack = 0.03
-# 	# 		hard_attack = 0.1
-# 	# 		breakthrough = 0.06
-# 	# 	}
-# 	# 	cavalry = {
-# 	# 		soft_attack = 0.03
-# 	# 		hard_attack = 0.12
-# 	# 		breakthrough = 0.04
-# 	# 	}
+		categories = {
+			infantry_weapons
+		}
 		
-# 	# 	research_cost = 1.2
-# 	# 	start_year = 1915
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
-# 	# 	folder = {
-# 	# 		name = infantry_folder
-# 	# 		position = { x = 3 y = @1914 }
-# 	# 	}
 
-# 	# 	path = {
-# 	# 		leads_to_tech = infantry_gasmask
-# 	# 		research_cost_coeff = 1
-# 	# 	}
+	infantry_at = {
 
-# 	# 	path = {
-# 	# 		leads_to_tech = infantry_flamethrower1
-# 	# 		research_cost_coeff = 1
-# 	# 	}
+		category_all_infantry = {
+			hard_attack = 0.25
+			ap_attack = 1
+		}
 		
-# 	# 	categories = {
-# 	# 		infantry_weapons
-# 	# 	}
+		path = {
+			leads_to_tech = infantry_at2
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.0
+		start_year = 1943
+		folder = {
+			name = infantry_folder
+			position = { x = 2 y = @1943 }
+		}
 		
-# 	# 	ai_will_do = {
-# 	# 		factor = 1
-# 	# 	}
-# 	# }
-
-
-# 	# infantry_gasmask = {
-
-# 	# 	category_all_infantry = {
-# 	# 		casualty_trickleback = 0.05
-# 	# 		experience_loss_factor = -0.05
-# 	# 	}
-# 	# 	cavalry = {
-# 	# 		casualty_trickleback = 0.03
-# 	# 		experience_loss_factor = -0.03
-# 	# 	}
-				
-# 	# 	research_cost = 1.5
-# 	# 	start_year = 1916
-
-# 	# 	path = {
-# 	# 		leads_to_tech = infantry_at_rifle
-# 	# 		research_cost_coeff = 1
-# 	# 	}
-
-# 	# 	folder = {
-# 	# 		name = infantry_folder
-# 	# 		position = { x = 2 y = @1916 }
-# 	# 	}
+		categories = {
+			infantry_weapons
+		}
 		
-# 	# 	categories = {
-# 	# 		infantry_weapons
-# 	# 	}
-		
-# 	# 	ai_will_do = {
-# 	# 		factor = 1
-
-# 	# 		modifier = {
-# 	# 			factor = 2
-# 	# 			has_global_flag = gas_invented
-# 	# 		}
-# 	# 	}
-# 	# }
-
-
-# 	infantry_at_rifle = {
-
-# 		category_all_infantry = {
-# 			hard_attack = 0.25
-# 			ap_attack = 0.5
-# 		}
-# 		cavalry = {
-# 			hard_attack = 0.25
-# 			ap_attack = 0.5
-# 		}
-		
-# 		research_cost = 1.5
-# 		start_year = 1918
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 2 y = @1918 }
-# 		}
-
-# 		path = {
-# 			leads_to_tech = infantry_at_rifle2
-# 			research_cost_coeff = 1
-# 		}
-
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	infantry_at_rifle2 = {
-
-# 		category_all_infantry = {
-# 			hard_attack = 0.25
-# 			ap_attack = 0.5
-# 		}
-
-# 		cavalry = {
-# 			hard_attack = 0.25
-# 			ap_attack = 0.5
-# 		}
-		
-# 		research_cost = 1.5
-# 		start_year = 1938
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 2 y = @1938 }
-# 		}
-
-# 		path = {
-# 			leads_to_tech = infantry_flamethrower2
-# 			research_cost_coeff = 1
-# 		}
-
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	infantry_flamethrower2 = {
-
-# 		engineer = {
-# 			breakthrough = 0.05
-# 			soft_attack = 0.05
-# 		}
-
-# 		research_cost = 2.0
-# 		start_year = 1940
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 2 y = @1940 }
-# 		}
-
-# 		path = {
-# 			leads_to_tech = infantry_at
-# 			research_cost_coeff = 1
-# 		}	
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-
-# 	# infantry_flamethrower3 = {
-
-# 	# 	engineer = {
-# 	# 		breakthrough = 0.05
-# 	# 		soft_attack = 0.05
-# 	# 	}
-		
-# 	# 	research_cost = 2.0
-# 	# 	start_year = 1940
-
-# 	# 	folder = {
-# 	# 		name = infantry_folder
-# 	# 		position = { x = 4 y = @1940 }
-# 	# 	}
-
-# 	# 	path = {
-# 	# 		leads_to_tech = infantry_flamethrower4
-# 	# 		research_cost_coeff = 1
-# 	# 	}	
-		
-# 	# 	categories = {
-# 	# 		infantry_weapons
-# 	# 	}
-		
-# 	# 	ai_will_do = {
-# 	# 		factor = 1
-# 	# 	}
-# 	# }
-
-
-
-# 	# infantry_flamethrower4 = {
-
-# 	# 	engineer = {
-# 	# 		breakthrough = 0.05
-# 	# 		soft_attack = 0.05
-# 	# 	}
-		
-# 	# 	research_cost = 2.0
-# 	# 	start_year = 1944
-
-# 	# 	folder = {
-# 	# 		name = infantry_folder
-# 	# 		position = { x = 4 y = @1944 }
-# 	# 	}
-		
-# 	# 	categories = {
-# 	# 		infantry_weapons
-# 	# 	}
-		
-# 	# 	ai_will_do = {
-# 	# 		factor = 1
-# 	# 	}
-# 	# }
-
-
-# 	infantry_at = {
-
-# 		category_all_infantry = {
-# 			hard_attack = 0.25
-# 			ap_attack = 1
-# 		}
-		
-# 		path = {
-# 			leads_to_tech = infantry_at2
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 2.0
-# 		start_year = 1943
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 2 y = @1943 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	
 
-# 	infantry_at2 = {
+	infantry_at2 = {
 
-# 		category_all_infantry = {
-# 			hard_attack = 0.25
-# 			ap_attack = 1
-# 		}
+		category_all_infantry = {
+			hard_attack = 0.25
+			ap_attack = 1
+		}
 		
-# 		research_cost = 2.0
-# 		start_year = 1945
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 2 y = @1945 }
-# 		}
+		research_cost = 2.0
+		start_year = 1945
+		folder = {
+			name = infantry_folder
+			position = { x = 2 y = @1945 }
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 
 	
@@ -1321,10 +872,10 @@
 # 		}
 
 # 		research_cost = 2
-# 		start_year = 1938
+# 		start_year = 1939
 # 		folder = {
 # 			name = infantry_folder
-# 			position = { x = 4 y = @1938 }
+# 			position = { x = 4 y = @1939 }
 # 		}
 		
 # 		categories = {
@@ -1352,10 +903,10 @@
 # 		}
 
 # 		research_cost = 2
-# 		start_year = 1938
+# 		start_year = 1939
 # 		folder = {
 # 			name = infantry_folder
-# 			position = { x = 6 y = @1938 }
+# 			position = { x = 6 y = @1939 }
 # 		}
 		
 # 		categories = {
@@ -1466,364 +1017,202 @@
 # 	}
 
 	
-# 	support_weapons = {
-
-# 		category_all_infantry = {
-# 			defense = 0.08
-# 			breakthrough = 0.01
-# 			soft_attack = 0.03
-# 		}
-# 		cavalry = {
-# 			defense = 0.03
-# 			breakthrough = 0.01
-# 			soft_attack = 0.01
-# 		}		
-		
-# 		path = {
-# 			leads_to_tech = support_weapons2
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 1.5
-# 		start_year = 1890
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1890 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
 	
-# 	support_weapons2 = {
+	support_weapons4 = {
 
-# 		category_all_infantry = {
-# 			defense = 0.08
-# 			breakthrough = 0.01
-# 			soft_attack = 0.03
-# 		}
-# 		cavalry = {
-# 			defense = 0.03
-# 			breakthrough = 0.01
-# 			soft_attack = 0.01
-# 		}
+		category_all_infantry = {
+			defense = 0.12
+			soft_attack = 0.08
+			breakthrough = 0.04
+		}
+		cavalry = {
+			defense = 0.06
+			soft_attack = 0.04
+			breakthrough = 0.02
+		}
 		
-# 		path = {
-# 			leads_to_tech = infantry_ww1_mortar1
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 1.5
-# 		start_year = 1914
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1914 }
-# 		}
+		path = {
+			leads_to_tech = support_weapons5
+			research_cost_coeff = 1
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		research_cost = 1.5
+		start_year = 1918
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1918 }
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-
-# 	infantry_ww1_mortar1 = {
-
-# 		category_all_infantry = {
-# 			breakthrough = 0.03
-# 			soft_attack = 0.06
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		research_cost = 1.5
-# 		start_year = 1915
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
 
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1915 }
-# 		}
+	support_weapons5 = {
 
-# 		path = {
-# 			leads_to_tech = support_weapons3
-# 			research_cost_coeff = 1
-# 		}	
+		category_all_infantry = {
+			defense = 0.12
+			soft_attack = 0.08
+			breakthrough = 0.04
+		}
+		cavalry = {
+			defense = 0.06
+			soft_attack = 0.04
+			breakthrough = 0.02
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		path = {
+			leads_to_tech = support_weapons6
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1.5
+		start_year = 1936
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1936 }
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	support_weapons3 = {
-
-# 		category_all_infantry = {
-# 			defense = 0.08
-# 			breakthrough = 0.01
-# 			soft_attack = 0.03
-# 		}
-# 		cavalry = {
-# 			defense = 0.03
-# 			breakthrough = 0.01
-# 			soft_attack = 0.01
-# 		}
+		categories = {
+			infantry_weapons
+		}
 		
-# 		path = {
-# 			leads_to_tech = infantry_ww1_mortar2
-# 			research_cost_coeff = 1
-# 		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
-# 		research_cost = 1.5
-# 		start_year = 1917
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1917 }
-# 		}
+
+	support_weapons6 = {
+
+		category_all_infantry = {
+			defense = 0.12
+			soft_attack = 0.08
+			breakthrough = 0.04
+		}
+		cavalry = {
+			defense = 0.06
+			soft_attack = 0.04
+			breakthrough = 0.02
+		}
+
+		path = {
+			leads_to_tech = night_vision
+			research_cost_coeff = 1
+		}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+		research_cost = 1.5
+		start_year = 1942
+		folder = {
+			name = infantry_folder
+			position = { x = 0 y = @1942 }
+		}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
+		categories = {
+			infantry_weapons
 
-
-# 	infantry_ww1_mortar2 = {
-
-# 		category_all_infantry = {
-# 			breakthrough = 0.03
-# 			soft_attack = 0.06
-# 		}
+		}
 		
-# 		research_cost = 1.5
-# 		start_year = 1918
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1918 }
-# 		}
 
-# 		path = {
-# 			leads_to_tech = support_weapons4 
-# 			research_cost_coeff = 1
-# 		}	
+	# night_vision = {
+
+	# 	land_night_attack = 0.1
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+	# 	path = {
+	# 		leads_to_tech = support_weapons6
+	# 		research_cost_coeff = 1
+	# 	}
+
+	# 	research_cost = 2.0
+	# 	start_year = 1942
+	# 	folder = {
+	# 		name = infantry_folder
+	# 		position = { x = 0 y = @1942 }
+	# 	}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
+	# 	categories = {
+	# 		night_vision
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 	}
+	# }
 
 
 	
-# 	support_weapons4 = {
 
-# 		category_all_infantry = {
-# 			defense = 0.12
-# 			soft_attack = 0.08
-# 			breakthrough = 0.04
-# 		}
-# 		cavalry = {
-# 			defense = 0.06
-# 			soft_attack = 0.04
-# 			breakthrough = 0.02
-# 		}
+
+	# night_vision2 = {
+
+	# 	land_night_attack = 0.15	
+
+	# 	research_cost = 2.0
+	# 	start_year = 1945
+
+	# 	path = {
+	# 		leads_to_tech = support_weapons7
+	# 		research_cost_coeff = 1
+	# 	}
+
+	# 	folder = {
+	# 		name = infantry_folder
+	# 		position = { x = 0 y = @1945 }
+	# 	}
 		
-# 		path = {
-# 			leads_to_tech = support_weapons5
-# 			research_cost_coeff = 1
-# 		}
+	# 	categories = {
+	# 		night_vision
+	# 	}
 		
-# 		research_cost = 1.5
-# 		start_year = 1936
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1936 }
-# 		}
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 	}
+	# }
+
+
+	# support_weapons7 = {
+
+	# 	category_all_infantry = {
+	# 		defense = 0.12
+	# 		soft_attack = 0.08
+	# 		breakthrough = 0.04
+	# 	}
+	# 	cavalry = {
+	# 		defense = 0.06
+	# 		soft_attack = 0.04
+	# 		breakthrough = 0.02
+	# 	}
+
+	# 	path = {
+	# 		leads_to_tech = night_vision2
+	# 		research_cost_coeff = 1
+	# 	}
 		
-# 		categories = {
-# 			infantry_weapons
-# 		}
+	# 	research_cost = 1.5
+	# 	start_year = 1947
+	# 	folder = {
+	# 		name = infantry_folder
+	# 		position = { x = 0 y = @1947 }
+	# 	}
 		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-	
-
-# 	support_weapons5 = {
-
-# 		category_all_infantry = {
-# 			defense = 0.12
-# 			soft_attack = 0.08
-# 			breakthrough = 0.04
-# 		}
-# 		cavalry = {
-# 			defense = 0.06
-# 			soft_attack = 0.04
-# 			breakthrough = 0.02
-# 		}
+	# 	categories = {
+	# 		infantry_weapons
+	# 	}
 		
-# 		path = {
-# 			leads_to_tech = night_vision
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 1.5
-# 		start_year = 1940
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1940 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	night_vision = {
-
-# 		land_night_attack = 0.1
-		
-# 		path = {
-# 			leads_to_tech = support_weapons6
-# 			research_cost_coeff = 1
-# 		}
-
-# 		research_cost = 2.0
-# 		start_year = 1943
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1943 }
-# 		}
-		
-# 		categories = {
-# 			night_vision
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	support_weapons6 = {
-
-# 		category_all_infantry = {
-# 			defense = 0.12
-# 			soft_attack = 0.08
-# 			breakthrough = 0.04
-# 		}
-# 		cavalry = {
-# 			defense = 0.06
-# 			soft_attack = 0.04
-# 			breakthrough = 0.02
-# 		}
-
-# 		path = {
-# 			leads_to_tech = night_vision2
-# 			research_cost_coeff = 1
-# 		}
-		
-# 		research_cost = 1.5
-# 		start_year = 1944
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1944 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	night_vision2 = {
-
-# 		land_night_attack = 0.15	
-
-# 		research_cost = 2.0
-# 		start_year = 1945
-
-# 		path = {
-# 			leads_to_tech = support_weapons7
-# 			research_cost_coeff = 1
-# 		}
-
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1945 }
-# 		}
-		
-# 		categories = {
-# 			night_vision
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
-
-
-# 	support_weapons7 = {
-
-# 		category_all_infantry = {
-# 			defense = 0.12
-# 			soft_attack = 0.08
-# 			breakthrough = 0.04
-# 		}
-# 		cavalry = {
-# 			defense = 0.06
-# 			soft_attack = 0.04
-# 			breakthrough = 0.02
-# 		}
-
-# 		path = {
-# 			leads_to_tech = night_vision2
-# 			research_cost_coeff = 1
-# 		}
-		
-# 		research_cost = 1.5
-# 		start_year = 1947
-# 		folder = {
-# 			name = infantry_folder
-# 			position = { x = 0 y = @1947 }
-# 		}
-		
-# 		categories = {
-# 			infantry_weapons
-# 		}
-		
-# 		ai_will_do = {
-# 			factor = 1
-# 		}
-# 	}
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 	}
+	# }
 
 
 
@@ -2038,7 +1427,9 @@
 # 			}
 # 		}
 # 	}
-# }
+
+
+}
 
 
 	
