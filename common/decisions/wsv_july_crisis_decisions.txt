@@ -1,0 +1,130 @@
+
+
+##################################################
+#############  JULY CRISIS DECISIONS #############
+##################################################
+
+july_crisis_cat = {
+
+	# nicaragua mission (on timeout CS fails)
+	austrian_investigation_mission = {
+
+		priority = 200
+		icon = generic_crisis
+
+		allowed = {
+			OR = {
+				tag = USA
+				tag = CSA
+				tag = ENG
+				tag = CAN
+				tag = FRA
+				tag = GER
+				tag = AUH
+				tag = RUS
+				tag = SER
+			}
+		}
+
+		activation = {
+			has_global_flag = franzferdinand_assassinated
+			NOT = { has_global_flag = austrian_investigation_complete }
+		}
+
+		available = {
+			has_global_flag = austrian_investigation_complete #once it gets flag, auto completes
+		}
+
+		days_mission_timeout = 21
+		is_good = no
+
+		timeout_effect = {
+			if = {
+				limit = { tag = AUH }
+				set_global_flag = austrian_investigation_complete
+				country_event = wsv_franzferdinand.11
+			}
+		}
+	}
+
+
+	# Russia backs serbia
+	russia_backs_serbia = {
+		icon = generic_prepare_civil_war
+
+		visible = {
+			has_active_mission = austrian_investigation_mission
+			tag = RUS
+		}
+		available = {
+			tag = RUS
+		}
+
+		fire_only_once = yes
+
+		 complete_effect = {
+			set_global_flag = russia_backs_serbia_in_crisis
+			give_guarantee = SER
+			add_war_support = 0.1
+			AUH = { country_event = wsv_franzferdinand.4 }
+			hidden_effect = {
+				if = {
+					limit = { RUS = { is_in_faction_with = FRA } }
+					FRA = { country_event = { id = wsv_franzferdinand.5 days = 1 } }
+				}
+			}
+			hidden_effect = {
+				news_event = { id = wsv_franzferdinand.8  days = 5  random_days = 5 } # news event of european mobilization
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				is_historical_focus_on = no
+			}
+			modifier = {
+				factor = 0.1
+				is_historical_focus_on = no
+				strength_ratio = {
+					tag = GER
+					ratio < 1
+				}
+			}
+		}
+	}
+
+
+	## USA mobilizes
+	usa_mobilizes_for_crisis = {
+		icon = generic_prepare_civil_war
+
+		visible = {
+			has_active_mission = austrian_investigation_mission
+			tag = USA
+		}
+		available = {
+			tag = USA
+			has_global_flag = american_german_pact
+			has_global_flag = news_of_european_mobilization
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			add_war_support = 0.1
+			set_global_flag = usa_backs_germany_in_crisis
+			CSA = { country_event = { id = wsv_franzferdinand.9  days = 1 } }
+			CAN = { country_event = { id = wsv_franzferdinand.9  days = 1 } }
+			hidden_effect = {
+				news_event = { id = wsv_franzferdinand.10  days = 4  random_days = 5 } # news event of european mobilization
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+}
+

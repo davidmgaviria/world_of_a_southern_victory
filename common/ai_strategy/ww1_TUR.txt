@@ -36,7 +36,7 @@ TUR_garrison_anatolia = {
 			355
 			354
 		}
-		ratio = 0.15
+		ratio = 0.1
 		subtract_invasions_from_need = yes
 	}	
 }
@@ -57,7 +57,7 @@ TUR_garrison_middle_east = {
 			454
 			291
 		}
-		ratio = 0.1
+		ratio = 0.05
 		subtract_invasions_from_need = yes
 	}	
 }
@@ -113,7 +113,7 @@ TUR_libya_buffers = {
 			451
 		}
 
-		ratio = 0.1
+		ratio = 0.05
 		subtract_invasions_from_need = yes
 	}	
 }
@@ -125,82 +125,116 @@ TUR_italoturkish_war = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		original_tag = TUR
 		has_war_with = ITA
 	}
 	abort = {
-		has_country_flag = ITA_Lib_War_End
+		has_global_flag = italoturkish_war_over
 	}
 
+	# dont lose our navy
 	ai_strategy = {
 		type = 	naval_avoid_region
-		id = 29   	#libyan coast
-		value = 75
+		id = 69   #turkish coast
+		value = 9999
+	}
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 29   #libyan coast
+		value = 9999
+	}
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 168   #libyan coast
+		value = 9999
+	}
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 169   #libyan coast
+		value = 9999
+	}
+	ai_strategy = {
+		type = 	naval_avoid_region
+		id = 68   #libyan coast
+		value = 9999
+	}
+
+	# dont bleed over libya
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -60
 	}
 }
 
 
-# reversed strategy, makes turkey prepare against anyone in the league
 TUR_prepare_for_first_balkan = {
-	# eligible candidates to prepare against cant be turkey
-    allowed = {
-        NOT = { original_tag = TUR }
-        has_start_date < 1937.1.1
-    }
-    # candidates must have this flag
-    enable = {
-        has_country_flag = in_balkan_league
-    }
-    # turkey is the country doing the preparing
-    enable_reverse = {
-        tag = TUR 
-    }
-    reversed = yes
-    abort_when_not_enabled = yes
-
-    ai_strategy = {
-		type = prepare_for_war
-		id = "TUR"			
-		value = 10
-	}	
-}
-
-
-
-## After the first balkan, turkey built up rapidly
-TUR_build_up_army = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
 	enable = {
 		tag = TUR
-		has_global_flag = kis_firstbalkanwar_victory
-		has_war = no
+		has_global_flag = balkan_league_formed
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
 	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 200
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 10
-	}
+	abort_when_not_enabled = yes	
 
 	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
+		type = prepare_for_war
+		id = "SER"			
+		value = 10
 	}
-	
 	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
+		type = prepare_for_war
+		id = "MNT"			
+		value = 10
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "BUL"			
+		value = 10
+	}	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GRE"			
+		value = 10
 	}
 }
+
+
+
+
+# ## After the first balkan, turkey built up rapidly
+# TUR_build_up_army = {
+# 	allowed = {
+# 		original_tag = TUR
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		tag = TUR
+# 		has_global_flag = firstbalkan_war_over
+# 		has_war = no
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = infantry
+# 	    value = 200
+# 	}
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = garrison
+# 	    value = 10
+# 	}
+
+# 	ai_strategy = {
+#     	type = force_build_armies
+#     	value = 100
+# 	}
+	
+# 	ai_strategy = {
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = -15 # reduce while we build up in case of issues
+# 	}
+# }
 
 
 

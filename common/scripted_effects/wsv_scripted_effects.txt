@@ -17,6 +17,90 @@
 #
 
 
+# End American-German Pact
+end_american_german_pact = {
+	clr_global_flag = american_german_pact
+	hidden_effect = {
+		USA = {
+			diplomatic_relation = {
+				country = GER
+				relation = guarantee
+				active = no
+			}
+		}
+		GER = {
+			diplomatic_relation = {
+				country = USA
+				relation = guarantee
+				active = no
+			}
+		}
+	}
+	custom_effect_tooltip = american_german_pact_ends_tt
+}
+
+
+# End Confederate-Canadian-British Pact
+end_confederate_canadian_british_pact = {
+	clr_global_flag = confederate_canadian_british_pact
+	hidden_effect = {
+		CSA = {
+			diplomatic_relation = {
+				country = CAN
+				relation = guarantee
+				active = no
+			}
+		}
+		CAN = {
+			diplomatic_relation = {
+				country = CSA
+				relation = guarantee
+				active = no
+			}
+		}
+		ENG = {
+			diplomatic_relation = {
+				country = CSA
+				relation = non_aggression_pact
+				active = no
+			}
+		}
+	}
+	custom_effect_tooltip = confederate_canadian_british_pact_ends_tt
+}
+
+
+
+# Turkish military reforms (written backwards to prevent chain effect)
+improve_turkish_military_effect = {
+	if = {
+		limit = { has_idea = TUR_outdated_army }
+		custom_effect_tooltip = improve_turkish_military_tt
+		swap_ideas = {
+			remove_idea = TUR_outdated_army
+			add_idea = TUR_outdated_army_2
+		}
+	}
+	else_if = {
+		limit = { has_idea = TUR_outdated_army_2 }
+		custom_effect_tooltip = improve_turkish_military_tt
+		swap_ideas = {
+			remove_idea = TUR_outdated_army_2
+			add_idea = TUR_outdated_army_3
+		}
+	}
+	else_if = {
+		limit = { has_idea = TUR_outdated_army_3 }
+		custom_effect_tooltip = improve_turkish_military_tt
+		swap_ideas = {
+			remove_idea = TUR_outdated_army_3
+			add_idea = TUR_outdated_army_4
+		}
+	}
+	else = {
+		custom_effect_tooltip = cant_improve_turkish_military_tt
+	}
+}
 
 
 # Increases level of conscription (written backwards to prevent chain effect)
@@ -45,85 +129,126 @@ increase_conscription_tier_effect = {
 
 
 
+
+########### LATAM Influence ############
+
+increase_latam_influence_by_5_effect = {
+	add_to_variable = { CSA.csa_influence_in_latam = 5 }
+	custom_effect_tooltip = increase_latam_influence_by_5_tt
+}
+
+increase_latam_influence_by_10_effect = {
+	add_to_variable = { CSA.csa_influence_in_latam = 10 }
+	custom_effect_tooltip = increase_latam_influence_by_10_tt
+}
+
+
+
+########### Socialist Militancy ############
+
+increase_militancy_by_5_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 95 } }
+		add_to_variable = { USA.usa_socialist_militancy = 5 }
+		custom_effect_tooltip = increase_militancy_by_5_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+increase_militancy_by_10_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 90 } }
+		add_to_variable = { USA.usa_socialist_militancy = 10 }
+		custom_effect_tooltip = increase_militancy_by_10_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+decrease_militancy_by_5_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy > 5 } }
+		subtract_from_variable = { USA.usa_socialist_militancy = 5 }
+		custom_effect_tooltip = decrease_militancy_by_5_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 0 }
+		custom_effect_tooltip = set_militancy_at_0_tt
+	}
+}
+
+decrease_militancy_by_10_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy > 10 } }
+		subtract_from_variable = { USA.usa_socialist_militancy = 10 }
+		custom_effect_tooltip = decrease_militancy_by_10_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 0 }
+		custom_effect_tooltip = set_militancy_at_0_tt
+	}
+}
+
+##############################################################
+
+
+
 ### Red Rebellion ###
 
 # scope is state
-CSA_black_rebels_escalate_state_effect = {
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-		damage_building = {
-		    type = infrastructure
-		    damage = 0.5
-		}
-		damage_building = {
-		    type = industrial_complex
-		    damage = 0.5
-		}
-		add_manpower = -1000
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
-		hidden_effect = { 
-			remove_dynamic_modifier = { modifier = CSA_red_enclave } 
-		}
-		add_dynamic_modifier = { modifier = CSA_red_stronghold }
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
-		hidden_effect = { 
-			remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
-		}
-		add_dynamic_modifier = { modifier = CSA_red_enclave }
-	}
-}
-# scope is state
-CSA_black_rebels_pacify_state_effect = {
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
-		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
-		clr_state_flag = contains_red_rebels
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
-		remove_dynamic_modifier = { modifier = CSA_red_enclave } 
-		add_dynamic_modifier = { modifier = CSA_red_insurgents }
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-		remove_dynamic_modifier = { modifier = CSA_red_stronghold } 
-		add_dynamic_modifier = { modifier = CSA_red_enclave }
-	}
-}
-
-#################################################
+# CSA_black_rebels_escalate_state_effect = {
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
+# 		damage_building = {
+# 		    type = infrastructure
+# 		    damage = 0.5
+# 		}
+# 		damage_building = {
+# 		    type = industrial_complex
+# 		    damage = 0.5
+# 		}
+# 		add_manpower = -1000
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
+# 		hidden_effect = { 
+# 			remove_dynamic_modifier = { modifier = CSA_red_enclave } 
+# 		}
+# 		add_dynamic_modifier = { modifier = CSA_red_stronghold }
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
+# 		hidden_effect = { 
+# 			remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+# 		}
+# 		add_dynamic_modifier = { modifier = CSA_red_enclave }
+# 	}
+# }
+# # scope is state
+# CSA_black_rebels_pacify_state_effect = {
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+# 		clr_state_flag = contains_red_rebels
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_enclave } 
+# 		add_dynamic_modifier = { modifier = CSA_red_insurgents }
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_stronghold } 
+# 		add_dynamic_modifier = { modifier = CSA_red_enclave }
+# 	}
+# }
 
 
-update_latin_american_exploitation_effect = {
-
-	# first check csa's edge on influence
-	set_temp_variable = { temp_influence_edge = CSA.csa_influence_in_caribbean }
-	subtract_from_temp_variable = { temp_influence_edge = USA.usa_influence_in_caribbean }
-	# update csa influence edge
-	set_variable = { CSA.csa_influence_edge = temp_influence_edge }
-
-	# clear first
-	CSA = { remove_ideas = CSA_caribbean_empire_1 }
-	CSA = { remove_ideas = CSA_caribbean_empire_2 }
-	CSA = { remove_ideas = CSA_caribbean_empire_3 }
-	# update accordingly 
-	if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 30  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_3 }
-	}
-	else_if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 20  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_2 }
-	}
-	else_if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 10  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_1 }
-	}
-}
 
 
 

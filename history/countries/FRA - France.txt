@@ -6,7 +6,7 @@
 set_fuel_ratio = 0.44
 set_research_slots = 3 #was 4
 set_stability = 0.6
-set_war_support = 0.35
+set_war_support = 0.26
 set_convoys = 300
 
 
@@ -15,22 +15,21 @@ set_convoys = 300
 1910.1.1 = {
 	oob = "FRA_1910"
 
-	give_guarantee = ENG
-
 	#---------------- GEOPOLITICS ----------------#
 	create_faction = entente # France is now Leader of the Entente | Since Beta 0.2
 	add_to_faction = RUS
-	puppet = MOR
-	puppet = TUN
 	give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of London (1839)
 	add_opinion_modifier = {  target = USA   modifier = WSV_dislikes_country }
 
 	if = { limit = { has_dlc = "Together for Victory" }
 		set_autonomy = {
-			target = TUN
-			autonomous_state = autonomy_integrated_puppet
+			target = MOR
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.5
 		}
-		else = {}
+		else = {
+			puppet = MOR
+		}
 	}
 
 
@@ -105,11 +104,11 @@ set_convoys = 300
 	}
 
 	add_ideas = {
-		FRA_ww1_Revanchism
-		ww1_Scramble_for_Africa
 		FRA_disjointed_government
-		low_economic_mobilisation
+		FRA_artisanal_industries
+		FRA_memories_of_1871
 		limited_conscription
+		civilian_economy
 		#generic_poor_quality_weapons
 		#Franch_Staff
 	}
@@ -123,7 +122,7 @@ set_convoys = 300
 		infantry_weapons = 1
 		support_weapons = 1
 		#infantry_binoculars = 1
-		motorised_infantry = 1
+		#motorised_infantry = 1
 		tech_mountaineers = 1
 
 		# Support

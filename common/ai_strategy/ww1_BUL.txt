@@ -27,6 +27,11 @@ BUL_dont_join_ger = {
 		id = "GER"			
 		value = -1000
 	}
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 20
+	}
 }
 
 
@@ -54,7 +59,8 @@ BUL_dont_join_ger = {
 BUL_first_balkan = {
 	enable = {
 		tag = BUL
-		has_country_flag = in_balkan_league
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
 		has_start_date < 1937.1.1
 	}
 	abort_when_not_enabled = yes	
@@ -64,6 +70,12 @@ BUL_first_balkan = {
 		id = "TUR"			
 		value = 75
 	}	
+
+	ai_strategy = {
+		type = consider_weak
+		id = TUR
+		value = 30  # consider Turkey easy prey
+	}
 }
 
 
@@ -75,8 +87,8 @@ BUL_second_balkan = {
 			exists = yes
 			NOT = { is_in_faction_with = BUL }
 		}
-		has_completed_focus = BUL_ww1_balkan_war_propaganda
-		NOT = { has_global_flag = kis_secondbalkanwar_victory }
+		has_global_flag = criticized_london_peace_conference 
+		NOT = { has_global_flag = secondbalkanwar_over }
 	}
 	abort_when_not_enabled = yes
 

@@ -1,35 +1,39 @@
 ITA_italoturkish_war = {
 	enable = {
 		original_tag = ITA
-		
 		ITA = {
-			focus_progress = {  focus = ITA_ww1_libyan_claims	 progress > 0.1 }
-			has_country_flag = italian_libya_war
-			NOT = {
-				has_country_flag = ITA_Lib_War_End
+			OR = {
+				has_country_flag = prepared_libyan_invasion
+				has_global_flag = italoturkish_war
 			}
 		}
 	}
 	abort = {
-		has_country_flag = ITA_Lib_War_End
+		has_global_flag = italoturkish_war_over
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = TUR
+		value = 15  # consider Turkey easy prey
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = africa
-		value = 50
+		value = 20
 	}
 
 	ai_strategy = {
 		type = area_priority
-		id = 29		#coast of libya
-		value = 80
+		id = mediterranean_sea
+		value = 50
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = africa
-		value = 50
+		value = 25
 	}
 
 	ai_strategy = {

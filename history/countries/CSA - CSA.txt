@@ -4,7 +4,7 @@ capital = 362
 set_fuel_ratio = 0.35
 set_research_slots = 3 #was 4
 set_stability = 0.6
-set_war_support = 0.3
+set_war_support = 0.18 
 set_convoys = 200
 set_major = yes		#gotta make sure its a major
 
@@ -14,19 +14,16 @@ set_major = yes		#gotta make sure its a major
 1910.1.1 = {
 	oob = "CSA_1910"
 
-	add_opinion_modifier = {  target = USA   modifier = WSV_old_wounds }
-	#create_faction = "Confederate Sphere"
-	#add_to_faction = MEX
+	## Influence over mexico in MEX history
 
 	set_variable = { 
-		var = csa_influence_in_caribbean 
+		var = csa_influence_in_latam
 		value = 0 
 	}
 	set_variable = { 
-		var = csa_influence_edge
+		var = num_red_rebel_operations
 		value = 0 
 	}
-
 	
 
 	#---------------- CHARACTERS ----------------#
@@ -66,14 +63,33 @@ set_major = yes		#gotta make sure its a major
 	}
 
 	add_ideas = {
+		CSA_southern_social_heriarchy
 		CSA_racial_segregation
 		CSA_agricultural_nation
-		#CSA_southern_aristocracy
 		CSA_military_traditions
 		CSA_military_nepotism
 		limited_conscription
 		free_trade 
 	}
+
+
+	#--------------- EQUIPMENT ----------------#
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_0
+		amount = 12000
+		producer = CSA
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment
+		producer = CSA
+		amount = 300
+	}
+	add_equipment_to_stockpile = {
+		type = artillery_equipment_1
+		producer = CSA
+		amount = 300
+	}
+
 
 	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
@@ -85,13 +101,13 @@ set_major = yes		#gotta make sure its a major
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
 		#infantry_binoculars = 1
-		motorised_infantry = 1
+		#motorised_infantry = 1
 		marines = 1
 
 		# Support
 		tech_support = 1
 		tech_engineers = 1
-		tech_recon = 1
+		#tech_recon = 1
 		
 		# Artillery
 		light_field_gun1 = 1
@@ -101,12 +117,12 @@ set_major = yes		#gotta make sure its a major
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
+		#ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
-		ww1_battleship2 = 1
-		ww1_battlecruiser0 = 1
+		#ww1_battleship2 = 1
+		#ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
 		transport = 1
 

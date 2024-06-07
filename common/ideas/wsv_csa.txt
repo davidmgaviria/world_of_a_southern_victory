@@ -2,19 +2,20 @@ ideas = {
 	
 	country = {
 
-		# CSA_southern_aristocracy = {
-		# 	allowed={ always=no }
-		# 	allowed_civil_war={ always = yes }
-		# 	removal_cost=-1
-		# 	picture= GFX_idea_CSA_southern_aristocracy
-		# 	modifier = {
-		# 		political_power_gain = -0.4
-		# 		drift_defence_factor = 0.25
-		# 		stability_factor = 0.1
-		# 		consumer_goods_factor = -0.1
-		# 		research_speed_factor = -0.15
-		# 	}
-		# }
+		#### STARTER IDEAS #### 
+
+		CSA_southern_social_heriarchy = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = CSA_legacy_old_south_icon
+			modifier = {
+				political_power_gain = -0.35
+				drift_defence_factor = 0.5
+				research_speed_factor = -0.15
+				consumer_goods_factor = -0.1
+			}
+		}
 
 		CSA_agricultural_nation = {
 			allowed={ always=no }
@@ -22,10 +23,11 @@ ideas = {
 			removal_cost=-1
 			picture = generic_agrarian_reform
 			modifier = {
-				industrial_capacity_factory = -0.2
-				production_speed_buildings_factor = -0.2
-				production_factory_max_efficiency_factor = -0.1
-				local_resources_factor = -0.25
+				industrial_capacity_factory = -0.3
+				production_speed_buildings_factor = -0.3
+				production_factory_max_efficiency_factor = -0.15
+				production_factory_efficiency_gain_factor = -0.15
+				local_resources_factor = -0.2
 			}
 		}
 
@@ -37,10 +39,10 @@ ideas = {
 				always = yes
 			}
 			removal_cost=-1
-			picture = generic_army_issues
+			picture = generic_incompetent_officers_icon
 			modifier = {
-				army_attack_factor = -0.2
-				army_org_factor = -0.1
+				army_attack_factor = -0.25
+				army_org_factor = -0.2
 				experience_gain_army_unit_factor = -0.1
 				military_leader_cost_factor = 0.5 
 			}
@@ -53,7 +55,6 @@ ideas = {
 			picture = GFX_idea_CSA_racial_segregation
 			modifier = {
 				conscription_factor = -0.25
-				consumer_goods_factor = -0.1
 				industry_free_repair_factor = 0.1
 			}
 		}
@@ -70,154 +71,22 @@ ideas = {
 			}
 		}
 
+		############################
 
-		CSA_industrializing_economy = {
+		CSA_military_traditions_2 = {
 			allowed={ always=no }
-			allowed_civil_war={ always = yes }
+			allowed_civil_war = { always = yes }
 			removal_cost=-1
-			picture = generic_five_year_plan_industry 
+			picture= CSA_southern_militarism
 			modifier = {
-				industrial_capacity_factory = -0.1
-				industrial_capacity_dockyard = -0.1
-				production_factory_max_efficiency_factor = -0.1
-				local_resources_factor = -0.2
+				conscription = 0.03
+				army_core_defence_factor = 0.1
+				resistance_damage_to_garrison_on_our_occupied_states = 0.1
+				training_time_army_factor = -0.1
 			}
 		}
 
-		CSA_industrializing_economy_2 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = generic_five_year_plan_industry  
-			modifier = {
-				industrial_capacity_factory = -0.05
-				industrial_capacity_dockyard = -0.05
-				production_factory_max_efficiency_factor = -0.05
-				local_resources_factor = -0.1
-			}
-		}
-
-		CSA_industrializing_economy_3 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = generic_five_year_plan_industry 
-			modifier = {
-				industrial_capacity_factory = 0.05
-				production_factory_max_efficiency_factor = 0.1
-				global_building_slots_factor = 0.1
-			}
-		}
-
-		CSA_mining_subsidies = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = generic_exploit_mines  #TODO needs picture
-			modifier = {
-				local_resources_factor = 0.075
-			}
-		}
-
-		CSA_southern_aristocracy_2 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture= GFX_idea_CSA_southern_aristocracy
-			modifier = {
-				political_power_gain = -0.3
-				drift_defence_factor = 0.20
-				stability_factor = 0.05
-				consumer_goods_factor = -0.05
-				research_speed_factor = -0.1
-			}
-		}
-
-		CSA_income_tax = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture= generic_foreign_capital 
-			modifier = {
-				political_power_gain = 0.15
-				stability_factor = -0.03
-			}
-		}
-
-		CSA_compulsory_schools = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture= generic_army_war_college
-			modifier = {
-				drift_defence_factor = -0.1
-				production_factory_efficiency_gain_factor = 0.1
-				research_speed_factor = 0.1
-				stability_factor = -0.02
-			}
-		}
-
-		CSA_streamlined_rifles = {		
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = generic_rifle_icon
-
-			equipment_bonus = {
-            	infantry_equipment = {
-            		build_cost_ic = -0.1 instant = yes
-            	}
-            }
-		}
-
-		CSA_cavalry_focus = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture= generic_cavalry_focus
-			modifier = {
-				cavalry_attack_factor = 0.1
-				cavalry_defence_factor = 0.1
-				cavalry_speed_factor = 0.05
-			}
-		}
-
-		CSA_military_caste = {
-			allowed = {
-				always = no
-			}
-			allowed_civil_war = {
-				always = yes
-			}
-			removal_cost=-1
-			picture = generic_forced_conscription
-			modifier = {
-				army_org_factor = -0.1
-				army_attack_factor = -0.05
-				experience_gain_army_unit_factor = -0.05
-				military_leader_cost_factor = 0.5 
-				conscription = 0.05
-			}
-		}
-
-		CSA_reduced_military_nepotism = {
-			allowed = {
-				always = no
-			}
-			allowed_civil_war = {
-				always = yes
-			}
-			removal_cost=-1
-			picture = generic_army_issues
-			modifier = {
-				army_org_factor = -0.05
-				army_attack_factor = -0.1
-				experience_gain_army_unit_factor = -0.1
-				military_leader_cost_factor = 0.25 
-			}
-		}
-
-		CSA_veteran_officers = {
+		CSA_more_officers = {
 			allowed = {
 				always = no
 			}
@@ -227,109 +96,393 @@ ideas = {
 			removal_cost=-1
 			picture = generic_infantry_bonus
 			modifier = {
-				army_org_factor = 0.05
-				experience_gain_army_unit_factor = 0.1
+				army_attack_factor = 0.05
+				army_org_factor = 0.1
+				experience_gain_army_unit_factor = 0.05
 			}
 		}
 
-		CSA_racial_segregation_2 = {
+		CSA_industrializing_economy = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = GFX_idea_CSA_racial_segregation
+			picture = generic_five_year_plan_industry 
 			modifier = {
-				conscription_factor = -0.17
-				industry_free_repair_factor = 0.1
-				industrial_capacity_factory = -0.05
+				industrial_capacity_factory = -0.15
+				production_speed_buildings_factor = -0.15
+				production_factory_max_efficiency_factor = -0.1
+				production_factory_efficiency_gain_factor = -0.1
+				local_resources_factor = -0.1
 			}
 		}
 
-		CSA_racial_segregation_3 = {
+		CSA_industrializing_economy_2 = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = GFX_idea_CSA_racial_segregation
+			picture = generic_five_year_plan_industry 
 			modifier = {
-				conscription_factor = -0.1
-				industry_free_repair_factor = 0.1
-				industrial_capacity_factory = -0.05
+				industrial_capacity_factory = -0.1
+				production_speed_buildings_factor = -0.1
+				production_factory_max_efficiency_factor = -0.05
+				production_factory_efficiency_gain_factor = -0.05
+				local_resources_factor = -0.1
 			}
 		}
 
-		CSA_emergency_military_act = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
+		CSA_black_factory_workers = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
 			removal_cost=-1
-			picture = SOV_third_five_year_plan_military
+			picture = generic_production_bonus
+
 			modifier = {
-				conversion_cost_civ_to_mil_factor = -0.25
-				production_speed_arms_factory_factor = 0.15
-				fuel_gain_factor = 0.1
+				industrial_capacity_factory = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				conscription_factor = 0.03
 			}
 		}
 
-		CSA_streamlined_battleships_idea = {
+		CSA_black_soldiers = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost=-1
+			picture = usa_desegregation_1
+
+			modifier = {
+				conscription_factor = 0.1
+				army_org = -5
+				army_attack_factor = -0.05
+				army_morale_factor = -0.1
+			}
+		}
+		
+		CSA_black_soldiers_improved_rights = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost=-1
+			picture = usa_desegregation_1
+
+			modifier = {
+				conscription_factor = 0.1
+				army_org = -5
+				army_morale_factor = -0.05
+				command_power_gain_mult = -0.15
+			}
+		}
+
+		CSA_black_soldiers_worsened_rights = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost=-1
+			picture = usa_desegregation_1
+
+			modifier = {
+				conscription_factor = 0.1
+				army_org = -5
+				army_attack_factor = -0.05
+				army_defence_factor = -0.05
+				army_morale_factor = -0.15
+			}
+		}
+
+		CSA_defend_the_south_idea = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = yes
+			}
+			removal_cost=-1
+			#picture = #TODO: needs picture
+
+			modifier = {
+				army_core_defence_factor = 0.1
+				army_morale_factor = 0.1
+			}
+		}
+
+		CSA_better_battleships_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
 			picture = generic_navy_bonus 
 
 			equipment_bonus = {
-            	ship_hull_heavy = {
-            		build_cost_ic = -0.1 instant = yes
-            	}
+				ship_hull_heavy = {
+					naval_heavy_gun_hit_chance_factor = 0.1
+				}
             }
-		}
-
-		CSA_joint_plans_idea = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = generic_intel_bonus
-
-			targeted_modifier = {
-                tag = USA
-                attack_bonus_against = 0.1
-                defense_bonus_against = 0.1
-            }
-		}
-
-
-		CSA_caribbean_empire_1 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = generic_trade_boost  
+		
 			modifier = {
-				industrial_capacity_factory = 0.1
-				production_speed_buildings_factor = 0.05
-				consumer_goods_factor = -0.03
+				navy_capital_ship_attack_factor = 0.2
+				navy_capital_ship_defence_factor = 0.1
 			}
 		}
 
-		CSA_caribbean_empire_2 = {
+		CSA_confederate_war_loan = {
 			allowed={ always=no }
-			allowed_civil_war={ always = yes }
+			allowed_civil_war={ always = no }
 			removal_cost=-1
-			picture = generic_trade_boost  
+			picture = generic_foreign_capital
+
 			modifier = {
-				industrial_capacity_factory = 0.2
-				production_speed_buildings_factor = 0.1
-				consumer_goods_factor = -0.06
+				production_speed_industrial_complex_factor = 0.1
+				production_speed_arms_factory_factor = 0.1 
 			}
 		}
 
-		CSA_caribbean_empire_3 = {
+		CSA_volunteer_corps = {
 			allowed={ always=no }
-			allowed_civil_war={ always = yes }
+			allowed_civil_war={ always = no }
 			removal_cost=-1
-			picture = generic_trade_boost  
+			picture = air_support_focus
+
+			cancel = {
+				OR = { 
+					has_war_with = GER
+					AND = {
+						ENG = { NOT = { has_war_with = GER } }
+						FRA = { NOT = { has_war_with = GER } }
+						RUS = { NOT = { has_war_with = GER } }
+					}
+				}
+			}
+
 			modifier = {
-				industrial_capacity_factory = 0.3
-				production_speed_buildings_factor = 0.15
-				consumer_goods_factor = -0.1
+				lend_lease_tension = -0.25
+				send_volunteers_tension = -0.25
+				send_volunteer_size = 3
 			}
 		}
+
+
+
+		# CSA_mining_subsidies = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = generic_exploit_mines  #TODO needs picture
+		# 	modifier = {
+		# 		local_resources_factor = 0.075
+		# 	}
+		# }
+
+		# CSA_southern_aristocracy_2 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture= GFX_idea_CSA_southern_aristocracy
+		# 	modifier = {
+		# 		political_power_gain = -0.3
+		# 		drift_defence_factor = 0.20
+		# 		stability_factor = 0.05
+		# 		consumer_goods_factor = -0.05
+		# 		research_speed_factor = -0.1
+		# 	}
+		# }
+
+		# CSA_income_tax = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture= generic_foreign_capital 
+		# 	modifier = {
+		# 		political_power_gain = 0.15
+		# 		stability_factor = -0.03
+		# 	}
+		# }
+
+		# CSA_compulsory_schools = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture= generic_army_war_college
+		# 	modifier = {
+		# 		drift_defence_factor = -0.1
+		# 		production_factory_efficiency_gain_factor = 0.1
+		# 		research_speed_factor = 0.1
+		# 		stability_factor = -0.02
+		# 	}
+		# }
+
+		# CSA_streamlined_rifles = {		
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = generic_rifle_icon
+
+		# 	equipment_bonus = {
+        #     	infantry_equipment = {
+        #     		build_cost_ic = -0.1 instant = yes
+        #     	}
+        #     }
+		# }
+
+		# CSA_cavalry_focus = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture= generic_cavalry_focus
+		# 	modifier = {
+		# 		cavalry_attack_factor = 0.1
+		# 		cavalry_defence_factor = 0.1
+		# 		cavalry_speed_factor = 0.05
+		# 	}
+		# }
+
+		# CSA_military_caste = {
+		# 	allowed = {
+		# 		always = no
+		# 	}
+		# 	allowed_civil_war = {
+		# 		always = yes
+		# 	}
+		# 	removal_cost=-1
+		# 	picture = generic_forced_conscription
+		# 	modifier = {
+		# 		army_org_factor = -0.1
+		# 		army_attack_factor = -0.05
+		# 		experience_gain_army_unit_factor = -0.05
+		# 		military_leader_cost_factor = 0.5 
+		# 		conscription = 0.05
+		# 	}
+		# }
+
+		# CSA_reduced_military_nepotism = {
+		# 	allowed = {
+		# 		always = no
+		# 	}
+		# 	allowed_civil_war = {
+		# 		always = yes
+		# 	}
+		# 	removal_cost=-1
+		# 	picture = generic_army_issues
+		# 	modifier = {
+		# 		army_org_factor = -0.05
+		# 		army_attack_factor = -0.1
+		# 		experience_gain_army_unit_factor = -0.1
+		# 		military_leader_cost_factor = 0.25 
+		# 	}
+		# }
+
+		# CSA_veteran_officers = {
+		# 	allowed = {
+		# 		always = no
+		# 	}
+		# 	allowed_civil_war = {
+		# 		always = yes
+		# 	}
+		# 	removal_cost=-1
+		# 	picture = generic_infantry_bonus
+		# 	modifier = {
+		# 		army_org_factor = 0.05
+		# 		experience_gain_army_unit_factor = 0.1
+		# 	}
+		# }
+
+		# CSA_racial_segregation_2 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = GFX_idea_CSA_racial_segregation
+		# 	modifier = {
+		# 		conscription_factor = -0.17
+		# 		industry_free_repair_factor = 0.1
+		# 		industrial_capacity_factory = -0.05
+		# 	}
+		# }
+
+		# CSA_racial_segregation_3 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = GFX_idea_CSA_racial_segregation
+		# 	modifier = {
+		# 		conscription_factor = -0.1
+		# 		industry_free_repair_factor = 0.1
+		# 		industrial_capacity_factory = -0.05
+		# 	}
+		# }
+
+		# CSA_emergency_military_act = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = SOV_third_five_year_plan_military
+		# 	modifier = {
+		# 		conversion_cost_civ_to_mil_factor = -0.25
+		# 		production_speed_arms_factory_factor = 0.15
+		# 		fuel_gain_factor = 0.1
+		# 	}
+		# }
+
+
+		# CSA_joint_plans_idea = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = generic_intel_bonus
+
+		# 	targeted_modifier = {
+        #         tag = USA
+        #         attack_bonus_against = 0.1
+        #         defense_bonus_against = 0.1
+        #     }
+		# }
+
+
+		# CSA_caribbean_empire_1 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = generic_trade_boost  
+		# 	modifier = {
+		# 		industrial_capacity_factory = 0.1
+		# 		production_speed_buildings_factor = 0.05
+		# 		consumer_goods_factor = -0.03
+		# 	}
+		# }
+
+		# CSA_caribbean_empire_2 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = generic_trade_boost  
+		# 	modifier = {
+		# 		industrial_capacity_factory = 0.2
+		# 		production_speed_buildings_factor = 0.1
+		# 		consumer_goods_factor = -0.06
+		# 	}
+		# }
+
+		# CSA_caribbean_empire_3 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	removal_cost=-1
+		# 	picture = generic_trade_boost  
+		# 	modifier = {
+		# 		industrial_capacity_factory = 0.3
+		# 		production_speed_buildings_factor = 0.15
+		# 		consumer_goods_factor = -0.1
+		# 	}
+		# }
 	
 
 		#################

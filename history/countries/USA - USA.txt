@@ -2,31 +2,27 @@
 
 set_fuel_ratio = 0.45
 set_research_slots = 3 #was 4
-set_stability = 0.8
-set_war_support = 0.4
+set_stability = 0.65
+set_war_support = 0.27
 set_convoys = 350
-
-
-
 
 
 
 1910.1.1 = {
 	oob = "USA_1910"
 
-	#create_faction = "American Sphere"
-	#add_to_faction = HAI
 	give_guarantee = HAI
 	diplomatic_relation = { country = HAI   relation = docking_rights  active = yes }
-
-	add_opinion_modifier = {  target = CSA   modifier = WSV_bitter_enemies }
-	add_opinion_modifier = {  target = ENG   modifier = WSV_old_wounds }
-	add_opinion_modifier = {  target = FRA   modifier = WSV_old_wounds }
 	diplomatic_relation = { country = GER   relation = non_aggression_pact  active = yes }
-
+	
 	set_variable = { 
-		var = usa_influence_in_caribbean 
-		value = 0
+		var = usa_socialist_militancy
+		value = 10
+	}
+	set_country_flag = {
+		flag = haiti_instability_cooldown  # so it doesnt immediately fire
+		days = 100
+		value = 1
 	}
 	set_variable = { 
 		var = months_to_rememberance_day 
@@ -38,12 +34,13 @@ set_convoys = 350
 	if = { limit = { has_start_date < 1937.1.1 }
 
 		# Country Leaders
-		recruit_character = USA_eugene_v._debs
+		recruit_character = USA_ce_ruthenburg
+		recruit_character = USA_eugene_debs
 		recruit_character = USA_theodore_roosevelt
+		recruit_character = USA_leonard_wood
 		# Active Country Leader
-		recruit_character = USA_nelson_aldrich # should be president
-		recruit_character = USA_charles_j._hexamer
-		promote_character = USA_charles_j._hexamer 
+		recruit_character = USA_nelson_aldrich
+		promote_character = USA_nelson_aldrich 
 
 		# Generals
 		recruit_character = USA_john_j._pershing
@@ -72,12 +69,6 @@ set_convoys = 350
 		#recruit_character = USA_samuel_young
 		#recruit_character = USA_robert_e_coontz
 		#recruit_character = USA_william_s_benson
-
-	#------------- NATIONAL FOCUS --------------#
-		#Army
-		# complete_national_focus = USA_ww1_army_effort
-		# complete_national_focus = USA_ww1_industrial_effort
-		# complete_national_focus = USA_ww1_naval_effort
 	}
 	
 
@@ -93,15 +84,14 @@ set_convoys = 350
 	    communism = 17
 	    neutrality = 8
 	}
-
 	add_ideas = {
-		USA_remembrance_day
+		USA_remembrance_idea
 		USA_usgc_idea
-		USA_gilded_age
 		USA_socialist_opposition
-		USA_rationing_board
+		USA_throttled_military_spending
+		USA_corporate_trusts
 		limited_conscription
-		low_economic_mobilisation
+		civilian_economy
 		export_focus 
 	}
 
@@ -115,9 +105,6 @@ set_convoys = 350
 		infantry_weapons = 1
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
-		#infantry_binoculars = 1
-		motorised_infantry = 1
-		#marines = 1
 		tech_mountaineers = 1
 
 		# Support
@@ -127,18 +114,15 @@ set_convoys = 350
 		
 		# Artillery
 		light_field_gun1 = 1
-		heavy_field_gun1 = 1
 
 		# Armor
 		gwtank = 1
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
-		ww1_battleship2 = 1
 		ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
 		transport = 1

@@ -30,6 +30,26 @@ ideas = {
 		#################
 
 
+		generic_dreadnought_arms_race = {  
+			allowed={ always=no }
+			#allowed_civil_war = { has_government=communism }
+			removal_cost=-1
+			picture= generic_navy_bonus
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+                	build_cost_ic = -0.2 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.25
+				industrial_capacity_dockyard = 0.15
+				naval_doctrine_cost_factor = -0.1
+			}
+		}
+
+
 		generic_SA_civil_war = {   # civil war idea for DR and Nicaragua
 			allowed={ always=no }
 			#allowed_civil_war = { has_government=communism }
@@ -48,7 +68,44 @@ ideas = {
             }
 		}
 
+		generic_submarine_production = {  
+			allowed={ always=no }
+			#allowed_civil_war = { has_government=communism }
+			removal_cost=-1
+			picture= The_Long_Lance
 
+			equipment_bonus = {
+            	ship_hull_submarine = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+		}
+
+		generic_convoy_production = {  
+			allowed={ always=no }
+			#allowed_civil_war = { has_government=communism }
+			removal_cost=-1
+			picture= Liberty_ships_focus
+
+			equipment_bonus = {
+            	convoy = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+		}
+
+		generic_naval_guns_school = {  
+			allowed={ always=no }
+			#allowed_civil_war = { has_government=communism }
+			removal_cost=-1
+			picture= FIN_coastal_batteries_effort
+
+			modifier = {
+            	naval_critical_score_chance_factor = 0.1
+            	naval_heavy_gun_hit_chance_factor = 0.1
+            	naval_light_gun_hit_chance_factor = 0.15
+            }
+		}
 
 		generic_truck_production = {  
 			allowed={ always=no }
@@ -58,7 +115,7 @@ ideas = {
 
 			equipment_bonus = {
                 motorized_equipment = {
-                	build_cost_ic = -0.05 instant = yes
+                	build_cost_ic = -0.1 instant = yes
                 }
             }
             modifier = {
@@ -77,8 +134,6 @@ ideas = {
             	industrial_capacity_factory = 0.1
             }
 		}
-
-
 
 		generic_global_revolution_idea = {
 			allowed={ always=no }
@@ -144,10 +199,10 @@ ideas = {
 			picture = generic_neutral_complacency_icon
 			
 			modifier = {
+				army_attack_factor = -0.40
+				army_defence_factor = -0.25
 				army_org_factor = -0.25
-				army_attack_factor = -0.1
-				army_defence_factor = -0.1
-				training_time_factor = 0.1
+				training_time_factor = 0.2
 			}
 		}
 
@@ -159,9 +214,9 @@ ideas = {
 			picture = generic_reserve_divisions
 			
 			modifier = {
-				conscription = 0.025
-				army_morale_factor = 0.05
-				consumer_goods_factor = -0.05
+				conscription = 0.02
+				army_morale_factor = 0.1
+				consumer_goods_factor = -0.1
 			}
 		}
 
@@ -192,6 +247,46 @@ ideas = {
 			}
 		}
 
+		generic_infrastructure_building = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_supply_lines
+			
+			modifier = {
+				production_speed_infrastructure_factor = 0.1
+			}
+		}
+
+		generic_supplyline_building = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = generic_railroads
+			
+			modifier = {
+				production_speed_rail_way_factor = 0.1
+				production_speed_supply_node_factor = 0.2
+			}
+		}
+
+		generic_army_collapse_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = generic_army_collapse_icon
+
+			modifier = {
+				army_attack_factor = -0.65
+				army_defence_factor = -0.35
+				army_org_factor = -0.35
+				army_morale_factor = -0.35
+				war_support_factor = -0.25
+				stability_factor = -0.25
+				conscription_factor = -0.1
+			}
+		}
 
 		generic_war_exhaustion1 = {
 			allowed={ always=no }

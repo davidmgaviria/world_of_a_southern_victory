@@ -2,6 +2,215 @@ ideas = {
 	
 	country = {
 
+		GER_north_german_confederation = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = GER_revive_the_kaiserreich
+
+			modifier={ 
+				drift_defence_factor = 0.25
+				stability_factor = 0.1
+			}
+		}
+
+		GER_ohl_idea = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = GER_general_staff
+
+			modifier={ 
+				planning_speed = 0.25
+				max_planning = 0.25
+				army_org = 10
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+		GER_prussian_militarism = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			#picture=GFX_idea_German_staff_ww1
+
+			modifier={ 
+				conscription = 0.02
+				mobilization_speed = 0.05
+				war_support_weekly_factor = 0.01
+			}
+		}
+
+		############################################
+
+		GER_german_industry_loans = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foreign_capital
+
+			modifier = {
+				consumer_goods_factor = 0.1
+				production_speed_arms_factory_factor = 0.1
+				production_speed_infrastructure_factor = 0.1  
+			}
+		}
+
+
+		GER_german_controlled_planning = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = {
+				NOT = { is_in_faction_with = GER }
+			}
+			picture = GER_german_advisors
+
+			modifier = {
+				political_power_gain = -0.2
+				army_attack_factor = 0.1
+				army_defence_factor = 0.1
+				army_org_factor = 0.1
+				max_planning = 0.1
+			}
+		}
+
+		GER_blimp_bombing = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = {
+				NOT = { has_war_with = GER }
+			}
+			picture = strategic_bombing_focus 
+
+			modifier = {
+				war_support_weekly = -0.002
+				stability_factor = -0.1
+			}
+		}
+
+		GER_ohl_idea2 = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = GER_general_staff
+
+			modifier={ 
+				planning_speed = 0.25
+				max_planning = 0.25
+				army_org = 10
+				land_doctrine_cost_factor = -0.1
+
+				political_power_gain = -0.2
+				production_speed_arms_factory_factor = 0.1
+				industrial_capacity_factory = 0.1
+				consumer_goods_factor = -0.1
+			}
+		}
+
+		GER_ohl_idea3 = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = GER_general_staff
+
+			modifier={ 
+				planning_speed = 0.25
+				max_planning = 0.25
+				army_org = 10
+				land_doctrine_cost_factor = -0.1
+
+				political_power_gain = -0.4
+				production_speed_arms_factory_factor = 0.2
+				industrial_capacity_factory = 0.2
+				consumer_goods_factor = -0.2
+			}
+		}
+
+		GER_schlieffen_plan = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+            picture = generic_battle_plan
+            removal_cost = -1 
+
+			targeted_modifier = {
+                tag = LUX
+				breakthrough_bonus_against = 2
+                attack_bonus_against = 0.75
+            }
+
+			targeted_modifier = {
+                tag = BEL
+				breakthrough_bonus_against = 2
+                attack_bonus_against = 0.75
+            }
+
+			targeted_modifier = {
+                tag = FRA
+				breakthrough_bonus_against = 1
+                attack_bonus_against = 0.5
+            }
+
+			modifier = { 
+				army_morale_factor = 0.1
+				army_speed_factor = 0.1
+				army_org = 10
+			}
+        }
+
+		GER_kaisers_battle = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = generic_battle_plan
+
+			targeted_modifier = {
+                tag = FRA
+				breakthrough_bonus_against = 0.25
+                attack_bonus_against = 0.1
+            }
+
+			modifier = { 
+				army_morale_factor = 0.1
+				army_speed_factor = 0.1
+				army_org = 10
+			}
+
+
+		}
+
+		GER_implement_rationing = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = generic_supply_depot
+
+			modifier={ 
+				army_attack_factor = -0.1
+				army_org_factor = -0.1
+				conscription_factor = -0.1
+				political_power_gain = -0.1
+			}
+		}
+
+		GER_blockade_effects = {
+			allowed = { original_tag = GER }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = generic_risk_of_famine
+
+			modifier={ 
+				army_attack_factor = -0.4
+				army_defence_factor = -0.25
+				army_org_factor = -0.2
+				army_morale_factor = -0.2
+				conscription_factor = -0.2
+				political_power_gain = -0.3
+			}
+		}
+    
+		
 		#################
 		###### WW2 ######
 		#################

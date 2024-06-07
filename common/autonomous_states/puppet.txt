@@ -44,7 +44,15 @@ autonomy_state = {
 	}
 
 	allowed = {
-		always = yes
+		OR = {
+			NOT = { has_government = neutrality }			# non neutral nations can always use this
+			OVERLORD = {									# only blocked if overlord is imperial germany
+				OR = {
+					NOT = { original_tag = GER }
+					NOT = {	has_government = neutrality }
+				}
+			}
+		}
 	}
 
 	#ROOT is puppet - FROM is potential OVERLORD
@@ -59,6 +67,11 @@ autonomy_state = {
 				}
 			}
 		}
+	}
+
+	allowed_levels_filter = {
+		autonomy_puppet
+		autonomy_integrated_puppet
 	}
 
 	can_take_level = {

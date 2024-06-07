@@ -1,0 +1,442 @@
+﻿add_namespace = wsv_agadir
+
+
+#####################################################################
+## -- AGADIR CRISIS
+#####################################################################
+
+
+## French troops occupy Morocco
+news_event = {
+	id = wsv_agadir.1
+	title = wsv_agadir.1.t
+	desc = wsv_agadir.1.d
+	picture =   news_event_france_occupies_morroco
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = france_occupies_morocco
+			FRA = {
+				add_named_threat = { threat = 3  name = "France Occupies Morocco" }
+				annex_country = {
+					target = MOR
+					transfer_troops = no
+				}
+			}
+			SPR = {
+				transfer_state = 290
+				add_state_claim = 290
+			}
+		}
+	}
+
+	option = {
+		name = wsv_agadir.1.a
+		trigger = {
+			tag = FRA
+		}
+	}
+
+	option = {
+		name = wsv_agadir.1.b
+		trigger = {
+			tag = GER
+		}
+		custom_effect_tooltip = we_can_intervene_in_agadir_tt
+	}
+
+	option = {
+		name = wsv_agadir.1.c
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+
+## Germany sends Panther -- sparking crisis
+news_event = {
+	id = wsv_agadir.2
+	title = wsv_agadir.2.t
+	desc = wsv_agadir.2.d
+	picture =  news_event_germany_sends_panther
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = agadir_crisis
+		hidden_effect = {
+			GER = {
+				add_named_threat = { threat = 7  name = "Germany Intervenes in Morocco" }
+			}
+			ENG = {
+				country_event = { id = wsv_agadir.3  days = 2 }
+			}
+		}
+	}
+
+	option = {
+		name = wsv_agadir.2.a
+		trigger = {
+			tag = FRA
+		}
+	}
+
+	option = {
+		name = wsv_agadir.2.b
+		trigger = {
+			tag = GER
+		}
+	}
+
+	option = {
+		name = wsv_agadir.2.c
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+
+## Britain deliberates to intervene
+country_event = {
+	id = wsv_agadir.3
+	title = wsv_agadir.3.t
+	desc = wsv_agadir.3.d
+
+    is_triggered_only = yes
+
+	# Send gunboat to aid France
+	option = {
+		name = wsv_agadir.3.a
+		news_event = { id = wsv_agadir.4  days = 1 }
+		FRA = { country_event = { id = wsv_agadir.6  days = 2 } }
+		set_global_flag = britain_response_to_agadir
+
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	# Dont intervene
+	option = {
+		name = wsv_agadir.3.b
+		FRA = { 
+			country_event = { id = wsv_agadir.5  days = 1 }
+			add_opinion_modifier = { target = ENG  modifier = WSV_dislikes_country }
+		}
+		custom_effect_tooltip = france_less_likely_ally_tt
+		set_global_flag = britain_response_to_agadir
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+## News event of British gunboat
+news_event = {
+	id = wsv_agadir.4
+	title = wsv_agadir.4.t
+	desc = wsv_agadir.4.d
+	picture =  news_event_send_gunboat
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = britain_backs_france_in_agadir
+	}
+
+	option = {
+		name = wsv_agadir.4.a
+		trigger = {
+			tag = FRA
+		}
+	}
+
+	option = {
+		name = wsv_agadir.4.b
+		trigger = {
+			tag = GER
+		}
+	}
+
+	option = {
+		name = wsv_agadir.4.c
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = { tag = GER }
+		}
+	}
+}
+
+
+## French informed of British indifference
+country_event = {
+	id = wsv_agadir.5
+	title = wsv_agadir.5.t
+	desc = wsv_agadir.5.d
+
+	immediate = {
+		set_global_flag = britain_abandoned_france_in_agadir
+	}
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_agadir.5.a
+	}
+}
+
+
+## French informed of British support
+country_event = {
+	id = wsv_agadir.6
+	title = wsv_agadir.6.t
+	desc = wsv_agadir.6.d
+
+    is_triggered_only = yes
+
+	# Thank them
+	option = {
+		name = wsv_agadir.6.a
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	#TODO - allow france to rebuff the British
+	# # Rebuff the British   
+	# option = {
+	# 	name = wsv_agadir.6.b
+	# }
+	#custom_effect_tooltip = britain_less_likely_ally_tt
+}
+
+
+
+#------------------ German Demands Compensation --------------------#
+
+
+## Germany demands compensation
+country_event = {
+	id = wsv_agadir.8
+	title = wsv_agadir.8.t
+	desc = wsv_agadir.8.d
+
+    is_triggered_only = yes
+
+	# Accept
+	option = {
+		name = wsv_agadir.8.a
+		news_event = { id = wsv_agadir.9  days = 2 }
+		custom_effect_tooltip = give_germany_congo_tt
+
+		ai_chance = {
+			base = 80
+		}
+	}
+
+	# Reject
+	option = {
+		name = wsv_agadir.8.b
+		news_event = { id = wsv_agadir.10  days = 2 } 
+		hidden_effect = { 
+			GER = { country_event = { id = wsv_agadir.14  days = 3 } } 
+		}
+		custom_effect_tooltip = war_with_germany_tt
+		if = { 
+			limit =  { has_global_flag = britain_backs_france_in_agadir }
+			ENG = { give_guarantee = FRA }
+		}
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 2
+				has_global_flag = britain_backs_france_in_agadir
+			}
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+## News event of France agreeing to compensation
+news_event = {
+	id = wsv_agadir.9
+	title = wsv_agadir.9.t
+	desc = wsv_agadir.9.d
+	picture =  news_event_agadir_crisis
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = agadir_crisis_over
+		hidden_effect = {
+			FRA = {
+				transfer_state = 774   # Entenschnabel
+			}
+			GER = {
+				transfer_state = 755 #Neukamerun
+			}
+		}
+	}
+
+	option = {
+		name = wsv_agadir.9.a
+	}
+}
+
+
+## News event of France rejecting to compensate Germany
+news_event = {
+	id = wsv_agadir.10
+	title = wsv_agadir.10.t
+	desc = wsv_agadir.10.d
+	picture =  news_event_agadir_crisis
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = agadir_crisis_over
+	}
+
+	option = {
+		name = wsv_agadir.10.a
+	}
+}
+
+
+#------------------ German Demands Withdrawal --------------------#
+
+
+## Germany demands French withdrawal
+country_event = {
+	id = wsv_agadir.11
+	title = wsv_agadir.11.t
+	desc = wsv_agadir.11.d
+
+    is_triggered_only = yes
+
+	# Accept
+	option = {
+		name = wsv_agadir.11.a
+		news_event = { id = wsv_agadir.12  days = 2 }
+		custom_effect_tooltip = withdraw_from_morocco_tt
+
+		ai_chance = {
+			factor = 20
+		}
+	}
+
+	# Reject
+	option = {
+		name = wsv_agadir.11.b
+		news_event = { id = wsv_agadir.13  days = 2 }
+		hidden_effect = {
+			GER = { country_event = { id = wsv_agadir.14  days = 3 } }
+		}
+		custom_effect_tooltip = war_with_germany_tt
+		if = { 
+			limit =  { has_global_flag = britain_backs_france_in_agadir }
+			ENG = { give_guarantee = FRA }
+		}
+
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 2
+				has_global_flag = britain_backs_france_in_agadir
+			}
+		}
+	}
+}
+
+
+## News event of France agreeing to withdraw
+news_event = {
+	id = wsv_agadir.12
+	title = wsv_agadir.12.t
+	desc = wsv_agadir.12.d
+	picture =  news_event_agadir_crisis
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = agadir_crisis_over
+		hidden_effect = {
+			MOR = {
+				transfer_state = 461
+				transfer_state = 462
+			}
+			GER = { give_guarantee = MOR }
+		}
+	}
+
+	option = {
+		name = wsv_agadir.12.a
+	}
+}
+
+
+## News event of France rejecting to withdraw
+news_event = {
+	id = wsv_agadir.13
+	title = wsv_agadir.13.t
+	desc = wsv_agadir.13.d
+	picture =  news_event_agadir_crisis
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = agadir_crisis_over
+	}
+
+	option = {
+		name = wsv_agadir.13.a
+	}
+}
+
+
+#------ German war goal
+
+## Germany informed France refused demands (gets wargoal)
+country_event = {
+	id = wsv_agadir.14
+	title = wsv_agadir.14.t
+	desc = wsv_agadir.14.d
+
+    is_triggered_only = yes
+
+	# War
+	option = {
+		name = wsv_agadir.14.a
+		create_wargoal = {
+			target = FRA
+			type = topple_government
+		}
+	}
+}
+
+
+

@@ -58,7 +58,7 @@ CAN_build_army = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		num_divisions < 55
+		num_divisions < 70
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -66,12 +66,12 @@ CAN_build_army = {
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 100
+	    value = 150
 	}
 	ai_strategy = {
 	    type = build_army
 	    id = garrison
-	    value = 5
+	    value = 4
 	}
 	
 	ai_strategy = {
@@ -111,6 +111,44 @@ CAN_defend_against_usa = {
 		value = -90
 	}
 }	
+
+
+CAN_defensive_if_lack_of_guns_against_USA = {
+	allowed = {
+		original_tag = CAN		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = USA
+		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.05
+		}
+		# NOT = {
+		# 	has_global_flag = WW1_is_stuck
+		# }
+	}
+	abort = {
+		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
+			surrender_progress > 0.15
+		}		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = USA
+		ratio = 0.5
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+}
 
 
 # CAN_on_the_defensive = {

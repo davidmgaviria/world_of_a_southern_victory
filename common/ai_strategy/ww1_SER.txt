@@ -37,7 +37,8 @@
 SER_first_balkan = {
 	enable = {
 		tag = SER
-		has_country_flag = in_balkan_league
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
 		has_start_date < 1937.1.1
 	}
 	abort_when_not_enabled = yes
@@ -46,7 +47,18 @@ SER_first_balkan = {
 		type = prepare_for_war
 		id = "TUR"			
 		value = 75
-	}		
+	}	
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 20
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = TUR
+		value = 25  # consider Turkey easy prey
+	}
 }
 
 

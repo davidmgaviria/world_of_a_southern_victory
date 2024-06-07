@@ -1,0 +1,1804 @@
+focus_tree = {
+	id = generic_focus
+	# REMOVE THIS
+	country = {
+		factor = 0
+	}
+	# ADD THIS ONCE DONE
+	# default = yes
+	# reset_on_civilwar = no
+	
+	# country={ 
+	# 	factor=1
+	# 	modifier={ 
+	# 		factor = 0
+	# 		has_start_date > 1918.1.1
+	# 	} 
+	# }
+
+	continuous_focus_position = { x = 50 y = 2000 }
+
+
+	
+	####################################
+	## -- International
+	####################################
+	focus = {
+		id = generic_take_position
+		icon = GFX_focus_chi_legislative_yuan
+
+		cost = 10
+		x = 15
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		available = {
+			threat > 0.2
+		}
+
+		completion_reward = { 
+			add_political_power = 100
+		}
+	}
+
+		
+	focus = {
+		id = generic_favor_germany
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_take_position }
+		mutually_exclusive = { focus=generic_neutrality_focus }
+		mutually_exclusive = { focus=generic_favor_france  }
+
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = generic_take_position
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = GER
+				modifier = wsv_improve_relations
+			}
+			add_opinion_modifier = {
+				target = FRA
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_german_investments
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_favor_germany }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_favor_germany
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_german_military_advisors
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_favor_germany }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_favor_germany
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_embargo_entente
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_german_military_advisors }
+		prerequisite = { focus = generic_german_investments }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_german_investments
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		available = {
+			GER = { 
+				is_faction_leader = yes
+				has_war = yes 
+			}
+		}
+
+		completion_reward = { 
+			
+		}
+	}
+
+		
+	focus = {
+		id = generic_join_germany
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_embargo_entente }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_embargo_entente
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war = no
+			is_in_faction = no
+			GER = { 
+				is_faction_leader = yes
+				has_war = yes 
+			}
+		}
+
+		completion_reward = { 
+			GER = { add_to_faction = ROOT }
+		}
+	}
+
+		
+	focus = {
+		id = generic_neutrality_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_take_position }
+		mutually_exclusive = { focus=generic_favor_germany }
+		mutually_exclusive = { focus=generic_favor_france  }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_take_position
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_reserve_divisions
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_neutrality_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_neutrality_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_deterrence
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_neutrality_focus }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_neutrality_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_mobilize_economy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_reserve_divisions }
+		prerequisite = { focus = generic_deterrence }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_reserve_divisions
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_abandon_neutrality
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_mobilize_economy }
+		mutually_exclusive = { focus=generic_home_defense  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_mobilize_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_home_defense
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_mobilize_economy }
+		mutually_exclusive = { focus=generic_abandon_neutrality  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_mobilize_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_favor_france
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_take_position }
+		mutually_exclusive = { focus=generic_neutrality_focus }
+		mutually_exclusive = { focus=generic_favor_germany }
+		cost = 10
+		x = 4
+		y = 1
+		relative_position_id = generic_take_position
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = FRA
+				modifier = wsv_improve_relations
+			}
+			add_opinion_modifier = {
+				target = GER
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_french_investments
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_favor_france }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_favor_france
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_french_military_advisors
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_favor_france }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_favor_france
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_embargo_the_central_powers
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_french_military_advisors }
+		prerequisite = { focus = generic_french_investments }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_french_investments
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_join_france
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = generic_embargo_the_central_powers }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_embargo_the_central_powers
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war = no
+			is_in_faction = no
+			FRA = { 
+				is_faction_leader = yes
+				has_war = yes 
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			FRA = { add_to_faction = ROOT }
+			
+		}
+	}
+
+
+
+	####################################
+	## -- Industrial
+	####################################
+	focus = {
+		id = generic_industrial_effort
+		icon = GFX_goal_generic_production2
+		cost = 10
+		x = 25
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_civ_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_industrial_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_industrial_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_infrastructure_effort
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = generic_industrial_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_industrial_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_mil_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = generic_industrial_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_industrial_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_industrial_effort2
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = generic_civ_factories }
+		prerequisite = { focus = generic_mil_factories }
+		prerequisite = { focus = generic_infrastructure_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_infrastructure_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			date > 1912.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_civ_factories2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_industrial_effort2 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_industrial_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_infrastructure_effort2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = generic_industrial_effort2 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_industrial_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_mil_factories2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = generic_industrial_effort2 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_industrial_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = generic_industrial_effort3
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = generic_civ_factories2 }
+		prerequisite = { focus = generic_mil_factories2 }
+		prerequisite = { focus = generic_infrastructure_effort2 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_infrastructure_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			date > 1914.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_research_effort1
+		icon = GFX_focus_research
+		prerequisite = { focus = generic_industrial_effort3 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_industrial_effort3
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			num_of_factories > 50
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+
+		
+	focus = {
+		id = generic_civ_factories3
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_industrial_effort3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_industrial_effort3
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_infrastructure_effort3
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = generic_civ_factories3 }
+		prerequisite = { focus = generic_research_effort1 }
+		prerequisite = { focus = generic_mil_factories3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = generic_industrial_effort3
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_mil_factories3
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = generic_industrial_effort3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_industrial_effort3
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_research_effort2
+		icon = GFX_focus_research2
+		prerequisite = { focus = generic_infrastructure_effort3 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_infrastructure_effort3
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		available = {
+			amount_research_slots < 5
+			num_of_factories > 100
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+	
+	
+	####################################
+	## -- Army / Air
+	####################################
+
+	focus = {
+		id = generic_army_effort
+		icon = GFX_focus_generic_commonwealth_build_infantry
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 9
+		y = 7
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_infantry_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = generic_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_truck_effort
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = generic_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_tech = motorised_infantry
+		}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				technology = motorised_infantry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_artillery_effort
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = generic_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_trench_warfare
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = generic_infantry_effort }
+		prerequisite = { focus = generic_artillery_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_infantry_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_infantry_effort2
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = generic_trench_warfare }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_artillery_effort2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = generic_trench_warfare }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_defensive_warfare
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = generic_trench_warfare }
+		mutually_exclusive = { focus = generic_offensive_warfare }
+
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = generic_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = fortification
+				category = cat_anti_tank
+				category = cat_anti_air
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_offensive_warfare
+		icon = GFX_hoi4tgw_renaultft
+		prerequisite = { focus = generic_trench_warfare }
+		mutually_exclusive = { focus = generic_defensive_warfare }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = generic_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = armor
+				category = cat_armored_car
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = generic_infantry_effort2 }
+		prerequisite = { focus=generic_offensive_warfare focus=generic_defensive_warfare  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = generic_infantry_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				name = generic_special_forces_bonus 
+				bonus = 1.0
+				uses = 1
+				category = marine_tech
+				category = para_tech
+				category = mountaineers_tech
+			}
+			add_ideas = special_forces
+		}
+	}
+
+		
+	focus = {
+		id = generic_chemical_weapons
+		icon = GFX_hoi4tgw_gasmask
+		prerequisite = { focus = generic_artillery_effort2 }
+		prerequisite = { focus=generic_offensive_warfare focus=generic_defensive_warfare  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = generic_artillery_effort2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				category = chemical_weapons
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_army_doctrine3
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus=generic_offensive_warfare focus=generic_defensive_warfare  }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = generic_defensive_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_air_effort
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = generic_army_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = generic_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { is_capital = yes }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_light_aircraft
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = generic_air_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+				category = cat_scout_plane
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_blimp_effort
+		icon = GFX_hoi4tgw_zeppelin
+		prerequisite = { focus = generic_air_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cat_airship
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = generic_heavy_aircraft
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = generic_air_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_air_doctrine1
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus=generic_light_aircraft focus=generic_heavy_aircraft  focus=generic_blimp_effort}
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_light_aircraft
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					any_neighbor_state = {
+						NOT = { is_controlled_by = ROOT }
+					}
+				 }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_fighter_effort
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = generic_air_doctrine1 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_air_doctrine1
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_cas_effort
+		icon = GFX_goal_poland_goal
+		prerequisite = { focus = generic_air_doctrine1 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_air_doctrine1
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cas_bomber
+			}  
+		}
+	}
+
+		
+	focus = {
+		id = generic_bomber_effort
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = generic_air_doctrine1 }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_air_doctrine1
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_air_doctrine2
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = generic_fighter_effort }
+		prerequisite = { focus = generic_bomber_effort }
+		prerequisite = { focus = generic_cas_effort }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_fighter_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					any_neighbor_state = {
+						NOT = { is_controlled_by = ROOT }
+					}
+				 }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+	####################################
+	## -- Naval
+	####################################
+
+	focus = {
+		id = generic_navy_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 10
+		x = 12
+		y = 0
+		relative_position_id = generic_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = naval_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = generic_destroyer_effort
+		icon = GFX_focus_generic_destroyer
+		prerequisite = { focus = generic_navy_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_navy_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = dd_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_cruiser_effort
+		icon = GFX_focus_generic_cruiser2
+		prerequisite = { focus = generic_navy_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_navy_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_battleship_effort
+		icon = GFX_focus_generic_navy_battleship2  
+		prerequisite = { focus = generic_navy_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_navy_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_improved_nav_doctrine
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = generic_destroyer_effort }
+		prerequisite = { focus = generic_cruiser_effort }
+		prerequisite = { focus = generic_battleship_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_cruiser_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 2
+				uses = 1
+				category = naval_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = generic_improved_nav_doctrine }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_improved_nav_doctrine
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = ss_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_gunnery_school
+		icon = GFX_focus_SWE_coastal_support
+		prerequisite = { focus = generic_improved_nav_doctrine }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_improved_nav_doctrine
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = generic_naval_guns_school
+		}
+	}
+
+		
+	focus = {
+		id = generic_more_dockyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = generic_improved_nav_doctrine }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = generic_improved_nav_doctrine
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = generic_new_approach
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = { focus = generic_submarine_effort }
+		mutually_exclusive = { focus=generic_battleship_supremacy  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = generic_submarine_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cv_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_battleship_supremacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = generic_gunnery_school }
+		mutually_exclusive = { focus=generic_new_approach  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = generic_gunnery_school
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = shbb_tech
+			}
+		}
+	}
+		
+}
+	
+
+

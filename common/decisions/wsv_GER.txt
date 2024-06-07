@@ -1,5 +1,171 @@
 
 wsv_great_war_decisions = {
+
+	# Schliffen plan
+	germany_schliffen_plan = {
+
+		icon = generic_pickelhaube
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			has_war_with = FRA
+			OR = {
+				NOT = { has_war_with = BEL }
+				NOT = { has_war_with = LUX }
+			}
+			
+		}
+
+		visible = {
+			NOT = { is_in_faction_with = FRA }
+			NOT = { is_in_faction_with = BEL }
+			NOT = { is_in_faction_with = LUX }
+		}
+
+		fire_only_once = yes
+		days_remove = 4
+
+		remove_effect = {
+			set_country_flag = schliffen_plan_began
+			add_timed_idea = {	idea = GER_schlieffen_plan	days = 60 }
+			declare_war_on = {
+			    target = BEL
+			    type = puppet_wargoal_focus
+			}
+			declare_war_on = {
+			    target = LUX
+			    type = annex_everything
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						BEL = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = BEL }
+				}
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						LUX = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = LUX }
+				}
+			}
+			if = {
+				limit = { ENG = { has_guaranteed = BEL } }
+				custom_effect_tooltip = war_with_england_tt
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	# Blockade effect - Germany begins rationing
+	germany_effects_of_blockade = {
+		icon = ger_mefo_bills
+		priority = 10
+
+		allowed = {
+			tag = GER
+		}
+		activation = {
+			has_war_with = ENG
+		}
+		available = {   
+			# cancels if our navy is stronger
+			OR = {		
+				NOT = { has_war_with = ENG }			
+				naval_strength_comparison = {
+					other = ENG
+					#tooltip = my_loc_key_tt
+					ratio > 1
+					sub_unit_def_weights = {
+						battleship = 2
+						battle_cruiser = 2
+						heavy_cruiser = 1
+						light_cruiser = 1
+						destroyer = 1
+						# submarine = 1
+					}
+				}
+			}
+		}
+
+		days_mission_timeout = 360
+		fire_only_once = yes
+
+		timeout_effect = {
+			set_country_flag = germany_began_rationing
+			add_war_support = -0.1
+			add_stability = -0.1
+			add_ideas = GER_implement_rationing
+			country_event = wsv_germany.103
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# Blockade effect - Germany runs out of food countdown
+	germany_ran_out_of_food = {
+		icon = decision_revolt
+		priority = 10
+
+		allowed = {
+			tag = GER
+		}
+		activation = {
+			has_war_with = ENG
+			has_country_flag = germany_began_rationing
+		}
+		available = {   
+			# cancels if our navy is stronger
+			OR = {		
+				NOT = { has_war_with = ENG }			
+				naval_strength_comparison = {
+					other = ENG
+					#tooltip = my_loc_key_tt
+					ratio > 1
+					sub_unit_def_weights = {
+						battleship = 2
+						battle_cruiser = 2
+						heavy_cruiser = 1
+						light_cruiser = 1
+						destroyer = 1
+						# submarine = 1
+					}
+				}
+			}
+		}
+
+		days_mission_timeout = 1080
+		fire_only_once = yes
+
+		timeout_effect = {
+			add_war_support = -0.3
+			add_stability = -0.25
+			add_ideas = GER_blockade_effects
+			hidden_effect = {
+				remove_ideas = GER_implement_rationing
+			}W
+			country_event = wsv_germany.103
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
 	
 	# Germany throws in the towel
 	greatwar_germany_offers_peace = {

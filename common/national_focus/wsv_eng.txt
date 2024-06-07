@@ -1,0 +1,1804 @@
+focus_tree = {
+	id=eng_focus
+	default=no
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = ENG 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
+	continuous_focus_position = { x = 50 y = 1600 }
+
+	#initial_show_position = { focus = CSA_wilsonian_era }
+
+
+	#######################################
+	############## INTERNATIONAL ###############
+	#######################################
+
+	focus = {
+		id = ENG_state_of_empire
+		icon = GFX_focus_eng_the_sun_never_sets
+		cost = 10
+		x = 15
+		y = 0
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 100
+		}
+	}
+
+		
+	focus = {
+		id = ENG_parliment_act
+		icon = GFX_focus_generic_improve_the_administration 
+		prerequisite = { focus = ENG_state_of_empire }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_state_of_empire
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		available = {
+			date > 1911.1.1
+		}
+
+		completion_reward = { 
+			remove_ideas = ENG_lords_opposition
+			news_event = wsv_england.1
+		}
+	}
+
+		
+	focus = {
+		id = ENG_home_rule_negociations
+		icon = GFX_focus_eng_concessions_to_the_trade_unions 
+		prerequisite = { focus = ENG_parliment_act }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_parliment_act
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 50
+			country_event = wsv_england.12
+		}
+	}
+
+		
+	focus = {
+		id = ENG_home_rule_ireland
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = ENG_home_rule_negociations }
+		mutually_exclusive = { focus = ENG_crush_irish_seperatists }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_home_rule_negociations
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1915.1.1
+			has_war = no
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			news_event = wsv_england.13
+			custom_effect_tooltip = ireland_released_tt
+		}
+	}
+
+		
+	focus = {
+		id = ENG_crush_irish_seperatists
+		icon = GFX_focus_generic_strike_down
+		prerequisite = { focus = ENG_home_rule_negociations }
+		mutually_exclusive = { focus = ENG_home_rule_ireland }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_home_rule_negociations
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_global_flag = irish_easter_rising
+		}
+
+		completion_reward = { 
+			113 = {
+				add_resistance = -10
+				add_compliance = -5
+			}
+			134 = {
+				add_resistance = -10
+				add_compliance = -5
+			}
+			135 = {
+				add_resistance = -10
+				add_compliance = -5
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_continental_affairs
+		icon = GFX_focus_usa_focus_on_europe
+		prerequisite = { focus = ENG_state_of_empire }
+		cost = 5
+		x = 6
+		y = 1
+		relative_position_id = ENG_state_of_empire
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 50
+		}
+	}
+
+		
+	focus = {
+		id = ENG_continue_naval_buildup
+		icon = GFX_focus_ger_accept_british_naval_dominance
+		prerequisite = { focus = ENG_continental_affairs }
+		mutually_exclusive = { focus=ENG_talks_with_germany  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_continental_affairs
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			NOT = { is_in_faction_with = GER }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = { 
+					is_coastal = yes
+					is_core_of = ROOT
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_coastal = yes
+					is_core_of = ROOT
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_coastal = yes
+					is_core_of = ROOT
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_outreach_russia
+		icon = GFX_focus_invite_russia_to_entente
+		prerequisite = { focus = ENG_continue_naval_buildup }
+		cost = 5
+		x = -1
+		y = 1
+		relative_position_id = ENG_continue_naval_buildup
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			RUS = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		bypass = {
+			is_in_faction_with = RUS
+		}
+
+		completion_reward = { 
+			RUS = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = RUS
+					modifier = wsv_improve_relations
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_loans_to_russia
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = ENG_outreach_russia }
+		cost = 5
+		x = 0
+		y = 2
+		relative_position_id = ENG_outreach_russia
+
+		ai_will_do = { 
+			factor = 1 
+			modifier = {
+				factor = 0
+				NOT = { has_non_aggression_pact_with = FRA } 
+			}
+		}
+
+		available = {
+			RUS = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		completion_reward = { 
+			RUS = {
+				add_timed_idea = {
+					idea = ENG_british_industry_loans
+					days = 360
+				}
+				hidden_effect = {
+					country_event = wsv_england.10
+				} 
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_reaffirm_french_ties
+		icon = GFX_focus_chi_reach_out_to_france
+		prerequisite = { focus = ENG_continue_naval_buildup }
+		cost = 5
+		x = 1
+		y = 1
+		relative_position_id = ENG_continue_naval_buildup
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			FRA = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		bypass = {
+			is_in_faction_with = FRA
+		}
+
+		completion_reward = { 
+			FRA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = wsv_improve_relations
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_formalize_entente
+		icon = GFX_focus_chi_legislative_yuan  #Goal_generic_national_unity
+		prerequisite = { focus = ENG_outreach_russia }
+		prerequisite = { focus = ENG_reaffirm_french_ties }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_reaffirm_french_ties
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			threat > 0.25
+			has_war = no
+			has_non_aggression_pact_with = FRA
+			FRA = {
+				exists = yes
+				is_puppet = no
+				has_war = no
+			}
+		}
+
+		bypass = {
+			OR = {
+				is_in_faction_with = FRA
+				has_guaranteed = FRA 
+			}
+		}
+
+		completion_reward = { 
+			FRA = {
+				country_event = { id = wsv_england.2  days = 2 }
+			}
+			custom_effect_tooltip = british_french_defense_pact_tt
+		}
+	}
+
+		
+	focus = {
+		id = ENG_continental_intervention
+		icon = GFX_focus_attack_kaiserreich
+		prerequisite = { focus = ENG_formalize_entente }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_formalize_entente
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war = no
+			is_in_faction = no
+			has_guaranteed = FRA
+			FRA = { 
+				has_war_with = GER 
+			}
+		}
+
+		bypass = {
+			has_war_with = GER
+		}
+
+		completion_reward = { 
+			add_to_war = {
+				targeted_alliance = FRA
+				enemy = GER
+			}
+			news_event = wsv_england.5
+		}
+	}
+
+		
+	focus = {
+		id = ENG_secure_the_suez
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = ENG_continental_intervention }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_continental_intervention
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war_with = TUR
+			EGY = { 
+				is_puppet_of = ROOT 
+				has_capitulated = no
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			annex_country = {
+				target = EGY
+				transfer_troops = yes
+			}
+		}
+	}
+
+	focus = {
+		id = ENG_divide_middle_east
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = ENG_secure_the_suez }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_secure_the_suez
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war_with = TUR
+			is_in_faction_with = FRA
+			FRA = {
+				has_capitulated = no
+				has_war_with = TUR
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = {
+			FRA = { country_event = wsv_england.15 }
+			custom_effect_tooltip = sykes_picot_tt
+		}
+	}
+
+	focus = {
+		id = ENG_lawrence_of_arabia
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ENG_divide_middle_east }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_divide_middle_east
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = path_complete
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_military_conscription_act
+		icon = GFX_focus_generic_limited_social_mobilization
+		prerequisite = { focus = ENG_continental_intervention }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_continental_intervention
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war = yes
+		}
+
+		bypass = {
+			has_any_conscription = yes
+		}
+
+		completion_reward = { 
+			add_ideas = limited_conscription
+		}
+	}
+
+		
+	focus = {
+		id = ENG_blockade_germany
+		icon = GFX_goal_generic_navy_anti_submarine
+		prerequisite = { focus = ENG_continental_intervention }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_continental_intervention
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war_with = GER
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			navy_experience = 25
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = dd_tech
+				category = ss_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_business_as_usual
+		icon = GFX_focus_DEN_no_regulations  
+		prerequisite = { focus = ENG_military_conscription_act }
+		#prerequisite = { focus = ENG_blockade_germany }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_military_conscription_act
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war = yes
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = ENG_usual_business_idea
+		}
+	}
+
+		
+	focus = {
+		id = ENG_tank_project
+		icon = GFX_hoi4tgw_renaultft
+		prerequisite = { focus = ENG_military_conscription_act }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_military_conscription_act
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war = yes
+		}
+
+		bypass = {
+			OR = {
+				has_tech = ww1_heavy_tank
+				has_tech = ww1_light_tank
+			}
+		}
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				technology = tank_unlocker2
+				technology = ww1_light_tank
+				technology = ww1_heavy_tank
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_talks_with_germany
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ENG_continental_affairs }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_continental_affairs
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		available = {
+			has_country_flag = path_complete
+		}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_blank_cheque_in_europe
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ENG_talks_with_germany }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_talks_with_germany
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = path_complete
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_alliance_of_seven_years_war
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ENG_blank_cheque_in_europe }
+		mutually_exclusive = { focus = ENG_declare_anglosphere }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_blank_cheque_in_europe
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = path_complete
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_declare_anglosphere
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ENG_blank_cheque_in_europe }
+		mutually_exclusive = { focus = ENG_alliance_of_seven_years_war }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_blank_cheque_in_europe
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_country_flag = path_complete
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+	####################################
+	## -- Industrial
+	####################################
+	focus = {
+		id = ENG_industrial_effort
+		icon = GFX_goal_generic_production2
+		cost = 10
+		x = 3
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_civ_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = ENG_industrial_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_infrastructure_effort
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = ENG_industrial_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_mil_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = ENG_industrial_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_industrial_effort2
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = ENG_civ_factories }
+		prerequisite = { focus = ENG_mil_factories }
+		prerequisite = { focus = ENG_infrastructure_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_infrastructure_effort
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1912.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_civ_factories2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = ENG_industrial_effort2 }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_research_effort1
+		icon = GFX_focus_research
+		prerequisite = { focus = ENG_industrial_effort2 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			OR = {
+				AND = {
+					amount_research_slots < 3
+					num_of_factories > 50
+				}
+				AND = {
+					amount_research_slots < 4
+					num_of_factories > 100
+				}
+			}
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+		
+
+	focus = {
+		id = ENG_mil_factories2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = ENG_industrial_effort2 }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+	
+	focus = {
+		id = ENG_infrastructure_effort2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = ENG_civ_factories2 }
+		prerequisite = { focus = ENG_mil_factories2 }
+		prerequisite = { focus = ENG_research_effort1 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_research_effort1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_industrial_effort3
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = ENG_infrastructure_effort2 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_infrastructure_effort2
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1914.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_civ_factories3
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = ENG_industrial_effort3 }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_industrial_effort3
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_mil_factories3
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = ENG_industrial_effort3 }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_industrial_effort3
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_research_effort2
+		icon = GFX_focus_research2
+		prerequisite = { focus = ENG_civ_factories3 }
+		prerequisite = { focus = ENG_mil_factories3 }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_civ_factories3
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			amount_research_slots < 5
+			has_war = yes
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+
+		
+
+	
+	
+	####################################
+	## -- Army / Air
+	####################################
+
+	focus = {
+		id = ENG_army_effort
+		icon = GFX_focus_generic_commonwealth_build_infantry
+		#prerequisite = { focus = }
+		cost = 10
+		x = 29
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_infantry_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = ENG_army_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_truck_effort
+		icon = GFX_goal_generic_army_motorized
+		prerequisite = { focus = ENG_army_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		bypass = {
+			has_tech = motorised_infantry
+		}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				technology = motorised_infantry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_artillery_effort
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = ENG_army_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_trench_warfare
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = ENG_infantry_effort }
+		prerequisite = { focus = ENG_artillery_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_infantry_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_infantry_effort2
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = ENG_trench_warfare }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_artillery_effort2
+		icon = GFX_goal_generic_army_artillery
+		prerequisite = { focus = ENG_trench_warfare }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_defensive_warfare
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = ENG_trench_warfare }
+		mutually_exclusive = { focus = ENG_offensive_warfare }
+
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = ENG_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = fortification
+				category = cat_anti_tank
+				category = cat_anti_air
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_offensive_warfare
+		icon = GFX_hoi4tgw_renaultft
+		prerequisite = { focus = ENG_trench_warfare }
+		mutually_exclusive = { focus = ENG_defensive_warfare }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = ENG_trench_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = armor
+				category = cat_armored_car
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_special_forces
+		icon = GFX_goal_generic_special_forces
+		prerequisite = { focus = ENG_infantry_effort2 }
+		prerequisite = { focus = ENG_offensive_warfare focus = ENG_defensive_warfare  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_infantry_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				name = generic_special_forces_bonus 
+				bonus = 1.0
+				uses = 1
+				category = marine_tech
+				category = para_tech
+				category = mountaineers_tech
+			}
+			add_ideas = special_forces
+		}
+	}
+
+		
+	focus = {
+		id = ENG_chemical_weapons
+		icon = GFX_hoi4tgw_gasmask
+		prerequisite = { focus = ENG_artillery_effort2 }
+		prerequisite = { focus=ENG_offensive_warfare focus=ENG_efensive_warfare  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_artillery_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				category = chemical_weapons
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_army_doctrine3
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus=ENG_offensive_warfare focus=ENG_defensive_warfare  }
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = ENG_defensive_warfare
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.25
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_air_effort
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = ENG_army_effort }
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = ENG_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { is_capital = yes }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_light_aircraft
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = ENG_air_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_air_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+				category = cat_scout_plane
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_blimp_effort
+		icon = GFX_hoi4tgw_zeppelin
+		prerequisite = { focus = ENG_air_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_air_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cat_airship
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_heavy_aircraft
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = ENG_air_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_air_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_air_doctrine1
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = ENG_light_aircraft focus = ENG_heavy_aircraft  focus = ENG_blimp_effort}
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_light_aircraft
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.25
+				uses = 2
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					any_neighbor_state = {
+						NOT = { is_controlled_by = ROOT }
+					}
+				 }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_fighter_effort
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = ENG_air_doctrine1 }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_air_doctrine1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_cas_effort
+		icon = GFX_goal_poland_goal
+		prerequisite = { focus = ENG_air_doctrine1 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_air_doctrine1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cas_bomber
+			}  
+		}
+	}
+
+		
+	focus = {
+		id = ENG_bomber_effort
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = ENG_air_doctrine1 }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_air_doctrine1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_air_doctrine2
+		icon = GFX_goal_generic_air_doctrine
+		prerequisite = { focus = ENG_fighter_effort }
+		prerequisite = { focus = ENG_bomber_effort }
+		prerequisite = { focus = ENG_cas_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_fighter_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.25
+				uses = 2
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					any_neighbor_state = {
+						NOT = { is_controlled_by = ROOT }
+					}
+				 }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
+		}
+	}
+
+	####################################
+	## -- Naval
+	####################################
+
+	focus = {
+		id = ENG_navy_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		cost = 10
+		x = 11
+		y = 0
+		relative_position_id = ENG_army_effort
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 1
+				category = naval_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_destroyer_effort
+		icon = GFX_focus_generic_destroyer
+		prerequisite = { focus = ENG_navy_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = ENG_navy_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = dd_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_cruiser_effort
+		icon = GFX_focus_generic_cruiser2
+		prerequisite = { focus = ENG_navy_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_navy_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_battleship_effort
+		icon = GFX_focus_generic_navy_battleship2  
+		prerequisite = { focus = ENG_navy_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = ENG_navy_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_improved_nav_doctrine
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = ENG_destroyer_effort }
+		prerequisite = { focus = ENG_cruiser_effort }
+		prerequisite = { focus = ENG_battleship_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_cruiser_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.25
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = ENG_improved_nav_doctrine }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_improved_nav_doctrine
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = ss_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_gunnery_school
+		icon = GFX_focus_SWE_coastal_support
+		prerequisite = { focus = ENG_improved_nav_doctrine }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_improved_nav_doctrine
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_ideas = generic_naval_guns_school
+		}
+	}
+
+		
+	focus = {
+		id = ENG_more_dockyards
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = ENG_improved_nav_doctrine }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_improved_nav_doctrine
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = ENG_new_approach
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = { focus = ENG_submarine_effort }
+		mutually_exclusive = { focus=generic_battleship_supremacy  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_submarine_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cv_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_battleship_supremacy
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = ENG_gunnery_school }
+		mutually_exclusive = { focus=generic_new_approach  }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_gunnery_school
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = shbb_tech
+			}
+		}
+	}
+}

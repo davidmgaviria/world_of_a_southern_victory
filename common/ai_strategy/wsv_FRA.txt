@@ -143,7 +143,6 @@ FRA_ignore_russia = {
 ######################### GREAT WAR ##########################
 
 
-
 #stacks from base production
 FRA_gw_modified_unit_production = {
 	allowed = {
@@ -173,6 +172,7 @@ FRA_gw_modified_unit_production = {
 	}
 }
 
+
 FRA_loss_of_alsacelorraine = {
 	allowed = {
 		original_tag = FRA
@@ -190,11 +190,24 @@ FRA_loss_of_alsacelorraine = {
 		id = "GER"
 		value = 50
 	}
+}
 
+
+FRA_ignore_africa = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = GER
+		NOT = { is_in_faction_with = GER }
+	}
+	abort_when_not_enabled = yes
+	
 	ai_strategy = {
-		type = prepare_for_war
-		id = "GER"
-		value = 20
+		type = front_unit_request
+		area = africa
+		value = -75
 	}
 }
 
@@ -214,12 +227,12 @@ FRA_build_army = {
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 400
+	    value = 250
 	}
 	ai_strategy = {
 	    type = build_army
 	    id = garrison
-	    value = 5
+	    value = 2
 	}
 
 	ai_strategy = {
@@ -229,7 +242,7 @@ FRA_build_army = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 
@@ -249,12 +262,18 @@ FRA_greatwar_mobilize = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "GER"
-		value = 200
+		value = 100
 	}
 
 	ai_strategy = {
 		type = support
 		id = "RUS"
+		value = 80
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = europe
 		value = 80
 	}
 }
@@ -281,47 +300,115 @@ FRA_opening_war_assault = {
 
 	ai_strategy = {
 		type = front_control
-		tag = GER
+		state = 28
 		priority = 100
-		ratio = 0.35
+		ratio = 0.6
 		ordertype = front
-		execution_type = balanced
+		execution_type = rush
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = "GER"
+		value = 50
 	}
 }	
 
 
-# FRA_focus_on_germany = {
-# 	allowed = {
-# 		original_tag = FRA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = GER
-# 		NOT = { is_in_faction_with = GER }
-# 		has_war_with = GER
-# 	}
-# 	abort_when_not_enabled = yes
+FRA_early_defense_of_belgium = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		BEL = { 
+			has_war_with = GER
+			NOT = { is_puppet_of = FRA }
+		}
+	}
+	abort = {
+		OR = {
+			BEL = { surrender_progress > 0.6 }
+			war_length_with = { tag = GER  months > 3 }   # start helping austria in
+		}
+	}
 
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "GER"			
-# 		value = 50
-# 	}
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = africa
-# 		value = -60
-# 	}
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = middle_east
-# 		area = suez
-# 		value = -80
-# 	}
-# }
+	# defend northern france
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			29
+			785
+			18
+			16
+		}
+		ratio = 0.4
+		#priority = 9999
+		area = europe
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
+	}
 
+	# dont really defend belgium
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 2
+		states = {
+			6
+			34
+		}
+		ratio = 0.03
+		area = europe
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = BEL
+		value = 1
+	}
+}	
+
+
+
+FRA_defensive_if_lack_of_guns_against_GER = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.05
+		}
+	}
+	abort = {
+		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
+			surrender_progress > 0.15
+		}		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.4
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+}
 
 
 

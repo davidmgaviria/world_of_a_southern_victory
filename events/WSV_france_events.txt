@@ -1,14 +1,115 @@
-﻿add_namespace = wsv_france
+﻿
+add_namespace = wsv_france
 
 
-#french army mutinies
-news_event = {
+# france sends arms to country
+country_event = {
 	id = wsv_france.1
 	title = wsv_france.1.t
 	desc = wsv_france.1.d
-	picture = news_event_french_army_mutiny
 
-	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_france.1.a
+	}
+}
+
+# france sent us a loan (italy / russia) 
+country_event = {
+	id = wsv_france.2
+	title = wsv_france.2.t
+	desc = wsv_france.2.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_france.2.a
+	}
+}
+
+
+
+##########################################################
+# -- France & Italy
+##########################################################
+
+# France recognizes italian claims 
+country_event = {
+	id = wsv_france.3
+	title = wsv_france.3.t
+	desc = wsv_france.3.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_france.3.a
+	}
+}
+
+# France calls italy to war
+country_event = {
+	id = wsv_france.4
+	title = wsv_france.4.t
+	desc = wsv_france.4.d
+
+    is_triggered_only = yes
+
+	# No
+	option = {
+		name = wsv_france.4.a
+		FRA = { 
+			country_event = { id = wsv_france.5   days = 2 } 
+			add_opinion_modifier = {
+				target = ITA
+				modifier = wsv_dislikes_country
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+
+	# Yes
+	option = {
+		name = wsv_france.4.b
+		FRA = { add_to_faction = ITA }
+		
+		ai_chance = {
+			base = 80
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+# Italy said no
+country_event = {
+	id = wsv_france.5
+	title = wsv_france.5.t
+	desc = wsv_france.5.d
+
+    is_triggered_only = yes
+
+	# No
+	option = {
+		name = wsv_france.5.a
+	}
+}
+
+
+
+##########################################################
+# -- First French Army Mutiny
+##########################################################
+
+# First French Army mutiny
+country_event = {
+	id = wsv_france.100
+	title = wsv_france.100.t
+	desc = wsv_france.100.d
 
 	mean_time_to_happen = {
 		days = 7
@@ -16,62 +117,231 @@ news_event = {
 
 	trigger = {
 		tag = FRA
-    	FRA = { 
-    		has_war_with = GER 
-    		OR = {
-    			AND = {
-    				casualties > 800000
-    				surrender_progress > 0.15
-    			}
-    			AND = {
-    				casualties > 1000000
-    				GER = { surrender_progress < 0.1 }
-    			}
-    			AND = {
-    				casualties > 1300000
-    				GER = { surrender_progress < 0.25 }
-    			}
-    			AND = {
-    				casualties > 1800000
-    				GER = { surrender_progress < 0.45 }
-    			}
-    		}
-    	}
-    	
-        NOT = { has_global_flag = french_army_mutinies }       
-    }
+		has_war_with_major = yes
+		OR = {
+			# historical trigger
+			AND = {
+				is_historical_focus_on = yes
+				date > 1917.5.1
+				date < 1917.8.1
+				war_length_with = { tag = GER  months > 24 }
+			}
+			# if surrendering, less casualties to trigger
+			AND = {
+				casualties > 1300000
+				surrender_progress > 0
+			}
+			# if winning but high casualties, still trigger
+			casualties > 1800000
 
-    immediate = {
-    	hidden_effect = {
-	    	FRA = { add_timed_idea = { idea = FRA_french_army_mutiny days = 30 } }
-	    	set_global_flag = french_army_mutinies
-	    }
-    }
-	
+		}
+		NOT = { has_country_flag = first_army_mutiny }
+	}
+
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = first_army_mutiny
+			add_timed_idea = {
+				idea = FRA_army_mutinies
+				days = 30
+			}
+			country_event = { id = wsv_france.101   days = 7 }  # deal with mutinies event
+		}
+	}
+
+    option = {
+		name = wsv_france.100.a
+	}	
+}
+
+
+# Deal with the mutiny
+country_event = {
+	id = wsv_france.101
+	title = wsv_france.101.t
+	desc = wsv_france.101.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	# Give into demands - no offensives
+    option = {
+		name = wsv_france.101.a
+		hidden_effect = { remove_ideas = FRA_army_mutinies }
+		custom_effect_tooltip = end_french_army_mutinies_tt
+		add_timed_idea = {
+			idea = FRA_halt_army_offensives
+			days = 200
+		}
+		set_country_flag = {
+			flag = army_mutiny_cooldown
+			value = 1
+			days = 720  # two years till next mutiny
+		}
+		set_country_flag = first_army_mutiny_over
+		country_event = { id = wsv_france.102  days = 1 }
+
+		ai_chance = {
+			factor = 80
+		}
+	}	
+
+	# Crack down on mutiny - variable outcome
 	option = {
-		name = wsv_france.1.a
-		trigger = { 
-			OR = {
-				tag = FRA 
-				is_in_faction_with = FRA
+		name = wsv_france.101.b
+		random_list = {
+			30 = {
+				# successfully put down mutiny
+				hidden_effect = { remove_ideas = FRA_army_mutinies }
+				custom_effect_tooltip = end_french_army_mutinies_tt
+				set_country_flag = {
+					flag = army_mutiny_cooldown
+					value = 1
+					days = 360  # one years till next mutiny
+				}
+				set_country_flag = first_army_mutiny_over
+				country_event = { id = wsv_france.102  days = 1 }
+			}
+			70 = {
+				# mutiny explodes
+				hidden_effect = { remove_ideas = FRA_army_mutinies }
+				add_timed_idea = {
+					idea = FRA_worsened_army_mutinies
+					days = 70
+				}
+				set_country_flag = first_army_mutiny_exploded
+				news_event = { id = wsv_france.103  days = 3 }  
+			}
+		}
+
+		ai_chance = {
+			factor = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
 			}
 		}
 	}
-
-	option = {
-		name = wsv_france.1.b
-		trigger = { 	
-			has_war_with = FRA
-		}
-	}
-
-
-	option = {
-		name = wsv_france.1.c
-		trigger = { 
-			NOT = { is_in_faction_with = FRA }
-			NOT = { has_war_with = FRA }
-			NOT = { tag = FRA }
-		}
-	}
 }
+
+
+# Mutiny quelled
+country_event = {
+	id = wsv_france.102
+	title = wsv_france.102.t
+	desc = wsv_france.102.d
+
+	is_triggered_only = yes
+
+    option = {
+		name = wsv_france.102.a
+	}	
+}
+
+
+# First Army Mutinies explode (global event)
+news_event = {
+	id = wsv_france.103
+	title = wsv_france.103.t
+	desc = wsv_france.103.d
+	picture = news_event_french_army_mutiny
+
+	is_triggered_only = yes
+	major = yes
+
+    option = {
+		name = wsv_france.103.a
+	}	
+}
+
+
+# Worse mutinies over .. for now
+country_event = {
+	id = wsv_france.104
+	title = wsv_france.104.t
+	desc = wsv_france.104.d
+
+	trigger = {
+		tag = FRA
+		has_war = yes
+		has_country_flag = first_army_mutiny_exploded
+		NOT = { has_idea = FRA_worsened_army_mutinies }
+		NOT = { has_country_flag = first_army_mutiny_over }
+	}
+
+	immediate = {
+		set_country_flag = {
+			flag = army_mutiny_cooldown
+			value = 1
+			days = 360  # next mutinies are a year from now
+		}
+		set_country_flag = first_army_mutiny_over
+	}
+
+    option = {
+		name = wsv_france.104.a
+	}	
+}
+
+
+
+##########################################################
+# -- Second French Army Mutiny
+##########################################################
+
+# Second French Army mutiny
+country_event = {
+	id = wsv_france.105
+	title = wsv_france.105.t
+	desc = wsv_france.105.d
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	trigger = {
+		tag = FRA
+		has_war_with_major = yes
+		has_country_flag = first_army_mutiny_over
+		NOT = { has_country_flag = army_mutiny_cooldown }
+		NOT = { has_country_flag = second_army_mutiny }
+	}
+
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = second_army_mutiny
+			add_timed_idea = {
+				idea = FRA_worsened_army_mutinies
+				days = 200
+			}
+			news_event = { id = wsv_france.106   days = 3 }  # global event of mutinies
+		}
+	}
+
+    option = {
+		name = wsv_france.105.a
+	}	
+}
+
+
+# Second Army Mutinies explode (global event)
+news_event = {
+	id = wsv_france.106
+	title = wsv_france.106.t
+	desc = wsv_france.106.d
+	picture = news_event_french_army_mutiny
+
+	is_triggered_only = yes
+	major = yes
+
+    option = {
+		name = wsv_france.106.a
+	}	
+}
+
+
+
