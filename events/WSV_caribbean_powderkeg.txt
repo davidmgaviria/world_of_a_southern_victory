@@ -5,15 +5,13 @@
 ## -- NICARAGUA CRISIS
 #####################################################################
 
-## TODO - improve ai will do and add threat boosters
 
 ## Nicaraguan Civil War
-country_event = {
+news_event = {
 	id = wsv_carib.1
 	title = wsv_carib.1.t
 	desc = wsv_carib.1.d
-
-	fire_only_once = yes
+	picture =  news_event_south_america_civil_war
 
 	mean_time_to_happen = {	days = 1 }
 
@@ -22,18 +20,27 @@ country_event = {
     		tag = CSA
 			tag = USA
 		}
+		NOT = { has_country_flag = notified_of_nicaragua_civil_war }
         date > 1913.4.12	#real life date is 1912.7.28 buut we pushed it back for timeline reasons
-        date < 1914.1.1
     }
 
 	immediate = {
 		hidden_effect = {
 			set_global_flag = nic_civil_war
-			activate_mission = CSA_intervene_in_nic_conflict
+			set_country_flag = notified_of_nicaragua_civil_war	 # will get applied to both the USA and CSA once it fires for each
+			# start mission for csa
+			if = {
+				limit = { tag = CSA }
+				activate_mission = CSA_intervene_in_nic_conflict
+			}
+			# set civil war in nicaragua
 			NIC = {
-				add_timed_idea = {
-					idea = generic_SA_civil_war
-					days = 800 
+				if = {
+					limit = { NOT = { has_idea = generic_SA_civil_war} }
+					add_timed_idea = {
+						idea = generic_SA_civil_war
+						days = 800 
+					}
 				}
 			}
 		}
@@ -55,13 +62,15 @@ country_event = {
 	}
 }
 
+## TODO - news event for csa landing
+
 
 # US Gets Notice of CSA Landing Marines in Nicaragua
 country_event = {
 	id = wsv_carib.2
 	title = wsv_carib.2.t
 	desc = wsv_carib.2.d
-	picture =   report_event_wsv_soldiers_running
+	picture =  report_event_wsv_soldiers_running
 
 	fire_only_once = yes
     is_triggered_only = yes
@@ -108,7 +117,7 @@ news_event = {
 	id = wsv_carib.3
 	title = wsv_carib.3.t
 	desc = wsv_carib.3.d
-	picture = news_event_send_gunboat
+	picture = news_event_generic_battleships
 
 	immediate = {
 		hidden_effect = {
@@ -230,7 +239,7 @@ country_event = {
 			}
 			modifier = {
 				factor = 2
-				has_country_leader = USA_leonard_wood
+				USA = { has_country_leader = { character = USA_leonard_wood   ruling_only = yes } } 
 			}
 		}
 	}
@@ -323,7 +332,7 @@ news_event = {
 	id = wsv_carib.7
 	title = wsv_carib.7.t
 	desc = wsv_carib.7.d
-	picture = news_event_generic_battleships
+	picture = news_event_tr_vs_wilson  
 
 	major = yes
     is_triggered_only = yes

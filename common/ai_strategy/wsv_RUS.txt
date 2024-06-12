@@ -135,27 +135,21 @@ RUS_ignore_north_america = {
 }
 
 
-# RUS_focus_on_europe = {
-# 	allowed = {
-# 		original_tag = RUS
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-# 	abort_when_not_enabled = yes
+RUS_focus_on_europe = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
 	
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = europe
-# 		value = 60
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = asia
-# 		value = -40
-# 	}
-# }
+	ai_strategy = {
+		type = front_unit_request
+		area = asia
+		value = -75
+	}
+}
 
 
 RUS_ignore_western_europe = {
@@ -264,13 +258,7 @@ RUS_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 10
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = -5
+		value = 20
 	}
 }
 
@@ -354,36 +342,188 @@ RUS_mobilize_for_serbia = {
 }
 
 
-RUS_opening_war_assault = {
+RUS_increase_army = {		# massively increase size
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		num_divisions < 210
+		date > 1912.5.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 150
+	}
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20 	# reduce while we build up in case of issues
+	}
+}
+
+
+RUS_opening_war_assault_AUH = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		AUH = { exists = yes }
+		has_guaranteed = SER
+	}
+	abort = {
 		OR = {
-			has_war_with = GER
-			has_war_with = AUH
+			has_global_flag = serbia_submitted_to_austria
+			AND = {
+				has_war_with = AUH  #dont abort before
+				OR = {
+					surrender_progress > 0.15
+					casualties > 400000
+				}
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = AUH
+		ratio = 0.4
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = AUH
+		value = 50
+	}
+}
+
+
+RUS_opening_war_assault_GER = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		GER = { 
+			exists = yes 
+			is_in_faction_with = AUH
+		}
+		has_guaranteed = SER
+	}
+	abort = {
+		OR = {
+			has_global_flag = serbia_submitted_to_austria
+			AND = {
+				has_war_with = GER  #dont abort before
+				OR = {
+					surrender_progress > 0.15
+					casualties > 400000
+				}
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.45
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		value = 15
+	}
+}
+
+
+
+RUS_defensive_if_lack_of_guns_against_GER = {
+	allowed = {
+		original_tag = RUS	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.05
 		}
 	}
 	abort = {
 		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
 			surrender_progress > 0.15
-			casualties > 500000
-		}
+		}		
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = AUH
-		value = 50
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = GER
-		value = 50
+		type = front_control
+		tag = GER
+		ratio = 0.5
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
 	}
 }
+
+
+RUS_defensive_if_lack_of_guns_against_AUH = {
+	allowed = {
+		original_tag = RUS	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = AUH
+		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.05
+		}
+	}
+	abort = {
+		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
+			surrender_progress > 0.15
+		}		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = AUH
+		ratio = 0.4
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+}
+
 
 
 ########################## WW2 ##########################

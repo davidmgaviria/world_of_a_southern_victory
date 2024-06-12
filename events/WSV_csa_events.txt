@@ -166,18 +166,22 @@ news_event = {
 	id = wsv_csa.6
 	title = wsv_csa.6.t
 	desc = wsv_csa.6.d
-	#picture = #TODO needs picture
+	picture = news_event_wilson_and_king_george.dds
 
 	major = yes
 
     is_triggered_only = yes
 
-	# immediate = {
-	# 	hidden_effect = {
-			
-	# 		#CSA = { add_threat =  3 }
-	# 	}
-	# }
+	immediate = {
+		hidden_effect = {	
+			CSA = { 
+				add_named_threat = {
+					threat = 3
+					name = "Signed Defensive Pact with Britain"
+				}
+			}
+		}
+	}
 	
 	option = {
 		name = wsv_csa.6.a
@@ -681,7 +685,7 @@ news_event = {
 		# time till first tension event
 		set_country_flag = { flag = blacksoldiers_civilian_effect_cooldown  days = 90  value = 1 }
 		# time till demands
-		set_country_flag = { flag = blacksoldiers_demands_wait  days = 360  value = 1 }
+		set_country_flag = { flag = blacksoldiers_demands_wait  days = 720  value = 1 }
 	}
 
 	option = {
@@ -719,7 +723,7 @@ country_event = {
 }
 
 
-## Black soldiers tired of mistreatment (demand better conditions) -- fires one year in
+## Black soldiers tired of mistreatment (demand better conditions) -- fires two years in
 country_event = {
 	id = wsv_csa.110
 	title = wsv_csa.110.t
@@ -820,738 +824,54 @@ country_event = {
 # -- Black Soldiers Revolt / 
 ###########################################
 
+#TODO: Temporarily removed for now
 
-# Tensions reached a boiling point
-country_event = {
-	id = wsv_csa.112
-	title = wsv_csa.112.t
-	desc = wsv_csa.112.d
+# # Tensions reached a boiling point
+# country_event = {
+# 	id = wsv_csa.112
+# 	title = wsv_csa.112.t
+# 	desc = wsv_csa.112.d
 
-	fire_only_once = yes
+# 	fire_only_once = yes
 
-    trigger = {
-		tag = CSA
-		has_global_flag = csa_arming_black_troops
-		has_country_flag = black_soldiers_made_demands
-		has_war = yes
-		NOT = { has_country_flag = blacksoldiers_revolt_countdown }
-		NOT = { has_global_flag = csa_black_soldiers_revolt }
-	}
+#     trigger = {
+# 		tag = CSA
+# 		has_global_flag = csa_arming_black_troops
+# 		has_country_flag = black_soldiers_made_demands
+# 		has_war = yes
+# 		NOT = { has_country_flag = blacksoldiers_revolt_countdown }
+# 		NOT = { has_global_flag = csa_black_soldiers_revolt }
+# 	}
 
-   	immediate = {
-		set_global_flag = csa_black_soldiers_revolt
-   	}
+#    	immediate = {
+# 		set_global_flag = csa_black_soldiers_revolt
+#    	}
 
-	option = {
-		name =  wsv_csa.112.a
-		add_ideas = generic_army_collapse_idea
-		news_event = { id = wsv_csa.113  days =  1 }
-	}
-}
-
-
-## Black soldiers revolt / confederate army collapse (news event)
-news_event = {
-	id = wsv_csa.113
-	title = wsv_csa.113.t
-	desc = wsv_csa.113.d
-	#picture = # TODO picture 
-
-	major = yes
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_csa.113.a
-	}
-}
+# 	option = {
+# 		name =  wsv_csa.112.a
+# 		add_ideas = generic_army_collapse_idea
+# 		news_event = { id = wsv_csa.113  days =  1 }
+# 	}
+# }
 
 
-
-
-
-# ## CSA denounces Haitian-US alliance
+# ## Black soldiers revolt / confederate army collapse (news event)
 # news_event = {
-# 	id = wsv_csa.2
-# 	title = wsv_csa.2.t
-# 	desc = wsv_csa.2.d
-#     #picture = news_event_usa_soldiers  
+# 	id = wsv_csa.113
+# 	title = wsv_csa.113.t
+# 	desc = wsv_csa.113.d
+# 	#picture = # TODO picture 
 
-# 	#major = yes  # minor event
-
+# 	major = yes
 # 	is_triggered_only = yes
 	
-# 	mean_time_to_happen = {
-# 		days = 2
-# 	}
-	
 # 	option = {
-# 		name = wsv_csa.2.a
-# 		trigger = { tag = CSA }
-# 	}
-# 	option = {
-# 		name = wsv_csa.2.b
-# 		trigger = { 
-# 			OR = {
-# 				tag = USA 
-# 				tag = HAI
-# 			}
-# 		}	
+# 		name = wsv_csa.113.a
 # 	}
 # }
 
 
 
-# # British advisors visit csa
-# news_event = {
-# 	id = wsv_csa.3
-# 	title = wsv_csa.3.t
-# 	desc = wsv_csa.3.d
-# 	#picture = #needs pic
-
-#     is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_csa.3.a
-# 	}
-# }
-
-
-
-
-# ###########################################
-# ## CSA - Dealing with Central America ##
-# ###########################################
-
-
-# # CSA demands nonaggression from LA country
-# country_event = {
-# 	id = wsv_csa.7
-# 	title = wsv_csa.7.t
-# 	desc = wsv_csa.7.d
-# 	#picture = 
-
-#     is_triggered_only = yes
-
-#     # Bow to CSA
-# 	option = {
-# 		name =  wsv_csa.7.a
-# 		diplomatic_relation = {
-# 		    country = CSA
-# 		    relation = non_aggression_pact
-# 		    active = yes
-# 		}
-# 		CSA = {
-# 			diplomatic_relation = {
-# 			    country = ROOT
-# 			    relation = docking_rights
-# 			    active = yes
-# 			}
-# 		}
-# 		set_country_flag = agreed_to_csa_military_access
-# 		CSA = { country_event = { id = wsv_csa.8  days = 2 } }
-
-# 		ai_chance = { 
-# 			factor = 40
-# 			modifier = {
-# 				factor = 2
-# 				has_country_flag = united_fruit_established
-# 			}
-# 		}
-# 	}
-
-#     # Refuse
-# 	option = {
-# 		name =  wsv_csa.7.b
-# 		CSA = { country_event = { id = wsv_csa.9  days = 2 } }
-# 		set_country_flag = refused_csa_military_access
-# 		custom_effect_tooltip = csa_will_embargo_tt
-
-# 		ai_chance = {
-# 			factor = 25
-# 			modifier = {
-# 				factor = 3
-# 				is_guaranteed_by = USA
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # LA country agreed 
-# country_event = {
-# 	id = wsv_csa.8
-# 	title = wsv_csa.8.t
-# 	desc = wsv_csa.8.d
-# 	#picture = 
-
-#     is_triggered_only = yes
-
-#     # Choose to intervene
-# 	option = {
-# 		name =  wsv_csa.8.a
-# 	}
-# }
-
-
-# # LA country refused 
-# country_event = {
-# 	id = wsv_csa.9
-# 	title = wsv_csa.9.t
-# 	desc = wsv_csa.9.d
-# 	#picture = 
-
-#     is_triggered_only = yes
-
-#     # Choose to intervene
-# 	option = {
-# 		name =  wsv_csa.9.a
-# 		send_embargo = FROM
-# 	}
-# }
-
-
-
-
-# ###########################################
-# ## CSA - Occupies Latin American Country ##
-# ###########################################
-
-
-# # # CSA decision to intervene or not (FROM is target country)
-# # country_event = {
-# # 	id = wsv_csa.10
-# # 	title = wsv_csa.10.t
-# # 	desc = wsv_csa.10.d
-# # 	#picture = 
-
-# #     is_triggered_only = yes
-
-# #     # Choose to intervene
-# # 	option = {
-# # 		name =  wsv_csa.10.a
-# # 		FROM = {
-# # 			save_event_target_as = target_of_csa_intervention
-# # 			#country_event = { id = wsv_csa.10 days = 1} }
-# # 		}
-# # 		custom_effect_tooltip = attempt_to_puppet_tt
-# # 		USA = { country_event = { id = wsv_csa.11 days = 1 } }
-
-# # 		ai_chance = { 
-# # 			factor = 80
-# # 			modifier = {
-# # 				factor = 0.5
-# # 				has_global_flag = us_threatened_cs_over_caribbean
-# # 			}
-# # 			modifier = {
-# # 				factor = 0
-# # 				AND = {
-# # 					has_global_flag = us_threatened_cs_over_caribbean
-# # 					is_historical_focus_on = yes
-# # 				}
-# # 			}
-# # 		}
-# # 	}
-
-# #     # Dont intervene
-# # 	option = {
-# # 		name =  wsv_csa.10.b
-# # 		add_political_power = -25
-
-# # 		ai_chance = {
-# # 			factor = 40
-# # 		}
-# # 	}
-# # }
-
-
-# # Notice to US 
-# country_event = {
-# 	id = wsv_csa.11
-# 	title = wsv_csa.11.t
-# 	desc = wsv_csa.11.d
-# 	#picture = #needs pic
-
-# 	#is_major = yes
-#     is_triggered_only = yes
-
-#     # Just protest
-# 	option = {
-# 		name =  wsv_csa.11.a
-# 		add_opinion_modifier = {
-# 			target = CSA
-# 			modifier = protest_action_light
-# 		}
-# 		hidden_effect = {
-# 			CSA = { country_event = { id = wsv_csa.12  days = 2 } }
-# 		}
-
-# 		ai_chance = {
-# 			factor = 60
-# 		}
-# 	}
-
-# 	# Issue ultimatum
-# 	option = {
-# 		trigger = { 
-# 			check_variable = { USA.usa_influence_in_caribbean value >= 50 }
-# 		}
-# 		name =  wsv_csa.11.b
-# 		add_opinion_modifier = {
-# 			target = CSA
-# 			modifier = protest_action_strong
-# 		}
-# 		CSA = { country_event = { id = wsv_csa.13  days = 2 } } 
-# 		set_global_flag = us_threatened_cs_over_caribbean
-# 		hidden_effect = { news_event = { id = wsv_csa.1  days = 1 } }
-
-# 		ai_chance = {
-# 			factor = 40
-
-# 			modifier = {
-# 				factor = 1.5
-# 				check_variable = { CSA.csa_influence_in_caribbean value >= 50 }
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				USA = { has_army_manpower = { size > 1000000 } }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # CSA recieves US protest - nothing happens
-# country_event = {
-# 	id = wsv_csa.12
-# 	title = wsv_csa.12.t
-# 	desc = wsv_csa.12.d
-# 	#picture = #needs pic
-
-# 	#is_major = yes
-#     is_triggered_only = yes
-
-# 	option = {
-# 		name =  wsv_csa.12.a
-# 		hidden_effect = { country_event = wsv_csa.15  }   # we puppet 
-# 	}
-# }
-
-
-# # CSA receives US ultimatum 
-# country_event = {
-# 	id = wsv_csa.13
-# 	title = wsv_csa.13.t
-# 	desc = wsv_csa.13.d
-# 	#picture = #needs pic
-
-# 	#is_major = yes
-#     is_triggered_only = yes
-
-#     # Back down
-# 	option = {
-# 		name =  wsv_csa.13.a
-# 		add_political_power = -50
-# 		add_war_support = -0.1
-# 		hidden_effect = { news_event = { id = wsv_csa.2  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 60
-# 		}
-# 	}
-
-# 	# Stand your ground
-# 	option = {
-# 		name =  wsv_csa.13.b
-# 		USA = { country_event = { id = wsv_csa.14  days = 4 } }
-# 		hidden_effect = { 
-# 			country_event = wsv_csa.15  # we puppet 
-# 			news_event = { id = wsv_csa.3  days = 2 }
-# 		}   
-
-# 		ai_chance = {
-# 			factor = 20
-
-# 			modifier = {
-# 				factor = 0
-# 				is_historical_focus_on = yes
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					is_in_faction_with = FRA
-# 					is_in_faction_with = ENG
-# 				}
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				CSA = { has_army_manpower = { size > 800000 } }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # CSA did not back down
-# country_event = {
-# 	id = wsv_csa.14
-# 	title = wsv_csa.14.t
-# 	desc = wsv_csa.14.d
-# 	#picture = 
-
-# 	#is_major = yes
-#     is_triggered_only = yes
-
-#     # Declare war
-# 	option = {
-# 		name =  wsv_csa.14.a
-# 		declare_war_on = {
-# 		    target = CSA
-# 		    type = topple_government
-# 		}
-# 		# add_to_war = {
-# 		#     targeted_alliance = event_target:target_of_csa_intervention
-# 		#     enemy = CSA
-# 		#     hostility_reason = asked_to_join
-# 		# }
-# 		# news event
-# 	}
-
-# 	# Back down
-# 	option = {
-# 		name =  wsv_csa.14.b
-# 		add_political_power = -100
-# 		add_war_support = -0.2
-# 		# news event
-# 	}
-# }
-
-
-# # Successfully puppeted
-# country_event = {
-# 	id = wsv_csa.15
-# 	title = wsv_csa.15.t
-# 	desc = wsv_csa.15.d
-# 	#picture =
-
-# 	#is_major = yes
-#     is_triggered_only = yes
-
-#     # FROM is Latin country
-# 	option = {
-# 		name =  wsv_csa.15.a
-# 		puppet = event_target:target_of_csa_intervention
-# 		add_to_variable = { 
-# 			var = CSA.csa_influence_in_caribbean
-# 			value = 5 
-# 		}
-# 		custom_effect_tooltip = increase_influence_by_5_tt
-# 	}
-# }
-
-
-# # Notice to CSA (FROM is Latin country)
-# country_event = {
-# 	id = wsv_csa.11
-# 	title = wsv_csa.11.t
-# 	desc = wsv_csa.11.d
-# 	#picture = #needs pic
-
-# 	#is_major = yes
-#     is_triggered_only = yes
-
-#     # FROM is Latin country
-# 	option = {
-# 		name =  wsv_csa.11.a
-# 	}
-# }
-
-
-
-
-# # ## Mormon Revolt aid
-# # country_event = {
-# # 	id = wsv_csa.3
-# # 	title = wsv_csa.3.t
-# # 	desc = wsv_csa.3.d
-# # 	#picture = report_event_smuggle_arms
-
-# #     mean_time_to_happen = {
-# #         days = 10
-# #     }
-
-# #     fire_only_once = yes
-
-# #     trigger = {
-# #     	tag = CSA
-# #     	has_global_flag = second_mormon_revolt
-# #     	DES = { has_capitulated = no }
-# #     }
-	
-
-# # 	#no help
-# # 	option = {
-# # 		name = wsv_csa.3.a
-
-# # 		ai_chance = {
-# # 			factor = 20
-
-# # 			modifier = {
-# # 				factor = 2
-# # 				OR = {
-# # 					has_equipment = { infantry_equipment_0 < -5000	}
-# # 					has_equipment = { infantry_equipment_1 < -5000	}
-# # 				}
-# # 			}
-
-# # 			modifier = {
-# # 				factor = 2
-# # 				OR = {
-# # 					has_equipment = { infantry_equipment_0 < -10000	}
-# # 					has_equipment = { infantry_equipment_1 < -10000	}
-# # 				}
-# # 			}
-# # 		}
-# # 	}
-
-# # 	#some help
-# # 	option = {
-# # 		name = wsv_csa.3.b
-# # 		CSA = {
-# # 			add_equipment_to_stockpile = {
-# # 			    type = infantry_equipment_1
-# # 			    amount = -2500
-# # 			    producer = CSA
-# # 			}
-# # 		}
-# # 		DES = {
-# # 			add_equipment_to_stockpile = {
-# # 			    type = infantry_equipment_1
-# # 			    amount = 2000
-# # 			    producer = CSA
-# # 			}
-# # 		}
-
-# # 		ai_chance = {
-# # 			factor = 80
-
-# # 		}
-# # 	}
-
-
-# # 	#lots of help
-# # 	option = {
-# # 		name = wsv_csa.3.c
-# # 		CSA = {
-# # 			add_equipment_to_stockpile = {
-# # 			    type = infantry_equipment_1
-# # 			    amount = -5000
-# # 			    producer = CSA
-# # 			}
-# # 		}
-# # 		DES = {
-# # 			add_equipment_to_stockpile = {
-# # 			    type = infantry_equipment_1
-# # 			    amount = 4000
-# # 			    producer = CSA
-# # 			}
-# # 		}
-
-# # 		ai_chance = {
-# # 			factor = 40
-
-# # 			modifier = {
-# # 				factor = 2
-# # 				OR = {
-# # 					has_equipment = { infantry_equipment_0 > 5000	}
-# # 					has_equipment = { infantry_equipment_1 > 5000	}
-# # 				}
-# # 			}
-
-# # 			modifier = {
-# # 				factor = 2
-# # 				OR = {
-# # 					has_equipment = { infantry_equipment_0 > 10000	}
-# # 					has_equipment = { infantry_equipment_1 > 10000	}
-# # 				}
-# # 			}
-# # 		}
-# # 	}
-# # }
-
-
-# # ######################
-# # ### Fate of Mexico ###
-# # ######################
-
-# # ## fate of mexico (mexico is root)
-# # country_event = {
-# # 	id = wsv_csa.4
-# # 	title = wsv_csa.4.t
-# # 	desc = wsv_csa.4.d
-# # 	#picture = report_event_sign_paper
-
-# #     is_triggered_only = yes
-
-# #     fire_only_once = yes
-
- 
-# # 	#yes
-# # 	option = {
-# # 		name = wsv_csa.4.a
-
-# # 		CSA = { 
-# # 			annex_country = {
-# # 				target = MEX
-# # 				transfer_troops = no
-# # 			}
-# # 			country_event = { id = wsv_csa.5 }  
-# # 		}
-
-# # 		ai_chance = {
-# # 			factor = 20
-
-# # 			modifier = {
-# # 				factor = 2
-# # 				strength_ratio = {
-# # 					tag = CSA
-# # 					ratio < 1
-# # 				}
-# # 			}
-# # 			modifier = {
-# # 				factor = 2
-# # 				strength_ratio = {
-# # 					tag = CSA
-# # 					ratio < 0.5
-# # 				}
-# # 			}
-# # 			modifier = {
-# # 				factor = 2
-# # 				strength_ratio = {
-# # 					tag = CSA
-# # 					ratio < 0.25
-# # 				}
-# # 			}
-# # 		}
-# # 	}
-
-
-# # 	#no
-# # 	option = {
-# # 		name = wsv_csa.4.b
-		
-# # 		CSA = {
-# # 			release = MEX
-# # 			create_wargoal = {
-# # 			    type = annex_everything
-# # 			    target = MEX
-# # 			}
-# # 			country_event = { id = wsv_csa.6 }
-# # 		}
-
-# # 		ai_chance = {
-# # 			factor = 60
-
-# # 			modifier = {
-# # 				factor = 0.5
-# # 				strength_ratio = {
-# # 					tag = CSA
-# # 					ratio < 0.5
-# # 				}
-# # 			}
-# # 			modifier = {
-# # 				factor = 0.5
-# # 				strength_ratio = {
-# # 					tag = CSA
-# # 					ratio < 0.25
-# # 				}
-# # 			}
-# # 		}
-# # 	}
-# # }
-
-
-# # #mexico submits
-# # country_event = {
-# # 	id = wsv_csa.5
-# # 	title = wsv_csa.5.t
-# # 	desc = wsv_csa.5.d
-# # 	#picture = report_event_deal_made
-
-# #     is_triggered_only = yes
-
-# # 	option = {
-# # 		name = wsv_csa.5.a
-# # 	}
-# # }
-
-# # #mexico defiant
-# # country_event = {
-# # 	id = wsv_csa.6
-# # 	title = wsv_csa.6.t
-# # 	desc = wsv_csa.6.d
-# # 	#picture = report_event_walked_out
-
-# #     is_triggered_only = yes
-
-# # 	option = {
-# # 		name = wsv_csa.6.a
-
-# # 	}
-# # }
-
-
-# # #CSA joined faction
-# # news_event = {
-# # 	id = wsv_csa.7
-# # 	title = wsv_csa.7.t
-# # 	desc = wsv_csa.7.d
-# # 	picture = news_event_joined_alliance
-
-# # 	major = yes
-
-# #     is_triggered_only = yes
-
-# # 	immediate = { 
-# #     	hidden_effect = { 
-# #     		add_threat = 3
-# #     	} 
-# #     }
-	
-# # 	option = {
-# # 		name = wsv_csa.7.a
-# # 	}
-# # }
-
-
-# # #CSA gets remanents of black revolt idea
-# # country_event = {
-# # 	id = wsv_csa.8
-# # 	title = wsv_csa.8.t
-# # 	desc = wsv_csa.8.d
-# # 	#picture = report_event_walked_out
-
-# # 	hidden = yes
-
-# #     is_triggered_only = yes
-
-# # 	immediate = {
-# # 		CSA = {
-# # 			if = {
-# # 				limit = { has_country_flag = black_rebellion_extended_120_days }
-# # 				clr_country_flag = black_rebellion_extended_120_days
-# # 				country_event = { id = wsv_csa.8    days = 120 }
-# # 			}
-# # 			else_if = {
-# # 				limit = { has_country_flag = black_rebellion_extended_60_days }
-# # 				clr_country_flag = black_rebellion_extended_60_days
-# # 				country_event = { id = wsv_csa.8    days = 60 }
-# # 			}
-# # 			else = {
-# # 				add_ideas = CSA_black_rebellion_remanents_idea
-# # 			}
-# # 		}
-# # 	}
-# # }
 
 
 

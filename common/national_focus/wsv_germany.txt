@@ -1449,10 +1449,8 @@ focus_tree = {
 
 	focus = {
 		id = GER_army_effort
-		icon = GFX_goal_generic_axis_build_infantry
+		icon = GFX_focus_generic_commonwealth_build_infantry
 		#prerequisite = { focus = }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 26
 		y = 0
@@ -1464,7 +1462,7 @@ focus_tree = {
 			army_experience = 20
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 1
+				cost_reduction = 0.5
 				uses = 1
 				category = land_doctrine
 			}
@@ -1476,8 +1474,6 @@ focus_tree = {
 		id = GER_infantry_effort
 		icon = GFX_goal_generic_small_arms
 		prerequisite = { focus = GER_army_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -2
 		y = 1
@@ -1500,8 +1496,6 @@ focus_tree = {
 		id = GER_truck_effort
 		icon = GFX_goal_generic_army_motorized
 		prerequisite = { focus = GER_army_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
@@ -1527,8 +1521,6 @@ focus_tree = {
 		id = GER_artillery_effort
 		icon = GFX_goal_generic_army_artillery2
 		prerequisite = { focus = GER_army_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1551,8 +1543,6 @@ focus_tree = {
 		icon = GFX_goal_generic_construction2
 		prerequisite = { focus = GER_infantry_effort }
 		prerequisite = { focus = GER_artillery_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1564,8 +1554,8 @@ focus_tree = {
 			army_experience = 20
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 1
-				uses = 1
+				cost_reduction = 0.25
+				uses = 2
 				category = land_doctrine
 			}
 		}
@@ -1576,8 +1566,6 @@ focus_tree = {
 		id = GER_infantry_effort2
 		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = GER_trench_warfare }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -2
 		y = 1
@@ -1600,8 +1588,6 @@ focus_tree = {
 		id = GER_artillery_effort2
 		icon = GFX_goal_generic_army_artillery
 		prerequisite = { focus = GER_trench_warfare }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1675,8 +1661,6 @@ focus_tree = {
 		icon = GFX_goal_generic_special_forces
 		prerequisite = { focus = GER_infantry_effort2 }
 		prerequisite = { focus = GER_offensive_warfare focus = GER_defensive_warfare  }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 2
@@ -1703,8 +1687,6 @@ focus_tree = {
 		icon = GFX_hoi4tgw_gasmask
 		prerequisite = { focus = GER_artillery_effort2 }
 		prerequisite = { focus=GER_offensive_warfare focus=GER_efensive_warfare  }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 2
@@ -1726,8 +1708,6 @@ focus_tree = {
 		id = GER_army_doctrine3
 		icon = GFX_goal_generic_army_doctrines
 		prerequisite = { focus=GER_offensive_warfare focus=GER_defensive_warfare  }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 1
 		y = 2
@@ -1739,8 +1719,8 @@ focus_tree = {
 			army_experience = 20
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 1
-				uses = 1
+				cost_reduction = 0.25
+				uses = 2
 				category = land_doctrine
 			}
 		}
@@ -1751,8 +1731,6 @@ focus_tree = {
 		id = GER_air_effort
 		icon = GFX_goal_generic_build_airforce
 		prerequisite = { focus = GER_army_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 6
 		y = 1
@@ -1763,7 +1741,7 @@ focus_tree = {
 		completion_reward = { 
 			air_experience = 50
 			add_doctrine_cost_reduction = {
-				cost_reduction = 1
+				cost_reduction = 0.5
 				uses = 1
 				category = air_doctrine
 			}
@@ -1782,8 +1760,6 @@ focus_tree = {
 		id = GER_light_aircraft
 		icon = GFX_goal_generic_air_fighter
 		prerequisite = { focus = GER_air_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -2
 		y = 1
@@ -1806,8 +1782,6 @@ focus_tree = {
 		id = GER_blimp_effort
 		icon = GFX_hoi4tgw_zeppelin
 		prerequisite = { focus = GER_air_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
@@ -1829,8 +1803,6 @@ focus_tree = {
 		id = GER_heavy_aircraft
 		icon = GFX_goal_generic_air_bomber
 		prerequisite = { focus = GER_air_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1852,8 +1824,6 @@ focus_tree = {
 		id = GER_air_doctrine1
 		icon = GFX_goal_generic_air_doctrine
 		prerequisite = { focus = GER_light_aircraft focus = GER_heavy_aircraft  focus = GER_blimp_effort}
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1864,8 +1834,8 @@ focus_tree = {
 		completion_reward = { 
 			air_experience = 50
 			add_doctrine_cost_reduction = {
-				cost_reduction = 1
-				uses = 1
+				cost_reduction = 0.25
+				uses = 2
 				category = air_doctrine
 			}
 			random_owned_controlled_state = {
@@ -1888,8 +1858,6 @@ focus_tree = {
 		id = GER_fighter_effort
 		icon = GFX_goal_generic_air_fighter
 		prerequisite = { focus = GER_air_doctrine1 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = -2
 		y = 1
@@ -1911,8 +1879,6 @@ focus_tree = {
 		id = GER_cas_effort
 		icon = GFX_goal_poland_goal
 		prerequisite = { focus = GER_air_doctrine1 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 0
 		y = 1
@@ -1934,8 +1900,6 @@ focus_tree = {
 		id = GER_bomber_effort
 		icon = GFX_goal_generic_air_bomber
 		prerequisite = { focus = GER_air_doctrine1 }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1959,8 +1923,6 @@ focus_tree = {
 		prerequisite = { focus = GER_fighter_effort }
 		prerequisite = { focus = GER_bomber_effort }
 		prerequisite = { focus = GER_cas_effort }
-		#mutually_exclusive = { focus = }
-
 		cost = 10
 		x = 2
 		y = 1
@@ -1971,8 +1933,8 @@ focus_tree = {
 		completion_reward = { 
 			air_experience = 50
 			add_doctrine_cost_reduction = {
-				cost_reduction = 1
-				uses = 1
+				cost_reduction = 0.25
+				uses = 2
 				category = air_doctrine
 			}
 			random_owned_controlled_state = {
@@ -2015,7 +1977,7 @@ focus_tree = {
 		completion_reward = {
 			navy_experience = 50
 			add_doctrine_cost_reduction = {
-				cost_reduction = 1
+				cost_reduction = 0.5
 				uses = 1
 				category = naval_doctrine
 			}
@@ -2115,8 +2077,8 @@ focus_tree = {
 		completion_reward = { 
 			navy_experience = 50
 			add_doctrine_cost_reduction = {
-				cost_reduction = 2
-				uses = 1
+				cost_reduction = 0.25
+				uses = 2
 				category = naval_doctrine
 			}
 		}

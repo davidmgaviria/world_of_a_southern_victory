@@ -790,17 +790,16 @@ focus_tree = {
 	focus = {
 		id = CSA_pressure_central_america
 		icon = GFX_goal_generic_political_pressure
-		#prerequisite = { focus = CSA_invest_central_america }
 		prerequisite = { focus = CSA_invest_central_america }
-
 		cost = 10
 		x = 0
 		y = 2
 		relative_position_id = CSA_invest_central_america
 
-		ai_will_do = {	factor = 1}
+		ai_will_do = {	factor = 1 }
 
 		available = {
+			date > 1913.1.1
 			GUA = {
 				exists = yes
 				is_puppet = no
@@ -922,10 +921,10 @@ focus_tree = {
 		y = 2
 		relative_position_id = CSA_invest_caribbean
 
-		ai_will_do = {	factor = 1}
-
+		ai_will_do = {	factor = 1 }
 
 		available = {
+			date > 1913.1.1
 			DOM = {
 				exists = yes
 				is_puppet = no
@@ -1245,36 +1244,36 @@ focus_tree = {
 	}
 
 		
-	focus = {
-		id = CSA_our_old_lands
-		icon = GFX_goal_generic_more_territorial_claims
-		prerequisite = { focus = CSA_confederate_militarism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = CSA_confederate_militarism
+	# focus = {
+	# 	id = CSA_our_old_lands
+	# 	icon = GFX_goal_generic_more_territorial_claims
+	# 	prerequisite = { focus = CSA_confederate_militarism }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = CSA_confederate_militarism
 
-		ai_will_do = {	factor = 1}
+	# 	ai_will_do = {	factor = 1}
 
 
-		available = {
-			threat > 0.1
-			NOT = { is_in_faction_with = USA }
-		}
+	# 	available = {
+	# 		threat > 0.1
+	# 		NOT = { is_in_faction_with = USA }
+	# 	}
 
-		bypass = {
-			owns_state = 813
-			owns_state = 376
-			owns_state = 377
-		}
+	# 	bypass = {
+	# 		owns_state = 813
+	# 		owns_state = 376
+	# 		owns_state = 377
+	# 	}
 
-		completion_reward = { 
-			add_state_claim = 848
-			add_state_claim = 813
-			add_state_claim = 376
-			add_state_claim = 377
-		}
-	}
+	# 	completion_reward = { 
+	# 		add_state_claim = 848
+	# 		add_state_claim = 813
+	# 		add_state_claim = 376
+	# 		add_state_claim = 377
+	# 	}
+	# }
 
 		
 	focus = {
@@ -1283,7 +1282,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_american_threat }
 		#mutually_exclusive = { focus = }
 		cost = 5
-		x = 4
+		x = 3
 		y = 1
 		relative_position_id = CSA_american_threat
 
@@ -1645,13 +1644,13 @@ focus_tree = {
 	focus = {
 		id = CSA_attack_us
 		icon = GFX_focus_attack_usa
-		prerequisite = { focus = CSA_our_old_lands  focus = CSA_canadian_friendship_treaty }
+		prerequisite = { focus = CSA_confederate_militarism  focus = CSA_canadian_friendship_treaty }
 		cost = 10
 		x = 0
-		y = 1
-		relative_position_id = CSA_our_old_lands
+		y = 2
+		relative_position_id = CSA_confederate_militarism
 
-		ai_will_do = {	factor = 1}
+		ai_will_do = {	factor = 1 }
 
 
 		available = {
@@ -1953,6 +1952,8 @@ focus_tree = {
 
 		completion_reward = { 
 			#TODO: change states
+			add_state_claim = 376
+			add_state_claim = 377
 			add_state_claim = 373
 			add_state_claim = 847
 		}
@@ -2207,10 +2208,10 @@ focus_tree = {
 			army_experience = 20
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 1
+				cost_reduction = 0.5
 				uses = 1
 				category = land_doctrine
-			}			
+			}		
 		}
 	}
 
@@ -2229,8 +2230,9 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = {
+			army_experience = 10
 			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 2
 				category = land_doctrine
 			} 
@@ -2400,7 +2402,7 @@ focus_tree = {
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
 				cost_reduction = 0.5
-				uses = 2
+				uses = 1
 				category = land_doctrine
 			}
 		}
@@ -2423,7 +2425,7 @@ focus_tree = {
 		completion_reward = { 
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 1
 				category = land_doctrine
 			}
@@ -2494,7 +2496,7 @@ focus_tree = {
 			air_experience = 50
 			add_doctrine_cost_reduction = {
 				name = land_doc_bonus
-				cost_reduction = 1
+				cost_reduction = 0.5
 				uses = 1
 				category = air_doctrine
 			}
@@ -2621,7 +2623,7 @@ focus_tree = {
 		completion_reward = { 
 			air_experience = 50
 			add_doctrine_cost_reduction = {
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 2
 				category = air_doctrine
 			}
@@ -2697,7 +2699,7 @@ focus_tree = {
 			navy_experience = 50
 			add_doctrine_cost_reduction = {
 				name = navy_doc_bonus
-				cost_reduction = 1
+				cost_reduction = 0.5
 				uses = 1
 				category = naval_doctrine
 			}
@@ -2730,7 +2732,7 @@ focus_tree = {
 			navy_experience = 25
 			add_doctrine_cost_reduction = {
 				name = navy_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 1
 				category = naval_doctrine
 			}
@@ -2820,7 +2822,7 @@ focus_tree = {
 			navy_experience = 25
 			add_doctrine_cost_reduction = {
 				name = navy_doc_bonus
-				cost_reduction = 0.5
+				cost_reduction = 0.25
 				uses = 1
 				category = naval_doctrine
 			}

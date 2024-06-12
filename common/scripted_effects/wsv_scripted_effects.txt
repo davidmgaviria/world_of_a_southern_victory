@@ -201,52 +201,52 @@ decrease_militancy_by_10_effect = {
 ### Red Rebellion ###
 
 # scope is state
-CSA_black_rebels_escalate_state_effect = {
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-		damage_building = {
-		    type = infrastructure
-		    damage = 0.5
-		}
-		damage_building = {
-		    type = industrial_complex
-		    damage = 0.5
-		}
-		add_manpower = -1000
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
-		hidden_effect = { 
-			remove_dynamic_modifier = { modifier = CSA_red_enclave } 
-		}
-		add_dynamic_modifier = { modifier = CSA_red_stronghold }
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
-		hidden_effect = { 
-			remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
-		}
-		add_dynamic_modifier = { modifier = CSA_red_enclave }
-	}
-}
-# scope is state
-CSA_black_rebels_pacify_state_effect = {
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
-		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
-		clr_state_flag = contains_red_rebels
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
-		remove_dynamic_modifier = { modifier = CSA_red_enclave } 
-		add_dynamic_modifier = { modifier = CSA_red_insurgents }
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-		remove_dynamic_modifier = { modifier = CSA_red_stronghold } 
-		add_dynamic_modifier = { modifier = CSA_red_enclave }
-	}
-}
+# CSA_black_rebels_escalate_state_effect = {
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
+# 		damage_building = {
+# 		    type = infrastructure
+# 		    damage = 0.5
+# 		}
+# 		damage_building = {
+# 		    type = industrial_complex
+# 		    damage = 0.5
+# 		}
+# 		add_manpower = -1000
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
+# 		hidden_effect = { 
+# 			remove_dynamic_modifier = { modifier = CSA_red_enclave } 
+# 		}
+# 		add_dynamic_modifier = { modifier = CSA_red_stronghold }
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
+# 		hidden_effect = { 
+# 			remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+# 		}
+# 		add_dynamic_modifier = { modifier = CSA_red_enclave }
+# 	}
+# }
+# # scope is state
+# CSA_black_rebels_pacify_state_effect = {
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+# 		clr_state_flag = contains_red_rebels
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_enclave } 
+# 		add_dynamic_modifier = { modifier = CSA_red_insurgents }
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_stronghold } 
+# 		add_dynamic_modifier = { modifier = CSA_red_enclave }
+# 	}
+# }
 
 
 

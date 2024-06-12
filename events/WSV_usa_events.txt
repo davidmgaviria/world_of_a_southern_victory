@@ -187,7 +187,6 @@ news_event = {
 }
 
 
-
 # Strike event
 country_event = {
 	id = wsv_usa.6
@@ -201,24 +200,115 @@ country_event = {
 
 	trigger = {
 		tag = USA
-		NOT = {
-			has_active_mission = USA_strike_ongoing
-			has_country_flag = strike_cooldown
-			# dont have strikes once this focus is done
-			has_country_flag = end_chronic_strikes
-		}
+		# trigger if no ongoing strike and if the strike cooldown has expired
+		NOT = { has_country_flag = strike_cooldown }
+		NOT = { has_idea = USA_worker_strikes }
+		# dont have strikes once this focus is done
+		NOT = { has_country_flag = end_chronic_strikes }  
 	}
 
 	immediate = {
 		hidden_effect = {
-			add_ideas = USA_worker_strikes
-			activate_mission = USA_strike_ongoing
+			if = {
+				limit = { NOT = { has_idea = USA_worker_strikes } }
+				add_ideas = USA_worker_strikes
+				set_variable = { strike_popup_count = 0 }
+			}
 		}
 	}
 
-	# thats not good
+	# ignore strikers
 	option = {
 		name = wsv_usa.6.a
+		# very unlikely for strike to end at first
+		if = {
+			limit = { check_variable = { USA.strike_popup_count < 2 } }
+			random_list = {
+				15 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+				85 = { country_event = { id = wsv_usa.6  days = 20 } }  # strikes continue
+			}
+		}
+		# strike more likely to end later
+		else = {
+			random_list = {
+				35 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+				65 = { country_event = { id = wsv_usa.6  days = 20 } }  # strikes continue
+			}
+		}
+		add_to_variable = { USA.strike_popup_count = 1 }
+
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0.5   check_variable = { USA.strike_popup_count > 2 }
+			}
+			# send in the military if strikes gone on too long
+			modifier = {
+				factor = 0     check_variable = { USA.strike_popup_count > 5 }
+			}
+		}
+	}
+
+	# make concessions
+	option = {
+		name = wsv_usa.6.b
+		# cost depends on past decisions
+		if = {
+			limit = { has_country_flag = usa_work_with_socialists  }
+			add_political_power = -50  	# cheaper since we're choosing to negociate
+		}
+		else_if = {
+			limit = { has_country_flag = usa_favour_the_army }
+			add_political_power = -100  # more expensive since we want to be tough
+		}
+		else = {
+			add_political_power = -75
+		}
+		random_list = {
+			60 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+			40 = { country_event = { id = wsv_usa.6  days = 20 } }  # strikes continue
+		}
+		add_to_variable = { USA.strike_popup_count = 1 }
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2   check_variable = { USA.strike_popup_count > 2 }
+			}
+			modifier = {
+				factor = 2   check_variable = { USA.strike_popup_count > 3 }
+			}
+			# send in the military if strikes gone on too long
+			modifier = {
+				factor = 0   check_variable = { USA.strike_popup_count > 5 }
+			}
+			# less likely if more militaristic
+			modifier = {
+				factor = 0.5   has_country_flag = usa_favour_the_army
+			}
+		}
+	}
+
+	# send in the military
+	option = {
+		name = wsv_usa.6.c
+		add_political_power = -25
+		country_event = { id = wsv_usa.7  days = 5 }   # strikes end
+		increase_militancy_by_5_effect = yes
+
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 2   check_variable = { USA.strike_popup_count > 2 }
+			}
+			modifier = {
+				factor = 3   check_variable = { USA.strike_popup_count > 3 }
+			}
+			# more likely if more militaristic
+			modifier = {
+				factor = 4   has_country_flag = usa_favour_the_army
+			}
+		}
 	}
 }
 
@@ -231,13 +321,23 @@ country_event = {
 
 	is_triggered_only = yes
 
+	immediate = {
+		remove_ideas = USA_worker_strikes
+		clear_variable = USA.strike_popup_count
+		set_country_flag = {
+			flag = strike_cooldown
+			value = 1
+			days = 200
+		}
+	}
+
 	option = {
 		name = wsv_usa.7.a
 	}
 }
 
 
-## Revise the naval budget
+# Revise the naval budget
 country_event = {
 	id = wsv_usa.9
 	title = wsv_usa.9.t
@@ -374,7 +474,7 @@ country_event = {
     		retire_country_leader = yes
 			promote_character = USA_eugene_debs
     		set_politics = {
-			    ruling_party = communism
+			    ruling_party = democratic	# socialists still represented as democratic when in power (for now)
 			    last_election = "1916.11.5"
 			    election_frequency = 48
 			    elections_allowed = yes
@@ -412,6 +512,29 @@ news_event = {
 #######################################################################
 
 
+## Socialists get slightly mad that we went to war
+country_event = {
+	id = wsv_usa.14
+	title = wsv_usa.14.t
+	desc = wsv_usa.14.d
+
+	fire_only_once = yes
+	trigger = {
+		tag = USA
+		has_war_with_major = yes
+		# woods gets a different event
+		NOT = { 
+			USA = { has_country_leader = { character = USA_leonard_wood   ruling_only = yes } } 
+		} 
+	}
+
+	option = {
+		name = wsv_usa.14.a
+		increase_militancy_by_10_effect = yes
+	}
+}
+
+
 ## 1915 Rememberance day riots
 country_event = {
 	id = wsv_usa.15
@@ -424,8 +547,8 @@ country_event = {
 
 	option = {
 		name = wsv_usa.15.a
-		add_stability = -0.03
-		add_war_support = -0.05
+		add_stability = -0.05
+		increase_militancy_by_10_effect = yes
 	}
 }
 
@@ -451,7 +574,8 @@ country_event = {
 	immediate = {
 		if = {
 			## TR gets protests less often
-			limit = { USA = { has_country_leader = USA_theodore_roosevelt } }
+			limit = { 
+				USA = { has_country_leader = { character = USA_theodore_roosevelt   ruling_only = yes } } }
 			set_country_flag = {
 				flag = antiwar_protest_cooldown
 				days = 200
@@ -516,28 +640,29 @@ country_event = {
     	}
 	}
 
-	## debs wins (only happens if losing the war)
-	option = {
-		name = wsv_usa.17.b
-		trigger = { surrender_progress > 0.3 }		# if the war is going badly we're voted out
-		custom_effect_tooltip = debs_becomes_president_tt
-		add_popularity = {
-			ideology = communism
-			popularity = 0.1
-		}
-		add_ideas = USA_demoralized_army_idea		# army gives up since debs plans to end the war
-    	hidden_effect = {
-    		retire_country_leader = yes
-			promote_character = USA_eugene_debs
-    		set_politics = {
-			    ruling_party = communism
-			    last_election = "1916.11.5"
-			    election_frequency = 48
-			    elections_allowed = yes
-			}
-			news_event = { id = wsv_usa.20  days = 1 }
-    	}
-	}
+	## TODO - simply uncomment this section, the 1916 stuff is mostly made
+	## debs wins (only happens if losing the war)			
+	# option = {
+	# 	name = wsv_usa.17.b
+	# 	trigger = { surrender_progress > 0.3 }		# if the war is going badly we're voted out
+	# 	custom_effect_tooltip = debs_becomes_president_tt
+	# 	add_popularity = {
+	# 		ideology = communism
+	# 		popularity = 0.1
+	# 	}
+	# 	add_ideas = USA_demoralized_army_idea		# army gives up since debs plans to end the war
+    # 	hidden_effect = {
+    # 		retire_country_leader = yes
+	# 		promote_character = USA_eugene_debs
+    # 		set_politics = {
+	# 		    ruling_party = communism
+	# 		    last_election = "1916.11.5"
+	# 		    election_frequency = 48
+	# 		    elections_allowed = yes
+	# 		}
+	# 		news_event = { id = wsv_usa.20  days = 1 }
+    # 	}
+	# }
 }
 
 
@@ -555,7 +680,7 @@ country_event = {
 		tag = USA
 		has_war = yes
 		has_country_flag = USA_1916_election
-		USA = { has_country_leader = USA_theodore_roosevelt }
+		USA = { has_country_leader = { character = USA_theodore_roosevelt   ruling_only = yes } }
 		war_length_with = { tag = CSA  months = 42 }   # war length greater than 3.5 years -- canonically would trigger beginning of 1918
 	}
 
@@ -787,82 +912,179 @@ news_event = {
 
 # American Socialist Party splits ##
 country_event = {
-	id = wsv_usa.60
-	title = wsv_usa.60.t
-	desc = wsv_usa.60.d
-	#picture =   #TODO: needs picture
+	id = wsv_usa.50
+	title = wsv_usa.50.t
+	desc = wsv_usa.50.d
+	picture =  news_event_usa_socialist_party_split
 
 	fire_only_once = yes
-	mean_time_to_happen = {	days = 100 }
+	mean_time_to_happen = {	days = 90 }
 
     trigger = {
     	tag = USA
 		has_war = yes
-        NOT = { has_government = communism }
-		NOT = { has_country_flag = usa_socialist_party_split }
 		OR = {
 			has_global_flag = russian_revolution_occured  
-			has_country_flag =  usa_socialists_failed_to_bring_peace
-			war_length_with = { tag = CSA  months = 44 }  # shortly after the socialist block funds
+			has_country_flag =  usa_socialists_failed_to_bring_peace   # Debs failed to bring peace
+			check_variable = { USA.usa_socialist_militancy > 70 }  # split when militancy becomes high
 		}
     }
 
 	immediate = {
 		set_country_flag = usa_socialist_party_split
-		# communists need some time to organize
-		set_country_flag = {
-			flag = time_to_revolution_cooldown
-			days = 90
-			value = 1
-		}
     }
 
 	# thats not good
 	option = {
-		name = wsv_usa.60.a
+		name = wsv_usa.50.a
 		add_stability = -0.05
+		increase_militancy_by_10_effect = yes
 	}
 }
 
 
-# # American Socialist Revolt ##  
-# TODO - complete
+# Socialist militants forming
+country_event = {
+	id = wsv_usa.51
+	title = wsv_usa.51.t
+	desc = wsv_usa.51.d
+	#picture = # TODO - needs picture
+
+	mean_time_to_happen = {
+		days = 10
+	}
+
+	trigger = {
+		tag = USA
+		has_country_flag = usa_socialist_party_split
+		NOT = { has_government = communism }
+		# dont do if cooling down
+		NOT = { has_country_flag = militants_cooldown }
+		# once revolt starts we dont need these
+		NOT = { has_country_flag = usa_socialist_revolt }
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = {
+				flag = militants_cooldown
+				value = 1
+				days = 100
+			}
+		}
+	}
+
+	option = {
+		name = wsv_usa.51.a
+		increase_militancy_by_5_effect = yes
+		add_stability = -0.03
+	}
+}
+
+
+### --- American Socialist Revolt  --- ####
 news_event = {
-	id = wsv_usa.65
-	title = wsv_usa.65.t
-	desc = wsv_usa.65.d
-	#picture =   #TODO: needs picture
+	id = wsv_usa.55
+	title = wsv_usa.55.t
+	desc = wsv_usa.55.d
+	picture = news_event_workers_rebellion
 
 	fire_only_once = yes
-	mean_time_to_happen = {	days = 20 }
+	mean_time_to_happen = {	days = 30 }
 
     trigger = {
     	tag = USA
-		has_war_with = CSA
-		has_country_flag = usa_socialist_party_split
-		NOT = { has_country_flag = time_to_revolution_cooldown }
-		OR = {
-			surrender_progress > 0.35
-			war_length_with = { tag = CSA  months = 56 }   # war length greater than 4.6 years
-		}
+		has_war = yes
+		check_variable = { USA.usa_socialist_militancy > 99 }
+		NOT = { has_global_flag = usa_socialist_revolt }
     }
 
 	immediate = {
 		set_global_flag = usa_socialist_revolt
 		hidden_effect = {
+			# Democrats stay in power
 			start_civil_war = {
 				ideology = communism
-				size = 0.2
+				size = 0.1
 				states = {
-					358 395
+					358
 				}
 			}
+			# set stats for Communist rebels
+			random_other_country = {
+				limit = {
+					original_tag = USA
+					has_government = communism
+				}
+				#save_event_target_as = USA_communist_side
+				load_oob = "USA_socialist_newyork_revolt" 
+				set_equipment_fraction = 0.05
+				set_stability = 0.65
+				set_war_support = 0.8
+				recruit_character = USA_ce_ruthenburg
+				promote_character = USA_ce_ruthenburg
+				set_popularities = {
+					democratic = 15
+					communism = 75
+					neutrality = 5
+					fascism = 5
+				}
+				add_political_power = 250
+			}
+			# expand revolt in a few days
+			country_event = { id = wsv_usa.56   days = 10 }
 		}
     }
 
 	# thats not good
 	option = {
-		name = wsv_usa.65.a
+		name = wsv_usa.55.a
+	}
+}
+
+
+## Revolt expands to the Rust Belt
+country_event = {
+	id = wsv_usa.56
+	title = wsv_usa.56.t
+	desc = wsv_usa.56.d
+	#picture = # TODO - needs picture
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { USA = { has_civil_war = yes } }
+				random_other_country = {
+					limit = {
+						original_tag = USA
+						has_government = communism
+					}
+					save_event_target_as = USA_communist_side
+					transfer_state = 851
+					transfer_state = 839
+					transfer_state = 850
+					load_oob = "USA_socialist_newyork_revolt"   # new york expands
+					load_oob = "USA_rustbelt_revolt" 
+				}
+				USA = {
+					transfer_units_fraction= {
+						target = event_target:USA_communist_side
+						size = 0.01
+						stockpile_ratio = 0.2
+						army_ratio = 0.15
+						air_ratio = 0.08
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_usa.56.a
+		add_stability = -0.1
 	}
 }
 
@@ -1336,7 +1558,12 @@ news_event = {
 
 	immediate = {
 		hidden_effect = {
-			USA = { add_threat =  3 }
+			USA = { 
+				add_named_threat = {
+					threat = 3
+					name = "Signed Pact with Germany"
+				}
+			}
 		}
 	}
 
@@ -1653,6 +1880,7 @@ country_event = {
 			USA = {
 				random_controlled_state = {
 					limit = { is_owned_by = CAN }
+					save_event_target_as = canada_state_resistance
 					damage_building = {
 						type = infrastructure
 						damage = 1
@@ -1668,10 +1896,9 @@ country_event = {
 		name = wsv_usa.114.a
 		set_country_flag = {
 			flag = canadian_rebels_cooldown 	
-			days = 90
+			days = 100
 			value = 1
 		}
-
 		ai_chance = {
 			factor = 40
 		}
@@ -1680,11 +1907,13 @@ country_event = {
 	# Collective punishment
 	option = {
 		name  = wsv_usa.114.b
-		add_resistance_target = 10
-		add_compliance = -10
+		event_target:canada_state_resistance = {
+			add_resistance_target = 10
+			add_compliance = -10
+		}
 		set_country_flag = {
 			flag = canadian_rebels_cooldown 	
-			days = 130
+			days = 250
 			value = 1
 		}
 		custom_effect_tooltip = reduce_frequency_of_canadian_rebels_tt

@@ -191,7 +191,7 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery 
-		value = 5
+		value = 10
 	}
 
 	ai_strategy = {
@@ -207,31 +207,29 @@ USA_gw_modified_unit_production = {
 }
 
 
-USA_build_army = {
+USA_increase_army = {		# massively increase size
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 1999999 }
-		has_war = no
+		num_divisions < 210
+		date > 1911.5.1
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 600
+	    value = 400
 	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 5
-	}
-	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -20 	# reduce while we build up in case of issues
 	}
 }
 
@@ -314,6 +312,85 @@ USA_greatwar_mobilize = {
 }
 
 
+USA_focus_on_the_south = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		CSA = { exists = yes }
+		NOT = { is_in_faction_with = CSA }
+	}
+	abort = {
+		has_war_with = CSA
+		has_war_with = CAN
+		CSA = { has_capitulated = yes }
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA		
+		value = 50
+	}
+}
+
+
+USA_opening_war_assault_against_confederates = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.15
+			casualties > 400000
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.35
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
+USA_opening_war_assault_against_canada = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CAN
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.15
+			casualties > 200000
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CAN
+		ratio = 0.35
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
 USA_defensive_if_lack_of_guns_against_CSA = {
 	allowed = {
 		original_tag = USA		
@@ -384,34 +461,7 @@ USA_defensive_if_lack_of_guns_against_CAN = {
 }
 
 
-# USA_take_CAN = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		CAN = { exists = yes }
-# 		NOT = { is_in_faction_with = CAN }
-# 		threat > 0.25
-# 	}
-# 	abort = {
-# 		OR = {
-# 			CAN = { has_capitulated = yes }
-# 		}
-# 	}
 
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "CAN"			
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "CAN"			
-# 		value = 10
-# 	}
-# }
 
 
 

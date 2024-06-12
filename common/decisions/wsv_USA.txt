@@ -4,233 +4,77 @@
 
 USA_socialist_movement_cat = {
 
-	# ## socialist assembly incoming mission
-	# USA_socialist_rally_soon = {
-	# 	priority = 10
-	# 	icon = generic_form_nation
+	# rally to improve political stance
+	USA_conduct_democrat_rally = {
+		icon = generic_civil_support  
 
-	# 	allowed = { 
-	# 		original_tag = USA
-	# 	}
-
-	# 	activation = {
-	# 		NOT = { has_country_flag =  rally_cooldown }
-	# 	}
-		
-	# 	days_mission_timeout = 30
-	# 	selectable_mission = yes
-	# 	cost = 10
-
-	# 	is_good = yes
-
-	# 	timeout_effect = {
-	# 		country_event = wsv_usa_labor.1
-	# 		set_country_flag = {
-	# 			flag = rally_cooldown
-	# 			value = 1
-	# 			days = 180
-	# 		}
-	# 	}
-
-	# 	complete_effect = {
-	# 		set_country_flag = {
-	# 			flag = rally_cooldown
-	# 			value = 1
-	# 			days = 200
-	# 		}
-	# 	}
-
-	# 	ai_will_do = {
-	# 		factor = 0.02
-	# 	}
-	# }
-	
-	################ STRIKES ################
-
-	## strike mission (triggered by event)
-	USA_strike_ongoing = {
-		priority = 7
-		icon = generic_civil_support
-
-		allowed = { 
+		allowed = {
 			original_tag = USA
 		}
-		
-		activation = {
-			has_idea = USA_worker_strikes
-		}
-
 		available = {
-			NOT = { has_idea = USA_worker_strikes }
+			has_government = democratic
 		}
 
-		days_mission_timeout = 100
-		selectable_mission = no
-		is_good = no
+		cost = 25
+		days_remove = 30
+		days_re_enable = 180
 
-		timeout_effect = {
-			add_stability = -0.01
-			add_war_support = -0.02
-			custom_effect_tooltip = ends_current_strike_tt
-			hidden_effect = {
-				country_event = wsv_usa.3
-				remove_ideas = USA_worker_strikes
-				set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
-			}
-		}
-	}
-	
-
-	## appease strikers 
-	USA_appease_strikers = {
-		icon = ger_mefo_bills
-
-		visible = {
-			has_active_mission = USA_strike_ongoing
-		}
-		available = {
-			has_active_mission = USA_strike_ongoing
-		}
-		cost = 50
-
-		complete_effect = {
-			hidden_effect = { remove_ideas = USA_worker_strikes }
+		remove_effect = {
 			add_popularity = {
-				ideology = communism
-				popularity = 0.02
+				ideology = democratic
+				popularity = 0.05
 			}
-			custom_effect_tooltip = ends_current_strike_tt
-			set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
+			add_war_support = 0.02
 		}
 
 		ai_will_do = {
-		 	factor = 0.03
+		 	factor = 0
+			modifier = {
+				factor = 1
+				communism > 0.2
+			}
+			modifier = {
+				factor = 0.01
+				has_political_power > 150
+			}
 		}
 	}
-	
 
-	## crack down on strikers
-	USA_break_up_strike = {
-		icon = generic_prepare_civil_war
+	# make concessions to reduce militancy
+	USA_concessions_to_socialists = {
+		icon = generic_political_discourse
 
-		visible = {
-			has_active_mission = USA_strike_ongoing
+		allowed = {
+			original_tag = USA
 		}
 		available = {
-			has_active_mission = USA_strike_ongoing
-		}
-		custom_cost_trigger = {
-			command_power > 4.9
-		}
-		custom_cost_text = USA_decision_cost_crush_strike
-
-		complete_effect = {
-			hidden_effect = { 
-				remove_ideas = USA_worker_strikes 
-				add_command_power  = -5
+			has_government = democratic
+			custom_trigger_tooltip = {
+				check_variable = { USA.usa_socialist_militancy > 10 } 
+				tooltip = militancy_lower_bounds_tt
 			}
-			custom_effect_tooltip = ends_current_strike_tt
-			add_stability = -0.03
-			set_country_flag = { flag = strike_cooldown  value = 1  days = 250 }
+			custom_trigger_tooltip = {
+				check_variable = { USA.usa_socialist_militancy < 90 } 
+				tooltip = militancy_upper_bounds_tt
+			}
+		}
+
+		cost = 75
+		days_remove = 30
+		days_re_enable = 300
+
+		remove_effect = {
+			decrease_militancy_by_5_effect = yes
 		}
 
 		ai_will_do = {
-		 	factor = 0.015
-			# give ai chance to maybe pay off strikers
+		 	factor = 0
 			modifier = {
-				factor = 0.5
-				has_political_power < 50
+				factor = 1
+				check_variable = { USA.usa_socialist_militancy > 50 } 
 			}
 		}
 	}
-
-
-	############ SOCIALIST REVOLUTION ############
-
-	## socialist militants forming
-	# USA_socialist_militants_forming = {
-	# 	priority = 1
-	# 	icon = generic_prepare_civil_war
-
-	# 	allowed = { 
-	# 		original_tag = USA
-	# 	}
-
-	# 	activation = {
-	# 		NOT = { has_country_flag =  militants_cooldown }
-	# 		check_variable = { USA.usa_socialist_militancy > 49 }
-	# 	}
-
-	# 	available = {
-	# 		NOT= { has_country_flag = USA_socialist_revolution }
-	# 	}
-		
-	# 	days_mission_timeout = 30
-	# 	selectable_mission = yes
-		
-	# 	custom_cost_trigger = {
-	# 		command_power > 14.9
-	# 	}
-	# 	custom_cost_text = USA_decision_cost_socialist_militants_forming
-
-	# 	is_good = yes
-
-	# 	timeout_effect = {
-	# 		increase_militancy_by_5_effect = yes
-	# 		set_country_flag = {
-	# 			flag = militants_cooldown
-	# 			value = 1
-	# 			days = 90
-	# 		}
-	# 	}
-
-	# 	complete_effect = {
-	# 		add_command_power = -15
-	# 		set_country_flag = {
-	# 			flag = militants_cooldown
-	# 			value = 1
-	# 			days = 90
-	# 		}
-	# 	}
-
-	# 	ai_will_do = {
-	# 		factor = 0.05
-	# 	}
-	# }
-
-	# ## socialist revolution
-	# USA_imminent_revolution = {
-	# 	priority = 1
-	# 	icon = decision_revolt
-
-	# 	allowed = { 
-	# 		original_tag = USA
-	# 	}
-
-	# 	activation = {
-	# 		OR = {
-	# 			AND = {
-	# 				has_country_flag = wood_suspended_elections
-	# 				NOT = { has_country_flag = woods_stepped_down }
-	# 			}
-	# 			AND = {
-	# 				has_war = yes
-	# 				has_country_flag = USA_socialist_party_split
-	# 				NOT = { has_country_flag = revolution_delay }
-	# 			}
-	# 		}
-	# 	}
-
-	# 	days_mission_timeout = 200
-	# 	selectable_mission = no
-	# 	is_good = no
-
-	# 	timeout_effect = {
-	# 		news_event = wsv_usa_labor.100
-	# 	}
-	# }
-
-	## TODO - decision allowing woods to step down (cancels revolution)
 }
 
 
@@ -464,31 +308,28 @@ wsv_great_war_decisions = {
 	
 	# USA throws in the towel
 	greatwar_usa_offers_peace = {
-
 		icon = generic_form_nation
 
+		allowed = {
+			original_tag = USA
+		}
+
 		available = {
-			always = yes
 			OR = {
 				casualties > 500000
 				surrender_progress > 0.5
 			}
 		}
-
 		visible = {
-			tag = USA
 			has_war_with = CSA
-			has_global_flag = historical_treaties_on
-			has_start_date < 1937.1.1
 		}
 
 		days_remove = 5
-
-		days_re_enable = 90
+		fire_only_once = yes
 
 		remove_effect = {
 			CSA = { country_event = wsv_ahistorical_treaty.16 }
-			custom_effect_tooltip = baltimore_treaty_tt
+			#custom_effect_tooltip = baltimore_treaty_tt
 		}
 
 		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
@@ -520,7 +361,6 @@ wsv_great_war_decisions = {
 					NOT = { has_war_with = CAN }
 				}
 			}
-
 			# Positives
 			modifier = {
 				add = 1
@@ -546,7 +386,6 @@ wsv_great_war_decisions = {
 				add = 1
 				casualties > 4000000
 			}	
-
 			modifier = {
 				add = 10
 				surrender_progress > 0.55
