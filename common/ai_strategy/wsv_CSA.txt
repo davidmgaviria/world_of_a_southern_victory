@@ -15,72 +15,6 @@
 
 ########################## GENERIC ##########################
 
-# CSA_area_priority = {
-# 	enable = {
-# 		tag = CSA
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 110  #more here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = 40
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = -120 
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = 75
-# 	}
-# }
-
 
 
 CSA_ignore_europe = {
@@ -326,41 +260,14 @@ CSA_dont_join_englande_yet = {
 }
 
 
-CSA_increase_army_1 = {		# slightly  build up our army but dont go crazy
+CSA_increase_army = {		# massively increase size
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		num_divisions < 80
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 60
-	}
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -20 	# reduce while we build up in case of issues
-	}
-}
-
-
-CSA_increase_army_2 = {		# massively increase size
-	allowed = {
-		original_tag = CSA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		num_divisions < 135
-		date > 1912.9.1
+		has_army_manpower = { size < 1000000 }
+		date > 1911.1.1
 	}
 	abort_when_not_enabled = yes
 
@@ -374,8 +281,13 @@ CSA_increase_army_2 = {		# massively increase size
 	    value = 150
 	}
 	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 5
+	}
+	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 	# reduce while we build up in case of issues
+		value = -10 	# reduce while we build up in case of issues
 	}
 }
 

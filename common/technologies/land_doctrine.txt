@@ -38,7 +38,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 40 
+			factor = 30
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -55,7 +55,7 @@ technologies = {
 		}
 
 		army_org_regain = 0.1
-		army_speed_factor = 0.1
+		army_speed_factor = 0.05
 
 		path = {
 			leads_to_tech = ww1_trench_warfare
@@ -77,12 +77,17 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 30 
+			factor = 30
 			modifier = {
 				not = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			# only germany does delegated command
+			modifier = {
+				factor = 0
+				NOT = { original_tag = GER }
 			}
 		}
 	}
@@ -93,7 +98,7 @@ technologies = {
 			ww1_delegated_command
 		}
 
-		max_planning_factor = 0.2
+		max_planning_factor = 0.15
 		
 		path = {
 			leads_to_tech = ww1_trench_warfare
@@ -115,12 +120,17 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 30 
+			factor = 30
 			modifier = {
 				not = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			# only germany does delegated command
+			modifier = {
+				factor = 0
+				original_tag = GER
 			}
 		}
 	}
@@ -151,7 +161,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 30 
+			factor = 30
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -191,7 +201,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 30 
+			factor = 30
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -241,6 +251,17 @@ technologies = {
 				}
 				factor = 0.8
 			}
+			# these countries are on the defensive
+			modifier = {
+				factor = 0
+				OR = {
+					original_tag = GER
+					original_tag = FRA
+					original_tag = CSA
+					original_tag = CAN
+					surrender_progress > 0.15
+				}
+			}
 		}
 	}
 
@@ -288,6 +309,7 @@ technologies = {
 			ww1_creeping_barrage
 		}
 
+		max_dig_in = 5
 		category_light_infantry = {
 			defense = 0.1
 		}
@@ -314,12 +336,23 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 20 
+			factor = 0 	 # this is an offensive era, countries dont take this usually
 			modifier = {
 				not = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			# these countries are on the defensive
+			modifier = {
+				factor = 20
+				OR = {
+					original_tag = GER
+					original_tag = FRA
+					original_tag = CSA
+					original_tag = CAN
+					surrender_progress > 0.15
+				}
 			}
 		}
 	}

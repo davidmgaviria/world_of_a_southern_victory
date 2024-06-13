@@ -195,14 +195,13 @@ country_event = {
 	picture = report_event_generic_strike
 
 	mean_time_to_happen = {
-		days = 10
+		days = 20
 	}
 
 	trigger = {
 		tag = USA
-		# trigger if no ongoing strike and if the strike cooldown has expired
+		# trigger if the strike cooldown has expired
 		NOT = { has_country_flag = strike_cooldown }
-		NOT = { has_idea = USA_worker_strikes }
 		# dont have strikes once this focus is done
 		NOT = { has_country_flag = end_chronic_strikes }  
 	}
@@ -224,28 +223,21 @@ country_event = {
 		if = {
 			limit = { check_variable = { USA.strike_popup_count < 2 } }
 			random_list = {
-				15 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
-				85 = { country_event = { id = wsv_usa.6  days = 20 } }  # strikes continue
+				10 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+				90 = { }  # strikes continue
 			}
 		}
 		# strike more likely to end later
 		else = {
 			random_list = {
-				35 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
-				65 = { country_event = { id = wsv_usa.6  days = 20 } }  # strikes continue
+				20 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+				80 = { }  # strikes continue
 			}
 		}
 		add_to_variable = { USA.strike_popup_count = 1 }
 
 		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 0.5   check_variable = { USA.strike_popup_count > 2 }
-			}
-			# send in the military if strikes gone on too long
-			modifier = {
-				factor = 0     check_variable = { USA.strike_popup_count > 5 }
-			}
+			factor = 20
 		}
 	}
 
@@ -255,32 +247,28 @@ country_event = {
 		# cost depends on past decisions
 		if = {
 			limit = { has_country_flag = usa_work_with_socialists  }
-			add_political_power = -50  	# cheaper since we're choosing to negociate
+			add_political_power = -15  	# cheaper since we're choosing to negociate
 		}
 		else_if = {
 			limit = { has_country_flag = usa_favour_the_army }
-			add_political_power = -100  # more expensive since we want to be tough
+			add_political_power = -50  # more expensive since we want to be tough
 		}
 		else = {
-			add_political_power = -75
+			add_political_power = -25
 		}
 		random_list = {
-			60 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
-			40 = { country_event = { id = wsv_usa.6  days = 20 } }  # strikes continue
+			35 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+			65 = { }  # strikes continue
 		}
 		add_to_variable = { USA.strike_popup_count = 1 }
 
 		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 2   check_variable = { USA.strike_popup_count > 2 }
-			}
-			modifier = {
-				factor = 2   check_variable = { USA.strike_popup_count > 3 }
-			}
+			factor = 40
+
 			# send in the military if strikes gone on too long
 			modifier = {
-				factor = 0   check_variable = { USA.strike_popup_count > 5 }
+				factor = 0
+				has_political_power < 50
 			}
 			# less likely if more militaristic
 			modifier = {
@@ -292,21 +280,26 @@ country_event = {
 	# send in the military
 	option = {
 		name = wsv_usa.6.c
-		add_political_power = -25
+
+		trigger = {
+			OR = {
+				has_country_flag = usa_favour_the_army
+				check_variable = { USA.strike_popup_count > 3 }
+			}
+		}
+
 		country_event = { id = wsv_usa.7  days = 5 }   # strikes end
-		increase_militancy_by_5_effect = yes
+		increase_militancy_by_10_effect = yes
 
 		ai_chance = {
-			factor = 5
+			factor = 25
+
 			modifier = {
-				factor = 2   check_variable = { USA.strike_popup_count > 2 }
-			}
-			modifier = {
-				factor = 3   check_variable = { USA.strike_popup_count > 3 }
+				factor = 2   check_variable = { USA.strike_popup_count > 4 }
 			}
 			# more likely if more militaristic
 			modifier = {
-				factor = 4   has_country_flag = usa_favour_the_army
+				factor = 2   has_country_flag = usa_favour_the_army
 			}
 		}
 	}

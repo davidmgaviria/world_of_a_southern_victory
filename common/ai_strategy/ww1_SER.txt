@@ -13,26 +13,31 @@
 # area_priority
 
 
-# SER_build_up_army = {
-# 	enable = {
-# 		tag = SER
-# 		has_global_flag = kis_firstbalkanwar_victory
-# 		has_army_manpower = { size < 200000 }
-# 		has_war = no
-# 		has_start_date < 1937.1.1
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = -10 # reduce while we build up in case of issues
-# 	}
-# 	ai_strategy = {
-# 		type = force_build_armies
-# 		value = 100
-# 	}
-# }
+SER_increase_army = {		# massively increase size
+	allowed = {
+		original_tag = SER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_army_manpower = { size < 210000 }
+		has_war = no 
+	}
+	abort_when_not_enabled = yes
 
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 25
+	}
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10 	# reduce while we build up in case of issues
+	}
+}
 
 SER_first_balkan = {
 	enable = {

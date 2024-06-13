@@ -16,75 +16,6 @@
 ######################### GENERIC ##########################
 
 
-# GER_area_priority = {
-# 	allowed = {
-# 		original_tag = GER
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 110 #more focus here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 80
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 90
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = 50
-# 	}
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = 30
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = -300
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = -120 #less focus here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = -80
-# 	}
-# }
-
-
 
 GER_francogerman_rivalry = {
 	allowed = {
@@ -190,25 +121,13 @@ GER_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery 
-		value = 10
+		value = 40
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = motorized 
 		value = 5
-	}
-
-	ai_strategy = {
-		type = equipment_production_min_factories
-		id = motorized
-		value = 2
-	}
-
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = armored_car_equipment
-		value = -60
 	}
 
 	ai_strategy = {
@@ -288,7 +207,7 @@ GER_gw_stockpile_less_early_game = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date < 1914.5.1
+		has_army_manpower = { size < 2800000 }
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -296,11 +215,11 @@ GER_gw_stockpile_less_early_game = {
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 400
+	    value = 250
 	}
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -40 # reduce while we build up in case of issues
+		value = -20 # reduce while we build up in case of issues
 	}
 }
 
