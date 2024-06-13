@@ -268,7 +268,7 @@ RUS_increase_army = {		# massively increase size
 	}
 	enable = {
 		num_divisions < 210
-		date > 1912.5.1
+		date > 1913.1.1
 	}
 	abort_when_not_enabled = yes
 
@@ -279,7 +279,7 @@ RUS_increase_army = {		# massively increase size
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 150
+	    value = 175
 	}
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
@@ -357,7 +357,7 @@ RUS_opening_war_assault_GER = {
 	ai_strategy = {
 		type = front_control
 		tag = GER
-		ratio = 0.45
+		ratio = 0.6
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -374,16 +374,19 @@ RUS_opening_war_assault_GER = {
 
 
 
-RUS_defensive_if_lack_of_guns_against_GER = {
+RUS_defensive_if_lack_of_guns_against_GER_AUH = {
 	allowed = {
 		original_tag = RUS	
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = GER
-		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+		OR = {
+			has_war_with = GER
+			has_war_with = AUH 
+		}
+		stockpile_ratio = {	## 3% of the armies equipment must be in reserves
 			archetype = infantry_equipment
-			ratio < 0.05
+			ratio < 0.03
 		}
 	}
 	abort = {
@@ -399,7 +402,18 @@ RUS_defensive_if_lack_of_guns_against_GER = {
 	ai_strategy = {
 		type = front_control
 		tag = GER
-		ratio = 0.5
+		ratio = 0.25
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = AUH
+		ratio = 0.25
 		priority = 1
 		ordertype = front
 		execution_type = careful
@@ -409,36 +423,34 @@ RUS_defensive_if_lack_of_guns_against_GER = {
 }
 
 
-RUS_defensive_if_lack_of_guns_against_AUH = {
+RUS_launch_offensives_against_GER_AUH = {
 	allowed = {
-		original_tag = RUS	
+		original_tag = RUS		
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = AUH
-		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.05
+		OR = {
+			has_war_with = GER
+			has_war_with = AUH 
 		}
+		# launch offensives every 6 months
+		set_temp_variable = { days = global.num_days }
+		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+		check_variable = { days > 100 }
 	}
 	abort = {
-		OR = {
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-		}		
+		surrender_progress > 0.15		
 	}
 
 	ai_strategy = {
 		type = front_control
+		tag = GER
 		tag = AUH
-		ratio = 0.4
-		priority = 1
+		ratio = 0.65
+		priority = 25
 		ordertype = front
 		execution_type = careful
-		execute_order = no
+		execute_order = yes
 		manual_attack = yes
 	}
 }

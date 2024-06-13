@@ -90,7 +90,7 @@ FRA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 10
+		value = 35
 	}
 
 	ai_strategy = {
@@ -115,7 +115,7 @@ FRA_loss_of_alsacelorraine = {
 	ai_strategy = {
 		type = antagonize
 		id = "GER"
-		value = 50
+		value = 25
 	}
 }
 
@@ -150,26 +150,41 @@ FRA_build_army = {
 		has_war = no
 	}
 	abort_when_not_enabled = yes
-
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 100
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 2
-	}
-
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
+		value = -10 # reduce while we build up in case of issues
+	}
+}
+
+
+## no point in having a ton of bodies
+FRA_limit_army_size = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = FRA
+		has_army_manpower = { size > 1750000 }
+	}
+	abort = {
+		has_army_manpower = { size < 1200000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
 	}
 }
 
@@ -182,7 +197,7 @@ FRA_greatwar_mobilize = {
 	enable = {
 		country_exists = GER
 		NOT = { is_in_faction_with = GER }
-		threat > 0.25	
+		threat > 0.3	
 	}
 	abort_when_not_enabled = yes
 
@@ -215,7 +230,7 @@ FRA_opening_war_assault = {
 		OR = {
 			NOT = { is_in_faction_with = GER }
 		}
-		threat > 0.25
+		threat > 0.3
 	}
 	abort = {
 		has_war_with = GER  #dont abort before
@@ -302,6 +317,35 @@ FRA_early_defense_of_belgium = {
 }	
 
 
+FRA_launch_offensives_against_GER = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		# launch offensives every 6 months
+		set_temp_variable = { days = global.num_days }
+		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+		check_variable = { days > 100 }
+
+	}
+	abort = {
+		surrender_progress > 0.15		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.65
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
 
 FRA_defensive_if_lack_of_guns_against_GER = {
 	allowed = {
@@ -310,9 +354,9 @@ FRA_defensive_if_lack_of_guns_against_GER = {
 	}
 	enable = {
 		has_war_with = GER
-		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
 			archetype = infantry_equipment
-			ratio < 0.05
+			ratio < 0.03
 		}
 	}
 	abort = {
@@ -328,7 +372,7 @@ FRA_defensive_if_lack_of_guns_against_GER = {
 	ai_strategy = {
 		type = front_control
 		tag = GER
-		ratio = 0.4
+		ratio = 0.35
 		priority = 1
 		ordertype = front
 		execution_type = careful
@@ -336,6 +380,11 @@ FRA_defensive_if_lack_of_guns_against_GER = {
 		manual_attack = yes
 	}
 }
+
+
+
+
+## SUMMMER OFFENSIVES?
 
 
 

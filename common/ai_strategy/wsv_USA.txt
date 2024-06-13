@@ -123,7 +123,7 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery 
-		value = 25
+		value = 40
 	}
 
 	ai_strategy = {
@@ -139,12 +139,30 @@ USA_gw_modified_unit_production = {
 }
 
 
-USA_increase_army = {		# massively increase size
+USA_stockpile_less_equipment = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -25 	# reduce while we build up in case of issues
+	}
+}
+
+
+USA_increase_army_rapidly = {		# massively increase size
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date > 1912.1.1
 		has_army_manpower = { size < 2000000 }
 		has_war = no
 	}
@@ -157,11 +175,7 @@ USA_increase_army = {		# massively increase size
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 250
-	}
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 	# reduce while we build up in case of issues
+	    value = 200
 	}
 }
 
@@ -262,7 +276,7 @@ USA_focus_on_the_south = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 100
+		value = 75
 	}
 }
 
@@ -278,7 +292,7 @@ USA_opening_war_assault_against_confederates = {
 	abort = {
 		OR = {
 			surrender_progress > 0.15
-			casualties > 300000
+			casualties > 400000
 		}
 	}
 
@@ -306,7 +320,7 @@ USA_opening_war_assault_against_canada = {
 	abort = {
 		OR = {
 			surrender_progress > 0.15
-			casualties > 200000
+			casualties > 400000
 		}
 	}
 
@@ -323,13 +337,16 @@ USA_opening_war_assault_against_canada = {
 }
 
 
-USA_defensive_if_lack_of_guns_against_CSA = {
+USA_careful_if_lack_of_guns_against_CSA_CAN = {
 	allowed = {
 		original_tag = USA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = CSA
+		OR = {
+			has_war_with = CSA
+			has_war_with = CAN
+		}
 		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
 			archetype = infantry_equipment
 			ratio < 0.05
@@ -348,6 +365,17 @@ USA_defensive_if_lack_of_guns_against_CSA = {
 	ai_strategy = {
 		type = front_control
 		tag = CSA
+		ratio = 0.5
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CAN
 		ratio = 0.35
 		priority = 1
 		ordertype = front
@@ -358,170 +386,38 @@ USA_defensive_if_lack_of_guns_against_CSA = {
 }
 
 
-USA_defensive_if_lack_of_guns_against_CAN = {
+USA_launch_offensives_against_CSA_CAN = {
 	allowed = {
 		original_tag = USA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = CAN
-		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.05
+		OR = {
+			has_war_with = CSA
+			has_war_with = CAN
 		}
+		# launch offensives every 6 months
+		set_temp_variable = { days = global.num_days }
+		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+		check_variable = { days > 100 }
 	}
 	abort = {
-		OR = {
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-		}		
+		surrender_progress > 0.15		
 	}
 
 	ai_strategy = {
 		type = front_control
+		tag = CSA
 		tag = CAN
-		ratio = 0.4
-		priority = 1
+		ratio = 0.65
+		priority = 25
 		ordertype = front
 		execution_type = careful
-		execute_order = no
+		execute_order = yes
 		manual_attack = yes
 	}
 }
 
-
-
-
-
-
-# USA_rememberance = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = CSA
-# 		#date > 1912.1.1
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = antagonize
-# 		id = "CSA"			
-# 		value = 60
-# 	}	
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "CSA"
-# 		value = 20
-# 	}
-# }
-
-# USA_defend_washington = {
-# 	allowed = {
-# 		original_tag = USA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = CSA
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	#protect washington
-# 	ai_strategy = {
-# 		type = front_unit_request
-
-# 		state = 840
-# 		state = 362
-# 		state = 361
-# 		state = 360
-# 		state = 814
-# 		state = 813
-		
-# 		value = 60
-# 	}
-# }	
-
-
-# USA_attack_csa_during_black_rebellion = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		CSA = { has_idea = CSA_black_rebellion_idea }
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = "CSA"			
-# 		value = 5
-# 	}
-# }
-
-
-# USA_attack_canada = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		CAN = { exists = yes }
-# 		NOT = { is_in_faction_with = CAN }
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "CAN"			
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "CAN"			
-# 		value = 75
-# 	}
-# }
-
-# USA_take_english_islands = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = ENG
-# 		ENG = {
-# 			OR = {
-# 				controls_state = 696 #bermuda
-# 				controls_state = 690 #north bermuda
-# 				controls_state = 693 #south bermuda
-# 				controls_state = 629 #hawaii
-# 			}
-# 		}
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		state = 696 #bermuda
-# 		state = 690 #north bermuda
-# 		state = 693 #south bermuda
-# 		state = 629 #hawaii
-# 		ratio = 0.6
-# 		priority = 100
-# 		ordertype = invasion
-# 		execution_type = balanced
-# 		execute_order = yes
-# 	}
-# }
 
 
 

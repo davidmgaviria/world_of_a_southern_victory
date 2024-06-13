@@ -36,8 +36,9 @@ TUR_garrison_anatolia = {
 			355
 			354
 		}
-		ratio = 0.1
+		ratio = 0.08
 		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
 	}	
 }
 
@@ -57,8 +58,28 @@ TUR_garrison_middle_east = {
 			454
 			291
 		}
-		ratio = 0.05
+		ratio = 0.04
 		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
+	}	
+}
+
+
+TUR_garrison_constantinople = {
+	enable = {
+		tag = TUR
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			341
+		}
+		ratio = 0.15
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
 	}	
 }
 
@@ -168,11 +189,14 @@ TUR_italoturkish_war = {
 
 
 TUR_prepare_for_first_balkan = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
 	enable = {
 		tag = TUR
 		has_global_flag = balkan_league_formed
 		NOT = { has_global_flag = firstbalkan_war_over }
-		has_start_date < 1937.1.1
 	}
 	abort_when_not_enabled = yes	
 
@@ -195,6 +219,62 @@ TUR_prepare_for_first_balkan = {
 		type = prepare_for_war
 		id = "GRE"			
 		value = 10
+	}
+}
+
+
+TUR_hold_albania_ports = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		has_war_with = SER
+		NOT = { has_global_flag = firstbalkan_war_over }
+	}
+	abort_when_not_enabled = yes	
+
+	ai_strategy = {
+		type = put_unit_buffers
+				
+		states = { 
+			44
+		}
+
+		ratio = 0.05
+		subtract_invasions_from_need = yes
+	}
+}
+
+
+# dont get encircled in west balkans
+TUR_retreat_from_balkans = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = TUR
+		has_war_with = SER
+		NOT = { has_global_flag = firstbalkan_war_over }
+		AND = {
+			NOT = { controls_state = 731 } 
+			NOT = { controls_state = 759 } 
+			NOT = { controls_state = 788 } 
+		}
+	}
+	abort = {
+		OR = { 
+			SER = { has_capitulated = yes }
+			GRE = { has_capitulated = yes }
+		}
+	}	
+
+	ai_strategy = {
+		type = front_unit_request
+		strategic_region = 24		# eastern balkans
+		value = -400
 	}
 }
 

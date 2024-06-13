@@ -16,76 +16,6 @@
 
 ######################### GENERIC ##########################
 
-# AUH_area_priority = {
-# 	allowed = {
-# 		original_tag = AUH
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 100 #more focus here
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 25
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 10
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = -50
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = -50
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = -50
-# 	}
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = -25
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = -100
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = -120 #less focus here
-# 	}
-	
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = -100
-# 	}
-# }
-
-
-
 AUH_garrison_coast = {
 	allowed = {
 		original_tag = AUH
@@ -138,6 +68,7 @@ AUH_ignore_north_america = {
 ######################### GREAT WAR ##########################
 
 
+#stacks from base production
 AUH_gw_modified_unit_production = {
 	allowed = {
 		original_tag = AUH
@@ -150,14 +81,13 @@ AUH_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = equipment_production_factor
-		id = infantry
-		value = 10
+		id = artillery
+		value = 25
 	}
 
 	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = -5
+		type = air_factory_balance
+		value = 50
 	}
 }
 
@@ -196,7 +126,7 @@ AUH_opening_serbia_attack = {
 				has_war_with = SER  #dont abort before
 				OR = {
 					surrender_progress > 0.15
-					casualties > 300000
+					casualties > 200000
 				}
 			}
 		}
@@ -205,7 +135,7 @@ AUH_opening_serbia_attack = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER 
-		value = 100
+		value = 150
 	}
 
 	ai_strategy = {
@@ -217,7 +147,7 @@ AUH_opening_serbia_attack = {
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.45
+		ratio = 0.5
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -252,7 +182,7 @@ AUH_slow_against_serbia = {
 	}
 	enable = {
 		has_war_with = SER
-		casualties > 300000  # take over after
+		casualties > 200000  # take over after severe casualties
 	}
 	abort = {
 		OR = {
@@ -264,17 +194,17 @@ AUH_slow_against_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER 
-		value = 80
+		value = 100
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.5
-		priority = 100
+		ratio = 0.8
+		priority = 50
 		ordertype = front
-		execution_type = balanced
-		execute_order = no
+		execution_type = careful
+		execute_order = yes
 		manual_attack = yes
 	}
 
@@ -293,6 +223,31 @@ AUH_slow_against_serbia = {
 		type = front_unit_request
 		tag = RUS 
 		value = -50
+	}
+}
+
+
+
+AUH_aid_bulgrian_offensive_against_SER = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = SER
+		BUL = { has_war_with = SER }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = SER
+		ratio = 0.4
+		priority = 100
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
 	}
 }
 
@@ -316,7 +271,6 @@ AUH_germany_can_handle_itself = {
 		value = 100
 	}	
 }
-
 
 
 ########################## WW2 ##########################

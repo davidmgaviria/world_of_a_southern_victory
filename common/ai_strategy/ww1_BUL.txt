@@ -113,18 +113,25 @@ BUL_second_balkan = {
 
 
 
-#world war 1
-BUL_world_war_1_irridentalism = {
+# Bulgarian entry in WW1
+BUL_revenge_on_serbia = {
 	enable = {
 		tag = BUL
 		SER = { 
 			exists = yes
-			NOT = { is_in_faction_with = BUL }
+			NOT = { is_in_faction_with = SER }
 		}
 		date > 1915.1.1
 		has_start_date < 1937.1.1
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		has_war_with = SER  #dont abort before
+		OR = {
+			surrender_progress > 0.15
+			casualties > 50000
+			SER = { has_capitulated = yes }
+		}
+	}
 
 	ai_strategy = {
 		type = prepare_for_war
@@ -133,13 +140,16 @@ BUL_world_war_1_irridentalism = {
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
-		id = "GRE"			
-		value = 50
-	}	
+		type = front_control
+		tag = SER
+		ratio = 0.5
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
 }
-
-
 
 
 

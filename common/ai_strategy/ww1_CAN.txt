@@ -33,21 +33,27 @@ CAN_gw_modified_unit_production = {
 	}
 
 	ai_strategy = {
-		type = role_ratio
-		id = armored_car  #we cant spare eq
-		value = -5
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 10
-	}
-
-	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = -10
+		value = 15
+	}
+}
+
+
+CAN_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = CAN
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1914.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -25 # reduce while we build up in case of issues
 	}
 }
 
@@ -58,7 +64,8 @@ CAN_build_army = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 400000 }
+		date > 1911.1.1
+		has_army_manpower = { size < 300000 }
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -67,11 +74,6 @@ CAN_build_army = {
 	    type = build_army
 	    id = infantry
 	    value = 100
-	}
-
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
 	}
 }
 

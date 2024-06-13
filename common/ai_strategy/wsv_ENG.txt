@@ -182,6 +182,12 @@ ENG_gw_modified_unit_production = {
 	}
 
 	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery 
+		value = 50
+	}
+
+	ai_strategy = {
 		type = unit_ratio
 		id = fighter
 		value = 50   #stacks, total is 150
@@ -304,6 +310,36 @@ ENG_ww1_help_france = {
  	ai_strategy = {
 		type = spare_unit_factor		
 		value = 50
+	}
+}
+
+
+ENG_launch_offensives_against_GER = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		is_in_faction_with = FRA
+		# launch offensives every 6 months (alongisde France)
+		set_temp_variable = { days = global.num_days }
+		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+		check_variable = { days < 60 }
+	}
+	abort = {
+		surrender_progress > 0.15		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.65
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
 	}
 }
 
