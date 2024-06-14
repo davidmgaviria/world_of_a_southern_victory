@@ -272,6 +272,7 @@ CSA_stockpile_less_equipment = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		date > 1912.1.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -505,32 +506,27 @@ CSA_invade_haiti = {
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = HAI
-		value = 100  
-	}
-
-	ai_strategy = {
 		type = area_priority
 		id = caribbean_sea
-		value = 50
+		value = 200
+	}
+	
+	ai_strategy = {
+		type = front_control
+		tag = HAI
+		priority = 1000
+		ratio = 0.0
+		ordertype = invasion
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		area = caribbean_sea
-		value = 25
+		type = invasion_unit_request
+		tag = HAI
+		value = 1000
 	}
-
-	ai_strategy = {
-		type = put_unit_buffers	
-		states = { 
-			318
-		}
-		ratio = 0.02
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
-	}	
 }
 
 
