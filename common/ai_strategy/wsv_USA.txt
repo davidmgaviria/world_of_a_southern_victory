@@ -28,7 +28,7 @@ USA_two_oceans_fleet = {
 	ai_strategy = {
 	    type = building_target
 	    id = dockyard
-	    value = 10
+	    value = 15
 	}
 
     ai_strategy = {
@@ -123,7 +123,7 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery 
-		value = 40
+		value = 35
 	}
 
 	ai_strategy = {
@@ -152,7 +152,7 @@ USA_stockpile_less_equipment = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -15 	# reduce while we build up in case of issues
+		value = -10 	# reduce while we build up in case of issues
 	}
 }
 
@@ -218,6 +218,37 @@ USA_dont_join_central_powers_yet = {
 		id = "GER"			
 		value = -1000
 	}	
+}
+
+
+## no point in having a ton of bodies
+USA_limit_army_size = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = FRA
+		has_army_manpower = { size > 2250000 }
+	}
+	abort = {
+		has_army_manpower = { size < 1750000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
+	}
 }
 
 

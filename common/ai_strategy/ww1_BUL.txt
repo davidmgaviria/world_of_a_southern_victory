@@ -119,7 +119,7 @@ BUL_revenge_on_serbia = {
 		tag = BUL
 		SER = { 
 			exists = yes
-			NOT = { is_in_faction_with = SER }
+			NOT = { is_in_faction_with = BUL }
 		}
 		date > 1915.1.1
 		has_start_date < 1937.1.1
@@ -128,7 +128,7 @@ BUL_revenge_on_serbia = {
 		has_war_with = SER  #dont abort before
 		OR = {
 			surrender_progress > 0.15
-			casualties > 50000
+			casualties > 25000
 			SER = { has_capitulated = yes }
 		}
 	}
@@ -136,13 +136,13 @@ BUL_revenge_on_serbia = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "SER"			
-		value = 50
+		value = 100
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.5
+		ratio = 0.6
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak

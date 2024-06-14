@@ -88,14 +88,24 @@ FRA_gw_modified_unit_production = {
 	abort = { always = no }
 
 	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 35
-	}
-
-	ai_strategy = {
 		type = air_factory_balance
 		value = 60
+	}
+}
+
+FRA_save_more_equipment = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = 15
 	}
 }
 
@@ -135,26 +145,6 @@ FRA_ignore_africa = {
 		type = front_unit_request
 		area = africa
 		value = -75
-	}
-}
-
-
-
-FRA_build_army = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		date > 1912.1.1
-		has_army_manpower = { size < 1300000 }
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
 	}
 }
 
