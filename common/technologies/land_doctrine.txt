@@ -7,18 +7,13 @@ technologies = {
 		}
 
 		path = {
-			leads_to_tech = ww1_delegated_command
-			research_cost_coeff = 1
-		}
-
-		path = {
-			leads_to_tech = ww1_centralized_command
+			leads_to_tech = ww1_trench_warfare
 			research_cost_coeff = 1
 		}
 
 		category_light_infantry = {
 			max_organisation = 10
-			breakthrough = 0.05
+			soft_attack = 0.1
 		}
 
 		enable_tactic = tactic_human_wave_tactics
@@ -26,7 +21,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 2.25
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 
 		folder = {
 			name = land_doctrine_folder
@@ -38,7 +33,7 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 100
+			factor = 50
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -54,107 +49,107 @@ technologies = {
 	}
 
 
-	ww1_delegated_command = {
-		xor = {
-			ww1_centralized_command
-		}
+	# ww1_delegated_command = {
+	# 	xor = {
+	# 		ww1_centralized_command
+	# 	}
 
-		army_org_regain = 0.1
-		army_speed_factor = 0.05
+	# 	army_org_regain = 0.1
+	# 	army_speed_factor = 0.05
 
-		path = {
-			leads_to_tech = ww1_trench_warfare
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = ww1_trench_warfare
+	# 		research_cost_coeff = 1
+	# 	}
 
-		doctrine = yes	
-		#research_cost = 3.0
-		xp_research_type = army
-		xp_unlock_cost = 150
+	# 	doctrine = yes	
+	# 	#research_cost = 3.0
+	# 	xp_research_type = army
+	# 	xp_unlock_cost = 250
 		
-		categories = {
-			land_doctrine
-		}
+	# 	categories = {
+	# 		land_doctrine
+	# 	}
 		
-		folder = {
-			name = land_doctrine_folder
-			position = { x = -2 y = 2 }
-		}
+	# 	folder = {
+	# 		name = land_doctrine_folder
+	# 		position = { x = -2 y = 2 }
+	# 	}
 		
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-			# important during war
-			modifier = {
-				factor = 2
-				has_war = yes
-			}
-			# only germany does delegated command
-			modifier = {
-				factor = 0
-				NOT = { original_tag = GER }
-			}
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 50
+	# 		modifier = {
+	# 			not = {
+	# 				has_army_experience > 120
+	# 			}
+	# 			factor = 0.8
+	# 		}
+	# 		# important during war
+	# 		modifier = {
+	# 			factor = 2
+	# 			has_war = yes
+	# 		}
+	# 		# only germany does delegated command
+	# 		modifier = {
+	# 			factor = 0
+	# 			NOT = { original_tag = GER }
+	# 		}
+	# 	}
+	# }
 
 
-	ww1_centralized_command = {
-		xor = {
-			ww1_delegated_command
-		}
+	# ww1_centralized_command = {
+	# 	xor = {
+	# 		ww1_delegated_command
+	# 	}
 
-		max_planning_factor = 0.15
+	# 	max_planning_factor = 0.15
 		
-		path = {
-			leads_to_tech = ww1_trench_warfare
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = ww1_trench_warfare
+	# 		research_cost_coeff = 1
+	# 	}
 
-		doctrine = yes	
-		#research_cost = 3.0
-		xp_research_type = army
-		xp_unlock_cost = 150
+	# 	doctrine = yes	
+	# 	#research_cost = 3.0
+	# 	xp_research_type = army
+	# 	xp_unlock_cost = 250
 		
-		categories = {
-			land_doctrine
-		}
+	# 	categories = {
+	# 		land_doctrine
+	# 	}
 		
-		folder = {
-			name = land_doctrine_folder
-			position = { x = 2 y = 2 }
-		}
+	# 	folder = {
+	# 		name = land_doctrine_folder
+	# 		position = { x = 2 y = 2 }
+	# 	}
 		
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-			# important during war
-			modifier = {
-				factor = 2
-				has_war = yes
-			}
-			# only germany does delegated command
-			modifier = {
-				factor = 0
-				original_tag = GER
-			}
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 50
+	# 		modifier = {
+	# 			not = {
+	# 				has_army_experience > 120
+	# 			}
+	# 			factor = 0.8
+	# 		}
+	# 		# important during war
+	# 		modifier = {
+	# 			factor = 2
+	# 			has_war = yes
+	# 		}
+	# 		# only germany does delegated command
+	# 		modifier = {
+	# 			factor = 0
+	# 			original_tag = GER
+	# 		}
+	# 	}
+	# }
 
 	
 	ww1_trench_warfare = {
 
-		max_dig_in = 10
-		dig_in_speed_factor = 0.25
+		max_dig_in = 15
+		dig_in_speed_factor = 0.5
 
 		path = {
 			leads_to_tech = ww1_preliminary_bombardment
@@ -164,7 +159,7 @@ technologies = {
 		doctrine = yes	
 		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 		
 		categories = {
 			land_doctrine
@@ -172,11 +167,11 @@ technologies = {
 		
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 4 }
+			position = { x = 0 y = 2 }
 		}
 		
 		ai_will_do = {
-			factor = 100
+			factor = 50
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -198,7 +193,7 @@ technologies = {
 		}
 
 		path = {
-			leads_to_tech = ww1_creeping_barrage
+			leads_to_tech = ww1_bite_and_hold
 			research_cost_coeff = 1
 		}
 		path = {
@@ -209,7 +204,7 @@ technologies = {
 		doctrine = yes	
 		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 		
 		categories = {
 			land_doctrine
@@ -217,11 +212,11 @@ technologies = {
 		
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 6 }
+			position = { x = 0 y = 4 }
 		}
 		
 		ai_will_do = {
-			factor = 100
+			factor = 50
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -232,27 +227,27 @@ technologies = {
 	}
 
 
-	ww1_creeping_barrage = {
+	ww1_bite_and_hold = {
 		xor={
 			ww1_defense_in_depth
 		}
 		
-		category_artillery = {
-			breakthrough = 0.2
+
+		category_light_infantry = {
+			breakthrough = 0.1
 			soft_attack = 0.1
 		}
-		enable_tactic = tactic_barrage
+		org_loss_when_moving = 0.1
 
 		path = {
-			leads_to_tech = ww1_bite_and_hold
+			leads_to_tech = ww1_creeping_barrage
 			research_cost_coeff = 1
 		}
-		
 		
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 		
 		categories = {
 			land_doctrine
@@ -260,11 +255,11 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = -2 y = 8 }
+			position = { x = -2 y = 6 }
 		}
 		
 		ai_will_do = {
-			factor = 100 
+			factor = 50 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -286,50 +281,12 @@ technologies = {
 	}
 
 
-	ww1_bite_and_hold = {
-
-		category_light_infantry = {
-			breakthrough = 0.1
-			soft_attack = 0.1
-		}
-
-		path = {
-			leads_to_tech = ww1_night
-			research_cost_coeff = 1
-		}
-		
-		doctrine = yes	
-		research_cost = 5
-		xp_research_type = army
-		xp_unlock_cost = 150
-		
-		categories = {
-			land_doctrine
-		}
-
-		folder = {
-			name = land_doctrine_folder
-			position = { x = -2 y = 10 }
-		}
-		
-		ai_will_do = {
-			factor = 100 
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-		}
-	}
-
-
 	ww1_defense_in_depth = {
 		xor={
-			ww1_creeping_barrage
+			ww1_bite_and_hold
 		}
 
-		max_dig_in = 5
+		max_dig_in = 10
 		category_light_infantry = {
 			defense = 0.1
 		}
@@ -337,14 +294,14 @@ technologies = {
 			defense = 0.1
 		}
 		path = {
-			leads_to_tech = ww1_counterattack
+			leads_to_tech = ww1_creeping_barrage
 			research_cost_coeff = 1
 		}
 
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 		
 		categories = {
 			land_doctrine
@@ -352,7 +309,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 2 y = 8 }
+			position = { x = 2 y = 6 }
 		}
 		
 		ai_will_do = {
@@ -365,7 +322,7 @@ technologies = {
 			}
 			# these countries are on the defensive
 			modifier = {
-				add = 40
+				add = 50
 				OR = {
 					original_tag = GER
 					original_tag = FRA
@@ -378,140 +335,51 @@ technologies = {
 	}
 
 
-	ww1_counterattack = {
+	# ww1_counterattack = {
 
-		land_reinforce_rate = 0.02
-		enable_tactic = tactic_tactical_withdrawal
-		#army_org_regain = 0.05
-		#enable_tactic = tactic_elastic_defense
+	# 	land_reinforce_rate = 0.02
+	# 	enable_tactic = tactic_tactical_withdrawal
+	# 	#army_org_regain = 0.05
+	# 	#enable_tactic = tactic_elastic_defense
 
-		path = {
-			leads_to_tech = ww1_night
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = ww1_night
+	# 		research_cost_coeff = 1
+	# 	}
 		
-		doctrine = yes	
-		research_cost = 5
-		xp_research_type = army
-		xp_unlock_cost = 150
+	# 	doctrine = yes	
+	# 	research_cost = 5
+	# 	xp_research_type = army
+	# 	xp_unlock_cost = 250
 		
-		categories = {
-			land_doctrine
-		}
+	# 	categories = {
+	# 		land_doctrine
+	# 	}
 
-		folder = {
-			name = land_doctrine_folder
-			position = { x = 2 y = 10 }
-		}
+	# 	folder = {
+	# 		name = land_doctrine_folder
+	# 		position = { x = 2 y = 10 }
+	# 	}
 		
-		ai_will_do = {
-			factor = 100
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 50
+	# 		modifier = {
+	# 			not = {
+	# 				has_army_experience > 120
+	# 			}
+	# 			factor = 0.8
+	# 		}
+	# 	}
+	# }
 
-
-	ww1_night = {
-
-		#reduce land night combat penalty
-		land_night_attack = 0.20 # negates half of base penalty
-
-		path = {
-			leads_to_tech = ww1_antibarrel_warfare
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_desperate_defense
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_tank
-			research_cost_coeff = 1
-		}
+	
+	ww1_creeping_barrage = {
 		
-		doctrine = yes	
-		research_cost = 4.5
-		xp_research_type = army
-		xp_unlock_cost = 150
-		
-		categories = {
-			land_doctrine
+		category_artillery = {
+			breakthrough = 0.15
+			soft_attack = 0.1
 		}
-		
-		folder = {
-			name = land_doctrine_folder
-			position = { x = 0 y = 12 }
-		}
-		
-		ai_will_do = {
-			factor = 100 
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-		}
-	}
-
-
-	ww1_night = {
-
-		land_night_attack = 0.20 
-
-		path = {
-			leads_to_tech = ww1_antibarrel_warfare
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_desperate_defense
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_tank
-			research_cost_coeff = 1
-		}
-		
-		doctrine = yes	
-		research_cost = 4.5
-		xp_research_type = army
-		xp_unlock_cost = 150
-		
-		categories = {
-			land_doctrine
-		}
-		
-		folder = {
-			name = land_doctrine_folder
-			position = { x = 0 y = 12 }
-		}
-		
-		ai_will_do = {
-			factor = 100 
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-		}	
-	}
-
-
-	ww1_antibarrel_warfare = {
-		xor = { ww1_tank ww1_desperate_defense }
-
-		category_all_infantry = {
-			hard_attack = 0.05
-		}
-		category_line_artillery = {
-			hard_attack = 0.1
-		}
+		enable_tactic = tactic_barrage
 
 		path = {
 			leads_to_tech = ww1_stormtrooper_tactics
@@ -519,9 +387,9 @@ technologies = {
 		}
 		
 		doctrine = yes	
-		research_cost = 4.5
+		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 		
 		categories = {
 			land_doctrine
@@ -529,11 +397,11 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = -2 y = 14 }
+			position = { x = 0 y = 8 }
 		}
 		
 		ai_will_do = {
-			factor = 100 
+			factor = 50 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -546,18 +414,27 @@ technologies = {
 
 	ww1_stormtrooper_tactics = {
 
-		category_all_infantry = {
-			breakthrough = 0.15
+		category_light_infantry = {
+			breakthrough = 0.1
 			soft_attack = 0.1
 		}
-		supply_consumption_factor = -0.10
 
 		enable_tactic = tactic_infantry_charge
 		
+		path = {
+			leads_to_tech = ww1_antibarrel_warfare
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_tank
+			research_cost_coeff = 1
+		}
+
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 150
+		xp_unlock_cost = 250
 		
 		categories = {
 			land_doctrine
@@ -565,11 +442,11 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = -2 y = 16 }
+			position = { x = 0 y = 10 }
 		}
 		
 		ai_will_do = {
-			factor = 100 
+			factor = 50 
 			modifier = {
 				not = {
 					has_army_experience > 120
@@ -579,6 +456,189 @@ technologies = {
 		}
 	}
 
+
+	ww1_antibarrel_warfare = {
+		xor = { ww1_tank }
+
+		category_all_infantry = {
+			hard_attack = 0.1
+			soft_attack = 0.1
+		}
+		category_line_artillery = {
+			hard_attack = 0.1
+			soft_attack = 0.1
+		}
+
+		path = {
+			leads_to_tech = ww1_hurricane_barrage
+			research_cost_coeff = 1
+		}
+		
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 250
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = -2 y = 12 }
+		}
+		
+		ai_will_do = {
+			factor = 50 
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# USA and England pick tank support
+			modifier = {
+				factor = 0
+				OR = {
+					original_tag = ENG
+					original_tag = USA
+				}
+			}
+		}
+	}
+
+
+	ww1_tank = {
+		dependencies = { 
+			ww1_heavy_tank = 1
+		}
+		xor = { ww1_antibarrel_warfare }
+
+		category_all_armor = {
+			soft_attack = 0.10
+			breakthrough = 0.25
+		}
+
+		path = {
+			leads_to_tech = ww1_hurricane_barrage
+			research_cost_coeff = 1
+		}
+		
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 250
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 2 y = 12 }
+		}
+		
+		ai_will_do = {
+			factor = 0 
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# USA and England pick tank support
+			modifier = {
+				add = 50
+				OR = {
+					original_tag = ENG
+					original_tag = USA
+				}
+			}
+		}
+	}
+
+
+	ww1_hurricane_barrage = {
+
+		category_artillery = {
+			soft_attack = 0.1
+			breakthrough = 0.2
+		}
+
+		path = {
+			leads_to_tech = ww1_combined_arms
+			research_cost_coeff = 1
+		}
+		
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 250
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 0 y = 14 }
+		}
+		
+		ai_will_do = {
+			factor = 50 
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+		}
+	}
+
+
+	ww1_combined_arms = {
+		
+
+		category_light_infantry = {
+			soft_attack = 0.1
+			breakthrough = 0.1
+			max_organisation = 10
+		}
+		category_all_armor = {
+			default_morale = 0.2
+			max_organisation = 5
+		}
+		org_loss_when_moving = -0.2
+		
+		enable_tactic = tactic_breakthrough
+		
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 250
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 0 y = 16 }
+		}
+		
+		ai_will_do = {
+			factor = 50 
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+		}
+	}
+
+
+	
 
 	# ww1_desperate_defense = {
 	# 	xor = { ww1_antibarrel_warfare ww1_tank }
@@ -594,7 +654,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 4.5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 150
+	# 	xp_unlock_cost = 250
 		
 	# 	categories = {
 	# 		land_doctrine
@@ -640,7 +700,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 4.5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 150
+	# 	xp_unlock_cost = 250
 		
 	# 	categories = {
 	# 		land_doctrine
@@ -663,89 +723,84 @@ technologies = {
 	# }
 
 
+		# ww1_night = {
 
-	ww1_tank = {
-		dependencies = { 
-			ww1_heavy_tank = 1
-		}
-		xor = { ww1_antibarrel_warfare ww1_desperate_defense }
+	# 	land_night_attack = 0.20 
 
-
-		category_all_armor = {
-			soft_attack = 0.10
-			breakthrough = 0.10
-		}
-
-		path = {
-			leads_to_tech = ww1_war_of_movement
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = ww1_antibarrel_warfare
+	# 		research_cost_coeff = 1
+	# 	}
+	# 	path = {
+	# 		leads_to_tech = ww1_desperate_defense
+	# 		research_cost_coeff = 1
+	# 	}
+	# 	path = {
+	# 		leads_to_tech = ww1_tank
+	# 		research_cost_coeff = 1
+	# 	}
 		
-		doctrine = yes	
-		research_cost = 4.5
-		xp_research_type = army
-		xp_unlock_cost = 150
+	# 	doctrine = yes	
+	# 	research_cost = 4.5
+	# 	xp_research_type = army
+	# 	xp_unlock_cost = 250
 		
-		categories = {
-			land_doctrine
-		}
-
-		folder = {
-			name = land_doctrine_folder
-			position = { x = 2 y = 14 }
-		}
+	# 	categories = {
+	# 		land_doctrine
+	# 	}
 		
-		ai_will_do = {
-			factor = 100 
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-			# Dont pick if we dont have enough mils
-			modifier = {
-				factor = 0.25
-				num_of_military_factories < 40
-			}
-		}
-	}
-
-
-	ww1_war_of_movement = {
-
-		category_all_armor = {
-			breakthrough = 0.2
-		}
-		army_speed_factor = 0.1
-		org_loss_when_moving = -0.1
-
-		enable_tactic = tactic_breakthrough
+	# 	folder = {
+	# 		name = land_doctrine_folder
+	# 		position = { x = 0 y = 12 }
+	# 	}
 		
-		doctrine = yes	
-		research_cost = 4.5
-		xp_research_type = army
-		xp_unlock_cost = 150
-		
-		categories = {
-			land_doctrine
-		}
+	# 	ai_will_do = {
+	# 		factor = 50 
+	# 		modifier = {
+	# 			not = {
+	# 				has_army_experience > 120
+	# 			}
+	# 			factor = 0.8
+	# 		}
+	# 	}	
+	# }
 
-		folder = {
-			name = land_doctrine_folder
-			position = { x = 2 y = 16 }
-		}
+
+	# ww1_war_of_movement = {
+
+	# 	category_all_armor = {
+	# 		breakthrough = 0.2
+	# 	}
+	# 	army_speed_factor = 0.1
+	# 	org_loss_when_moving = -0.1
+
+	# 	enable_tactic = tactic_breakthrough
 		
-		ai_will_do = {
-			factor = 100 
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-		}
-	}
+	# 	doctrine = yes	
+	# 	research_cost = 4.5
+	# 	xp_research_type = army
+	# 	xp_unlock_cost = 250
+		
+	# 	categories = {
+	# 		land_doctrine
+	# 	}
+
+	# 	folder = {
+	# 		name = land_doctrine_folder
+	# 		position = { x = 2 y = 14 }
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 50 
+	# 		modifier = {
+	# 			not = {
+	# 				has_army_experience > 120
+	# 			}
+	# 			factor = 0.8
+	# 		}
+	# 	}
+	# }
+
 
 
 #========================================================================================================================

@@ -380,7 +380,9 @@ ENG_early_defense_of_canada = {
 	enable = {
 		country_exists = USA
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		has_army_manpower = { size > 1000000 }  # we can defend canada more seriously once we get more troops
+	}
 
 	ai_strategy = {
 		type = protect
@@ -406,8 +408,8 @@ ENG_early_defense_of_canada = {
 		}
 		ratio = 0.08
 		area = north_america
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
 	}
 
 	# canadian frontier
@@ -423,14 +425,14 @@ ENG_early_defense_of_canada = {
 		}
 		ratio = 0.04
 		area = north_america
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 10
+		value = 15
 	}
 
 	ai_strategy = {
@@ -448,12 +450,13 @@ ENG_wartime_defense_canada = {
 	}
 	enable = {
 		has_war_with = USA
+		has_army_manpower = { size > 1000000 }  # we can defend canada more seriously once we get more troops
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = 	spare_unit_factor		
-		value = 15
+		value = 25
 	}
 
 	ai_strategy = {
@@ -465,13 +468,13 @@ ENG_wartime_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 50
+		value = 60
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = canada
-		value = 50 #more focus here
+		value = 75 #more focus here
 	}
 }
 

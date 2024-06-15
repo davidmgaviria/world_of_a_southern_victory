@@ -266,30 +266,13 @@ CSA_dont_join_englande_yet = {
 }
 
 
-CSA_save_more_equipment = {
-	allowed = {
-		original_tag = CSA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = 10 
-	}
-}
-
-
 CSA_increase_army_rapidly = {		# massively increase size
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 1100000 }
+		has_army_manpower = { size < 1200000 }
 		date > 1912.1.1
 	}
 	abort_when_not_enabled = yes
@@ -301,12 +284,12 @@ CSA_increase_army_rapidly = {		# massively increase size
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 100
+	    value = 150
 	}
 	ai_strategy = {
 	    type = build_army
 	    id = garrison
-	    value = 25
+	    value = 10
 	}
 }
 
@@ -396,10 +379,63 @@ CSA_defend_richmond = {
 			814
 			362
 		}
-		ratio = 0.04
+		ratio = 0.1
 		subtract_fronts_from_need = yes
 	}
 }	
+
+
+CSA_defend_eastern_states = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		NOT = { is_in_faction_with = USA }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 
+			369
+			368
+			372
+		}
+		ratio = 0.08
+		subtract_fronts_from_need = yes
+	}
+}	
+
+
+CSA_defend_deep_south = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = USA
+		NOT = {
+			controls_state = 368
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 
+			370
+			365
+			367
+			364
+			363
+			370
+		}
+		ratio = 0.08
+		subtract_fronts_from_need = yes
+	}
+}
 
 
 CSA_defensive_if_lack_of_guns_against_USA = {
