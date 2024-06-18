@@ -1,0 +1,665 @@
+technologies = {
+
+	@1910 = 2
+	@1914 = 4
+	@1915 = 6
+	@1916 = 8
+	@1917 = 10
+	@1918 = 12
+	@1919 = 14
+	# @1927 = 10
+	# @1934 = 12
+	# @1939 = 14
+	# @1943 = 16
+	# @1945 = 18
+	# @1947 = 20
+
+
+	########## GREAT WAR Light Aircraft ###########
+
+	#scout aircraft
+	ww1_scout = {
+
+		enable_equipments = {
+			ww1_scout_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_scout_2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1910
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 8 y = @1910 }
+		}
+		
+		categories = {
+			light_air
+			cat_scout_plane
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 2
+
+			modifier = {
+				factor = 4
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 2
+				date > 1913.1.1
+			}
+		}
+	}
+
+
+
+	ww1_scout_2 = {
+
+		enable_equipments = {
+			ww1_scout_equipment_2
+		}
+		
+		path = {
+			leads_to_tech = ww1_scout_3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_fighter1
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_seaplane1
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_bomber1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1914
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 8 y = @1914 }
+		}
+		
+		categories = {
+			light_air
+			cat_scout_plane
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 2
+
+			modifier = {
+				factor = 4
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 2
+				date > 1916.1.1
+			}
+		}
+	}
+
+
+	ww1_scout_3 = {
+
+		enable_equipments = {
+			ww1_scout_equipment_3
+		}
+		
+		research_cost = 2
+		start_year = 1917
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 8 y = @1917 }
+		}
+		
+		categories = {
+			light_air
+			cat_scout_plane
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 2
+
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+		}
+	}
+
+
+	ww1_fighter1 = {
+
+		enable_equipments = {
+			ww1_fighter_equipment_1
+		}
+
+		sub_technologies = {
+			ww1_triplane1
+		}
+		path = {
+			leads_to_tech = ww1_fighter2
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_cas1
+			research_cost_coeff = 1
+		}
+
+
+		research_cost = 2
+		start_year = 1915
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 4 y = @1915 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 3
+
+			modifier = {
+				factor = 4
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 1.5
+				date > 1915.1.1
+			}
+		}
+	}
+
+
+	ww1_triplane1 = {   
+
+		enable_equipments = {
+			ww1_triplane_equipment_1
+		}
+		
+		research_cost = 0.5
+		start_year = 1915
+		#sub_tech_index = 1
+
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	ww1_fighter2 = {
+
+		enable_equipments = {
+			ww1_fighter_equipment_2
+		}
+		
+		sub_technologies = {
+			ww1_triplane2
+		}
+		path = {
+			leads_to_tech = ww1_fighter3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_cas2
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2
+		start_year = 1917
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 4 y = @1917 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 2
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 1.5
+				date > 1918.1.1
+			}
+
+			modifier = {
+				factor = 1.5
+				date > 1919.1.1
+			}
+		}
+	}
+
+
+	ww1_triplane2 = {   
+
+		enable_equipments = {
+			ww1_triplane_equipment_2
+		}
+		
+		research_cost = 0.5
+		start_year = 1917
+		#sub_tech_index = 1
+
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	ww1_fighter3 = {
+
+		enable_equipments = {
+			ww1_fighter_equipment_3
+		}
+
+		path = {
+			leads_to_tech = fighter1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1919
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 4 y = @1919 }
+		}
+		
+		categories = {
+			light_air
+			light_fighter
+			air_equipment
+		}
+
+		ai_will_do = {
+			factor = 2
+
+			modifier = {
+				factor = 4
+				is_major = yes
+			}
+		}
+	}
+
+
+
+	ww1_cas1 = {   
+
+		enable_equipments = {
+			ww1_cas_equipment_1
+		}
+
+		path = {
+			leads_to_tech = ww1_cas2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1916
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 0 y = @1916 }
+		}
+
+		categories = {
+			light_air
+			cas_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 2
+				date > 1916.1.1
+			}
+		}
+	}
+
+
+	ww1_cas2 = {   
+
+		enable_equipments = {
+			ww1_cas_equipment_2
+		}
+
+		path = {
+			leads_to_tech = CAS1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1918
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 0 y = @1918 }
+		}
+
+		categories = {
+			light_air
+			cas_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	ww1_seaplane1 = {
+
+		enable_equipments = {
+			ww1_seaplane_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_seaplane2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 3
+		start_year = 1915
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = -4 y = @1915 }
+		}
+
+		
+		categories = {
+			naval_air
+			naval_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	ww1_seaplane2 = {
+
+		enable_equipments = {
+			ww1_seaplane_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = naval_bomber1
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1918
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = -4 y = @1917 }
+		}
+		
+		categories = {
+			naval_air
+			naval_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+
+	########## GREAT WAR Heavy Aircraft ###########
+
+	ww1_bomber1 = {
+
+		enable_equipments = {
+			ww1_bomber_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_bomber2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2.2
+		start_year = 1915
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 12 y = @1915 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+			modifier = {
+				factor = 2
+				OR = { tag=FRA tag=GER  tag=RUS  tag=ITA }
+			}
+			modifier = {
+				factor = 2
+				date > 1916.1.1
+			}
+			modifier = {
+				factor = 2
+				date > 1917.1.1
+			}
+		}
+	}
+
+	ww1_bomber2 = {
+
+		enable_equipments = {
+			ww1_bomber_equipment_2
+		}
+	
+		path = {
+			leads_to_tech = ww1_bomber3
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.2
+		start_year = 1917
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 12 y = @1917 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+			modifier = {
+				factor = 3
+				OR = { tag = USA tag = GER }
+			}
+			modifier = {
+				factor = 3
+				date > 1918.1.1
+			}
+		}
+	}
+
+
+	ww1_bomber3 = {
+
+		enable_equipments = {
+			ww1_bomber_equipment_3
+		}
+	
+		path = {
+			leads_to_tech = tactical_bomber1
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.2
+		start_year = 1919
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 12 y = @1919 }
+		}
+		
+		categories = {
+			medium_air
+			tactical_bomber
+			air_equipment
+		}
+		
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 1.5
+				is_major = yes
+			}
+			modifier = {
+				factor = 3
+				OR = { tag = USA tag = GER }
+			}
+			modifier = {
+				factor = 3
+				date > 1920.1.1
+			}
+		}
+	}
+
+
+	ww1_zeppelin1 = {
+
+		enable_equipments = {
+			ww1_zeppelin_equipment_1
+		}
+	
+		path = {
+			leads_to_tech = ww1_zeppelin2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1910
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 6 y = @1910 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+		}
+	}
+
+	ww1_zeppelin2 = {
+
+		enable_equipments = {
+			ww1_zeppelin_equipment_2
+		}
+
+		research_cost = 2
+		start_year = 1916
+
+		folder = {
+			name = gw_air_techs_folder
+			position = { x = 6 y = @1916 }
+		}
+		
+		categories = {
+			heavy_air
+			air_equipment
+			cat_strategic_bomber
+		}
+		
+		ai_will_do = {
+			factor = 0.5
+
+			modifier = {
+				factor = 2
+				tag = GER
+			}
+		}
+	}
+
+}
