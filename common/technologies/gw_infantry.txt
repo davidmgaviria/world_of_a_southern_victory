@@ -436,9 +436,6 @@ technologies = {
 	# }
 
 
-
-
-
 	marines = {
 
 		enable_subunits = {
@@ -1042,6 +1039,18 @@ technologies = {
 
 		enable_subunits = {
 			motorized
+		}
+
+		on_research_complete_limit = {
+			NOT = {
+				has_template_containing_unit = motorized
+			}
+		}
+		on_research_complete = {	
+			hidden_effect = {
+				load_oob = "unlock_motorized"
+			}			
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
 		}
 
 		path = {
