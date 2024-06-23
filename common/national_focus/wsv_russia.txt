@@ -1,5 +1,5 @@
 focus_tree = {
-	id= france_focus
+	id=russia_focus
 	default=no
 
 	country={ 
@@ -7,7 +7,7 @@ focus_tree = {
 		modifier={ 
 			add=50 
 			AND = {
-				original_tag = FRA 
+				original_tag = RUS 
 				has_start_date < 1936.1.1
 			}
 		} 
@@ -15,92 +15,134 @@ focus_tree = {
 
 	continuous_focus_position = { x = 50 y = 1600 }
 
+	#initial_show_position = { focus = CSA_wilsonian_era }
 
+
+	#######################################
+	############## INTERNATIONAL ###############
+	#######################################
+
+	
 	focus = {
-		id = FRA_international_stage
-		icon = GFX_focus_POL_support_global_falangism
-
+		id = RUS_state_of_russia
+		#icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
 		cost = 10
-		x = 17
+		x = 19
 		y = 0
 		#relative_position_id = 
 
 		ai_will_do = { factor = 1 }
 
+		#bypass = {}
+
 		completion_reward = { 
-			add_political_power = 100
 		}
 	}
 
 		
 	focus = {
-		id = FRA_occupy_morocco
-		icon = GFX_focus_generic_africa_liberation  #Focus_generic_annex_country
-		prerequisite = { focus = FRA_international_stage }
+		id = RUS_russian_foriegn_policy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_state_of_russia }
+		cost = 10
+		x = -6
+		y = 1
+		relative_position_id = RUS_state_of_russia
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
 		
+	focus = {
+		id = RUS_tshuima_humiliation
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_russian_foriegn_policy }
 		cost = 10
 		x = -5
 		y = 1
-		relative_position_id = FRA_international_stage
+		relative_position_id = RUS_russian_foriegn_policy
 
 		ai_will_do = { factor = 1 }
-
-		available = {
-			date > 1911.3.1
-			has_war = no
-			MOR = { is_puppet_of = FRA }
-		}
-
-		completion_reward = { 
-			news_event = wsv_agadir.1
-		}
-	}
-
-		
-	focus = {
-		id = FRA_franco_british_split
-		#icon = GFX_focus_ARG_cut_ties_with_britain
-		prerequisite = { focus = FRA_occupy_morocco }
-		mutually_exclusive = { focus=FRA_reaffirm_ties_britain  }
-
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = FRA_occupy_morocco
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_global_flag = path_complete
-			has_global_flag = britain_abandoned_france_in_agadir
-
-		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			diplomatic_relation = {
-				country = ENG
-				relation = non_aggression_pact
-				active = no
-			}
-			# - TOOD - country event for britain
 		}
 	}
 
 		
 	focus = {
-		id = FRA_coastal_defences
+		id = RUS_revive_east_ambitions
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_franco_british_split }
-		
+		prerequisite = { focus = RUS_tshuima_humiliation }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_tshuima_humiliation
 
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_new_naval_program
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_revive_east_ambitions }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_revive_east_ambitions
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_strike_japan
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_new_naval_program }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_new_naval_program
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_franco_russian_alliance
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_russian_foriegn_policy }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_franco_british_split
+		relative_position_id = RUS_russian_foriegn_policy
 
 		ai_will_do = { factor = 1 }
+
+		#bypass = {}
 
 		completion_reward = { 
 		}
@@ -108,739 +150,105 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_build_french_fleet
+		id = RUS_outreach_britain
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_coastal_defences }
-		
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = FRA_coastal_defences
-
-		ai_will_do = { factor = 1 }
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = FRA_neutralize_belgium
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_franco_british_split }
-		
-
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = FRA_franco_british_split
-
-		ai_will_do = { factor = 1 }
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = FRA_integrate_belgium
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_neutralize_belgium }
-		
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = FRA_neutralize_belgium
-
-		ai_will_do = { factor = 1 }
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = FRA_pressure_switzerland
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_integrate_belgium }
-		
-
+		prerequisite = { focus = RUS_franco_russian_alliance }
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = FRA_integrate_belgium
+		relative_position_id = RUS_franco_russian_alliance
 
 		ai_will_do = { factor = 1 }
-
-		completion_reward = { 
-		}
-	}
-
-		
-	# focus = {
-	# 	id = FRA_claim_natural_borders
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = FRA_integrate_belgium }
-		
-	
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = FRA_integrate_belgium
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-		
-	focus = {
-		id = FRA_alpine_front
-		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = FRA_franco_british_split  focus = FRA_reaffirm_ties_britain }
-		mutually_exclusive = { focus = FRA_recognize_italian_claims }
-
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = FRA_franco_british_split
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			NOT = { is_in_faction_with = ITA }
-		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			add_tech_bonus = {
-				uses = 1
-				bonus = 1
-				technology = tech_mountaineers
-				technology = tech_mountaineers2
-				technology = tech_mountaineers3
-			}
-			735 = {
-				add_building_construction = { type = bunker level = 1 province = 778 }
-				add_building_construction = { type = bunker level = 1 province = 9745 }
-				add_building_construction = { type = bunker level = 1 province = 764 }
-				add_building_construction = { type = bunker level = 1 province = 3764 }
-				add_building_construction = { type = bunker level = 1 province = 6975 }
-				add_building_construction = { type = bunker level = 1 province = 3959 }
-				add_building_construction = { type = bunker level = 1 province = 9909 }
-			}
 		}
 	}
 
 		
 	focus = {
-		id = FRA_march_into_italy
-		icon = GFX_focus_attack_italy_republic
-		prerequisite = { focus = FRA_alpine_front }
-		prerequisite = { focus = FRA_integrate_belgium  focus = FRA_retake_alsace_lorraine }
-
+		id = RUS_improve_anglo_russian_trade
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_outreach_britain }
 		cost = 10
 		x = 0
-		y = 3
-		relative_position_id = FRA_alpine_front
+		y = 2
+		relative_position_id = RUS_outreach_britain
 
 		ai_will_do = { factor = 1 }
 
-		available = {
-			NOT = { is_in_faction_with = ITA }
-		}
+		#bypass = {}
 
-		bypass = {
-			has_war_with = ITA
-		}
-
-		completion_reward = {
-			create_wargoal = {
-				target = ITA
-				type = puppet_wargoal_focus
-			} 
+		completion_reward = { 
 		}
 	}
 
 		
 	focus = {
-		id = FRA_reaffirm_ties_britain
-		icon = GFX_focus_chi_british_cooperation
-		prerequisite = { focus = FRA_occupy_morocco }
-		mutually_exclusive = { focus=FRA_franco_british_split  }
+		id = RUS_french_military_mission
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_franco_russian_alliance }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_franco_russian_alliance
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_anti_german_sentiment
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_franco_russian_alliance }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_franco_russian_alliance
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_balkan_policy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_russian_foriegn_policy }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_occupy_morocco
+		relative_position_id = RUS_russian_foriegn_policy
 
 		ai_will_do = { factor = 1 }
-
-		available = {
-			# has_global_flag = britain_backs_france_in_agadir
-			# NOT = {
-			# 	has_war_with = ENG
-			# }
-			ENG = {
-				exists = yes
-				NOT = { has_war_with = ROOT }
-			}
-		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			add_political_power = 50
-			ENG = {
-				add_opinion_modifier = {
-					target = FRA
-					modifier = wsv_improve_relations
-				}
-			}
-			hidden_effect = {
-				add_opinion_modifier = {
-					target = ENG
-					modifier = wsv_improve_relations
-				}
-			}
 		}
 	}
 
 		
 	focus = {
-		id = FRA_recognize_italian_claims
-		icon = GFX_goal_generic_improve_relations
-		prerequisite = { focus = FRA_franco_british_split  focus = FRA_reaffirm_ties_britain }
-		mutually_exclusive = { focus=FRA_alpine_front  }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_reaffirm_ties_britain
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			NOT = { has_war_with = ITA }
-			ITA = {  
-				is_puppet = no 
-				is_in_faction = no
-			}
-		}
-
-		bypass = {
-			is_in_faction_with = ITA
-		}
-
-		completion_reward = { 
-			ITA = {
-				country_event = wsv_france.3
-				add_opinion_modifier = {
-					target = FRA
-					modifier = wsv_improve_relations
-				}
-			}
-			AUH = {
-				add_opinion_modifier = {
-					target = FRA
-					modifier = wsv_dislikes_country
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = FRA_loans_to_italy
-		icon = GFX_goal_generic_consumer_goods
-		prerequisite = { focus = FRA_recognize_italian_claims }
-		
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = FRA_recognize_italian_claims
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = no
-			ITA = {  
-				is_puppet = no 
-				is_in_faction = no
-			}
-		}
-
-		completion_reward = { 
-			ITA = {
-				add_timed_idea = {
-					idea = FRA_french_industry_loans
-					days = 360
-				}
-				hidden_effect = { country_event = wsv_france.2 }
-			}
-		}
-	}
-
-		
-	focus = {
-		id = FRA_call_italy_to_war
-		icon = GFX_focus_italy_pact
-		prerequisite = { focus = FRA_loans_to_italy }
-		prerequisite = { focus = FRA_retake_alsace_lorraine }
-	
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = FRA_loans_to_italy
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war_with = AUH
-			NOT = { has_war_with = ITA }
-			ITA = {  
-				is_puppet = no 
-				is_in_faction = no
-			}
-		}
-
-		bypass = {
-			ITA = { is_in_faction_with = FRA }
-		}
-
-		completion_reward = { 
-			ITA = {
-				country_event = wsv_france.4
-			}
-			custom_effect_tooltip = promise_italy_austrian_land_tt
-		}
-	}
-
-		
-	focus = {
-		id = FRA_franco_british_military_drills
-		icon = GFX_focus_FRA_drills_with_england
-		prerequisite = { focus = FRA_reaffirm_ties_britain }
-	
-		cost = 10
-		x = 1
-		y = 2
-		relative_position_id = FRA_reaffirm_ties_britain
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = no
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 10
-			add_doctrine_cost_reduction = {
-				cost_reduction = 0.25
-				uses = 1
-				category = land_doctrine
-			}	
-		}
-	}
-
-
-	focus = {
-		id = FRA_improve_french_industry
-		icon = GFX_focus_generic_modernize_industry
-		prerequisite = { focus = FRA_international_stage }
-	
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = FRA_international_stage
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			date > 1911.1.1
-		}
-
-		completion_reward = { 
-			remove_ideas = FRA_artisanal_industries
-		}
-	}
-
-		
-	focus = {
-		id = FRA_modernize_french_forts
-		icon = GFX_focus_SWI_fortify_border_with_france
-		prerequisite = { focus = FRA_improve_french_industry }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = FRA_improve_french_industry
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			threat > 0.1
-		}
-
-		bypass = {
-			NOT = { controls_state = 828 }
-			NOT = { controls_state = 18 }
-		}
-
-		completion_reward = { 
-			828 = {
-				if = {
-					limit = { is_controlled_by = ROOT }
-					add_building_construction = { type = bunker  level = 2  province = 698 }
-					add_building_construction = { type = bunker  level = 2  province = 11516 }
-					add_building_construction = { type = bunker  level = 2  province = 521 }
-					add_building_construction = { type = bunker  level = 2  province = 5291 }
-				}
-			}
-			18 = {
-				if = {
-					limit = { is_controlled_by = ROOT }
-					add_building_construction = { type = bunker  level = 1  province = 6545 }
-					add_building_construction = { type = bunker  level = 1  province = 13011 }
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = FRA_revanchist_propaganda
-		icon = GFX_goal_generic_propaganda
-		prerequisite = { focus = FRA_improve_french_industry }
-
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_improve_french_industry
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			threat > 0.1
-		}
-
-		completion_reward = { 
-			add_war_support = 0.2
-			swap_ideas = {
-				remove_idea = FRA_memories_of_1871
-				add_idea = FRA_french_revanchism
-			}		
-		}
-	}
-
-
-		
-	focus = {
-		id = FRA_three_year_reserves
-		icon = GFX_focus_generic_full_social_mobilization
-		prerequisite = { focus = FRA_modernize_french_forts }
-		prerequisite = { focus = FRA_revanchist_propaganda }
-	
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = FRA_revanchist_propaganda
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			OR = {
-				date > 1913.1.1
-				threat > 0.35
-			}
-		}
-
-		bypass = {
-			custom_trigger_tooltip = {
-				tooltip = has_extensive_conscription_or_more_tt
-				has_extensive_conscription_or_more = yes
-			}
-		}
-
-		completion_reward = { 
-			add_ideas = extensive_conscription
-		}
-	}
-
-		
-	focus = {
-		id = FRA_retake_alsace_lorraine
-		icon = GFX_focus_attack_kaiserreich
-		prerequisite = { focus = FRA_three_year_reserves }
-	
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = FRA_three_year_reserves
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			date > 1915.1.1
-		}
-
-		bypass = { has_war_with = GER }
-
-		completion_reward = {
-			create_wargoal = {
-				target = GER
-				type = take_core_state
-			} 
-		}
-	}
-
-		
-	focus = {
-		id = FRA_conscript_colonials
-		icon = GFX_focus_ETH_freedom_at_gunpoint
-		prerequisite = { focus = FRA_retake_alsace_lorraine }
-
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_retake_alsace_lorraine
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-			any_owned_state = {
-				is_on_continent = africa
-			}
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = FRA_conscript_colonials_idea
-		}
-	}
-
-		
-	focus = {
-		id = FRA_boost_war_effort
-		icon = GFX_focus_generic_reorient_production
-		prerequisite = { focus = FRA_retake_alsace_lorraine }
-		
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = FRA_retake_alsace_lorraine
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_timed_idea = {
-				idea = FRA_boost_war_effort_idea
-				days = 720
-			}
-		}
-	}
-
-		
-	focus = {
-		id = FRA_they_shall_not_pass
-		icon = GFX_focus_FRA_defend_france
-		prerequisite = { focus=FRA_conscript_colonials focus=FRA_boost_war_effort  }
-		
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = FRA_conscript_colonials
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-			surrender_progress > 0
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = FRA_they_shall_not_pass_idea
-		}
-	}
-
-		
-	focus = {
-		id = FRA_franco_russian_alliance
-		icon = GFX_focus_FRA_franco_russian_alliance
-		prerequisite = { focus = FRA_international_stage }
-
-		cost = 10
-		x = 3
-		y = 1
-		relative_position_id = FRA_international_stage
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			is_in_faction_with = RUS
-		}
-
-		completion_reward = { 
-			add_political_power = 50
-			RUS = {
-				add_opinion_modifier = {
-					target = FRA
-					modifier = wsv_improve_relations
-				}
-			}
-			hidden_effect = {
-				add_opinion_modifier = {
-					target = RUS
-					modifier = wsv_improve_relations
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = FRA_arms_to_russia
-		icon = GFX_goal_generic_army_artillery2
-		prerequisite = { focus = FRA_franco_russian_alliance }
-	
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_franco_russian_alliance
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			is_in_faction_with = RUS
-		}
-
-		completion_reward = { 
-			RUS = {
-				add_equipment_to_stockpile = {
-					type = infantry_equipment
-					amount = 5000
-				}
-				add_equipment_to_stockpile = {
-					type = artillery_equipment
-					amount = 200
-				}
-				hidden_effect = { country_event = wsv_france.1 }
-			}
-		}
-	}
-
-		
-	focus = {
-		id = FRA_loans_to_russia
-		icon = GFX_goal_generic_consumer_goods
-		prerequisite = { focus = FRA_franco_russian_alliance }
-		
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = FRA_franco_russian_alliance
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = no
-			is_in_faction_with = RUS
-		}
-
-		completion_reward = { 
-			RUS = {
-				add_timed_idea = {
-					idea = FRA_french_industry_loans
-					days = 360
-				}
-				hidden_effect = { country_event = wsv_france.2 }
-			}
-		}
-	}
-
-		
-	# focus = {
-	# 	id = FRA_recognize_russia_in_balkans
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = FRA_loans_to_russia }
-	# 	prerequisite = { focus = FRA_advisors_to_russia }
-		
-
-	# 	cost = 10
-	# 	x = -1
-	# 	y = 1
-	# 	relative_position_id = FRA_loans_to_russia
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-		
-	focus = {
-		id = FRA_champion_of_the_weak
-		icon = GFX_goal_generic_defence
-		prerequisite = { focus = FRA_loans_to_russia }
-	 	prerequisite = { focus = FRA_arms_to_russia }
-
-		cost = 10
-		x = 1
-		y = 2
-		relative_position_id = FRA_arms_to_russia
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			threat > 0.1
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = FRA_champion_of_weak_idea
-		}
-	}
-
-		
-	focus = {
-		id = FRA_army_to_serbia
+		id = RUS_pan_slavic_ideals
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_champion_of_the_weak }
-		prerequisite = { focus = FRA_retake_alsace_lorraine }
-		
-
+		prerequisite = { focus = RUS_balkan_policy }
 		cost = 10
 		x = 0
-		y = 2
-		relative_position_id = FRA_champion_of_the_weak
+		y = 1
+		relative_position_id = RUS_balkan_policy
 
 		ai_will_do = { factor = 1 }
-
-		available = {
-			has_country_flag = path_complete
-		}
 
 		#bypass = {}
 
@@ -850,29 +258,541 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_army_to_greece
+		id = RUS_expand_eastern_claims
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_army_to_serbia }
+		prerequisite = { focus = RUS_anti_german_sentiment }
+		prerequisite = { focus = RUS_pan_slavic_ideals }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_anti_german_sentiment
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
 		
+	focus = {
+		id = RUS_polish_puppet
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_expand_eastern_claims }
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = RUS_expand_eastern_claims
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_favor_serbia
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_pan_slavic_ideals }
+		mutually_exclusive = { focus=RUS_favor_bulgaria  }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_pan_slavic_ideals
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_outreach_romania
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_favor_serbia }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_favor_serbia
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_secret_pact_romania
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_outreach_romania }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_outreach_romania
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_defense_of_serbia
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_favor_serbia }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_favor_serbia
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_break_the_austrians
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_defense_of_serbia }
+		prerequisite = { focus = RUS_secret_pact_romania }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_secret_pact_romania
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_favor_bulgaria
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_pan_slavic_ideals }
+		mutually_exclusive = { focus=RUS_favor_serbia  }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = RUS_pan_slavic_ideals
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_arm_bulgaria
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_favor_bulgaria }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_favor_bulgaria
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_affirm_power_of_tsar
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_state_of_russia }
+		mutually_exclusive = { focus = RUS_more_power_to_durma }
 
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_army_to_serbia
+		relative_position_id = RUS_state_of_russia
 
 		ai_will_do = { factor = 1 }
 
+		#bypass = {}
+
 		completion_reward = { 
 		}
-	}	
+	}
 
+		
+	focus = {
+		id = RUS_restrict_speech
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_affirm_power_of_tsar }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_affirm_power_of_tsar
 
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_encourage_nationalism
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_affirm_power_of_tsar }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_affirm_power_of_tsar
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_conduct_military_reforms
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_encourage_nationalism }
+		prerequisite = { focus = RUS_restrict_speech }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_restrict_speech
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_monarchy_at_war
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_conduct_military_reforms }
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = RUS_conduct_military_reforms
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_redirect_civilian_grain
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_monarchy_at_war }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_monarchy_at_war
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_more_men_to_the_front
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_monarchy_at_war }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_monarchy_at_war
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_more_power_to_durma
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_state_of_russia }
+		mutually_exclusive = { focus=RUS_affirm_power_of_tsar  }
+		cost = 10
+		x = 6
+		y = 1
+		relative_position_id = RUS_state_of_russia
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_conduct_social_reforms
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_more_power_to_durma }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_more_power_to_durma
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_stolpyin_plan
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=RUS_conduct_social_reforms focus=RUS_encourage_nationalism  }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = RUS_encourage_nationalism
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_develop_natural_resources
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_stolpyin_plan }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_stolpyin_plan
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_address_railways
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_stolpyin_plan }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_stolpyin_plan
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_tackle_illiteracy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_address_railways }
+		prerequisite = { focus = RUS_develop_natural_resources }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_develop_natural_resources
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_russian_economic_boom
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_tackle_illiteracy }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_tackle_illiteracy
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_increase_political_suffrage
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_conduct_social_reforms }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_conduct_social_reforms
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_prevent_revolution
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_increase_political_suffrage }
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = RUS_increase_political_suffrage
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_coordinate_white_faction
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_prevent_revolution }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_prevent_revolution
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_assure_safety_of_tsar
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_prevent_revolution }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_prevent_revolution
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_arrest_bolsheviks
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_assure_safety_of_tsar }
+		prerequisite = { focus = RUS_coordinate_white_faction }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_assure_safety_of_tsar
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_fifth_durma
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_arrest_bolsheviks }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_arrest_bolsheviks
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+	
 	####################################
 	## -- Industrial
 	####################################
-	
 	focus = {
-		id = FRA_industrial_effort
+		id = RUS_industrial_effort
 		icon = GFX_goal_generic_production2
 		cost = 10
 		x = 3
@@ -892,13 +812,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_civ_factories
+		id = RUS_civ_factories
 		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = FRA_industrial_effort }
+		prerequisite = { focus = RUS_industrial_effort }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_industrial_effort
+		relative_position_id = RUS_industrial_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -916,13 +836,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_infrastructure_effort
+		id = RUS_infrastructure_effort
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = FRA_industrial_effort }
+		prerequisite = { focus = RUS_industrial_effort }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_industrial_effort
+		relative_position_id = RUS_industrial_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -946,13 +866,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_mil_factories
+		id = RUS_mil_factories
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = FRA_industrial_effort }
+		prerequisite = { focus = RUS_industrial_effort }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_industrial_effort
+		relative_position_id = RUS_industrial_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -970,15 +890,15 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_industrial_effort2
+		id = RUS_industrial_effort2
 		icon = GFX_goal_generic_production
-		prerequisite = { focus = FRA_civ_factories }
-		prerequisite = { focus = FRA_mil_factories }
-		prerequisite = { focus = FRA_infrastructure_effort }
+		prerequisite = { focus = RUS_civ_factories }
+		prerequisite = { focus = RUS_mil_factories }
+		prerequisite = { focus = RUS_infrastructure_effort }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_infrastructure_effort
+		relative_position_id = RUS_infrastructure_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -999,13 +919,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_civ_factories2
+		id = RUS_civ_factories2
 		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = FRA_industrial_effort2 }
+		prerequisite = { focus = RUS_industrial_effort2 }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_industrial_effort2
+		relative_position_id = RUS_industrial_effort2
 
 		ai_will_do = { factor = 1 }
 
@@ -1023,13 +943,13 @@ focus_tree = {
 
 
 	focus = {
-		id = FRA_research_effort1
+		id = RUS_research_effort1
 		icon = GFX_focus_research
-		prerequisite = { focus = FRA_industrial_effort2 }
+		prerequisite = { focus = RUS_industrial_effort2 }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_industrial_effort2
+		relative_position_id = RUS_industrial_effort2
 
 		ai_will_do = { factor = 1 }
 
@@ -1053,13 +973,13 @@ focus_tree = {
 		
 
 	focus = {
-		id = FRA_mil_factories2
+		id = RUS_mil_factories2
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = FRA_industrial_effort2 }
+		prerequisite = { focus = RUS_industrial_effort2 }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_industrial_effort2
+		relative_position_id = RUS_industrial_effort2
 
 		ai_will_do = { factor = 1 }
 
@@ -1077,15 +997,15 @@ focus_tree = {
 
 	
 	focus = {
-		id = FRA_infrastructure_effort2
+		id = RUS_infrastructure_effort2
 		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = FRA_civ_factories2 }
-		prerequisite = { focus = FRA_mil_factories2 }
-		prerequisite = { focus = FRA_research_effort1 }
+		prerequisite = { focus = RUS_civ_factories2 }
+		prerequisite = { focus = RUS_mil_factories2 }
+		prerequisite = { focus = RUS_research_effort1 }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_research_effort1
+		relative_position_id = RUS_research_effort1
 
 		ai_will_do = { factor = 1 }
 
@@ -1109,13 +1029,13 @@ focus_tree = {
 
 
 	focus = {
-		id = FRA_industrial_effort3
+		id = RUS_industrial_effort3
 		icon = GFX_goal_generic_construction
-		prerequisite = { focus = FRA_infrastructure_effort2 }
+		prerequisite = { focus = RUS_infrastructure_effort2 }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_infrastructure_effort2
+		relative_position_id = RUS_infrastructure_effort2
 
 		ai_will_do = { factor = 1 }
 
@@ -1136,13 +1056,13 @@ focus_tree = {
 
 
 	focus = {
-		id = FRA_civ_factories3
+		id = RUS_civ_factories3
 		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = FRA_industrial_effort3 }
+		prerequisite = { focus = RUS_industrial_effort3 }
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = FRA_industrial_effort3
+		relative_position_id = RUS_industrial_effort3
 
 		ai_will_do = { factor = 1 }
 
@@ -1160,13 +1080,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_mil_factories3
+		id = RUS_mil_factories3
 		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = FRA_industrial_effort3 }
+		prerequisite = { focus = RUS_industrial_effort3 }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = FRA_industrial_effort3
+		relative_position_id = RUS_industrial_effort3
 
 		ai_will_do = { factor = 1 }
 
@@ -1184,14 +1104,14 @@ focus_tree = {
 
 
 	focus = {
-		id = FRA_research_effort2
+		id = RUS_research_effort2
 		icon = GFX_focus_research2
-		prerequisite = { focus = FRA_civ_factories3 }
-		prerequisite = { focus = FRA_mil_factories3 }
+		prerequisite = { focus = RUS_civ_factories3 }
+		prerequisite = { focus = RUS_mil_factories3 }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = FRA_civ_factories3
+		relative_position_id = RUS_civ_factories3
 
 		ai_will_do = { factor = 1 }
 
@@ -1204,18 +1124,19 @@ focus_tree = {
 			add_research_slot = 1
 		}
 	}
-	
-	
+
+		
+
 	####################################
 	## -- Army / Air
 	####################################
 
 	focus = {
-		id = FRA_army_effort
+		id = RUS_army_effort
 		icon = GFX_focus_generic_commonwealth_build_infantry
 		#prerequisite = { focus = }
 		cost = 10
-		x = 26
+		x = 30
 		y = 0
 		#relative_position_id = 
 
@@ -1234,13 +1155,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_infantry_effort
+		id = RUS_infantry_effort
 		icon = GFX_goal_generic_small_arms
-		prerequisite = { focus = FRA_army_effort }
+		prerequisite = { focus = RUS_army_effort }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_army_effort
+		relative_position_id = RUS_army_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1256,13 +1177,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_truck_effort
+		id = RUS_truck_effort
 		icon = GFX_goal_generic_army_motorized
-		prerequisite = { focus = FRA_army_effort }
+		prerequisite = { focus = RUS_army_effort }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_army_effort
+		relative_position_id = RUS_army_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1281,13 +1202,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_artillery_effort
+		id = RUS_artillery_effort
 		icon = GFX_goal_generic_army_artillery2
-		prerequisite = { focus = FRA_army_effort }
+		prerequisite = { focus = RUS_army_effort }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_army_effort
+		relative_position_id = RUS_army_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1302,14 +1223,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_trench_warfare
+		id = RUS_trench_warfare
 		icon = GFX_goal_generic_construction2
-		prerequisite = { focus = FRA_infantry_effort }
-		prerequisite = { focus = FRA_artillery_effort }
+		prerequisite = { focus = RUS_infantry_effort }
+		prerequisite = { focus = RUS_artillery_effort }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_infantry_effort
+		relative_position_id = RUS_infantry_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1326,13 +1247,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_infantry_effort2
+		id = RUS_infantry_effort2
 		icon = GFX_goal_generic_military_sphere
-		prerequisite = { focus = FRA_trench_warfare }
+		prerequisite = { focus = RUS_trench_warfare }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_trench_warfare
+		relative_position_id = RUS_trench_warfare
 
 		ai_will_do = { factor = 1 }
 
@@ -1348,13 +1269,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_artillery_effort2
+		id = RUS_artillery_effort2
 		icon = GFX_goal_generic_army_artillery
-		prerequisite = { focus = FRA_trench_warfare }
+		prerequisite = { focus = RUS_trench_warfare }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_trench_warfare
+		relative_position_id = RUS_trench_warfare
 
 		ai_will_do = { factor = 1 }
 
@@ -1369,15 +1290,15 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_defensive_warfare
+		id = RUS_defensive_warfare
 		icon = GFX_goal_generic_construct_military
-		prerequisite = { focus = FRA_trench_warfare }
-		mutually_exclusive = { focus = FRA_offensive_warfare }
+		prerequisite = { focus = RUS_trench_warfare }
+		mutually_exclusive = { focus = RUS_offensive_warfare }
 
 		cost = 10
 		x = -1
 		y = 2
-		relative_position_id = FRA_trench_warfare
+		relative_position_id = RUS_trench_warfare
 
 		ai_will_do = { factor = 1 }
 
@@ -1395,15 +1316,15 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_offensive_warfare
+		id = RUS_offensive_warfare
 		icon = GFX_hoi4tgw_renaultft
-		prerequisite = { focus = FRA_trench_warfare }
-		mutually_exclusive = { focus = FRA_defensive_warfare }
+		prerequisite = { focus = RUS_trench_warfare }
+		mutually_exclusive = { focus = RUS_defensive_warfare }
 
 		cost = 10
 		x = 1
 		y = 2
-		relative_position_id = FRA_trench_warfare
+		relative_position_id = RUS_trench_warfare
 
 		ai_will_do = { factor = 1 }
 
@@ -1420,14 +1341,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_special_forces
+		id = RUS_special_forces
 		icon = GFX_goal_generic_special_forces
-		prerequisite = { focus = FRA_infantry_effort2 }
-		prerequisite = { focus = FRA_offensive_warfare focus = FRA_defensive_warfare  }
+		prerequisite = { focus = RUS_infantry_effort2 }
+		prerequisite = { focus = RUS_offensive_warfare focus = RUS_defensive_warfare  }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = FRA_infantry_effort2
+		relative_position_id = RUS_infantry_effort2
 
 		ai_will_do = { factor = 1 }
 
@@ -1446,14 +1367,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_chemical_weapons
+		id = RUS_chemical_weapons
 		icon = GFX_hoi4tgw_gasmask
-		prerequisite = { focus = FRA_artillery_effort2 }
-		prerequisite = { focus=FRA_offensive_warfare focus=FRA_defensive_warfare  }
+		prerequisite = { focus = RUS_artillery_effort2 }
+		prerequisite = { focus=RUS_offensive_warfare focus=RUS_defensive_warfare  }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = FRA_artillery_effort2
+		relative_position_id = RUS_artillery_effort2
 
 		ai_will_do = { factor = 1 }
 
@@ -1468,13 +1389,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_army_doctrine3
+		id = RUS_army_doctrine3
 		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus=FRA_offensive_warfare focus=FRA_defensive_warfare  }
+		prerequisite = { focus=RUS_offensive_warfare focus=RUS_defensive_warfare  }
 		cost = 10
 		x = 1
 		y = 2
-		relative_position_id = FRA_defensive_warfare
+		relative_position_id = RUS_defensive_warfare
 
 		ai_will_do = { factor = 1 }
 
@@ -1491,13 +1412,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_air_effort
+		id = RUS_air_effort
 		icon = GFX_goal_generic_build_airforce
-		prerequisite = { focus = FRA_army_effort }
+		prerequisite = { focus = RUS_army_effort }
 		cost = 10
 		x = 6
 		y = 1
-		relative_position_id = FRA_army_effort
+		relative_position_id = RUS_army_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1520,13 +1441,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_light_aircraft
+		id = RUS_light_aircraft
 		icon = GFX_goal_generic_air_fighter
-		prerequisite = { focus = FRA_air_effort }
+		prerequisite = { focus = RUS_air_effort }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_air_effort
+		relative_position_id = RUS_air_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1542,13 +1463,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_blimp_effort
+		id = RUS_blimp_effort
 		icon = GFX_hoi4tgw_zeppelin
-		prerequisite = { focus = FRA_air_effort }
+		prerequisite = { focus = RUS_air_effort }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_air_effort
+		relative_position_id = RUS_air_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1563,13 +1484,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_heavy_aircraft
+		id = RUS_heavy_aircraft
 		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = FRA_air_effort }
+		prerequisite = { focus = RUS_air_effort }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_air_effort
+		relative_position_id = RUS_air_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1584,13 +1505,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_air_doctrine1
+		id = RUS_air_doctrine1
 		icon = GFX_goal_generic_air_doctrine
-		prerequisite = { focus = FRA_light_aircraft focus = FRA_heavy_aircraft  focus = FRA_blimp_effort}
+		prerequisite = { focus = RUS_light_aircraft focus = RUS_heavy_aircraft  focus = RUS_blimp_effort}
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_light_aircraft
+		relative_position_id = RUS_light_aircraft
 
 		ai_will_do = { factor = 1 }
 
@@ -1618,13 +1539,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_fighter_effort
+		id = RUS_fighter_effort
 		icon = GFX_goal_generic_air_fighter
-		prerequisite = { focus = FRA_air_doctrine1 }
+		prerequisite = { focus = RUS_air_doctrine1 }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_air_doctrine1
+		relative_position_id = RUS_air_doctrine1
 
 		ai_will_do = { factor = 1 }
 
@@ -1639,13 +1560,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_cas_effort
+		id = RUS_cas_effort
 		icon = GFX_goal_poland_goal
-		prerequisite = { focus = FRA_air_doctrine1 }
+		prerequisite = { focus = RUS_air_doctrine1 }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_air_doctrine1
+		relative_position_id = RUS_air_doctrine1
 
 		ai_will_do = { factor = 1 }
 
@@ -1660,13 +1581,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_bomber_effort
+		id = RUS_bomber_effort
 		icon = GFX_goal_generic_air_bomber
-		prerequisite = { focus = FRA_air_doctrine1 }
+		prerequisite = { focus = RUS_air_doctrine1 }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_air_doctrine1
+		relative_position_id = RUS_air_doctrine1
 
 		ai_will_do = { factor = 1 }
 
@@ -1681,15 +1602,15 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_air_doctrine2
+		id = RUS_air_doctrine2
 		icon = GFX_goal_generic_air_doctrine
-		prerequisite = { focus = FRA_fighter_effort }
-		prerequisite = { focus = FRA_bomber_effort }
-		prerequisite = { focus = FRA_cas_effort }
+		prerequisite = { focus = RUS_fighter_effort }
+		prerequisite = { focus = RUS_bomber_effort }
+		prerequisite = { focus = RUS_cas_effort }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_fighter_effort
+		relative_position_id = RUS_fighter_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1720,12 +1641,12 @@ focus_tree = {
 	####################################
 
 	focus = {
-		id = FRA_navy_effort
+		id = RUS_navy_effort
 		icon = GFX_goal_generic_construct_naval_dockyard
 		cost = 10
 		x = 11
 		y = 0
-		relative_position_id = FRA_army_effort
+		relative_position_id = RUS_army_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1760,13 +1681,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_destroyer_effort
+		id = RUS_destroyer_effort
 		icon = GFX_focus_generic_destroyer
-		prerequisite = { focus = FRA_navy_effort }
+		prerequisite = { focus = RUS_navy_effort }
 		cost = 10
 		x = -2
 		y = 1
-		relative_position_id = FRA_navy_effort
+		relative_position_id = RUS_navy_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1781,13 +1702,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_cruiser_effort
+		id = RUS_cruiser_effort
 		icon = GFX_focus_generic_cruiser2
-		prerequisite = { focus = FRA_navy_effort }
+		prerequisite = { focus = RUS_navy_effort }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_navy_effort
+		relative_position_id = RUS_navy_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1803,13 +1724,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_battleship_effort
+		id = RUS_battleship_effort
 		icon = GFX_focus_generic_navy_battleship2  
-		prerequisite = { focus = FRA_navy_effort }
+		prerequisite = { focus = RUS_navy_effort }
 		cost = 10
 		x = 2
 		y = 1
-		relative_position_id = FRA_navy_effort
+		relative_position_id = RUS_navy_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1825,15 +1746,15 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_improved_nav_doctrine
+		id = RUS_improved_nav_doctrine
 		icon = GFX_goal_generic_navy_doctrines_tactics
-		prerequisite = { focus = FRA_destroyer_effort }
-		prerequisite = { focus = FRA_cruiser_effort }
-		prerequisite = { focus = FRA_battleship_effort }
+		prerequisite = { focus = RUS_destroyer_effort }
+		prerequisite = { focus = RUS_cruiser_effort }
+		prerequisite = { focus = RUS_battleship_effort }
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = FRA_cruiser_effort
+		relative_position_id = RUS_cruiser_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1849,13 +1770,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_submarine_effort
+		id = RUS_submarine_effort
 		icon = GFX_goal_generic_navy_submarine
-		prerequisite = { focus = FRA_improved_nav_doctrine }
+		prerequisite = { focus = RUS_improved_nav_doctrine }
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = FRA_improved_nav_doctrine
+		relative_position_id = RUS_improved_nav_doctrine
 
 		ai_will_do = { factor = 1 }
 
@@ -1870,13 +1791,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_gunnery_school
+		id = RUS_gunnery_school
 		icon = GFX_focus_SWE_coastal_support
-		prerequisite = { focus = FRA_improved_nav_doctrine }
+		prerequisite = { focus = RUS_improved_nav_doctrine }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = FRA_improved_nav_doctrine
+		relative_position_id = RUS_improved_nav_doctrine
 
 		ai_will_do = { factor = 1 }
 
@@ -1887,13 +1808,13 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_more_dockyards
+		id = RUS_more_dockyards
 		icon = GFX_goal_generic_construct_naval_dockyard
-		prerequisite = { focus = FRA_improved_nav_doctrine }
+		prerequisite = { focus = RUS_improved_nav_doctrine }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = FRA_improved_nav_doctrine
+		relative_position_id = RUS_improved_nav_doctrine
 
 		ai_will_do = { factor = 1 }
 
@@ -1933,14 +1854,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_new_approach
+		id = RUS_new_approach
 		icon = GFX_goal_generic_navy_carrier
-		prerequisite = { focus = FRA_submarine_effort }
-		mutually_exclusive = { focus=FRA_battleship_supremacy  }
+		prerequisite = { focus = RUS_submarine_effort }
+		mutually_exclusive = { focus=RUS_battleship_supremacy  }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = FRA_submarine_effort
+		relative_position_id = RUS_submarine_effort
 
 		ai_will_do = { factor = 1 }
 
@@ -1955,14 +1876,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_battleship_supremacy
+		id = RUS_battleship_supremacy
 		icon = GFX_goal_generic_navy_battleship
-		prerequisite = { focus = FRA_gunnery_school }
-		mutually_exclusive = { focus=FRA_new_approach  }
+		prerequisite = { focus = RUS_gunnery_school }
+		mutually_exclusive = { focus=RUS_new_approach  }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = FRA_gunnery_school
+		relative_position_id = RUS_gunnery_school
 
 		ai_will_do = { factor = 1 }
 
@@ -1976,4 +1897,4 @@ focus_tree = {
 		}
 	}
 }
-		
+	

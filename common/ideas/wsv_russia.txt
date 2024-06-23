@@ -2,50 +2,34 @@ ideas = {
 
 	country = {
 
-		RUS_ww1_tsushima_humiliation = {
-			allowed = {original_tag = RUS} 
-			allowed_civil_war = {always = yes} 
-			removal_cost = -1 
-			modifier = {
-				production_speed_coastal_bunker_factor = 0.2
-				stability_factor = -0.1
-			}
-			equipment_bonus = {
-				capital_ship = {
-					build_cost_ic = 0.10 instant = yes
-				}
-				screen_ship = {
-					build_cost_ic = 0.05 instant = yes
-				}
-				submarine = {
-					build_cost_ic = 0.05 instant = yes
-				}
-				destroyer = {
-					build_cost_ic = 0.05 instant = yes
-				}
-			}
-
-			modifier = {
-				production_speed_dockyard_factor = 0.25
-				naval_doctrine_cost_factor = 0.25
-			}
-		}
-
 		RUS_agrarian_empire = {
-			allowed = {
-				always = no
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
 			removal_cost = -1
 			picture = generic_agrarian_society
 			modifier = {
-				global_building_slots_factor = -0.25
-				local_resources_factor = -0.25
+				consumer_goods_factor = -0.2
+				research_speed_factor = -0.15
+				monthly_population = 0.2
+				global_building_slots_factor = -0.5
+				local_resources_factor = -0.5
 			}
 		}
+
+
+		RUS_mixed_railways = {
+			allowed = {original_tag = RUS}
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			modifier = {
+				army_speed_factor = -0.15
+				org_loss_when_moving = 0.25
+				supply_node_range = -0.25
+			}
+		}
+		
+
+		
 
 		RUS_threat_of_revolution = {
 			allowed = {
@@ -61,23 +45,39 @@ ideas = {
 				surrender_limit = -0.25
 				drift_defence_factor = -0.25
 				communism_drift = 0.02
-				army_attack_factor = -0.1
-				army_org_factor = -0.2
-				conscription_factor = -0.2
+				army_attack_factor = -0.3
+				army_org_factor = -0.15
+				conscription_factor = -0.25
 			}
 		}
 
-		RUS_mixed_railways = {
-			allowed = {original_tag = RUS}
-			allowed_civil_war = {always = yes}
-			removal_cost = -1
+
+		RUS_tsushima_humiliation = {
+			allowed = {original_tag = RUS} 
+			allowed_civil_war = {always = yes} 
+			removal_cost = -1 
+		
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = 0.15 instant = yes
+				}
+				screen_ship = {
+					build_cost_ic = 0.1 instant = yes
+				}
+				submarine = {
+					build_cost_ic = 0.1 instant = yes
+				}
+				destroyer = {
+					build_cost_ic = 0.1 instant = yes
+				}
+			}
+
 			modifier = {
-				army_speed_factor = -0.1
-				org_loss_when_moving = 0.1
-				supply_node_range = -0.2
-				production_speed_rail_way_factor = -0.1
+				production_speed_dockyard_factor = -0.25
+				naval_doctrine_cost_factor = 0.5
 			}
 		}
+
 
 		# RUS_russian_staff = {
 		# 	allowed = {
