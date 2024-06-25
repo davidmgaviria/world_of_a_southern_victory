@@ -8,11 +8,11 @@ ideas = {
 			removal_cost = -1
 			picture = generic_agrarian_society
 			modifier = {
-				consumer_goods_factor = -0.2
+				#consumer_goods_factor = -0.2
 				research_speed_factor = -0.15
-				monthly_population = 0.2
+				monthly_population = 0.25
 				global_building_slots_factor = -0.5
-				local_resources_factor = -0.5
+				local_resources_factor = -0.25
 			}
 		}
 
@@ -21,14 +21,14 @@ ideas = {
 			allowed = {original_tag = RUS}
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
+			picture = RUS_mixed_railways_icon
+
 			modifier = {
 				army_speed_factor = -0.15
 				org_loss_when_moving = 0.25
 				supply_node_range = -0.25
 			}
 		}
-		
-
 		
 
 		RUS_threat_of_revolution = {
@@ -41,7 +41,7 @@ ideas = {
 			removal_cost = -1
 			picture = generic_red_revolution
 			modifier = {
-				political_power_gain = -0.25
+				political_power_gain = -0.3
 				surrender_limit = -0.25
 				drift_defence_factor = -0.25
 				communism_drift = 0.02
@@ -56,6 +56,8 @@ ideas = {
 			allowed = {original_tag = RUS} 
 			allowed_civil_war = {always = yes} 
 			removal_cost = -1 
+
+			picture = RUS_tsushima_humiliation_icon
 		
 			equipment_bonus = {
 				capital_ship = {
@@ -79,24 +81,136 @@ ideas = {
 		}
 
 
-		# RUS_russian_staff = {
-		# 	allowed = {
-		# 		always = yes
-		# 	}
+		#####################################################################
 
-		# 	removal_cost = -1
+		RUS_tsushima_humiliation_2 = {
+			allowed = {original_tag = RUS} 
+			allowed_civil_war = {always = yes} 
+			removal_cost = -1 
 
-		# 	picture=russian_staff_icon
-
-		# 	research_bonus = { land_doctrine = -0.25 }
-
-		# 	modifier = {
-		# 		planning_speed = -0.25
-		# 		max_planning = -0.25
-		# 		#experience_gain_army_factor = -0.25
-		# 	}
-		# }
+			picture = RUS_tsushima_humiliation_icon
 		
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = 0.1 instant = yes
+				}
+				screen_ship = {
+					build_cost_ic = 0.05 instant = yes
+				}
+				submarine = {
+					build_cost_ic = 0.05 instant = yes
+				}
+				destroyer = {
+					build_cost_ic = 0.05 instant = yes
+				}
+			}
+
+			modifier = {
+				production_speed_dockyard_factor = -0.1
+				naval_doctrine_cost_factor = 0.25
+			}
+		}
+
+		RUS_stolpyin_plan_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = { has_war = yes }
+			#picture = generic_red_revolution
+			
+			modifier = {
+				political_power_gain = -0.1
+				consumer_goods_factor = -0.1
+				production_speed_industrial_complex_factor = 0.1
+				production_speed_arms_factory_factor = 0.1
+			}
+		}
+
+		RUS_improved_resources = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			#picture = generic_agrarian_society
+			modifier = {
+				local_resources_factor = 0.15
+			}
+		}
+
+		RUS_improved_literacy = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			#picture = generic_agrarian_society
+			modifier = {
+				research_speed_factor = 0.1
+			}
+		}
+
+		RUS_improve_railways = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			#picture = generic_agrarian_society
+			modifier = {
+				production_speed_infrastructure_factor = 0.1
+				production_speed_rail_way_factor = 0.1
+			}
+		}
+
+		RUS_restricted_press_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			#picture = generic_red_revolution
+			
+			modifier = {
+				drift_defence_factor = 0.25
+				stability_factor = -0.05
+			}
+		}
+
+
+		RUS_take_civilian_grain_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			#picture = generic_red_revolution
+			
+			modifier = {
+				consumer_goods_factor = -0.25
+				stability_factor = -0.1
+				war_support_weekly = -0.001
+			}
+		}
+
+
+		RUS_take_civilian_grain_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			#picture = generic_red_revolution
+			
+			modifier = {
+				consumer_goods_factor = -0.25
+				stability_factor = -0.1
+				war_support_weekly = -0.001
+			}
+		}
+
+
+		RUS_social_reforms_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = { has_war = yes }
+			#picture = generic_red_revolution
+			
+			modifier = {
+				consumer_goods_factor = -0.15
+				stability_weekly = 0.002
+			}
+		}
+
 
 		# RUS_peasant_army = {
 		# 	allowed = {

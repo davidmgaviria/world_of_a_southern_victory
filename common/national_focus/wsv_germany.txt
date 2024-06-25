@@ -904,7 +904,6 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 
 		available = {
-			has_war_with = RUS
 			controls_state = 87
 			controls_state = 98
 			controls_state = 10
@@ -914,6 +913,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
+			add_manpower = 60000
 			POL = {
 				transfer_state = 87
 				transfer_state = 98
@@ -927,10 +927,16 @@ focus_tree = {
 			    autonomy_state = autonomy_ger_puppet
 			    freedom_level = 0.5
 			}
+			# update polands status depending on war
 			hidden_effect = {
-				add_to_war = {
-					targeted_alliance = POL
-					enemy = RUS
+				if = {
+					limit = { has_war_with = RUS }
+					POL = {
+						add_to_war = {
+							targeted_alliance = GER
+							enemy = RUS
+						}
+					}
 				}
 			}
 		}
