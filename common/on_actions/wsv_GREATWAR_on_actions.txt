@@ -1,0 +1,147 @@
+on_actions = {
+
+	
+### USA Remembance Day event timer ###
+	#-- USA is root
+	on_monthly_USA = {   
+		effect = {
+			if = {
+				limit = { 
+					has_start_date < 1918.1.1
+					has_idea = USA_remembrance_idea
+				}
+			}
+			add_to_variable = { USA.months_to_rememberance_day = -1 }
+			if = { 
+				limit = {
+					check_variable = { USA.months_to_rememberance_day < 1 }
+				}
+				set_variable = { USA.months_to_rememberance_day = 12 }
+				news_event = {
+					id = wsv_usa.1
+					days = 21
+				}
+			}
+		}
+	}
+
+
+### Decision on what to do with mormon leaders ###
+	#-- ROOT is country that capitulated
+	on_capitulation = { 
+		effect = {
+			if = {
+				limit = { tag = DES }
+				USA = { country_event = { id = wsv_usa.10  days = 1 } }
+			}
+		}
+	}
+
+
+### Who won the Russian civil war ###
+	#-- ROOT is country that capitulated
+	on_capitulation_immediate = { 
+		effect = {
+			## Whites won the civil war
+			if = {
+				limit = { 
+					tag = SOV  # Soviets capitulated
+					has_war_with = RUS
+				}
+				RUS = { annex_country = { target = SOV   transfer_troops = no } }
+				news_event = wsv_russia.111
+			}
+			## Reds won the civil war
+			if = {
+				limit = { 
+					tag = RUS  # Russia capitulated
+					has_war_with = SOV
+				}
+				SOV = { annex_country = { target = RUS   transfer_troops = no } }
+				news_event = wsv_russia.112
+			}
+		}
+	}
+}
+
+
+
+
+	###################### ignore ####################
+
+
+	#English men to Canada
+	#on_startup = {
+	#	effect = {
+	#		if = {
+	#			limit = {
+	#				has_start_date > 1910.1.1
+	#				has_start_date < 1914.1.1
+	#			}
+	#			ENG = {
+	#				load_oob = ENG_canadian_expeditionary_1910
+	#				set_division_template_lock = { division_template = "Canadian Expeditionary Division"   is_locked = yes }
+	#				set_country_flag = england_canadian_expeditionary_force
+	#			}
+	#		}
+	#		else_if = {
+	#			limit = {
+	#				has_start_date > 1914.1.1
+	#				has_start_date < 1937.1.1
+	#			}
+	#			ENG = {
+	#				load_oob = ENG_canadian_expeditionary_1914
+	#				set_country_flag = england_canadian_expeditionary_force
+	#				if = {
+	#					limit = { is_ai = yes }
+	#					set_division_template_lock = { division_template = "Canadian Expeditionary Division"   is_locked = yes }
+	#				}
+	#			}
+	#		}
+	#	}		
+	#}
+
+
+	#english send men to canada
+	#on_war = {
+	#	effect = {
+	#		if = {
+	#			limit = {
+	#				CAN = { 
+	#					has_war_with = USA
+	#					is_subject_of = ENG
+	#				}
+	#				ENG = {
+	#					is_ai = yes
+	#					NOT = { has_global_flag = england_canadian_expeditionary_force }
+	#				}
+	#			}
+	#			ENG = {
+	#				transfer_units_fraction= {
+	#					target = CAN
+	#					size = 0.35
+	#					stockpile_ratio = 0.35
+	#				}
+	#				add_ideas = ENG_canadian_expeditionary_force_sender
+	#				set_global_flag = england_canadian_expeditionary_force
+	#			}
+	#			CAN = { 
+	#				add_ideas = ENG_canadian_expeditionary_force_reciever 
+	#			}
+	#		}
+	#	}
+	#}
+
+	#### Faction status
+	#on_join_faction = {
+	#	effect = {
+	#		if = {
+	#			limit = { OR = { is_in_faction_with = FRA  is_in_faction_with = ENG } }
+	#			set_country_flag = entente_member
+	#		}
+	#		if = {
+	#			limit = { is_in_faction_with = GER }
+	#			set_country_flag = central_power_member
+	#		}
+	#	}
+	#}

@@ -451,7 +451,7 @@ focus_tree = {
 		
 	focus = {
 		id = RUS_favor_serbia
-		#icon = GFX_focus_chi_legislative_yuan #Focus_invite_yugoslavia
+		icon = GFX_focus_chi_legislative_yuan #Focus_invite_yugoslavia
 		prerequisite = { focus = RUS_pan_slavic_ideals }
 		mutually_exclusive = { focus=RUS_favor_bulgaria  }
 		cost = 10
@@ -486,89 +486,129 @@ focus_tree = {
 					modifier = wsv_dislikes_country
 				}
 			}
-			custom_effect_tooltip = allows_defense_of_serbia_tt
 			set_country_flag = patron_of_serbia
+			custom_effect_tooltip = allows_defense_of_serbia_tt
+			hidden_effect = {
+				SER = { country_event = wsv_russia.20 }
+			}
 		}
 	}
 
 	
-		
-	# focus = {
-	# 	id = RUS_outreach_romania
-	# 	#icon = GFX_focus_invite_romania
-	# 	prerequisite = { focus = RUS_favor_serbia }
-	# 	cost = 10
-	# 	x = -1
-	# 	y = 1
-	# 	relative_position_id = RUS_favor_serbia
+	focus = {
+		id = RUS_outreach_romania
+		icon = GFX_focus_invite_romania
+		prerequisite = { focus = RUS_favor_serbia }
+		cost = 5
+		x = -1
+		y = 1
+		relative_position_id = RUS_favor_serbia
 
-	# 	ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 1 }
 
-	# 	#bypass = {}
+		#bypass = {}
 
-	# 	completion_reward = { 
-	# 	}
-	# }
+		completion_reward = { 
+			ROM = {
+				add_opinion_modifier = {
+					target = RUS
+					modifier = wsv_improve_relations
+				}
+			}
+			add_opinion_modifier = {
+				target = ROM
+				modifier = wsv_improve_relations
+			}
+		}
+	}
 
-		
-	# focus = {
-	# 	id = RUS_secret_pact_romania
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = RUS_outreach_romania }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = RUS_outreach_romania
 
-	# 	ai_will_do = { factor = 1 }
+	focus = {
+		id = RUS_arm_our_brothers
+		icon = GFX_goal_generic_military_sphere
+		prerequisite = { focus = RUS_favor_serbia   focus = RUS_favor_bulgaria }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_favor_serbia
 
-	# 	#bypass = {}
+		ai_will_do = { factor = 1 }
 
-	# 	completion_reward = { 
-	# 	}
-	# }
+		#bypass = {}
 
-		
-	# focus = {
-	# 	id = RUS_defense_of_serbia
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = RUS_favor_serbia }
-	# 	cost = 10
-	# 	x = 1
-	# 	y = 1
-	# 	relative_position_id = RUS_favor_serbia
-
-	# 	ai_will_do = { factor = 1 }
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-		
-	# focus = {
-	# 	id = RUS_break_the_austrians
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = RUS_defense_of_serbia }
-	# 	prerequisite = { focus = RUS_secret_pact_romania }
-	# 	cost = 10
-	# 	x = 1
-	# 	y = 1
-	# 	relative_position_id = RUS_secret_pact_romania
-
-	# 	ai_will_do = { factor = 1 }
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
+		completion_reward = { 
+			if = {
+				limit = { has_country_flag = patron_of_serbia }
+				send_equipment = {
+					type = infantry_equipment
+					amount = 5000
+					target = SER
+				}
+			}
+			if = {
+				limit = { has_country_flag = patron_of_bulgaria }
+				send_equipment = {
+					type = infantry_equipment
+					amount = 5000
+					target = BUL
+				}
+			}
+			else = {
+				custom_effect_tooltip = send_arms_to_brothers_temp_tt
+			}
+		}
+	}
 
 		
 	focus = {
+		id = RUS_support_romanian_claims
+		icon = GFX_goal_generic_military_deal
+		prerequisite = { focus = RUS_outreach_romania }
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = RUS_outreach_romania
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+			ROM = { set_country_flag = russia_supports_transylvania_claims }
+			custom_effect_tooltip = romania_more_likely_to_favor_us_tt
+		}
+	}
+
+
+	focus = {
+		id = RUS_break_the_austrians
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_arm_our_brothers }
+		prerequisite = { focus = RUS_support_romanian_claims }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_support_romanian_claims
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1915.1.1
+		}
+
+		bypass = { has_war_with = AUH  }
+
+		completion_reward = { 
+			create_wargoal = {
+				target = AUH
+				type = topple_government
+			}
+		}
+	}
+		
+	focus = {
 		id = RUS_favor_bulgaria
-		#icon = GFX_focus_generic_befriend_bulgaria
+		icon = GFX_focus_generic_befriend_bulgaria
 		prerequisite = { focus = RUS_pan_slavic_ideals }
 		mutually_exclusive = { focus=RUS_favor_serbia  }
 		cost = 10
@@ -603,28 +643,55 @@ focus_tree = {
 					modifier = wsv_dislikes_country
 				}
 			}
-			custom_effect_tooltip = allows_defense_of_bulgaria_tt
+			#custom_effect_tooltip = allows_defense_of_bulgaria_tt
 			set_country_flag = patron_of_bulgaria
 		}
 	}
 
+	# focus = {
+	# 	id = RUS_attack_turkey
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = RUS_arm_our_brothers }
+	# 	prerequisite = { focus = RUS_favor_bulgaria }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = RUS_favor_bulgaria
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		date > 1915.1.1
+	# 	}
+
+	# 	completion_reward = { 
+	# 		add_state_claim = 341
+	# 		add_state_claim = 340
+	# 		add_state_claim = 344
+	# 		create_wargoal = {
+	# 			target = TUR
+	# 			type = take_claimed_state
+	# 		}
+	# 	}
+	# }
+
 		
-	focus = {
-		id = RUS_arm_bulgaria
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_favor_bulgaria }
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = RUS_favor_bulgaria
+	# focus = {
+	# 	id = RUS_arm_bulgaria
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = RUS_favor_bulgaria }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 2
+	# 	relative_position_id = RUS_favor_bulgaria
 
-		ai_will_do = { factor = 1 }
+	# 	ai_will_do = { factor = 1 }
 
-		#bypass = {}
+	# 	#bypass = {}
 
-		completion_reward = { 
-		}
-	}
+	# 	completion_reward = { 
+	# 	}
+	# }
 
 		
 	focus = {
@@ -1010,7 +1077,7 @@ focus_tree = {
 		
 	focus = {
 		id = RUS_prevent_revolution
-		#icon = GFX_focus_generic_workers_and_farmers_rise
+		icon = GFX_focus_generic_workers_and_farmers_rise
 		prerequisite = { focus = RUS_increase_political_suffrage }
 		cost = 5
 		x = 0
@@ -1022,15 +1089,16 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
 		
 	focus = {
 		id = RUS_coordinate_white_faction
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_anschluss
 		prerequisite = { focus = RUS_prevent_revolution }
-		cost = 5
+		cost = 10
 		x = -1
 		y = 1
 		relative_position_id = RUS_prevent_revolution
@@ -1040,15 +1108,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			increase_white_support_effect = yes
+			add_political_power = 75
 		}
 	}
 
 		
 	focus = {
 		id = RUS_assure_safety_of_tsar
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_defence
 		prerequisite = { focus = RUS_prevent_revolution }
-		cost = 5
+		cost = 10
 		x = 1
 		y = 1
 		relative_position_id = RUS_prevent_revolution
@@ -1058,16 +1128,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			slightly_increase_white_support_effect = yes
 		}
 	}
 
 		
 	focus = {
 		id = RUS_arrest_bolsheviks
-		#icon = GFX_focus_spr_crush_the_revolution
+		icon = GFX_focus_spr_crush_the_revolution
 		prerequisite = { focus = RUS_assure_safety_of_tsar }
 		prerequisite = { focus = RUS_coordinate_white_faction }
-		cost = 5
+		cost = 10
 		x = -1
 		y = 1
 		relative_position_id = RUS_assure_safety_of_tsar
@@ -1077,13 +1152,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			massively_decrease_red_support_effect = yes
 		}
 	}
 
 		
 	focus = {
 		id = RUS_fifth_durma
-		#icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_generic_improve_the_administration
 		prerequisite = { focus = RUS_arrest_bolsheviks }
 		cost = 10
 		x = 0
@@ -1092,9 +1168,15 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
+		available = {
+			has_war = no
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			## elections in russia
+			add_stability = 0.2
 		}
 	}
 	

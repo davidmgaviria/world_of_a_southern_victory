@@ -46,8 +46,8 @@ ideas = {
 				drift_defence_factor = -0.25
 				communism_drift = 0.02
 				army_attack_factor = -0.3
-				army_org_factor = -0.15
-				conscription_factor = -0.25
+				army_org_factor = -0.1
+				conscription_factor = -0.2
 			}
 		}
 
@@ -116,7 +116,7 @@ ideas = {
 			allowed_civil_war = { always = no }
 			removal_cost = -1
 			cancel = { has_war = yes }
-			#picture = generic_red_revolution
+			picture = SOV_fourth_five_year_plan
 			
 			modifier = {
 				political_power_gain = -0.1
@@ -130,7 +130,8 @@ ideas = {
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
-			#picture = generic_agrarian_society
+			picture = ARG_resource_extration_focus
+
 			modifier = {
 				local_resources_factor = 0.15
 			}
@@ -140,7 +141,8 @@ ideas = {
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
-			#picture = generic_agrarian_society
+			picture = BRA_dasp
+
 			modifier = {
 				research_speed_factor = 0.1
 			}
@@ -150,7 +152,8 @@ ideas = {
 			allowed = { always = no }
 			allowed_civil_war = { always = yes }
 			removal_cost = -1
-			#picture = generic_agrarian_society
+			picture = ARG_invest_in_railways  #Generic_build_infrastructure
+
 			modifier = {
 				production_speed_infrastructure_factor = 0.1
 				production_speed_rail_way_factor = 0.1
@@ -161,7 +164,7 @@ ideas = {
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
 			removal_cost = -1
-			#picture = generic_red_revolution
+			picture = generic_democracy_banned
 			
 			modifier = {
 				drift_defence_factor = 0.25
@@ -169,41 +172,12 @@ ideas = {
 			}
 		}
 
-
-		RUS_take_civilian_grain_idea = {
-			allowed = { always = no }
-			allowed_civil_war = { always = no }
-			removal_cost = -1
-			#picture = generic_red_revolution
-			
-			modifier = {
-				consumer_goods_factor = -0.25
-				stability_factor = -0.1
-				war_support_weekly = -0.001
-			}
-		}
-
-
-		RUS_take_civilian_grain_idea = {
-			allowed = { always = no }
-			allowed_civil_war = { always = no }
-			removal_cost = -1
-			#picture = generic_red_revolution
-			
-			modifier = {
-				consumer_goods_factor = -0.25
-				stability_factor = -0.1
-				war_support_weekly = -0.001
-			}
-		}
-
-
 		RUS_social_reforms_idea = {
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
 			removal_cost = -1
 			cancel = { has_war = yes }
-			#picture = generic_red_revolution
+			picture = ARG_social_welfare_fund_ns
 			
 			modifier = {
 				consumer_goods_factor = -0.15
@@ -211,6 +185,75 @@ ideas = {
 			}
 		}
 
+
+		RUS_take_civilian_grain_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = generic_supply_depot
+			
+			modifier = {
+				consumer_goods_factor = -0.25
+				stability_factor = -0.1
+				war_support_weekly = -0.001
+			}
+		}
+
+
+		RUS_unstable_political_situation = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = POL_the_peasants_strike
+			
+			modifier = {
+				stability_weekly = -0.003
+				political_power_gain = -0.8
+				surrender_limit = -0.25
+				drift_defence_factor = -0.5
+				democratic_drift = 0.02
+				communism_drift = 0.02
+				army_attack_factor = -0.4
+				army_org_factor = -0.3
+				conscription_factor = -0.3
+			}
+		}
+
+
+		RUS_unstable_white_alliance = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = generic_disjointed_gov
+			
+			modifier = {
+				political_power_gain = -0.5
+				command_power_gain_mult = -0.5
+				army_attack_factor = -0.1
+				army_org_factor = -0.2
+				conscription_factor = -0.1
+			}
+		}
+
+		
+		RUS_workers_revolution = {
+			allowed={ has_government = communism  }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = home_of_revolution
+			
+			modifier = {
+				army_attack_factor = 0.1
+				army_morale_factor = 0.1
+				army_org_factor = -0.2
+				conscription_factor = 0.1
+				surrender_limit = 0.25
+				communism_drift = 0.01
+			}
+		}
+
+
+		
 
 		# RUS_peasant_army = {
 		# 	allowed = {
@@ -238,70 +281,58 @@ ideas = {
 		# 	}
 		# }
 
-		RUS_communist_unrest1 = {
+		# RUS_communist_unrest1 = {
 
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
-			removal_cost=-1
-			picture = generic_communism_drift_bonus
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = no }
+		# 	cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+		# 	removal_cost=-1
+		# 	picture = generic_communism_drift_bonus
 			
-			modifier = {
-				communism_drift = 0.1
-			}
-		}
+		# 	modifier = {
+		# 		communism_drift = 0.1
+		# 	}
+		# }
 
-		RUS_communist_unrest2 = {
+		# RUS_communist_unrest2 = {
 
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
-			removal_cost=-1
-			picture = generic_communism_drift_bonus
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = no }
+		# 	cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+		# 	removal_cost=-1
+		# 	picture = generic_communism_drift_bonus
 			
-			modifier = {
-				communism_drift = 0.2
-			}
-		}
+		# 	modifier = {
+		# 		communism_drift = 0.2
+		# 	}
+		# }
 
-		RUS_communist_unrest3 = {
+		# RUS_communist_unrest3 = {
 
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
-			removal_cost=-1
-			picture = generic_communism_drift_bonus
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = no }
+		# 	cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+		# 	removal_cost=-1
+		# 	picture = generic_communism_drift_bonus
 			
-			modifier = {
-				communism_drift = 0.3
-			}
-		}
+		# 	modifier = {
+		# 		communism_drift = 0.3
+		# 	}
+		# }
 
-		RUS_lenin_returns = {
-			allowed={ always=no }
-			allowed_civil_war={ always = no }
-			cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
-			removal_cost=-1
-			picture = socialist_science_focus
+		# RUS_lenin_returns = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = no }
+		# 	cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+		# 	removal_cost=-1
+		# 	picture = socialist_science_focus
 			
-			modifier = {
-				communism_drift = 0.3
-			}
-		}
+		# 	modifier = {
+		# 		communism_drift = 0.3
+		# 	}
+		# }
 
-		RUS_workers_revolution = {
-			allowed={ has_government = communism  }
-			cancel = { has_war = no }
-			removal_cost=-1
-			picture = home_of_revolution
-			
-			modifier = {
-				army_morale_factor = 0.1
-				consumer_goods_factor = -0.1
-				surrender_limit = 0.4
-				conscription = 0.02
-			}
-		}
+		
 
 
 		#####################################

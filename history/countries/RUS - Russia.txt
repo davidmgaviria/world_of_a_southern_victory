@@ -26,6 +26,7 @@ set_convoys = 100
 	#---------------- CHARACTERS ----------------#
 	if = { limit = { has_start_date < 1937.1.1 }
 		# Country Leaders
+		recruit_character = RUS_alexander_kerensky
 		recruit_character = RUS_georgy_lvov
 		recruit_character = RUS_vladimir_lenin
 		recruit_character = RUS_alexander_kolchak
@@ -93,6 +94,10 @@ set_convoys = 100
 	    neutrality = 54 
 	}
 
+	# Variables for power struggle when Tsar abdicates
+	set_variable = { white_support = 45 }
+	set_variable = { red_support = 10 }
+
 	add_ideas = {
 		RUS_agrarian_empire
 		RUS_mixed_railways
@@ -109,16 +114,16 @@ set_convoys = 100
 		amount = 50000
 		producer = RUS
 	}
-	# add_equipment_to_stockpile = {
-	# 	type = support_equipment_1
-	# 	producer = RUS
-	# 	amount = 1000
-	# }
-	# add_equipment_to_stockpile = {
-	# 	type = artillery_equipment_1
-	# 	producer = RUS
-	# 	amount = 1250
-	# }
+	add_equipment_to_stockpile = {
+		type = support_equipment_1
+		producer = RUS
+		amount = 750
+	}
+	add_equipment_to_stockpile = {
+		type = artillery_equipment_1
+		producer = RUS
+		amount = 1000
+	}
 
 
 	#--------------- TECHNOLOGY ----------------#
