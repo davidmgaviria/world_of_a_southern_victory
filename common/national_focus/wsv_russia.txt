@@ -30,11 +30,8 @@ focus_tree = {
 		cost = 10
 		x = 19
 		y = 0
-		#relative_position_id = 
 
 		ai_will_do = { factor = 1 }
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_political_power = 100
@@ -53,8 +50,6 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
-
 		completion_reward = { 
 			add_political_power = 50
 		}
@@ -72,7 +67,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_full_control_of_state = 408
+		}
 
 		completion_reward = { 
 			swap_ideas = {
@@ -94,7 +91,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_full_control_of_state = 408
+		}
 
 		completion_reward = { 
 			add_state_claim = 329
@@ -123,8 +122,6 @@ focus_tree = {
 			has_full_control_of_state = 408
 		}
 
-		#bypass = {}
-
 		completion_reward = { 
 			remove_ideas = RUS_tsushima_humiliation_2
 			408 = {
@@ -150,7 +147,15 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			date > 1915.1.1
+			country_exists = JAP
+			NOT = { is_in_faction_with = JAP }
+		}
+
+		bypass = {
+			has_war_with = JAP
+		}
 
 		completion_reward = { 
 			create_wargoal = {
@@ -176,7 +181,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = FRA
+			is_in_faction_with = FRA
+		}
 
 		completion_reward = { 
 			FRA = {
@@ -204,7 +212,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+		}
 
 		completion_reward = { 
 			ENG = {
@@ -232,7 +243,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+		}
 
 		completion_reward = { 
 			ENG = {
@@ -261,7 +275,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = FRA
+			is_in_faction_with = FRA
+		}
 
 		completion_reward = { 
 			army_experience = 25
@@ -285,7 +302,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = GER
+			NOT = { is_in_faction_with = GER }
+		}
 
 		completion_reward = { 
 			add_war_support = 0.1
@@ -301,14 +321,12 @@ focus_tree = {
 		id = RUS_balkan_policy
 		icon = GFX_focus_generic_balkan_diplomacy #focus_BUL_free_balkan_states
 		prerequisite = { focus = RUS_russian_foriegn_policy }
-		cost = 5
+		cost = 10
 		x = 2
 		y = 1
 		relative_position_id = RUS_russian_foriegn_policy
 
 		ai_will_do = { factor = 1 }
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_political_power = 50
@@ -320,14 +338,20 @@ focus_tree = {
 		id = RUS_pan_slavic_ideals
 		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = RUS_balkan_policy }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = RUS_balkan_policy
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			OR = {
+				country_exists = SER
+				country_exists = BUL
+				country_exists = MNT
+			}
+		}
 
 		completion_reward = { 
 			add_stability = 0.1
@@ -337,6 +361,10 @@ focus_tree = {
 			}
 			add_opinion_modifier = {
 				target = BUL
+				modifier = wsv_RUS_fellow_slav_outreach
+			}
+			add_opinion_modifier = {
+				target = MNT
 				modifier = wsv_RUS_fellow_slav_outreach
 			}
 		}
@@ -355,7 +383,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			NOT = { is_in_faction_with = GER }
+			NOT = { is_in_faction_with = AUH }
+		}
 
 		completion_reward = { 
 			add_state_claim = 91
@@ -394,8 +425,6 @@ focus_tree = {
 			controls_state = 92
 			controls_state = 97
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_manpower = 80000
@@ -461,7 +490,14 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = SER
+			NOT = { has_war_with =  SER }
+		}
+
+		bypass = {
+			is_in_faction_with = SER
+		}
 
 		completion_reward = { 
 			SER = {
@@ -496,34 +532,6 @@ focus_tree = {
 
 	
 	focus = {
-		id = RUS_outreach_romania
-		icon = GFX_focus_invite_romania
-		prerequisite = { focus = RUS_favor_serbia }
-		cost = 5
-		x = -1
-		y = 1
-		relative_position_id = RUS_favor_serbia
-
-		ai_will_do = { factor = 1 }
-
-		#bypass = {}
-
-		completion_reward = { 
-			ROM = {
-				add_opinion_modifier = {
-					target = RUS
-					modifier = wsv_improve_relations
-				}
-			}
-			add_opinion_modifier = {
-				target = ROM
-				modifier = wsv_improve_relations
-			}
-		}
-	}
-
-
-	focus = {
 		id = RUS_arm_our_brothers
 		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = RUS_favor_serbia   focus = RUS_favor_bulgaria }
@@ -534,7 +542,18 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			OR = {
+				AND = {
+					has_country_flag = patron_of_serbia
+					country_exists = SER
+				}
+				AND = {
+					has_country_flag = patron_of_bulgaria
+					country_exists = BUL
+				}
+			}
+		}
 
 		completion_reward = { 
 			if = {
@@ -559,19 +578,61 @@ focus_tree = {
 		}
 	}
 
+
+	focus = {
+		id = RUS_outreach_romania
+		icon = GFX_focus_invite_romania
+		prerequisite = { focus = RUS_favor_serbia }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_favor_serbia
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			country_exists = ROM
+			NOT = { has_war_with =  ROM }
+		}
+
+		bypass = {
+			is_in_faction_with = ROM
+		}
+
+		completion_reward = { 
+			ROM = {
+				add_opinion_modifier = {
+					target = RUS
+					modifier = wsv_improve_relations
+				}
+			}
+			add_opinion_modifier = {
+				target = ROM
+				modifier = wsv_improve_relations
+			}
+		}
+	}
+
 		
 	focus = {
 		id = RUS_support_romanian_claims
 		icon = GFX_goal_generic_military_deal
 		prerequisite = { focus = RUS_outreach_romania }
-		cost = 5
+		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = RUS_outreach_romania
 
-		ai_will_do = { factor = 1 }
+		available = {
+			country_exists = ROM
+			NOT = { has_war_with =  ROM }
+		}
 
-		#bypass = {}
+		bypass = {
+			is_in_faction_with = ROM
+		}
+
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 			ROM = { set_country_flag = russia_supports_transylvania_claims }
@@ -594,6 +655,8 @@ focus_tree = {
 
 		available = {
 			date > 1915.1.1
+			country_exists = AUH
+			NOT = { is_in_faction_with = AUH }
 		}
 
 		bypass = { has_war_with = AUH  }
@@ -618,7 +681,14 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			country_exists = BUL
+			NOT = { has_war_with =  BUL }
+		}
+
+		bypass = {
+			is_in_faction_with = BUL
+		}
 
 		completion_reward = { 
 			BUL = {
@@ -707,7 +777,9 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_government = neutrality
+		}
 
 		completion_reward = { 
 			add_popularity = {
@@ -728,9 +800,11 @@ focus_tree = {
 		y = 1
 		relative_position_id = RUS_affirm_power_of_tsar
 
-		ai_will_do = { factor = 1 }
+		available = {
+			has_government = neutrality
+		}
 
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 			add_ideas = RUS_restricted_press_idea
@@ -747,9 +821,11 @@ focus_tree = {
 		y = 1
 		relative_position_id = RUS_affirm_power_of_tsar
 
-		ai_will_do = { factor = 1 }
+		available = {
+			has_government = neutrality
+		}
 
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 			add_war_support = 0.1
@@ -768,9 +844,12 @@ focus_tree = {
 		y = 1
 		relative_position_id = RUS_restrict_speech
 
-		ai_will_do = { factor = 1 }
+		available = {
+			has_government = neutrality
+			has_war_support > 0.25
+		}
 
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 			army_experience = 25
@@ -822,7 +901,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_government = neutrality
+			has_war_with_major = yes
+		}
 
 		completion_reward = { 
 			add_war_support = 0.1
@@ -842,7 +924,11 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_government = neutrality
+			has_war_with_major = yes
+			surrender_progress > 0.1
+		}
 
 		completion_reward = { 
 			add_ideas = RUS_take_civilian_grain_idea
@@ -861,7 +947,11 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_government = neutrality
+			has_war_with_major = yes
+			casualties > 500000
+		}
 
 		completion_reward = { 
 			add_manpower = 100000
@@ -885,7 +975,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_government = neutrality
+			has_war = no
+		}
 
 		completion_reward = { 
 			add_popularity = {
@@ -908,7 +1001,13 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = democratic
+			}
+			has_war = no
+		}
 
 		completion_reward = { 
 			add_timed_idea = {
@@ -930,8 +1029,6 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
-
 		completion_reward = { 
 			add_timed_idea = {
 				idea = RUS_stolpyin_plan_idea
@@ -952,8 +1049,6 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
-
 		completion_reward = { 
 			add_ideas = RUS_improved_resources
 		}
@@ -970,8 +1065,6 @@ focus_tree = {
 		relative_position_id = RUS_stolpyin_plan
 
 		ai_will_do = { factor = 1 }
-
-		#bypass = {}
 
 		completion_reward = {
 			add_timed_idea = {
@@ -994,8 +1087,6 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
-
 		completion_reward = { 
 			add_ideas = RUS_improved_literacy 
 		}
@@ -1012,8 +1103,6 @@ focus_tree = {
 		relative_position_id = RUS_tackle_illiteracy
 
 		ai_will_do = { factor = 1 }
-
-		#bypass = {}
 
 		available = {
 			date > 1916.1.1
@@ -1059,7 +1148,13 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			OR = {
+				has_government = neutrality
+				has_government = democratic
+			}
+			has_war = no
+		}
 
 		completion_reward = { 
 			add_popularity = {
@@ -1086,7 +1181,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_country_flag = tsar_of_russia_abdicated
+			has_government = democratic
+			NOT = { has_country_flag = political_crisis_resolved}
+			NOT = { has_country_flag = russian_revolution_occured }
+		}
 
 		completion_reward = { 
 			add_political_power = 100
@@ -1105,7 +1205,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_country_flag = tsar_of_russia_abdicated
+			has_government = democratic
+			NOT = { has_country_flag = political_crisis_resolved}
+			NOT = { has_country_flag = russian_revolution_occured }
+		}
 
 		completion_reward = { 
 			increase_white_support_effect = yes
@@ -1125,7 +1230,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_country_flag = tsar_of_russia_abdicated
+			has_government = democratic
+			NOT = { has_country_flag = political_crisis_resolved}
+			NOT = { has_country_flag = russian_revolution_occured }
+		}
 
 		completion_reward = { 
 			add_popularity = {
@@ -1149,7 +1259,12 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
-		#bypass = {}
+		available = {
+			has_country_flag = tsar_of_russia_abdicated
+			has_government = democratic
+			NOT = { has_country_flag = political_crisis_resolved}
+			NOT = { has_country_flag = russian_revolution_occured }
+		}
 
 		completion_reward = { 
 			massively_decrease_red_support_effect = yes
@@ -1172,8 +1287,6 @@ focus_tree = {
 			has_war = no
 		}
 
-		#bypass = {}
-
 		completion_reward = { 
 			## elections in russia
 			add_stability = 0.2
@@ -1189,7 +1302,6 @@ focus_tree = {
 		cost = 10
 		x = 3
 		y = 0
-		#relative_position_id = 
 
 		ai_will_do = { factor = 1 }
 
@@ -1297,8 +1409,6 @@ focus_tree = {
 		available = {
 			date > 1912.1.1
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_tech_bonus = {
@@ -1435,8 +1545,6 @@ focus_tree = {
 			date > 1914.1.1
 		}
 
-		#bypass = {}
-
 		completion_reward = { 
 			add_tech_bonus = {
 				bonus = 0.5
@@ -1530,7 +1638,6 @@ focus_tree = {
 		cost = 10
 		x = 30
 		y = 0
-		#relative_position_id = 
 
 		ai_will_do = { factor = 1 }
 
