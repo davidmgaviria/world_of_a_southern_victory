@@ -128,8 +128,6 @@ increase_conscription_tier_effect = {
 }
 
 
-
-
 ########### LATAM Influence ############
 
 increase_latam_influence_by_5_effect = {
@@ -141,7 +139,6 @@ increase_latam_influence_by_10_effect = {
 	add_to_variable = { CSA.csa_influence_in_latam = 10 }
 	custom_effect_tooltip = increase_latam_influence_by_10_tt
 }
-
 
 
 ########### Socialist Militancy ############
@@ -193,6 +190,62 @@ decrease_militancy_by_10_effect = {
 		custom_effect_tooltip = set_militancy_at_0_tt
 	}
 }
+
+
+
+########### Russian Political Crisis ############ 
+
+## Whites
+slightly_increase_white_support_effect = {
+	add_to_variable = { RUS.white_support = 5 }
+	custom_effect_tooltip = slightly_increase_white_support_tt
+}
+
+increase_white_support_effect = {
+	add_to_variable = { RUS.white_support = 10 }
+	custom_effect_tooltip = increase_white_support_tt
+}
+
+slightly_decrease_white_support_effect = {
+	if = {
+		limit = { check_variable = { RUS.white_support > 4 } }
+		subtract_from_variable = { RUS.white_support = 5 }
+	}
+	else = {
+		set_variable = { RUS.white_support = 0 }
+	}
+	custom_effect_tooltip = decrease_white_support_tt
+}
+
+
+## Reds
+increase_red_support_effect = {
+	add_to_variable = { RUS.red_support = 10 }
+	custom_effect_tooltip = increase_red_support_tt
+}
+
+slightly_decrease_red_support_effect = {
+	if = {
+		limit = { check_variable = { RUS.red_support > 4 } }
+		subtract_from_variable = { RUS.red_support = 5 }
+	}
+	else = {
+		set_variable = { RUS.red_support = 0 }
+	}
+	custom_effect_tooltip = decrease_red_support_tt
+}
+
+massively_decrease_red_support_effect = {
+	if = {
+		limit = { check_variable = { RUS.red_support > 24 } }
+		subtract_from_variable = { RUS.red_support = 25 }
+	}
+	else = {
+		set_variable = { RUS.red_support = 0 }
+	}
+	custom_effect_tooltip = massively_decrease_red_support_tt
+}
+
 
 ##############################################################
 

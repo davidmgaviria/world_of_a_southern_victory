@@ -1,0 +1,52 @@
+
+
+
+#### GREAT WAR ####
+
+# Political struggle when Tsar abdicates
+RUS_political_crisis_cat = {
+	icon = category_power_struggle
+	#picture = GFX_decision_cat_picture_gateway_to_europe
+	priority = 50
+
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+
+	custom_icon = {
+		tag = RUS
+		value = white_support_icon
+		desc = white_support_breakdown
+		visible = { always = yes }
+	}
+	custom_icon = {
+		tag = SOV
+		value = red_support_icon
+		desc = red_support_breakdown
+		visible = { always = yes }
+	}
+
+	visible_when_empty = no
+	visible = {
+		has_global_flag = tsar_of_russia_abdicated
+		# if revolution occurs this ends
+		NOT = { has_global_flag = russian_revolution_occured }
+		# conditions to cancel crisis
+		check_variable = { RUS.white_support < 100 }
+		RUS = {
+			NOT = { has_country_flag = political_crisis_resolved }
+		}
+	}
+}
+
+
+
+#### WORLD WAR 2 ####
+
+
+
+
+
+
+
