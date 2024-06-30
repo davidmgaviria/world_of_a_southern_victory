@@ -755,10 +755,6 @@ technologies = {
 			leads_to_tech = ww1_battleship4
 			research_cost_coeff = 1
 		}
-		path = {
-			leads_to_tech = ww1_battlecruiser1
-			research_cost_coeff = 0.8
-		}
 		
 		research_cost = 2.3
 		start_year = 1910
@@ -840,12 +836,6 @@ technologies = {
 		# enable_equipment_modules = { 
 		# 	ship_airplane_launcher_1
 		# }
-
-		path = {
-			leads_to_tech = ww1_battlecruiser3
-			research_cost_coeff = 0.8
-		}
-		
 		
 		research_cost = 2.3
 		start_year = 1920
@@ -952,7 +942,7 @@ technologies = {
 	ww1_carrier = {
 
 		enable_equipments = { 
-			carrier_1916
+			carrier_1910
 		}
 
 		# enable_equipment_modules = { 
@@ -970,7 +960,7 @@ technologies = {
 		
 		folder = {
 			name = gw_naval_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1910 }
 		}
 		
 		ai_will_do = {
@@ -996,6 +986,51 @@ technologies = {
 
 
 	ww1_carrier2 = {
+
+		enable_equipments = { 
+			carrier_1916
+		}
+
+		path = {
+			leads_to_tech = ww1_carrier3
+			research_cost_coeff = 1
+		}
+
+		# enable_equipment_modules = { 
+		# 	ship_airplane_launcher_1
+		# }
+		
+		research_cost = 2
+
+		start_year = 1916
+		
+		folder = {
+			name = gw_naval_folder
+			position = { x = 0 y = @1916 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+
+			modifier = {
+				factor = 2
+				OR = { tag = USA  tag = JAP  tag = ENG }
+			} 
+		}
+		
+		categories = {
+			naval_equipment
+			cv_tech
+		}
+	}
+
+
+	ww1_carrier3 = {
 
 		enable_equipments = { 
 			carrier_1920
