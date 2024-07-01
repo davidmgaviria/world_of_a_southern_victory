@@ -271,7 +271,24 @@ CSA_dont_join_englande_yet = {
 	}	
 }
 
+## save up equipment before war
+CSA_save_more_equipment = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+	}
+	abort_when_not_enabled = yes
 
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = 10
+	}
+}
+
+## increase army before war
 CSA_increase_army_rapidly = {		# massively increase size
 	allowed = {
 		original_tag = CSA
@@ -341,9 +358,9 @@ CSA_take_dc = {
 		state = 361
 		state = 840
 		priority = 10000
-		ratio = 0.3
+		ratio = 0.4
 		ordertype = front
-		execution_type = rush
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -355,16 +372,22 @@ CSA_take_dc = {
 	}
 
 	ai_strategy = {
-		type = put_unit_buffers
-		states = { 
-			814
-			362
-			361
-			840
-		}
-		ratio = 0.1
-		subtract_fronts_from_need = no
+		type = front_unit_request
+		state = 361	
+		value = 150
 	}
+
+	# ai_strategy = {
+	# 	type = put_unit_buffers
+	# 	states = { 
+	# 		814
+	# 		362
+	# 		361
+	# 		840
+	# 	}
+	# 	ratio = 0.1
+	# 	subtract_fronts_from_need = no
+	# }
 }
 
 
@@ -385,7 +408,7 @@ CSA_defend_richmond = {
 			814
 			362
 		}
-		ratio = 0.1
+		ratio = 0.06
 		subtract_fronts_from_need = yes
 	}
 }	
@@ -409,7 +432,7 @@ CSA_defend_eastern_states = {
 			368
 			372
 		}
-		ratio = 0.08
+		ratio = 0.04
 		subtract_fronts_from_need = yes
 	}
 }	
@@ -438,7 +461,7 @@ CSA_defend_deep_south = {
 			363
 			370
 		}
-		ratio = 0.08
+		ratio = 0.04
 		subtract_fronts_from_need = yes
 	}
 }
@@ -469,7 +492,7 @@ CSA_defensive_if_lack_of_guns_against_USA = {
 	ai_strategy = {
 		type = front_control
 		tag = USA
-		ratio = 0.5
+		ratio = 0.6
 		priority = 1
 		ordertype = front
 		execution_type = careful

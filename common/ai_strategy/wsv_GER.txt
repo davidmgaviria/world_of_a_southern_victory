@@ -17,39 +17,39 @@
 
 
 
-GER_francogerman_rivalry = {
-	allowed = {
-		original_tag = GER
-	}
-	enable = {
-		FRA = { 
-			exists = yes
-			NOT = { is_in_faction_with = GER }
-		}
-	}
-	abort = {
-		has_war_with = RUS
-		NOT = { has_war_with = FRA }
-	}
+# GER_francogerman_rivalry = {
+# 	allowed = {
+# 		original_tag = GER
+# 	}
+# 	enable = {
+# 		FRA = { 
+# 			exists = yes
+# 			NOT = { is_in_faction_with = GER }
+# 		}
+# 	}
+# 	abort = {
+# 		has_war_with = RUS
+# 		NOT = { has_war_with = FRA }
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		area = western_front		
-		value = 100
-	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		area = western_front		
+# 		value = 100
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = western_front
-		value = 50
-	}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = western_front
+# 		value = 50
+# 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = eastern_front
-		value = -15
-	}
-}
+# 	ai_strategy = {
+# 		type = area_priority
+# 		id = eastern_front
+# 		value = -15
+# 	}
+# }
 
 
 GER_protect_north_coast = {
@@ -117,6 +117,12 @@ GER_gw_modified_unit_production = {
 		type = unit_ratio
 		id = strategic_bomber	#we love blimps
 		value = 2
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry_equipment 
+		value = 100
 	}
 
 	ai_strategy = {
@@ -209,7 +215,7 @@ GER_gw_stockpile_less_early_game = {
 	}
 	enable = {
 		date > 1912.1.1
-		has_army_manpower = { size < 2600000 }
+		has_army_manpower = { size < 2800000 }
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -425,7 +431,7 @@ GER_der_schlieffen_plan = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -25
+		value = -50
 	}
 	
 	ai_strategy = {
@@ -478,26 +484,66 @@ GER_defensive_if_lack_of_guns_against_FRA = {
 }
 
 
-GER_focus_efforts_on_russia = {
+GER_fight_russia_slowly_1 = {
 	allowed = {
 		original_tag = GER	
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = RUS
+		has_war_with = FRA
+		RUS = { surrender_progress < 0.05 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
-		OR = {
-			RUS = { has_capitulated = yes }
-			# can be more aggressive if we have a lot of equipment
-			stockpile_ratio = {	
-				archetype = infantry_equipment
-				ratio > 0.1
-			}
-			# if doing badly in the east send troops
-			surrender_progress > 0.15
-		}		
+		RUS = { has_capitulated = yes }
+		# OR = {
+		# 	RUS = { has_capitulated = yes }
+		# 	# can be more aggressive if we have a lot of equipment
+		# 	stockpile_ratio = {	
+		# 		archetype = infantry_equipment
+		# 		ratio > 0.1
+		# 	}
+		# 	# if doing badly in the east send troops
+		# 	surrender_progress > 0.15
+		# }		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = RUS
+		ratio = 0.55
+		priority = 10
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = RUS	
+		value = -25
+	}
+}
+
+
+GER_fight_russia_slowly_2 = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = RUS
+		has_war_with = FRA
+		RUS = { 
+			surrender_progress > 0.04
+			surrender_progress < 0.11 
+		}
+		has_country_flag = schliffen_plan_failed
+	}
+	abort = {
+		RUS = { has_capitulated = yes }	
 	}
 
 	ai_strategy = {
@@ -513,16 +559,47 @@ GER_focus_efforts_on_russia = {
 
 	ai_strategy = {
 		type = front_unit_request
-		area = western_front		
-		value = -50
+		tag = RUS	
+		value = -35
+	}
+}
+
+
+GER_fight_russia_slowly_3 = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = RUS
+		has_war_with = FRA
+		RUS = {
+			surrender_progress > 0.1 
+		}
+		has_country_flag = schliffen_plan_failed
+	}
+	abort = {
+		RUS = { has_capitulated = yes }	
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = RUS
+		ratio = 0.65
+		priority = 10
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = 50
+		value = -45
 	}
 }
+
 
 
 GER_let_austria_defend_itself = {

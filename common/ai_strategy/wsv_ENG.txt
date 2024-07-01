@@ -200,34 +200,6 @@ ENG_gw_modified_unit_production = {
 }
 
 
-# ENG_slowly_increase_army = {		
-# 	allowed = {
-# 		original_tag = ENG
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war = no
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 	    type = build_army
-# 	    id = infantry
-# 	    value = -10
-# 	}
-
-# 	ai_strategy = {
-# 	    type = build_army
-# 	    id = garrison
-# 	    value = 5
-# 	}
-	
-# 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = 25 	# reduce while we build up in case of issues
-# 	}
-# }
-
 
 ENG_save_manpower = {		
 	allowed = {
@@ -269,7 +241,7 @@ ENG_ww1_help_france = {
 	ai_strategy = {
 		type = area_priority
 		id = western_front
-		value = 200 #more focus here
+		value = 250 #more focus here
 	}
 
 	ai_strategy = {
@@ -291,25 +263,49 @@ ENG_ww1_help_france = {
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = FRA
-		value = 250
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = GER
-		value = 250
+		area = western_front
+		value = 400
 	}
 
 	ai_strategy = {
  		type = force_defend_ally_borders
     	id = "FRA"
-   		value = 200
+   		value = 1
  	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = FRA
+		value = -1 #its false or true, putting 9999 is useless
+	}
 
  	ai_strategy = {
 		type = spare_unit_factor		
 		value = 50
+	}
+}
+
+
+ENG_ignore_africa = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -75
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = -100 #more focus here
 	}
 }
 
@@ -331,15 +327,21 @@ ENG_launch_offensives_against_GER = {
 		surrender_progress > 0.15		
 	}
 
+	# ai_strategy = {
+	# 	type = front_control
+	# 	tag = GER
+	# 	ratio = 0.65
+	# 	priority = 25
+	# 	ordertype = front
+	# 	execution_type = careful
+	# 	execute_order = yes
+	# 	manual_attack = yes
+	# }
+
 	ai_strategy = {
-		type = front_control
-		tag = GER
-		ratio = 0.65
-		priority = 25
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
+		type = consider_weak
+		id = GER
+		value = 25
 	}
 }
 
@@ -432,13 +434,13 @@ ENG_early_defense_of_canada = {
 	ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 15
+		value = 100
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = canada
-		value = 10 #more focus here
+		value = 75 #more focus here
 	}
 }
 
@@ -468,13 +470,13 @@ ENG_wartime_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 60
+		value = 150
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = canada
-		value = 75 #more focus here
+		value = 100 #more focus here
 	}
 }
 
