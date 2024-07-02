@@ -288,6 +288,7 @@ CSA_save_more_equipment = {
 	}
 }
 
+
 ## increase army before war
 CSA_increase_army_rapidly = {		# massively increase size
 	allowed = {
@@ -295,7 +296,7 @@ CSA_increase_army_rapidly = {		# massively increase size
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 1200000 }
+		has_army_manpower = { size < 1100000 }
 		date > 1912.1.1
 	}
 	abort_when_not_enabled = yes
@@ -317,80 +318,38 @@ CSA_increase_army_rapidly = {		# massively increase size
 }
 
 
-CSA_greatwar_mobilize = {
-	allowed = {
-		original_tag = CSA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = USA
-		NOT = { is_in_faction_with = USA }
-		threat > 0.25	
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "USA"
-		value = 60
-	}
-}	
-
-
-CSA_take_dc = {
+# ## no point in having a ton of bodies
+CSA_limit_army_size = {
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		country_exists = USA
+		tag = CSA
+		has_army_manpower = { size > 1600000 }
 	}
 	abort = {
-		has_war_with = USA
-		OR = {
-			surrender_progress > 0.1
-			casualties > 100000
-		}
+		has_army_manpower = { size < 1000000 }
 	}
 
 	ai_strategy = {
-		type = front_control
-		state = 361
-		state = 840
-		priority = 10000
-		ratio = 0.4
-		ordertype = front
-		execution_type = balanced
-		execute_order = yes
-		manual_attack = yes
+		type = build_army
+		id = garrison
+		value = -9999
 	}
-
 	ai_strategy = {
-		type = area_priority
-		id = eastern_america
-		value = 50
+		type = build_army
+		id = infantry
+		value = -9999
 	}
-
 	ai_strategy = {
-		type = front_unit_request
-		state = 361	
-		value = 150
+		type = force_build_armies
+		value = -9999
 	}
-
-	# ai_strategy = {
-	# 	type = put_unit_buffers
-	# 	states = { 
-	# 		814
-	# 		362
-	# 		361
-	# 		840
-	# 	}
-	# 	ratio = 0.1
-	# 	subtract_fronts_from_need = no
-	# }
 }
 
 
+# buffers in virgina
 CSA_defend_richmond = {
 	allowed = {
 		original_tag = CSA		
@@ -414,7 +373,7 @@ CSA_defend_richmond = {
 }	
 
 
-CSA_defend_eastern_states = {
+CSA_greatwar_mobilize = {
 	allowed = {
 		original_tag = CSA		
 		has_start_date < 1937.1.1
@@ -422,47 +381,121 @@ CSA_defend_eastern_states = {
 	enable = {
 		country_exists = USA
 		NOT = { is_in_faction_with = USA }
+		threat > 0.25	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = put_unit_buffers
-		states = { 
-			369
-			368
-			372
-		}
-		ratio = 0.04
-		subtract_fronts_from_need = yes
+		type = prepare_for_war
+		id = "USA"
+		value = 60
 	}
 }	
 
-
-CSA_defend_deep_south = {
+### war time strategies ###
+CSA_opening_offensive_against_USA = {
 	allowed = {
-		original_tag = CSA		
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+	}
+	abort = {
+		has_war_with = USA
+		OR = {
+			surrender_progress > 0.1
+			casualties > 200000
+		}
+	}
+
+	# attack DC aggressively
+	ai_strategy = {
+		type = front_control
+		state = 361
+		state = 360
+		state = 840
+		priority = 500
+		ratio = 0.45
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_america
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 361	
+		value = 400
+	}
+
+	# hold the line against the rest of the US
+	ai_strategy = {
+		type = front_control
+		tag = USA
+		ratio = 0.6
+		priority = 250
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
+	}
+}  
+
+
+# fall back strat once war is going badly
+CSA_give_ground_slowly_against_USA = {
+	allowed = {
+		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = USA
-		NOT = {
-			controls_state = 368
-		}
+		casualties > 200000
 	}
 	abort_when_not_enabled = yes
 
+	# attack DC aggressively
 	ai_strategy = {
-		type = put_unit_buffers
-		states = { 
-			370
-			365
-			367
-			364
-			363
-			370
-		}
-		ratio = 0.04
-		subtract_fronts_from_need = yes
+		type = front_control
+		state = 361
+		state = 840
+		priority = 250		# higher priority, not overriden by defense strat
+		ratio = 0.7
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_america
+		value = 25
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 361	
+		value = 200
+	}
+
+	# hold the line against the rest of the US
+	ai_strategy = {
+		type = front_control
+		tag = USA
+		ratio = 0.65
+		priority = 1  # low priority, overridden by defense strat
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
 	}
 }
 
@@ -493,7 +526,7 @@ CSA_defensive_if_lack_of_guns_against_USA = {
 		type = front_control
 		tag = USA
 		ratio = 0.6
-		priority = 1
+		priority = 50
 		ordertype = front
 		execution_type = careful
 		execute_order = no

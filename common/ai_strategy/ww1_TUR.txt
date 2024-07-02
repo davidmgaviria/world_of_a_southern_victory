@@ -223,31 +223,6 @@ TUR_prepare_for_first_balkan = {
 }
 
 
-TUR_hold_albania_ports = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		tag = TUR
-		has_war_with = SER
-		NOT = { has_global_flag = firstbalkan_war_over }
-	}
-	abort_when_not_enabled = yes	
-
-	ai_strategy = {
-		type = put_unit_buffers
-				
-		states = { 
-			44
-		}
-
-		ratio = 0.05
-		subtract_invasions_from_need = yes
-	}
-}
-
-
 # dont get encircled in west balkans
 TUR_retreat_from_balkans = {
 	allowed = {
@@ -270,6 +245,16 @@ TUR_retreat_from_balkans = {
 			GRE = { has_capitulated = yes }
 		}
 	}	
+
+	ai_strategy = {
+		type = put_unit_buffers	
+		states = { 
+			44
+		}
+		ratio = 0.1
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
 
 	ai_strategy = {
 		type = front_unit_request

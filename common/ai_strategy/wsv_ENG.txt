@@ -183,8 +183,14 @@ ENG_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = equipment_production_factor
+		id = infantry_equipment 
+		value = 75
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
 		id = artillery 
-		value = 35
+		value = 20
 	}
 
 	ai_strategy = {
@@ -195,39 +201,157 @@ ENG_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = air_factory_balance
-		value = 100
+		value = 20
 	}
 }
 
 
-
-ENG_save_manpower = {		
+ENG_dont_spam_cars_or_trains = {
 	allowed = {
 		original_tag = ENG
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		date < 1918.1.1
 		has_war = no
-		has_manpower < 150000
-		has_idea = volunteer_only
 	}
-	abort_when_not_enabled = yes
+	abort = { always = no }
 
 	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = -100
+		type = equipment_production_factor
+		id = motorized 
+		value = -100
 	}
 
 	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = -100
+		type = equipment_production_factor
+		id = armored_train 
+		value = -100
 	}
 }
 
 
-ENG_ww1_help_france = {
+# ENG_save_manpower = {		
+# 	allowed = {
+# 		original_tag = ENG
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war = no
+# 		has_manpower < 150000
+# 		has_idea = volunteer_only
+# 	}
+# 	abort_when_not_enabled = yes
+
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = infantry
+# 	    value = -100
+# 	}
+
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = garrison
+# 	    value = -100
+# 	}
+# }
+
+
+### american defense strategies ###
+ENG_hold_canada_ports = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+	}
+	abort_when_not_enabled = yes
+
+	# nova scotia & new brunswick
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			276
+			468
+			466
+			467		# winnipeg
+		}
+		ratio = 0.08
+		area = north_america
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+
+ENG_defense_canada = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = USA
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "USA"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "CAN"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = protect
+		id = "CAN"
+		value = 100
+	}
+
+# 	ai_strategy = {
+# 		type = force_defend_ally_borders
+# 	   id = "CAN"
+# 		  value = 1
+# 	}
+
+#    ai_strategy = {
+# 	   type = dont_defend_ally_borders
+# 	   id = "CAN"
+# 	   value = -1 #its false or true, putting 9999 is useless
+#    }
+
+    ai_strategy = {
+		type = front_unit_request
+		area = north_america
+		value = 25
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_canada
+		value = 25 #more focus here
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = west_canada
+		value = 10 #more focus here
+	}
+}
+
+
+### europe defense strategies ###
+ENG_early_defense_of_france = {
 	allowed = {
 		original_tag = ENG		
 		has_start_date < 1937.1.1
@@ -235,6 +359,57 @@ ENG_ww1_help_france = {
 	enable = {
 		is_in_faction_with = FRA
 		has_war_with = GER
+		has_army_manpower = { size < 1200000 } 
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "GER"
+		value = 100
+	}
+	ai_strategy = {
+		type = support
+		id = "FRA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = protect
+		id = "FRA"
+		value = 100
+	}
+
+	# defend northern france
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 
+			15
+			16
+			18
+			785
+			29
+		}
+		ratio = 0.1
+		subtract_fronts_from_need = yes
+	}
+}
+
+
+ENG_help_france_fight_germany = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = FRA
+		has_war_with = GER
+		has_army_manpower = { size > 1300000 }  
 	}
 	abort_when_not_enabled = yes
 
@@ -264,7 +439,7 @@ ENG_ww1_help_france = {
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front
-		value = 400
+		value = 300
 	}
 
 	ai_strategy = {
@@ -275,37 +450,25 @@ ENG_ww1_help_france = {
 
 	ai_strategy = {
 		type = dont_defend_ally_borders
-		id = FRA
+		id = "FRA"
 		value = -1 #its false or true, putting 9999 is useless
 	}
 
  	ai_strategy = {
 		type = spare_unit_factor		
-		value = 50
+		value = 75
 	}
-}
 
-
-ENG_ignore_africa = {
-	allowed = {
-		original_tag = ENG
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-	abort_when_not_enabled = yes
-	
+	## hold channel ports
 	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = -75
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = africa
-		value = -100 #more focus here
+		type = put_unit_buffers
+		states = { 
+			15
+			785
+			29
+		}
+		ratio = 0.08
+		subtract_fronts_from_need = yes
 	}
 }
 
@@ -346,139 +509,29 @@ ENG_launch_offensives_against_GER = {
 }
 
 
-ENG_hold_canada_ports = {
+ENG_ignore_africa = {
 	allowed = {
-		original_tag = ENG		
+		original_tag = ENG
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		country_exists = USA
+		always = yes
 	}
 	abort_when_not_enabled = yes
-
-	# nova scotia & new brunswick
-	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			276
-			468
-			466
-			467		# winnipeg
-		}
-		ratio = 0.08
-		area = north_america
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
-	}
-}
-
-
-ENG_early_defense_of_canada = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = USA
-	}
-	abort = {
-		has_army_manpower = { size > 1000000 }  # we can defend canada more seriously once we get more troops
-	}
-
-	ai_strategy = {
-		type = protect
-		id = "CAN"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = support
-		id = "CAN"
-		value = 100
-	}
-
-	# canadian core
-	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			276
-			468
-			466
-			467		# winnipeg
-		}
-		ratio = 0.08
-		area = north_america
-		subtract_invasions_from_need = yes
-		subtract_fronts_from_need = yes
-	}
-
-	# canadian frontier
-	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			473
-			470
-			469
-			683
-			682
-		}
-		ratio = 0.04
-		area = north_america
-		subtract_invasions_from_need = yes
-		subtract_fronts_from_need = yes
-	}
-
+	
 	ai_strategy = {
 		type = front_unit_request
-		area = north_america
-		value = 100
+		area = africa
+		value = -75
 	}
 
 	ai_strategy = {
 		type = area_priority
-		id = canada
-		value = 75 #more focus here
+		id = africa
+		value = -100 #more focus here
 	}
 }
 
-
-ENG_wartime_defense_canada = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = USA
-		has_army_manpower = { size > 1000000 }  # we can defend canada more seriously once we get more troops
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = 	spare_unit_factor		
-		value = 25
-	}
-
-	ai_strategy = {
-		type = force_defend_ally_borders
-		id = CAN
-		value = 1 #its false or true, putting 9999 is useless
-	}
-
-    ai_strategy = {
-		type = front_unit_request
-		area = north_america
-		value = 150
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = canada
-		value = 100 #more focus here
-	}
-}
 
 
 ENG_dont_invade_auh = {

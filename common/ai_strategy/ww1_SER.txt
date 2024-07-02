@@ -86,3 +86,38 @@ SER_july_crisis = {
 		value = 50
 	}
 }
+
+
+SER_slow_against_AUH = {
+	allowed = {
+		original_tag = SER		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = AUH
+		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.03
+		}
+	}
+	abort = {
+		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
+			surrender_progress > 0.15
+		}		
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = AUH
+		ratio = 0.6
+		priority = 1
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
+	}
+}

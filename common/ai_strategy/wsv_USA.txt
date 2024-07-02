@@ -117,7 +117,7 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 25
+		value = 35
 	}
 
 	ai_strategy = {
@@ -222,37 +222,6 @@ USA_dont_join_central_powers_yet = {
 }
 
 
-## no point in having a ton of bodies
-USA_limit_army_size = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		tag = FRA
-		has_army_manpower = { size > 2250000 }
-	}
-	abort = {
-		has_army_manpower = { size < 1750000 }
-	}
-
-	ai_strategy = {
-		type = build_army
-		id = garrison
-		value = -9999
-	}
-	ai_strategy = {
-		type = build_army
-		id = infantry
-		value = -9999
-	}
-	ai_strategy = {
-		type = force_build_armies
-		value = -9999
-	}
-}
-
-
 USA_greatwar_mobilize = {
 	allowed = {
 		original_tag = USA
@@ -291,28 +260,7 @@ USA_greatwar_mobilize = {
 }
 
 
-USA_focus_on_the_south = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CSA = { exists = yes }
-		NOT = { is_in_faction_with = CSA }
-	}
-	abort = {
-		has_war_with = CSA
-		has_war_with = CAN
-		CSA = { has_capitulated = yes }
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = CSA		
-		value = 50
-	}
-}
-
+### opening war strategies ###
 
 USA_opening_war_assault_against_confederates = {
 	allowed = {
@@ -320,9 +268,11 @@ USA_opening_war_assault_against_confederates = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = CSA
+		CSA = { exists = yes }
+ 		NOT = { is_in_faction_with = CSA }
 	}
 	abort = {
+		has_war_with = CSA
 		OR = {
 			surrender_progress > 0.15
 			casualties > 400000
@@ -339,6 +289,67 @@ USA_opening_war_assault_against_confederates = {
 		execute_order = yes
 		manual_attack = yes
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA		
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = MEX		
+		value = -40
+	}
+}
+
+
+## let csa take DC
+USA_let_confederates_take_dc = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = CSA
+	}
+	abort = {
+		has_war_with = CSA
+		OR = {
+			NOT = { controls_state = 361 }		# if we lost maryland move in to defend
+			controls_state = 369				# if we took kentucky we can refocus
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		state = 814		# arlington
+		state = 361 	# maryland
+		priority = 250		# higher than general attack order
+		ratio = 0.6
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		state = 814	
+		state = 361 
+		value = -125
+	}
+
+	## buffers to prevent Philadelphia's fall
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 
+			840
+			360
+		}
+		ratio = 0.06
+		subtract_fronts_from_need = yes
+	}
 }
 
 
@@ -348,13 +359,21 @@ USA_opening_war_assault_against_canada = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = CAN
+		CAN = { exists = yes }
+ 		NOT = { is_in_faction_with = CAN }
 	}
 	abort = {
+		has_war_with = CAN
 		OR = {
 			surrender_progress > 0.15
 			casualties > 400000
 		}
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = CAN
+		value = 50
 	}
 
 	ai_strategy = {
@@ -367,115 +386,57 @@ USA_opening_war_assault_against_canada = {
 		execute_order = yes
 		manual_attack = yes
 	}
-}
-
-
-USA_dont_waste_troops_on_dc = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = CSA
-	}
-	abort = {
-		has_war_with = CSA
-		OR = {
-			surrender_progress > 0.1
-			controls_state = 369	# if we took kentucky we can refocus
-		}
-	}
 
 	ai_strategy = {
-		type = front_control
-		state = 814		# arlington
-		state = 361 	# maryland
-		priority = 250		# higher than other order
-		ratio = 0.6
-		ordertype = front
-		execution_type = balanced
-		execute_order = no
-		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = eastern_america
-		value = 50
+		type = front_unit_request
+		area = east_canada
+		value = 25
 	}
 
 	ai_strategy = {
 		type = front_unit_request
-		state = 814	
-		state = 361 
-		value = -100
+		area = west_canada
+		value = -40
 	}
 }
 
 
-USA_careful_if_lack_of_guns_against_CSA = {
+## war time strategies ##
+
+USA_attack_slowly_against_CSA = {
 	allowed = {
 		original_tag = USA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = CSA
-		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.05
-		}
+		casualties > 400000
 	}
 	abort = {
-		OR = {
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-		}		
+		NOT = { has_war_with = CAN }  # dont need to be careful if not on two fronts
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = CSA
 		ratio = 0.55
-		priority = 1
-		ordertype = front
-		execution_type = balanced
-		execute_order = no
-		manual_attack = yes
-	}
-}
-
-
-USA_launch_offensives_against_CSA = {
-	allowed = {
-		original_tag = USA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		OR = {
-			has_war_with = CSA
-			has_war_with = CAN
-		}
-		# launch offensives every 6 months
-		set_temp_variable = { days = global.num_days }
-		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
-		check_variable = { days > 100 }
-	}
-	abort = {
-		surrender_progress > 0.15		
-	}
-
-	ai_strategy = {
-		type = front_control
-		tag = CSA
-		ratio = 0.6
-		priority = 25
+		priority = 100
 		ordertype = front
 		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA		
+		value = 75
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = MEX		
+		value = -40
 	}
 }
 
@@ -487,29 +448,61 @@ USA_slowly_against_CAN = {
 	}
 	enable = {
 		has_war_with = CAN
+		casualties > 400000
 	}
 	abort = {
-		OR = {
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.1			# be more aggressive if we have lots of equipment
-			}
-			surrender_progress > 0.15
-		}		
+		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = CAN
-		ratio = 0.8
-		priority = 50
+		ratio = 0.65
+		priority = 100
 		ordertype = front
 		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = west_canada
+		value = -25
+	}
 }
 
+
+# USA_launch_offensives_against_CSA = {
+# 	allowed = {
+# 		original_tag = USA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		OR = {
+# 			has_war_with = CSA
+# 			has_war_with = CAN
+# 		}
+# 		# launch offensives every 6 months
+# 		set_temp_variable = { days = global.num_days }
+# 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+# 		check_variable = { days > 100 }
+# 	}
+# 	abort = {
+# 		surrender_progress > 0.15		
+# 	}
+
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = CSA
+# 		ratio = 0.6
+# 		priority = 25
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
+# }
 
 
 
