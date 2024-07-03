@@ -105,6 +105,7 @@ FRA_gw_modified_unit_production = {
 	}
 }
 
+
 FRA_save_more_equipment = {
 	allowed = {
 		original_tag = FRA
@@ -117,9 +118,31 @@ FRA_save_more_equipment = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = 15
+		value = 10
 	}
 }
+
+
+FRA_befriend_england = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = ENG
+		NOT = { has_war_with = ENG }
+	}
+	abort = {
+		has_completed_focus = FRA_franco_british_split
+	}
+	
+	ai_strategy = {
+		type = befriend
+		id = "ENG"			
+		value = 75
+	}	
+}
+
 
 
 FRA_loss_of_alsacelorraine = {

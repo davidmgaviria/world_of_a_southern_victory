@@ -206,29 +206,67 @@ ENG_gw_modified_unit_production = {
 }
 
 
-ENG_dont_spam_cars_or_trains = {
+ENG_save_up_equipment = {		
 	allowed = {
 		original_tag = ENG
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date < 1918.1.1
 		has_war = no
 	}
-	abort = { always = no }
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized 
-		value = -100
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = armored_train 
-		value = -100
+		type = equipment_stockpile_surplus_ratio
+		value = 45
 	}
 }
+
+
+ENG_befriend_france = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = FRA
+		NOT = { has_war_with = FRA }
+	}
+	abort = {
+		has_completed_focus = ENG_talks_with_germany
+	}
+	
+	ai_strategy = {
+		type = befriend
+		id = "FRA"			
+		value = 75
+	}	
+}
+
+
+# ENG_dont_spam_cars_or_trains = {
+# 	allowed = {
+# 		original_tag = ENG
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		date < 1918.1.1
+# 		has_war = no
+# 	}
+# 	abort = { always = no }
+
+# 	ai_strategy = {
+# 		type = equipment_production_factor
+# 		id = motorized 
+# 		value = -100
+# 	}
+
+# 	ai_strategy = {
+# 		type = equipment_production_factor
+# 		id = armored_train 
+# 		value = -100
+# 	}
+# }
 
 
 # ENG_save_manpower = {		
@@ -253,6 +291,11 @@ ENG_dont_spam_cars_or_trains = {
 # 	    type = build_army
 # 	    id = garrison
 # 	    value = -100
+# 	}
+
+# 	ai_strategy = {
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = 35
 # 	}
 # }
 

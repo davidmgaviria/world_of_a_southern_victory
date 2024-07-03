@@ -473,6 +473,36 @@ USA_slowly_against_CAN = {
 }
 
 
+USA_destroy_the_mormons = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = DES
+	}
+	abort = {
+		OR = {
+			DES = { has_capitulated = yes }
+			surrender_progress > 0.2
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = DES
+		value = 25
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = DES
+		value = 25
+	}
+}
+
+
+
 # USA_launch_offensives_against_CSA = {
 # 	allowed = {
 # 		original_tag = USA		
