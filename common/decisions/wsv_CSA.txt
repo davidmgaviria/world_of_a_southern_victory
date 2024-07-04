@@ -909,9 +909,9 @@ wsv_great_war_decisions = {
 		}
 	}
 	
-	# CSA throws in the towel
-	greatwar_csa_offers_peace = {
 
+	# CSA throws in the towel
+	greatwar_csa_peace_with_america = {
 		icon = generic_form_nation
 
 		available = {
@@ -924,63 +924,48 @@ wsv_great_war_decisions = {
 		visible = {
 			tag = CSA
 			has_war_with = USA
-			has_global_flag = historical_treaties_on
 			has_start_date < 1937.1.1
 		}
 
-		days_remove = 0
-
 		days_re_enable = 90
 
-		remove_effect = {
-			USA = { country_event = wsv_historical_treaty.4 }
+		complete_effect = {
+			USA = { country_event = { id = wsv_peace_treaty.10  days = 1 } }
 			custom_effect_tooltip = nashville_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		## -- Confederates collapse canonially once Nashville is taken and France falls
 		ai_will_do = {
-			factor = 0
+			factor = -2  # need 3 conditions to surrender
 
-			# Negatives
-			modifier = {
-				add = -2
-				surrender_progress < 0.10
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.4
-			}
-
-			# Positives
+			## Getting pushed back is bad
 			modifier = {
 				add = 1
-				casualties > 700000
-			}	
+				surrender_progress > 0.2
+			}
+			modifier = {
+				add = 1
+				surrender_progress > 0.3
+			}
+			# Extreme casualties is also bad
 			modifier = {
 				add = 1
 				casualties > 1000000
-			}
+			}	
+
+			# Entente collapsing is bad
 			modifier = {
 				add = 1
-				casualties > 1500000
-			}
-			modifier = {
-				add = 1
-				casualties > 2000000
-			}
-			modifier = {
-				add = 1
-				NOT = { has_war_together_with = FRA }
-			}
-			modifier = {
-				add = 1
-				NOT = { has_war_together_with = ENG }
+				OR = {
+					has_global_flag = collapse_of_entente
+					AND = {
+						is_in_faction_with = FRA
+						FRA = { has_capitulated = yes }
+					}
+				}
 			}
 
+			# If we're completey losing, give up
 			modifier = {
 				add = 10
 				surrender_progress > 0.55
