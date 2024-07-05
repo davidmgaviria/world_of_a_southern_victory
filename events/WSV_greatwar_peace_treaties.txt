@@ -598,17 +598,577 @@ news_event = {
 
 
 
+##-----------------------------  Entente Victory Treaties -------------------------------------##
+
+## Entente country requests peace
+country_event = {
+	id = wsv_peace_treaty.20
+	title = wsv_peace_treaty.20.t
+	desc = wsv_peace_treaty.20.d
+
+	is_triggered_only = yes
+
+	# Accept peace
+	option = {
+		name = wsv_peace_treaty.20.a
+		## determine countries
+		if = {
+			## treaties with Germany
+			limit = { OR = { tag = FRA   tag = RUS } }
+			save_event_target_as = entente_leader
+			if = {
+				# Germany
+				limit = { FROM = { tag = GER } } 
+				news_event = { id = wsv_peace_treaty.21  days = 1 }
+				custom_effect_tooltip = versailles_treaty_tt
+			}
+			else_if = {
+				# AUH
+				limit = { FROM = { tag = AUH } } 
+				news_event = { id = wsv_peace_treaty.23  days = 1 }
+				custom_effect_tooltip = saint_germain_treaty_tt
+			}
+			else_if = {
+				# Turkey
+				limit = { FROM = { tag = TUR } } 
+				news_event = { id = wsv_peace_treaty.24  days = 1 }
+				custom_effect_tooltip = sevres_treaty_tt
+			}
+		}
+		else_if = {
+			# treaties with USA
+			limit = { OR = { tag = CSA   tag = ENG } }
+			save_event_target_as = anti_usa_leader
+			if = {
+				# USA
+				limit = { FROM = { tag = USA } } 
+				news_event = { id = wsv_peace_treaty.25  days = 1 }
+				custom_effect_tooltip = baltimore_treaty_tt
+			}
+		}
+		ai_chance = { factor = 100 }
+	}
+
+	# Keep fighting
+	option = {
+		name = wsv_peace_treaty.20.b
+		FROM = { country_event = { id = wsv_peace_treaty.1  days = 1 } }  # generic refused peace
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+
 ##################################################################################
-## -- Entente Victory Treaties
+## -- Germany defeated (by Entente)
 ##################################################################################
 
-## USA defeated
+news_event = {
+	id = wsv_peace_treaty.21
+	title = wsv_peace_treaty.21.t
+	desc = wsv_peace_treaty.21.d
+	picture = news_event_wsv_armistice
 
-## Germany defeated
+	major = yes
+	is_triggered_only = yes
 
-## AUH defeated
+	immediate = {
+		set_global_flag = germany_lost_greatwar
+		hidden_effect = {
+			add_named_threat = {
+				threat = -5
+				name = "Germany Signs Armistice"
+			}
 
-## TUR defeated
+			# event_target:entente_leader --> the country that Germany requested peace to
+
+			### Germany leaves faction
+			GER = {	
+				if= { 
+					limit = { is_in_faction = yes } 
+					# Collapse Central powers if faction leader
+					if = { 
+						limit = { is_faction_leader = yes }
+						set_global_flag = collapse_of_centralpowers
+						dismantle_faction = yes
+						news_event = { id = wsv_peace_treaty.22  days = 1 }
+					}
+					else = { leave_faction = yes }
+				}
+				greatwar_loser_effect = yes
+				## turn democratic
+				set_politics = {
+					ruling_party = democratic
+					election_frequency = 48
+					elections_allowed = yes
+				}
+				set_popularities = {
+					democratic = 45
+					fascism = 10
+					communism = 30
+					neutrality = 15
+				}
+			}
+
+			## Transfer territory to majors
+			FRA = { 
+				if = {
+					limit = { has_war_with = GER }
+					#europe
+					transfer_state = 28
+					transfer_state = 42 #saarland
+					#africa
+					transfer_state = 773
+					transfer_state = 755
+					transfer_state = 539
+					transfer_state = 725
+					transfer_state = 777
+					transfer_state = 774
+					#demilitarize the rhine
+					827 = { set_demilitarized_zone = yes }
+					51 = { set_demilitarized_zone = yes }
+					826 = { set_demilitarized_zone = yes } 
+					# Belgium & Demark
+					BEL = {
+						if = { 
+							limit = { NOT = { is_in_faction_with = GER } }
+							transfer_state = 793
+						}
+					}
+					DEN = {
+						if = { 
+							limit = { NOT = { is_in_faction_with = GER } }
+							transfer_state = 751
+						}
+					}
+				}
+			}
+
+			ENG = {
+				if = {
+					limit = { has_war_with = GER }
+					transfer_state = 794
+					transfer_state = 777
+					transfer_state = 546
+					transfer_state = 769
+					transfer_state = 768
+					SAF = {	transfer_state = 541   transfer_state = 829 }
+					AST = {	transfer_state = 523  transfer_state = 737 }
+				}
+				else = {
+					FRA = {
+						transfer_state = 794
+					}
+				}	
+			}
+
+			## What to do with Russia
+			if = {
+				# if brest litvosk, release german puppets
+				limit = { has_global_flag = russia_lost_greatwar }
+				GER = { release=POL  release=UKR  release=LIT }
+				POL = { transfer_state = 85   transfer_state = 86   transfer_state = 762 }
+				LIT = { transfer_state = 188 }
+				LAT = { transfer_state = 190  transfer_state = 12 }
+				EST = { transfer_state = 191  transfer_state = 13 }
+			}
+			else_if = {
+				# if russia fighting with france
+				limit = {
+					RUS = { has_war_with = GER }
+				}
+				RUS = {
+					transfer_state = 188
+					transfer_state = 763
+					## what to do with polish territories
+					if = {
+						limit = { POL = { is_puppet_of = RUS } }
+						POL = {
+							transfer_state = 5
+							transfer_state = 85
+							transfer_state = 86
+							transfer_state = 67
+							transfer_state = 762
+						}
+					}
+					else = {
+						transfer_state = 5
+						transfer_state = 85
+						transfer_state = 86
+						transfer_state = 67
+						transfer_state = 762
+					}
+				}
+			}
+
+			## white peace everyone with Germany
+			every_country = {
+			    limit = {
+				    has_war_with = GER
+					is_in_faction_with = event_target:entente_leader
+				}
+				white_peace = GER
+			}
+		}
+	}
+
+	option = {
+		name = wsv_peace_treaty.21.a
+	}
+}
+
+
+## Collapse of Central powers event
+news_event = {
+	id = wsv_peace_treaty.22
+	title = wsv_peace_treaty.22.t
+	desc = wsv_peace_treaty.22.d
+	#picture = news_event_wsv_armistice   ## TODO - needs picture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = collapse_of_centralpowers
+	}
+
+	option = {
+		name = wsv_peace_treaty.22.a
+	}
+}
+
+
+
+##################################################################################
+## -- AUH defeated (by Entente)
+##################################################################################
+
+news_event = {
+	id = wsv_peace_treaty.23
+	title = wsv_peace_treaty.23.t
+	desc = wsv_peace_treaty.23.d
+	picture = news_event_wsv_armistice
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = auh_lost_greatwar
+		hidden_effect = {
+			add_named_threat = {
+				threat = -5
+				name = "Austria-Hungary Signs Armistice"
+			}
+
+			# event_target:entente_leader --> the country that Germany requested peace to
+
+			### AUH leaves faction
+			AUH = {	
+				if= { 
+					limit = { is_in_faction = yes } 
+					leave_faction = yes
+				}
+				greatwar_loser_effect = yes
+			}
+
+			## Transfer territory to miors
+			SER = { 
+				if = {
+					limit = { has_war_with = AUH }
+					transfer_state = 104
+					transfer_state = 103
+					transfer_state = 109
+					transfer_state = 102
+					transfer_state = 764
+					transfer_state = 45
+					transfer_state = 163 # taken by italy if fighting as well
+				}
+			}
+
+			ROM = { 
+				if = {
+					limit = { has_war_with = AUH }
+					transfer_state = 76
+					transfer_state = 84
+					transfer_state = 83
+					transfer_state = 82
+					transfer_state = 80
+				}
+			}
+
+			ITA = { 
+				if = {
+					limit = { has_war_with = AUH }
+					transfer_state = 39
+					transfer_state = 763
+					transfer_state = 163
+					# serbia takes this if AUH was cut off from the coast
+					SER = { 
+						if = {
+							limit = { has_war_with = AUH }
+							transfer_state = 102
+						}
+					}
+				}
+			}
+
+			## What to do with Russia
+			if = {
+				# if brest litvosk, give territory to ukraine and poland
+				limit = { has_global_flag = russia_lost_greatwar }
+				if = { 
+					limit = { country_exists = UKR }
+					UKR =  { transfer_state = 89  transfer_state = 91 }
+				}
+				if = { 
+					limit = { country_exists = POL }
+					POL = { transfer_state = 88 }
+				}
+			}
+			else_if = {
+				# if russia fighting with france
+				limit = {
+					RUS = { has_war_with = AUH }
+				}
+				RUS = {
+					transfer_state = 89
+					transfer_state = 91
+					## what to do with polish territories
+					if = {
+						limit = { POL = { is_puppet_of = RUS } }
+						POL = {
+							transfer_state = 88
+						}
+					}
+					else = {
+						transfer_state = 88
+					}
+				}
+			}
+
+			## white peace everyone with Germany
+			every_country = {
+			    limit = {
+				    has_war_with = AUH
+					is_in_faction_with = event_target:entente_leader
+				}
+				white_peace = AUH
+			}
+		}
+	}
+
+	option = {
+		name = wsv_peace_treaty.23.a
+	}
+}
+
+
+##################################################################################
+## -- Turkey defeated (by Entente)
+##################################################################################
+
+news_event = {
+	id = wsv_peace_treaty.24
+	title = wsv_peace_treaty.24.t
+	desc = wsv_peace_treaty.24.d
+	picture = news_event_wsv_armistice
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = turkey_lost_greatwar
+		hidden_effect = {
+			add_named_threat = {
+				threat = -5
+				name = "Ottomans Sign Armistice"
+			}
+
+			### Turkey leaves faction
+			TUR = {	
+				if= { 
+					limit = { is_in_faction = yes } 
+					leave_faction = yes
+				}
+				greatwar_loser_effect = yes
+			}
+
+			## Transfer territory to majors
+			FRA = {
+				if = {
+					limit = { has_war_with = TUR }
+					transfer_state = 680
+					transfer_state = 554
+					transfer_state = 677
+					transfer_state = 553
+				}
+				else = {
+					SYR = { 
+						transfer_state = 680
+						transfer_state = 554
+						transfer_state = 677
+					}
+					LEB = { transfer_state = 553 }
+				}	
+			}
+
+			ENG = {
+				if = {
+					limit = { has_war_with = TUR }
+					transfer_state = 454
+					transfer_state = 455
+					transfer_state = 829
+					transfer_state = 656
+					transfer_state = 676
+					transfer_state = 675
+					transfer_state = 291
+					transfer_state = 765
+				}
+				else = {
+					IRQ = {
+						transfer_state = 656
+						transfer_state = 676
+						transfer_state = 675
+						transfer_state = 291
+					}
+					JOR = {
+						transfer_state = 455
+						transfer_state = 829
+					}
+					PAL = { transfer_state = 454 }
+					QAT = { transfer_state = 765 }
+				}	
+			}
+
+			RUS = {
+				if = {
+					limit = { has_war_with = TUR }
+					transfer_state = 354
+				}
+			}
+
+			## Arab states take territory
+			SAU = {
+				transfer_state = 830
+				transfer_state = 679
+				transfer_state = 747
+			}
+			YEM = {
+				transfer_state = 293
+			}
+
+			## demilitarize straits
+			341 = { set_demilitarized_zone = yes }
+			340 = { set_demilitarized_zone = yes }
+		
+
+			## white peace everyone with Turkey
+			every_country = {
+			    limit = {
+				    has_war_with = TUR
+					is_in_faction_with = event_target:entente_leader
+				}
+				white_peace = TUR
+			}
+		}
+	}
+
+	option = {
+		name = wsv_peace_treaty.24.a
+	}
+}
+
+
+
+##################################################################################
+## -- United States defeated (by CSA/England)
+##################################################################################
+
+news_event = {
+	id = wsv_peace_treaty.25
+	title = wsv_peace_treaty.25.t
+	desc = wsv_peace_treaty.25.d
+	picture = news_event_wsv_armistice
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = usa_lost_greatwar
+		hidden_effect = {
+			add_named_threat = {
+				threat = -5
+				name = "United States Signs Armistice"
+			}
+
+			# event_target:anti_usa_leader --> the country that United States requested peace to
+
+			## USA leaves faction
+			USA = {	
+				if= { limit = { is_in_faction = yes }  leave_faction = yes }
+				greatwar_loser_effect = yes
+			}
+
+			# transfer CSA states to US
+			CSA = {
+				if = {
+					limit = { has_war_with = USA }
+					transfer_state = 848 
+					transfer_state = 847	
+					361 = { set_demilitarized_zone = yes }
+					if = {
+						limit = { has_global_flag = second_mormon_revolt }
+						transfer_state = 376
+						transfer_state = 377
+						DES = { transfer_state = 380 }
+					}
+					if = {
+						limit = { has_country_flag = expanded_csa_claims }
+						transfer_state = 373
+						transfer_state = 813
+						# also transferred if claims expanded
+						transfer_state = 376
+						transfer_state = 377
+					}
+					# transfer Mexico US land
+					MEX = {
+						if = {
+							limit = { 
+								has_war_with = USA
+								is_puppet_of = CSA
+							}
+							transfer_state = 837
+						}
+					}
+				}
+			}
+
+			# transfer territory to Canada
+			CAN = {
+				if = {
+					limit = { has_war_with = USA }
+					transfer_state = 822
+					845 = { set_demilitarized_zone = yes }
+					846 = { set_demilitarized_zone = yes }
+				}
+			}
+
+			## white peace everyone with CSA
+			every_country = {
+			    limit = {
+				    has_war_with = USA
+					is_in_faction_with = event_target:anti_usa_leader
+				}
+				white_peace = USA
+			}
+		}
+	}
+
+	option = {
+		name = wsv_peace_treaty.25.a
+	}
+}
+
 
 ## Bulgaria defeated
 

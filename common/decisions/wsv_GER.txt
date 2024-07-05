@@ -169,7 +169,6 @@ wsv_great_war_decisions = {
 	
 	# Germany throws in the towel
 	greatwar_germany_offers_peace = {
-
 		icon = generic_form_nation
 
 		available = {
@@ -182,70 +181,36 @@ wsv_great_war_decisions = {
 
 		visible = {
 			tag = GER
-			has_war_with = FRA
-			has_global_flag = historical_treaties_on
+			OR = {
+				has_war_with = FRA
+				has_war_with = RUS
+			}
 			has_start_date < 1937.1.1
 		}
 
-		days_remove = 5
-
 		days_re_enable = 90
 
-		remove_effect = {
-			FRA = { country_event = wsv_ahistorical_treaty.4 }
+		complete_effect = {
+			if = {
+				limit = {
+					has_war_with = FRA
+					FRA = { is_faction_leader = yes }
+				}
+				FRA = { country_event = { id = wsv_peace_treaty.20  days = 1 } }
+			}
+			else_if = {
+				limit = {
+					has_war_with = RUS
+					RUS = { is_faction_leader = yes }
+				}
+				RUS = { country_event = { id = wsv_peace_treaty.20  days = 1 } }
+			}
 			custom_effect_tooltip = versailles_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		
 		ai_will_do = {
 			factor = 0
-
-			# Negatives
-			# not inclined to surrender if we're doing well
-			modifier = {
-				add = -1
-				surrender_progress < 0.1
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.4
-			}
-			# we're motivated if we're pushing France
-			modifier = {
-				add = -1
-				FRA = { surrender_progress > 0.1 }
-			}
-			modifier = {
-				add = -1
-				FRA = { surrender_progress > 0.2 }
-			}
-
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 1000000
-			}
-			modifier = {
-				add = 1
-				casualties > 1500000
-			}
-			modifier = {
-				add = 2
-				casualties > 2000000
-			}
-
-			# Big blow if austria falls
-			modifier = {
-				add = 2
-				OR = {
-					AUH = { has_capitulated = yes }
-					has_global_flag = treaty_of_saint_germain
-				}
-			}
 
 			modifier = {
 				add = 10
