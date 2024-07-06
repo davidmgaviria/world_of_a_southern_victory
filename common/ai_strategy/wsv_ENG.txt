@@ -201,7 +201,7 @@ ENG_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = air_factory_balance
-		value = 20
+		value = 100
 	}
 }
 
@@ -218,7 +218,7 @@ ENG_save_up_equipment = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = 45
+		value = 60
 	}
 }
 
@@ -242,62 +242,6 @@ ENG_befriend_france = {
 		value = 75
 	}	
 }
-
-
-# ENG_dont_spam_cars_or_trains = {
-# 	allowed = {
-# 		original_tag = ENG
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		date < 1918.1.1
-# 		has_war = no
-# 	}
-# 	abort = { always = no }
-
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = motorized 
-# 		value = -100
-# 	}
-
-# 	ai_strategy = {
-# 		type = equipment_production_factor
-# 		id = armored_train 
-# 		value = -100
-# 	}
-# }
-
-
-# ENG_save_manpower = {		
-# 	allowed = {
-# 		original_tag = ENG
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war = no
-# 		has_manpower < 150000
-# 		has_idea = volunteer_only
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 	    type = build_army
-# 	    id = infantry
-# 	    value = -100
-# 	}
-
-# 	ai_strategy = {
-# 	    type = build_army
-# 	    id = garrison
-# 	    value = -100
-# 	}
-
-# 	ai_strategy = {
-# 		type = equipment_stockpile_surplus_ratio
-# 		value = 35
-# 	}
-# }
 
 
 ### american defense strategies ###
@@ -376,7 +320,7 @@ ENG_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		area = north_america
-		value = 25
+		value = 75
 	}
 
 	ai_strategy = {
@@ -438,7 +382,7 @@ ENG_early_defense_of_france = {
 			785
 			29
 		}
-		ratio = 0.1
+		ratio = 0.2
 		subtract_fronts_from_need = yes
 	}
 }
@@ -452,7 +396,7 @@ ENG_help_france_fight_germany = {
 	enable = {
 		is_in_faction_with = FRA
 		has_war_with = GER
-		has_army_manpower = { size > 1300000 }  
+		has_army_manpower = { size > 1000000 }  
 	}
 	abort_when_not_enabled = yes
 
@@ -547,7 +491,33 @@ ENG_launch_offensives_against_GER = {
 	ai_strategy = {
 		type = consider_weak
 		id = GER
-		value = 25
+		value = 20
+	}
+}
+
+
+ENG_protect_suez = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = TUR
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			831
+			446
+			447
+		}
+		area = africa
+		ratio = 0.06
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
 	}
 }
 
