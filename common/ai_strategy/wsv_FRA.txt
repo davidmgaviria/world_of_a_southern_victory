@@ -90,13 +90,13 @@ FRA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 90
+		value = 100
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 35
+		value = 30
 	}
 
 	ai_strategy = {
@@ -192,7 +192,7 @@ FRA_limit_army_size = {
 	}
 	enable = {
 		tag = FRA
-		has_army_manpower = { size > 1750000 }
+		has_army_manpower = { size > 2000000 }
 	}
 	abort = {
 		has_army_manpower = { size < 1200000 }
@@ -242,7 +242,7 @@ FRA_greatwar_mobilize = {
 	ai_strategy = {
 		type = front_unit_request
 		area = europe
-		value = 80
+		value = 100
 	}
 }
 
@@ -300,7 +300,7 @@ FRA_early_defense_of_belgium = {
 	abort = {
 		OR = {
 			BEL = { surrender_progress > 0.6 }
-			war_length_with = { tag = GER  months > 3 }   # start helping austria in
+			war_length_with = { tag = GER  months > 3 }   # start helping belgium
 		}
 	}
 
@@ -314,11 +314,11 @@ FRA_early_defense_of_belgium = {
 			18
 			16
 		}
-		ratio = 0.4
+		ratio = 0.15
 		#priority = 9999
 		area = europe
-		subtract_invasions_from_need = yes
-		subtract_fronts_from_need = yes
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
 	}
 
 	# dont really defend belgium

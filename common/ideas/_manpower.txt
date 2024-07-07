@@ -52,6 +52,15 @@ ideas = {
 			}
 			
 			cancel_if_invalid = no
+
+			ai_will_do = {
+				factor = 1
+
+				modifier = {
+					factor = 60 # being disarmed is bad in a wargame yo
+				 	has_idea = disarmed_nation
+				}
+			}
 		}
 		
 
@@ -82,6 +91,20 @@ ideas = {
 					#Prio if low on manpower
 					factor = 20
 					manpower_per_military_factory < 1000
+				}
+
+				modifier = {
+					# England needs to rapidly expand its army
+					factor = 10
+					tag = ENG
+					has_manpower < 600000
+					date > 1915.1.1
+				}
+			
+				modifier = {
+					# dont go down to it
+					factor = 0
+					NOT = { has_idea = volunteer_only }
 				}
 			}
 			
@@ -129,6 +152,29 @@ ideas = {
 					#Prio if low on manpower
 					factor = 20
 					manpower_per_military_factory <  800
+				
+				}
+
+				modifier = {
+					# CSA needs more men to hold off the US
+					factor = 10
+					tag = CSA
+					has_manpower < 800000
+					date > 1915.1.1
+				}
+
+
+				# modifier = {
+				# 	# do a boost for majors
+				# 	factor = 3
+				# 	has_war = yes
+				# 	is_major = yes
+				# }
+
+				modifier = {
+					# Dont go down to it
+					factor = 0
+					NOT = { has_idea = limited_conscription }
 				}
 			}
 			
@@ -188,6 +234,10 @@ ideas = {
 					NOT = { tag = SOV }
 					manpower_per_military_factory >  3000
 				}
+				modifier = {
+					factor = 0
+					NOT = { has_idea = extensive_conscription }
+				}
 			}
 
 			cancel_if_invalid = no
@@ -239,6 +289,10 @@ ideas = {
 					NOT = { tag = CHI }
 					manpower_per_military_factory >  5000
 				}
+				modifier = {
+					factor = 0
+					NOT = { has_idea = service_by_requirement }
+				}
 			}	
 			
 			cancel_if_invalid = no
@@ -289,6 +343,10 @@ ideas = {
 					#Block has plenty manpower
 					factor = 0
 					manpower_per_military_factory >  5000
+				}
+				modifier = {
+					factor = 0
+					NOT = { has_idea = all_adults_serve }
 				}
 			}
 			cancel_if_invalid = no
