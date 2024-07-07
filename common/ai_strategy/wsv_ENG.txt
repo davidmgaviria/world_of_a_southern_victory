@@ -114,28 +114,6 @@ ENG_britannia_rules_the_waves = {
 }
 
 
-ENG_ignore_csa = {
-	allowed = {
-		original_tag = ENG
-	}
-	enable = {
-		is_in_faction_with = CSA
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "CSA"
-		value = 100
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "MEX"
-		value = 100
-	}			
-}
-
-
 ENG_ignore_russia = {
 	allowed = {
 		original_tag = ENG
@@ -280,8 +258,11 @@ ENG_defense_canada = {
 	}
 	enable = {
 		has_war_with = USA
+		CAN = { is_puppet_of = ENG }
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		CAN = { surrender_progress > 0.5 }
+	}
 
 	ai_strategy = {
 		type = 	spare_unit_factor		
@@ -326,15 +307,85 @@ ENG_defense_canada = {
 	ai_strategy = {
 		type = area_priority
 		id = east_canada
-		value = 15 #more focus here
+		value = 25 #more focus here
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = west_canada
-		value = 15 #more focus here
+		value = 25 #more focus here
 	}
 }
+
+# dont send troops south if we have Canada to fight in
+ENG_ignore_csa = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = CSA
+	}
+	abort = {
+		CAN = { has_capitulated = yes } 
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "CSA"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MEX"
+		value = 1
+	}			
+}
+
+
+# help csa beat the US if Canada fell
+ENG_aid_confederates = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = CSA
+		has_war_with = USA
+		CAN = { surrender_progress > 0.5 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = 	spare_unit_factor		
+		value = 50
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "USA"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "CSA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = protect
+		id = "CSA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = north_america
+		value = 100
+	}
+}
+
+
 
 
 ### europe defense strategies ###
@@ -409,7 +460,7 @@ ENG_help_france_fight_germany = {
 	ai_strategy = {
 		type = area_priority
 		id = western_front
-		value = 250 #more focus here
+		value = 100 #more focus here
 	}
 
 	ai_strategy = {
@@ -852,6 +903,29 @@ ENG_invade_holland = {
 		id = "HOL"			
 		value = 100
 	}
+}
+
+
+ENG_ignore_csa_ww2 = {
+	allowed = {
+		original_tag = ENG
+		has_start_date > 1935.1.1
+	}
+	enable = {
+		is_in_faction_with = CSA
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "CSA"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MEX"
+		value = 1
+	}			
 }
 
 
