@@ -275,7 +275,10 @@ USA_opening_war_assault_against_confederates = {
 		has_war_with = CSA
 		OR = {
 			surrender_progress > 0.15
-			casualties > 400000
+			casualties_inflicted_by = {
+				opponent = CSA
+				thousands < 300
+			}
 		}
 	}
 
@@ -366,7 +369,10 @@ USA_opening_war_assault_against_canada = {
 		has_war_with = CAN
 		OR = {
 			surrender_progress > 0.15
-			casualties > 400000
+			casualties_inflicted_by = {
+				opponent = CAN
+				thousands < 100
+			}
 		}
 	}
 
@@ -379,7 +385,7 @@ USA_opening_war_assault_against_canada = {
 	ai_strategy = {
 		type = front_control
 		tag = CAN
-		ratio = 0.4
+		ratio = 0.35
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -410,7 +416,10 @@ USA_attack_slowly_against_CSA = {
 	}
 	enable = {
 		has_war_with = CSA
-		casualties > 400000
+		casualties_inflicted_by = {
+			opponent = CSA
+			thousands > 300
+		}
 	}
 	abort = {
 		NOT = { has_war_with = CAN }  # dont need to be careful if not on two fronts
@@ -430,7 +439,7 @@ USA_attack_slowly_against_CSA = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 75
+		value = 50
 	}
 
 	ai_strategy = {
@@ -448,7 +457,10 @@ USA_slowly_against_CAN = {
 	}
 	enable = {
 		has_war_with = CAN
-		casualties > 400000
+		casualties_inflicted_by = {
+			opponent = CAN
+			thousands > 100
+		}
 	}
 	abort = {
 		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
@@ -468,13 +480,7 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_unit_request
 		area = east_canada
-		value = 25
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = west_canada
-		value = -25
+		value = 35
 	}
 }
 

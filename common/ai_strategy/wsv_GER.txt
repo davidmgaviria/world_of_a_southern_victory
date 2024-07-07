@@ -492,7 +492,7 @@ GER_fight_russia_slowly_1 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress < 0.05 }
+		RUS = { surrender_progress < 0.1 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
@@ -523,7 +523,7 @@ GER_fight_russia_slowly_1 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -15
+		value = -20
 	}
 }
 
@@ -536,46 +536,7 @@ GER_fight_russia_slowly_2 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { 
-			surrender_progress > 0.04
-			surrender_progress < 0.11 
-		}
-		has_country_flag = schliffen_plan_failed
-	}
-	abort = {
-		RUS = { has_capitulated = yes }	
-	}
-
-	ai_strategy = {
-		type = front_control
-		tag = RUS
-		ratio = 0.6
-		priority = 10
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = RUS	
-		value = -25
-	}
-}
-
-
-GER_fight_russia_slowly_3 = {
-	allowed = {
-		original_tag = GER	
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = RUS
-		has_war_with = FRA
-		RUS = {
-			surrender_progress > 0.1 
-		}
+		RUS = { surrender_progress < 0.09 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
