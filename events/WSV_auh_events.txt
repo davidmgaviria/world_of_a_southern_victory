@@ -37,3 +37,106 @@ country_event = {
 		add_stability = -0.02
 	}
 }
+
+
+## Austria Hungary collapses
+news_event = {
+	id = wsv_auh.10
+	title = wsv_auh.10.t
+	desc = wsv_auh.10.d
+	picture = news_event_auh_collapses
+
+	major = yes
+
+	trigger = {
+		tag = AUH
+		has_war = yes
+		has_stability <= 0.10
+		NOT = { has_global_flag = auh_collapsed }
+	}
+
+	immediate = {
+		set_global_flag = auh_collapsed
+		hidden_effect = {
+			## Czechslovakia
+			CZE = {
+				transfer_state = 9
+				transfer_state = 75
+			}
+			transfer_units_fraction= {
+				target = CZE
+				size = 0.13
+				stockpile_ratio = 0.13
+				army_ratio = 0.13
+				navy_ratio = 0
+				air_ratio = 0.04
+			}
+			## South Slavs
+			CRO = {
+				transfer_state = 103
+				transfer_state = 109
+			}
+			transfer_units_fraction= {
+				target = CRO
+				size = 0.05
+				stockpile_ratio = 0.05
+				army_ratio = 0.05
+				navy_ratio = 0
+				air_ratio = 0
+			}
+			## Hungary
+			HUN = {
+				transfer_state = 155
+				transfer_state = 43
+				transfer_state = 154
+				# non core states
+				transfer_state = 664
+				transfer_state = 70
+				transfer_state = 71
+				transfer_state = 73
+				transfer_state = 76
+				transfer_state = 83
+				transfer_state = 84
+				transfer_state = 82
+				transfer_state = 764
+				transfer_state = 45
+			}
+			# transfer troops
+			transfer_units_fraction= {
+				target = HUN
+				size = 0.4			# hungarian forces made up 35%, but only 80% of the empire is left now
+				stockpile_ratio = 0.4
+				army_ratio = 0.45
+				navy_ratio = 0
+				air_ratio = 0.3
+			}
+			# sue for peace
+			country_event = { id = wsv_auh.11  days = 2 }
+		}
+	}
+
+	option = {
+		name = wsv_auh.10.a
+	}
+}
+
+
+# Sue for peace if collapsed
+country_event = {
+	id = wsv_auh.11
+	title = wsv_auh.11.t
+	desc = wsv_auh.11.d
+
+	is_triggered_only = yes
+
+	timeout_days = 5
+
+	option = {
+		name = wsv_auh.11.a
+		activate_decision = greatwar_auh_offers_peace
+	}
+}
+
+
+
+
