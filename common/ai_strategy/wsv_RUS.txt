@@ -190,7 +190,6 @@ RUS_gw_modified_unit_production = {
 }
 
 
-
 RUS_slowly_increase_army = {		
 	allowed = {
 		original_tag = RUS
@@ -213,26 +212,57 @@ RUS_slowly_increase_army = {
 }
 
 
-
-RUS_mobilize_for_serbia = {
+RUS_increase_army = {		# massively increase size
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		SER = { 
-			exists = yes 
-			NOT = { is_puppet_of = AUH }
-		}
-		has_global_flag = franzferdinand_assassinated
+		has_army_manpower = { size < 3000000 }
+		date > 1912.1.1
 	}
 	abort_when_not_enabled = yes
 
-
 	ai_strategy = {
-		type = contain
-		id = "AUH"
-		value = 100
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 175
+	}
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15 	# reduce while we build up in case of issues
+	}
+}
+
+
+# begins mobilizing for serbia
+RUS_opening_war_assault_AUH = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		OR = {
+			threat > 0.25
+			has_global_flag = franzferdinand_assassinated
+		}
+		AUH = { exists = yes }
+	}
+	abort = {
+		OR = {
+			has_global_flag = serbia_submitted_to_austria
+			AND = {
+				has_war_with = AUH  #dont abort before
+				OR = {
+					surrender_progress > 0.15
+					casualties > 500000
+				}
+			}
+		}
 	}
 
 	ai_strategy = {
@@ -254,75 +284,6 @@ RUS_mobilize_for_serbia = {
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
-		id = "GER"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = GER
-		value = 100	 #should be 12 divisions
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = AUH
-		value = 100	 #should be 12 divisions
-	}
-}
-
-
-RUS_increase_army = {		# massively increase size
-	allowed = {
-		original_tag = RUS
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_army_manpower = { size < 3000000 }
-		date > 1911.1.1
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 175
-	}
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 	# reduce while we build up in case of issues
-	}
-}
-
-
-RUS_opening_war_assault_AUH = {
-	allowed = {
-		original_tag = RUS
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		AUH = { exists = yes }
-		has_guaranteed = SER
-	}
-	abort = {
-		OR = {
-			has_global_flag = serbia_submitted_to_austria
-			AND = {
-				#has_war_with = AUH  #dont abort before
-				OR = {
-					surrender_progress > 0.15
-					casualties > 500000
-				}
-			}
-		}
-	}
-
-	ai_strategy = {
 		type = front_control
 		tag = AUH
 		ratio = 0.45
@@ -336,34 +297,43 @@ RUS_opening_war_assault_AUH = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = AUH
-		value = 85
+		value = 100
 	}
 }
 
-
+# begins mobilizing for serbia
 RUS_opening_war_assault_GER = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		OR = {
+			threat > 0.25
+			has_global_flag = franzferdinand_assassinated
+		}
 		GER = { 
 			exists = yes 
 			is_in_faction_with = AUH
 		}
-		has_guaranteed = SER
 	}
 	abort = {
 		OR = {
 			has_global_flag = serbia_submitted_to_austria
 			AND = {
-				#has_war_with = GER  #dont abort before
+				has_war_with = GER  #dont abort before
 				OR = {
 					surrender_progress > 0.15
 					casualties > 500000
 				}
 			}
 		}
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"
+		value = 100
 	}
 
 	ai_strategy = {
@@ -380,75 +350,9 @@ RUS_opening_war_assault_GER = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = GER
-		value = 40
+		value = 80
 	}
 }
-
-
-# RUS_eastern_front = {
-# 	allowed = {
-# 		original_tag = RUS
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		GER = { 
-# 			exists = yes 
-# 			is_in_faction_with = AUH
-# 		}
-# 		has_guaranteed = SER
-# 	}
-# 	abort = {
-# 		# OR = {
-# 		# 	has_global_flag = serbia_submitted_to_austria
-# 		# 	AND = {
-# 		# 		has_war_with = GER  #dont abort before
-# 		# 		OR = {
-# 		# 			surrender_progress > 0.15
-# 		# 			casualties > 500000
-# 		# 		}
-# 		# 	}
-# 		# }
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		ratio = 0.5
-# 		priority = 100
-# 		ordertype = front
-# 		execution_type = rush_weak
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		tag = GER
-# 		value = 40
-# 	}
-# }
-
-
-RUS_ignore_serboa = {
-	allowed = {
-		original_tag = RUS
-	}
-	enable = {
-		is_in_faction_with = SER
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = SER		
-		value = -1000
-	}
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "SER"
-		value = 100
-	}	
-}
-
 
 
 RUS_defensive_if_lack_of_guns_against_GER_AUH = {
@@ -523,13 +427,34 @@ RUS_launch_offensives_against_GER_AUH = {
 		type = front_control
 		tag = GER
 		tag = AUH
-		ratio = 0.65
+		ratio = 0.6
 		priority = 25
 		ordertype = front
 		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
 	}
+}
+
+
+RUS_ignore_serbia = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		is_in_faction_with = SER
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = SER		
+		value = -1000
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "SER"
+		value = 100
+	}	
 }
 
 

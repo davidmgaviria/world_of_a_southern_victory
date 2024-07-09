@@ -97,7 +97,7 @@ AUH_gw_modified_unit_production = {
 	}
 }
 
-# save up equipment before war
+# save up less equipment before war
 AUH_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = AUH
@@ -116,6 +116,30 @@ AUH_gw_stockpile_less_early_game = {
 }
 
 
+AUH_increase_army = {		# massively increase size
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_army_manpower = { size < 1000000 }
+		date > 1912.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 100
+	}
+}
+
+
+
 AUH_opening_serbia_attack = {
 	allowed = {
 		original_tag = AUH
@@ -132,7 +156,7 @@ AUH_opening_serbia_attack = {
 				has_war_with = SER  #dont abort before
 				OR = {
 					surrender_progress > 0.15
-					casualties > 200000
+					casualties > 100000
 				}
 			}
 		}
@@ -141,7 +165,7 @@ AUH_opening_serbia_attack = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER 
-		value = 175
+		value = 200
 	}
 
 	ai_strategy = {
@@ -153,10 +177,10 @@ AUH_opening_serbia_attack = {
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.5
+		ratio = 0.6
 		priority = 100
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -200,18 +224,24 @@ AUH_slow_against_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER 
-		value = 120
+		value = 165
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.8
+		ratio = 0.6
 		priority = 50
 		ordertype = front
 		execution_type = careful
-		execute_order = yes
+		execute_order = no
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = SER 
+		value = 20
 	}
 
 	ai_strategy = {
@@ -228,7 +258,7 @@ AUH_slow_against_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -25
+		value = -40
 	}
 }
 
@@ -248,7 +278,7 @@ AUH_aid_bulgrian_offensive_against_SER = {
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.6
+		ratio = 0.8
 		priority = 100
 		ordertype = front
 		execution_type = balanced

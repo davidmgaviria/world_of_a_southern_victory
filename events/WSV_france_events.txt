@@ -111,32 +111,32 @@ country_event = {
 	title = wsv_france.100.t
 	desc = wsv_france.100.d
 
-	mean_time_to_happen = {
-		days = 7
-	}
+	is_triggered_only = yes
 
-	trigger = {
-		tag = FRA
-		has_war_with_major = yes
-		OR = {
-			# historical trigger
-			AND = {
-				is_historical_focus_on = yes
-				date > 1917.5.1
-				date < 1917.8.1
-				war_length_with = { tag = GER  months > 24 }
-			}
-			# if surrendering, less casualties to trigger
-			AND = {
-				casualties > 1300000
-				surrender_progress > 0
-			}
-			# if winning but high casualties, still trigger
-			casualties > 1800000
+	# mean_time_to_happen = {
+	# 	days = 7
+	# }
 
-		}
-		NOT = { has_country_flag = first_army_mutiny }
-	}
+	# trigger = {
+	# 	tag = FRA
+	# 	has_war_with_major = yes
+	# 	OR = {
+	# 		# historical trigger
+	# 		AND = {
+	# 			is_historical_focus_on = yes
+	# 			date > 1917.5.1
+	# 			war_length_with = { tag = GER  months > 24 }
+	# 		}
+	# 		# # if surrendering, less casualties to trigger
+	# 		# AND = {
+	# 		# 	casualties > 1500000
+	# 		# 	surrender_progress > 0
+	# 		# }
+	# 		# # if winning but high casualties, still trigger
+	# 		# casualties > 2000000
+	# 	}
+	# 	NOT = { has_country_flag = first_army_mutiny }
+	# }
 
 	fire_only_once = yes
 
@@ -184,7 +184,16 @@ country_event = {
 		country_event = { id = wsv_france.102  days = 1 }
 
 		ai_chance = {
-			factor = 80
+			factor = 50
+			# panic if russia fell
+			modifier = {
+				factor = 0.1
+				has_war_with = GER
+				OR = {
+					RUS = { has_capitulated = yes }
+					has_global_flag = russia_lost_greatwar
+				}
+			}
 		}
 	}	
 
@@ -218,9 +227,21 @@ country_event = {
 
 		ai_chance = {
 			factor = 30
+			# dont panic if russia is with us
 			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
+				factor = 0.1
+				has_war_with = GER
+				RUS = { has_war_with = GER }
+			}
+			# stress out if losing
+			modifier = {
+				factor = 2
+				surrender_progress > 0.2
+			}
+			# stress out if losing
+			modifier = {
+				factor = 2
+				surrender_progress > 0.3
 			}
 		}
 	}
@@ -297,18 +318,19 @@ country_event = {
 	title = wsv_france.105.t
 	desc = wsv_france.105.d
 
-	mean_time_to_happen = {
-		days = 7
-	}
+	# mean_time_to_happen = {
+	# 	days = 7
+	# }
 
-	trigger = {
-		tag = FRA
-		has_war_with_major = yes
-		has_country_flag = first_army_mutiny_over
-		NOT = { has_country_flag = army_mutiny_cooldown }
-		NOT = { has_country_flag = second_army_mutiny }
-	}
-
+	# trigger = {
+	# 	tag = FRA
+	# 	has_war_with_major = yes
+	# 	has_country_flag = first_army_mutiny_over
+	# 	NOT = { has_country_flag = army_mutiny_cooldown }
+	# 	NOT = { has_country_flag = second_army_mutiny }
+	# }
+	
+	is_triggered_only = yes
 	fire_only_once = yes
 
 	immediate = {

@@ -752,6 +752,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = generic_civ_factories }
 		prerequisite = { focus = generic_infrastructure_effort }
+		mutually_exclusive = { focus = generic_mil_factories2 }
 		cost = 10
 		x = 1
 		y = 1
@@ -785,6 +786,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = generic_mil_factories }
 		prerequisite = { focus = generic_infrastructure_effort }
+		mutually_exclusive = { focus = generic_civ_factories2 }
 		cost = 10
 		x = -1
 		y = 1
@@ -815,9 +817,7 @@ focus_tree = {
 	focus = {
 		id = generic_industrial_effort2
 		icon = GFX_goal_generic_production
-		prerequisite = { focus = generic_civ_factories2 }
-		prerequisite = { focus = generic_mil_factories2 }
-	#prerequisite = { focus = generic_infrastructure_effort }
+		prerequisite = { focus = generic_civ_factories2   focus = generic_mil_factories2  }
 		cost = 10
 		x = 0
 		y = 2
@@ -937,9 +937,11 @@ focus_tree = {
 		id = generic_civ_factories4
 		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = generic_civ_factories3 }
+		prerequisite = { focus = generic_infrastructure_effort2 }
+		mutually_exclusive = { focus = generic_mil_factories4 }
 		cost = 10
-		x = 0
-		y = 1
+		x = 1
+		y = 2
 		relative_position_id = generic_civ_factories3
 
 		ai_will_do = { 
@@ -991,9 +993,11 @@ focus_tree = {
 		id = generic_mil_factories4
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = generic_mil_factories3 }
+		prerequisite = { focus = generic_infrastructure_effort2 }
+		mutually_exclusive = { focus = generic_civ_factories4 }
 		cost = 10
-		x = 0
-		y = 1
+		x = -1
+		y = 2
 		relative_position_id = generic_mil_factories3
 
 		ai_will_do = { 
@@ -1018,11 +1022,10 @@ focus_tree = {
 	focus = {
 		id = generic_industrial_effort3
 		icon = GFX_goal_generic_construction
-		prerequisite = { focus = generic_civ_factories4 }
-		prerequisite = { focus = generic_mil_factories4 }
+		prerequisite = { focus = generic_civ_factories4  focus = generic_mil_factories4  }
 		cost = 10
 		x = 0
-		y = 1
+		y = 2
 		relative_position_id = generic_research_effort1
 
 		ai_will_do = { 
@@ -1167,7 +1170,7 @@ focus_tree = {
 
 	focus = {
 		id = generic_mil_factories6
-		icon = GFX_goal_generic_construct_civ_factory
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = generic_mil_factories5 }
 		prerequisite = { focus = generic_infrastructure_effort3 }
 		cost = 10

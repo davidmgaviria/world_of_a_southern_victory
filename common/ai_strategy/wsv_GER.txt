@@ -114,12 +114,6 @@ GER_gw_modified_unit_production = {
 	abort = { always = no }
 	
 	ai_strategy = {
-		type = unit_ratio
-		id = strategic_bomber	#we love blimps
-		value = 2
-	}
-
-	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry_equipment 
 		value = 120
@@ -128,13 +122,7 @@ GER_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery 
-		value = 35
-	}
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized 
-		value = 5
+		value = 30
 	}
 
 	ai_strategy = {
@@ -146,18 +134,29 @@ GER_gw_modified_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 20   #stacks, total is 100
-	}
-
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5
+		value = 40   #stacks, total is 140
 	}
 
 	ai_strategy = {
 		type = air_factory_balance
 		value = 80
+	}
+}
+
+
+GER_make_less_civs = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 10
 	}
 }
 
@@ -357,11 +356,7 @@ GER_der_schlieffen_plan = {
 		}
 	}
 	abort = {
-		has_war_with = FRA  #dont abort before
-		OR = {
-			FRA = { has_capitulated = yes }
-			casualties > 350000
-		}
+		has_country_flag = schliffen_plan_failed
 	}
 
 	ai_strategy = {
@@ -448,43 +443,40 @@ GER_der_schlieffen_plan = {
 }
 
 
-GER_defensive_if_lack_of_guns_against_FRA = {
-	allowed = {
-		original_tag = GER	
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = FRA
-		has_war_with = RUS   # if russia isnt in the picture be aggressive
-		stockpile_ratio = {		## 3% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.03
-		}
-	}
-	abort = {
-		OR = {
-			stockpile_ratio = {		## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-		}		
-	}
+# GER_defensive_if_lacking_guns_FRA = {
+# 	allowed = {
+# 		original_tag = GER	
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = FRA
+# 		has_war_with = RUS   # if russia isnt in the picture be aggressive
+# 		has_country_flag = schliffen_plan_failed
+# 	}
+# 	abort = {
+# 		OR = {
+# 			stockpile_ratio = {		## 7% of the armies equipment must be in reserves
+# 				archetype = infantry_equipment
+# 				ratio > 0.25
+# 			}
+# 			surrender_progress > 0.15
+# 		}		
+# 	}
 
-	ai_strategy = {
-		type = front_control
-		tag = FRA
-		ratio = 0.25
-		priority = 1
-		ordertype = front
-		execution_type = careful
-		execute_order = no
-		manual_attack = yes
-	}
-}
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = FRA
+# 		ratio = 0.6
+# 		priority = 1
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = no
+# 		manual_attack = yes
+# 	}
+# }
 
 
-GER_fight_russia_slowly_1 = {
+GER_war_strategy_1 = {
 	allowed = {
 		original_tag = GER	
 		has_start_date < 1937.1.1
@@ -492,32 +484,31 @@ GER_fight_russia_slowly_1 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress < 0.1 }
+		RUS = { surrender_progress < 0.05 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
-		RUS = { has_capitulated = yes }
-		# OR = {
-		# 	RUS = { has_capitulated = yes }
-		# 	# can be more aggressive if we have a lot of equipment
-		# 	stockpile_ratio = {	
-		# 		archetype = infantry_equipment
-		# 		ratio > 0.1
-		# 	}
-		# 	# if doing badly in the east send troops
-		# 	surrender_progress > 0.15
-		# }		
+		OR = {
+			surrender_progress > 0.15
+			RUS = { has_capitulated = yes }	
+		}
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.55
+		ratio = 0.6
 		priority = 10
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = RUS	
+		value = 15
 	}
 
 	ai_strategy = {
@@ -525,10 +516,27 @@ GER_fight_russia_slowly_1 = {
 		tag = RUS	
 		value = -20
 	}
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.85
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA	
+		value = 50
+	}
 }
 
 
-GER_fight_russia_slowly_2 = {
+GER_war_strategy_2 = {
 	allowed = {
 		original_tag = GER	
 		has_start_date < 1937.1.1
@@ -536,17 +544,20 @@ GER_fight_russia_slowly_2 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress < 0.09 }
+		RUS = { surrender_progress > 0.05 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
-		RUS = { has_capitulated = yes }	
+		OR = {
+			surrender_progress > 0.15
+			RUS = { has_capitulated = yes }	
+		}
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.65
+		ratio = 0.6
 		priority = 10
 		ordertype = front
 		execution_type = careful
@@ -558,6 +569,23 @@ GER_fight_russia_slowly_2 = {
 		type = front_unit_request
 		tag = RUS	
 		value = -35
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.7
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no  
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA	
+		value = 75
 	}
 }
 
@@ -673,6 +701,103 @@ GER_garrison_belgium_and_northern_france = {
 		}
 		ratio = 0.1
 		subtract_invasions_from_need = no
+	}
+}
+
+
+GER_prepare_kaiserschlact = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = FRA
+		focus_progress = { focus = GER_spring_offensive  progress > 0.01 }
+	}
+	abort = {
+		has_country_flag = kaisers_battle_failed
+	}
+
+	# halt offensives while we prepare
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.9
+		priority = 75
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+		tag = FRA	
+		value = 100
+	}
+}
+
+
+GER_launch_kaiserschlact = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = FRA
+		has_idea = GER_kaisers_battle
+	}
+	abort = {
+		has_country_flag = kaisers_battle_failed
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.5
+		priority = 200
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = FRA	
+		value = 15
+	}
+}
+
+
+GER_attack_france_during_mutiny = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = FRA
+		FRA = { has_idea = FRA_worsened_army_mutinies }
+	}
+	abort = {
+		has_country_flag = kaisers_battle_failed
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.6
+		priority = 100
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = FRA	
+		value = 15
 	}
 }
 

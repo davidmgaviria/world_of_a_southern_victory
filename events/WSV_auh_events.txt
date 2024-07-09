@@ -1,0 +1,39 @@
+﻿add_namespace = wsv_auh
+
+
+
+#############################################################################
+## -- Domestic Events
+#############################################################################
+
+
+## War time ethnic unrest events
+country_event = {
+	id = wsv_auh.1
+	title = wsv_auh.1.t
+	desc = wsv_auh.1.d
+	picture = report_event_wsv_gathering_protest
+
+	trigger = {
+		tag = AUH
+		has_war = yes
+		longest_war_length > 6
+		casualties > 200000
+		NOT = { has_country_flag = wartime_unrest_cooldown }
+		NOT = { has_country_flag = auh_collapsed }
+	}
+
+	immediate = {
+		set_country_flag = {
+			flag = wartime_unrest_cooldown
+			days = 200
+			value = 1
+		}
+	}
+
+	option = {
+		name = wsv_auh.1.a
+		add_war_support = -0.02
+		add_stability = -0.02
+	}
+}

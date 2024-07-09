@@ -41,6 +41,46 @@ country_event = {
 }
 
 
+## War time unrest events
+country_event = {
+	id = wsv_russia.2
+	title = wsv_russia.2.t
+	desc = wsv_russia.2.d
+	picture = report_event_wsv_gathering_protest
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		longest_war_length > 8
+		casualties > 500000
+		NOT = { has_country_flag = wartime_unrest_cooldown }
+		NOT = { has_country_flag = tsar_of_russia_abdicated }
+	}
+
+	immediate = {
+		set_country_flag = {
+			flag = wartime_unrest_cooldown
+			days = 100
+			value = 1
+		}
+	}
+
+	option = {
+		name = wsv_russia.2.a
+		add_stability = -0.03
+		add_popularity = {
+			ideology = communism
+			popularity = 0.015
+		}
+		if = {
+			limit = { has_idea = RUS_threat_of_revolution }
+			swap_ideas = {
+				remove_idea = RUS_threat_of_revolution
+				add_idea = RUS_threat_of_revolution_2
+			}
+		}
+	}
+}
 
 
 #############################################################################
@@ -169,15 +209,22 @@ country_event = {
 
 	fire_only_once = yes
 		
-	trigger = {war_length_with = { tag = GER   months = 5 }
+	trigger = {
 		tag = RUS
 		# has been at war for at least 6 months
 		has_war_with_major = yes
 		longest_war_length > 5
-		## conditions  ## TODO - tweak
+		## Conditions for Tsar abdication
 		OR = {
-			surrender_progress > 0.2
-			has_stability < 0.3
+			AND = {
+				surrender_progress > 0.1
+				has_stability < 0.3
+			}
+			AND = {
+				surrender_progress > 0
+				has_stability < 0.2
+			}
+			has_stability < 0.1
 		}
 	}
 	
@@ -209,12 +256,10 @@ news_event = {
 				}
 				promote_character = RUS_georgy_lvov
 				set_cosmetic_tag = RUS_provisional_gov
-				swap_ideas = {
-					remove_idea = RUS_threat_of_revolution
-					add_idea = RUS_unstable_political_situation
-				}
 				# event on how to proceed with war
 				country_event = { id = wsv_russia.102  days = 3 }
+				# delay bolshevicks organizing
+				set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 40 }
 			}
 		}
 	}
@@ -237,16 +282,50 @@ country_event = {
 	option={
 		name=wsv_russia.102.a
 		add_war_support = -0.1
-		add_political_power = -100
+		add_political_power = -50
 		# news event about russian continuing war
 		news_event = { id = wsv_russia.103  days = 1 }
+
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				has_war_with = GER
+				GER = { surrender_progress > 0.1 }
+			}
+			modifier = {
+				factor = 2
+				has_war_with = AUH
+				AUH = { surrender_progress > 0.1 }
+			}
+			# canonically surrendered
+			modifier = {
+				factor = 0.1
+				is_historical_focus_on = yes
+			}
+		}
 	}
 
 	## Negociate a peace
 	option={
 		name=wsv_russia.102.b
 		increase_white_support_effect = yes
-		activate_decision = greatwar_russia_offers_peace
+		activate_decision = greatwar_russia_peace_with_germany
+		# ai_chance = {
+		# 	factor = 0
+		# }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 3
+				surrender_progress > 0.15
+			}
+			modifier = {
+				factor = 3
+				is_in_faction_with = FRA
+				FRA = { surrender_progress > 0.15 }
+			}
+		}
 	}
 }
 
@@ -325,17 +404,17 @@ country_event = {
 	}
 
 	mean_time_to_happen = {
-		days = 15
+		days = 5
 	}
 
 	immediate = {
 		# more frequent during war time
 		if = {
 			limit = { has_war = yes }
-			set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 50 }
+			set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 80 }
 		}
 		else = {
-			set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 100 }
+			set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 140 }
 		}
 	}
 	

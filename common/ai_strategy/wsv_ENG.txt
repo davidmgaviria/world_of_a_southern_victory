@@ -184,6 +184,25 @@ ENG_gw_modified_unit_production = {
 }
 
 
+## build more civs originally
+ENG_build_up_more_civs = {
+	allowed = {
+		original_tag = ENG
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		threat < 0.2
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -20
+	}
+}
+
+
 ENG_save_up_equipment = {		
 	allowed = {
 		original_tag = ENG
@@ -258,7 +277,7 @@ ENG_defense_canada = {
 	}
 	enable = {
 		has_war_with = USA
-		CAN = { is_puppet_of = ENG }
+		has_war_together_with = CAN	 	# dominions dont count as puppets
 	}
 	abort = {
 		CAN = { surrender_progress > 0.5 }
@@ -286,17 +305,17 @@ ENG_defense_canada = {
 		value = 100
 	}
 
-# 	ai_strategy = {
-# 		type = force_defend_ally_borders
-# 	   id = "CAN"
-# 		  value = 1
-# 	}
+	ai_strategy = {
+		type = force_defend_ally_borders
+	   id = "CAN"
+		  value = 1
+	}
 
-#    ai_strategy = {
-# 	   type = dont_defend_ally_borders
-# 	   id = "CAN"
-# 	   value = -1 #its false or true, putting 9999 is useless
-#    }
+   ai_strategy = {
+	   type = dont_defend_ally_borders
+	   id = "CAN"
+	   value = -1 #its false or true, putting 9999 is useless
+   }
 
     ai_strategy = {
 		type = front_unit_request
@@ -483,7 +502,7 @@ ENG_help_france_fight_germany = {
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front
-		value = 300
+		value = 250
 	}
 
 	ai_strategy = {
@@ -534,21 +553,21 @@ ENG_launch_offensives_against_GER = {
 		surrender_progress > 0.15		
 	}
 
-	# ai_strategy = {
-	# 	type = front_control
-	# 	tag = GER
-	# 	ratio = 0.65
-	# 	priority = 25
-	# 	ordertype = front
-	# 	execution_type = careful
-	# 	execute_order = yes
-	# 	manual_attack = yes
-	# }
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.7
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
 
 	ai_strategy = {
 		type = consider_weak
 		id = GER
-		value = 20
+		value = -15
 	}
 }
 

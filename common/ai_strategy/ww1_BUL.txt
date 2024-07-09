@@ -41,7 +41,7 @@ BUL_increase_army = {		# massively increase size
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 300000 }
+		has_army_manpower = { size < 450000 }
 		has_war = no 
 	}
 	abort_when_not_enabled = yes
@@ -53,7 +53,7 @@ BUL_increase_army = {		# massively increase size
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 50
+	    value = 150
 	}
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
@@ -128,7 +128,7 @@ BUL_revenge_on_serbia = {
 		has_war_with = SER  #dont abort before
 		OR = {
 			surrender_progress > 0.15
-			casualties > 25000
+			casualties > 50000
 			SER = { has_capitulated = yes }
 		}
 	}
@@ -140,9 +140,15 @@ BUL_revenge_on_serbia = {
 	}
 
 	ai_strategy = {
+		type = front_unit_request
+		tag = SER 
+		value = 200
+	}
+
+	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.6
+		ratio = 0.5
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak

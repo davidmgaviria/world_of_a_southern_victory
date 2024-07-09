@@ -117,13 +117,13 @@ USA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 35
+		value = 30
 	}
 
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 20   #stacks, total is 100
+		value = 40   #stacks, total is 140
 	}
 
 
@@ -165,7 +165,7 @@ USA_increase_army_rapidly = {		# massively increase size
 	}
 	enable = {
 		date > 1912.1.1
-		has_army_manpower = { size < 2400000 }
+		has_army_manpower = { size < 2500000 }
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -180,6 +180,52 @@ USA_increase_army_rapidly = {		# massively increase size
 	    value = 250
 	}
 }
+
+
+## save pp to switch to higher economy law
+USA_save_up_to_switch_to_low_mob = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date > 1911.1.1
+		has_war_support > 0.2
+		has_idea = civilian_economy
+		has_political_power < 225
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = idea
+		value = 0  # baseline is 100
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = decision
+		value = 50   # baseline is 100
+	}
+}
+
+
+# ## build more civs originally
+# USA_build_up_more_civs = {
+# 	allowed = {
+# 		original_tag = USA
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war = no
+# 		has_idea = USA_throttled_military_spending
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = added_military_to_civilian_factory_ratio		
+# 		value = -10
+# 	}
+# }
 
 
 USA_germany_ally_ww1 = {
@@ -296,13 +342,13 @@ USA_opening_war_assault_against_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 85
+		value = 100
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = MEX		
-		value = -35
+		value = -25
 	}
 }
 
@@ -340,7 +386,7 @@ USA_let_confederates_take_dc = {
 		type = front_unit_request
 		state = 814	
 		state = 361 
-		value = -70
+		value = -65
 	}
 
 	## buffers to prevent Philadelphia's fall
@@ -385,7 +431,7 @@ USA_opening_war_assault_against_canada = {
 	ai_strategy = {
 		type = front_control
 		tag = CAN
-		ratio = 0.35
+		ratio = 0.4
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -396,7 +442,7 @@ USA_opening_war_assault_against_canada = {
 	ai_strategy = {
 		type = front_unit_request
 		area = east_canada
-		value = 50
+		value = 45
 	}
 
 	ai_strategy = {
@@ -431,21 +477,28 @@ USA_attack_slowly_against_CSA = {
 		ratio = 0.5
 		priority = 100
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	# focus on taking dc / richmond
+	ai_strategy = {
+		type = front_unit_request
+		strategic_region = 117  ## east coast		
+		value = 65
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 50
+		value = 25
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = MEX		
-		value = -25
+		type = consider_weak
+		id = CSA
+		value = 15
 	}
 }
 
@@ -480,7 +533,19 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_unit_request
 		area = east_canada
-		value = 35
+		value = 40
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = west_canada
+		value = 10
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = CAN
+		value = 10
 	}
 }
 
@@ -503,7 +568,7 @@ USA_destroy_the_mormons = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = DES
-		value = 25
+		value = 50
 	}
 
 	ai_strategy = {
