@@ -17,7 +17,7 @@ country_event = {
 	trigger = {
 		tag = AUH
 		has_war = yes
-		longest_war_length > 6
+		longest_war_length > 10	 # a bit less than a year into the war
 		casualties > 200000
 		NOT = { has_country_flag = wartime_unrest_cooldown }
 		NOT = { has_country_flag = auh_collapsed }
@@ -33,8 +33,12 @@ country_event = {
 
 	option = {
 		name = wsv_auh.1.a
-		add_war_support = -0.02
+		add_war_support = -0.03
 		add_stability = -0.02
+		if = {
+			limit = { NOT = { has_idea = AUH_house_of_cards } }
+			add_ideas = AUH_house_of_cards
+		}
 	}
 }
 
@@ -50,7 +54,7 @@ news_event = {
 
 	trigger = {
 		tag = AUH
-		has_war = yes
+		has_idea = AUH_house_of_cards	# will only have during wartime
 		has_stability <= 0.10
 		NOT = { has_global_flag = auh_collapsed }
 	}
