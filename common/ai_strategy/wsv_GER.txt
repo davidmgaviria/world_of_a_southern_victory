@@ -16,42 +16,6 @@
 ######################### GENERIC ##########################
 
 
-
-# GER_francogerman_rivalry = {
-# 	allowed = {
-# 		original_tag = GER
-# 	}
-# 	enable = {
-# 		FRA = { 
-# 			exists = yes
-# 			NOT = { is_in_faction_with = GER }
-# 		}
-# 	}
-# 	abort = {
-# 		has_war_with = RUS
-# 		NOT = { has_war_with = FRA }
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = western_front		
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = western_front
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = eastern_front
-# 		value = -15
-# 	}
-# }
-
-
 GER_protect_north_coast = {
 	allowed = {
 		original_tag = GER
@@ -103,7 +67,7 @@ GER_ignore_north_america = {
 ######################### GREAT WAR ##########################
 
 #stacks from base production
-GER_gw_modified_unit_production = {
+GER_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
@@ -112,51 +76,47 @@ GER_gw_modified_unit_production = {
 		always = yes
 	}
 	abort = { always = no }
-	
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry_equipment 
-		value = 120
-	}
 
 	ai_strategy = {
 		type = equipment_production_factor
-		id = artillery 
-		value = 30
+		id = infantry
+		value = 110	 
 	}
-
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 40
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = train
+		value = 20
+	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = convoy
 		value = 10
 	}
 
+	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 40   #stacks, total is 140
+		value = 20   # total is 120
 	}
-
 	ai_strategy = {
 		type = air_factory_balance
-		value = 80
-	}
-}
-
-
-GER_make_less_civs = {
-	allowed = {
-		original_tag = GER
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 10
+		value = 100
 	}
 }
 
@@ -202,7 +162,7 @@ GER_anglo_german_naval_arms_race = {
 	ai_strategy = {
 	    type = building_target
 	    id = dockyard
-	    value = 10
+	    value = 5
 	}
 }
 
@@ -214,14 +174,14 @@ GER_gw_stockpile_less_early_game = {
 	}
 	enable = {
 		date > 1912.1.1
-		has_army_manpower = { size < 2800000 }
+		has_army_manpower = { size < 3000000 }
 		has_war = no
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -20 # reduce while we build up in case of issues
 	}
 }
 
@@ -358,6 +318,18 @@ GER_der_schlieffen_plan = {
 	abort = {
 		has_country_flag = schliffen_plan_failed
 	}
+	
+	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 150
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_front
+		value = -40
+	}
 
 	ai_strategy = {
 		type = front_control
@@ -375,22 +347,28 @@ GER_der_schlieffen_plan = {
 		type = front_control
 		tag = FRA
 		priority = 500
-		ratio = 0.4
+		ratio = 0.35
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
+		type = conquer
 		id = "BEL"			
 		value = 100
 	}
 	
 	ai_strategy = {
-		type = prepare_for_war
+		type = conquer
 		id = "LUX"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "FRA"			
 		value = 100
 	}
 	
@@ -414,19 +392,13 @@ GER_der_schlieffen_plan = {
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front		
-		value = 150
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = western_front
-		value = 100
+		value = 175
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -50
+		value = -40
 	}
 	
 	ai_strategy = {
@@ -434,12 +406,6 @@ GER_der_schlieffen_plan = {
 		id = BEL
 		value = 150
 	}
-
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "AUH"
-		value = 100
-	}	
 }
 
 
@@ -495,9 +461,21 @@ GER_war_strategy_1 = {
 	}
 
 	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 100
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_front
+		value = -25
+	}
+
+	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.6
+		ratio = 0.5
 		priority = 10
 		ordertype = front
 		execution_type = balanced
@@ -514,24 +492,18 @@ GER_war_strategy_1 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -20
+		value = -25
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.85
+		ratio = 0.65
 		priority = 1
 		ordertype = front
 		execution_type = careful
 		execute_order = no
 		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = FRA	
-		value = 50
 	}
 }
 
@@ -555,9 +527,21 @@ GER_war_strategy_2 = {
 	}
 
 	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 100
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_front
+		value = -35
+	}
+
+	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.6
+		ratio = 0.8
 		priority = 10
 		ordertype = front
 		execution_type = careful
@@ -568,24 +552,18 @@ GER_war_strategy_2 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -35
+		value = -45
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.7
+		ratio = 0.8
 		priority = 1
 		ordertype = front
 		execution_type = careful
-		execute_order = no  
+		execute_order = yes
 		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = FRA	
-		value = 75
 	}
 }
 
@@ -601,10 +579,7 @@ GER_let_austria_defend_itself = {
 	}
 	abort = {
 		has_war_together_with = AUH
-		OR = {
-			AUH = { surrender_progress > 0.2 }
-			war_length_with = { tag = RUS  months > 10 }   # start helping austria in mid 1915
-		}
+		AUH = { surrender_progress > 0.2 }
 	}
 
 	ai_strategy = {
@@ -616,7 +591,7 @@ GER_let_austria_defend_itself = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER		
-		value = -80
+		value = -75
 	}	
 }
 
@@ -668,7 +643,7 @@ GER_save_turkey = {
 	enable = {
 		has_war = yes
 		is_in_faction_with = TUR
-		TUR = { surrender_progress > 0.1 }
+		TUR = { surrender_progress > 0.15 }
 	}
 	abort_when_not_enabled = yes
 
@@ -705,6 +680,45 @@ GER_garrison_belgium_and_northern_france = {
 }
 
 
+# if only fighting France
+GER_war_strategy_3 = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = FRA
+		OR = {
+			NOT = { has_war_with = RUS }
+			RUS = { has_capitulated = yes }
+		}
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = FRA
+		ratio = 0.8
+		priority = 1
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes  
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = western_front	
+		value = 150
+	}
+}
+
+
 GER_prepare_kaiserschlact = {
 	allowed = {
 		original_tag = GER	
@@ -728,12 +742,6 @@ GER_prepare_kaiserschlact = {
 		execution_type = careful
 		execute_order = no
 		manual_attack = yes
-	}
-	
-	ai_strategy = {
-		type = front_unit_request
-		tag = FRA	
-		value = 100
 	}
 }
 

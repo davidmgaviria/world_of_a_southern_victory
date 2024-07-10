@@ -17,6 +17,56 @@
 ######################### GENERIC ##########################
 
 
+RUS_gw_equipment_and_unit_production = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+	abort = { always = no }
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 100	 
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 55
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 5
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 5
+	}
+
+	## AIR FACTORY BALANCE
+	ai_strategy = {
+		type = air_factory_balance
+		value = 90
+	}
+	
+	## EXTRA UNIT RATIOS
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 5	# total is 30
+	}
+}
+
 
 RUS_ignore_north_america = {
 	allowed = {
@@ -190,6 +240,24 @@ RUS_gw_modified_unit_production = {
 }
 
 
+RUS_build_up_more_mils = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date > 1911.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 15
+	}
+}
+
+
+
 RUS_slowly_increase_army = {		
 	allowed = {
 		original_tag = RUS
@@ -218,7 +286,7 @@ RUS_increase_army = {		# massively increase size
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 3000000 }
+		has_army_manpower = { size < 2800000 }
 		date > 1912.1.1
 	}
 	abort_when_not_enabled = yes
@@ -231,10 +299,6 @@ RUS_increase_army = {		# massively increase size
 	    type = build_army
 	    id = infantry
 	    value = 175
-	}
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 	# reduce while we build up in case of issues
 	}
 }
 
@@ -259,14 +323,17 @@ RUS_opening_war_assault_AUH = {
 				has_war_with = AUH  #dont abort before
 				OR = {
 					surrender_progress > 0.15
-					casualties > 500000
+					casualties_inflicted_by = {
+						opponent = AUH
+						thousands = 250
+					}
 				}
 			}
 		}
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
+		type = conquer
 		id = "AUH"
 		value = 100
 	}	
@@ -286,7 +353,7 @@ RUS_opening_war_assault_AUH = {
 	ai_strategy = {
 		type = front_control
 		tag = AUH
-		ratio = 0.45
+		ratio = 0.4
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -297,7 +364,7 @@ RUS_opening_war_assault_AUH = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = AUH
-		value = 100
+		value = 300
 	}
 }
 
@@ -324,14 +391,17 @@ RUS_opening_war_assault_GER = {
 				has_war_with = GER  #dont abort before
 				OR = {
 					surrender_progress > 0.15
-					casualties > 500000
+					casualties_inflicted_by = {
+						opponent = GER
+						thousands = 250
+					}
 				}
 			}
 		}
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
+		type = conquer
 		id = "GER"
 		value = 100
 	}
@@ -339,7 +409,7 @@ RUS_opening_war_assault_GER = {
 	ai_strategy = {
 		type = front_control
 		tag = GER
-		ratio = 0.55
+		ratio = 0.5
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -350,7 +420,7 @@ RUS_opening_war_assault_GER = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = GER
-		value = 80
+		value = 65
 	}
 }
 
@@ -427,7 +497,7 @@ RUS_launch_offensives_against_GER_AUH = {
 		type = front_control
 		tag = GER
 		tag = AUH
-		ratio = 0.6
+		ratio = 0.8
 		priority = 25
 		ordertype = front
 		execution_type = careful

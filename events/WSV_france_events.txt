@@ -143,11 +143,8 @@ country_event = {
 	immediate = {
 		hidden_effect = {
 			set_country_flag = first_army_mutiny
-			add_timed_idea = {
-				idea = FRA_army_mutinies
-				days = 30
-			}
-			country_event = { id = wsv_france.101   days = 7 }  # deal with mutinies event
+			add_ideas = FRA_army_mutinies
+			country_event = { id = wsv_france.101   days = 25 }  # deal with mutinies event
 		}
 	}
 
@@ -187,7 +184,7 @@ country_event = {
 			factor = 50
 			# panic if russia fell
 			modifier = {
-				factor = 0.1
+				factor = 0.25
 				has_war_with = GER
 				OR = {
 					RUS = { has_capitulated = yes }
@@ -201,7 +198,7 @@ country_event = {
 	option = {
 		name = wsv_france.101.b
 		random_list = {
-			30 = {
+			25 = {
 				# successfully put down mutiny
 				hidden_effect = { remove_ideas = FRA_army_mutinies }
 				custom_effect_tooltip = end_french_army_mutinies_tt
@@ -213,7 +210,7 @@ country_event = {
 				set_country_flag = first_army_mutiny_over
 				country_event = { id = wsv_france.102  days = 1 }
 			}
-			70 = {
+			75 = {
 				# mutiny explodes
 				hidden_effect = { remove_ideas = FRA_army_mutinies }
 				add_timed_idea = {

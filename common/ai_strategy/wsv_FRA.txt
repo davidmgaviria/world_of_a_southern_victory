@@ -75,9 +75,7 @@ FRA_ignore_russia = {
 
 ######################### GREAT WAR ##########################
 
-
-#stacks from base production
-FRA_gw_modified_unit_production = {
+FRA_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = FRA
 		has_start_date < 1937.1.1
@@ -90,18 +88,45 @@ FRA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 100
+		value = 100	 
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 30
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 40
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 10
 	}
 
+	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 60
+		value = 120
+	}
+	
+	## EXTRA UNIT RATIOS
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 20   # total is 120
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor   
+		value = 2   # total is 4
 	}
 }
 
@@ -498,7 +523,7 @@ FRA_ww2_stockpile_less_early_game = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 

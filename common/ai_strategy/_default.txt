@@ -34,7 +34,7 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 80  #
+		value = 80  
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -61,6 +61,11 @@ default_gw_unit_production = {
 		id = armored_car
 		value = 0
 	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor   
+		value = 2
+	}
 	
 	# Air unit factors
 	ai_strategy = {
@@ -75,18 +80,18 @@ default_gw_unit_production = {
 	}
 	ai_strategy = {
 		type = unit_ratio
-		id = cas
-		value = 20
+		id = tactical_bomber
+		value = 35
 	}
 	ai_strategy = {
 		type = unit_ratio
-		id = tactical_bomber
-		value = 25
+		id = cas
+		value = 15
 	}
 	ai_strategy = {
 		type = unit_ratio
 		id = strategic_bomber
-		value = 1
+		value = 2
 	}
 	ai_strategy = {
 		type = unit_ratio
@@ -115,8 +120,35 @@ default_gw_unit_production = {
 		id = convoy
 		value = 15
 	}
+}
+
+
+
+default_gw_equipment_production = {
+	allowed = {
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		NOT = {
+			original_tag = GER
+			original_tag = ENG
+			original_tag = FRA
+			original_tag = RUS
+		}
+	}
+	abort = { always = no }
 
 	# Equipment production
+	ai_strategy = {
+		type = equipment_production_factor
+		id = infantry
+		value = 50	 # vanilla is 45
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 35
+	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
@@ -124,13 +156,8 @@ default_gw_unit_production = {
 	}
 	ai_strategy = {
 		type = equipment_production_factor
-		id = infantry
-		value = 60
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 25
+		id = motorized
+		value = 10
 	}
 }
 
