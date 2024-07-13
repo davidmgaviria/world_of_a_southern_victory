@@ -90,9 +90,7 @@ USA_ignore_europe = {
 
 ######################### GREAT WAR ##########################
 
-
-#stacks from base production
-USA_gw_modified_unit_production = {
+USA_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
@@ -103,39 +101,57 @@ USA_gw_modified_unit_production = {
 	abort = { always = no }
 
 	ai_strategy = {
-		type = role_ratio
-		id = garrison	
-		value = 2
+		type = equipment_production_factor
+		id = infantry
+		value = 95	 
 	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = marines	
-		value = 2
-	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 30
+		value = 55
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = train
+		value = 20
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 10
 	}
 
+	## EXTRA UNIT RATIOS
+	ai_strategy = {
+		type = role_ratio
+		id = garrison	
+		value = 2   # total is 4
+	}
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 40   #stacks, total is 140
+		value = 35   # total is 135
 	}
-
-
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 5
+		value = 5	# total is 40
 	}
 
+	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 90
+		value = 85
 	}
 }
 
@@ -166,7 +182,7 @@ USA_increase_army_rapidly = {		# massively increase size
 	enable = {
 		has_war = no
 		date > 1912.1.1
-		has_army_manpower = { size < 2500000 }
+		has_army_manpower = { size < 2400000 }
 	}
 	abort_when_not_enabled = yes
 
@@ -367,7 +383,7 @@ USA_let_confederates_take_dc = {
 		type = front_unit_request
 		state = 814	
 		state = 361 
-		value = -65
+		value = -75
 	}
 
 	## buffers to prevent Philadelphia's fall

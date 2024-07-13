@@ -889,9 +889,14 @@ wsv_great_war_decisions = {
 				idea = CSA_lee_warplan_idea
 				days = 70
 			}
-			361 = {
-				add_dynamic_modifier = { modifier = CSA_warplan_lee_state_debuff  days = 70 }
+			if = {
+				limit = { is_ai = yes }
+				361 = { add_dynamic_modifier = { modifier = CSA_warplan_lee_state_debuff_AI  days = 70 } }  # special debuff for ai cause its dumb
 			}
+			else = {
+				361 = { add_dynamic_modifier = { modifier = CSA_warplan_lee_state_debuff  days = 70 } }
+			}
+			
 		}
 
 		ai_will_do = {
