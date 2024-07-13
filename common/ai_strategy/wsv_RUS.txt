@@ -17,57 +17,6 @@
 ######################### GENERIC ##########################
 
 
-RUS_gw_equipment_and_unit_production = {
-	allowed = {
-		original_tag = RUS
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-	abort = { always = no }
-
-	ai_strategy = {
-		type = equipment_production_factor
-		id = infantry
-		value = 100	 
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = artillery
-		value = 55
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = fighter
-		value = 35
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = motorized
-		value = 5
-	}
-	ai_strategy = {
-		type = equipment_production_factor
-		id = convoy
-		value = 5
-	}
-
-	## AIR FACTORY BALANCE
-	ai_strategy = {
-		type = air_factory_balance
-		value = 90
-	}
-	
-	## EXTRA UNIT RATIOS
-	ai_strategy = {
-		type = unit_ratio
-		id = tactical_bomber
-		value = 5	# total is 30
-	}
-}
-
-
 RUS_ignore_north_america = {
 	allowed = {
 		original_tag = RUS
@@ -209,8 +158,8 @@ RUS_no_naval_invasions = {
 
 ######################### GREAT WAR ##########################
 
-#stacks from base production
-RUS_gw_modified_unit_production = {
+
+RUS_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
@@ -222,20 +171,39 @@ RUS_gw_modified_unit_production = {
 
 	ai_strategy = {
 		type = equipment_production_factor
+		id = infantry
+		value = 100	 
+	}
+	ai_strategy = {
+		type = equipment_production_factor
 		id = artillery
-		value = 55
+		value = 60
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = train
+		value = 15
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 10
 	}
 
+	## AIR FACTORY BALANCE
 	ai_strategy = {
-		type = role_ratio
-		id = garrison	
-		value = 2
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry	
-		value = 2
+		type = air_factory_balance
+		value = 85
 	}
 }
 
@@ -252,42 +220,41 @@ RUS_build_up_more_mils = {
 	
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
-		value = 15
+		value = 10
 	}
 }
 
 
 
-RUS_slowly_increase_army = {		
+## save up less equipment at beginning in case of issues
+RUS_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war = no
+		date < 1914.1.1
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = -25
-	}
-	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 	# reduce while we build up in case of issues
+		value = -10
 	}
 }
 
 
-RUS_increase_army = {		# massively increase size
+# massively increase army size
+RUS_increase_army = {		
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 2800000 }
-		date > 1912.1.1
+		has_war = no
+		date > 1912.6.1
+		has_army_manpower = { size < 3000000 }		
 	}
 	abort_when_not_enabled = yes
 
@@ -298,7 +265,7 @@ RUS_increase_army = {		# massively increase size
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 175
+	    value = 150
 	}
 }
 

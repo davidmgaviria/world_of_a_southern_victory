@@ -223,45 +223,45 @@ TUR_prepare_for_first_balkan = {
 }
 
 
-# dont get encircled in west balkans
-TUR_retreat_from_balkans = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		tag = TUR
-		has_war_with = SER
-		NOT = { has_global_flag = firstbalkan_war_over }
-		AND = {
-			NOT = { controls_state = 731 } 
-			NOT = { controls_state = 759 } 
-			NOT = { controls_state = 788 } 
-		}
-	}
-	abort = {
-		OR = { 
-			SER = { has_capitulated = yes }
-			GRE = { has_capitulated = yes }
-		}
-	}	
+# # dont get encircled in west balkans
+# TUR_retreat_from_balkans = {
+# 	allowed = {
+# 		original_tag = TUR
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		tag = TUR
+# 		has_war_with = SER
+# 		NOT = { has_global_flag = firstbalkan_war_over }
+# 		AND = {
+# 			NOT = { controls_state = 731 } 
+# 			NOT = { controls_state = 759 } 
+# 			NOT = { controls_state = 788 } 
+# 		}
+# 	}
+# 	abort = {
+# 		OR = { 
+# 			SER = { has_capitulated = yes }
+# 			GRE = { has_capitulated = yes }
+# 		}
+# 	}	
 
-	ai_strategy = {
-		type = put_unit_buffers	
-		states = { 
-			44
-		}
-		ratio = 0.1
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
-	}
+# 	ai_strategy = {
+# 		type = put_unit_buffers	
+# 		states = { 
+# 			44
+# 		}
+# 		ratio = 0.1
+# 		subtract_invasions_from_need = no
+# 		subtract_fronts_from_need = no
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		strategic_region = 24		# eastern balkans
-		value = -9999
-	}
-}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		strategic_region = 24		# eastern balkans
+# 		value = -9999
+# 	}
+# }
 
 
 
@@ -339,4 +339,26 @@ TUR_focus_on_ourselves = {
 
 
 
+TUR_prepare_for_second_balkan = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_global_flag = secondbalkan_war
+		NOT = { has_global_flag = secondbalkanwar_over }
+	}
+	abort_when_not_enabled = yes	
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "BUL"			
+		value = 100
+	}
+	ai_strategy = {
+		type = conquer
+		id = "BUL"			
+		value = 25
+	}
+}
 

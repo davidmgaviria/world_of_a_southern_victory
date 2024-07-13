@@ -131,19 +131,21 @@ FRA_gw_equipment_and_unit_production = {
 }
 
 
-FRA_save_more_equipment = {
+## save up less equipment at beginning in case of issues
+FRA_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = FRA
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war = no
+		date < 1914.1.1
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = 10
+		value = -15
 	}
 }
 

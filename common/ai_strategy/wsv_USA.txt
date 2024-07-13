@@ -28,7 +28,7 @@ USA_two_oceans_fleet = {
 	ai_strategy = {
 	    type = building_target
 	    id = dockyard
-	    value = 12
+	    value = 10
 	}
 
     ai_strategy = {
@@ -146,14 +146,14 @@ USA_stockpile_less_equipment = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date > 1912.1.1
+		date < 1914.1.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 	# reduce while we build up in case of issues
+		value = -15 	# reduce while we build up in case of issues
 	}
 }
 
@@ -164,9 +164,9 @@ USA_increase_army_rapidly = {		# massively increase size
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		has_war = no
 		date > 1912.1.1
 		has_army_manpower = { size < 2500000 }
-		has_war = no
 	}
 	abort_when_not_enabled = yes
 
@@ -207,25 +207,6 @@ USA_save_up_to_switch_to_low_mob = {
 		value = 50   # baseline is 100
 	}
 }
-
-
-# ## build more civs originally
-# USA_build_up_more_civs = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war = no
-# 		has_idea = USA_throttled_military_spending
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = added_military_to_civilian_factory_ratio		
-# 		value = -10
-# 	}
-# }
 
 
 USA_germany_ally_ww1 = {
@@ -490,6 +471,12 @@ USA_attack_slowly_against_CSA = {
 	}
 
 	ai_strategy = {
+		type = front_unit_request
+		tag = CSA  ## east coast		
+		value = 25
+	}
+
+	ai_strategy = {
 		type = consider_weak
 		id = CSA
 		value = 15
@@ -527,19 +514,19 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_unit_request
 		area = east_canada
-		value = 50
+		value = 40
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = west_canada
-		value = 25
+		value = 15
 	}
 
 	ai_strategy = {
 		type = consider_weak
 		id = CAN
-		value = 10
+		value = 15
 	}
 }
 

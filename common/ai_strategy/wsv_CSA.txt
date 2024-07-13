@@ -271,33 +271,36 @@ CSA_dont_join_englande_yet = {
 	}	
 }
 
-## save up equipment before war
-CSA_save_more_equipment = {
+
+## save up less equipment at beginning in case of issues
+CSA_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war = no
+		date < 1914.1.1
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = 10
+		value = -15
 	}
 }
 
 
 ## increase army before war
-CSA_increase_army_rapidly = {		# massively increase size
+CSA_increase_army_rapidly = {	
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 1100000 }
+		has_war = no
 		date > 1912.1.1
+		has_army_manpower = { size < 1200000 }
 	}
 	abort_when_not_enabled = yes
 
@@ -308,7 +311,7 @@ CSA_increase_army_rapidly = {		# massively increase size
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 150
+	    value = 175
 	}
 	ai_strategy = {
 	    type = build_army
@@ -326,10 +329,10 @@ CSA_limit_army_size = {
 	}
 	enable = {
 		tag = CSA
-		has_army_manpower = { size > 1600000 }
+		has_army_manpower = { size > 1800000 }
 	}
 	abort = {
-		has_army_manpower = { size < 1000000 }
+		has_army_manpower = { size < 900000 }
 	}
 
 	ai_strategy = {
@@ -428,12 +431,13 @@ CSA_opening_offensive_against_USA = {
 		value = 50
 	}
 
+	# units for dc
 	ai_strategy = {
-		type = front_unit_request
+		type = front_unit_request  
 		state = 361	
 		state = 840
 		state = 360
-		value = 350
+		value = 250
 	}
 
 	# hold the line against the rest of the US
@@ -486,7 +490,7 @@ CSA_give_ground_slowly_against_USA = {
 		state = 361	
 		state = 840
 		state = 360
-		value = 65
+		value = 40
 	}
 
 	# hold the line against the rest of the US

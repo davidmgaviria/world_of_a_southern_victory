@@ -66,7 +66,6 @@ GER_ignore_north_america = {
 
 ######################### GREAT WAR ##########################
 
-#stacks from base production
 GER_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = GER
@@ -167,33 +166,35 @@ GER_anglo_german_naval_arms_race = {
 }
 
 
+# reduce while we build up in case of issues
 GER_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date > 1912.1.1
-		has_army_manpower = { size < 3000000 }
+		date < 1914.1.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -20
 	}
 }
 
 
-GER_increase_army = {		# massively increase size
+# massively increase size
+GER_increase_army = {		
 	allowed = {
 		original_tag = GER
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		has_war = no
+		date > 1912.6.1
 		has_army_manpower = { size < 2800000 }
-		date > 1913.1.1
 	}
 	abort_when_not_enabled = yes
 
@@ -207,7 +208,6 @@ GER_increase_army = {		# massively increase size
 	    value = 250
 	}
 }
-
 
 
 GER_no_one_gets_our_troops = {
@@ -326,9 +326,15 @@ GER_der_schlieffen_plan = {
 	}
 
 	ai_strategy = {
-		type = area_priority
-		id = eastern_front
-		value = -40
+		type = front_unit_request
+		area = western_front		
+		value = 175
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = BEL
+		value = 150
 	}
 
 	ai_strategy = {
@@ -336,9 +342,9 @@ GER_der_schlieffen_plan = {
 		tag = BEL
 		tag = LUX
 		priority = 1000
-		ratio = 0.3
+		ratio = 0.35
 		ordertype = front
-		execution_type = rush
+		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -388,23 +394,17 @@ GER_der_schlieffen_plan = {
 		execute_order = no
 		manual_attack = yes
 	}
-	
-	ai_strategy = {
-		type = front_unit_request
-		area = western_front		
-		value = 175
-	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = RUS	
+		type = area_priority
+		id = eastern_front
 		value = -40
 	}
 	
 	ai_strategy = {
-		type = consider_weak
-		id = BEL
-		value = 150
+		type = front_unit_request
+		tag = RUS	
+		value = -40
 	}
 }
 
@@ -492,7 +492,7 @@ GER_war_strategy_1 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -25
+		value = -20
 	}
 
 	ai_strategy = {
@@ -552,7 +552,7 @@ GER_war_strategy_2 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -45
+		value = -35
 	}
 
 	ai_strategy = {

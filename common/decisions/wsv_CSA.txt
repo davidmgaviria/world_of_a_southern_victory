@@ -885,24 +885,14 @@ wsv_great_war_decisions = {
 		days_re_enable = 0
 		
 		complete_effect = {
-			every_state = {
-				limit = {
-					OR = { state = 361 }
-				}
-				add_dynamic_modifier = { modifier = CSA_warplan_lee_modifier  days = 70 }
+			add_timed_idea = {
+				idea = CSA_lee_warplan_idea
+				days = 70
+			}
+			361 = {
+				add_dynamic_modifier = { modifier = CSA_warplan_lee_state_debuff  days = 70 }
 			}
 		}
-
-		# remove_effect = {
-		# 	hidden_effect = {
-		# 		every_state = {
-		# 			limit = {
-		# 				OR = { state = 361  state = 360  state = 840 }
-		# 			}
-		# 			remove_dynamic_modifier = { modifier = CSA_warplan_lee_modifier }
-		# 		}
-		# 	}
-		# }
 
 		ai_will_do = {
 			factor = 10
