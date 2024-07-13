@@ -496,21 +496,35 @@ focus_tree = {
 		
 	focus = {
 		id = USA_intervention_in_haiti
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = USA_influence_in_caribbean }
-
 		cost = 10
 		x = 0
 		y = 3
 		relative_position_id = USA_influence_in_caribbean
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 0 }
 
-		available = { has_country_flag = path_complete }
+		available = { 
+			country_exists = HAI
+			NOT = { has_war_with = HAI } 
+			HAI = { 
+				has_country_flag = haiti_implodes
+				is_in_faction = no
+				is_puppet = no
+			}
+		}
 
-		#bypass = {}
+		bypass = {
+			HAI = { is_puppet_of = USA }
+		}
 
 		completion_reward = { 
+			news_event = wsv_carib.25
+			if = {
+				limit = { NOT = { has_global_flag = csa_recognize_us_influence_in_haiti } }
+				custom_effect_tooltip = csa_dislikes_us_haiti_intervention_tt
+			}
 		}
 	}
 

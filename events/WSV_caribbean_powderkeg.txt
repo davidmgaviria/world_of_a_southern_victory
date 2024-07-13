@@ -62,7 +62,6 @@ news_event = {
 	}
 }
 
-## TODO - news event for csa landing
 
 
 # US Gets Notice of CSA Landing Marines in Nicaragua
@@ -485,6 +484,11 @@ country_event = {
 				factor = 0
 				is_historical_focus_on = yes
 			}
+			# be more aggressive if the US occupied Haiti
+			modifier = {
+				add = 200
+				has_global_flag = usa_intervened_in_haiti
+			}
 		}
 	}
 
@@ -848,6 +852,158 @@ country_event = {
 	}
 }
 
+
+
+
+#################################################################
+## -- US Intervention in Haiti
+#################################################################
+
+
+## News event of US landing troops in Haiti
+news_event = {
+	id = wsv_carib.25
+	title = wsv_carib.25.t
+	desc = wsv_carib.25.d
+	picture = news_event_generic_battleships
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = usa_intervened_in_haiti
+		hidden_effect = {
+			USA = {
+				# set_autonomy = {
+				# 	target = HAI
+				# 	autonomy_state = autonomy_puppet
+				# }
+				annex_country = {
+					target = HAI
+					transfer_troops = no
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = csa_recognize_us_influence_in_haiti } }
+				add_named_threat = {
+					threat = 4
+					name = "USA Occupied Haiti"
+				}
+			}
+			else = {
+				add_named_threat = {
+					threat = 2
+					name = "USA Occupied Haiti"
+				}
+			}
+		}
+	}
+
+	# usa response
+	option = {
+		name = wsv_carib.25.a
+		trigger = { tag = USA }
+	}
+
+	# confederate response if recognized us influence
+	option = {
+		name = wsv_carib.25.b
+		trigger = { 
+			tag = CSA 
+			has_global_flag = csa_recognize_us_influence_in_haiti
+		}
+	}
+
+	# confedereate response if hasnt recognized us influence
+	option = {
+		name = wsv_carib.25.c
+		trigger = { 
+			tag = CSA 
+			NOT = { has_global_flag = csa_recognize_us_influence_in_haiti }
+		}
+		country_event = { id =  wsv_carib.26  days = 3 }
+	}
+
+	# every other country response
+	option = {
+		name = wsv_carib.25.e  # d is used for description
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
+## Confederate response to US intervention (triggered only if US influence wasnt recognized)
+country_event = {
+	id = wsv_carib.26
+	title = wsv_carib.26.t
+	desc = wsv_carib.26.d
+
+	is_triggered_only = yes
+
+	# Occupy the DR
+	option = {
+		name = wsv_carib.26.a
+		annex_country = {
+			target = DOM
+			transfer_troops = no
+		}
+		hidden_effect = {
+			add_named_threat = {
+				threat = 4
+				name = "CSA Occupied the Dominican Republic"
+			}
+		}
+		news_event = wsv_carib.27
+		ai_chance = { factor = 100 }
+	}
+
+	# Do nothing
+	option = {
+		name = wsv_carib.26.b
+		add_political_power = -75
+		add_war_support = -0.1
+
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## News event of CSA occupying DR
+news_event = {
+	id = wsv_carib.27
+	title = wsv_carib.27.t
+	desc = wsv_carib.27.d
+	picture = news_event_confederate_intervention_in_caribbean
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = csa_occupied_the_dr
+	}
+
+	option = {
+		name = wsv_carib.27.a
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_carib.27.b
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_carib.27.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
 
 
 
