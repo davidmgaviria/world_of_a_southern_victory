@@ -167,8 +167,25 @@ wsv_great_war_decisions = {
 
 		
 		ai_will_do = {
-			factor = 0
+			factor = -2  # need 3 conditions to surrender
 
+			## Getting pushed back is bad
+			modifier = {
+				add = 1
+				surrender_progress > 0.15
+			}
+			# Extreme casualties is also bad
+			modifier = {
+				add = 1
+				casualties > 800000
+			}
+			# Low stability is bad
+			modifier = {
+				add = 1
+				has_stability < 0.2
+			}
+
+			# If we're completey losing, give up
 			modifier = {
 				add = 10
 				surrender_progress > 0.55

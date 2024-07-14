@@ -43,8 +43,21 @@ wsv_great_war_decisions = {
 
 		
 		ai_will_do = {
-			factor = 0
+			factor = -2  	
 
+			# If Germany surrenders give up as well
+			modifier = {
+				add = 5
+				OR = {
+					has_global_flag = germany_lost_greatwar
+					AND = {
+						is_in_faction_with = GER
+						GER = { has_capitulated = yes }
+					}
+				}
+			}	
+
+			# If we're completey losing, give up
 			modifier = {
 				add = 10
 				surrender_progress > 0.55

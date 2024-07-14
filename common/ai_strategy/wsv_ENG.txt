@@ -276,7 +276,7 @@ ENG_build_up_more_mils = {
 	}
 	ai_strategy = {
     	type = building_target
-    	id = arms_factory = 1
+    	id = arms_factory
     	value = 100
 	}
 }
@@ -596,6 +596,44 @@ ENG_launch_offensives_against_GER = {
 }
 
 
+ENG_protect_middle_east = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
+
+	# suez
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			831
+		}
+		area = middle_east
+		ratio = 0.1
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+
+	# kuwait
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			656
+		}
+		area = middle_east
+		ratio = 0.1
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+
 ENG_fight_the_turks = {
 	allowed = {
 		original_tag = ENG
@@ -608,37 +646,18 @@ ENG_fight_the_turks = {
 
 	ai_strategy = {
 		type = front_unit_request
-		area = middle_east
 		area = suez
-		value = 65
+		area = middle_east
+		value = 50
 	}
-}
-
-
-ENG_protect_suez = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = TUR
-	}
-	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			831
-			446
-			447
-		}
-		area = africa
-		ratio = 0.08
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
+		type = consider_weak
+		id = TUR
+		value = 5
 	}
 }
+
 
 
 ENG_ignore_africa = {

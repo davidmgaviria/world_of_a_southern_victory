@@ -342,8 +342,38 @@ wsv_great_war_decisions = {
 
 		
 		ai_will_do = {
-			factor = 0
+			factor = -3  # need 4 conditions to surrender
 
+			## Getting pushed back is bad
+			modifier = {
+				add = 1
+				surrender_progress > 0.2
+			}
+			# Extreme casualties is also bad
+			modifier = {
+				add = 1
+				casualties > 2000000
+			}
+
+			# Socialist revolt is really bad
+			modifier = {
+				add = 2
+				has_civil_war = yes
+			}	
+
+			# Germany surrendering is really bad
+			modifier = {
+				add = 2
+				OR = {
+					has_global_flag = germany_lost_greatwar
+					AND = {
+						is_in_faction_with = GER
+						GER = { has_capitulated = yes }
+					}
+				}
+			}	
+
+			# If we're completey losing, give up
 			modifier = {
 				add = 10
 				surrender_progress > 0.55
