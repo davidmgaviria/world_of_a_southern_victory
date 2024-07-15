@@ -625,16 +625,17 @@ country_event = {
 			    election_frequency = 48
 			    elections_allowed = yes
 			}
+			# TR is expected to win the war within a year
 			set_country_flag = {
-				flag = socialist_block_funds_countdown
-				days = 350
+				flag = expected_peace_cooldown
+				days = 300
 				value = 1
 			}
     	}
 	}
 
 	## TODO - simply uncomment this section, the 1916 stuff is mostly made
-	## debs wins (only happens if losing the war)			
+	# debs wins (only happens if losing the war)			
 	# option = {
 	# 	name = wsv_usa.17.b
 	# 	trigger = { surrender_progress > 0.3 }		# if the war is going badly we're voted out
@@ -655,6 +656,12 @@ country_event = {
 	# 		}
 	# 		news_event = { id = wsv_usa.20  days = 1 }
     # 	}
+	# 	# Debs is expected to peace out within a year
+	# 	set_country_flag = {
+	# 		flag = expected_peace_cooldown
+	# 		days = 300
+	# 		value = 1
+	# 	}
 	# }
 }
 
@@ -682,7 +689,7 @@ country_event = {
 		add_war_support = -0.1
 		add_ideas = USA_socialist_block_war_funds
 		set_country_flag = {
-			flag = socialist_block_funds_countdown
+			flag = expected_peace_cooldown
 			days = 360
 			value = 1
 		} 
@@ -691,7 +698,7 @@ country_event = {
 
 
 #######################################################################
-## -- Debs Wins 1916 Election & TR (and effects)
+## -- Debs Wins 1916 Election (and effects)
 #######################################################################
 
 # Debs wins Presidency (news event)
@@ -915,11 +922,15 @@ country_event = {
 
     trigger = {
     	tag = USA
-		has_war = yes
+		has_war_with_major = yes
 		OR = {
-			has_global_flag = russian_revolution_occured  
-			has_country_flag =  usa_socialists_failed_to_bring_peace   # Debs failed to bring peace
-			check_variable = { USA.usa_socialist_militancy > 70 }  # split when militancy becomes high
+			# TR / Debs failed to bring peace after election
+			AND = {
+				has_country_flag = USA_1916_election
+				NOT = { has_country_flag = expected_peace_cooldown }
+			}
+			# Alternatively split when militancy becomes high
+			check_variable = { USA.usa_socialist_militancy > 65 } 
 		}
     }
 
@@ -969,8 +980,8 @@ country_event = {
 
 	option = {
 		name = wsv_usa.51.a
-		increase_militancy_by_5_effect = yes
-		add_stability = -0.03
+		increase_militancy_by_10_effect = yes
+		add_stability = -0.02
 	}
 }
 
