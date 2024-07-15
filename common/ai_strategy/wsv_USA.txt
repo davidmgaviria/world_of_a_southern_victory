@@ -187,7 +187,7 @@ USA_increase_army_rapidly = {		# massively increase size
 	enable = {
 		has_war = no
 		date > 1912.1.1
-		has_army_manpower = { size < 2400000 }
+		has_army_manpower = { size < 2600000 }
 	}
 	abort_when_not_enabled = yes
 
@@ -199,6 +199,24 @@ USA_increase_army_rapidly = {		# massively increase size
 	    type = build_army
 	    id = infantry
 	    value = 250
+	}
+}
+
+
+## build more civs at the very beginning
+USA_build_up_more_civs = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		NOT = { has_idea = USA_throttled_military_spending }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -5
 	}
 }
 
@@ -344,7 +362,7 @@ USA_opening_war_assault_against_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 100
+		value = 85
 	}
 
 	ai_strategy = {
@@ -388,7 +406,7 @@ USA_let_confederates_take_dc = {
 		type = front_unit_request
 		state = 814	
 		state = 361 
-		value = -75
+		value = -60
 	}
 
 	## buffers to prevent Philadelphia's fall
@@ -444,13 +462,13 @@ USA_opening_war_assault_against_canada = {
 	ai_strategy = {
 		type = front_unit_request
 		area = east_canada
-		value = 45
+		value = 40
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = west_canada
-		value = -15
+		value = -10
 	}
 }
 
@@ -488,68 +506,68 @@ USA_attack_slowly_against_CSA = {
 	ai_strategy = {
 		type = front_unit_request
 		strategic_region = 117  ## east coast		
-		value = 50
+		value = 65
 	}
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = CSA  ## east coast		
-		value = 25
+		tag = CSA  ## rest of csa		
+		value = 15
 	}
 
 	ai_strategy = {
 		type = consider_weak
 		id = CSA
-		value = 15
+		value = 35
 	}
 }
 
 
-USA_slowly_against_CAN = {
-	allowed = {
-		original_tag = USA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = CAN
-		casualties_inflicted_by = {
-			opponent = CAN
-			thousands > 100
-		}
-	}
-	abort = {
-		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
-	}
+# USA_slowly_against_CAN = {
+# 	allowed = {
+# 		original_tag = USA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = CAN
+# 		casualties_inflicted_by = {
+# 			opponent = CAN
+# 			thousands > 100
+# 		}
+# 	}
+# 	abort = {
+# 		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
+# 	}
 
-	ai_strategy = {
-		type = front_control
-		tag = CAN
-		ratio = 0.4
-		priority = 100
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
-	}
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = CAN
+# 		ratio = 0.4
+# 		priority = 100
+# 		ordertype = front
+# 		execution_type = balanced
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		area = east_canada
-		value = 40
-	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		area = east_canada
+# 		value = 40
+# 	}
 
-	ai_strategy = {
-		type = front_unit_request
-		area = west_canada
-		value = 15
-	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		area = west_canada
+# 		value = 15
+# 	}
 
-	ai_strategy = {
-		type = consider_weak
-		id = CAN
-		value = 15
-	}
-}
+# 	ai_strategy = {
+# 		type = consider_weak
+# 		id = CAN
+# 		value = 35
+# 	}
+# }
 
 
 USA_destroy_the_mormons = {

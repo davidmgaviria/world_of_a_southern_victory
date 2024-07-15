@@ -320,7 +320,7 @@ country_event = {
 		set_country_flag = {
 			flag = strike_cooldown
 			value = 1
-			days = 300	# originally at 200
+			days = 250	# originally at 200
 		}
 	}
 
@@ -1860,10 +1860,8 @@ country_event = {
 
 	trigger = {
 		tag = USA
-		has_war = yes
-		any_controlled_state = {
-			is_owned_by = CAN			# is occupying any canadian state
-		}
+		war_length_with = { tag = CAN   months = 8 }
+		any_controlled_state = { is_owned_by = CAN }			# is occupying any canadian state
 		NOT = { has_country_flag = canadian_rebels_cooldown }
 	}
 
@@ -1906,7 +1904,7 @@ country_event = {
 		}
 		set_country_flag = {
 			flag = canadian_rebels_cooldown 	
-			days = 250
+			days = 175
 			value = 1
 		}
 		custom_effect_tooltip = reduce_frequency_of_canadian_rebels_tt

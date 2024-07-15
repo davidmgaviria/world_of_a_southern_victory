@@ -125,6 +125,10 @@ ideas = {
 		partial_economic_mobilisation = {
 			available = {
 				has_war_support > 0.4
+				OR = {
+					NOT = { tag = USA }
+					NOT = { has_idea = USA_throttled_military_spending }		# dont let US switch originally
+				}
 			}
 
 			cost = 150

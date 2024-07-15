@@ -499,7 +499,7 @@ GER_war_strategy_1 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -15
+		value = -20
 	}
 
 	ai_strategy = {
@@ -575,7 +575,6 @@ GER_war_strategy_2 = {
 }
 
 
-
 GER_let_austria_defend_itself = {
 	allowed = {
 		original_tag = GER
@@ -586,7 +585,13 @@ GER_let_austria_defend_itself = {
 	}
 	abort = {
 		has_war_together_with = AUH
-		AUH = { surrender_progress > 0.2 }
+		OR = {
+			AND = {
+				has_war_with = RUS
+				RUS = { surrender_progress > 0.05 }
+			}
+			AUH = { surrender_progress > 0.2 }
+		}
 	}
 
 	ai_strategy = {
@@ -687,6 +692,41 @@ GER_garrison_belgium_and_northern_france = {
 }
 
 
+## produce zepplins to bomb england
+GER_bomb_england = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = ENG
+		has_tech = ww1_zeppelin1
+	}
+	abort = {
+		surrender_progress > 0.2 
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = strategic_bomber
+		value = 10
+	}
+
+	ai_strategy = {
+		type = equipment_production_factor
+		id = airship_bomber  # equipment?
+		value = 35
+	}
+
+	ai_strategy = {
+		type = strategic_air_importance
+		id = 1 							#Strategic Region ID - Southern England
+		value = 5000 					#value of stocked main front in active combat is usually around 35,000
+	}
+}
+
+
+
 # if only fighting France
 GER_war_strategy_3 = {
 	allowed = {
@@ -710,7 +750,7 @@ GER_war_strategy_3 = {
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.7
+		ratio = 0.85
 		priority = 1
 		ordertype = front
 		execution_type = balanced
@@ -801,21 +841,14 @@ GER_attack_france_during_mutiny = {
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.6
+		ratio = 0.7
 		priority = 100
 		ordertype = front
 		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = FRA	
-		value = 15
-	}
 }
-
 
 
 

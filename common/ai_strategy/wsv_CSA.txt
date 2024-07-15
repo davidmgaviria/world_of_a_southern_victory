@@ -280,7 +280,7 @@ CSA_gw_stockpile_less_early_game = {
 	}
 	enable = {
 		has_war = no
-		date < 1914.1.1
+		date < 1914.3.1
 	}
 	abort_when_not_enabled = yes
 
@@ -350,6 +350,34 @@ CSA_limit_army_size = {
 		value = -9999
 	}
 }
+
+
+## save pp to switch to higher economy law
+CSA_save_up_to_intervene_in_nicaragua = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		has_active_mission = CSA_intervene_in_nic_conflict
+		has_political_power < 50
+		check_variable = { CSA.csa_influence_in_latam > 49 }   # dont save up if we dont have enough to trigger the decision anyways
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = idea
+		value = 0  # baseline is 100
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = decision
+		value = 0   # baseline is 100
+	}
+}
+
 
 
 # buffers in virgina
