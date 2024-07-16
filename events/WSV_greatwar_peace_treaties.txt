@@ -297,6 +297,8 @@ news_event = {
 
 			## transfer territory to Germany
 			GER = {
+
+				## TODO -- uncomment this later
 				# Poland
 				if = {
 					limit = {
@@ -696,18 +698,6 @@ news_event = {
 					else = { leave_faction = yes }
 				}
 				greatwar_loser_effect = yes
-				## turn democratic
-				set_politics = {
-					ruling_party = democratic
-					election_frequency = 48
-					elections_allowed = yes
-				}
-				set_popularities = {
-					democratic = 45
-					fascism = 10
-					communism = 30
-					neutrality = 15
-				}
 			}
 
 			## Transfer territory to majors
@@ -808,6 +798,41 @@ news_event = {
 					is_in_faction_with = event_target:entente_leader
 				}
 				white_peace = GER
+			}
+
+			## Germany post war cleanup ##
+			GER = {
+				# release puppets
+				if = {
+					limit = { POL = { is_puppet_of = GER } }
+					release_puppet = POL
+				}
+				if = {
+					limit = { UKR = { is_puppet_of = GER } }
+					release_puppet = UKR
+				}
+				if = {
+					limit = { LIT = { is_puppet_of = GER } }
+					release_puppet = LIT
+				}
+				if = {
+					limit = { UBD = { is_puppet_of = GER } }
+					release_puppet = UBD
+					EST = { transfer_state = 13  transfer_state = 191 }
+					LAT = { transfer_state = 12  transfer_state = 190 }
+				}
+				# turn democratic
+				set_politics = {
+					ruling_party = democratic
+					election_frequency = 48
+					elections_allowed = yes
+				}
+				set_popularities = {
+					democratic = 45
+					fascism = 10
+					communism = 30
+					neutrality = 15
+				}
 			}
 		}
 	}

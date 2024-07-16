@@ -21,9 +21,9 @@ AUH_garrison_coast = {
 		original_tag = AUH
 	}
 	enable = {
-		always = yes
+		NOT = { has_global_flag =  auh_collapsed }
 	}
-	abort = { always = no }
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = put_unit_buffers
@@ -248,9 +248,15 @@ AUH_slow_against_serbia = {
 		ratio = 0.35
 		priority = 50
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = no
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = SER
+		value = 15
 	}
 
 	ai_strategy = {
@@ -267,7 +273,7 @@ AUH_slow_against_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -40
+		value = -35
 	}
 }
 

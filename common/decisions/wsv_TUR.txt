@@ -146,8 +146,9 @@ wsv_great_war_decisions = {
 		}
 
 		days_re_enable = 90
+		days_remove = 5
 
-		complete_effect = {
+		remove_effect = {
 			if = {
 				limit = {
 					has_war_with = FRA
@@ -174,16 +175,34 @@ wsv_great_war_decisions = {
 				add = 1
 				surrender_progress > 0.15
 			}
+			modifier = {
+				add = 1
+				surrender_progress > 0.3
+			}
+
 			# Extreme casualties is also bad
 			modifier = {
 				add = 1
-				casualties > 800000
+				casualties > 500000
 			}
+			
 			# Low stability is bad
 			modifier = {
 				add = 1
 				has_stability < 0.2
 			}
+
+			# If Germany surrenders give up as well
+			modifier = {
+				add = 5
+				OR = {
+					has_global_flag = germany_lost_greatwar
+					AND = {
+						is_in_faction_with = GER
+						GER = { has_capitulated = yes }
+					}
+				}
+			}	
 
 			# If we're completey losing, give up
 			modifier = {

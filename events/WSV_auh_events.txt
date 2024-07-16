@@ -17,24 +17,20 @@ country_event = {
 	trigger = {
 		tag = AUH
 		has_war = yes
-		longest_war_length > 10	 # a bit less than a year into the war
+		longest_war_length > 18	 # a a year and a half into the war
 		casualties > 200000
 		NOT = { has_country_flag = wartime_unrest_cooldown }
 		NOT = { has_country_flag = auh_collapsed }
 	}
 
 	immediate = {
-		set_country_flag = {
-			flag = wartime_unrest_cooldown
-			days = 200
-			value = 1
-		}
+		set_country_flag = { flag = wartime_unrest_cooldown   days = 200   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
 	}
-
+							
 	option = {
 		name = wsv_auh.1.a
 		add_war_support = -0.03
-		add_stability = -0.02
+		add_stability = -0.015
 		if = {
 			limit = { NOT = { has_idea = AUH_house_of_cards } }
 			add_ideas = AUH_house_of_cards
@@ -55,7 +51,7 @@ news_event = {
 	trigger = {
 		tag = AUH
 		has_idea = AUH_house_of_cards	# will only have during wartime
-		has_stability <= 0.10
+		has_stability < 0.11
 		NOT = { has_global_flag = auh_collapsed }
 	}
 
@@ -67,27 +63,24 @@ news_event = {
 				transfer_state = 9
 				transfer_state = 75
 			}
-			transfer_units_fraction= {
-				target = CZE
-				size = 0.13
-				stockpile_ratio = 0.13
-				army_ratio = 0.13
-				navy_ratio = 0
-				air_ratio = 0.04
-			}
+			# transfer_units_fraction= {			##TODO - unit transfer breaking game for some reason
+			# 	target = CZE
+			# 	size = 0.13
+			# 	stockpile_ratio = 0.13
+			# 	army_ratio = 0.13
+			# 	#navy_ratio = 0
+			# 	air_ratio = 0.04
+			# }
 			## South Slavs
 			CRO = {
 				transfer_state = 103
 				transfer_state = 109
 			}
-			transfer_units_fraction= {
-				target = CRO
-				size = 0.05
-				stockpile_ratio = 0.05
-				army_ratio = 0.05
-				navy_ratio = 0
-				air_ratio = 0
-			}
+			# transfer_units_fraction= {
+			# 	target = CRO
+			# 	stockpile_ratio = 0.05
+			# 	army_ratio = 0.05
+			# }
 			## Hungary
 			HUN = {
 				transfer_state = 155
@@ -106,16 +99,14 @@ news_event = {
 				transfer_state = 45
 			}
 			# transfer troops
-			transfer_units_fraction= {
-				target = HUN
-				size = 0.4			# hungarian forces made up 35%, but only 80% of the empire is left now
-				stockpile_ratio = 0.4
-				army_ratio = 0.45
-				navy_ratio = 0
-				air_ratio = 0.3
-			}
+			# transfer_units_fraction= {
+			# 	target = HUN
+			# 	stockpile_ratio = 0.4
+			# 	army_ratio = 0.45		# hungarian forces made up 35%, but only 80% of the empire is left now
+			# 	air_ratio = 0.3
+			# }
 			# sue for peace
-			country_event = { id = wsv_auh.11  days = 2 }
+			country_event = { id = wsv_auh.11  days = 5 }
 		}
 	}
 

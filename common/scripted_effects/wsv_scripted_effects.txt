@@ -174,6 +174,18 @@ increase_militancy_by_10_effect = {
 	}
 }
 
+increase_militancy_by_20_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 80 } }
+		add_to_variable = { USA.usa_socialist_militancy = 20 }
+		custom_effect_tooltip = increase_militancy_by_20_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
 decrease_militancy_by_5_effect = {
 	if = {
 		limit = { check_variable = { USA.usa_socialist_militancy > 5 } }

@@ -41,10 +41,14 @@ BUL_increase_army = {		# massively increase size
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 450000 }
+		has_army_manpower = { size < 400000 }
 		has_war = no 
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		# pasue when about to start balkan war
+		has_country_flag = balkan_league_member
+		has_army_manpower = { size >  315000 }
+	}
 
 	ai_strategy = {
     	type = force_build_armies

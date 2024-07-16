@@ -31,16 +31,16 @@ USA_two_oceans_fleet = {
 	    value = 10
 	}
 
-    ai_strategy = {
-		type = area_priority
-		id = eastern_seaboard
-		value = 1400
-	}
-	ai_strategy = {
-		type = area_priority
-		id = western_seaboard
-		value = 800
-	}
+    # ai_strategy = {
+	# 	type = area_priority
+	# 	id = eastern_seaboard
+	# 	value = 1400
+	# }
+	# ai_strategy = {
+	# 	type = area_priority
+	# 	id = western_seaboard
+	# 	value = 800
+	# }
 }
 
 
@@ -108,12 +108,12 @@ USA_gw_equipment_and_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 40
+		value = 45
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
-		value = 50
+		value = 25
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -145,18 +145,18 @@ USA_gw_equipment_and_unit_production = {
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 40   # total is 140
+		value = 20   # total is 120
 	}
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 5	# total is 40
+		value = 15	# total is 50
 	}
 
 	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 90
+		value = 70
 	}
 }
 
@@ -210,13 +210,14 @@ USA_build_up_more_civs = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		NOT = { has_idea = USA_throttled_military_spending }
+		date < 1913.1.1  	# start building more civs
+		has_idea = USA_throttled_military_spending
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
-		value = -5
+		value = -12
 	}
 }
 
@@ -233,6 +234,7 @@ USA_save_up_to_switch_to_low_mob = {
 		has_idea = civilian_economy
 		has_political_power < 225
 	}
+	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = pp_spend_amount
@@ -362,7 +364,7 @@ USA_opening_war_assault_against_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 85
+		value = 100
 	}
 
 	ai_strategy = {
@@ -464,12 +466,6 @@ USA_opening_war_assault_against_canada = {
 		area = east_canada
 		value = 40
 	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = west_canada
-		value = -10
-	}
 }
 
 
@@ -494,7 +490,7 @@ USA_attack_slowly_against_CSA = {
 	ai_strategy = {
 		type = front_control
 		tag = CSA
-		ratio = 0.35
+		ratio = 0.25
 		priority = 100
 		ordertype = front
 		execution_type = balanced
@@ -512,62 +508,56 @@ USA_attack_slowly_against_CSA = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA  ## rest of csa		
-		value = 15
+		value = 30
 	}
 
-	ai_strategy = {
-		type = consider_weak
-		id = CSA
-		value = 35
-	}
+	# ai_strategy = {
+	# 	type = consider_weak
+	# 	id = CSA
+	# 	value = 25
+	# }
 }
 
 
-# USA_slowly_against_CAN = {
-# 	allowed = {
-# 		original_tag = USA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = CAN
-# 		casualties_inflicted_by = {
-# 			opponent = CAN
-# 			thousands > 100
-# 		}
-# 	}
-# 	abort = {
-# 		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
-# 	}
+USA_slowly_against_CAN = {
+	allowed = {
+		original_tag = USA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CAN
+		casualties_inflicted_by = {
+			opponent = CAN
+			thousands > 100
+		}
+	}
+	abort = {
+		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
+	}
 
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = CAN
-# 		ratio = 0.4
-# 		priority = 100
-# 		ordertype = front
-# 		execution_type = balanced
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
+	ai_strategy = {
+		type = front_control
+		tag = CAN
+		ratio = 0.4
+		priority = 100
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
 
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = east_canada
-# 		value = 40
-# 	}
+	ai_strategy = {
+		type = front_unit_request
+		area = east_canada
+		value = 50
+	}
 
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = west_canada
-# 		value = 15
-# 	}
-
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = CAN
-# 		value = 35
-# 	}
-# }
+	ai_strategy = {
+		type = front_unit_request
+		area = west_canada
+		value = 25
+	}
+}
 
 
 USA_destroy_the_mormons = {

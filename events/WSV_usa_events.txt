@@ -195,7 +195,7 @@ country_event = {
 	picture = report_event_generic_strike
 
 	mean_time_to_happen = {
-		days = 20
+		days = 1
 	}
 
 	trigger = {
@@ -223,15 +223,15 @@ country_event = {
 		if = {
 			limit = { check_variable = { USA.strike_popup_count < 2 } }
 			random_list = {
-				10 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
-				90 = { }  # strikes continue
+				0 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+				100 = { }  # strikes continue
 			}
 		}
 		# strike more likely to end later
 		else = {
 			random_list = {
-				20 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
-				80 = { }  # strikes continue
+				5 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
+				95 = { }  # strikes continue
 			}
 		}
 		add_to_variable = { USA.strike_popup_count = 1 }
@@ -251,14 +251,14 @@ country_event = {
 		}
 		else_if = {
 			limit = { has_country_flag = usa_favour_the_army }
-			add_political_power = -40  # more expensive since we want to be tough
+			add_political_power = -35  # more expensive since we want to be tough
 		}
 		else = {
 			add_political_power = -25
 		}
 		random_list = {
-			35 = { country_event = { id = wsv_usa.7  days = 5 } }   # strikes end
-			65 = { }  # strikes continue
+			30 = { country_event = { id = wsv_usa.7  days = 3 } }   # strikes end
+			70 = { }  # strikes continue
 		}
 		add_to_variable = { USA.strike_popup_count = 1 }
 
@@ -284,18 +284,18 @@ country_event = {
 		trigger = {
 			OR = {
 				has_country_flag = usa_favour_the_army
-				check_variable = { USA.strike_popup_count > 3 }
+				check_variable = { USA.strike_popup_count > 4 }
 			}
 		}
 
-		country_event = { id = wsv_usa.7  days = 5 }   # strikes end
+		country_event = { id = wsv_usa.7  days = 3 }   # strikes end
 		increase_militancy_by_10_effect = yes
 
 		ai_chance = {
 			factor = 25
 
 			modifier = {
-				factor = 2   check_variable = { USA.strike_popup_count > 4 }
+				factor = 5   check_variable = { USA.strike_popup_count > 6 }
 			}
 			# more likely if more militaristic
 			modifier = {
@@ -523,7 +523,7 @@ country_event = {
 
 	option = {
 		name = wsv_usa.14.a
-		increase_militancy_by_10_effect = yes
+		increase_militancy_by_5_effect = yes
 	}
 }
 
@@ -559,8 +559,11 @@ country_event = {
 
 	trigger = {
 		tag = USA
-		has_war = yes
-		casualties > 600000  # roughly 1.5 years?
+		has_war_with_major = yes
+		OR = {
+			casualties > 1500000
+			longest_war_length > 20
+		}
 		NOT = { has_country_flag = antiwar_protest_cooldown }
 	}
 
@@ -571,14 +574,14 @@ country_event = {
 				USA = { has_country_leader = { character = USA_theodore_roosevelt   ruling_only = yes } } }
 			set_country_flag = {
 				flag = antiwar_protest_cooldown
-				days = 200
+				days = 175
 				value = 1
 			}
 		}
 		else = {
 			set_country_flag = {
 				flag = antiwar_protest_cooldown
-				days = 150
+				days = 125
 				value = 1
 			}
 		}
@@ -586,7 +589,8 @@ country_event = {
 
 	option = {
 		name = wsv_usa.16.a
-		add_war_support = -0.03
+		add_war_support = -0.04
+		add_stability = -0.02
 	}
 }
 
@@ -628,7 +632,7 @@ country_event = {
 			# TR is expected to win the war within a year
 			set_country_flag = {
 				flag = expected_peace_cooldown
-				days = 300
+				days = 275
 				value = 1
 			}
     	}
@@ -659,7 +663,7 @@ country_event = {
 	# 	# Debs is expected to peace out within a year
 	# 	set_country_flag = {
 	# 		flag = expected_peace_cooldown
-	# 		days = 300
+	# 		days = 275
 	# 		value = 1
 	# 	}
 	# }
@@ -942,7 +946,7 @@ country_event = {
 	option = {
 		name = wsv_usa.50.a
 		add_stability = -0.05
-		increase_militancy_by_10_effect = yes
+		increase_militancy_by_20_effect = yes
 	}
 }
 
@@ -973,7 +977,7 @@ country_event = {
 			set_country_flag = {
 				flag = militants_cooldown
 				value = 1
-				days = 100
+				days = 150
 			}
 		}
 	}
@@ -1009,7 +1013,7 @@ news_event = {
 			# Democrats stay in power
 			start_civil_war = {
 				ideology = communism
-				size = 0.1
+				size = 0.15
 				states = {
 					358
 				}
@@ -1819,9 +1823,10 @@ news_event = {
 	id = wsv_usa.113
 	title = wsv_usa.113.t
 	desc = wsv_usa.113.d
-	picture =   news_event_generic_battleships
+	picture =  news_event_generic_battleships
 
 	is_triggered_only = yes
+	major = yes
 
 	immediate = {
 		hidden_effect = {

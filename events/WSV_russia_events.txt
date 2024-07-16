@@ -456,124 +456,125 @@ country_event = {
 ## -- Russian Revolution & Civil War
 #############################################################################
 
+## TODO - fix
 ## Russian civil war
-news_event = {
-	id = wsv_russia.110
-	title = wsv_russia.110.t
-	desc = wsv_russia.110.d
-	picture = EVENT_hoi4tgw_october_revolution
+# news_event = {
+# 	id = wsv_russia.110
+# 	title = wsv_russia.110.t
+# 	desc = wsv_russia.110.d
+# 	picture = EVENT_hoi4tgw_october_revolution
 
-	major = yes
-	trigger = {
-		has_global_flag = tsar_of_russia_abdicated
-		check_variable = { RUS.red_support > RUS.white_support }
-		NOT = { has_global_flag = russian_revolution_occured }
-		# dont trigger if political crisis resolved
-		RUS = { NOT = { has_country_flag = political_crisis_resolved } }
-	}
+# 	major = yes
+# 	trigger = {
+# 		has_global_flag = tsar_of_russia_abdicated
+# 		check_variable = { RUS.red_support > RUS.white_support }
+# 		NOT = { has_global_flag = russian_revolution_occured }
+# 		# dont trigger if political crisis resolved
+# 		RUS = { NOT = { has_country_flag = political_crisis_resolved } }
+# 	}
 
-	mean_time_to_happen = {
-		days = 14
-	}
+# 	mean_time_to_happen = {
+# 		days = 14
+# 	}
 
-	immediate = {
-		set_global_flag = russian_revolution_occured
-		hidden_effect = {
-			SOV = {
-				create_faction = "Comintern"
-				inherit_technology = RUS
+# 	immediate = {
+# 		set_global_flag = russian_revolution_occured
+# 		hidden_effect = {
+# 			SOV = {
+# 				create_faction = "Comintern"
+# 				inherit_technology = RUS
 
-				set_stability = 0.9
-				add_political_power = 800
-				add_ideas = { RUS_workers_revolution }
+# 				set_stability = 0.9
+# 				add_political_power = 800
+# 				add_ideas = { RUS_workers_revolution }
 
-				every_state={
-					limit={ is_core_of = RUS }
-					add_core_of = SOV
-				}
-				transfer_state = 195
-				transfer_state = 219
-				transfer_state = 244
-				transfer_state = 263
-				transfer_state = 208
-				transfer_state = 246
-				transfer_state = 247
-				transfer_state = 248
-				transfer_state = 264
-				transfer_state = 253
-				transfer_state = 254
-				### khazahkstan
-				transfer_state = 584
-				transfer_state = 585
-				transfer_state = 587
-				### mongolia
-				transfer_state = 564
-				transfer_state = 566
-				transfer_state = 567
-				transfer_state = 568
-				# annex_country = {
-				# 	target = MON
-				# 	transfer_troops = yes
-				# }
-				# give troops
-				load_oob = SOV_Revolt_01
-			}
+# 				every_state={
+# 					limit={ is_core_of = RUS }
+# 					add_core_of = SOV
+# 				}
+# 				transfer_state = 195
+# 				transfer_state = 219
+# 				transfer_state = 244
+# 				transfer_state = 263
+# 				transfer_state = 208
+# 				transfer_state = 246
+# 				transfer_state = 247
+# 				transfer_state = 248
+# 				transfer_state = 264
+# 				transfer_state = 253
+# 				transfer_state = 254
+# 				### khazahkstan
+# 				transfer_state = 584
+# 				transfer_state = 585
+# 				transfer_state = 587
+# 				### mongolia
+# 				transfer_state = 564
+# 				transfer_state = 566
+# 				transfer_state = 567
+# 				transfer_state = 568
+# 				# annex_country = {
+# 				# 	target = MON
+# 				# 	transfer_troops = yes
+# 				# }
+# 				# give troops
+# 				load_oob = SOV_Revolt_01
+# 			}
 
-			RUS = {
-				# take care of diplomatic stuff
-				if= {
-					limit = { is_in_faction = yes }
-					every_country = {
-						limit = { is_in_faction_with = RUS }
-						add_opinion_modifier = { 
-							target = SOV 
-							modifier = faction_traitor
-						} 
-					}
-					# leave faction once everyone hates the soviets
-					leave_faction = yes 
-				}
-				create_faction = "White Movement"
+# 			RUS = {
+# 				# take care of diplomatic stuff
+# 				if= {
+# 					limit = { is_in_faction = yes }
+# 					every_country = {
+# 						limit = { is_in_faction_with = RUS }
+# 						add_opinion_modifier = { 
+# 							target = SOV 
+# 							modifier = faction_traitor
+# 						} 
+# 					}
+# 					# leave faction once everyone hates the soviets
+# 					leave_faction = yes 
+# 				}
+# 				create_faction = "White Movement"
 
-				# domestic changes
-				set_country_flag = white_russia
-				swap_ideas = {
-					remove_idea = RUS_unstable_political_situation
-					add_idea = RUS_unstable_white_alliance
-				}
-				set_popularities = { 
-					neutrality = 25
-					democratic = 50 
-					fascism = 15   
-					communism = 10 
-				}	
-				transfer_units_fraction= {
-					target = SOV
-					size = 0.4
-					stockpile_ratio = 0.5
-					army_ratio = 0.35
-					navy_ratio = 0.3
-					air_ratio = 0.2
-					keep_unit_leaders = {
-						1101 1102 1103 1107 1114 1115 1116 1117
-					}
-				}	
-			}
+# 				# domestic changes
+# 				set_country_flag = white_russia
+# 				swap_ideas = {
+# 					remove_idea = RUS_unstable_political_situation
+# 					add_idea = RUS_unstable_white_alliance
+# 				}
+# 				set_popularities = { 
+# 					neutrality = 25
+# 					democratic = 50 
+# 					fascism = 15   
+# 					communism = 10 
+# 				}	
+# 				transfer_units_fraction= {
+# 					target = SOV
+# 					size = 0.4
+# 					stockpile_ratio = 0.5
+# 					army_ratio = 0.35
+# 					navy_ratio = 0.3
+# 					air_ratio = 0.2
+# 					keep_unit_leaders = {
+# 						1101 1102 1103 1107 1114 1115 1116 1117
+# 					}
+# 				}	
+# 			}
 
-			# start war
-			SOV = {
-				declare_war_on = {
-		            type = annex_everything
-		            target = RUS
-		        }
-			}
-		}
-	}
+# 			# start war
+# 			SOV = {
+# 				declare_war_on = {
+# 		            type = annex_everything
+# 		            target = RUS
+# 		        }
+# 			}
+# 		}
+# 	}
 
-	option = {
-		name = wsv_russia.110.a
-	}
-}
+# 	option = {
+# 		name = wsv_russia.110.a
+# 	}
+# }
 
 
 ## Whites won the civil war
