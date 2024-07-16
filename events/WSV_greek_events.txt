@@ -101,16 +101,16 @@ news_event = {
 				inherit_technology = GRE
 				load_focus_tree = { tree = generic_focus  keep_completed = yes }
 			}
-			# GRE = {
-			# 	transfer_units_fraction = {
-			# 		target = GNU
-			# 		size = 0.25
-			# 		army_ratio = 0.25
-			# 		air_ratio = 0.1
-			# 		navy_ratio = 0.1
-			# 		stockpile_ratio = 0.15
-			# 	}
-			# }
+			GRE = {
+				transfer_units_fraction = {
+					target = GNU
+					size = 0.2
+					# army_ratio = 0.25
+					# air_ratio = 0.1
+					# navy_ratio = 0.1
+					# stockpile_ratio = 0.15
+				}
+			}
 			## add GNU to faction
 			random_country = {
 				limit = {
@@ -137,6 +137,13 @@ news_event = {
 	option = {
 		name = wsv_greece.3.b
 		trigger = { has_war_with = FRA }
+		if = {
+			limit = { tag = BUL }
+			create_wargoal = {
+				target = GNU
+				type = take_claimed_state
+			}
+		}
 	}
 
 	# For neutrals

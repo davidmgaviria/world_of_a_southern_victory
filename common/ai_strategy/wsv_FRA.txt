@@ -380,38 +380,6 @@ FRA_early_defense_of_belgium = {
 }	
 
 
-# FRA_launch_offensives_against_GER = {
-# 	allowed = {
-# 		original_tag = FRA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = GER
-		
-# 	}
-# 	abort = {
-# 		surrender_progress > 0.15		
-# 	}
-
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = GER
-# 		value = -15
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		ratio = 0.7
-# 		priority = 25
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-# }
-
-
 FRA_defensive_if_lack_of_guns_against_GER = {
 	allowed = {
 		original_tag = FRA		
@@ -453,9 +421,66 @@ FRA_defensive_if_lack_of_guns_against_GER = {
 }
 
 
+## move troops to salonika front
+FRA_stage_troops_in_salonika = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		controls_state = 855
+	}
+	abort = {
+		has_war_together_with = GNU
+	}
+
+	# move troops to salonika
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			855
+			184
+		}
+		ratio = 0.04
+		#priority = 9999
+		area = europe
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
 
 
-## SUMMMER OFFENSIVES?
+## support salonika front
+FRA_aid_salonika_front = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		OR = {
+			has_war_together_with = GNU
+			has_war_together_with = GRE
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = BUL
+		value = 25
+	}
+	ai_strategy = {
+		type = support
+		id = GNU
+		value = 50
+	}
+	ai_strategy = {
+		type = support
+		id = GRE
+		value = 50
+	}
+}
 
 
 

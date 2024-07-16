@@ -657,6 +657,68 @@ ENG_fight_the_turks = {
 }
 
 
+## move troops to salonika front
+ENG_stage_troops_in_salonika = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = FRA
+		FRA = { controls_state = 855 }
+	}
+	abort = {
+		has_war_together_with = GNU
+	}
+
+	# move troops to salonika
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			855
+			184
+		}
+		ratio = 0.04
+		#priority = 9999
+		area = europe
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+
+## support salonika front
+ENG_aid_salonika_front = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		OR = {
+			has_war_together_with = GNU
+			has_war_together_with = GRE
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = BUL
+		value = 25
+	}
+	ai_strategy = {
+		type = support
+		id = GNU
+		value = 50
+	}
+	ai_strategy = {
+		type = support
+		id = GRE
+		value = 50
+	}
+}
+
 
 ENG_ignore_africa = {
 	allowed = {
