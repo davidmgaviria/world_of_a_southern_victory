@@ -215,7 +215,13 @@ focus_tree = {
 			modifier = {
 				add = 5
 				tag = BUL
-				date > 1915.7.1
+				OR = {
+					date > 1915.7.1
+					AND = {
+						SER = { has_war_with = GER }
+						SER = { surrender_progress > 0.6 }
+					}
+				}
 			}
 		}
 
@@ -587,24 +593,31 @@ focus_tree = {
 			modifier = {
 				add = 5
 				tag = ROM
-				date > 1916.5.1
 				RUS = { has_war_with = AUH }
+				OR = {
+					date > 1916.5.1  # historical date
+					AUH = { surrender_progress > 0.25 }
+					AND = {
+						# join sooner if we supported AUH claims
+						AUH = { surrender_progress > 0.15 }
+						has_country_flag = russia_supports_transylvania_claims
+					}
+				}
 			}
-			# # we'll make romania possibly join if Russia supports them
-			# modifier = {
-			# 	add = 1
-			# 	tag = ROM
-			# 	RUS = { has_war_with = AUH }
-			# 	has_country_flag = russia_supports_transylvania_claims
-			# }
 			# italy only joins if war is going well for entente
 			modifier = {
 				add = 5
 				tag = ITA
 				OR = {
-					AUH = { surrender_progress > 0.25 }
+					AUH = { surrender_progress > 0.15 }
 					GER = { surrender_progress > 0.15 }
 				}
+			}
+			# serbia joins in alt hist if war is going bad for AUH
+			modifier = {
+				add = 5
+				tag = SER
+				AUH = { surrender_progress > 0.15 }
 			}
 		}
 
