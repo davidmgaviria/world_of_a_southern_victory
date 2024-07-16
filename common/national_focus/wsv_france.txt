@@ -825,44 +825,37 @@ focus_tree = {
 
 		
 	focus = {
-		id = FRA_army_to_serbia
-		#icon = GFX_focus_chi_legislative_yuan
+		id = FRA_army_to_greece
+		icon = GFX_focus_GRE_bedrock_of_balkan_stability
 		prerequisite = { focus = FRA_champion_of_the_weak }
 		prerequisite = { focus = FRA_retake_alsace_lorraine }
-		
-
-		cost = 10
+		cost = 2
 		x = 0
 		y = 2
 		relative_position_id = FRA_champion_of_the_weak
 
-		ai_will_do = { factor = 1 }
-
 		available = {
-			has_country_flag = path_complete
+			has_war_together_with = SER
+			SER = { surrender_progress > 0.35 }
+			GRE = {
+				is_puppet = no
+				NOT = { has_war_with = FRA }
+			}
 		}
 
-		#bypass = {}
-
-		completion_reward = { 
+		bypass = {
+			has_war_together_with = GRE
 		}
-	}
-
-		
-	focus = {
-		id = FRA_army_to_greece
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_army_to_serbia }
-		
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = FRA_army_to_serbia
 
 		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
+			transfer_state = 855
+			custom_effect_tooltip = french_greek_landings_tt
+			hidden_effect = {
+				load_oob = "FRA_greek_landings"
+				GRE = { country_event = wsv_france.6 }
+			}
 		}
 	}	
 

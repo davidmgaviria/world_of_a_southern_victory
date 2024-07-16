@@ -246,7 +246,7 @@ AUH_slow_against_serbia = {
 		type = front_control
 		tag = SER
 		ratio = 0.35
-		priority = 50
+		priority = 1
 		ordertype = front
 		execution_type = balanced
 		execute_order = no
@@ -263,7 +263,7 @@ AUH_slow_against_serbia = {
 		type = front_control
 		tag = RUS
 		ratio = 0.5
-		priority = 50
+		priority = 1
 		ordertype = front
 		execution_type = careful
 		execute_order = no
@@ -277,6 +277,52 @@ AUH_slow_against_serbia = {
 	}
 }
 
+
+AUH_attack_montenegro = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = SER
+		has_country_flag = invade_montenegro
+	}
+	abort = {
+		OR = {
+			MNT = { has_capitulated = yes }
+			# invasion probably failed at this point
+			casualties_inflicted_by = { opponent = MNT  thousands = 20 }
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = MNT
+		value = 75
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = MNT
+		value = 20
+	}
+	ai_strategy = {
+		type = consider_weak
+		id = MNT
+		value = 50
+	}
+
+	## pin the serbs
+	ai_strategy = {
+		type = front_control
+		tag = SER
+		ratio = 0.65
+		priority = 25
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
 
 
 AUH_aid_bulgrian_offensive_against_SER = {
@@ -294,11 +340,46 @@ AUH_aid_bulgrian_offensive_against_SER = {
 		type = front_control
 		tag = SER
 		ratio = 0.5
-		priority = 100
+		priority = 50
 		ordertype = front
 		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
+	}
+}
+
+
+AUH_attack_albania = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = SER
+		has_country_flag = invade_albania
+	}
+	abort = {
+		OR = {
+			ALB = { has_capitulated = yes }
+			# invasion probably failed at this point
+			casualties_inflicted_by = { opponent = ALB  thousands = 20 }
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = ALB
+		value = 75
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = ALB
+		value = 20
+	}
+	ai_strategy = {
+		type = consider_weak
+		id = ALB
+		value = 50
 	}
 }
 

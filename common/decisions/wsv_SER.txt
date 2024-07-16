@@ -1,0 +1,62 @@
+wsv_great_war_decisions = {
+
+	# escape through Albania
+	SER_flee_through_albania = {
+		priority = 100
+		icon = infiltrate_state
+
+		visible = {
+			tag = SER
+			has_war_with = AUH
+			ALB = {
+				exists = yes
+				NOT = { has_war_with = SER }
+				is_in_faction = no
+				is_puppet = no
+			}
+		}
+
+		available = {  
+			any_neighbor_country = {
+				tag = ALB
+			}
+			OR = {
+				surrender_progress > 0.5
+				AND = {
+					has_war_with = BUL
+					surrender_progress > 0.1
+				}
+			}	
+		}
+
+		fire_only_once = yes
+
+		complete_effect = {
+			ALB = { give_military_access = SER }
+			AUH = { 
+				if = {
+					# can we invade Albania?
+					limit = { 
+						ALB = { is_puppet = no  is_in_faction = no }
+						NOT = { has_war_with = ALB }
+					}
+					if = {
+						# if already at war with MNT invade directly
+						limit = { has_war_with = MNT }
+						country_event = { id = wsv_auh.3 days = 2 }  #invade ALB
+					}
+					else_if = {
+						# else still invade MNT and ALB if we can invade both
+						limit = { MNT = { is_puppet = no  is_in_faction = no } }
+						country_event = { id = wsv_auh.2 days = 2 }  #invade MNT
+						country_event = { id = wsv_auh.3 days = 2 }  #invade ALB
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			base = 10
+		}
+	}
+}
