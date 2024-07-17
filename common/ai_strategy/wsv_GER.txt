@@ -335,7 +335,7 @@ GER_der_schlieffen_plan = {
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front		
-		value = 125
+		value = 175
 	}
 
 	ai_strategy = {
@@ -476,36 +476,25 @@ GER_war_strategy_1 = {
 	ai_strategy = {
 		type = area_priority
 		id = western_front
-		value = 85
+		value = 150
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = eastern_front
-		value = -15
+		value = 50
 	}
 
 	ai_strategy = {
-		type = front_control
-		tag = RUS
-		ratio = 0.5
-		priority = 10
-		ordertype = front
-		execution_type = balanced
-		execute_order = yes
-		manual_attack = yes
+		type = front_unit_request
+		area = western_fornt
+		value = 150
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
 		value = -15
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = RUS	
-		value = 25
 	}
 
 	ai_strategy = {
@@ -542,22 +531,28 @@ GER_war_strategy_2 = {
 	ai_strategy = {
 		type = area_priority
 		id = western_front
-		value = 100
+		value = 200
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = eastern_front
-		value = -30
+		value = 25
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = western_fornt
+		value = 150
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.5
+		ratio = 0.6
 		priority = 10
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -565,7 +560,7 @@ GER_war_strategy_2 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS	
-		value = -30
+		value = -25
 	}
 
 	ai_strategy = {
@@ -609,6 +604,39 @@ GER_let_austria_defend_itself = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER		
+		value = -75
+	}	
+}
+
+
+GER_let_turkey_defend_itself = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = AUH
+	}
+	abort = {
+		has_war_together_with = AUH
+		OR = {
+			AND = {
+				has_war_with = RUS
+				RUS = { surrender_progress > 0.05 }
+			}
+			TUR = { surrender_progress > 0.15 }
+		}
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "AUH"
+		value = 100
+	}	
+
+	ai_strategy = {
+		type = front_unit_request
+		area = middle_east		
 		value = -75
 	}	
 }
