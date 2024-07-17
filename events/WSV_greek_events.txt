@@ -13,7 +13,12 @@ news_event = {
 
 	immediate = {
 		set_global_flag = entente_landings_in_greece
-		GRE = { set_country_flag = greek_national_schism }
+		hidden_effect = {
+			GRE = { 
+				set_country_flag = greek_national_schism 
+				activate_decision = greek_political_standoff
+			}
+		}
 	}
 
 	option = {
@@ -36,46 +41,47 @@ news_event = {
 }
 
 
-# Allies expand bridgehead
-country_event = {
-	id = wsv_greece.2
-	title = wsv_greece.2.t
-	desc = wsv_greece.2.d
+# # Allies expand bridgehead
+# country_event = {
+# 	id = wsv_greece.2
+# 	title = wsv_greece.2.t
+# 	desc = wsv_greece.2.d
 
-    trigger = {
-		has_global_flag = entente_landings_in_greece
-		OR = {
-			tag = GRE
-			tag = FRA 
-		}
-		GRE = { 
-			has_full_control_of_state = 184
-			NOT = { has_war_with = FRA }
-			NOT = { is_in_faction_with =  FRA }
-		}
-		SER = { has_capitulated = yes }
-		NOT = { has_country_flag = entente_expanded_foothold_in_greece }
-	}
+#     trigger = {
+# 		has_global_flag = entente_landings_in_greece
+# 		OR = {
+# 			tag = GRE
+# 			tag = FRA 
+# 		}
+# 		GRE = { 
+# 			has_full_control_of_state = 184
+# 			NOT = { has_war_with = FRA }
+# 			NOT = { is_in_faction_with =  FRA }
+# 		}
+# 		SER = { has_capitulated = yes }
+# 		NOT = { has_country_flag = entente_expanded_foothold_in_greece }
+# 	}
 
-	immediate = {
-		set_country_flag = entente_expanded_foothold_in_greece
-	}
+# 	immediate = {
+# 		set_country_flag = entente_expanded_foothold_in_greece
+# 		hidden_effect = { FRA = { transfer_state = 184 } }
+# 	}
 
-	# For Greece
-	option = {
-		name = wsv_greece.2.a
-		trigger = { tag = GRE }
-		add_stability = -0.05
-		add_political_power = -75
-	}
+# 	# For Greece
+# 	option = {
+# 		name = wsv_greece.2.a
+# 		trigger = { tag = GRE }
+# 		add_stability = -0.05
+# 		add_political_power = -75
+# 	}
 
-	# For France
-	option = {
-		name = wsv_greece.2.b
-		trigger = { tag = FRA }
-		transfer_state = 184
-	}
-}
+# 	# For France
+# 	option = {
+# 		name = wsv_greece.2.b
+# 		trigger = { tag = FRA }
+# 		transfer_state = 184
+# 	}
+# }
 
 
 # Greek National Front forms
@@ -101,16 +107,16 @@ news_event = {
 				inherit_technology = GRE
 				load_focus_tree = { tree = generic_focus  keep_completed = yes }
 			}
-			GRE = {
-				transfer_units_fraction = {
-					target = GNU
-					size = 0.2
-					# army_ratio = 0.25
-					# air_ratio = 0.1
-					# navy_ratio = 0.1
-					# stockpile_ratio = 0.15
-				}
-			}
+			# GRE = {
+			# 	transfer_units_fraction = {
+			# 		target = GNU
+			# 		size = 0.2
+			# 		army_ratio = 0.25
+			# 		air_ratio = 0.1
+			# 		navy_ratio = 0.1
+			# 		stockpile_ratio = 0.15
+			# 	}
+			# }
 			## add GNU to faction
 			random_country = {
 				limit = {

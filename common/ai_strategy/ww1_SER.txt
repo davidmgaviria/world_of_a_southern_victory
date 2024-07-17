@@ -127,27 +127,6 @@ SER_slow_against_AUH = {
 }
 
 
-SER_escape_through_albania = {
-	allowed = {
-		original_tag = SER		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = AUH
-		has_military_access_to = ALB
-	}
-	abort = {
-		SER = { has_capitulated = yes }	
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = balkans
-		value = -80
-	}
-}
-
-
 ## move troops to salonika front
 SER_stage_troops_in_salonika = {
 	allowed = {
@@ -156,11 +135,10 @@ SER_stage_troops_in_salonika = {
 	}
 	enable = {
 		has_war_with = AUH
+		has_capitulated = yes
 		FRA = { controls_state = 855 }
 	}
-	abort = {
-		has_war_together_with = GNU
-	}
+	abort_when_not_enabled = yes
 
 	# move troops to salonika
 	ai_strategy = {

@@ -634,10 +634,14 @@ ENG_protect_middle_east = {
 
 ENG_fight_the_turks = {
 	allowed = {
-		original_tag = ENG
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		# england and puppets
+		OR = {
+			original_tag = ENG
+			is_puppet_of = ENG
+		}
 		has_war_with = TUR
 	}
 	abort_when_not_enabled = yes
@@ -657,6 +661,40 @@ ENG_fight_the_turks = {
 }
 
 
+## dont send troops to Serbia
+ENG_ignore_serbia = {
+	allowed = {
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		# england and puppets
+		OR = {
+			original_tag = ENG
+			is_puppet_of = ENG
+		}
+		has_war_together_with = SER
+		NOT = { has_global_flag = greek_national_front_formed }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "SER"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MNT"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "ALB"
+		value = 1
+	}
+}
+
+
 ## move troops to salonika front
 ENG_stage_troops_in_salonika = {
 	allowed = {
@@ -671,20 +709,26 @@ ENG_stage_troops_in_salonika = {
 		has_war_together_with = GNU
 	}
 
-	# move troops to salonika
 	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			855
-			184
-		}
-		ratio = 0.04
-		#priority = 9999
-		area = europe
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
+		type = front_unit_request
+		tag = GRE
+		value = 35
 	}
+
+	# # move troops to salonika
+	# ai_strategy = {
+	# 	type = put_unit_buffers
+	# 	order_id = 1
+	# 	states = {
+	# 		855
+	# 		184
+	# 	}
+	# 	ratio = 0.04
+	# 	#priority = 9999
+	# 	area = europe
+	# 	subtract_invasions_from_need = no
+	# 	subtract_fronts_from_need = no
+	# }
 }
 
 
