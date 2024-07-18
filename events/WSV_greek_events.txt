@@ -106,6 +106,7 @@ news_event = {
 				}
 				inherit_technology = GRE
 				load_focus_tree = { tree = generic_focus  keep_completed = yes }
+				set_country_flag = { flag = gnu_formed_cooldown   value = 1  days = 200 }
 			}
 			# GRE = {
 			# 	transfer_units_fraction = {
@@ -163,3 +164,55 @@ news_event = {
 	}
 }
 
+
+
+
+## Greek King overthrown + reunification of Greece
+country_event = {
+	id = wsv_greece.4
+	title = wsv_greece.4.t
+	desc = wsv_greece.4.d
+
+    trigger = {
+		tag = GRE
+		country_exists = GNU
+		NOT = { has_war_with = GNU }
+		OR = {
+			# if in faction together merge
+			is_in_faction_with = GNU 	
+			# France was unable to overthrow the Greek king due to Russia
+			AND = {
+				FRA = { 
+					is_in_faction_with = GNU
+					NOT = { is_in_faction_with = RUS }
+				}
+				GNU = { NOT = { has_country_flag = gnu_formed_cooldown } }
+			}
+		}
+		NOT = { has_global_flag = greece_reunited }
+	}
+
+	# For Greece
+	option = {
+		name = wsv_greece.4.a
+		set_global_flag = greece_reunited
+		retire_country_leader = yes
+		hidden_effect = { 
+			## add greece to GNU faction
+			GNU = {
+				if = {
+					limit = { is_in_faction = yes }
+					faction_leader = { add_to_faction = GRE }
+				}
+			}
+			## have greece eat the GNU
+			GRE = {
+				annex_country = {
+					target = GNU
+					transfer_troops = yes
+				}
+			}
+		}
+		custom_effect_tooltip = greece_forced_into_entente_tt
+	}
+}

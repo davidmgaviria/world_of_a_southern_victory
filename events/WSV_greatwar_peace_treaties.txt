@@ -112,17 +112,30 @@ news_event = {
 			## France leaves war
 			FRA = {	
 				if= { 
+					# if faction leader, decide what to do with faction
 					limit = { is_in_faction = yes } 
-					# Collapse entente if faction leader
 					if = { 
-						limit = { 
-							is_faction_leader = yes 
+						limit = { is_faction_leader = yes }
+						clr_country_flag = entente_leader
+						if = {
+							# transfer leadership to Russia if we can
+							limit = { is_in_faction_with = RUS }
+							RUS = {
+								set_faction_leader = yes
+								set_country_flag = entente_leader
+							}
+						}
+						else = { 
+							# otherwise collapse entente
+							dismantle_faction = yes 
 						}
 						set_global_flag = collapse_of_entente
-						dismantle_faction = yes
 						news_event = { id = wsv_peace_treaty.12  days = 1 }
 					}
-					else = { leave_faction = yes }
+				}
+				else = { 
+				# otherwise just leave faction
+					leave_faction = yes 
 				}
 				greatwar_loser_effect = yes
 			}
@@ -253,13 +266,20 @@ news_event = {
 			## Russia leaves war
 			RUS = {	
 				if= { 
-					limit = { is_in_faction = yes } 
-					# Collapse faction if leader
-					if = { 
-						limit = { is_faction_leader = yes }
-						dismantle_faction = yes
+					# if faction leader dismantle faction
+					limit = { is_faction_leader = yes } 
+					dismantle_faction = yes 
+					if = {
+						# collapse entente if was entente leader
+						limit = { has_country_flag = entente_leader }
+						clr_country_flag = entente_leader
+						set_global_flag = collapse_of_entente
+						news_event = { id = wsv_peace_treaty.12  days = 1 }
 					}
-					else = { leave_faction = yes  }
+				}
+				else = { 
+				# otherwise just leave faction
+					leave_faction = yes 
 				}
 				greatwar_loser_effect = yes
 			}
@@ -593,6 +613,11 @@ news_event = {
 		name = wsv_peace_treaty.15.a
 	}
 }
+
+
+##################################################################################
+## -- Other Nations
+##################################################################################
 
 
 
@@ -1195,7 +1220,66 @@ news_event = {
 }
 
 
-## Bulgaria defeated
+##################################################################################
+## -- Other Minors
+##################################################################################
+
+## Bulgaria defeated ###
+news_event = {
+	id = wsv_peace_treaty.26
+	title = wsv_peace_treaty.26.t
+	desc = wsv_peace_treaty.26.d
+	picture = news_event_wsv_armistice
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = bulgaria_lost_greatwar
+		hidden_effect = {
+			## Bulgaria leaves faction
+			BUL = {	
+				if= { limit = { is_in_faction = yes }  leave_faction = yes }
+				greatwar_loser_effect = yes
+			}
+
+			# transfer state to Greece
+			GRE = {
+				if = {
+					limit = { has_war_with = BUL }
+					transfer_state = 757 	
+					transfer_state = 184	
+					transfer_state = 855
+					transfer_state = 731
+				}
+			}
+			# transfer state to Greece
+			SER = {
+				if = {
+					limit = { has_war_with = BUL }
+					transfer_state = 106 	
+					transfer_state = 759	
+					transfer_state = 818
+					transfer_state = 760
+				}
+			}
+
+			## white peace everyone with CSA
+			every_country = {
+			    limit = {
+				    has_war_with = BUL
+					is_in_faction_with = event_target:entente_leader
+				}
+				white_peace = BUL
+			}
+		}
+	}
+
+	option = {
+		name = wsv_peace_treaty.26.a
+	}
+}
+
 
 ## Italy defeated 
 

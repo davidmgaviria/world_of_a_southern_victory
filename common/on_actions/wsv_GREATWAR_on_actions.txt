@@ -1,6 +1,76 @@
 on_actions = {
 
-	
+###############################################################
+## -- Faction Controls 
+###############################################################
+
+	# set up country faction markers
+	on_startup = {
+		effect = {
+			## Entente
+			every_country = {
+				limit = { tag = FRA }
+				set_country_flag = entente_leader
+			}
+			every_country = {
+				limit = { is_in_faction_with = FRA }
+				set_country_flag = entente_member
+			}
+			## Central Powers
+			every_country = {
+				limit = { tag = GER }
+				set_country_flag = centralpowers_leader
+			}
+			every_country = {
+				limit = { is_in_faction_with = GER }
+				set_country_flag = centralpowers_member
+			}
+		}
+	}
+
+	# assign faction markers when someone joins
+	on_join_faction = { 
+		effect = { 
+			if = { 
+				limit = { faction_leader = { has_country_flag = entente_leader } }
+				set_country_flag = entente_member
+			}
+			if = { 
+				limit = { faction_leader = { has_country_flag = centralpowers_leader } }
+				set_country_flag = centralpowers_member
+			}
+		} 
+	}
+
+	# remove faction markers when someone leaves faction
+	on_leave_faction = { 
+		effect = { 
+			## entente
+			if = { 
+				limit = { has_country_flag = entente_leader }
+				clr_country_flag = entente_leader
+			}
+			if = { 
+				limit = { has_country_flag = entente_member }
+				clr_country_flag = entente_member
+			}
+			## central powers
+			if = { 
+				limit = { faction_leader = { has_country_flag = centralpowers_leader } }
+				set_country_flag = centralpowers_leader
+			}
+			if = { 
+				limit = { faction_leader = { has_country_flag = centralpowers_member } }
+				set_country_flag = centralpowers_member
+			}
+		} 
+	}
+
+###############################################################
+
+
+
+
 ### USA Remembance Day event timer ###
 	#-- USA is root
 	on_monthly_USA = {   
