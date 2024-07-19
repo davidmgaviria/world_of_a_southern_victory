@@ -97,7 +97,7 @@ infantry_RUS = {
 			artillery_brigade
 		}
 
-		replace_at_match = 0.75
+		replace_at_match = 0.4
 		replace_with = infantry_greatwar_RUS
 		target_min_match = 0.5
 	}
@@ -112,7 +112,7 @@ infantry_RUS = {
 			modifier = {
 				factor = 0
 				OR = {
-					date < 1915.6.1	 # dont switch before then
+					date < 1916.1.1	 # dont switch before then
 					date > 1937.1.1  # ignore if ww2
 				}
 			}
@@ -124,8 +124,8 @@ infantry_RUS = {
 		}
 			
 		can_upgrade_in_field = {
-			date > 1915.6.1 	# dont upgrade before then
-			has_equipment = { infantry_equipment < 1000 }    # switch to free up manpower and equipment
+			date > 1916.1.1 	# dont upgrade before then
+			has_equipment = { infantry_equipment < 10000 }    # switch to free up manpower and equipment
 		}
 
 		target_width = 27.0
@@ -176,6 +176,8 @@ infantry_RUS = {
 			
 			support = {
 				engineer = 1
+				artillery = 1
+				stormtrooper_support = 1
 			}
 			
 			regiments = {
@@ -188,12 +190,9 @@ infantry_RUS = {
 			infantry		
 			engineer
 			recon
-			field_hospital
-			logistics_company
-			anti_tank
 			artillery
-			rocket_artillery
 			artillery_brigade
+			stormtrooper_support
 		}
 	}
 

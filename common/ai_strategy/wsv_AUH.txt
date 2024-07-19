@@ -257,6 +257,7 @@ AUH_defensive_if_lack_of_guns_against_SER = {
 				ratio > 0.07
 			}
 			surrender_progress > 0.15
+			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
 		}		
 	}
 
@@ -292,6 +293,7 @@ AUH_defensive_if_lack_of_guns_agains_RUS = {
 				ratio > 0.07
 			}
 			surrender_progress > 0.15
+			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
 		}		
 	}
 
@@ -407,6 +409,40 @@ AUH_germany_can_handle_itself = {
 		type = dont_defend_ally_borders
 		id = "GER"
 		value = 100
+	}	
+}
+
+
+
+AUH_let_turkey_defend_itself = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = AUH
+	}
+	abort = {
+		has_war_together_with = AUH
+		OR = {
+			AND = {
+				has_war_with = RUS
+				RUS = { surrender_progress > 0.05 }
+			}
+			TUR = { surrender_progress > 0.15 }
+		}
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "TUR"
+		value = 100
+	}	
+
+	ai_strategy = {
+		type = front_unit_request
+		area = middle_east		
+		value = -75
 	}	
 }
 

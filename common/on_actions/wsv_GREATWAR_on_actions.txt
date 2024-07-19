@@ -75,21 +75,44 @@ on_actions = {
 		} 
 	}
 
+
+
+###############################################################
+## -- Great War Progress Controls 
 ###############################################################
 
+on_monthly_GER = {
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					war_length_with = { tag = FRA   months > 50 }
+					war_length_with = { tag = RUS   months > 50 }
+				}
+			}
+			set_global_flag = Europe_WW1_is_stuck  	# WW1 in Europe has gone on too long 
+		}
+	}
+}
 
-# ## Give forts to countries (BROKEN)
-# on_startup = {
-# 	effect = {
-# 		if = {
-# 			limit = { has_start_date < 1918.1.1 }
-# 			every_country = {
-# 				enable_building = { building = bunker  level = 3 }
-# 				enable_building = { building = coastal_bunker  level = 3 }
-# 			}
-# 		}
-# 	}
-# }
+
+on_monthly_USA = {
+	effect = {
+		if = {
+			limit = {
+				OR = {
+					war_length_with = { tag = CSA   months > 40 }
+					war_length_with = { tag = CAN   months > 40 }
+				}
+			}
+			set_global_flag = NorthAmerica_WW1_is_stuck  	# WW1 in America has gone on too long
+		}
+	}
+}
+
+
+###############################################################
+
 
 
 ### USA Remembance Day event timer ###

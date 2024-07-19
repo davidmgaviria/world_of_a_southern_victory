@@ -122,8 +122,6 @@ country_event = {
 	}
 }
 
-## France stuff
-
 
 
 
@@ -296,6 +294,64 @@ country_event = {
 
 
 
+##########################################################
+# -- Occupy Persia
+##########################################################
+
+## Britain takes over Persia
+country_event = {
+	id = wsv_england.20
+	title = wsv_england.20.t
+	desc = wsv_england.20.d
+
+	fire_only_once = yes
+    trigger = {
+		tag = ENG
+		has_war_with = TUR
+		PER = {
+			is_in_faction = no
+			is_puppet = no
+			NOT = { has_war_with = ENG }
+		}
+		NOT = { has_global_flag = britain_occupies_persia }
+	}
+
+	mean_time_to_happen = {
+		days = 30
+	}
+
+	immediate = {
+		set_global_flag = britain_occupies_persia
+	}
+
+	option = {
+		name = wsv_england.20.a
+		set_autonomy = {
+			target = PER
+			autonomous_state = autonomy_puppet
+		}
+		hidden_effect = { 
+			load_oob = "ENG_persia_rifles" 
+			TUR = { country_event = wsv_england.21 }
+		}
+		custom_effect_tooltip = spawn_persia_rifles_tt
+	}
+}
+
+
+# Turkey informed of Perisa's occupation
+country_event = {
+	id = wsv_england.21
+	title = wsv_england.21.t
+	desc = wsv_england.21.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.21.a
+	}
+}
 
 
 
