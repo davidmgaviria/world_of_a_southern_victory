@@ -311,7 +311,7 @@ CSA_increase_army_rapidly = {
 	enable = {
 		has_war = no
 		date > 1912.1.1
-		has_army_manpower = { size < 1200000 }
+		has_army_manpower = { size < 1300000 }
 	}
 	abort_when_not_enabled = yes
 
@@ -340,10 +340,10 @@ CSA_limit_army_size = {
 	}
 	enable = {
 		tag = CSA
-		has_army_manpower = { size > 1800000 }
+		has_army_manpower = { size > 2000000 }
 	}
 	abort = {
-		has_army_manpower = { size < 900000 }
+		has_army_manpower = { size < 1000000 }
 	}
 
 	ai_strategy = {
@@ -458,9 +458,9 @@ CSA_opening_offensive_against_USA = {
 		state = 361
 		state = 840
 		priority = 500
-		ratio = 0.35
+		ratio = 0.4
 		ordertype = front
-		execution_type = balanced
+		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -474,9 +474,7 @@ CSA_opening_offensive_against_USA = {
 	# units for dc
 	ai_strategy = {
 		type = front_unit_request  
-		state = 361	
-		state = 840
-		state = 360
+		strategic_region = 117  # east
 		value = 200
 	}
 
@@ -520,6 +518,12 @@ CSA_give_ground_slowly_against_USA = {
 	ai_strategy = {
 		type = area_priority
 		id = eastern_america
+		value = 25
+	}
+
+	ai_strategy = {
+		type = front_unit_request  
+		area = eastern_america
 		value = 25
 	}
 

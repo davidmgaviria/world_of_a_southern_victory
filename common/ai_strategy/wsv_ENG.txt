@@ -264,66 +264,17 @@ ENG_befriend_france = {
 }
 
 
-## spam mils during war
-ENG_build_up_more_mils = {
-	allowed = {
-		original_tag = ENG
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with_major = yes
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = added_military_to_civilian_factory_ratio		
-		value = 25
-	}
-	ai_strategy = {
-    	type = building_target
-    	id = arms_factory
-    	value = 100
-	}
-}
 
+### ------- opening war strategies  ------- ###
 
-### american defense strategies ###
-ENG_hold_canada_ports = {
+ENG_early_defense_canada = {
 	allowed = {
 		original_tag = ENG		
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		country_exists = USA
-	}
-	abort_when_not_enabled = yes
-
-	# nova scotia & new brunswick
-	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			276
-			468
-			466
-			467		# winnipeg
-		}
-		ratio = 0.08
-		area = north_america
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
-	}
-}
-
-
-ENG_defense_canada = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = USA
-		has_war_together_with = CAN	 	# dominions dont count as puppets
+		CAN = { is_puppet_of = ENG }
+		has_army_size = { size < 1500000 }
 	}
 	abort = {
 		CAN = { surrender_progress > 0.5 }
@@ -350,7 +301,7 @@ ENG_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		tag = USA
-		value = 75
+		value = 125
 	}
 
 	ai_strategy = {
@@ -358,7 +309,24 @@ ENG_defense_canada = {
 		id = east_canada
 		value = 75 #more focus here
 	}
+
+	# nova scotia & new brunswick
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			276
+			468
+			466
+			467		# winnipeg
+		}
+		ratio = 0.08
+		area = north_america
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
 }
+
 
 # dont send troops south if we have Canada to fight in
 ENG_ignore_csa = {
@@ -386,45 +354,6 @@ ENG_ignore_csa = {
 }
 
 
-# help csa beat the US if Canada fell
-ENG_aid_confederates = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		is_in_faction_with = CSA
-		has_war_with = USA
-		CAN = { surrender_progress > 0.5 }
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = contain
-		id = "USA"
-		value = 200
-	}
-	ai_strategy = {
-		type = support
-		id = "CSA"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = protect
-		id = "CSA"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = north_america
-		value = 75
-	}
-}
-
-
-### europe defense strategies ###
 ENG_early_defense_of_france = {
 	allowed = {
 		original_tag = ENG		
@@ -476,6 +405,47 @@ ENG_early_defense_of_france = {
 }
 
 
+
+### ------- wartime strategies  ------- ###
+
+# massively increase size during war
+ENG_increase_army_for_greatwar = {		
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with_major = yes
+		has_army_manpower = { size < 2000000 }
+	}
+	abort = {
+		surrender_progress > 0.15
+	}
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 150
+	}
+
+	ai_strategy = {
+    	type = building_target
+    	id = arms_factory
+    	value = 100
+	}
+
+	ai_strategy = {
+    	type = building_target
+    	id = naval_base
+    	value = -50   # stop spamming these
+	}
+}
+
+
 ENG_help_france_fight_germany = {
 	allowed = {
 		original_tag = ENG		
@@ -502,13 +472,13 @@ ENG_help_france_fight_germany = {
 	ai_strategy = {
 		type = support
 		id = "FRA"
-		value = 100
+		value = 200
 	}
 
 	ai_strategy = {
 		type = protect
 		id = "FRA"
-		value = 100
+		value = 200
 	}
 
 	ai_strategy = {
@@ -548,6 +518,67 @@ ENG_help_france_fight_germany = {
 }
 
 
+ENG_defend_canada_less = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		CAN = { is_puppet_of = ENG }
+		has_army_size = { size > 1500000 }
+	}
+	abort = {
+		CAN = { surrender_progress > 0.5 }
+	}
+
+	ai_strategy = {
+		type = contain
+		id = "USA"
+		value = 75
+	}
+	ai_strategy = {
+		type = support
+		id = "CAN"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = protect
+		id = "CAN"
+		value = 100
+	}
+
+	# east usa
+    ai_strategy = {
+		type = front_unit_request
+		tag = USA
+		value = 50
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = east_canada
+		value = 50 #more focus here
+	}
+
+	# nova scotia & new brunswick
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			276
+			468
+			466
+			467		# winnipeg
+		}
+		ratio = 0.06
+		area = north_america
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+
 ENG_launch_offensives_against_GER = {
 	allowed = {
 		original_tag = ENG		
@@ -556,6 +587,7 @@ ENG_launch_offensives_against_GER = {
 	enable = {
 		has_war_with = GER
 		is_in_faction_with = FRA
+		has_army_size = { size > 1500000 }   # wait to build up army
 		# launch offensives every 6 months (alongisde France)
 		set_temp_variable = { days = global.num_days }
 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
@@ -644,9 +676,15 @@ ENG_fight_the_turks = {
 	}
 
 	ai_strategy = {
+		type = force_defend_ally_borders
+		id = PER
+		value = 1
+	}
+
+	ai_strategy = {
 		type = consider_weak
 		id = TUR
-		value = 5
+		value = 10
 	}
 }
 
@@ -698,21 +736,6 @@ ENG_stage_troops_in_salonika = {
 	abort = {
 		has_war_together_with = GNU
 	}
-
-	# move troops to salonika
-	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			855
-			184
-		}
-		ratio = 0.15
-		#priority = 9999
-		area = europe
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
-	}
 }
 
 
@@ -723,17 +746,21 @@ ENG_aid_salonika_front = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		OR = {
-			has_war_together_with = GNU
-			has_war_together_with = GRE
-		}
+		has_war_together_with = GNU
+		NOT = { has_war_with = GRE }
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = BUL
-		value = 25
+		value = 25  # high to force them to hold
+	}
+
+	ai_strategy = {
+		type = protect
+		id = GNU
+		value = 50
 	}
 	ai_strategy = {
 		type = support
@@ -744,6 +771,11 @@ ENG_aid_salonika_front = {
 		type = support
 		id = GRE
 		value = 50
+	}
+	ai_strategy = {
+		type = force_defend_ally_borders
+		id = GNU
+		value = 1
 	}
 }
 
@@ -772,7 +804,6 @@ ENG_ignore_africa = {
 }
 
 
-
 ENG_dont_invade_auh = {
 	allowed = {
 		original_tag = ENG
@@ -790,6 +821,43 @@ ENG_dont_invade_auh = {
 	}
 }
 
+
+# help csa beat the US if Canada fell
+ENG_aid_confederates = {
+	allowed = {
+		original_tag = ENG		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = CSA
+		has_war_with = USA
+		CAN = { surrender_progress > 0.5 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = contain
+		id = "USA"
+		value = 200
+	}
+	ai_strategy = {
+		type = support
+		id = "CSA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = protect
+		id = "CSA"
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = north_america
+		value = 75
+	}
+}
 
 
 ########################## WW2 ##########################

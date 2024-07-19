@@ -412,8 +412,8 @@ focus_tree = {
 
 		
 	focus = {
-		id = ENG_secure_the_suez
-		icon = GFX_goal_generic_defence
+		id = ENG_persia_front
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = ENG_continental_intervention }
 		cost = 5
 		x = -2
@@ -424,30 +424,39 @@ focus_tree = {
 
 		available = {
 			has_war_with = TUR
-			EGY = { 
-				is_puppet_of = ROOT 
-				has_capitulated = no
+			NOT = { has_war_with = PER }
+			PER = { 
+				exists = yes
+				is_puppet = no
+				is_in_faction = no
 			}
 		}
 
-		#bypass = {}
+		bypass = {
+			is_in_faction_with = PER
+		}
 
 		completion_reward = { 
-			annex_country = {
-				target = EGY
-				transfer_troops = yes
+			set_autonomy = {
+				target = PER
+				autonomous_state = autonomy_puppet
 			}
+			hidden_effect = { 
+				load_oob = "ENG_persia_rifles" 
+				TUR = { country_event = wsv_england.21 }
+			}
+			custom_effect_tooltip = spawn_persia_rifles_tt
 		}
 	}
 
 	focus = {
 		id = ENG_divide_middle_east
 		icon = GFX_goal_generic_occupy_states_ongoing_war
-		prerequisite = { focus = ENG_secure_the_suez }
+		prerequisite = { focus = ENG_persia_front }
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = ENG_secure_the_suez
+		relative_position_id = ENG_persia_front
 
 		ai_will_do = { factor = 1 }
 

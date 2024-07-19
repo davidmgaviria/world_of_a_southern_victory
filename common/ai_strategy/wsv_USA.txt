@@ -210,14 +210,13 @@ USA_build_up_more_civs = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		date < 1913.1.1  	# start building more mils
 		has_idea = USA_throttled_military_spending
 	}
 	abort_when_not_enabled = yes
 	
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
-		value = -15
+		value = -10
 	}
 }
 
@@ -232,7 +231,7 @@ USA_save_up_to_switch_to_low_mob = {
 		date > 1911.1.1
 		has_war_support > 0.2
 		has_idea = civilian_economy
-		has_political_power < 225
+		has_political_power < 200
 	}
 	abort_when_not_enabled = yes
 	
@@ -343,15 +342,16 @@ USA_opening_war_assault_against_confederates = {
 		has_war_with = CSA
 		OR = {
 			surrender_progress > 0.15
-			casualties_inflicted_by = { opponent = CSA  thousands < 300 }
+			casualties_inflicted_by = { opponent = CSA  thousands > 300 }  				# offensive has failed
+			controls_state = 369												# if we took kentucky we can refocus
 		}
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = CSA
-		ratio = 0.5
-		priority = 100
+		ratio = 0.4
+		priority = 200
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -360,33 +360,10 @@ USA_opening_war_assault_against_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 100
-	}
-	ai_strategy = {
-		type = front_unit_request
-		tag = MEX		
-		value = -15
-	}
-}
-
-
-## let csa take DC
-USA_let_confederates_take_dc = {
-	allowed = {
-		original_tag = USA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = CSA
-	}
-	abort = {
-		has_war_with = CSA
-		OR = {
-			NOT = { controls_state = 361 }		# if we lost maryland move in to defend
-			controls_state = 369				# if we took kentucky we can refocus
-		}
+		value = 125
 	}
 
+	## let confederates take DC ##
 	ai_strategy = {
 		type = front_control
 		state = 814		# arlington
@@ -401,22 +378,21 @@ USA_let_confederates_take_dc = {
 
 	ai_strategy = {
 		type = front_unit_request
-		state = 814	
-		state = 361 
-		value = -75
+		strategic_region = 117
+		value = -115
 	}
 
-	## buffers to prevent Philadelphia's fall
+	# buffers to prevent Philadelphia's fall
 	ai_strategy = {
 		type = put_unit_buffers
 		states = { 
 			840
-			360
 		}
-		ratio = 0.06
+		ratio = 0.04
 		subtract_fronts_from_need = no
 	}
 }
+
 
 
 USA_opening_war_assault_against_canada = {
@@ -453,6 +429,7 @@ USA_opening_war_assault_against_canada = {
 		execute_order = yes
 		manual_attack = yes
 	}
+
 	ai_strategy = {
 		type = front_control
 		area = west_canada
@@ -462,18 +439,6 @@ USA_opening_war_assault_against_canada = {
 		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		area = east_canada
-		value = 35
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = CAN
-		value = 35
 	}
 }
 
@@ -501,13 +466,56 @@ USA_focus_on_the_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA  	
-		value = 75
+		value = 35
 	}
 }
 
 
-# dont waste men while we're build up
-USA_pause_while_we_build_up_against_CSA = {
+# launch offensives to retake DC 
+# USA_retake_dc = {
+# 	allowed = {
+# 		original_tag = USA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = CSA
+# 		casualties_inflicted_by = { opponent = CSA  thousands > 300 }
+# 		NOT = { controls_state = 361 }  # only activates if DC fell
+# 	}
+# 	abort = {
+# 		OR = {
+# 			NOT = { has_war_with = CAN }  	# dont need to be careful if not on two fronts
+# 			surrender_progress > 0.15		# we're losing dont hold back
+# 			war_length_with = { tag = CSA  months > 36 }  # war has gone on too long forget this
+# 		}
+# 	}
+
+# 	## focus on retaking washington DC ##
+# 	ai_strategy = {
+# 		type = front_control
+# 		state = 361	
+# 		ratio = 0.7
+# 		priority = 100
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		strategic_region = 117  ## east coast		
+# 		value = 150
+# 	}
+
+# 	ai_strategy = {
+# 		type = front_unit_request
+# 		tag = CSA  ## rest of csa		
+# 		value = -35		
+# 	}
+# }
+
+
+USA_slowly_against_CSA = {
 	allowed = {
 		original_tag = USA		
 		has_start_date < 1937.1.1
@@ -515,12 +523,12 @@ USA_pause_while_we_build_up_against_CSA = {
 	enable = {
 		has_war_with = CSA
 		casualties_inflicted_by = { opponent = CSA  thousands > 300 }
-		strength_ratio = { tag = CSA  ratio < 2 }		# should get to about 2x the divisions of the CSA
 	}
 	abort = {
 		OR = {
 			NOT = { has_war_with = CAN }  	# dont need to be careful if not on two fronts
 			surrender_progress > 0.15		# we're losing dont hold back
+			strength_ratio = { tag = CSA  ratio > 3 }		# we can be more aggressive if we have lots of troops
 			has_global_flag = NorthAmerica_WW1_is_stuck
 		}
 	}
@@ -528,57 +536,12 @@ USA_pause_while_we_build_up_against_CSA = {
 	ai_strategy = {
 		type = front_control
 		tag = CSA	
-		ratio = 0.5
+		ratio = 0.7
 		priority = 25
-		ordertype = front
-		execution_type = balanced
-		execute_order = no
-		manual_attack = yes
-	}
-}
-
-
-# launch offensives to retake DC 
-USA_retake_dc = {
-	allowed = {
-		original_tag = USA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = CSA
-		casualties_inflicted_by = { opponent = CSA  thousands > 300 }
-		strength_ratio = { tag = CSA  ratio < 1.75 }		# should have close to 2x the divisions of the CSA
-		NOT = { controls_state = 361 }  # only activates if DC fell
-	}
-	abort = {
-		OR = {
-			NOT = { has_war_with = CAN }  	# dont need to be careful if not on two fronts
-			surrender_progress > 0.15		# we're losing dont hold back
-			war_length_with = { tag = CSA  months > 36 }  # war has gone on too long forget this
-		}
-	}
-
-	## focus on retaking washington DC ##
-	ai_strategy = {
-		type = front_control
-		strategic_region = 117 		 ## east coast		
-		ratio = 0.6
-		priority = 100
 		ordertype = front
 		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
-	}
-	ai_strategy = {
-		type = front_unit_request
-		strategic_region = 117  ## east coast		
-		value = 150
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = CSA  ## rest of csa		
-		value = -50		
 	}
 }
 																	
@@ -592,7 +555,12 @@ USA_slowly_against_CAN = {
 		has_war_with = CAN
 	}
 	abort = {
-		NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
+		OR = {
+			NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
+			surrender_progress > 0.15		# we're losing dont hold back
+			strength_ratio = { tag = CAN  ratio > 5.5 }		# we can be more aggressive if we have lots of troops
+			has_global_flag = NorthAmerica_WW1_is_stuck
+		}
 	}
 
 	ai_strategy = {
@@ -601,7 +569,7 @@ USA_slowly_against_CAN = {
 		ratio = 0.6
 		priority = 25
 		ordertype = front
-		execution_type = balanced
+		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -609,6 +577,12 @@ USA_slowly_against_CAN = {
 		type = front_unit_request
 		tag = CAN  	
 		value = 35
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = west_canada
+		value = -50
 	}
 }
 
@@ -631,7 +605,7 @@ USA_destroy_the_mormons = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = DES
-		value = 25
+		value = 15
 	}
 	ai_strategy = {
 		type = consider_weak

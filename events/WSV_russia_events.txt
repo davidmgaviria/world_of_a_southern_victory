@@ -60,7 +60,7 @@ country_event = {
 	immediate = {
 		set_country_flag = {
 			flag = wartime_unrest_cooldown
-			days = 150
+			days = 200
 			value = 1
 		}
 	}
@@ -217,12 +217,16 @@ country_event = {
 		## Conditions for Tsar abdication
 		OR = {
 			AND = {
-				surrender_progress > 0.1
-				has_stability < 0.3
+				surrender_progress > 0.2
+				has_stability < 0.35
 			}
 			AND = {
 				surrender_progress > 0
-				has_stability < 0.2
+				has_stability < 0.25
+			}
+			AND = {
+				surrender_progress > 0
+				has_stability < 0.1
 			}
 			has_stability < 0.1
 		}

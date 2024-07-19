@@ -298,7 +298,7 @@ country_event = {
 # -- Occupy Persia
 ##########################################################
 
-## Britain takes over Persia
+## Annex Egypt
 country_event = {
 	id = wsv_england.20
 	title = wsv_england.20.t
@@ -308,35 +308,31 @@ country_event = {
     trigger = {
 		tag = ENG
 		has_war_with = TUR
-		PER = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = ENG }
-		}
-		NOT = { has_global_flag = britain_occupies_persia }
+		EGY = { is_puppet_of = ENG }
+		NOT = { has_global_flag = britain_occupies_egypt }
 	}
 
 	mean_time_to_happen = {
-		days = 30
+		days = 20
 	}
 
 	immediate = {
-		set_global_flag = britain_occupies_persia
+		set_global_flag = britain_occupies_egypt
 	}
 
 	option = {
 		name = wsv_england.20.a
-		set_autonomy = {
-			target = PER
-			autonomous_state = autonomy_puppet
+		annex_country = {
+			target = EGY
+			transfer_troops = yes
 		}
-		hidden_effect = { 
-			load_oob = "ENG_persia_rifles" 
-			TUR = { country_event = wsv_england.21 }
-		}
-		custom_effect_tooltip = spawn_persia_rifles_tt
 	}
 }
+
+
+##########################################################
+# -- Occupy Persia
+##########################################################
 
 
 # Turkey informed of Perisa's occupation

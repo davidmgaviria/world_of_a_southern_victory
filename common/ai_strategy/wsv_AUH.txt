@@ -63,6 +63,23 @@ AUH_ignore_north_america = {
 }
 
 
+AUH_wary_of_italy = {		# massively increase size
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1912.1.1
+	}
+	enable = {
+		NOT = { is_in_faction_with = ITA }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = prepare_for_war
+		id = ITA
+    	value = 25
+	}
+}
+
 
 
 ######################### GREAT WAR ##########################
@@ -444,6 +461,27 @@ AUH_let_turkey_defend_itself = {
 		area = middle_east		
 		value = -75
 	}	
+}
+
+
+AUH_italy_joining_entente = {		
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1912.1.1
+	}
+	enable = {
+		NOT = { is_in_faction_with = ITA }
+		ITA = {
+			focus_progress = { focus = generic_join_france  progress = 0.01 }
+		}
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = prepare_for_war
+		id = ITA
+    	value = 75
+	}
 }
 
 

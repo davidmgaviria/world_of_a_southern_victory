@@ -112,17 +112,10 @@ GER_gw_equipment_and_unit_production = {
 		value = 10
 	}
 
-	## EXTRA UNIT RATIOS
-	ai_strategy = {
-		type = unit_ratio
-		id = fighter
-		value = 20   # total is 120
-	}
-
 	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 80
+		value = 75
 	}
 }
 
@@ -213,6 +206,36 @@ GER_increase_army = {
 	    type = build_army
 	    id = infantry
 	    value = 275
+	}
+}
+
+
+## no point in having a ton of bodies
+GER_limit_army_size = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_army_manpower = { size > 3500000 }
+	}
+	abort = {
+		has_army_manpower = { size < 3000000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
 	}
 }
 
@@ -464,7 +487,7 @@ GER_defensive_if_lacking_guns_FRA = {
 		OR = {
 			stockpile_ratio = {		## 7% of the armies equipment must be in reserves
 				archetype = infantry_equipment
-				ratio > 0.25
+				ratio > 0.07
 			}
 			surrender_progress > 0.15
 			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
@@ -492,7 +515,7 @@ GER_beat_russia_slowly_1 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress < 0.1 }
+		RUS = { surrender_progress < 0.08 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
@@ -520,9 +543,15 @@ GER_beat_russia_slowly_1 = {
 		ratio = 0.5
 		priority = 10
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = RUS			
+		value = 25
 	}
 
 	## dont help Austria yet
@@ -542,7 +571,7 @@ GER_beat_russia_slowly_2 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress > 0.1 }
+		RUS = { surrender_progress > 0.08 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
@@ -561,14 +590,14 @@ GER_beat_russia_slowly_2 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS		
-		value = -15		# a lot less troops now
+		value = -30		# a lot less troops now
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.5
-		priority = 10
+		ratio = 0.6
+		priority = 25
 		ordertype = front
 		execution_type = careful
 		execute_order = no
@@ -751,7 +780,7 @@ GER_prepare_kaiserschlact = {
 	ai_strategy = {
 		type = front_unit_request
 		area = western_front		
-		value = 50
+		value = 100
 	}
 }
 
@@ -775,7 +804,7 @@ GER_launch_kaiserschlact = {
 		ratio = 0.6
 		priority = 150
 		ordertype = front
-		execution_type = balanced
+		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -783,7 +812,7 @@ GER_launch_kaiserschlact = {
 	ai_strategy = {
 		type = consider_weak
 		id = FRA	
-		value = 15
+		value = 25
 	}
 }
 

@@ -604,11 +604,12 @@ focus_tree = {
 					}
 				}
 			}
-			# italy only joins if war is going well for entente
+			# italy only joins if war is going well for entente (or late war)
 			modifier = {
 				add = 5
 				tag = ITA
 				OR = {
+					date > 1918.2.1  
 					AUH = { surrender_progress > 0.15 }
 					GER = { surrender_progress > 0.15 }
 				}
