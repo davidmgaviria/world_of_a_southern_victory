@@ -103,7 +103,7 @@ USA_gw_equipment_and_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 70	 
+		value = 100
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -174,7 +174,7 @@ USA_stockpile_less_equipment = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -25 	# reduce while we build up in case of issues
+		value = -10 	# reduce while we build up in case of issues
 	}
 }
 
@@ -342,7 +342,7 @@ USA_opening_war_assault_against_confederates = {
 		has_war_with = CSA
 		OR = {
 			surrender_progress > 0.15
-			casualties_inflicted_by = { opponent = CSA  thousands > 300 }  				# offensive has failed
+			casualties_inflicted_by = { opponent = CSA  thousands > 250 }  				# offensive has failed
 			controls_state = 369												# if we took kentucky we can refocus
 		}
 	}
@@ -353,7 +353,7 @@ USA_opening_war_assault_against_confederates = {
 		ratio = 0.4
 		priority = 200
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -387,8 +387,9 @@ USA_opening_war_assault_against_confederates = {
 		type = put_unit_buffers
 		states = { 
 			840
+			360
 		}
-		ratio = 0.04
+		ratio = 0.02
 		subtract_fronts_from_need = no
 	}
 }
@@ -415,7 +416,7 @@ USA_opening_war_assault_against_canada = {
 				controls_state = 465
 			}
 			# offensive failed
-			casualties_inflicted_by = { opponent = CAN  thousands > 300 }
+			casualties_inflicted_by = { opponent = CAN  thousands > 200 }
 		}
 	}
 
@@ -445,6 +446,29 @@ USA_opening_war_assault_against_canada = {
 
 ### ------- wartime strategies  ------- ###
 
+USA_mobilize_industry_for_war = {		
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with_major = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 50
+	}
+
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 150
+	}
+}
+
+
 USA_focus_on_the_confederates = {
 	allowed = {
 		original_tag = USA		
@@ -471,75 +495,67 @@ USA_focus_on_the_confederates = {
 }
 
 
-# launch offensives to retake DC 
-# USA_retake_dc = {
-# 	allowed = {
-# 		original_tag = USA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = CSA
-# 		casualties_inflicted_by = { opponent = CSA  thousands > 300 }
-# 		NOT = { controls_state = 361 }  # only activates if DC fell
-# 	}
-# 	abort = {
-# 		OR = {
-# 			NOT = { has_war_with = CAN }  	# dont need to be careful if not on two fronts
-# 			surrender_progress > 0.15		# we're losing dont hold back
-# 			war_length_with = { tag = CSA  months > 36 }  # war has gone on too long forget this
-# 		}
-# 	}
-
-# 	## focus on retaking washington DC ##
-# 	ai_strategy = {
-# 		type = front_control
-# 		state = 361	
-# 		ratio = 0.7
-# 		priority = 100
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		strategic_region = 117  ## east coast		
-# 		value = 150
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		tag = CSA  ## rest of csa		
-# 		value = -35		
-# 	}
-# }
-
-
-USA_slowly_against_CSA = {
+USA_defensive_if_lack_of_guns_against_CSA = {
 	allowed = {
 		original_tag = USA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = CSA
-		casualties_inflicted_by = { opponent = CSA  thousands > 300 }
+		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.03
+		}
 	}
 	abort = {
 		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
 			NOT = { has_war_with = CAN }  	# dont need to be careful if not on two fronts
-			surrender_progress > 0.15		# we're losing dont hold back
-			strength_ratio = { tag = CSA  ratio > 3 }		# we can be more aggressive if we have lots of troops
+			surrender_progress > 0.2		# we're losing dont hold back
 			has_global_flag = NorthAmerica_WW1_is_stuck
 		}
 	}
 
 	ai_strategy = {
 		type = front_control
-		tag = CSA	
+		tag = CSA
 		ratio = 0.7
+		priority = 1
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
+	}
+}
+
+
+USA_launch_offensives_against_CSA = {
+	allowed = {
+		original_tag = USA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		has_army_size = { size > 2500000 }   # wait to build up army	
+		# launch offensives every 6 months (alongisde France)
+		set_temp_variable = { days = global.num_days }
+		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+		check_variable = { days < 60 }
+	}
+	abort = {
+		surrender_progress > 0.15	
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.65
 		priority = 25
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -566,7 +582,7 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_control
 		tag = CAN
-		ratio = 0.6
+		ratio = 0.7
 		priority = 25
 		ordertype = front
 		execution_type = careful

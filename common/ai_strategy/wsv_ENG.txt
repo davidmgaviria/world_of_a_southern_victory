@@ -97,19 +97,7 @@ ENG_britannia_rules_the_waves = {
 	ai_strategy = {
 	    type = building_target
 	    id = dockyard
-	    value = 23
-	}
-
-    ai_strategy = {
-		type = area_priority
-		id = britain
-		value = 1800
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = north_sea
-		value = 800
+	    value = 25
 	}
 }
 
@@ -411,7 +399,7 @@ ENG_early_defense_of_france = {
 # massively increase size during war
 ENG_increase_army_for_greatwar = {		
 	allowed = {
-		original_tag = GER
+		original_tag = ENG
 		has_start_date < 1937.1.1
 	}
 	enable = {
@@ -429,19 +417,30 @@ ENG_increase_army_for_greatwar = {
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 150
+	    value = 200
 	}
 
 	ai_strategy = {
-    	type = building_target
-    	id = arms_factory
-    	value = 100
+		type = added_military_to_civilian_factory_ratio		
+		value = 35
 	}
 
 	ai_strategy = {
-    	type = building_target
-    	id = naval_base
-    	value = -50   # stop spamming these
+		type = building_target
+		id = arms_factory
+		value = 150
+	}
+
+	ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 75
+	}
+
+	ai_strategy = {
+		type = building_target
+		id = naval_base
+		value = -100   # stop spamming
 	}
 }
 
@@ -587,14 +586,14 @@ ENG_launch_offensives_against_GER = {
 	enable = {
 		has_war_with = GER
 		is_in_faction_with = FRA
-		has_army_size = { size > 1500000 }   # wait to build up army
 		# launch offensives every 6 months (alongisde France)
 		set_temp_variable = { days = global.num_days }
 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
 		check_variable = { days < 60 }
 	}
 	abort = {
-		surrender_progress > 0.15		
+		surrender_progress > 0.15	
+		has_army_size = { size < 1500000 }   # wait to build up army	
 	}
 
 	ai_strategy = {

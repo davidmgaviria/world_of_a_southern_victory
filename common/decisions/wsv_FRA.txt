@@ -10,23 +10,10 @@ wsv_great_war_decisions = {
 			tag = FRA
 		}
 		activation = {
-			OR = {
-				# first mutiny
-				AND = {
-					NOT = { has_country_flag = first_army_mutiny }
-					has_war = yes
-					casualties > 800000
-					longest_war_length > 30  # 2.5 years
-				}
-				# second mutiny
-				AND = {
-					NOT = { has_country_flag = second_army_mutiny }
-					has_war = yes
-					casualties > 1500000
-					has_country_flag = first_army_mutiny_over 
-					NOT = { has_country_flag = army_mutiny_cooldown }
-				}
-			}
+			NOT = { has_global_flag =  french_army_mutinies }
+			has_war = yes
+			casualties > 800000
+			longest_war_length > 30  # 2.5 years
 		}
 		available = {
 			has_war = no   # condition for event to cancel
@@ -36,15 +23,7 @@ wsv_great_war_decisions = {
 		is_good = no
 
 		timeout_effect = {
-			if = {
-				# first mutiny
-				limit = { NOT = { has_country_flag = first_army_mutiny } }
-				country_event = wsv_france.100
-			}
-			else = {
-				# second mutiny
-				country_event = wsv_france.105
-			}
+			news_event = wsv_france.100
 		}
 
 		ai_will_do = {

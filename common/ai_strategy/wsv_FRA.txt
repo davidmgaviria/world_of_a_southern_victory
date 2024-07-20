@@ -202,24 +202,6 @@ FRA_loss_of_alsacelorraine = {
 }
 
 
-FRA_ignore_africa = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		country_exists = GER
-		NOT = { is_in_faction_with = GER }
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = -75
-	}
-}
-
 
 ## no point in having a ton of bodies
 FRA_limit_army_size = {
@@ -280,6 +262,44 @@ FRA_greatwar_mobilize = {
 		type = front_unit_request
 		area = europe
 		value = 100
+	}
+}
+
+
+
+FRA_focus_on_western_front = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = GER
+		NOT = { is_in_faction_with = GER }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = western_front		
+		value = 75
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -75
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = middle_east		
+		value = -50
 	}
 }
 
@@ -400,12 +420,6 @@ FRA_defensive_if_lack_of_guns_against_GER = {
 			}
 			surrender_progress > 0.15
 			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
-			# launch offensives every 6 months regardless of situation
-			AND = {
-				set_temp_variable = { days = global.num_days }
-				modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
-				check_variable = { days > 100 }
-			}
 		}		
 	}
 
@@ -418,6 +432,45 @@ FRA_defensive_if_lack_of_guns_against_GER = {
 		execution_type = balanced
 		execute_order = no
 		manual_attack = yes
+	}
+}
+
+
+FRA_launch_offensives_against_GER = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		has_army_size = { size > 1600000 }   # wait to build up army	
+		# launch offensives every 6 months (alongisde France)
+		set_temp_variable = { days = global.num_days }
+		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+		check_variable = { days < 60 }
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.15	
+			has_idea = FRA_halt_army_offensives
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.7
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = GER
+		value = -15
 	}
 }
 
@@ -506,20 +559,27 @@ FRA_aid_salonika_front = {
 	}
 
 	ai_strategy = {
+		type = front_unit_request
+		tag = BUL	
+		value = 65
+	}
+
+	ai_strategy = {
 		type = protect
 		id = GNU
-		value = 75
+		value = 100
 	}
 	ai_strategy = {
 		type = support
 		id = GNU
-		value = 75
+		value = 100
 	}
 	ai_strategy = {
 		type = support
 		id = GRE
-		value = 75
+		value = 100
 	}
+
 	ai_strategy = {
 		type = force_defend_ally_borders
 		id = GNU
@@ -534,7 +594,7 @@ FRA_aid_salonika_front = {
 			855
 			184
 		}
-		ratio = 0.05
+		ratio = 0.1
 		#priority = 9999
 		area = europe
 		subtract_invasions_from_need = no

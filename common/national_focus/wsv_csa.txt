@@ -56,6 +56,10 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
+		available = {
+			date > 1911.1.1
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
@@ -631,12 +635,12 @@ focus_tree = {
 	}
 
 
-	focus = {
+	focus = { 
 		id = CSA_invest_central_america
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = CSA_latin_american_ambitions }
 
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = CSA_latin_american_ambitions
@@ -694,7 +698,7 @@ focus_tree = {
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = CSA_latin_american_ambitions }
 
-		cost = 10
+		cost = 5
 		x = 2
 		y = 1
 		relative_position_id = CSA_latin_american_ambitions
@@ -1857,7 +1861,7 @@ focus_tree = {
 		id = CSA_emergency_war_act
 		icon = GFX_focus_generic_reorient_production
 		prerequisite = { focus = CSA_attack_us }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = CSA_attack_us
@@ -1925,7 +1929,7 @@ focus_tree = {
 		icon = GFX_focus_CSA_defend_south
 		prerequisite = { focus = CSA_attack_us }
 
-		cost = 10
+		cost = 5
 		x = -2
 		y = 1
 		relative_position_id = CSA_attack_us
@@ -2238,7 +2242,7 @@ focus_tree = {
 		icon = GFX_focus_generic_military_plan
 		prerequisite = { focus = CSA_army_effort }
 
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = CSA_army_effort
@@ -2262,7 +2266,7 @@ focus_tree = {
 		icon = GFX_goal_generic_small_arms
 		prerequisite = { focus = CSA_battle_manuevers }
 		cost = 10
-		x = -3
+		x = -2
 		y = 1
 		relative_position_id = CSA_battle_manuevers
 
@@ -2286,7 +2290,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_infantry_effort }
 
 		cost = 10
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = CSA_infantry_effort
 
@@ -2307,9 +2311,9 @@ focus_tree = {
 		id = CSA_chemical_weapons
 		icon = GFX_hoi4tgw_gasmask
 		prerequisite = { focus = CSA_artillery_effort }
-
+		prerequisite = { focus = CSA_infantry_effort2 }
 		cost = 10
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = CSA_artillery_effort
 
@@ -2330,9 +2334,8 @@ focus_tree = {
 		id = CSA_infantry_effort2
 		icon = GFX_goal_generic_military_sphere
 		prerequisite = { focus = CSA_infantry_effort }
-
 		cost = 10
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = CSA_infantry_effort
 
@@ -2353,9 +2356,9 @@ focus_tree = {
 		id = CSA_storm_troopers
 		icon = GFX_goal_generic_special_forces
 		prerequisite = { focus = CSA_infantry_effort2 }
-
+		prerequisite = { focus = CSA_revise_army_doctrine }
 		cost = 10
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = CSA_infantry_effort2
 
@@ -2375,37 +2378,17 @@ focus_tree = {
 		}
 	}
 
-
-	focus = {
-		id = CSA_expand_officer_corps
-		icon = GFX_focus_generic_military_academy
-		prerequisite = { focus = CSA_battle_manuevers }
-
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = CSA_battle_manuevers
-
-		ai_will_do = {	factor = 1}
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = CSA_more_officers
-		}
-	}
-
 		
 	focus = {
 		id = CSA_revise_army_doctrine
 		icon = GFX_goal_generic_army_doctrines
-		prerequisite = { focus = CSA_infantry_effort }
 		prerequisite = { focus = CSA_battle_manuevers }
 		cost = 10
 		x = 0
 		y = 2
 		relative_position_id = CSA_battle_manuevers
 
-		ai_will_do = {	factor = 1}
+		ai_will_do = {	factor = 1 }
 
 
 		available = {
@@ -2477,16 +2460,37 @@ focus_tree = {
 		}
 	}
 
-		
+
 	focus = {
-		id = CSA_new_general_staff
-		#icon = GFX_focus_chi_legislative_yuan
+		id = CSA_expand_officer_corps
+		icon = GFX_focus_generic_military_academy
 		prerequisite = { focus = CSA_fall_of_red_revolt }
 
 		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = CSA_fall_of_red_revolt
+
+		ai_will_do = { factor = 1 }
+
+		#bypass = {}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = CSA_military_nepotism
+				add_idea = CSA_more_officers
+			}
+		}
+	}
+		
+	focus = {
+		id = CSA_new_general_staff
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CSA_expand_officer_corps }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CSA_expand_officer_corps
 
 		ai_will_do = {	factor = 1}
 		#bypass = {}
@@ -2502,7 +2506,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_army_effort }
 
 		cost = 10
-		x = 4
+		x = 5
 		y = 1
 		relative_position_id = CSA_army_effort
 
@@ -2527,7 +2531,7 @@ focus_tree = {
 		prerequisite = { focus = CSA_air_corps }
 		cost = 10
 		x = 0
-		y = 2
+		y = 1
 		relative_position_id = CSA_air_corps
 
 		ai_will_do = {	factor = 1}

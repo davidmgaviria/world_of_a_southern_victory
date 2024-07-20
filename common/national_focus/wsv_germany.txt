@@ -740,11 +740,20 @@ focus_tree = {
 		y = 1
 		relative_position_id = GER_strangle_britain
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = { 
+			factor = 1 
+			modifier = {
+				factor = 100
+				war_length_with = { tag = FRA  months > 40 }    # if historical, spring 1918
+			}
+		}
 
 		available = {
 			has_war_with = FRA
-			FRA = { surrender_progress > 0 }
+			OR = {
+				NOT = { has_war_with = RUS }
+				RUS = { has_capitulated = yes }
+			}
 			OR = {
 				war_length_with = {
 					tag = FRA
