@@ -89,7 +89,7 @@ GER_gw_equipment_and_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = fighter
-		value = 15  # less emphasis
+		value = 25  
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -112,10 +112,22 @@ GER_gw_equipment_and_unit_production = {
 		value = 10
 	}
 
+	## EXTRA UNIT RATIOS
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 20   # total is 120
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 10	# total is 50
+	}
+
 	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 75
+		value = 80
 	}
 }
 
@@ -473,7 +485,7 @@ GER_focus_on_western_front = {
 }
 
 
-GER_defensive_if_lacking_guns_FRA = {
+GER_build_up_against_FRA = {
 	allowed = {
 		original_tag = GER	
 		has_start_date < 1937.1.1
@@ -482,22 +494,16 @@ GER_defensive_if_lacking_guns_FRA = {
 		has_war_with = FRA
 		has_war_with = RUS   # if russia isnt in the picture be aggressive
 		has_country_flag = schliffen_plan_failed
+		
 	}
 	abort = {
-		OR = {
-			stockpile_ratio = {		## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
-		}		
+		war_length_with = { tag = FRA  months = 20 }  # build up for about 2 years then fight France
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.6
+		ratio = 0.35
 		priority = 1
 		ordertype = front
 		execution_type = careful
@@ -596,7 +602,7 @@ GER_beat_russia_slowly_2 = {
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.7
+		ratio = 0.65
 		priority = 25
 		ordertype = front
 		execution_type = careful

@@ -112,10 +112,10 @@ news_event = {
 			## France leaves war
 			FRA = {	
 				if= { 
-					# if faction leader, decide what to do with faction
 					limit = { is_in_faction = yes } 
+					# if entente leader, decide what to do with entente
 					if = { 
-						limit = { is_faction_leader = yes }
+						limit = { is_faction_leader = yes  has_country_flag = entente_leader }
 						clr_country_flag = entente_leader
 						if = {
 							# transfer leadership to Russia if we can
@@ -125,16 +125,13 @@ news_event = {
 								set_country_flag = entente_leader
 							}
 						}
-						else = { 
-							# otherwise collapse entente
-							dismantle_faction = yes 
+						else = {
+							# otherwise entente collapsed
+							set_global_flag = collapse_of_entente
+							news_event = { id = wsv_peace_treaty.12  days = 1 }
 						}
-						set_global_flag = collapse_of_entente
-						news_event = { id = wsv_peace_treaty.12  days = 1 }
 					}
-				}
-				else = { 
-				# otherwise just leave faction
+					# always leave faction
 					leave_faction = yes 
 				}
 				greatwar_loser_effect = yes
@@ -266,19 +263,15 @@ news_event = {
 			## Russia leaves war
 			RUS = {	
 				if= { 
-					# if faction leader dismantle faction
-					limit = { is_faction_leader = yes } 
-					dismantle_faction = yes 
-					if = {
-						# collapse entente if was entente leader
-						limit = { has_country_flag = entente_leader }
+					limit = { is_in_faction = yes } 
+					# if entente leader, collapse entente (can only be leader if france already fell)
+					if = { 
+						limit = { is_faction_leader = yes  has_country_flag = entente_leader }
 						clr_country_flag = entente_leader
 						set_global_flag = collapse_of_entente
 						news_event = { id = wsv_peace_treaty.12  days = 1 }
 					}
-				}
-				else = { 
-				# otherwise just leave faction
+					# always leave faction
 					leave_faction = yes 
 				}
 				greatwar_loser_effect = yes

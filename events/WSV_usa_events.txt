@@ -1967,9 +1967,9 @@ country_event = {
 }
 
 
-###################################
 
-###################################
+
+###############################################################
 
 
 # US gets notice whether to aid black rebels or not
@@ -2033,25 +2033,29 @@ country_event = {
 }
 
 
+# Rememberance Offensive Failed 
+country_event = {
+	id = wsv_usa.118
+	title = wsv_usa.118.t
+	desc = wsv_usa.118.d
 
+	trigger = {
+		tag = USA
+		has_war_with = CSA
+		has_country_flag = remembrance_offensive_began
+		NOT = { has_idea = USA_remembrance_offensive_idea }
+		NOT = { has_country_flag = remembrance_offensive_failed }
+	}
 
+	immediate = {
+		set_country_flag = remembrance_offensive_failed
+	}
 
-
-
-# ## Barrel Roll Offensive Failed 
-# country_event = {
-# 	id = wsv_usa.30
-# 	title = wsv_usa.30.t
-# 	desc = wsv_usa.30.d
-# 	#picture = report_event_sign_paper
-
-#     is_triggered_only = yes
-
-# 	#yes
-# 	option = {
-# 		name = wsv_usa.30.a
-# 	}
-# }
+	option = {
+		name = wsv_usa.118.a
+		add_war_support = -0.15
+	}
+}
 
 
 # ## Establish Quebec?

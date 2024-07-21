@@ -754,6 +754,34 @@ focus_tree = {
 			}
 		}
 	}
+
+
+	focus = {
+		id = USA_remembrance_offensive
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = USA_correct_1862 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_correct_1862
+
+		ai_will_do = { factor = 0 }  # dont do before
+
+		available = {
+			has_war_with = CSA
+			war_length_with = { tag = CSA   months > 29 }
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = USA_remembrance_offensive_idea
+				days = 90
+			}
+			set_country_flag = remembrance_offensive_began
+			custom_effect_tooltip = failing_rememberancve_offensive_warning_tt
+		}
+	}
+		
 		
 	###############################################
 
