@@ -485,28 +485,36 @@ GER_focus_on_western_front = {
 }
 
 
-GER_build_up_against_FRA = {
+GER_defensive_if_lack_of_guns_against_FRA = {
 	allowed = {
 		original_tag = GER	
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = FRA
-		has_war_with = RUS   # if russia isnt in the picture be aggressive
-		has_country_flag = schliffen_plan_failed
-		
+		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
+			archetype = infantry_equipment
+			ratio < 0.03
+		}
 	}
 	abort = {
-		war_length_with = { tag = FRA  months = 20 }  # build up for about 2 years then fight France
+		OR = {
+			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+				archetype = infantry_equipment
+				ratio > 0.07
+			}
+			surrender_progress > 0.15
+			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
+		}		
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.35
+		ratio = 0.6
 		priority = 1
 		ordertype = front
-		execution_type = careful
+		execution_type = balanced
 		execute_order = no
 		manual_attack = yes
 	}
@@ -521,7 +529,7 @@ GER_beat_russia_slowly_1 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress < 0.08 }
+		RUS = { surrender_progress < 0.05 }
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
@@ -534,7 +542,7 @@ GER_beat_russia_slowly_1 = {
 	ai_strategy = {
 		type = area_priority
 		id = eastern_front
-		value = 25
+		value = 35
 	}
 
 	ai_strategy = {
@@ -557,15 +565,8 @@ GER_beat_russia_slowly_1 = {
 	ai_strategy = {
 		type = consider_weak
 		id = RUS			
-		value = 25
+		value = 35
 	}
-
-	## dont help Austria yet
-	ai_strategy = {
-		type = dont_defend_ally_borders
-		id = "AUH"
-		value = 100
-	}	
 }
 
 
@@ -577,7 +578,11 @@ GER_beat_russia_slowly_2 = {
 	enable = {
 		has_war_with = RUS
 		has_war_with = FRA
-		RUS = { surrender_progress > 0.08 }
+		# intermediate strat
+		AND = {
+			RUS = { surrender_progress > 0.05 }
+			RUS = { surrender_progress < 0.15 }
+		}
 		has_country_flag = schliffen_plan_failed
 	}
 	abort = {
@@ -590,19 +595,63 @@ GER_beat_russia_slowly_2 = {
 	ai_strategy = {
 		type = area_priority
 		id = eastern_front
-		value = 35
+		value = 25
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS		
-		value = -25		# a lot less troops now
+		value = 15		# less troops now
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.65
+		ratio = 0.6
+		priority = 25
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
+
+GER_beat_russia_slowly_3 = {
+	allowed = {
+		original_tag = GER	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = RUS
+		has_war_with = FRA
+		RUS = { surrender_progress > 0.15 }
+		has_country_flag = schliffen_plan_failed
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.15
+			RUS = { has_capitulated = yes }	
+		}
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = eastern_front
+		value = 15
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = RUS		
+		value = -20		# a lot less troops now
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = RUS
+		ratio = 0.6
 		priority = 25
 		ordertype = front
 		execution_type = careful
@@ -696,6 +745,28 @@ GER_bomb_england = {
 }
 
 
+GER_let_austria_defend_itself_at_first = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = AUH
+		war_length_with = { tag = RUS  months < 12 }
+	}
+	abort = {
+		has_war_together_with = AUH
+		AUH = { surrender_progress > 0.2 }
+	}
+	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "AUH"
+		value = 1
+	}	
+}
+
+
 GER_let_turkey_defend_itself = {
 	allowed = {
 		original_tag = GER
@@ -706,7 +777,7 @@ GER_let_turkey_defend_itself = {
 	}
 	abort = {
 		has_war_together_with = TUR
-		TUR = { surrender_progress > 0.2 }
+		TUR = { surrender_progress > 0.1 }
 	}
 	
 	ai_strategy = {

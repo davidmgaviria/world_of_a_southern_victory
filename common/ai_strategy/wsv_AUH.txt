@@ -157,45 +157,6 @@ AUH_increase_army = {		# massively increase size
 }
 
 
-AUH_serbia_is_primary_rival = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		OR = {
-			has_war_with = SER
-			has_global_flag = franzferdinand_assassinated
-		}
-	}
-	abort = {
-		OR = {
-			has_global_flag = serbia_submitted_to_austria
-			SER = { has_capitulated = yes }
-			surrender_progress > 0.2
-		}
-	}
-
-	ai_strategy = {
-		type = conquer	
-		id = "SER"			
-		value = 100
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = SER 
-		value = 200
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = RUS 
-		value = -40
-	}
-}
-
-
 AUH_opening_serbia_attack = {
 	allowed = {
 		original_tag = AUH
@@ -211,7 +172,7 @@ AUH_opening_serbia_attack = {
 			AND = {
 				has_war_with = SER  #dont abort before
 				OR = {
-					surrender_progress > 0.1
+					surrender_progress > 0.15
 					casualties_inflicted_by = { opponent = SER   thousands > 200 }
 				}
 			}
@@ -221,13 +182,13 @@ AUH_opening_serbia_attack = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER 
-		value = 150
+		value = 250
 	}
 
 	ai_strategy = {
-		type = prepare_for_war	
-		id = "RUS"			
-		value = 50
+		type = conquer	
+		id = "SER"			
+		value = 150
 	}
 
 	ai_strategy = {
@@ -246,50 +207,73 @@ AUH_opening_serbia_attack = {
 		execute_order = no
 		manual_attack = yes
 	}
+	
+	ai_strategy = {
+		type = prepare_for_war	
+		id = "RUS"			
+		value = 50
+	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -10
+		value = -40
 	}
 }
 
 
-AUH_defensive_if_lack_of_guns_against_SER = {
+AUH_pause_against_serbia = {
 	allowed = {
-		original_tag = AUH		
+		original_tag = AUH
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = SER
-		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.03
+		casualties_inflicted_by = { opponent = SER   thousands > 200 }
+		# build up before attacking
+		OR = {
+			NOT = { BUL = { has_war_with = SER } }
+			has_army_size = { size < 1500000 }
 		}
 	}
 	abort = {
 		OR = {
-			has_war_together_with = BUL  # attack if Bulgaria attacked
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
-		}		
+			has_global_flag = serbia_submitted_to_austria
+			SER = { has_capitulated = yes }
+			surrender_progress > 0.2
+		}
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.5
+		ratio = 0.6
 		priority = 1
 		ordertype = front
 		execution_type = balanced
 		execute_order = no
 		manual_attack = yes
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = SER 
+		value = 200
+	}
+
+	ai_strategy = {
+		type = conquer	
+		id = "SER"			
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = RUS 
+		value = -35
+	}
 }
+
 
 
 AUH_defensive_if_lack_of_guns_agains_RUS = {
@@ -408,6 +392,31 @@ AUH_attack_albania = {
 		value = 50
 	}
 }
+
+
+AUH_aid_bulgaria_offensive = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = SER
+		BUL = { has_war_with = SER }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = SER
+		ratio = 0.6
+		priority = 50
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
 
 
 AUH_germany_can_handle_itself = {

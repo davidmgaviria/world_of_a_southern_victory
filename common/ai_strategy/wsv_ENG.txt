@@ -416,15 +416,15 @@ ENG_increase_army_for_greatwar = {
 		surrender_progress > 0.15
 	}
 
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 200
-	}
+	# ai_strategy = {
+    # 	type = force_build_armies
+    # 	value = 100
+	# }
+	# ai_strategy = {
+	#     type = build_army
+	#     id = infantry
+	#     value = 200
+	# }
 
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
@@ -592,6 +592,7 @@ ENG_launch_offensives_against_GER = {
 	enable = {
 		has_war_with = GER
 		is_in_faction_with = FRA
+		has_army_size = { size > 1500000 }   # wait to build up army	
 		# launch offensives every 6 months (alongisde France)
 		set_temp_variable = { days = global.num_days }
 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
@@ -599,24 +600,17 @@ ENG_launch_offensives_against_GER = {
 	}
 	abort = {
 		surrender_progress > 0.15	
-		has_army_size = { size < 1500000 }   # wait to build up army	
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = GER
-		ratio = 0.7
+		ratio = 0.6
 		priority = 25
 		ordertype = front
 		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = GER
-		value = -15
 	}
 }
 
