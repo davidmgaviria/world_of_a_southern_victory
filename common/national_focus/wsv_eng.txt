@@ -500,8 +500,8 @@ focus_tree = {
 
 		
 	focus = {
-		id = ENG_military_conscription_act
-		icon = GFX_focus_generic_limited_social_mobilization
+		id = ENG_expand_the_army
+		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = ENG_continental_intervention }
 		cost = 10
 		x = 0
@@ -519,9 +519,16 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			add_manpower = 300000
+			if = {
+				limit = { is_ai = no }
+				add_manpower = 500000
+			}
+			else = {
+				# ai is stupid so just give them conscription
+				add_ideas = limited_conscription
+				add_manpower = 300000
+			}
 			remove_ideas = ENG_professional_army
-			#add_ideas = limited_conscription
 		}
 	}
 
@@ -558,12 +565,12 @@ focus_tree = {
 	focus = {
 		id = ENG_business_as_usual
 		icon = GFX_focus_DEN_no_regulations  
-		prerequisite = { focus = ENG_military_conscription_act }
+		prerequisite = { focus = ENG_expand_the_army }
 		#prerequisite = { focus = ENG_blockade_germany }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = ENG_military_conscription_act
+		relative_position_id = ENG_expand_the_army
 
 		ai_will_do = { factor = 1 }
 
@@ -582,11 +589,11 @@ focus_tree = {
 	focus = {
 		id = ENG_tank_project
 		icon = GFX_hoi4tgw_renaultft
-		prerequisite = { focus = ENG_military_conscription_act }
+		prerequisite = { focus = ENG_expand_the_army }
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = ENG_military_conscription_act
+		relative_position_id = ENG_expand_the_army
 
 		ai_will_do = { factor = 1 }
 
@@ -610,6 +617,35 @@ focus_tree = {
 				technology = ww1_light_tank
 				technology = ww1_heavy_tank
 			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_military_conscription_act
+		icon = GFX_focus_generic_limited_social_mobilization
+		prerequisite = { focus = ENG_expand_the_army }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = ENG_expand_the_army
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war_with_major = yes
+			OR = {
+				longest_war_length > 18
+				casualties > 350000
+			}
+		}
+
+		bypass = {
+			has_extensive_conscription_or_more = yes
+		}
+
+		completion_reward = { 
+			increase_conscription_tier_effect = yes
 		}
 	}
 

@@ -137,6 +137,33 @@ news_event = {
 				greatwar_loser_effect = yes
 			}
 
+			# ## France leaves war  ## TODO - add when we created 'collapse entente' scripted effect
+			# FRA = {	
+			# 	if= { 
+			# 		limit = { is_in_faction = yes } 
+			# 		# if entente leader, decide what to do with entente
+			# 		if = { 
+			# 			limit = { is_faction_leader = yes  has_country_flag = entente_leader }
+			# 			clr_country_flag = entente_leader
+			# 			if = {
+			# 				# transfer leadership to Russia if we can
+			# 				limit = { is_in_faction_with = RUS }
+			# 				RUS = {
+			# 					set_faction_leader = yes
+			# 					set_country_flag = entente_leader
+			# 				}
+			# 			}
+			# 			else = {
+			# 				# otherwise collapse the entente
+			# 				collapse_entente_effect = yes
+			# 			}
+			# 		}
+			# 		# leave faction normally if not leader
+			# 		else = { leave_faction = yes }
+			# 	}
+			# 	greatwar_loser_effect = yes
+			# }
+
 			## transfer territory to minor combatants if fighting France
 			BRA = {
 				if = {
@@ -282,9 +309,12 @@ news_event = {
 				if = {
 					limit = { has_war_with = RUS }
 					transfer_state = 843
-					transfer_state = 229
-					transfer_state = 230
-					transfer_state = 231
+					ARM = { transfer_state = 230 }
+					AZR = { transfer_state = 229 }
+					GEO = { transfer_state = 231 }
+					give_guarantee = ARM
+					give_guarantee = AZR
+					give_guarantee = GEO
 					white_peace = RUS
 				}	
 			}

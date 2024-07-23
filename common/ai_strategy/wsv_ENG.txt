@@ -143,7 +143,7 @@ ENG_gw_equipment_and_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 65	 
+		value = 80	 
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -410,21 +410,17 @@ ENG_increase_army_for_greatwar = {
 	}
 	enable = {
 		has_war_with_major = yes
-		has_army_manpower = { size < 2000000 }
 	}
 	abort = {
 		surrender_progress > 0.15
 	}
 
-	# ai_strategy = {
-    # 	type = force_build_armies
-    # 	value = 100
-	# }
-	# ai_strategy = {
-	#     type = build_army
-	#     id = infantry
-	#     value = 200
-	# }
+	
+	ai_strategy = {
+	    type = role_ratio
+	    id = infantry
+	    value = 50	# stacks, need a lot more men
+	}
 
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
