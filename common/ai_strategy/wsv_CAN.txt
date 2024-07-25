@@ -53,7 +53,10 @@ CAN_build_army = {
 	}
 	enable = {
 		date > 1912.1.1
-		has_army_manpower = { size < 400000 }
+		OR = {
+			has_army_manpower = { size < 300000 }
+			num_divisions < 65
+		}
 		has_war = no
 	}
 	abort_when_not_enabled = yes
@@ -61,13 +64,13 @@ CAN_build_army = {
 	ai_strategy = {
 	    type = build_army
 	    id = infantry
-	    value = 75
+	    value = 100
 	}
 
 	ai_strategy = {
 	    type = build_army
 	    id = garrison
-	    value = 150
+	    value = 75
 	}
 
 	ai_strategy = {
