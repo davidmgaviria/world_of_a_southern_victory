@@ -45,6 +45,7 @@ country_event = {
 		if = {
 			## treaties with Germany
 			limit = { tag = GER }
+			save_event_target_as = centralpowers_leader
 			if = {
 				# France
 				limit = { FROM = { tag = FRA } } 
@@ -111,58 +112,27 @@ news_event = {
 
 			## France leaves war
 			FRA = {	
-				if= { 
-					limit = { is_in_faction = yes } 
-					# if entente leader, decide what to do with entente
-					if = { 
-						limit = { is_faction_leader = yes  has_country_flag = entente_leader }
-						clr_country_flag = entente_leader
-						if = {
-							# transfer leadership to Russia if we can
-							limit = { is_in_faction_with = RUS }
-							RUS = {
-								set_faction_leader = yes
-								set_country_flag = entente_leader
-							}
-						}
-						else = {
-							# otherwise entente collapsed
-							set_global_flag = collapse_of_entente
-							news_event = { id = wsv_peace_treaty.12  days = 1 }
-						}
+				# if entente leader, try to pass leadership or collapse entente
+				if = { 
+					limit = { is_faction_leader = yes  has_country_flag = entente_leader }
+					if = {
+						# transfer leadership to Russia if we can
+						limit = { is_in_faction_with = RUS }
+						RUS = { set_faction_leader = yes   set_country_flag = entente_leader }  
+						leave_faction = yes  	# France loses leadership when it leaves faction (on_action effect)
 					}
-					# always leave faction
+					else = {
+						# otherwise collapse the entente
+						collapse_entente_effect = yes
+					}
+				}
+				# leave faction normally if not entente leader (if leader of a different faction dont leave)
+				else_if = {
+					limit = { is_faction_leader = no  is_in_faction = yes } 
 					leave_faction = yes 
 				}
 				greatwar_loser_effect = yes
 			}
-
-			# ## France leaves war  ## TODO - add when we created 'collapse entente' scripted effect
-			# FRA = {	
-			# 	if= { 
-			# 		limit = { is_in_faction = yes } 
-			# 		# if entente leader, decide what to do with entente
-			# 		if = { 
-			# 			limit = { is_faction_leader = yes  has_country_flag = entente_leader }
-			# 			clr_country_flag = entente_leader
-			# 			if = {
-			# 				# transfer leadership to Russia if we can
-			# 				limit = { is_in_faction_with = RUS }
-			# 				RUS = {
-			# 					set_faction_leader = yes
-			# 					set_country_flag = entente_leader
-			# 				}
-			# 			}
-			# 			else = {
-			# 				# otherwise collapse the entente
-			# 				collapse_entente_effect = yes
-			# 			}
-			# 		}
-			# 		# leave faction normally if not leader
-			# 		else = { leave_faction = yes }
-			# 	}
-			# 	greatwar_loser_effect = yes
-			# }
 
 			## transfer territory to minor combatants if fighting France
 			BRA = {
@@ -227,14 +197,8 @@ news_event = {
 				transfer_state = 776
 			}
 			
-			## White peace everyone with France
-			every_country = {
-			    limit = {
-				    has_war_with = FRA
-					is_in_faction_with = GER
-				}
-				white_peace = FRA
-			}
+			## White peace with Germany
+			FRA = { white_peace = event_target:centralpowers_leader }
 		}
 	}
 
@@ -289,16 +253,14 @@ news_event = {
 
 			## Russia leaves war
 			RUS = {	
-				if= { 
-					limit = { is_in_faction = yes } 
-					# if entente leader, collapse entente (can only be leader if france already fell)
-					if = { 
-						limit = { is_faction_leader = yes  has_country_flag = entente_leader }
-						clr_country_flag = entente_leader
-						set_global_flag = collapse_of_entente
-						news_event = { id = wsv_peace_treaty.12  days = 1 }
-					}
-					# always leave faction
+				# if entente leader, collapse entente (can only be leader if france already fell)
+				if = { 
+					limit = { is_faction_leader = yes   has_country_flag = entente_leader }
+					collapse_entente_effect = yes
+				}
+				# leave faction normally if not entente leader (if leader of a different faction dont leave)
+				else_if = {
+					limit = { is_faction_leader = no  is_in_faction = yes } 
 					leave_faction = yes 
 				}
 				greatwar_loser_effect = yes
@@ -424,14 +386,8 @@ news_event = {
 				}
 			}
 			
-			## White peace everyone with Russia
-			every_country = {
-			    limit = {
-				    has_war_with = RUS
-					is_in_faction_with = GER
-				}
-				white_peace = RUS
-			}
+			## White peace with Germany
+			RUS = { white_peace = event_target:centralpowers_leader }
 		}
 	}
 
@@ -644,13 +600,111 @@ news_event = {
 }
 
 
+## TODO - Italy defeated
+
+
 ##################################################################################
-## -- Other Nations
+## -- Reordering of Europe
 ##################################################################################
 
+## Central Powers reordered Europe (hidden effect for Central Powers leader)
+country_event = {
+	id = wsv_peace_treaty.20
+	title = wsv_peace_treaty.20.t
+	desc = wsv_peace_treaty.20.d
+
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		set_global_flag = centralpowers_reordered_europe
+		hidden_effect = {
+			# Austrian spoils of war
+			AUH = {
+				if = { 
+					limit = { has_country_flag = centralpowers_member }
+					# puppet Serbia & Albania
+					if = {
+						limit = { is_in_array = { array = global.entente_loser_members  value = SER.id } }
+						set_autonomy = { target = SER  autonomous_state = autonomy_puppet }
+					}
+					if = {
+						limit = { is_in_array = { array = global.entente_loser_members  value = ALB.id } }
+						set_autonomy = { target = ALB  autonomous_state = autonomy_puppet }
+					}
+					# annex MNT
+					if = {
+						limit = { is_in_array = { array = global.entente_loser_members  value = MNT.id } }
+						annex_country = { target = MNT  transfer_troops = no }
+					}
+					# get resource rights to Romania
+					ROM = {
+						give_resource_rights = {
+							receiver = AUH
+							state = 46
+							resources = { oil }
+						}
+					}
+				}
+			}
+
+			# Bulgarian spoils of war
+			BUL = {
+				if = { 
+					limit = { has_country_flag = centralpowers_member }
+					# take part of Serbia & Romania
+					if = {
+						limit = { is_in_array = { array = global.entente_loser_members  value = SER.id } }
+						transfer_state = 759  transfer_state = 106  transfer_state = 759  transfer_state = 18  transfer_state = 108
+					}
+					if = {
+						limit = { is_in_array = { array = global.entente_loser_members  value = ROM.id } }
+						transfer_state = 77  transfer_state = 842
+					}
+					# take part of Greece
+					if = {
+						limit = { 
+							OR = {
+								is_in_array = { array = global.entente_loser_members  value = GRE.id } 
+								is_in_array = { array = global.entente_loser_members  value = GNU.id } 
+							}
+						}
+						transfer_state = 184  transfer_state = 731
+					}
+					# take part of Turkey if we were fighting them
+					if = {
+						limit = { is_in_array = { array = global.entente_loser_members  value = TUR.id } }
+						transfer_state = 756
+					}
+				}
+			}
+
+			## Greece reabsorbs GNU if it exists
+			if = {
+				limit = { country_exists = GNU }
+				GRE = { annex_country = { target = GNU  transfer_troops = yes } }
+			}
+
+			## Dismantle Entente
+			random_country = {
+				limit = { has_country_flag = entente_leader }
+				dismantle_faction = yes
+				clr_country_flag = entente_leader
+			}
+			clear_array = global.entente_loser_members
+		}
+	}
+
+	option = {
+		name = wsv_peace_treaty.20.a
+	}
+}
 
 
-## Italy defeated
+
+
+
+
 
 
 
@@ -658,47 +712,53 @@ news_event = {
 
 ## Entente country requests peace
 country_event = {
-	id = wsv_peace_treaty.20
-	title = wsv_peace_treaty.20.t
-	desc = wsv_peace_treaty.20.d
+	id = wsv_peace_treaty.50
+	title = wsv_peace_treaty.50.t
+	desc = wsv_peace_treaty.50.d
 
 	is_triggered_only = yes
 
 	# Accept peace
 	option = {
-		name = wsv_peace_treaty.20.a
+		name = wsv_peace_treaty.50.a
 		## determine countries
 		if = {
-			## treaties with Germany
+			## treaties in Europe
 			limit = { OR = { tag = FRA   tag = RUS } }
 			save_event_target_as = entente_leader
 			if = {
 				# Germany
 				limit = { FROM = { tag = GER } } 
-				news_event = { id = wsv_peace_treaty.21  days = 1 }
+				news_event = { id = wsv_peace_treaty.51  days = 1 }
 				custom_effect_tooltip = versailles_treaty_tt
 			}
 			else_if = {
 				# AUH
 				limit = { FROM = { tag = AUH } } 
-				news_event = { id = wsv_peace_treaty.23  days = 1 }
+				news_event = { id = wsv_peace_treaty.53  days = 1 }
 				custom_effect_tooltip = saint_germain_treaty_tt
 			}
 			else_if = {
 				# Turkey
 				limit = { FROM = { tag = TUR } } 
-				news_event = { id = wsv_peace_treaty.24  days = 1 }
+				news_event = { id = wsv_peace_treaty.54  days = 1 }
 				custom_effect_tooltip = sevres_treaty_tt
+			}
+			else_if = {
+				# Bulgaria
+				limit = { FROM = { tag = BUL } } 
+				news_event = { id = wsv_peace_treaty.56  days = 1 }
+				custom_effect_tooltip = neuilly_treaty_tt
 			}
 		}
 		else_if = {
-			# treaties with USA
+			# treaties in North America
 			limit = { OR = { tag = CSA   tag = ENG } }
 			save_event_target_as = anti_usa_leader
 			if = {
 				# USA
 				limit = { FROM = { tag = USA } } 
-				news_event = { id = wsv_peace_treaty.25  days = 1 }
+				news_event = { id = wsv_peace_treaty.55  days = 1 }
 				custom_effect_tooltip = baltimore_treaty_tt
 			}
 		}
@@ -707,7 +767,7 @@ country_event = {
 
 	# Keep fighting
 	option = {
-		name = wsv_peace_treaty.20.b
+		name = wsv_peace_treaty.50.b
 		FROM = { country_event = { id = wsv_peace_treaty.1  days = 1 } }  # generic refused peace
 		ai_chance = { factor = 0 }
 	}
@@ -720,9 +780,9 @@ country_event = {
 ##################################################################################
 
 news_event = {
-	id = wsv_peace_treaty.21
-	title = wsv_peace_treaty.21.t
-	desc = wsv_peace_treaty.21.d
+	id = wsv_peace_treaty.51
+	title = wsv_peace_treaty.51.t
+	desc = wsv_peace_treaty.51.d
 	picture = news_event_wsv_armistice
 
 	major = yes
@@ -744,10 +804,8 @@ news_event = {
 					limit = { is_in_faction = yes } 
 					# Collapse Central powers if faction leader
 					if = { 
-						limit = { is_faction_leader = yes }
-						set_global_flag = collapse_of_centralpowers
-						dismantle_faction = yes
-						news_event = { id = wsv_peace_treaty.22  days = 1 }
+						limit = { is_faction_leader = yes  has_country_flag = centralpowers_leader }
+						collapse_centralpowers_effect = yes
 					}
 					else = { leave_faction = yes }
 				}
@@ -892,16 +950,16 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_peace_treaty.21.a
+		name = wsv_peace_treaty.51.a
 	}
 }
 
 
 ## Collapse of Central powers event
 news_event = {
-	id = wsv_peace_treaty.22
-	title = wsv_peace_treaty.22.t
-	desc = wsv_peace_treaty.22.d
+	id = wsv_peace_treaty.52
+	title = wsv_peace_treaty.52.t
+	desc = wsv_peace_treaty.52.d
 	picture = news_event_faction_collapse
 
 	major = yes
@@ -912,7 +970,7 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_peace_treaty.22.a
+		name = wsv_peace_treaty.52.a
 	}
 }
 
@@ -923,9 +981,9 @@ news_event = {
 ##################################################################################
 
 news_event = {
-	id = wsv_peace_treaty.23
-	title = wsv_peace_treaty.23.t
-	desc = wsv_peace_treaty.23.d
+	id = wsv_peace_treaty.53
+	title = wsv_peace_treaty.53.t
+	desc = wsv_peace_treaty.53.d
 	picture = news_event_wsv_armistice
 
 	major = yes
@@ -981,6 +1039,12 @@ news_event = {
 					transfer_state = 39
 					transfer_state = 763
 					transfer_state = 163
+					# italy temporarily takes tyrol to attack Germany from south
+					if = {
+						limit = { has_war_with = GER }
+						country_event = { id = wsv_auh.12  days = 1 }  
+						AUH = { country_event = { id = wsv_auh.12  days = 1 } }  # informational event
+					}
 					# serbia takes this if AUH was cut off from the coast
 					SER = { 
 						if = {
@@ -1037,7 +1101,7 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_peace_treaty.23.a
+		name = wsv_peace_treaty.53.a
 	}
 }
 
@@ -1047,9 +1111,9 @@ news_event = {
 ##################################################################################
 
 news_event = {
-	id = wsv_peace_treaty.24
-	title = wsv_peace_treaty.24.t
-	desc = wsv_peace_treaty.24.d
+	id = wsv_peace_treaty.54
+	title = wsv_peace_treaty.54.t
+	desc = wsv_peace_treaty.54.d
 	picture = news_event_wsv_armistice
 
 	major = yes
@@ -1153,7 +1217,7 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_peace_treaty.24.a
+		name = wsv_peace_treaty.54.a
 	}
 }
 
@@ -1164,9 +1228,9 @@ news_event = {
 ##################################################################################
 
 news_event = {
-	id = wsv_peace_treaty.25
-	title = wsv_peace_treaty.25.t
-	desc = wsv_peace_treaty.25.d
+	id = wsv_peace_treaty.55
+	title = wsv_peace_treaty.55.t
+	desc = wsv_peace_treaty.55.d
 	picture = news_event_wsv_armistice
 
 	major = yes
@@ -1244,7 +1308,7 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_peace_treaty.25.a
+		name = wsv_peace_treaty.55.a
 	}
 }
 
@@ -1255,9 +1319,9 @@ news_event = {
 
 ## Bulgaria defeated ###
 news_event = {
-	id = wsv_peace_treaty.26
-	title = wsv_peace_treaty.26.t
-	desc = wsv_peace_treaty.26.d
+	id = wsv_peace_treaty.56
+	title = wsv_peace_treaty.56.t
+	desc = wsv_peace_treaty.56.d
 	picture = news_event_wsv_armistice
 
 	major = yes
@@ -1282,7 +1346,7 @@ news_event = {
 					transfer_state = 731
 				}
 			}
-			# transfer state to Greece
+			# transfer state to Serbia
 			SER = {
 				if = {
 					limit = { has_war_with = BUL }
@@ -1290,6 +1354,14 @@ news_event = {
 					transfer_state = 759	
 					transfer_state = 818
 					transfer_state = 760
+				}
+			}
+			# transfer states to Romania
+			ROM = {
+				if = {
+					limit = { has_war_with = BUL }
+					transfer_state = 842 	
+					transfer_state = 77	
 				}
 			}
 
@@ -1305,7 +1377,7 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_peace_treaty.26.a
+		name = wsv_peace_treaty.56.a
 	}
 }
 

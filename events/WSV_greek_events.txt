@@ -184,13 +184,16 @@ country_event = {
 			AND = {
 				FRA = { 
 					is_in_faction_with = GNU
-					NOT = { is_in_faction_with = RUS }
+					OR = {
+						has_global_flag = tsar_of_russia_abdicated
+						NOT = { is_in_faction_with = RUS }
+					}
 				}
-				GNU = { NOT = { has_country_flag = gnu_formed_cooldown } }
 			}
 		}
-		NOT = { has_global_flag = greece_reunited }
 	}
+
+	mean_time_to_happen = { days = 70 }
 
 	# For Greece
 	option = {

@@ -3,102 +3,136 @@
 
 #################### Political struggle when Tsar abdicates ####################
 
-RUS_political_crisis_cat = {
+# RUS_political_crisis_cat = {
 
-	# patriotic speeches
-	RUS_patriotic_speeches = {
-		icon = generic_civil_support
+# 	# patriotic speeches
+# 	RUS_patriotic_speeches = {
+# 		icon = generic_civil_support
 
-		visible = {
-			always = yes
-		}
+# 		visible = {
+# 			always = yes
+# 		}
 
-		cost = 25
-		days_re_enable = 30
+# 		cost = 25
+# 		days_re_enable = 30
 
-		complete_effect = {
-			add_war_support = 0.05
-			slightly_increase_white_support_effect = yes
-		}
+# 		complete_effect = {
+# 			add_war_support = 0.05
+# 			slightly_increase_white_support_effect = yes
+# 		}
 
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 1
-				has_war_support < 0.5
-			}
-		}
-	}
-
-
-	# distribute grain
-	RUS_distribute_grain = {
-		icon = ger_mefo_bills
-
-		visible = {
-			always = yes
-		}
-
-		cost = 40
-		days_re_enable = 30
-
-		complete_effect = {
-			add_stability = 0.05
-			increase_white_support_effect = yes
-		}
-
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 1
-				has_stability  < 0.5
-			}
-			modifier = {
-				add = 2
-				has_stability  < 0.3
-			}
-		}
-	}
+# 		ai_will_do = {
+# 			factor = 0
+# 			modifier = {
+# 				add = 1
+# 				has_war_support < 0.5
+# 			}
+# 		}
+# 	}
 
 
-	# suppress reds
-	RUS_suppress_communists = {
-		icon = oppression
+# 	# distribute grain
+# 	RUS_distribute_grain = {
+# 		icon = ger_mefo_bills
 
-		visible = {
-			always = yes
-		}
+# 		visible = {
+# 			always = yes
+# 		}
 
-		cost = 50
-		days_re_enable = 30
+# 		cost = 40
+# 		days_re_enable = 30
 
-		complete_effect = {
-			slightly_decrease_red_support_effect = yes
-		}
+# 		complete_effect = {
+# 			add_stability = 0.05
+# 			increase_white_support_effect = yes
+# 		}
 
-		ai_will_do = {
-			factor = 0
-			modifier = {
-				add = 1
-				check_variable = { RUS.red_support > 20 }
-			}
-			modifier = {
-				add = 1
-				check_variable = { RUS.red_support > 40 }
-			}
-			modifier = {
-				add = 1
-				check_variable = { RUS.red_support > 65 }
-			}
-		}
-	}
-}
+# 		ai_will_do = {
+# 			factor = 0
+# 			modifier = {
+# 				add = 1
+# 				has_stability  < 0.5
+# 			}
+# 			modifier = {
+# 				add = 2
+# 				has_stability  < 0.3
+# 			}
+# 		}
+# 	}
+
+
+# 	# suppress reds
+# 	RUS_suppress_communists = {
+# 		icon = oppression
+
+# 		visible = {
+# 			always = yes
+# 		}
+
+# 		cost = 50
+# 		days_re_enable = 30
+
+# 		complete_effect = {
+# 			slightly_decrease_red_support_effect = yes
+# 		}
+
+# 		ai_will_do = {
+# 			factor = 0
+# 			modifier = {
+# 				add = 1
+# 				check_variable = { RUS.red_support > 20 }
+# 			}
+# 			modifier = {
+# 				add = 1
+# 				check_variable = { RUS.red_support > 40 }
+# 			}
+# 			modifier = {
+# 				add = 1
+# 				check_variable = { RUS.red_support > 65 }
+# 			}
+# 		}
+# 	}
+# }
 
 
 
 #################### Great War capitulation ####################
 
 wsv_great_war_decisions = {
+
+	## october revolution
+	RUS_october_revolution_brewing = {
+		icon = decision_revolt 
+		priority = 50
+
+		allowed = {
+			tag = RUS
+		}
+		activation = {
+			has_global_flag = tsar_of_russia_abdicated
+			NOT = { has_country_flag = political_crisis_resolved }
+			NOT = { has_global_flag = russian_revolution_occured }
+		}
+		available = {
+			has_country_flag = political_crisis_resolved   # condition to cancel
+			AND = {
+				has_war = no
+				NOT = { has_country_flag = russia_lost_greatwar }
+			}
+		}
+
+		days_mission_timeout = 250
+		is_good = no
+
+		timeout_effect = {
+			news_event = wsv_russia.110
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
 	
 	# Russia throws in the towel
 	greatwar_russia_peace_with_germany = {
@@ -153,17 +187,14 @@ wsv_great_war_decisions = {
 					}
 				}
 			}
-
-			# Civil war is really bad
-			modifier = {
-				add = 2
-				has_war_with = SOV
-			}
-
-			# If we're completey losing, give up
+		
+			# If we're completey losing or have civil war, give up
 			modifier = {
 				add = 10
-				surrender_progress > 0.55
+				OR = {
+					has_war_with = SOV
+					surrender_progress > 0.55
+				}
 			}
 		}
 	}

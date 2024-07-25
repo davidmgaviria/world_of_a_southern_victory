@@ -26,28 +26,84 @@ greatwar_loser_effect = {
 }
 
 
-## Entente collapses
-# collapse_entente_effect = {
-# 	# kick other majors and none european countries (so they dont peace out)
-# 	every_country = {
-# 		limit = {
-# 			has_country_flag = entente_member
-# 			OR = {
-# 				NOT = { capital_scope = { is_on_continent = europe } }
-# 				is_major = yes
-# 			}
-# 		}
-# 		# set_country_flag = former_entente_member
-# 		leave_faction = yes
-# 	}
 
-# 	# white peace remainder of faction with the coutnry we surrendered to
-# 	ROOT = { white_peace = event_target:centralpowers_leader }
-# 	# news event of entente collapse
-# 	set_global_flag = collapse_of_entente
-# 	news_event = { id = wsv_peace_treaty.12  days = 1 }
-# 	# TODO - reordering of europe event
-# }
+## Entente collapses (ROOT is leader)
+collapse_entente_effect = {
+	## determine action for entente countries
+	every_country = {
+		limit = { 
+			has_country_flag = entente_member
+			is_faction_leader = no
+		}
+		# kick other majors and none european countries (so they dont peace out)
+		if = {
+			limit = { 
+				OR = {
+					NOT = { capital_scope = { is_on_continent = europe } }
+					is_major = yes
+					tag = ITA   # has seperate peace
+				}
+			}
+			set_country_flag = former_entente_member
+			leave_faction = yes
+		}
+		# countries remaining also leave, but are added to an array of 'losers'
+		else = {
+			add_to_array = {
+				array = global.entente_loser_members
+				value = THIS.id
+			}
+			leave_faction = yes
+			white_peace = event_target:centralpowers_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
+			greatwar_loser_effect = yes
+		}
+	}
+	## news event of entente collapse (delayed to let current peace treaty take effect)
+	dismantle_faction = yes
+	set_global_flag = collapse_of_entente
+	news_event = { id = wsv_peace_treaty.12  days = 1 }
+}
+
+
+
+## Central Powers collapses (ROOT is leader)
+collapse_centralpowers_effect = {
+	## determine action for entente countries
+	every_country = {
+		limit = { 
+			has_country_flag = centralpowers_member
+			is_faction_leader = no
+		}
+		# kick other majors and none european countries (so they dont peace out)
+		if = {
+			limit = { 
+				OR = {
+					NOT = { capital_scope = { is_on_continent = europe } }
+					is_major = yes
+					tag = ITA   # has seperate peace
+					tag = BUL   # has seperate peace
+					tag = TUR   # has seperate peace
+				}
+			}
+			set_country_flag = former_centralpowers_member
+			leave_faction = yes
+		}
+		# countries remaining also leave, but peace out and are added to an array of 'losers'
+		else = {
+			add_to_array = {
+				array = global.centralpowers_loser_members
+				value = THIS.id
+			}
+			leave_faction = yes
+			white_peace = event_target:entente_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
+			greatwar_loser_effect = yes
+		}
+	}
+	## news event of Central powers collapse (delayed to let current peace treaty take effect)
+	dismantle_faction = yes
+	set_global_flag = collapse_of_centralpowers
+	news_event = { id = wsv_peace_treaty.52  days = 1 }
+}
 
 
 
@@ -241,56 +297,56 @@ decrease_militancy_by_10_effect = {
 
 ########### Russian Political Crisis ############ 
 
-## Whites
-slightly_increase_white_support_effect = {
-	add_to_variable = { RUS.white_support = 5 }
-	custom_effect_tooltip = slightly_increase_white_support_tt
-}
+# ## Whites
+# slightly_increase_white_support_effect = {
+# 	add_to_variable = { RUS.white_support = 5 }
+# 	custom_effect_tooltip = slightly_increase_white_support_tt
+# }
 
-increase_white_support_effect = {
-	add_to_variable = { RUS.white_support = 10 }
-	custom_effect_tooltip = increase_white_support_tt
-}
+# increase_white_support_effect = {
+# 	add_to_variable = { RUS.white_support = 10 }
+# 	custom_effect_tooltip = increase_white_support_tt
+# }
 
-slightly_decrease_white_support_effect = {
-	if = {
-		limit = { check_variable = { RUS.white_support > 4 } }
-		subtract_from_variable = { RUS.white_support = 5 }
-	}
-	else = {
-		set_variable = { RUS.white_support = 0 }
-	}
-	custom_effect_tooltip = decrease_white_support_tt
-}
+# slightly_decrease_white_support_effect = {
+# 	if = {
+# 		limit = { check_variable = { RUS.white_support > 4 } }
+# 		subtract_from_variable = { RUS.white_support = 5 }
+# 	}
+# 	else = {
+# 		set_variable = { RUS.white_support = 0 }
+# 	}
+# 	custom_effect_tooltip = decrease_white_support_tt
+# }
 
 
-## Reds
-increase_red_support_effect = {
-	add_to_variable = { RUS.red_support = 10 }
-	custom_effect_tooltip = increase_red_support_tt
-}
+# ## Reds
+# increase_red_support_effect = {
+# 	add_to_variable = { RUS.red_support = 10 }
+# 	custom_effect_tooltip = increase_red_support_tt
+# }
 
-slightly_decrease_red_support_effect = {
-	if = {
-		limit = { check_variable = { RUS.red_support > 4 } }
-		subtract_from_variable = { RUS.red_support = 5 }
-	}
-	else = {
-		set_variable = { RUS.red_support = 0 }
-	}
-	custom_effect_tooltip = decrease_red_support_tt
-}
+# slightly_decrease_red_support_effect = {
+# 	if = {
+# 		limit = { check_variable = { RUS.red_support > 4 } }
+# 		subtract_from_variable = { RUS.red_support = 5 }
+# 	}
+# 	else = {
+# 		set_variable = { RUS.red_support = 0 }
+# 	}
+# 	custom_effect_tooltip = decrease_red_support_tt
+# }
 
-massively_decrease_red_support_effect = {
-	if = {
-		limit = { check_variable = { RUS.red_support > 24 } }
-		subtract_from_variable = { RUS.red_support = 25 }
-	}
-	else = {
-		set_variable = { RUS.red_support = 0 }
-	}
-	custom_effect_tooltip = massively_decrease_red_support_tt
-}
+# massively_decrease_red_support_effect = {
+# 	if = {
+# 		limit = { check_variable = { RUS.red_support > 24 } }
+# 		subtract_from_variable = { RUS.red_support = 25 }
+# 	}
+# 	else = {
+# 		set_variable = { RUS.red_support = 0 }
+# 	}
+# 	custom_effect_tooltip = massively_decrease_red_support_tt
+# }
 
 
 ##############################################################

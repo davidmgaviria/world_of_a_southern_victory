@@ -59,7 +59,7 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_franco_british_split
-		#icon = GFX_focus_ARG_cut_ties_with_britain
+		icon = GFX_focus_ARG_cut_ties_with_britain
 		prerequisite = { focus = FRA_occupy_morocco }
 		mutually_exclusive = { focus=FRA_reaffirm_ties_britain  }
 
@@ -71,12 +71,13 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 
 		available = {
-			has_global_flag = path_complete
 			has_global_flag = britain_abandoned_france_in_agadir
-
+			NOT = { is_in_faction_with = ENG }
 		}
 
-		#bypass = {}
+		bypass = {
+			NOT = { has_non_aggression_pact_with = ENG }
+		}
 
 		completion_reward = { 
 			diplomatic_relation = {
@@ -84,17 +85,15 @@ focus_tree = {
 				relation = non_aggression_pact
 				active = no
 			}
-			# - TOOD - country event for britain
+			ENG = { country_event = wsv_france.50 }
 		}
 	}
 
 		
 	focus = {
 		id = FRA_coastal_defences
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_british_split }
-		
-
 		cost = 10
 		x = -2
 		y = 1
@@ -102,17 +101,57 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
+		available = {
+			has_full_control_of_state  = 15
+			has_full_control_of_state = 785
+			has_full_control_of_state = 29
+		}
+
 		completion_reward = { 
+			hidden_effect = {
+				15 = {
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_coastal = yes
+						}
+					}
+				}
+				785 ={
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_coastal = yes
+						}
+					}
+				}
+				29 = {
+					add_building_construction = {
+						type = coastal_bunker
+						level = 1
+						instant_build = yes
+						province = {
+							all_provinces = yes
+							limit_to_coastal = yes
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = french_coastal_forts_tt
 		}
 	}
 
 		
 	focus = {
 		id = FRA_build_french_fleet
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_coastal_defences }
-		
-
 		cost = 10
 		x = 0
 		y = 1
@@ -120,17 +159,48 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
+		available = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_in_home_area = yes
+				is_coastal = yes
+			}
+		}
+
 		completion_reward = { 
+			navy_experience = 50
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = {
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = dockyard
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = FRA_neutralize_belgium
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_british_split }
-		
-
 		cost = 10
 		x = 0
 		y = 2
@@ -138,35 +208,62 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
+		available = {
+			country_exists = BEL
+			NOT = { is_in_faction_with = BEL }
+		}
+
+		bypass = {
+			OR = {
+				has_war_with = BEL
+				AND = {
+					controls_state = 6
+					controls_state = 34
+				}
+			}
+		}
+
 		completion_reward = { 
+			add_state_claim = 6
+			add_state_claim = 34
+			news_event = wsv_france.51
+			custom_effect_tooltip = possible_war_with_england_tt
 		}
 	}
 
 		
 	focus = {
 		id = FRA_integrate_belgium
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_neutralize_belgium }
-		
-
 		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = FRA_neutralize_belgium
 
+		available = {
+			controls_state = 6
+			controls_state = 34
+		}
+
+		bypass = {
+			6 = { is_core_of = FRA }
+			34 = { is_core_of = FRA }
+		}
+
 		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
+			add_state_core = 6
+			add_state_core = 34
 		}
 	}
 
 		
 	focus = {
 		id = FRA_pressure_switzerland
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_integrate_belgium }
-		
-
 		cost = 10
 		x = -1
 		y = 1
@@ -174,31 +271,65 @@ focus_tree = {
 
 		ai_will_do = { factor = 1 }
 
+		available = {
+			country_exists = SWI
+			NOT = { is_in_faction_with = SWI }
+		}
+
+		bypass = {
+			OR = {
+				has_war_with = SWI
+				SWI = { is_puppet_of = FRA }
+			}
+		}
+
 		completion_reward = { 
+			add_state_claim = 834
+			create_wargoal = {
+				target = SWI
+				type = puppet_wargoal_focus
+			}
 		}
 	}
 
 		
-	# focus = {
-	# 	id = FRA_claim_natural_borders
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = FRA_integrate_belgium }
-		
-	
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = FRA_integrate_belgium
+	focus = {
+		id = FRA_claim_natural_borders
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_integrate_belgium }
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = FRA_integrate_belgium
 
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
+		ai_will_do = { 
+			factor = 0 
+		}
 
-	# 	#bypass = {}
+		available = {
+			NOT = { is_in_faction_with = LUX }
+			NOT = { is_in_faction_with = HOL }
+			NOT = { is_in_faction_with = GER }
+		}
 
-	# 	completion_reward = { 
-	# 	}
-	# }
+		#bypass = {}
+
+		completion_reward = { 
+			add_state_claim = 42
+			add_state_claim = 51
+			add_state_claim = 793
+			add_state_claim = 8
+			add_state_claim = 35
+			create_wargoal = {
+				target = LUX
+				type = annex_everything
+			}
+			create_wargoal = {
+				target = HOL
+				type = take_claimed_state
+			}
+		}
+	}
 
 		
 	focus = {
@@ -255,6 +386,7 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 
 		available = {
+			country_exists = ITA
 			NOT = { is_in_faction_with = ITA }
 		}
 
@@ -263,6 +395,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+			add_state_claim = 114
 			create_wargoal = {
 				target = ITA
 				type = puppet_wargoal_focus

@@ -1,0 +1,44 @@
+################################################################################
+## -------------------------- REORDERING OF EUROPE -------------------------- ##
+################################################################################
+
+wsv_great_war_decisions = {
+
+	## Central Powers victory
+	centralpowers_reordering_europe = {
+		priority = 200
+		icon = generic_operation
+
+		visible = {
+			OR = {
+				has_country_flag = entente_leader
+				has_country_flag = entente_member
+				has_country_flag = former_entente_member
+				has_country_flag = centralpowers_leader
+				has_country_flag = centralpowers_member
+			}
+		}
+
+		activation = {
+			has_global_flag = collapse_of_entente
+			NOT = { has_global_flag =  centralpowers_reordered_europe }
+		}
+
+		available = {
+			always = no   # cannot cancel
+		}
+
+		days_mission_timeout = 90
+		is_good = no
+
+		timeout_effect = {
+			custom_effect_tooltip = reordering_europe_tt
+			hidden_effect = {
+				random_country = {
+					limit = { has_country_flag = centralpowers_leader }
+					country_event = wsv_peace_treaty.20
+				}
+			}
+		}
+	}
+}

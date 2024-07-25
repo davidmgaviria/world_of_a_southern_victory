@@ -157,7 +157,7 @@ ENG_gw_equipment_and_unit_production = {
 	}
 	ai_strategy = {
 		type = equipment_production_factor
-		id = tac_bomber
+		id = tactical_bomber
 		value = 50
 	}
 	ai_strategy = {
@@ -268,7 +268,7 @@ ENG_early_defense_canada = {
 	}
 	enable = {
 		CAN = { is_puppet_of = ENG }
-		has_army_size = { size < 1500000 }
+		has_army_size = { size < 1200000 }
 	}
 	abort = {
 		CAN = { surrender_progress > 0.5 }
@@ -295,7 +295,7 @@ ENG_early_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		tag = USA
-		value = 125
+		value = 150  # help canada you moron
 	}
 
 	ai_strategy = {
@@ -415,7 +415,6 @@ ENG_increase_army_for_greatwar = {
 		surrender_progress > 0.15
 	}
 
-	
 	ai_strategy = {
 	    type = role_ratio
 	    id = infantry
@@ -455,7 +454,7 @@ ENG_help_france_fight_germany = {
 	enable = {
 		is_in_faction_with = FRA
 		has_war_with = GER
-		has_army_manpower = { size > 1000000 }  
+		has_army_manpower = { size > 1200000 }  
 	}
 	abort_when_not_enabled = yes
 
@@ -526,7 +525,7 @@ ENG_defend_canada_less = {
 	}
 	enable = {
 		CAN = { is_puppet_of = ENG }
-		has_army_size = { size > 1500000 }
+		has_army_size = { size > 1200000 }
 	}
 	abort = {
 		CAN = { surrender_progress > 0.5 }
@@ -588,7 +587,7 @@ ENG_launch_offensives_against_GER = {
 	enable = {
 		has_war_with = GER
 		is_in_faction_with = FRA
-		has_army_size = { size > 1500000 }   # wait to build up army	
+		has_army_size = { size > 1200000 }   # wait to build up army	
 		# launch offensives every 6 months (alongisde France)
 		set_temp_variable = { days = global.num_days }
 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
