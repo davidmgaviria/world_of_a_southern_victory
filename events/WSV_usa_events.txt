@@ -2058,6 +2058,80 @@ country_event = {
 }
 
 
+
+#################################################
+## -- Resarch Sharing with Germany 
+#################################################
+
+
+# US asked Germany for research sharing
+country_event = {
+	id = wsv_usa.119
+	title = wsv_usa.119.t
+	desc = wsv_usa.119.d
+
+	is_triggered_only = yes
+
+	# agree
+	option = {
+		name = wsv_usa.119.a
+		add_to_tech_sharing_group = american_german_research
+		USA = { country_event = { id = wsv_usa.120  days = 1 } }
+		ai_chance = { base = 100 }
+	}
+	
+	#no
+	option = {
+		name = wsv_usa.119.b
+		USA = { country_event = { id = wsv_usa.121  days = 1 } }
+		ai_chance = { base = 0 }
+	}
+}
+
+
+# Germany said yes
+country_event = {
+	id = wsv_usa.120
+	title = wsv_usa.120.t
+	desc = wsv_usa.120.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_usa.120.a
+		add_to_tech_sharing_group = american_german_research
+	}
+}
+
+
+# Germany said no
+country_event = {
+	id = wsv_usa.121
+	title = wsv_usa.121.t
+	desc = wsv_usa.121.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_usa.121.a
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ## Establish Quebec?
 # country_event = {
 # 	id = wsv_usa.31

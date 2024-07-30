@@ -249,7 +249,7 @@ USA_save_up_to_switch_to_low_mob = {
 }
 
 
-USA_germany_ally_ww1 = {
+USA_germany_ally_greatwar = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
@@ -258,12 +258,14 @@ USA_germany_ally_ww1 = {
 		country_exists = GER
 		NOT = { has_war_with = GER }
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		has_completed_focus = USA_our_own_way
+	}
 	
 	ai_strategy = {
 		type = befriend
 		id = "GER"			
-		value = 50
+		value = 75
 	}	
 }
 

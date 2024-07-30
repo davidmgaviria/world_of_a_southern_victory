@@ -28,9 +28,10 @@ ideas = {
 			
 			modifier = {
 				## these stats are reflected in empowered usgc ideas
+				army_attack_factor = -0.1
 				planning_speed = 0.1
 				max_planning = 0.1
-				army_org = 5
+				army_org = 10
 				land_doctrine_cost_factor = -0.1
 			}
 		}
@@ -247,10 +248,6 @@ ideas = {
 				industrial_capacity_factory = 0.15
 		 		industrial_capacity_dockyard = 0.15
 		 		consumer_goods_factor = -0.1
-				## orginal usgc stats
-				planning_speed = 0.1
-				max_planning = 0.1
-				army_org = 5
 			}
 		}
 
@@ -265,10 +262,6 @@ ideas = {
 				industrial_capacity_factory = 0.25
 		 		industrial_capacity_dockyard = 0.25
 		 		consumer_goods_factor = -0.25
-				## orginal usgc stats
-				planning_speed = 0.1
-				max_planning = 0.1
-				army_org = 5
 			}
 		}
 
@@ -282,19 +275,6 @@ ideas = {
 			modifier = {
 				recruitable_population_factor = -0.25
 				communism_drift = -0.02
-			}
-		}
-
-		USA_american_militarism = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			cancel = { has_government=communism }
-			removal_cost=-1
-			#picture = #TODO idea 
-
-			modifier = {
-				conscription = 0.01
-				training_time_factor = -0.1
 			}
 		}
 
@@ -346,21 +326,32 @@ ideas = {
 			}
 		}
 
-		# mormons idea
-		USA_come_ye_saints = {
+		USA_american_militarism_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
+			cancel = { has_government=communism }
 			removal_cost=-1
-			picture = generic_come_ye_saints
+			#picture = #TODO idea 
+
 			modifier = {
-				conscription = 0.05
+				conscription = 0.01
+				training_time_factor = -0.1
 				army_morale_factor = 0.1
-				army_core_defence_factor = 0.15
-				out_of_supply_factor = -0.25
-				minimum_training_level = -0.25
 			}
 		}
 
+		USA_imposed_tarrifs_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			cancel = { has_government=communism }
+			removal_cost=-1
+			picture = generic_flexible_foreign_policy
+
+			modifier = {
+				production_speed_buildings_factor = 0.1
+				trade_opinion_factor = -0.25
+			}
+		}
 
 		USA_remembrance_offensive_idea = {
 			allowed = { always = yes}
@@ -378,6 +369,21 @@ ideas = {
 				army_morale_factor = 0.1
 				army_speed_factor = 0.1
 				army_org = 10
+			}
+		}
+
+		# mormons idea
+		USA_come_ye_saints = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			picture = generic_come_ye_saints
+			modifier = {
+				conscription = 0.05
+				army_morale_factor = 0.1
+				army_core_defence_factor = 0.15
+				out_of_supply_factor = -0.25
+				minimum_training_level = -0.25
 			}
 		}
 
