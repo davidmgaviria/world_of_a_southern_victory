@@ -87,7 +87,9 @@ USA_socialist_movement_cat = {
 
 
 
-########## War Plans ##########
+#####################################################################
+## -- War Plans
+#####################################################################
 
 USA_warplans_cat = {
 
@@ -265,55 +267,192 @@ USA_warplans_cat = {
 
 
 
+
+#####################################################################
+## -- Revived Monroe Doctrine
+#####################################################################
+
+USA_new_monroe_doctrine_cat = {
+
+	## liberate/puppet mexico
+	USA_liberate_mexico = {
+		icon = infiltrate_state
+
+		available = {
+			MEX = { 
+				OR = {
+					NOT = { has_government = democratic }
+					is_puppet = yes
+				}
+			}
+		}
+
+		visible = {
+			MEX = {
+				NOT = { is_puppet_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}
+			has_country_flag = usa_revived_monroe_doctrine
+		}
+
+		fire_only_once = yes
+		cost = 75
+		days_remove = 0
+
+		complete_effect = {
+			create_wargoal = {
+				target = MEX
+				type = puppet_wargoal_focus
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				OR = {
+					date > 1916.1.1
+					has_war_with = CSA
+				}
+			}
+		}
+	}
+
+	## liberate cuba
+	USA_liberate_cuba = {
+		icon = infiltrate_state
+
+		available = {
+			CUB = { 
+				OR = {
+					exists = no
+					NOT = { has_government = democratic }
+					is_puppet = yes
+				}
+			}
+		}
+
+		visible = {
+			NOT = { controls_state = 315 }
+			CUB = {
+				NOT = { is_puppet_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}
+			has_country_flag = usa_revived_monroe_doctrine
+		}
+
+		fire_only_once = yes
+		cost = 75
+		days_remove = 0
+
+		complete_effect = {
+			add_state_claim = 315
+			hidden_effect = {
+				315 = {
+					owner = { save_event_target_as = owner_of_cuba }
+				}
+			}
+			create_wargoal = {
+				target = event_target:owner_of_cuba
+				type = take_claimed_state
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				OR = {
+					date > 1916.1.1
+					has_war_with = CSA
+				}
+			}
+		}
+	}
+
+
+	## liberate puerto rico
+	USA_liberate_puerto_rico = {
+		icon = infiltrate_state
+
+		available = {
+			686 = {
+				owner = { NOT = { is_in_faction_with = ROOT } }
+			}
+		}
+
+		visible = {
+			NOT = { controls_state = 686 }
+			has_country_flag = usa_revived_monroe_doctrine
+		}
+
+		fire_only_once = yes
+		cost = 100
+		days_remove = 0
+
+		complete_effect = {
+			add_state_claim = 686
+			hidden_effect = {
+				686 = {
+					owner = { save_event_target_as = owner_of_pr }
+				}
+			}
+			create_wargoal = {
+				target = event_target:owner_of_pr
+				type = take_claimed_state
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	## push europe out of caribbean
+	USA_liberate_the_caribbean = {
+		icon = infiltrate_state
+
+		available = {
+			OR = {
+				NOT = { owns_state = 694 }
+				NOT = { owns_state = 308 }
+				NOT = { owns_state = 692 }
+				NOT = { owns_state = 750 }
+				NOT = { owns_state = 838 }
+			}
+		}
+
+		visible = {
+			has_country_flag = usa_revived_monroe_doctrine
+		}
+
+		cost = 50
+		fire_only_once = yes
+		days_remove = 0
+
+		complete_effect = {
+			add_state_claim = 694
+			add_state_claim = 308
+			add_state_claim = 692
+			add_state_claim = 750
+			add_state_claim = 838
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+
+
+
+
+#####################################################################
+## -- Great War
+#####################################################################
+
 wsv_great_war_decisions = {
 
-	# USA_barrel_roll_offensive = {
-	# 	icon = generic_operation
-
-	# 	available = {
-	# 		has_war_with = CSA
-	# 	}
-	# 	visible = {
-	# 		has_country_flag = barrel_roll_offensive_flag
-	# 	}
-
-	# 	fire_only_once = yes
-	# 	days_remove = 0
-	# 	days_re_enable = 0
-
-	# 	complete_effect = {
-	# 		set_country_flag = barrel_roll_offensive_started
-	# 		add_timed_idea = {
-	# 			idea = USA_barrel_offensive_idea
-	# 			days = 60
-	# 		}
-	# 		hidden_effect = { activate_mission = USA_barrel_roll_mission }
-	# 	}
-
-	# 	ai_will_do = {
-	# 		factor = 10
-	# 	}
-	# }
-
-	# USA_barrel_roll_mission = {
-	#     activation = {
-	#     	has_country_flag = barrel_roll_offensive_started
-	#     }
-	#     cancel_trigger = {
-	#         NOT = { has_war_with = CSA }
-	#     }
-
-	#     icon = mission_icon     # For GFX_decision_mission_icon
-	#     days_mission_timeout = 90
-
-	#     timeout_effect = {
-	#         add_war_support = -0.15
-	#         add_political_power = -75
-	#         hidden_effect = { country_event = wsv_usa.3 }
-	#     }
-	# }
-
-	
 	# USA throws in the towel
 	greatwar_usa_offers_peace = {
 		icon = generic_form_nation

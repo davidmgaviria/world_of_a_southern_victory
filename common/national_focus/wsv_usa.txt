@@ -14,22 +14,265 @@ focus_tree = {
 		} 
 	}
 
-	continuous_focus_position = { x = 50 y = 1900 }
+	continuous_focus_position = { x = 50 y = 2200 }
 
-	###########################################
-	## - Industrial
-	###########################################
 
+	####################################
+	## -- Industrial
+	####################################
+	
 	focus = {
-		id = USA_industrial_efforft
-		icon = GFX_goal_generic_production
-		#prerequisite = { focus = }
+		id = USA_industrial_effort
+		icon = GFX_goal_generic_production2
 		cost = 10
 		x = 3
 		y = 0
-		#relative_position_id = USA_army_effort
+		#relative_position_id = 
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_civ_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = USA_industrial_effort }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_infrastructure_effort
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = USA_industrial_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_mil_factories
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = USA_industrial_effort }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_industrial_effort
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_industrial_effort2
+		icon = GFX_goal_generic_production
+		prerequisite = { focus = USA_civ_factories }
+		prerequisite = { focus = USA_mil_factories }
+		prerequisite = { focus = USA_infrastructure_effort }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_infrastructure_effort
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1912.1.1
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = USA_civ_factories2
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = USA_industrial_effort2 }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = USA_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = USA_research_effort1
+		icon = GFX_focus_research
+		prerequisite = { focus = USA_industrial_effort2 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			OR = {
+				AND = {
+					amount_research_slots < 3
+					num_of_factories > 50
+				}
+				AND = {
+					amount_research_slots < 4
+					num_of_factories > 100
+				}
+			}
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+		
+
+	focus = {
+		id = USA_mil_factories2
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = USA_industrial_effort2 }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = USA_industrial_effort2
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
+			}
+		}
+	}
+
+	
+	focus = {
+		id = USA_infrastructure_effort2
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = USA_civ_factories2 }
+		prerequisite = { focus = USA_mil_factories2 }
+		prerequisite = { focus = USA_research_effort1 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_research_effort1
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { infrastructure < 5 }
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = USA_industrial_effort3
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = USA_infrastructure_effort2 }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = USA_infrastructure_effort2
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1914.1.1
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
@@ -43,208 +286,307 @@ focus_tree = {
 
 
 	focus = {
-		id = USA_roads_built
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = USA_industrial_efforft }
+		id = USA_civ_factories3
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = USA_industrial_effort3 }
 		cost = 10
-		x = -2
+		x = -1
 		y = 1
-		relative_position_id = USA_industrial_efforft
+		relative_position_id = USA_industrial_effort3
 
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
-			add_timed_idea = {
-				idea = generic_infrastructure_building
-				days = 360
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+				}
 			}
 		}
 	}
 
 		
 	focus = {
-		id = USA_supply_lines
-		icon = GFX_focus_generic_railroad
-		prerequisite = { focus = USA_roads_built }
+		id = USA_mil_factories3
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = USA_industrial_effort3 }
 		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = USA_roads_built
+		x = 1
+		y = 1
+		relative_position_id = USA_industrial_effort3
 
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
-			add_timed_idea = {
-				idea = generic_supplyline_building
-				days = 360
+			random_owned_controlled_state = {
+				limit = { is_core_of = ROOT }
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = arms_factory
+					level = 2
+				}
 			}
 		}
 	}
 
+
+	focus = {
+		id = USA_research_effort2
+		icon = GFX_focus_research2
+		prerequisite = { focus = USA_civ_factories3 }
+		prerequisite = { focus = USA_mil_factories3 }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = USA_civ_factories3
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			amount_research_slots < 5
+			has_war = yes
+		}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+
+
+
+
+	###########################################
+	## - Industrial (OLD)
+	###########################################
+
+	# focus = {
+	# 	id = USA_industrial_efforft
+	# 	icon = GFX_goal_generic_production
+	# 	#prerequisite = { focus = }
+	# 	cost = 10
+	# 	x = 3
+	# 	y = 0
+	# 	#relative_position_id = USA_army_effort
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_tech_bonus = {
+	# 			bonus = 0.5
+	# 			uses = 2
+	# 			category = industry
+	# 		}
+	# 	}
+	# }
+
+
+	# focus = {
+	# 	id = USA_roads_built
+	# 	icon = GFX_goal_generic_construct_infrastructure
+	# 	prerequisite = { focus = USA_industrial_efforft }
+	# 	cost = 10
+	# 	x = -2
+	# 	y = 1
+	# 	relative_position_id = USA_industrial_efforft
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_timed_idea = {
+	# 			idea = generic_infrastructure_building
+	# 			days = 360
+	# 		}
+	# 	}
+	# }
+
 		
 	# focus = {
-	# 	id = USA_exploit_captured_territory
-	# 	#icon = GFX_focus_generic_resource_extraction
+	# 	id = USA_supply_lines
+	# 	icon = GFX_focus_generic_railroad
 	# 	prerequisite = { focus = USA_roads_built }
 	# 	cost = 10
 	# 	x = 0
 	# 	y = 2
 	# 	relative_position_id = USA_roads_built
 
-	# 	ai_will_do = { 
-	# 		factor = 0 
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_timed_idea = {
+	# 			idea = generic_supplyline_building
+	# 			days = 360
+	# 		}
+	# 	}
+	# }
+
+		
+	# # focus = {
+	# # 	id = USA_exploit_captured_territory
+	# # 	#icon = GFX_focus_generic_resource_extraction
+	# # 	prerequisite = { focus = USA_roads_built }
+	# # 	cost = 10
+	# # 	x = 0
+	# # 	y = 2
+	# # 	relative_position_id = USA_roads_built
+
+	# # 	ai_will_do = { 
+	# # 		factor = 0 
+	# # 	}
+
+	# # 	#bypass = {}
+
+	# # 	completion_reward = { 
+	# # 	}
+	# # }
+
+		
+	# focus = {
+	# 	id = USA_civ_factories1
+	# 	icon = GFX_goal_generic_construct_civ_factory
+	# 	prerequisite = { focus = USA_industrial_efforft }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = USA_industrial_efforft
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		random_owned_controlled_state = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = industrial_complex
+	# 				level = 2
+	# 			}
+	# 		}
+	# 		random_owned_controlled_state = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = industrial_complex
+	# 				level = 2
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_civ_factories2
+	# 	icon = GFX_goal_generic_construct_civ_factory
+	# 	prerequisite = { focus = USA_civ_factories1 }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = USA_civ_factories1
+
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		random_owned_controlled_state = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = industrial_complex
+	# 				level = 2
+	# 			}
+	# 		}
+	# 		random_owned_controlled_state = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = industrial_complex
+	# 				level = 2
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = USA_pittsburgh_steel
+	# 	icon = GFX_focus_generic_steel
+	# 	prerequisite = { focus = USA_industrial_efforft }
+	# 	cost = 10
+	# 	x = 2
+	# 	y = 1
+	# 	relative_position_id = USA_industrial_efforft
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		owns_state = 839
 	# 	}
 
 	# 	#bypass = {}
 
 	# 	completion_reward = { 
+	# 		add_resource = {
+	# 			type = steel
+	# 			amount = 25
+	# 			state = 839
+	# 		}
 	# 	}
 	# }
 
 		
-	focus = {
-		id = USA_civ_factories1
-		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = USA_industrial_efforft }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_industrial_efforft
+	# focus = {
+	# 	id = USA_arms_factories
+	# 	icon = GFX_goal_generic_construct_mil_factory
+	# 	prerequisite = { focus = USA_pittsburgh_steel }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = USA_pittsburgh_steel
 
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
+	# 	#ai_will_do = { factor = 1 }
+	# 	#bypass = {}
 
-		completion_reward = { 
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-				}
-			}
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-				}
-			}
-		}
-	}
-
+	# 	completion_reward = {
+	# 		random_owned_controlled_state = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = arms_factory
+	# 				level = 2
+	# 			}
+	# 		}
+	# 		random_owned_controlled_state = {
+	# 			add_extra_state_shared_building_slots = 2
+	# 			add_building_construction = {
+	# 				type = arms_factory
+	# 				level = 2
+	# 			}
+	# 		} 
+	# 	}
+	# }
 		
-	focus = {
-		id = USA_civ_factories2
-		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = USA_civ_factories1 }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_civ_factories1
+	# focus = {
+	# 	id = USA_wartime_research
+	# 	icon = GFX_focus_research
+	# 	prerequisite = { focus = USA_civ_factories2 }
+	# 	prerequisite = { focus = USA_arms_factories }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = USA_civ_factories2
 
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
+	# 	ai_will_do = { factor = 1 }
 
-		completion_reward = { 
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-				}
-			}
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-				}
-			}
-		}
-	}
+	# 	available = {
+	# 		has_war = yes
+	# 	}
 
-		
-	focus = {
-		id = USA_pittsburgh_steel
-		icon = GFX_focus_generic_steel
-		prerequisite = { focus = USA_industrial_efforft }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = USA_industrial_efforft
+	# 	#bypass = {}
 
-		ai_will_do = { factor = 1 }
-
-		available = {
-			owns_state = 839
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_resource = {
-				type = steel
-				amount = 25
-				state = 839
-			}
-		}
-	}
-
-		
-	focus = {
-		id = USA_arms_factories
-		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = USA_pittsburgh_steel }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = USA_pittsburgh_steel
-
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
-
-		completion_reward = {
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-				}
-			}
-			random_owned_controlled_state = {
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-				}
-			} 
-		}
-	}
-		
-	focus = {
-		id = USA_wartime_research
-		icon = GFX_focus_research
-		prerequisite = { focus = USA_civ_factories2 }
-		prerequisite = { focus = USA_arms_factories }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = USA_civ_factories2
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = yes
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_research_slot = 1
-		}
-	}
+	# 	completion_reward = { 
+	# 		add_research_slot = 1
+	# 	}
+	# }
 
 
 	#########################################
@@ -254,16 +596,9 @@ focus_tree = {
 	focus = {
 		id = USA_rememberance
 		icon = GFX_focus_USA_rememberance
-		#prerequisite = { focus = }
-
 		cost = 10
-		x = 19
+		x = 10
 		y = 0
-		#relative_position_id = 
-
-		#ai_will_do = { factor = 1 }
-		#bypass = {}
-		
 		completion_reward = { 
 			add_war_support = 0.1
 			add_opinion_modifier = {
@@ -273,35 +608,6 @@ focus_tree = {
 		}
 	}
 
-		
-	# focus = {
-	# 	id = USA_hunger_for_revenge
-	# 	icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = USA_rememberance }
-
-	# 	cost = 5
-	# 	x = -4
-	# 	y = 1
-	# 	relative_position_id = USA_rememberance
-
-	# 	ai_will_do = { 
-	# 		factor = 1
-	# 	}
-
-	# 	available = {
-	# 		CSA = {
-	# 			exists = yes
-	# 			NOT = { is_in_faction_with = USA }
-	# 		}
-	# 	}
-
-	# 	completion_reward = { 
-	# 		swap_ideas = {
-	# 			remove_idea = USA_bad_remembrance_idea
-	# 			add_idea = USA_remembrance_idea
-	# 		}
-	# 	}
-	# }
 
 	focus = {
 		id = USA_establish_war_dept
@@ -355,36 +661,6 @@ focus_tree = {
 			set_country_flag = USA_war_plan_grey
 		}
 	}
-
-		
-	# focus = {
-	# 	id = USA_enemy_to_south
-	# 	icon = GFX_focus_anti_csa
-	# 	prerequisite = { focus = USA_hunger_for_revenge }
-
-	# 	cost = 5
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = USA_hunger_for_revenge
-
-	# 	ai_will_do = { 
-	# 		factor = 1
-	# 	}
-
-	# 	available = {
-	# 		CSA = {
-	# 			exists = yes
-	# 			NOT = { is_in_faction_with = USA }
-	# 		}
-	# 	}
-
-	# 	completion_reward = { 
-	# 		add_opinion_modifier = {
-	# 			target = CSA
-	# 			modifier = wsv_old_wounds
-	# 		}
-	# 	}
-	# }
 
 
 	focus = {
@@ -1369,7 +1645,7 @@ focus_tree = {
 
 	focus = {
 		id = USA_place_tariffs
-		icon = GFX_focus_chi_legislative_yuan 
+		icon = GFX_goal_generic_trade
 		prerequisite = { focus = USA_american_militarism }
 		cost = 5
 		x = 0
@@ -1386,7 +1662,7 @@ focus_tree = {
 
 	focus = {
 		id = USA_revive_monroe_doctrine
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_military_sphere  #GFX_goal_generic_occupy_states_ongoing_war
 		prerequisite = { focus = USA_place_tariffs }
 		cost = 5
 		x = -1
@@ -1396,13 +1672,16 @@ focus_tree = {
 		#ai_will_do = { factor = 1 }
 
 		completion_reward = {
+			set_country_flag = usa_revived_monroe_doctrine
+			add_political_power = 100
+			custom_effect_tooltip = unlock_monroe_doctrine_decsision_tt
 		}
 	}
 
 
 	focus = {
 		id = USA_conquer_the_south
-		#icon = GFX_focus_generic_total_war
+		icon = GFX_focus_generic_total_war
 		prerequisite = { focus = USA_place_tariffs }
 		cost = 5
 		x = 1
@@ -1412,6 +1691,10 @@ focus_tree = {
 		#ai_will_do = { factor = 1 }
 
 		completion_reward = {
+			add_war_support = 0.1
+			set_country_flag = usa_total_war_the_south
+			CSA = { set_country_flag = total_war_against_us }
+			custom_effect_tooltip = usa_total_war_the_south_tt
 		}
 	}
 
@@ -1427,7 +1710,7 @@ focus_tree = {
 		id = USA_state_us_politics
 		icon = GFX_focus_generic_improve_the_administration
 		cost = 10
-		x = 10
+		x = 27
 		y = 0
 
 		ai_will_do = { factor = 1 }
@@ -2227,7 +2510,6 @@ focus_tree = {
 		
 
 
-
 	######################################
 	## -- Miltiary
 	######################################
@@ -2238,7 +2520,7 @@ focus_tree = {
 		#prerequisite = { focus = }
 
 		cost = 10
-		x = 2
+		x = 0
 		y = 9
 		relative_position_id = USA_rememberance
 

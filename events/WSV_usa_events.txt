@@ -2118,11 +2118,32 @@ country_event = {
 }
 
 
+#################################################
 
 
+# Annex the CSA
+country_event = {
+	id = wsv_usa.122
+	title = wsv_usa.122.t
+	desc = wsv_usa.122.d
 
+	trigger = {
+		tag = USA
+		has_country_flag = usa_total_war_the_south
+		CSA = { 
+			has_war_with = USA
+			surrender_progress > 0.9
+		}
+	}
 
-
+	option = {
+		name = wsv_usa.122.a
+		annex_country = {
+			target = CSA
+			transfer_troops = no
+		}
+	}
+}
 
 
 
