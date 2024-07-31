@@ -2147,6 +2147,36 @@ country_event = {
 
 
 
+#################################################
+
+# USA gets to make its own faction (fires if got locked out of focus tree)
+country_event = {
+	id = wsv_usa.123
+	title = wsv_usa.123.t
+	desc = wsv_usa.123.d
+
+	fire_only_once = yes  # only one time
+
+	trigger = {
+		tag = USA
+		has_completed_focus = USA_reaffirm_ties_germany
+		NOT = { has_completed_focus = USA_american_german_pact }  # if you break the pact thats on you
+		has_global_flag = british_german_detente
+	}
+
+	option = {
+		name = wsv_usa.123.a
+		uncomplete_national_focus = {
+			focus = USA_reaffirm_ties_germany
+			uncomplete_children = no
+			refund_political_power = no
+		}
+		complete_national_focus = USA_our_own_way
+	}
+}
+
+
+
 
 
 

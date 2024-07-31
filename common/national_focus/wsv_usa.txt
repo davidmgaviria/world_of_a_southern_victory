@@ -613,7 +613,7 @@ focus_tree = {
 		id = USA_establish_war_dept
 		icon = GFX_focus_usa_recruit_the_free_corps
 		prerequisite = { focus = USA_rememberance }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = USA_rememberance
@@ -772,7 +772,7 @@ focus_tree = {
 		
 	focus = {
 		id = USA_intervention_in_haiti
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_occupy_states_ongoing_war
 		prerequisite = { focus = USA_influence_in_caribbean }
 		cost = 10
 		x = 0
@@ -1078,6 +1078,7 @@ focus_tree = {
 				exists = yes
 				NOT = { has_war_with = USA }
 			}
+			NOT = { has_global_flag = british_german_detente }
 		}
 
 		bypass = {
@@ -1103,7 +1104,7 @@ focus_tree = {
 	
 	focus = {
 		id = USA_our_own_way
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_USA_us_first
 		prerequisite = { focus = USA_rememberance }
 		mutually_exclusive = { focus = USA_reaffirm_ties_germany }
 		cost = 5
@@ -1111,7 +1112,14 @@ focus_tree = {
 		y = 0
 		relative_position_id = USA_reaffirm_ties_germany
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { 
+			factor = 0
+			# switch to this tree if we cant do other
+			modifier = {
+				add = 10
+				has_global_flag = british_german_detente
+			}
+	 	}
 
 		completion_reward = {
 			create_faction = "American Empire"
@@ -1128,7 +1136,7 @@ focus_tree = {
 		id = USA_german_arms_investment
 		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = USA_reaffirm_ties_germany }
-		cost = 10
+		cost = 5
 		x = -1
 		y = 1
 		relative_position_id = USA_reaffirm_ties_germany
@@ -1182,7 +1190,10 @@ focus_tree = {
 		available = {
 			has_war = yes
 			is_in_faction_with = GER
-			GER = { has_capitulated = no }
+			GER = { 
+				has_capitulated = no 
+			}
+			NOT = { has_global_flag = british_german_detente }
 		}
 
 		completion_reward = { 
@@ -1196,7 +1207,7 @@ focus_tree = {
 		id = USA_face_the_british
 		icon = GFX_goal_generic_occupy_states_coastal #GFX_focus_AST_never_gallipoli
 		prerequisite = { focus = USA_reaffirm_ties_germany  focus = USA_our_own_way }
-		cost = 10
+		cost = 5
 		x = 2
 		y = 1
 		relative_position_id = USA_reaffirm_ties_germany
@@ -1380,7 +1391,7 @@ focus_tree = {
 		icon = GFX_goal_generic_amphibious_assault
 		#prerequisite = { focus = USA_war_plan_canada }
 		prerequisite = { focus = USA_claim_british_caribbean }
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = USA_claim_british_caribbean
@@ -1406,146 +1417,6 @@ focus_tree = {
 	}
 
 		
-	# focus = {
-	# 	id = USA_end_canada
-	# 	icon = GFX_focus_attack_canada
-	# 	prerequisite = { focus = USA_war_plan_canada }
-
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 2
-	# 	relative_position_id = USA_war_plan_canada
-
-	# 	ai_will_do = { 
-	# 		factor = 1
-	# 	}
-
-	# 	available = {
-	# 		date > 1915.1.1
-	# 		CAN = {
-	# 			exists = yes
-	# 			NOT = { is_in_faction_with = USA }
-	# 		}
-	# 	}
-
-	# 	bypass = {
-	# 		has_war_with = CAN
-	# 	}
-
-	# 	completion_reward = { 
-	# 		create_wargoal = {
-	# 			target = CAN
-	# 			type = annex_everything
-	# 		}
-	# 	}
-	# }
-
-
-	# focus = {
-	# 	id = USA_improve_trade_central_powers
-	# 	icon = GFX_goal_generic_positive_trade_relations
-	# 	prerequisite = { focus = USA_reaffirm_ties_germany}
-	# 	cost = 5
-	# 	x = 1
-	# 	y = 1
-	# 	relative_position_id = USA_reaffirm_ties_germany
-
-	# 	#ai_will_do = { factor = 1 }
-
-	# 	available = {
-	# 		GER = {
-	# 			exists = yes
-	# 			NOT = { has_war_with = USA }
-	# 		}
-	# 		AUH = {
-	# 			exists = yes
-	# 			NOT = { has_war_with = USA }
-	# 		}
-	# 	}
-
-	# 	completion_reward = { 
-	# 		GER = {
-	# 			add_opinion_modifier = {
-	# 				target = USA
-	# 				modifier = wsv_USA_central_powers_trade
-	# 			}
-	# 		}
-	# 		add_opinion_modifier = {
-	# 			target = GER
-	# 			modifier = wsv_USA_central_powers_trade
-	# 		}
-	# 		AUH = {
-	# 			add_opinion_modifier = {
-	# 				target = USA
-	# 				modifier = wsv_USA_central_powers_trade
-	# 			}
-	# 		}
-	# 		add_opinion_modifier = {
-	# 			target = AUH
-	# 			modifier = wsv_USA_central_powers_trade
-	# 		}
-	# 	}
-	# }
-
-		
-	# focus = {
-	# 	id = USA_arms_to_auh
-	# 	icon = GFX_goal_generic_small_arms
-	# 	prerequisite = { focus = USA_improve_trade_central_powers }
-	# 	cost = 5
-	# 	x = 1
-	# 	y = 1
-	# 	relative_position_id = USA_improve_trade_central_powers
-
-	# 	#ai_will_do = { factor = 1 }
-
-	# 	available = {
-	# 		AUH = {
-	# 			exists = yes
-	# 			NOT = { has_war_with = USA }
-	# 		}
-	# 	}
-
-	# 	completion_reward = { 
-	# 		AUH = { country_event = { id = wsv_usa.112  days = 3 } }
-	# 		send_equipment = {
-	# 			equipment = infantry_equipment
-	# 			amount = 3000
-	# 			target = AUH
-	# 		}
-	# 	}
-	# }
-
-		
-	# focus = {
-	# 	id = USA_joint_naval_exercises
-	# 	icon = GFX_goal_generic_navy_battleship
-	# 	prerequisite = { focus = USA_face_the_british }
-	# 	cost = 10
-	# 	x = 1
-	# 	y = 1
-	# 	relative_position_id = USA_face_the_british
-
-	# 	#ai_will_do = { factor = 1 }
-
-	# 	available = {
-	# 		GER = {
-	# 			exists = yes
-	# 			NOT = { has_war_with = USA }
-	# 		}
-	# 	}
-
-	# 	completion_reward = { 
-	# 		navy_experience = 25
-	# 		add_doctrine_cost_reduction = {
-	# 			cost_reduction = 0.25
-	# 			uses = 1
-	# 			category = naval_doctrine
-	# 		}
-	# 	}
-	# }
-
-		
 	focus = {
 		id = USA_american_german_pact
 		icon = GFX_focus_USA_americangerman_pact
@@ -1564,6 +1435,7 @@ focus_tree = {
 				exists = yes
 				NOT = { has_war_with = USA }
 			}
+			NOT = { has_global_flag = british_german_detente }
 		}
 
 		bypass = {
@@ -1596,6 +1468,7 @@ focus_tree = {
 				has_war_with = ENG
 				has_capitulated = no
 			}
+			NOT = { has_global_flag = british_german_detente }
 		}
 
 		completion_reward = { 
@@ -1628,14 +1501,14 @@ focus_tree = {
 	
 	focus = {
 		id = USA_american_militarism
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_USA_american_militarism
 		prerequisite = { focus = USA_our_own_way }
 		cost = 5
 		x = 1
 		y = 1
 		relative_position_id = USA_our_own_way
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 5 }   # high emphasis
 
 		completion_reward = {
 			add_ideas = USA_american_militarism_idea
@@ -1647,12 +1520,12 @@ focus_tree = {
 		id = USA_place_tariffs
 		icon = GFX_goal_generic_trade
 		prerequisite = { focus = USA_american_militarism }
-		cost = 5
+		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = USA_american_militarism
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 5 }  # high emphasis
 
 		completion_reward = {
 			add_ideas = USA_imposed_tarrifs_idea
@@ -1664,12 +1537,17 @@ focus_tree = {
 		id = USA_revive_monroe_doctrine
 		icon = GFX_goal_generic_military_sphere  #GFX_goal_generic_occupy_states_ongoing_war
 		prerequisite = { focus = USA_place_tariffs }
-		cost = 5
+		cost = 10
 		x = -1
 		y = 2
 		relative_position_id = USA_place_tariffs
 
-		#ai_will_do = { factor = 1 }
+		available = {
+			has_war_support > 0.5
+			NOT = { has_idea = USA_throttled_military_spending }
+		}
+
+		ai_will_do = { factor = 1 }
 
 		completion_reward = {
 			set_country_flag = usa_revived_monroe_doctrine
@@ -1683,12 +1561,18 @@ focus_tree = {
 		id = USA_conquer_the_south
 		icon = GFX_focus_generic_total_war
 		prerequisite = { focus = USA_place_tariffs }
-		cost = 5
+		cost = 10
 		x = 1
 		y = 2
 		relative_position_id = USA_place_tariffs
 
-		#ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_war_with = CSA
+			has_war_support > 0.6
+			NOT = { has_idea = USA_throttled_military_spending }
+		}
 
 		completion_reward = {
 			add_war_support = 0.1
@@ -1724,7 +1608,7 @@ focus_tree = {
 		
 	focus = {
 		id = USA_increase_army_influence
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_military_mission
 		prerequisite = { focus = USA_state_us_politics }
 		mutually_exclusive = { focus=USA_negociations_with_socialists  }
 		cost = 5
@@ -2149,8 +2033,7 @@ focus_tree = {
 	focus = {
 		id = USA_secure_miltiary_funding
 		icon = GFX_focus_generic_reorient_production
-		prerequisite = { focus = USA_workers_protection_act }
-		prerequisite = { focus =  USA_antitrust_act }
+		prerequisite = { focus =  USA_antitrust_act  focus = USA_workers_protection_act }
 		cost = 10
 		x = 1
 		y = 1
