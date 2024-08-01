@@ -1,5 +1,7 @@
 
-
+###################################################
+## -- Economic Loans to Allies
+###################################################
 
 CSA_loans_to_allies_cat = {
 
@@ -58,9 +60,9 @@ CSA_loans_to_allies_cat = {
 
 
 
-############################################
-########## Actions in Latin America ########
-############################################
+###################################################
+## -- Actions in Latin America 
+###################################################
 
 CSA_actions_in_latam_category = {
 
@@ -195,6 +197,134 @@ CSA_actions_in_latam_category = {
 
 		ai_will_do = {
 			factor = 1
+		}
+	}
+}
+
+
+
+###################################################
+## -- Fallout of Red Revolt
+###################################################
+
+
+CSA_fallout_red_revolt_cat = {
+
+	CSA_ban_personal_servants = {
+		icon = generic_break_treaty
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_country_flag = investigate_red_revolt
+		}
+
+		custom_cost_trigger = {
+			command_power > 10
+			has_political_power > 25
+		}
+		custom_cost_text = CSA_ban_personal_servants
+
+		fire_only_once = yes
+		days_remove = 45
+
+		complete_effect = {
+			add_command_power = -10
+			add_political_power = -25
+		}
+		
+		remove_effect = {
+			add_manpower = -10000
+			set_country_flag = investigation_1_complete
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+
+	CSA_expand_officer_corps = {
+		icon = generic_military #generic_civil_support
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_country_flag = investigate_red_revolt
+		}
+		available = {
+			has_country_flag = investigation_1_complete
+			has_idea = CSA_military_nepotism
+		}
+
+		custom_cost_trigger = {
+			command_power > 10
+			has_political_power > 50
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+
+		complete_effect = {
+			add_command_power = -10
+			add_political_power = -50
+		}
+		custom_cost_text = CSA_expand_officer_corps
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = CSA_military_nepotism
+				add_idea = CSA_military_nepotism2
+			}
+			set_country_flag = investigation_2_complete
+		}
+
+		ai_will_do = {
+			factor = 5
+		}
+	}
+
+
+	CSA_purge_general_staff = {
+		icon = generic_army_support
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_country_flag = investigate_red_revolt
+		}
+		available = {
+			has_country_flag = investigation_2_complete
+		}
+
+		custom_cost_trigger = {
+			command_power > 25
+			has_political_power > 100
+		}
+		custom_cost_text = CSA_purge_general_staff
+
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			add_command_power = -25
+			add_political_power = -100
+			add_timed_idea = {
+				idea = CSA_reorganized_general_staff
+				days = 120
+			}
+			## TODO - sack generals
+		}
+
+		remove_effect = {
+			remove_ideas = CSA_military_nepotism2
+		}
+
+		ai_will_do = {
+			factor = 0
 		}
 	}
 }

@@ -2440,7 +2440,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_fall_of_red_revolt
-		#icon = GFX_focus_generic_court 
+		icon = GFX_focus_generic_court 
 		prerequisite = { focus = CSA_army_effort }
 
 		cost = 10
@@ -2448,55 +2448,17 @@ focus_tree = {
 		y = 2
 		relative_position_id = CSA_army_effort
 
-		ai_will_do = {	factor = 1}
+		ai_will_do = { factor = 1 }
 
-
-		available = { has_country_flag = path_complete }
-
-		#bypass = {}
+		available = { 
+			has_global_flag = csa_black_revolt_occured 
+		}
 
 		completion_reward = { 
+			set_country_flag = investigate_red_revolt
+			custom_effect_tooltip = unlocks_red_revolt_investigation_tt
 		}
 	}
-
-
-	# focus = {
-	# 	id = CSA_expand_officer_corps
-	# 	icon = GFX_focus_generic_military_academy
-	# 	prerequisite = { focus = CSA_fall_of_red_revolt }
-
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = CSA_fall_of_red_revolt
-
-	# 	ai_will_do = { factor = 1 }
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 		swap_ideas = {
-	# 			remove_idea = CSA_military_nepotism
-	# 			add_idea = CSA_more_officers
-	# 		}
-	# 	}
-	# }
-		
-	# focus = {
-	# 	id = CSA_new_general_staff
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = CSA_expand_officer_corps }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = CSA_expand_officer_corps
-
-	# 	ai_will_do = {	factor = 1}
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
 
 		
 	focus = {
