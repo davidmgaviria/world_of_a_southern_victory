@@ -24,9 +24,9 @@ focus_tree = {
 
 	focus = {
 		id = ENG_state_of_empire
-		icon = GFX_focus_eng_the_sun_never_sets
+		icon = GFX_focus_eng_the_sun_never_sets   
 		cost = 10
-		x = 15
+		x = 17
 		y = 0
 
 		ai_will_do = { factor = 1 }
@@ -44,7 +44,7 @@ focus_tree = {
 		icon = GFX_focus_generic_improve_the_administration 
 		prerequisite = { focus = ENG_state_of_empire }
 		cost = 10
-		x = 0
+		x = -3
 		y = 1
 		relative_position_id = ENG_state_of_empire
 
@@ -68,8 +68,8 @@ focus_tree = {
 		icon = GFX_focus_eng_concessions_to_the_trade_unions 
 		prerequisite = { focus = ENG_parliment_act }
 		cost = 10
-		x = 0
-		y = 2
+		x = 2
+		y = 1
 		relative_position_id = ENG_parliment_act
 
 		ai_will_do = { factor = 1 }
@@ -90,7 +90,7 @@ focus_tree = {
 		mutually_exclusive = { focus = ENG_crush_irish_seperatists }
 		cost = 10
 		x = -1
-		y = 1
+		y = 2
 		relative_position_id = ENG_home_rule_negociations
 
 		ai_will_do = { factor = 1 }
@@ -116,7 +116,7 @@ focus_tree = {
 		mutually_exclusive = { focus = ENG_home_rule_ireland }
 		cost = 10
 		x = 1
-		y = 1
+		y = 2
 		relative_position_id = ENG_home_rule_negociations
 
 		ai_will_do = { factor = 1 }
@@ -141,17 +141,402 @@ focus_tree = {
 		}
 	}
 
+
+	focus = {
+		id = ENG_colonial_administration
+		icon = GFX_goal_anschluss
+		prerequisite = { focus = ENG_parliment_act }
+		
+		cost = 5
+		x = -3
+		y = 1
+		relative_position_id = ENG_parliment_act 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 50
+		}
+	}
+
+		
+	focus = {
+		id = ENG_develop_canada
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = ENG_colonial_administration }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_colonial_administration
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			country_exists = CAN
+			CAN = { is_puppet_of = ROOT }
+		}
+
+		completion_reward = { 
+			CAN = {
+				add_autonomy_score = { value = -100 }
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes  is_coastal = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+					}
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_canadian_arms_industry
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = ENG_develop_canada }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_develop_canada
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			country_exists = CAN
+			CAN = { is_puppet_of = ROOT }
+		}
+
+		completion_reward = { 
+			send_equipment = {
+				amount = 5000
+				target = CAN
+				equipment = infantry_equipment
+			}
+			CAN = {
+				add_autonomy_score = { value = -50 }
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = arms_factory
+						level = 1
+					}
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = ENG_canadian_ports
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = ENG_canadian_arms_industry }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_canadian_arms_industry
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			CAN = {
+				controls_province = 7361
+				controls_province = 4285
+				controls_province = 12149
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			464 = {
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					province = 7361
+				}
+			}
+			465 = {
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					province = 4285
+				}
+			}
+			466 = {
+				add_building_construction = {
+					type = naval_base
+					level = 3
+					province = 12149
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_develop_australia
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = ENG_colonial_administration }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ENG_colonial_administration
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			country_exists = AST
+			AST = { is_puppet_of = ROOT }
+		}
+
+		completion_reward = { 
+			AST = {
+				add_autonomy_score = { value = -100 }
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes  is_coastal = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = dockyard
+						level = 2
+					}
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_develop_new_zealand
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = ENG_develop_australia }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_develop_australia
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			country_exists = NZL
+			NZL = { is_puppet_of = ROOT }
+		}
+
+		completion_reward = { 
+			NZL = {
+				add_autonomy_score = { value = -100 }
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes  is_coastal = yes }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_develop_raj
+		icon = GFX_goal_generic_construct_civilian
+		prerequisite = { focus = ENG_colonial_administration }
+		
+		cost = 10
+		x = -3
+		y = 1
+		relative_position_id = ENG_colonial_administration
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			country_exists = RAJ
+			RAJ = { is_puppet_of = ROOT }
+		}
+
+		completion_reward = { 
+			RAJ = {
+				add_autonomy_score = { value = -100 }
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_develop_south_africa
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = ENG_develop_raj }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ENG_develop_raj
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			country_exists = SAF
+			SAF = { is_puppet_of = ROOT }
+		}
+
+		completion_reward = { 
+			SAF = {
+				add_autonomy_score = { value = -100 }
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes }
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = {
+						type = industrial_complex
+						level = 2
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+					}
+				}
+				random_owned_controlled_state = {
+					limit = { is_core_of = PREV  is_in_home_area = yes  is_coastal = yes }
+					add_extra_state_shared_building_slots = 1
+					add_building_construction = {
+						type = dockyard
+						level = 1
+					}
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = ENG_strengthen_trade_lines
+		icon = GFX_focus_POL_develop_polish_shipbuilding
+		prerequisite = { focus = ENG_colonial_administration }
+		
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = ENG_colonial_administration
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = generic_convoy_production
+		}
+	}
+
 		
 	focus = {
 		id = ENG_continental_affairs
 		icon = GFX_focus_usa_focus_on_europe
 		prerequisite = { focus = ENG_state_of_empire }
 		cost = 5
-		x = 6
+		x = 5
 		y = 1
 		relative_position_id = ENG_state_of_empire
 
 		ai_will_do = { factor = 1 }
+
+		available = {
+			threat > 0.1
+		}
 
 		#bypass = {}
 
@@ -176,6 +561,11 @@ focus_tree = {
 
 		available = {
 			NOT = { is_in_faction_with = GER }
+			any_controlled_state = {
+				is_core_of = ROOT
+				is_coastal = yes
+				is_in_home_area = yes
+			}
 		}
 
 		#bypass = {}
@@ -188,10 +578,10 @@ focus_tree = {
 					is_core_of = ROOT
 					is_in_home_area = yes
 				}
-				add_extra_state_shared_building_slots = 1
+				add_extra_state_shared_building_slots = 2
 				add_building_construction = {
 					type = dockyard
-					level = 1
+					level = 2
 				}
 			}
 			random_owned_controlled_state = {
@@ -479,7 +869,7 @@ focus_tree = {
 
 	focus = {
 		id = ENG_lawrence_of_arabia
-		#icon = GFX_focus_chi_legislative_yuan
+		##icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ENG_divide_middle_east }
 		cost = 10
 		x = 0
@@ -652,7 +1042,7 @@ focus_tree = {
 		
 	focus = {
 		id = ENG_talks_with_germany
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_USA_diplomatic_germany
 		prerequisite = { focus = ENG_continental_affairs }
 		mutually_exclusive = { focus=ENG_continue_naval_buildup  }
 		cost = 10
@@ -660,91 +1050,124 @@ focus_tree = {
 		y = 1
 		relative_position_id = ENG_continental_affairs
 
-		ai_will_do = { factor = 1 }
-
-		#bypass = {}
+		ai_will_do = { 
+			factor = 0 
+			modifier = {
+				add = 10
+				has_global_flag = britain_abandoned_france_in_agadir
+			}
+		}
 
 		available = {
-			has_country_flag = path_complete
+			has_global_flag = britain_abandoned_france_in_agadir
 			GER = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
 				NOT = { has_global_flag = american_german_pact }
 			}
 		}
 
+		bypass = {
+			is_in_faction_with = GER
+		}
+
 		completion_reward = { 
+			GER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+				country_event = wsv_england.100
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = GER
+					modifier = wsv_improve_relations
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ENG_blank_cheque_in_europe
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_forceful_treaty
 		prerequisite = { focus = ENG_talks_with_germany }
 		cost = 10
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = ENG_talks_with_germany
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 5 }
 
 		available = {
-			has_country_flag = path_complete
 			GER = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
 				NOT = { has_global_flag = american_german_pact }
 			}
 		}
 
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = ENG_alliance_of_seven_years_war
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = ENG_blank_cheque_in_europe }
-		mutually_exclusive = { focus = ENG_declare_anglosphere }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = ENG_blank_cheque_in_europe
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_country_flag = path_complete
+		bypass = {
+			is_in_faction_with = GER
 		}
 
-		#bypass = {}
-
 		completion_reward = { 
+			GER = { country_event = wsv_england.101 }
+			custom_effect_tooltip = england_full_detente_treaty_tt
+			custom_effect_tooltip = germany_must_agree_to_detente_tt
 		}
 	}
 
 		
 	focus = {
 		id = ENG_declare_anglosphere
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = ENG_blank_cheque_in_europe }
-		mutually_exclusive = { focus = ENG_alliance_of_seven_years_war }
+		icon = GFX_goal_tfv_strengthen_commonwealth_ties #focus_eng_imperial_federation  #
+		prerequisite = { focus = ENG_talks_with_germany }
+		#mutually_exclusive = { focus = ENG_alliance_of_seven_years_war }
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = ENG_blank_cheque_in_europe
+		relative_position_id = ENG_talks_with_germany
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = { factor = 3 }
 
 		available = {
-			has_country_flag = path_complete
+			has_war = no
+			is_in_faction = no
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			create_faction = "Anglosphere"
 		}
 	}
+
+		
+	# focus = {
+	# 	id = ENG_alliance_of_seven_years_war
+	# 	##icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = ENG_blank_cheque_in_europe }
+	# 	mutually_exclusive = { focus = ENG_declare_anglosphere }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = ENG_blank_cheque_in_europe
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		has_country_flag = path_complete
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+
 
 	####################################
 	## -- Industrial
@@ -1096,11 +1519,15 @@ focus_tree = {
 		icon = GFX_focus_generic_commonwealth_build_infantry
 		#prerequisite = { focus = }
 		cost = 10
-		x = 29
+		x = 30
 		y = 0
 		#relative_position_id = 
 
 		ai_will_do = { factor = 1 }
+
+		available = {
+			threat > 0.1
+		}
 
 		completion_reward = { 
 			army_experience = 20
@@ -1717,6 +2144,10 @@ focus_tree = {
 		relative_position_id = ENG_cruiser_effort
 
 		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1912.1.1
+		}
 
 		completion_reward = { 
 			navy_experience = 50

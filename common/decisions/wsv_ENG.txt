@@ -1,6 +1,50 @@
 
 wsv_great_war_decisions = {
-	
+
+	# Faction with CSA
+	england_make_faction_with_csa = {
+		icon = generic_form_nation
+
+		available = {
+			is_in_faction = no
+			CSA = {
+				is_in_faction = no
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		visible = {
+			tag = ENG
+			has_war_with = USA
+			CSA = { has_war_with = USA }
+			NOT = { has_country_flag = csa_declined_faction_with_england }
+		}
+
+		days_re_enable = 90  # dont spam
+		days_remove = 3
+
+		remove_effect = {
+			CSA = { country_event = wsv_england.25 }
+			custom_effect_tooltip = csa_must_agree_to_faction_tt
+		}
+
+		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		ai_will_do = {
+			base = 5  
+			# dont do if we're gonna join France in Great War
+			modifier = {
+				factor = 0
+				has_war_with = GER
+				FRA = { 
+					is_faction_leader = yes
+					has_war_with = GER
+				}
+			}
+		}
+	}
+
+
+
 	# England offers peace to Germany (will include US if the US is in Central Powers)
 	greatwar_england_peace_with_germany = {
 		icon = generic_form_nation
@@ -68,6 +112,9 @@ wsv_great_war_decisions = {
 			}
 		}
 	}
+
+
+
 }
 
 

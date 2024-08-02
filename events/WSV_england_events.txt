@@ -350,6 +350,73 @@ country_event = {
 }
 
 
+##########################################################
+# -- England Make Faction with CSA
+##########################################################
+
+
+# England suggests to CSA we should make faction
+country_event = {
+	id = wsv_england.25
+	title = wsv_england.25.t
+	desc = wsv_england.25.d
+
+    is_triggered_only = yes
+
+	# of course
+	option = {
+		name = wsv_england.25.a
+		ENG = { country_event = wsv_england.26 }
+		effect_tooltip = {
+			FROM = {
+				create_faction = "Americas Defense Coalition"
+				add_to_faction = ROOT
+			}
+		}
+		ai_chance = { factor = 100 }
+	}
+
+	# no
+	option = {
+		name = wsv_england.25.b
+		ENG = { country_event = wsv_england.27 }
+		ai_chance = { factor = 0 }
+	}
+}
+
+# CSA said yes
+country_event = {
+	id = wsv_england.26
+	title = wsv_england.26.t
+	desc = wsv_england.26.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.26.a
+		create_faction = "Americas Defense Coalition"
+		add_to_faction = FROM
+	}
+}
+
+
+# CSA said no
+country_event = {
+	id = wsv_england.27
+	title = wsv_england.27.t
+	desc = wsv_england.27.d
+
+    is_triggered_only = yes
+
+	# morons
+	option = {
+		name = wsv_england.26.a
+		set_country_flag = csa_declined_faction_with_england
+	}
+}
+
+
+
 
 # #send men to canada
 # country_event = {
@@ -386,3 +453,212 @@ country_event = {
 
 
 
+#######################################################################################
+## -- Alternate History
+#######################################################################################
+
+
+# Germany informed of Britain's outreach 
+country_event = {
+	id = wsv_england.100
+	title = wsv_england.100.t
+	desc = wsv_england.100.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.100.a
+	}
+}
+
+
+
+##################################
+## German British Detente
+##################################
+
+# Britain requests detente (ask us to limit navy and abandon US in exchange for non-aggression pact)
+country_event = {
+	id = wsv_england.101
+	title = wsv_england.101.t
+	desc = wsv_england.101.d
+
+    is_triggered_only = yes
+
+	## We wont abandon the US
+	option = {
+		name = wsv_england.101.a
+		ENG = { country_event = { id = wsv_england.104  days = 2 } }
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	## We'll limit navy as much as you
+	option = {
+		name = wsv_england.101.b
+		ENG = { country_event = { id = wsv_england.102  days = 2 } }
+		custom_effect_tooltip = england_revised_detente_treaty_tt
+		custom_effect_tooltip = england_must_agree_to_revision_tt
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+	## Full acceptance
+	option = {
+		name = wsv_england.101.c
+		set_country_flag = germany_agreed_to_limit_navy
+		ENG = { country_event = { id = wsv_england.103  days = 2 } }
+		custom_effect_tooltip = england_full_detente_treaty_tt
+		effect_tooltip = {
+			add_ideas = GER_limited_navy_treaty
+		}
+
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+## Germany suggests revision to Britain (they will only limit ships as much as us)
+country_event = {
+	id = wsv_england.102
+	title = wsv_england.102.t
+	desc = wsv_england.102.d
+
+    is_triggered_only = yes
+
+	## No deal
+	option = {
+		name = wsv_england.102.a
+		GER = { country_event = { id = wsv_england.104  days = 2 } }
+		ai_chance = {
+			factor = 30
+		}
+	}
+
+	## This is acceptable
+	option = {
+		name = wsv_england.102.b
+		GER = { country_event = { id = wsv_england.103  days = 2 } }
+		custom_effect_tooltip = england_revised_detente_treaty_tt
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+
+
+## Germany / Britain agrees
+country_event = {
+	id = wsv_england.103
+	title = wsv_england.103.t
+	desc = wsv_england.103.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.103.a
+		news_event = wsv_england.105
+	}
+}
+
+
+## Germany / Britian refuses
+country_event = {
+	id = wsv_england.104
+	title = wsv_england.104.t
+	desc = wsv_england.104.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.104.a
+		add_opinion_modifier = {
+			target = FROM
+			modifier = wsv_dislikes_country
+		}
+	}
+}
+
+
+## News event of British-German Detente
+news_event = {
+	id = wsv_england.105
+	title = wsv_england.105.t
+	desc = wsv_england.105.d
+	# picture =  ## TODO -- needs picture
+
+    is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = british_german_detente 
+		hidden_effect = {
+			ENG = {
+				diplomatic_relation = { country = GER  relation = non_aggression_pact  active = yes }
+				diplomatic_relation = { country = BEL  relation = guarantee  active = no }
+				diplomatic_relation = { country = LUX  relation = guarantee  active = no }
+				remove_ideas = generic_dreadnought_arms_race
+			}
+			GER = {
+				remove_ideas = generic_dreadnought_arms_race
+				if = {
+					limit = { has_country_flag = germany_agreed_to_limit_navy }
+					add_ideas = GER_limited_navy_treaty
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_england.105.a
+		trigger = { OR = { tag = ENG   tag = GER } }
+	}
+
+	option = {
+		name = wsv_england.105.b
+		trigger = { OR = { tag = FRA   tag = USA } }
+		# France is mad
+		if = {
+			limit = { tag = FRA }
+			FRA = {
+				add_opinion_modifier = {
+					target = ENG
+					modifier = faction_traitor
+				}
+			}
+		}
+		# USA is mad
+		if = {
+			limit = { tag = FRA }
+			USA = {
+				add_opinion_modifier = {
+					target = GER
+					modifier = faction_traitor
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_england.105.c
+		trigger = { 
+			NOT = { tag = ENG }  
+			NOT = { tag = FRA }  
+			NOT = { tag = GER }  
+			NOT = { tag = USA } 
+		}
+	}
+}

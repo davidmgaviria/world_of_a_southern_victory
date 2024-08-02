@@ -1112,6 +1112,11 @@ focus_tree = {
 		y = 0
 		relative_position_id = USA_reaffirm_ties_germany
 
+		available = {
+			has_war = no
+			is_in_faction = no
+		}
+
 		ai_will_do = { 
 			factor = 0
 			# switch to this tree if we cant do other
@@ -1219,6 +1224,9 @@ focus_tree = {
 				exists = yes
 				NOT = { is_in_faction_with = USA }
 			}
+			any_owned_state = {
+				is_coastal = yes
+			}
 		}
 
 		#bypass = {}
@@ -1301,6 +1309,10 @@ focus_tree = {
 				is_puppet_of = ENG
 				NOT = { is_in_faction_with = USA }
 			}
+			controls_state = 845
+			controls_state = 844
+			controls_state = 846
+			controls_state = 393
 		}
 
 		#bypass = {}
@@ -1308,7 +1320,6 @@ focus_tree = {
 		completion_reward = { 
 			custom_effect_tooltip = spawn_canadian_milita_tt
 			hidden_effect = { load_oob = USA_canadian_militia }
-
 			845 = {
 				add_building_construction = {
 					type = bunker
