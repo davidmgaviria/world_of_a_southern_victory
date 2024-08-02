@@ -295,13 +295,13 @@ ENG_early_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		tag = USA
-		value = 150  # help canada you moron
+		value = 50  # help canada you moron
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = east_canada
-		value = 75 #more focus here
+		value = 25 #more focus here
 	}
 
 	# nova scotia & new brunswick
@@ -354,8 +354,13 @@ ENG_early_defense_of_france = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		is_in_faction_with = FRA
 		has_war_with = GER
+		FRA = { has_war_with = GER }
+		# help france in either of these cases
+		OR = {
+			is_in_faction_with = FRA
+			has_military_access_to = FRA
+		}
 		has_army_manpower = { size < 1200000 } 
 	}
 	abort_when_not_enabled = yes
@@ -452,8 +457,13 @@ ENG_help_france_fight_germany = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		is_in_faction_with = FRA
 		has_war_with = GER
+		FRA = { has_war_with = GER }
+		# help france in either of these cases
+		OR = {
+			is_in_faction_with = FRA
+			has_military_access_to = FRA
+		}
 		has_army_manpower = { size > 1200000 }  
 	}
 	abort_when_not_enabled = yes
@@ -552,13 +562,13 @@ ENG_defend_canada_less = {
     ai_strategy = {
 		type = front_unit_request
 		tag = USA
-		value = 50
+		value = 25
 	}
 
 	ai_strategy = {
 		type = area_priority
 		id = east_canada
-		value = 50 #more focus here
+		value = 15 #more focus here
 	}
 
 	# nova scotia & new brunswick
@@ -586,8 +596,14 @@ ENG_launch_offensives_against_GER = {
 	}
 	enable = {
 		has_war_with = GER
-		is_in_faction_with = FRA
-		has_army_size = { size > 1200000 }   # wait to build up army	
+		FRA = { has_war_with = GER }
+		# help france in either of these cases
+		OR = {
+			is_in_faction_with = FRA
+			has_military_access_to = FRA
+		}
+		# wait to build up army	
+		has_army_size = { size > 1200000 }   
 		# launch offensives every 6 months (alongisde France)
 		set_temp_variable = { days = global.num_days }
 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
@@ -823,8 +839,13 @@ ENG_aid_confederates = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		is_in_faction_with = CSA
 		has_war_with = USA
+		CSA = { has_war_with = USA }
+		# help csa in either of these cases
+		OR = {
+			is_in_faction_with = CSA
+			has_military_access_to = CSA
+		}
 		CAN = { surrender_progress > 0.5 }
 	}
 	abort_when_not_enabled = yes
