@@ -345,17 +345,17 @@ USA_opening_war_assault_against_confederates = {
 		OR = {
 			surrender_progress > 0.15
 			has_country_flag = csa_offensive_failed
-			casualties_inflicted_by = { opponent = CSA   thousands > 300 }
+			casualties_inflicted_by = { opponent = CSA   thousands > 500 }
 		}
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = CSA
-		ratio = 0.4
+		ratio = 0.5
 		priority = 200
 		ordertype = front
-		execution_type = balanced
+		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -413,7 +413,7 @@ USA_opening_war_assault_against_canada = {
 			surrender_progress > 0.15
 			# offensive failed
 			has_country_flag = canada_offensive_failed
-			casualties_inflicted_by = { opponent = CAN   thousands > 150 }
+			casualties_inflicted_by = { opponent = CAN   thousands > 300 }
 		}
 	}
 
@@ -475,7 +475,7 @@ USA_fight_the_CSA = {
 		has_war_with = CSA
 		OR = {
 			has_country_flag = csa_offensive_failed
-			casualties_inflicted_by = { opponent = CSA   thousands > 300 }
+			casualties_inflicted_by = { opponent = CSA   thousands > 500 }
 		}
 	}
 	abort = {
@@ -484,6 +484,17 @@ USA_fight_the_CSA = {
 			surrender_progress > 0.15		# we're losing dont hold back
 			has_global_flag = NorthAmerica_WW1_is_stuck
 		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CAN
+		ratio = 0.6
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
@@ -509,7 +520,7 @@ USA_slowly_against_CAN = {
 		has_war_with = CAN
 		OR = {
 			has_country_flag = canada_offensive_failed
-			casualties_inflicted_by = { opponent = CAN   thousands > 150 }
+			casualties_inflicted_by = { opponent = CAN   thousands > 300 }
 		}
 	}
 	abort = {
@@ -523,7 +534,7 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_control
 		tag = CAN
-		ratio = 0.35
+		ratio = 0.7
 		priority = 25
 		ordertype = front
 		execution_type = careful
@@ -534,13 +545,13 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CAN  	
-		value = 50
+		value = 40
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = west_canada
-		value = -25
+		value = -10
 	}
 }
 

@@ -261,14 +261,13 @@ ENG_befriend_france = {
 
 ### ------- opening war strategies  ------- ###
 
-ENG_early_defense_canada = {
+ENG_defense_canada = {
 	allowed = {
 		original_tag = ENG		
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		CAN = { is_puppet_of = ENG }
-		has_army_size = { size < 1200000 }
 	}
 	abort = {
 		CAN = { surrender_progress > 0.5 }
@@ -524,67 +523,6 @@ ENG_help_france_fight_germany = {
 		}
 		ratio = 0.08
 		subtract_fronts_from_need = yes
-	}
-}
-
-
-ENG_defend_canada_less = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		CAN = { is_puppet_of = ENG }
-		has_army_size = { size > 1200000 }
-	}
-	abort = {
-		CAN = { surrender_progress > 0.5 }
-	}
-
-	ai_strategy = {
-		type = contain
-		id = "USA"
-		value = 75
-	}
-	ai_strategy = {
-		type = support
-		id = "CAN"
-		value = 100
-	}
-
-	ai_strategy = {
-		type = protect
-		id = "CAN"
-		value = 100
-	}
-
-	# east usa
-    ai_strategy = {
-		type = front_unit_request
-		tag = USA
-		value = 25
-	}
-
-	ai_strategy = {
-		type = area_priority
-		id = east_canada
-		value = 15 #more focus here
-	}
-
-	# nova scotia & new brunswick
-	ai_strategy = {
-		type = put_unit_buffers
-		order_id = 1
-		states = {
-			276
-			468
-			466
-			467		# winnipeg
-		}
-		ratio = 0.06
-		area = north_america
-		subtract_invasions_from_need = no
-		subtract_fronts_from_need = no
 	}
 }
 

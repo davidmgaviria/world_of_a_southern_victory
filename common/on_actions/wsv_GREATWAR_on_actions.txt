@@ -31,19 +31,32 @@ on_actions = {
 		}
 	}
 
-	# assign faction markers when someone joins  (FROM is faction leader)
-	on_join_faction = { 
+	# assign faction markers when someone joins  (need both effects to cover requests and invites respectively )
+	on_join_faction = {  	# FROM is faction leader, ROOT and THIS are the country that joins
 		effect = { 
 			if = { 
-				limit = { faction_leader = { has_country_flag = entente_leader } }
+				limit = { FROM = { has_country_flag = entente_leader } }
 				set_country_flag = entente_member
 			}
 			else_if = {
-				limit = { faction_leader = { has_country_flag = centralpowers_leader } }
+				limit = { FROM = { has_country_flag = centralpowers_leader } }
 				set_country_flag = centralpowers_member
 			}
 		} 
 	}
+	on_offer_join_faction = {   # FROM is the country invited, THIS and ROOT are the faction leader
+		effect = { 
+			if = { 
+				limit = { has_country_flag = entente_leader }
+				FROM = { set_country_flag = entente_member }
+			}
+			else_if = {
+				limit = { has_country_flag = centralpowers_leader }
+				FROM = { set_country_flag = centralpowers_member }
+			}
+		#}
+	}
+ 
 
 	# remove faction markers when someone leaves faction
 	on_leave_faction = { 
