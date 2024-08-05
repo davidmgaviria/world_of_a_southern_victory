@@ -1952,29 +1952,30 @@ focus_tree = {
 
 	focus = {
 		id = CSA_south_grows
-		#icon = GFX_goal_generic_territory_or_war
+		icon = GFX_goal_generic_territory_or_war
 		prerequisite = { focus = CSA_south_defends }
 		cost = 10
 		x = 0
 		y = 2
 		relative_position_id = CSA_south_defends
 
-		available = { has_country_flag = path_complete }
-
 		ai_will_do = {	factor = 1}
-
 
 		available = {
 			has_war_with = USA
+			war_length_with = {
+				tag = USA
+				months > 11
+			}
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			set_country_flag = expanded_csa_claims
 			add_state_claim = 376
 			add_state_claim = 377
+			add_state_claim = 847
 			add_state_claim = 373
+			add_state_claim = 848
 			add_state_claim = 813
 		}
 	}
