@@ -7,7 +7,12 @@ technologies = {
 		}
 
 		path = {
-			leads_to_tech = ww1_trench_warfare
+			leads_to_tech = ww1_delegated_command
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_centralized_command
 			research_cost_coeff = 1
 		}
 
@@ -21,7 +26,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 2.25
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 
 		folder = {
 			name = land_doctrine_folder
@@ -49,106 +54,106 @@ technologies = {
 	}
 
 
-	# ww1_delegated_command = {
-	# 	xor = {
-	# 		ww1_centralized_command
-	# 	}
+	ww1_delegated_command = {
+		xor = {
+			ww1_centralized_command
+		}
 
-	# 	army_org_regain = 0.1
-	# 	army_speed_factor = 0.05
+		army_org_regain = 0.05
+		army_speed_factor = 0.05
 
-	# 	path = {
-	# 		leads_to_tech = ww1_trench_warfare
-	# 		research_cost_coeff = 1
-	# 	}
+		path = {
+			leads_to_tech = ww1_trench_warfare
+			research_cost_coeff = 1
+		}
 
-	# 	doctrine = yes	
-	# 	#research_cost = 3.0
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+		doctrine = yes	
+		#research_cost = 3.0
+		xp_research_type = army
+		xp_unlock_cost = 200   #250 before
 		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
+		categories = {
+			land_doctrine
+		}
 		
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = -2 y = 2 }
-	# 	}
+		folder = {
+			name = land_doctrine_folder
+			position = { x = -2 y = 2 }
+		}
 		
-	# 	ai_will_do = {
-	# 		factor = 50
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 		# important during war
-	# 		modifier = {
-	# 			factor = 2
-	# 			has_war = yes
-	# 		}
-	# 		# only germany does delegated command
-	# 		modifier = {
-	# 			factor = 0
-	# 			NOT = { original_tag = GER }
-	# 		}
-	# 	}
-	# }
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# important during war
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+			# only germany does delegated command
+			modifier = {
+				factor = 0
+				NOT = { original_tag = GER }
+			}
+		}
+	}
 
 
-	# ww1_centralized_command = {
-	# 	xor = {
-	# 		ww1_delegated_command
-	# 	}
+	ww1_centralized_command = {
+		xor = {
+			ww1_delegated_command
+		}
 
-	# 	max_planning_factor = 0.15
+		max_planning_factor = 0.15
 		
-	# 	path = {
-	# 		leads_to_tech = ww1_trench_warfare
-	# 		research_cost_coeff = 1
-	# 	}
+		path = {
+			leads_to_tech = ww1_trench_warfare
+			research_cost_coeff = 1
+		}
 
-	# 	doctrine = yes	
-	# 	#research_cost = 3.0
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+		doctrine = yes	
+		#research_cost = 3.0
+		xp_research_type = army
+		xp_unlock_cost = 200   #250 before
 		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
+		categories = {
+			land_doctrine
+		}
 		
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = 2 y = 2 }
-	# 	}
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 2 y = 2 }
+		}
 		
-	# 	ai_will_do = {
-	# 		factor = 50
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 		# important during war
-	# 		modifier = {
-	# 			factor = 2
-	# 			has_war = yes
-	# 		}
-	# 		# only germany does delegated command
-	# 		modifier = {
-	# 			factor = 0
-	# 			original_tag = GER
-	# 		}
-	# 	}
-	# }
+		ai_will_do = {
+			factor = 50
+			modifier = {
+				not = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# important during war
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+			# only germany does delegated command
+			modifier = {
+				factor = 0
+				original_tag = GER
+			}
+		}
+	}
 
 	
 	ww1_trench_warfare = {
 
-		max_dig_in = 20 #15
+		max_dig_in = 10 #20
 		dig_in_speed_factor = 0.5
 
 		path = {
@@ -159,7 +164,7 @@ technologies = {
 		doctrine = yes	
 		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -167,7 +172,7 @@ technologies = {
 		
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 2 }
+			position = { x = 0 y = 4 }
 		}
 		
 		ai_will_do = {
@@ -204,7 +209,7 @@ technologies = {
 		doctrine = yes	
 		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -212,7 +217,7 @@ technologies = {
 		
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 4 }
+			position = { x = 0 y = 6 }
 		}
 		
 		ai_will_do = {
@@ -247,7 +252,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -255,7 +260,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = -2 y = 6 }
+			position = { x = -2 y = 8 }
 		}
 		
 		ai_will_do = {
@@ -286,7 +291,7 @@ technologies = {
 			ww1_bite_and_hold
 		}
 
-		max_dig_in = 10
+		max_dig_in = 5
 		category_light_infantry = {
 			defense = 0.1
 		}
@@ -301,7 +306,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -309,7 +314,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 2 y = 6 }
+			position = { x = 2 y = 8 }
 		}
 		
 		ai_will_do = {
@@ -350,7 +355,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+	# 	xp_unlock_cost = 200   #250 before
 		
 	# 	categories = {
 	# 		land_doctrine
@@ -389,7 +394,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -397,7 +402,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 8 }
+			position = { x = 0 y = 10 }
 		}
 		
 		ai_will_do = {
@@ -438,7 +443,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -446,7 +451,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 10 }
+			position = { x = 0 y = 12 }
 		}
 		
 		ai_will_do = {
@@ -481,7 +486,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -489,7 +494,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = -2 y = 12 }
+			position = { x = -2 y = 14 }
 		}
 		
 		ai_will_do = {
@@ -531,7 +536,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -539,7 +544,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 2 y = 12 }
+			position = { x = 2 y = 14 }
 		}
 		
 		ai_will_do = {
@@ -577,7 +582,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -585,7 +590,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 14 }
+			position = { x = 0 y = 16 }
 		}
 		
 		ai_will_do = {
@@ -619,7 +624,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 250
+		xp_unlock_cost = 200   #250 before
 		
 		categories = {
 			land_doctrine
@@ -627,7 +632,7 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 16 }
+			position = { x = 0 y = 18 }
 		}
 		
 		ai_will_do = {
@@ -658,7 +663,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 4.5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+	# 	xp_unlock_cost = 200   #250 before
 		
 	# 	categories = {
 	# 		land_doctrine
@@ -704,7 +709,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 4.5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+	# 	xp_unlock_cost = 200   #250 before
 		
 	# 	categories = {
 	# 		land_doctrine
@@ -747,7 +752,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 4.5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+	# 	xp_unlock_cost = 200   #250 before
 		
 	# 	categories = {
 	# 		land_doctrine
@@ -783,7 +788,7 @@ technologies = {
 	# 	doctrine = yes	
 	# 	research_cost = 4.5
 	# 	xp_research_type = army
-	# 	xp_unlock_cost = 250
+	# 	xp_unlock_cost = 200   #250 before
 		
 	# 	categories = {
 	# 		land_doctrine

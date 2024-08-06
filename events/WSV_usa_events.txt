@@ -237,7 +237,7 @@ country_event = {
 		add_to_variable = { USA.strike_popup_count = 1 }
 
 		ai_chance = {
-			factor = 20
+			factor = 25
 		}
 	}
 
@@ -265,10 +265,14 @@ country_event = {
 		ai_chance = {
 			factor = 40
 
-			# send in the military if strikes gone on too long
+			# less likely if low on pp
+			modifier = {
+				factor = 0.5
+				has_political_power < 50
+			}
 			modifier = {
 				factor = 0
-				has_political_power < 50
+				has_political_power < 25
 			}
 			# less likely if more militaristic
 			modifier = {
@@ -292,15 +296,7 @@ country_event = {
 		increase_militancy_by_10_effect = yes
 
 		ai_chance = {
-			factor = 25
-
-			modifier = {
-				factor = 5   check_variable = { USA.strike_popup_count > 6 }
-			}
-			# more likely if more militaristic
-			modifier = {
-				factor = 2   has_country_flag = usa_favour_the_army
-			}
+			factor = 100
 		}
 	}
 }
@@ -1434,6 +1430,10 @@ country_event = {
 	immediate = {
 		hidden_effect = {  # if CSA wins they'll free the mormons later
 			annex_country = { target = DES  transfer_troops = no }
+			delete_unit_template_and_units = {
+				division_template = "State Troopers"
+    			disband = no 
+			}
 		}
 	}
 
