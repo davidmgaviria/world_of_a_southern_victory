@@ -157,7 +157,7 @@ AUH_increase_army = {		# massively increase size
 }
 
 
-AUH_opening_serbia_attack = {
+AUH_conquer_serbia = {
 	allowed = {
 		original_tag = AUH
 		has_start_date < 1937.1.1
@@ -169,45 +169,34 @@ AUH_opening_serbia_attack = {
 	abort = {
 		OR = {
 			has_global_flag = serbia_submitted_to_austria
-			AND = {
-				has_war_with = SER  #dont abort before
-				OR = {
-					surrender_progress > 0.15
-					casualties_inflicted_by = { opponent = SER   thousands > 200 }
-				}
-			}
+			SER = { has_capitulated = yes }
+			surrender_progress > 0.2
 		}
 	}
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = SER 
-		value = 250
-	}
-
-	ai_strategy = {
-		type = conquer	
-		id = "SER"			
+		tag = "SER" 
 		value = 150
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = SER
-		value = -15
+		type = prepare_for_war	
+		id = "SER"			
+		value = 100
 	}
 
 	ai_strategy = {
 		type = front_control
-		tag = RUS
-		ratio = 0.6
-		priority = 50
+		tag = SER
+		ratio = 0.75
+		priority = 1
 		ordertype = front
 		execution_type = careful
-		execute_order = no
+		execute_order = yes
 		manual_attack = yes
 	}
-	
+
 	ai_strategy = {
 		type = prepare_for_war	
 		id = "RUS"			
@@ -217,60 +206,13 @@ AUH_opening_serbia_attack = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -40
-	}
-}
-
-
-AUH_pause_against_serbia = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = SER
-		casualties_inflicted_by = { opponent = SER   thousands > 200 }
-		# build up before attacking
-		OR = {
-			NOT = { BUL = { has_war_with = SER } }
-			has_army_size = { size < 1500000 }
-		}
-	}
-	abort = {
-		OR = {
-			has_global_flag = serbia_submitted_to_austria
-			SER = { has_capitulated = yes }
-			surrender_progress > 0.2
-		}
+		value = -50
 	}
 
 	ai_strategy = {
-		type = front_control
-		tag = SER
-		ratio = 0.6
-		priority = 1
-		ordertype = front
-		execution_type = balanced
-		execute_order = no
-		manual_attack = yes
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = SER 
-		value = 200
-	}
-
-	ai_strategy = {
-		type = conquer	
-		id = "SER"			
-		value = 50
-	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = RUS 
-		value = -35
+		type = consider_weak
+		id = SER			
+		value = -15
 	}
 }
 
@@ -310,113 +252,6 @@ AUH_defensive_if_lack_of_guns_agains_RUS = {
 		manual_attack = yes
 	}
 }
-
-
-AUH_attack_montenegro = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = SER
-		has_country_flag = invade_montenegro
-	}
-	abort = {
-		OR = {
-			MNT = { has_capitulated = yes }
-			# invasion probably failed at this point
-			casualties_inflicted_by = { opponent = MNT  thousands > 20 }
-		}
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = MNT
-		value = 75
-	}
-	ai_strategy = {
-		type = front_unit_request
-		tag = MNT
-		value = 25
-	}
-	ai_strategy = {
-		type = consider_weak
-		id = MNT
-		value = 50
-	}
-
-	## pin the serbs
-	ai_strategy = {
-		type = front_control
-		tag = SER
-		ratio = 0.7
-		priority = 25
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
-	}
-}
-
-
-AUH_attack_albania = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = SER
-		has_country_flag = invade_albania
-	}
-	abort = {
-		OR = {
-			ALB = { has_capitulated = yes }
-			# invasion probably failed at this point
-			casualties_inflicted_by = { opponent = ALB  thousands > 20 }
-		}
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = ALB
-		value = 75
-	}
-	ai_strategy = {
-		type = front_unit_request
-		tag = ALB
-		value = 20
-	}
-	ai_strategy = {
-		type = consider_weak
-		id = ALB
-		value = 50
-	}
-}
-
-
-AUH_aid_bulgaria_offensive = {
-	allowed = {
-		original_tag = AUH
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = SER
-		BUL = { has_war_with = SER }
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = front_control
-		tag = SER
-		ratio = 0.6
-		priority = 50
-		ordertype = front
-		execution_type = balanced
-		execute_order = yes
-		manual_attack = yes
-	}
-}
-
 
 
 AUH_germany_can_handle_itself = {

@@ -13,7 +13,7 @@
 # area_priority
 
 
-SER_increase_army = {		# massively increase size
+SER_increase_army = {	
 	allowed = {
 		original_tag = SER
 		has_start_date < 1937.1.1
@@ -22,24 +22,12 @@ SER_increase_army = {		# massively increase size
 		has_army_manpower = { size < 200000 }
 		has_war = no 
 	}
-	abort = {
-		# pasue when about to start balkan war
-		has_country_flag = balkan_league_member
-		has_army_manpower = { size > 150000 }
-	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 25
-	}
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 	# reduce while we build up in case of issues
+		type = build_army
+		id = infantry
+		value = 25
 	}
 }
 
