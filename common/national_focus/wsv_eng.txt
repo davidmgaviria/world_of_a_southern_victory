@@ -617,7 +617,7 @@ focus_tree = {
 		icon = GFX_focus_invite_russia_to_entente
 		prerequisite = { focus = ENG_continue_naval_buildup }
 		cost = 5
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = ENG_continue_naval_buildup
 
@@ -649,6 +649,46 @@ focus_tree = {
 			}
 		}
 	}
+
+
+	focus = {
+		id = ENG_secure_persian_oil
+		icon = GFX_focus_generic_resource_extraction
+		prerequisite = { focus = ENG_outreach_russia  focus = ENG_blank_cheque_in_europe }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ENG_outreach_russia
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			NOT = { has_war_with = PER }
+			PER = { 
+				exists = yes
+				OR = {
+					is_puppet = no
+					is_puppet_of = ENG
+				}
+			}
+		}
+
+		completion_reward = { 
+			PER = {
+				give_military_access = ENG
+				give_resource_rights = {
+					receiver = ENG
+					state = 413
+					resources = { oil }
+				}
+			}
+		}
+	}
+
+
+	
 
 
 	focus = {
@@ -694,7 +734,7 @@ focus_tree = {
 		icon = GFX_focus_chi_reach_out_to_france
 		prerequisite = { focus = ENG_continue_naval_buildup }
 		cost = 5
-		x = 1
+		x = -1
 		y = 1
 		relative_position_id = ENG_continue_naval_buildup
 
@@ -734,7 +774,7 @@ focus_tree = {
 		prerequisite = { focus = ENG_outreach_russia }
 		prerequisite = { focus = ENG_reaffirm_french_ties }
 		cost = 10
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = ENG_reaffirm_french_ties
 
