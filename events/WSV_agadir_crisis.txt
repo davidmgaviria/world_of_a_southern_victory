@@ -72,6 +72,7 @@ news_event = {
 		set_global_flag = agadir_crisis
 		hidden_effect = {
 			GER = {
+				set_country_flag = sent_gunboat_to_agadir
 				add_named_threat = { threat = 10  name = "Germany Intervenes in Morocco" }
 			}
 			ENG = {
@@ -291,6 +292,13 @@ news_event = {
 		set_global_flag = agadir_crisis_over
 		hidden_effect = {
 			FRA = {
+				if = {
+					limit = { country_exists = MOR }	
+					annex_country = {
+						target = MOR
+						transfer_troops = no
+					}
+				}
 				transfer_state = 774   # Entenschnabel
 			}
 			GER = {
@@ -436,7 +444,4 @@ country_event = {
 			type = topple_government
 		}
 	}
-}
-
-
-
+} 

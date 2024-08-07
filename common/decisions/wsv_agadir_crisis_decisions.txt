@@ -20,7 +20,10 @@ agadir_crisis_cat = {
 		}
 
 		activation = {
-			has_global_flag = france_occupies_morocco
+			OR = {
+				has_global_flag = france_occupies_morocco
+				has_global_flag = agadir_crisis
+			}
 			NOT = { has_global_flag = agadir_crisis_over }
 		}
 
@@ -51,10 +54,10 @@ agadir_crisis_cat = {
 		visible = {
 			has_active_mission = relevance_of_morocco_occupation
 			tag = GER
+			NOT = { has_country_flag = sent_gunboat_to_agadir }
 		}
 		available = {
 			has_war = no
-			#has_completed_focus = GER_agadir_crisis
 		}
 
 		fire_only_once = yes
@@ -81,7 +84,6 @@ agadir_crisis_cat = {
 			tag = GER
 		}
 		available = {
-			#has_completed_focus = GER_agadir_crisis
 			has_global_flag = britain_response_to_agadir
 		}
 
@@ -110,7 +112,6 @@ agadir_crisis_cat = {
 			tag = GER
 		}
 		available = {
-			#has_completed_focus = GER_agadir_crisis
 			has_global_flag = britain_response_to_agadir
 		}
 

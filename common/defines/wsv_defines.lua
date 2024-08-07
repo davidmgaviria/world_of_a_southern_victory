@@ -31,7 +31,7 @@ NDefines.NAI.NAVY_CHIEF_SCORE_MULTIPLIER = 0.8                  	-- vanilla is 2
 -- Combat stats
 NDefines.NMilitary.DIG_IN_FACTOR = 0.04								-- vanilla is 0.02, entrenchment should be more effective
 NDefines.NMilitary.UNIT_DIGIN_SPEED = 0.5 							-- vanilla is 1, takes longer to dig in
---NDefines.NMilitary.BASE_CHANCE_TO_AVOID_HIT = 85                    -- Vanilla is 90 (defensive in WW1 was still extremely costly) 
+--NDefines.NMilitary.BASE_CHANCE_TO_AVOID_HIT = 80                    -- Vanilla is 90 (defensive in WW1 was still extremely costly) 
 --NDefines.NMilitary.CHANCE_TO_AVOID_HIT_AT_NO_DEF = 60	            -- Vanilla is 60 
 
 

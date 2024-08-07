@@ -100,10 +100,161 @@ ENG_britannia_rules_the_waves = {
 	    value = 25
 	}
 
+	# ai_strategy = {
+	# 	type = building_target
+	# 	id = fuel_silo
+	# 	value = 1
+	# }
+}
+
+
+
+ENG_the_adriatic_is_dangerous = {
+	allowed = { original_tag = ENG }
+	enable = {
+		OR = {
+			has_war_with = AUH
+			has_war_with = ITA 
+		}
+	}
+	abort_when_not_enabled = yes
+
 	ai_strategy = {
-		type = building_target
-		id = fuel_silo
-		value = 1
+		type = naval_avoid_region
+		id = 168 #adriatic
+		value = 75
+	}
+}
+
+ENG_the_channel_is_dangerous = {
+	allowed = { original_tag = ENG }
+	enable = {
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 18 #english channel
+		value = 75
+	}
+}
+
+
+ENG_baltic_is_a_trap = {
+	allowed = { original_tag = ENG }
+	enable = {
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 9 #northern baltic
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 206 #central baltic
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 207 #danish belts
+		value = 600
+	}
+	#ai_strategy = {
+	#	type = naval_avoid_region
+	#	id = 279 #Bothnia
+	#	value = 600
+	#}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 9 #gulf of finland
+		value = 600
+	}
+}
+
+
+ENG_avoid_the_american_navy = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		has_war_with = USA
+	}
+	abort_when_not_enabled = yes
+
+	# east coast
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 54  # east coast
+		value = 600
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 170  # florida coast
+		value = 250
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 57  # sargossa sea
+		value = 125
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 53  # caribbean sea
+		value = 125
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 52  # gulf of mexico
+		value = 600
+	}
+
+	# west coast
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 89  # western seaboard
+		value = 600   # dont do missions
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 106  # mexican coast 
+		value = 600  # dont do missions
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 111  # north central pacific
+		value = 150
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 115  # north east pacific
+		value = 150
+	}
+}
+
+
+ENG_convoy_raids_german_convoys = {
+	allowed = {
+		original_tag = ENG
+	}
+	enable = {
+		has_war_with = GER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_convoy_raid_region
+		id = 43 # western approaches
+		value = 100
+	}
+
+	ai_strategy = {
+		type = naval_convoy_raid_region
+		id = 45 # norwegian sea
+		value = 100
 	}
 }
 
@@ -405,6 +556,7 @@ ENG_early_defense_of_france = {
 
 
 ### ------- wartime strategies  ------- ###
+
 
 # massively increase size during war
 ENG_increase_army_for_greatwar = {		

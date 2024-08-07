@@ -365,14 +365,18 @@ focus_tree = {
 		icon = GFX_focus_generic_africa_naval
 		prerequisite = { focus = GER_our_place_in_the_sun }
 		#mutually_exclusive = { focus = }
-		cost = 5
+		cost = 10
 		x = 0
 		y = 1
 		relative_position_id = GER_our_place_in_the_sun
 
+		ai_will_do = {
+			factor = 10
+		}
+
 		available = { 
-			#has_global_flag = france_occupies_morocco
-			has_global_flag =  agadir_crisis_over
+			date > 1912.1.1
+			NOT = { has_global_flag = france_occupies_morocco }
 		}
 
 		bypass = { 
@@ -380,9 +384,8 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			#add_political_power = 75
-			#custom_effect_tooltip = unlocks_agadir_decisions_tt
-			custom_effect_tooltip = focus_auto_completes_tt
+			news_event = wsv_agadir.2
+			custom_effect_tooltip = france_responds_negatively_tt
 		}
 	}
 
