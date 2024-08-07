@@ -100,13 +100,13 @@ AUH_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 45
+		value = 80
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 25
+		value = 45
 	}
 
 	ai_strategy = {
@@ -129,7 +129,7 @@ AUH_gw_stockpile_less_early_game = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 
@@ -140,8 +140,8 @@ AUH_increase_army = {		# massively increase size
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 1000000 }
-		date > 1912.1.1
+		has_army_manpower = { size < 800000 }
+		date > 1912.5.1
 	}
 	abort_when_not_enabled = yes
 
@@ -157,7 +157,7 @@ AUH_increase_army = {		# massively increase size
 }
 
 
-AUH_conquer_serbia = {
+AUH_opening_assault_serbia = {
 	allowed = {
 		original_tag = AUH
 		has_start_date < 1937.1.1
@@ -169,6 +169,7 @@ AUH_conquer_serbia = {
 	abort = {
 		OR = {
 			has_global_flag = serbia_submitted_to_austria
+			casualties_inflicted_by = { opponent = SER  thousands > 200 }
 			SER = { has_capitulated = yes }
 			surrender_progress > 0.2
 		}
@@ -189,7 +190,7 @@ AUH_conquer_serbia = {
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.75
+		ratio = 0.8
 		priority = 1
 		ordertype = front
 		execution_type = careful
@@ -212,43 +213,85 @@ AUH_conquer_serbia = {
 	ai_strategy = {
 		type = consider_weak
 		id = SER			
-		value = -15
+		value = -30
+	}
+}
+
+
+AUH_slow_against_serbia = {
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = SER
+		casualties_inflicted_by = { opponent = SER  thousands > 200 }
+		has_war_with = RUS
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.2
+			SER = { has_capitulated = yes }
+		}
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+		tag = "SER" 
+		value = 125
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SER
+		ratio = 0.5
+		priority = 1
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = prepare_for_war	
+		id = "RUS"			
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = RUS 
+		value = -35
 	}
 }
 
 
 
-AUH_defensive_if_lack_of_guns_agains_RUS = {
+AUH_aid_bulgarian_offensive = {
 	allowed = {
-		original_tag = AUH		
+		original_tag = AUH
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		has_war_with = SER
+		BUL = { has_war_with = SER }
 		has_war_with = RUS
-		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.03
-		}
 	}
 	abort = {
 		OR = {
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
-		}		
+			surrender_progress > 0.2
+			SER = { has_capitulated = yes }
+		}
 	}
 
 	ai_strategy = {
 		type = front_control
-		tag = RUS
-		ratio = 0.6
-		priority = 1
+		tag = SER
+		ratio = 0.65
+		priority = 50
 		ordertype = front
-		execution_type = balanced
-		execute_order = no
+		execution_type = careful
+		execute_order = yes
 		manual_attack = yes
 	}
 }

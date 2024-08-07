@@ -277,26 +277,18 @@ RUS_opening_war_assault_AUH = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		NOT = { is_in_faction_with = AUH }
 		OR = {
 			threat > 0.25
 			has_global_flag = franzferdinand_assassinated
 		}
-		AUH = { exists = yes }
 	}
 	#abort_when_not_enabled = yes
 	abort = {
 		OR = {
 			has_global_flag = serbia_submitted_to_austria
-			AND = {
-				has_war_with = AUH  #dont abort before
-				OR = {
-					surrender_progress > 0.15
-					casualties_inflicted_by = {
-						opponent = AUH
-						thousands > 175
-					}
-				}
-			}
+			surrender_progress > 0.15
+			casualties_inflicted_by = {  opponent = AUH  thousands > 200 }
 		}
 	}
 
@@ -332,7 +324,7 @@ RUS_opening_war_assault_AUH = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = AUH
-		value = 300
+		value = 100
 	}
 }
 
