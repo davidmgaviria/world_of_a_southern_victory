@@ -345,7 +345,6 @@ USA_opening_war_assault_against_confederates = {
 		OR = {
 			surrender_progress > 0.15
 			has_country_flag = csa_offensive_failed
-			casualties_inflicted_by = { opponent = CSA   thousands > 500 }
 		}
 	}
 
@@ -413,14 +412,13 @@ USA_opening_war_assault_against_canada = {
 			surrender_progress > 0.15
 			# offensive failed
 			has_country_flag = canada_offensive_failed
-			casualties_inflicted_by = { opponent = CAN   thousands > 300 }
 		}
 	}
 
 	ai_strategy = {
 		type = front_control
 		area = american_northeast
-		ratio = 0.35
+		ratio = 0.5
 		priority = 100
 		ordertype = front
 		execution_type = rush_weak
@@ -437,6 +435,12 @@ USA_opening_war_assault_against_canada = {
 		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = american_northern_plains
+		value = -15
 	}
 }
 
@@ -466,17 +470,16 @@ USA_mobilize_industry_for_war = {
 }
 
 
-USA_fight_the_CSA = {
+# fight the confederates aggressively
+USA_fight_the_CSA_1 = {
 	allowed = {
 		original_tag = USA	
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		has_war_with = CSA
-		OR = {
-			has_country_flag = csa_offensive_failed
-			casualties_inflicted_by = { opponent = CSA   thousands > 500 }
-		}
+		has_country_flag = csa_offensive_failed
+		casualties_inflicted_by = { opponent = CSA   thousands < 800 } 
 	}
 	abort = {
 		OR = {
@@ -493,11 +496,55 @@ USA_fight_the_CSA = {
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = CSA			
-		value = -20
+		type = front_control
+		tag = CSA
+		ratio = 0.5
+		priority = 15
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
 	}
 }
+
+
+# fight the confederates slower
+USA_fight_the_CSA_2 = {
+	allowed = {
+		original_tag = USA	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		has_country_flag = csa_offensive_failed
+		casualties_inflicted_by = { opponent = CSA   thousands > 800 } 
+	}
+	abort = {
+		OR = {
+			NOT = { has_war_with = CAN }  # dont need to be careful if not on two fronts
+			surrender_progress > 0.15		# we're losing dont hold back
+			has_global_flag = NorthAmerica_WW1_is_stuck
+		}
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA  	
+		value = 50   # use to be 50
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.65
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
 
 													
 USA_slowly_against_CAN = {
@@ -535,7 +582,7 @@ USA_slowly_against_CAN = {
 	ai_strategy = {
 		type = front_unit_request
 		area = american_northern_plains
-		value = -20
+		value = -25
 	}
 }
 

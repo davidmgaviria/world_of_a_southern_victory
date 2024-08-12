@@ -178,7 +178,7 @@ AUH_opening_assault_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER
-		value = 150
+		value = 200
 	}
 
 	ai_strategy = {
@@ -190,7 +190,7 @@ AUH_opening_assault_serbia = {
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.8
+		ratio = 0.7
 		priority = 25
 		ordertype = front
 		execution_type = careful
@@ -207,7 +207,7 @@ AUH_opening_assault_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -45  # very few defenses
+		value = -40  # very few defenses
 	}
 
 	ai_strategy = {
@@ -218,7 +218,7 @@ AUH_opening_assault_serbia = {
 }
 
 
-AUH_slow_against_serbia = {
+AUH_ignore_serbia = {
 	allowed = {
 		original_tag = AUH
 		has_start_date < 1937.1.1
@@ -229,39 +229,36 @@ AUH_slow_against_serbia = {
 		has_war_with = RUS
 	}
 	abort = {
-		OR = {
-			surrender_progress > 0.2
-			SER = { has_capitulated = yes }
-		}
+		surrender_progress > 0.2
 	}
 	
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER
-		value = 100
+		value = 75
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.8
+		ratio = 0.85
 		priority = 50
 		ordertype = front
 		execution_type = careful
 		execute_order = no
-		manual_attack = yes
+		manual_attack = no
 	}
 
 	ai_strategy = {
-		type = prepare_for_war	
-		id = "RUS"			
-		value = 50
+		type = consider_weak
+		id = SER			
+		value = -30
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -30   # slightly more men
+		value = -25   # slightly more men
 	}
 }
 
@@ -286,16 +283,16 @@ AUH_aid_bulgarian_offensive = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = SER
-		value = 35
+		value = 50
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.6
+		ratio = 0.5
 		priority = 75
 		ordertype = front
-		execution_type = rush_weak
+		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -364,8 +361,11 @@ AUH_italy_joining_entente = {
 	}
 	enable = {
 		NOT = { is_in_faction_with = ITA }
-		ITA = {
-			focus_progress = { focus = generic_join_france  progress = 0.01 }
+		OR = {
+			ITA = {
+				is_in_faction_with = FRA
+				focus_progress = { focus = generic_join_france  progress = 0.01 }
+			}
 		}
 	}
 	abort_when_not_enabled = yes
@@ -377,34 +377,6 @@ AUH_italy_joining_entente = {
 	}
 }
 
-
-# # no conditional peace
-# centralpowers_no_conditional_peace = {
-# 	allowed = {
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		OR = { 
-# 			tag = GER 
-# 			is_in_faction_with = GER
-# 		}
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = diplo_action_desire
-# 		id = ITA
-# 		value = -9999
-# 		target = conditional_peace
-# 	}
-	
-# 	ai_strategy = {
-# 		type = diplo_action_acceptance
-# 		id = ITA
-# 		value = -9999
-# 		target = conditional_peace
-# 	}
-# }
 
 
 ########################## WW2 ##########################

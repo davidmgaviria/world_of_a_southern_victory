@@ -396,9 +396,14 @@ RUS_careful_against_GER = {
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = GER			
-		value = -35
+		type = front_control
+		tag = GER
+		ratio = 0.6
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
@@ -425,9 +430,14 @@ RUS_careful_against_AUH = {
 	}
 
 	ai_strategy = {
-		type = consider_weak
-		id = AUH			
-		value = -20
+		type = front_control
+		tag = AUH
+		ratio = 0.4
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
@@ -436,131 +446,6 @@ RUS_careful_against_AUH = {
 		value = 75	
 	}
 }
-
-
-
-# RUS_defensive_if_lack_of_guns_against_GER_AUH = {
-# 	allowed = {
-# 		original_tag = RUS	
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		OR = {
-# 			has_war_with = GER
-# 			has_war_with = AUH 
-# 		}
-# 		stockpile_ratio = {	## 3% of the armies equipment must be in reserves
-# 			archetype = infantry_equipment
-# 			ratio < 0.03
-# 		}
-# 	}
-# 	abort = {
-# 		OR = {
-# 			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-# 				archetype = infantry_equipment
-# 				ratio > 0.07
-# 			}
-# 			surrender_progress > 0.15
-# 			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
-# 		}		
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		ratio = 0.6
-# 		priority = 1
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = no
-# 		manual_attack = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = AUH
-# 		ratio = 0.4
-# 		priority = 1
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = no
-# 		manual_attack = yes
-# 	}
-# }
-
-
-# # RUS_brusilov_offensive = {
-# # 	allowed = {
-# # 		original_tag = RUS		
-# # 		has_start_date < 1937.1.1
-# # 	}
-# # 	enable = {
-# # 		war_length_with = { tag = AUH  months > 46 }		 # almost 2 years
-		
-# # 	}
-# # 	abort = {
-# # 		surrender_progress > 0.15	
-# # 		# cancel offensive after 2 months
-# # 		war_length_with = { tag = AUH  months > 48 }	
-# # 	}
-
-# # 	ai_strategy = {
-# # 		type = front_control
-# # 		tag = GER
-# # 		tag = AUH
-# # 		ratio = 0.65
-# # 		priority = 25
-# # 		ordertype = front
-# # 		execution_type = balanced
-# # 		execute_order = yes
-# # 		manual_attack = yes
-# # 	}
-# # }
-
-
-# RUS_launch_offensives_against_GER_AUH = {
-# 	allowed = {
-# 		original_tag = RUS		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		OR = {
-# 			has_war_with = GER
-# 			has_war_with = AUH 
-# 		}
-# 		# launch offensives every 6 months
-# 		set_temp_variable = { days = global.num_days }
-# 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
-# 		check_variable = { days > 100 }
-# 	}
-# 	abort = {
-# 		surrender_progress > 0.15		
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		tag = AUH
-# 		ratio = 0.7
-# 		priority = 25
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = GER
-# 		value = -35
-# 	}
-
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = AUH
-# 		value = -15
-# 	}
-# }
 
 
 RUS_ignore_serbia = {

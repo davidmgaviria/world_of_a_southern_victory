@@ -19,7 +19,7 @@ TUR_military_reforms_cat = {
 
 		custom_cost_trigger = {
 			command_power > 9.9
-			has_political_power > 99
+			has_political_power > 49
 		}
 		custom_cost_text = TUR_military_reform_cost
 		
@@ -28,15 +28,18 @@ TUR_military_reforms_cat = {
 
 		complete_effect = {
 			set_country_flag = conducting_ottoman_army_reform
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -10
+			}
 		}
 
 		remove_effect = {
-			#improve_turkish_military_effect = yes
 			add_manpower = 200000
 		}
 
 		ai_will_do = {
-			factor = 3
+			factor = 10
 		}
 	}
 
@@ -54,7 +57,7 @@ TUR_military_reforms_cat = {
 
 		custom_cost_trigger = {
 			command_power > 9.9
-			has_political_power > 99
+			has_political_power > 49
 		}
 		custom_cost_text = TUR_military_reform_cost
 		
@@ -63,6 +66,10 @@ TUR_military_reforms_cat = {
 
 		complete_effect = {
 			set_country_flag = conducting_ottoman_army_reform
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -10
+			}
 		}
 
 		remove_effect = {
@@ -70,7 +77,7 @@ TUR_military_reforms_cat = {
 		}
 
 		ai_will_do = {
-			factor = 2
+			factor = 5
 		}
 	}
 
@@ -88,7 +95,7 @@ TUR_military_reforms_cat = {
 
 		custom_cost_trigger = {
 			command_power > 9.9
-			has_political_power > 99
+			has_political_power > 49
 		}
 		custom_cost_text = TUR_military_reform_cost
 		
@@ -97,9 +104,14 @@ TUR_military_reforms_cat = {
 
 		complete_effect = {
 			set_country_flag = conducting_ottoman_army_reform
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -10
+			}
 		}
 
 		remove_effect = {
+			improve_turkish_military_effect = yes
 			add_equipment_to_stockpile = {
 				type = infantry_equipment
 				amount = 10000
@@ -111,7 +123,7 @@ TUR_military_reforms_cat = {
 		}
 
 		ai_will_do = {
-			factor = 1
+			factor = 5
 		}
 	}
 }
