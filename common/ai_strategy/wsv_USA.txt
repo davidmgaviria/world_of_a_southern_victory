@@ -187,7 +187,7 @@ USA_increase_army_rapidly = {		# massively increase size
 	enable = {
 		has_war = no
 		date > 1911.1.1
-		has_army_manpower = { size < 2700000 }
+		has_army_manpower = { size < 2800000 }
 	}
 	abort_when_not_enabled = yes
 
@@ -489,13 +489,13 @@ USA_fight_the_CSA = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA  	
-		value = 50
+		value = 50   # use to be 50
 	}
 
 	ai_strategy = {
 		type = consider_weak
 		id = CSA			
-		value = -15
+		value = -20
 	}
 }
 
@@ -521,26 +521,21 @@ USA_slowly_against_CAN = {
 	}
 
 	ai_strategy = {
-		type = front_control
-		tag = CAN
-		ratio = 0.4
-		priority = 25
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
+		type = consider_weak
+		id = CAN				
+		value = -10
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = CAN  	
-		value = 35
+		value = 50
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = american_northern_plains
-		value = -15
+		value = -20
 	}
 }
 

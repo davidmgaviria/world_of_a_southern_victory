@@ -455,7 +455,7 @@ ENG_defense_canada = {
     ai_strategy = {
 		type = front_unit_request
 		tag = USA
-		value = 25  # help canada
+		value = 50  # help canada
 	}
 
 	ai_strategy = {
@@ -689,41 +689,41 @@ ENG_help_france_fight_germany = {
 }
 
 
-ENG_launch_offensives_against_GER = {
-	allowed = {
-		original_tag = ENG		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = GER
-		FRA = { has_war_with = GER }
-		# help france in either of these cases
-		OR = {
-			is_in_faction_with = FRA
-			has_military_access_to = FRA
-		}
-		# wait to build up army	
-		has_army_size = { size > 1200000 }   
-		# launch offensives every 6 months (alongisde France)
-		set_temp_variable = { days = global.num_days }
-		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
-		check_variable = { days < 60 }
-	}
-	abort = {
-		surrender_progress > 0.15	
-	}
+# ENG_launch_offensives_against_GER = {
+# 	allowed = {
+# 		original_tag = ENG		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = GER
+# 		FRA = { has_war_with = GER }
+# 		# help france in either of these cases
+# 		OR = {
+# 			is_in_faction_with = FRA
+# 			has_military_access_to = FRA
+# 		}
+# 		# wait to build up army	
+# 		has_army_size = { size > 1200000 }   
+# 		# launch offensives every 6 months (alongisde France)
+# 		set_temp_variable = { days = global.num_days }
+# 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+# 		check_variable = { days < 60 }
+# 	}
+# 	abort = {
+# 		surrender_progress > 0.15	
+# 	}
 
-	ai_strategy = {
-		type = front_control
-		tag = GER
-		ratio = 0.6
-		priority = 25
-		ordertype = front
-		execution_type = careful
-		execute_order = yes
-		manual_attack = yes
-	}
-}
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = GER
+# 		ratio = 0.6
+# 		priority = 25
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = yes
+# 		manual_attack = yes
+# 	}
+# }
 
 
 ENG_protect_middle_east = {
@@ -782,7 +782,7 @@ ENG_fight_the_turks = {
 		type = front_unit_request
 		area = suez
 		area = middle_east
-		value = 50
+		value = 35
 	}
 
 	ai_strategy = {

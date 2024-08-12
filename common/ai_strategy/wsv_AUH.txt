@@ -177,13 +177,13 @@ AUH_opening_assault_serbia = {
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = "SER" 
+		tag = SER
 		value = 150
 	}
 
 	ai_strategy = {
 		type = prepare_for_war	
-		id = "SER"			
+		id = SER		
 		value = 100
 	}
 
@@ -191,7 +191,7 @@ AUH_opening_assault_serbia = {
 		type = front_control
 		tag = SER
 		ratio = 0.8
-		priority = 1
+		priority = 25
 		ordertype = front
 		execution_type = careful
 		execute_order = yes
@@ -200,14 +200,14 @@ AUH_opening_assault_serbia = {
 
 	ai_strategy = {
 		type = prepare_for_war	
-		id = "RUS"			
+		id = RUS		
 		value = 50
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -50
+		value = -45  # very few defenses
 	}
 
 	ai_strategy = {
@@ -237,15 +237,15 @@ AUH_slow_against_serbia = {
 	
 	ai_strategy = {
 		type = front_unit_request
-		tag = "SER" 
-		value = 125
+		tag = SER
+		value = 100
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.5
-		priority = 1
+		ratio = 0.8
+		priority = 50
 		ordertype = front
 		execution_type = careful
 		execute_order = no
@@ -261,7 +261,7 @@ AUH_slow_against_serbia = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS 
-		value = -35
+		value = -30   # slightly more men
 	}
 }
 
@@ -275,7 +275,6 @@ AUH_aid_bulgarian_offensive = {
 	enable = {
 		has_war_with = SER
 		BUL = { has_war_with = SER }
-		has_war_with = RUS
 	}
 	abort = {
 		OR = {
@@ -285,12 +284,18 @@ AUH_aid_bulgarian_offensive = {
 	}
 
 	ai_strategy = {
+		type = front_unit_request
+		tag = SER
+		value = 35
+	}
+
+	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.65
-		priority = 50
+		ratio = 0.6
+		priority = 75
 		ordertype = front
-		execution_type = careful
+		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
 	}

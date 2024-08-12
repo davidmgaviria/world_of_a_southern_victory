@@ -166,13 +166,13 @@ CSA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 80
+		value = 100
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 20
+		value = 35
 	}
 
 	ai_strategy = {
@@ -311,7 +311,7 @@ CSA_increase_army_rapidly = {
 	enable = {
 		has_war = no
 		date > 1912.1.1
-		has_army_manpower = { size < 1300000 }
+		has_army_manpower = { size < 1100000 }
 	}
 	abort_when_not_enabled = yes
 
@@ -493,7 +493,7 @@ CSA_opening_offensive_against_USA = {
 
 
 # fall back strat once war is going badly
-CSA_give_ground_slowly_against_USA = {
+CSA_careful_against_USA = {
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
@@ -502,73 +502,52 @@ CSA_give_ground_slowly_against_USA = {
 		has_war_with = USA
 		casualties > 200000
 	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-		type = front_control
-		state = 361
-		state = 840
-		priority = 250		# higher priority, not overriden by defense strat
-		ratio = 0.7
-		ordertype = front
-		execution_type = careful
-		execute_order = no
-		manual_attack = yes
-	}
-	# ai_strategy = {
-	# 	type = area_priority
-	# 	id = east_coast
-	# 	value = 15
-	# }
-
-	# hold the line against the rest of the US
-	ai_strategy = {
-		type = front_control
-		tag = USA
-		ratio = 0.5
-		priority = 1  # low priority, overridden by defense strat
-		ordertype = front
-		execution_type = balanced
-		execute_order = no
-		manual_attack = yes
-	}
-}
-
-
-CSA_defensive_if_lack_of_guns_against_USA = {
-	allowed = {
-		original_tag = CSA		
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_war_with = USA
-		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
-			archetype = infantry_equipment
-			ratio < 0.05
-		}
-	}
 	abort = {
-		OR = {
-			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-				archetype = infantry_equipment
-				ratio > 0.07
-			}
-			surrender_progress > 0.15
-			has_global_flag = NorthAmerica_WW1_is_stuck
-		}		
+		USA = { surrender_progress > 0.2 }
 	}
 
 	ai_strategy = {
-		type = front_control
-		tag = USA
-		ratio = 0.6
-		priority = 50
-		ordertype = front
-		execution_type = careful
-		execute_order = no
-		manual_attack = yes
+		type = consider_weak
+		id = USA			
+		value = -20  # more careful
 	}
 }
+
+
+# CSA_defensive_if_lack_of_guns_against_USA = {
+# 	allowed = {
+# 		original_tag = CSA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = USA
+# 		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+# 			archetype = infantry_equipment
+# 			ratio < 0.05
+# 		}
+# 	}
+# 	abort = {
+# 		OR = {
+# 			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+# 				archetype = infantry_equipment
+# 				ratio > 0.07
+# 			}
+# 			surrender_progress > 0.15
+# 			has_global_flag = NorthAmerica_WW1_is_stuck
+# 		}		
+# 	}
+
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = USA
+# 		ratio = 0.6
+# 		priority = 50
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = no
+# 		manual_attack = yes
+# 	}
+# }
 
 
 CSA_avoid_fighting_american_fleet = {
