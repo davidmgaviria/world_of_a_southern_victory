@@ -169,7 +169,7 @@ AUH_opening_assault_serbia = {
 	abort = {
 		OR = {
 			has_global_flag = serbia_submitted_to_austria
-			casualties_inflicted_by = { opponent = SER  thousands > 200 }
+			casualties_inflicted_by = { opponent = SER  thousands > 150 }
 			SER = { has_capitulated = yes }
 			surrender_progress > 0.2
 		}
@@ -225,8 +225,7 @@ AUH_ignore_serbia = {
 	}
 	enable = {
 		has_war_with = SER
-		casualties_inflicted_by = { opponent = SER  thousands > 200 }
-		has_war_with = RUS
+		casualties_inflicted_by = { opponent = SER  thousands > 150 }
 	}
 	abort = {
 		surrender_progress > 0.2
@@ -241,18 +240,12 @@ AUH_ignore_serbia = {
 	ai_strategy = {
 		type = front_control
 		tag = SER
-		ratio = 0.85
+		ratio = 0.6
 		priority = 50
 		ordertype = front
 		execution_type = careful
 		execute_order = no
-		manual_attack = no
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = SER			
-		value = -30
+		manual_attack = yes
 	}
 
 	ai_strategy = {
@@ -292,7 +285,7 @@ AUH_aid_bulgarian_offensive = {
 		ratio = 0.5
 		priority = 75
 		ordertype = front
-		execution_type = balanced
+		execution_type = rush_weak
 		execute_order = yes
 		manual_attack = yes
 	}

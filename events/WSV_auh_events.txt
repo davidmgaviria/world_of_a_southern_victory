@@ -29,8 +29,17 @@ country_event = {
 							
 	option = {
 		name = wsv_auh.1.a
-		add_war_support = -0.03
-		add_stability = -0.015
+
+		if = {
+			limit = { longest_war_length < 36 }   # collapse occurs rapidly after 3 years
+			add_stability = -0.02
+		}
+		else = {
+			# lose more stability as war drags on
+			add_stability = -0.04
+		}
+		add_war_support = -0.02
+
 		if = {
 			limit = { NOT = { has_idea = AUH_house_of_cards } }
 			add_ideas = AUH_house_of_cards

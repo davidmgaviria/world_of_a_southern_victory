@@ -109,47 +109,44 @@ wsv_great_war_decisions = {
 
 	
 		ai_will_do = {
-			base = -2  # need 3 conditions to surrender
+			base = 0  # Need 3 conditions to surrender
 
-			## HOLD OUT FOR AMERICANS! (OTL)
+			## --- Negatives
+			# Having allies is good
+			modifier = {
+				add = -2	# wont leave Russia in the lurch
+				is_in_faction_with = RUS		
+				NOT = { has_global_flag = tsar_of_russia_abdicated }
+			}
+			modifier = {
+				add = -1		# Russia is less valueable once they're falling apart
+				is_in_faction_with = RUS
+			}
 			modifier = {
 				add = -1
-				is_in_faction_with = USA
+				has_war_together_with = ENG  # England makes us happy
+			}
+			modifier = {
+				add = -2
+				has_war_together_with = USA   ## Hold out for Americans! (OTL)
 			}	
 
-			## Getting pushed back is bad
+			## --- Positives
+			# Extreme casualties are bad
 			modifier = {
-				add = 1
-				surrender_progress > 0.2
-			}
-			# Extreme casualties is also bad
-			modifier = {
-				add = 1
-				casualties > 1500000
+				add = 1											
+				casualties > 1000000   
 			}	
-
-			# Russia falling apart is bad
+			# Sucking at war makes us sad :(
 			modifier = {
 				add = 1
-				OR = {
-					has_global_flag = tsar_of_russia_abdicated
-					has_global_flag = russia_lost_greatwar
-					AND = {
-						is_in_faction_with = RUS
-						RUS = { has_capitulated = yes }
-					}
-				}
+				war_length_with = { tag = GER   months > 24	}
+				GER = { surrender_progress < 0.1 }
 			}
-			# England collapsing is bad
+			# Army mutinies hurt
 			modifier = {
 				add = 1
-				OR = {
-					has_global_flag = england_lost_greatwar
-					AND = {
-						is_in_faction_with = ENG
-						ENG = { has_capitulated = yes }
-					}
-				}
+				has_global_flag = french_army_mutinies
 			}
 
 			# If we're completey losing, give up
