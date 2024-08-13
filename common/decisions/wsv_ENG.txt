@@ -70,50 +70,65 @@ wsv_great_war_decisions = {
 			custom_effect_tooltip = amsterdam_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
-		ai_will_do = {
-			base = 0  # need a positive value to surrender
-
-			## --- Negatives
-			# Having allies is good
-			modifier = {
-				add = -2	# wont leave france in the lurch
-				has_war_together_with = FRA		
-			}
-			modifier = {
-				add = -1
-				has_war_together_with = RUS
-			}
-			modifier = {
-				add = -1
-				has_war_together_with = CSA
-			}
 		
-			## --- Positives
-			# Casualties hurt
-			modifier = {
-				add = 1
-				ROOT = { casualties > 500000 }
-			}
-			# Canada falling is bad ( if we're fighting US )
-			modifier = {
-				add = 1
-				CAN = { 
-					is_puppet_of = ENG
-					has_capitulated = yes
-				}
-				has_war_with = USA 
-			}
+		ai_will_do = {
+			base = 0 
 
-			# If we're completey losing, give up
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				set_temp_variable = { surrender_chance = 0 }
+
+				## --- Negatives
+				# Dont abandon France
+				if = {
+					limit = { has_war_together_with = FRA }
+					if = {
+						limit = { is_in_faction_with = FRA }
+						subtract_from_temp_variable = { surrender_chance = 2 }
+					}
+					# we dont care as much if different faction
+					else = {
+						subtract_from_temp_variable = { surrender_chance = 1 }
+					}
+				}
+				# Having allies is good
+				if = {
+					limit = { has_war_together_with = RUS }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Help CSA if fighting US
+				if = {
+					limit = { 
+						has_war_with = USA
+						CSA = { has_war_with = USA }
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+
+				## --- Positives
+				# Casualties hurt
+				if = {
+					limit = { casualties > 500000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Canada falling is bad ( if we're fighting US )
+				if = {
+					limit = { 
+						has_war_with = USA 
+						CAN = { has_capitulated = yes }
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}
-
-
 
 }
 

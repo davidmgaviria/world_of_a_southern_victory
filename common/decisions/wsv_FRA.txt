@@ -107,52 +107,64 @@ wsv_great_war_decisions = {
 			custom_effect_tooltip = second_frankfurt_treaty_tt
 		}
 
-	
+
 		ai_will_do = {
-			base = 0  # Need 3 conditions to surrender
+			base = 0  # Need positive value to surrender
 
-			## --- Negatives
-			# Having allies is good
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -2	# wont leave Russia in the lurch
-				is_in_faction_with = RUS		
-				NOT = { has_global_flag = tsar_of_russia_abdicated }
-			}
-			modifier = {
-				add = -1		# Russia is less valueable once they're falling apart
-				is_in_faction_with = RUS
-			}
-			modifier = {
-				add = -1
-				has_war_together_with = ENG  # England makes us happy
-			}
-			modifier = {
-				add = -2
-				has_war_together_with = USA   ## Hold out for Americans! (OTL)
-			}	
+				set_temp_variable = { surrender_chance = 0 }
 
-			## --- Positives
-			# Extreme casualties are bad
-			modifier = {
-				add = 1											
-				casualties > 1000000   
-			}	
-			# Sucking at war makes us sad :(
-			modifier = {
-				add = 1
-				war_length_with = { tag = GER   months > 24	}
-				GER = { surrender_progress < 0.1 }
-			}
-			# Army mutinies hurt
-			modifier = {
-				add = 1
-				has_global_flag = french_army_mutinies
-			}
+				## --- Negatives
+				# Dont abandon Russia
+				if = {
+					limit = { is_in_faction_with = RUS }
+					if = { 
+						limit = { has_global_flag = tsar_of_russia_abdicated }
+						subtract_from_temp_variable = { surrender_chance = 1 }
+					}	
+					# Russia is more valuable when not falling apart
+					else = {
+						subtract_from_temp_variable = { surrender_chance = 2 }
+					}
+				}
+				# England makes us happy
+				if = {
+					limit = { has_war_together_with = ENG }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				 ## Hold out for Americans! (OTL)
+				if = {
+					limit = { has_war_together_with = USA }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
 
-			# If we're completey losing, give up
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 1000000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Sucking at war makes us sad :(
+				if = {
+					limit = { 
+						war_length_with = { tag = GER   months > 24	}
+						GER = { surrender_progress < 0.1 }    
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Army mutinies hurt
+				if = {
+					limit = { has_global_flag = french_army_mutinies }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}

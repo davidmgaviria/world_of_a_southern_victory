@@ -424,7 +424,15 @@ news_event = {
 			ENG = {	
 				if= { 
 					limit = { is_in_faction = yes } 
-					leave_faction = yes
+					# dismantle faction if leader
+					if = {
+						limit = { is_faction_leader = yes }
+						dismantle_faction_safely_effect = yes
+					}
+					# otherwise just leave faction
+					else = {
+						leave_faction = yes
+					}
 				}
 				greatwar_loser_effect = yes
 			}

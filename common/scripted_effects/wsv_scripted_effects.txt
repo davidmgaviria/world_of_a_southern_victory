@@ -17,6 +17,18 @@
 #
 
 
+# Effect to safely dismantle a faction
+dismantle_faction_safely_effect = {
+	every_other_country = {
+		limit = { 
+			NOT = { is_puppet_of = ROOT }   # dont kick puppets, dont need to
+			is_in_faction_with = ROOT  
+		}
+		leave_faction = yes
+	}
+	dismantle_faction = yes
+}
+
 
 ## Great War loser ##
 greatwar_loser_effect = {
