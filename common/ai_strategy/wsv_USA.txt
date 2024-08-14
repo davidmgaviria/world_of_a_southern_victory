@@ -439,14 +439,14 @@ USA_opening_war_assault_against_canada = {
 
 	ai_strategy = {
 		type = front_unit_request
-		area = american_northeast
+		tag = CAN
 		value = 50
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = american_northern_plains
-		value = -25
+		value = -65
 	}
 }
 
@@ -523,7 +523,7 @@ USA_slowly_against_CSA = {
 		has_country_flag = csa_offensive_failed
 		# halt offensive if low on equipment or men
 		OR = {
-			has_manpower < 300000
+			has_manpower < 400000
 			casualties > 1000000
 		}
 	}
@@ -544,6 +544,12 @@ USA_slowly_against_CSA = {
 		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = CSA   # stacks on above
+		value = -10  
 	}
 }
 
@@ -577,14 +583,14 @@ USA_slowly_against_CAN = {
 
 	ai_strategy = {
 		type = front_unit_request
-		area = american_northeast
+		tag = CAN
 		value = 40
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = american_northern_plains
-		value = -15
+		value = -55
 	}
 }
 

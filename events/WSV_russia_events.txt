@@ -215,6 +215,7 @@ country_event = {
 				surrender_progress > 0.1
 				longest_war_length > 30  	# 2.5 years  (historical condition)
 			}
+			has_stability < 0.1
 		}
 	}
 
@@ -226,6 +227,14 @@ country_event = {
 	option={
 		name=wsv_russia.100.a
 		news_event = wsv_russia.101
+		ai_chance = { factor = 100 }
+	}
+
+	# Civil war
+	option={
+		name=wsv_russia.100.b
+		news_event = { id = wsv_russia.110   days = 3 }
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -326,29 +335,24 @@ news_event = {
 	picture = EVENT_hoi4tgw_october_revolution
 
 	major = yes
+	is_triggered_only = yes
 
-	trigger = {   # also triggered by timeout mission after Tsar abdicates
-		RUS = {
-			has_war_with_major = yes
-			has_stability < 0.1 
-			has_idea = RUS_threat_of_revolution
-		}
-		NOT = { has_global_flag = russian_revolution_occured }
-	}
+	# trigger = {   # also triggered by timeout mission after Tsar abdicates
+	# 	RUS = {
+	# 		has_war_with_major = yes
+	# 		has_stability < 0.1 
+	# 		has_idea = RUS_threat_of_revolution
+	# 	}
+	# 	NOT = { has_global_flag = russian_revolution_occured }
+	# }
 
-	mean_time_to_happen = {
-		days = 14
-	}
+	# mean_time_to_happen = {
+	# 	days = 14
+	# }
 
 	immediate = {
 		set_global_flag = russian_revolution_occured
 		hidden_effect = {
-
-			## Russia leaves war
-			RUS = {	
-				
-			}
-
 			SOV = {
 				create_faction = "Comintern"
 				inherit_technology = RUS
@@ -400,8 +404,8 @@ news_event = {
 					}
 					# if entente leader AT WAR, collapse entente (can only be leader if france already fell)
 					if = { 
-						limit = { is_faction_leader = yes   has_country_flag = entente_leader  has_war_with = GER }
-						GER = { save_event_target_as = centralpowers_leader }  
+						limit = { is_faction_leader = yes   has_country_flag = entente_leader   has_war_with = GER }
+						GER = { faction_leader = {  save_event_target_as = centralpowers_leader } }  # Germany should be faction leader anyways but just in case
 						collapse_entente_effect = yes
 					}
 					# leave faction normally if not entente leader

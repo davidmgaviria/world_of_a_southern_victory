@@ -68,15 +68,39 @@ secondbalkan_war_cat = {
 
 		ai_will_do = {
 			factor = 0
-			# macedonia isnt worth this much if we've already lost it
+
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = 1
-				casualties > 50000
-			}
-			# if we're being beaten surrender
-			modifier = {
-				add = 10
-				surrender_progress > 0.05
+				set_temp_variable = { surrender_chance = 0 }
+
+				## --- Negatives
+				# Less likely to give up if holding thessalonika
+				if = {
+					limit = { controls_state = 855 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Less likely to give up if holding macedonia
+				if = {
+					limit = { 
+						controls_state = 106
+						controls_state = 731
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+
+				## --- Positives
+				# Losing ground is bad
+				if = {
+					limit = { surrender_progress > 0.1 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# We've lost at this point
+				if = {
+					limit = { surrender_progress > 0.4 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}
@@ -116,36 +140,42 @@ secondbalkan_war_cat = {
 			custom_effect_tooltip = secondbalkan_bulgaria_wins_tt
 		}
 
+		
 		ai_will_do = {
-			factor = -2
-			# serbia losing is really bad
-			modifier = {
-				add = 1
-				GRE = { surrender_progress > 0.5 }
-			}
-			modifier = {
-				add = 1
-				SER = { has_capitulated = yes}
-			}
+			factor = 0
 
-			# greece losing is bad
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = 1
-				GRE = { surrender_progress > 0.5 }
-			}
-			# romania losing is bad
-			modifier = {
-				add = 1
-				GRE = { surrender_progress > 0.5 }
-			}
-			# tons of casualties is bad
-			modifier = {
-				add = 1
-				any_country = {
-					is_in_faction_with = SER 
-					has_war_with = BUL
-					casualties > 100000
+				set_temp_variable = { surrender_chance = 0 }
+
+				## --- Negatives
+				# Less likely to give up if holding thessalonika
+				if = {
+					limit = { controls_state = 855 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
+				# Less likely to give up if holding macedonia
+				if = {
+					limit = { 
+						controls_state = 106
+						controls_state = 731
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+
+				## --- Positives
+				# Serbia losing is bad
+				if = {
+					limit = { 
+						SER = {
+							has_war_with = BUL
+							surrender_progress > 0.8
+						} 
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}
