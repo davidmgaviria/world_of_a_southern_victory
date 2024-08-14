@@ -108,15 +108,38 @@ news_event = {
 				inherit_technology = GRE
 				load_focus_tree = { tree = generic_focus  keep_completed = yes }
 				set_country_flag = { flag = gnu_formed_cooldown   value = 1  days = 200 }
+				# boost country stats
+				load_oob = "GNU_volunteers"
+				add_manpower = 100000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 10000
+					producer = FRA
+				}
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.75
+					uses = 3
+					technology = ww1_landdoctrine
+					technology = ww1_delegated_command
+					technology = ww1_centralized_command
+					technology = ww1_trench_warfare
+					technology = ww1_preliminary_bombardment
+				}
 			}
 			GRE = {
 				transfer_units_fraction = {
 					target = GNU
-					size = 0.15
-					army_ratio = 0.15
-					air_ratio = 0.05
-					navy_ratio = 0.05
+					size = 0.1
+					army_ratio = 0.05
+					air_ratio = 0
+					navy_ratio = 0
 					stockpile_ratio = 0.1
+				}
+				army_experience = 50
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.25
+					uses = 2
+					category = land_doctrine
 				}
 			}
 			## add GNU to faction

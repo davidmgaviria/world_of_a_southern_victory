@@ -17,29 +17,20 @@ country_event = {
 	trigger = {
 		tag = AUH
 		has_war = yes
-		longest_war_length > 18	 # a a year and a half into the war
+		longest_war_length > 18	 # a year and a half into the war
 		casualties > 200000
 		NOT = { has_country_flag = wartime_unrest_cooldown }
 		NOT = { has_country_flag = auh_collapsed }
 	}
 
 	immediate = {
-		set_country_flag = { flag = wartime_unrest_cooldown   days = 200   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
+		set_country_flag = { flag = wartime_unrest_cooldown   days = 150   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
 	}
 							
 	option = {
 		name = wsv_auh.1.a
-
-		if = {
-			limit = { longest_war_length < 36 }   # collapse occurs rapidly after 3 years
-			add_stability = -0.02
-			add_war_support = -0.04
-		}
-		else = {
-			# lose more stability as war drags on
-			add_stability = -0.03
-			add_war_support = -0.05
-		}
+		add_stability = -0.01
+		add_war_support = -0.04
 		
 		if = {
 			limit = { NOT = { has_idea = AUH_house_of_cards } }

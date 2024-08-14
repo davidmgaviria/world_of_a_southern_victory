@@ -397,13 +397,14 @@ FRA_limit_army_size = {
 	}
 	enable = {
 		tag = FRA
+		has_war_with_major = yes
 		OR = {
 			# we dont need a huge army
 			has_army_manpower = { size > 2000000 }
 			# dont spam men if we dont have the equipment for it
 			stockpile_ratio = {	 
 				archetype = infantry_equipment
-				ratio < 0.07
+				ratio < 0.05
 			}
 		}
 	}
@@ -426,80 +427,6 @@ FRA_limit_army_size = {
 		value = -9999
 	}
 }
-
-
-# FRA_defensive_if_lack_of_guns_against_GER = {
-# 	allowed = {
-# 		original_tag = FRA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = GER
-# 		stockpile_ratio = {	 ## 3% of the armies equipment must be in reserves
-# 			archetype = infantry_equipment
-# 			ratio < 0.03
-# 		}
-# 	}
-# 	abort = {
-# 		OR = {
-# 			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
-# 				archetype = infantry_equipment
-# 				ratio > 0.07
-# 			}
-# 			surrender_progress > 0.15
-# 			has_global_flag = Europe_WW1_is_stuck  	# WW1 has gone on too long
-# 		}		
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		ratio = 0.6
-# 		priority = 1
-# 		ordertype = front
-# 		execution_type = balanced
-# 		execute_order = no
-# 		manual_attack = yes
-# 	}
-# }
-
-
-# FRA_launch_offensives_against_GER = {
-# 	allowed = {
-# 		original_tag = FRA		
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = GER
-# 		# launch offensives every 6 months (alongisde France)
-# 		set_temp_variable = { days = global.num_days }
-# 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
-# 		check_variable = { days < 60 }
-# 	}
-# 	abort = {
-# 		OR = {
-# 			surrender_progress > 0.15	
-# 			has_idea = FRA_halt_army_offensives
-# 		}
-# 	}
-
-# 	ai_strategy = {
-# 		type = front_control
-# 		tag = GER
-# 		ratio = 0.7
-# 		priority = 25
-# 		ordertype = front
-# 		execution_type = careful
-# 		execute_order = yes
-# 		manual_attack = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = GER
-# 		value = -20
-# 	}
-# }
 
 
 ## dont send troops to Serbia
@@ -577,8 +504,8 @@ FRA_aid_salonika_front = {
 	ai_strategy = {
 		type = front_control
 		tag = BUL
-		ratio = 0.7
-		priority = 200  
+		ratio = 0.5
+		priority = 50  
 		ordertype = front
 		execution_type = careful
 		execute_order = no

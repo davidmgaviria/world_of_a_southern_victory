@@ -361,7 +361,7 @@ USA_opening_war_assault_against_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = CSA		
-		value = 75
+		value = 100
 	}
 
 	## let confederates take DC ##
@@ -380,7 +380,7 @@ USA_opening_war_assault_against_confederates = {
 	ai_strategy = {
 		type = front_unit_request
 		strategic_region = 117
-		value = -115
+		value = -125
 	}
 
 	# buffers to prevent Philadelphia's fall
@@ -439,8 +439,14 @@ USA_opening_war_assault_against_canada = {
 
 	ai_strategy = {
 		type = front_unit_request
+		area = american_northeast
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
 		area = american_northern_plains
-		value = -15
+		value = -25
 	}
 }
 
@@ -479,7 +485,47 @@ USA_fight_the_CSA = {
 	enable = {
 		has_war_with = CSA
 		has_country_flag = csa_offensive_failed
-		casualties_inflicted_by = { opponent = CSA   thousands < 800 } 
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA  	
+		value = 75   # use to be 50
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.6
+		priority = 25
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+	ai_strategy = {
+		type = consider_weak
+		id = CSA
+		value = -15
+	}
+}
+
+
+# fight the confederates aggressively
+USA_slowly_against_CSA = {
+	allowed = {
+		original_tag = USA	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		has_country_flag = csa_offensive_failed
+		# halt offensive if low on equipment or men
+		OR = {
+			has_manpower < 300000
+			casualties > 1000000
+		}
 	}
 	abort = {
 		OR = {
@@ -490,17 +536,17 @@ USA_fight_the_CSA = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		tag = CSA  	
-		value = 60   # use to be 50
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = CSA				
-		value = -25
+		type = front_control
+		tag = CSA
+		ratio = 0.65
+		priority = 50   # overrides order from above
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
 	}
 }
+
 
 													
 USA_slowly_against_CAN = {
@@ -531,16 +577,57 @@ USA_slowly_against_CAN = {
 
 	ai_strategy = {
 		type = front_unit_request
-		tag = CAN  	
-		value = 35
+		area = american_northeast
+		value = 40
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		area = american_northern_plains
-		value = -25
+		value = -15
 	}
 }
+
+
+## control army size production (so france also does offensives)
+USA_limit_army_size = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = USA
+		has_war_with_major = yes
+		OR = {
+			# we dont need a huge army
+			has_army_manpower = { size > 3000000 }
+			# dont spam men if we dont have the equipment for it
+			stockpile_ratio = {	 
+				archetype = infantry_equipment
+				ratio < 0.05
+			}
+		}
+	}
+	abort = {
+		has_army_manpower = { size < 2300000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
+	}
+}
+
 
 
 USA_convoy_raids_british_convoys = {
@@ -583,12 +670,7 @@ USA_destroy_the_mormons = {
 			surrender_progress > 0.2
 		}
 	}
-
-	ai_strategy = {
-		type = front_unit_request
-		tag = DES
-		value = 15
-	}
+	
 	ai_strategy = {
 		type = consider_weak
 		id = DES

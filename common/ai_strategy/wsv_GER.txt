@@ -563,7 +563,7 @@ GER_defensive_against_FRA = {
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.7
+		ratio = 0.45  # conduct attacks
 		priority = 1  
 		ordertype = front
 		execution_type = careful
@@ -627,16 +627,16 @@ GER_beat_russia_slowly_1 = {
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS			
-		value = 15	# put more troops to fight russia
+		value = 15	
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.5
+		ratio = 0.35  # low ratio makes it attack everywhere
 		priority = 10
 		ordertype = front
-		execution_type = balanced
+		execution_type = careful
 		execute_order = yes
 		manual_attack = yes
 	}
@@ -644,7 +644,7 @@ GER_beat_russia_slowly_1 = {
 	ai_strategy = {
 		type = consider_weak
 		id = RUS			
-		value = 35
+		value = 25
 	}
 }
 
@@ -670,30 +670,30 @@ GER_beat_russia_slowly_2 = {
 	ai_strategy = {
 		type = area_priority
 		id = eastern_front
-		value = -15
+		value = -25
 	}
 
 	ai_strategy = {
 		type = front_unit_request
 		tag = RUS		
-		value = -25		# a lot less troops now
+		value = -25
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = RUS
-		ratio = 0.5
+		ratio = 0.6
 		priority = 25
 		ordertype = front
 		execution_type = careful
-		execute_order = yes
+		execute_order = no
 		manual_attack = yes
 	}
 
 	ai_strategy = {
 		type = consider_weak
 		id = RUS			
-		value = 25
+		value = 15
 	}
 }
 
@@ -733,6 +733,36 @@ GER_bomb_england = {
 }
 
 
+GER_aid_bulgarian_offensive = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = SER
+		BUL = { has_war_with = SER }
+	}
+	abort = {
+		OR = {
+			surrender_progress > 0.2
+			SER = { has_capitulated = yes }
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = SER
+		value = 25
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = SER
+		value = 10
+	}
+}
+
+
 GER_let_austria_defend_itself_at_first = {
 	allowed = {
 		original_tag = GER
@@ -740,7 +770,7 @@ GER_let_austria_defend_itself_at_first = {
 	}
 	enable = {
 		is_in_faction_with = AUH
-		war_length_with = { tag = RUS  months < 12 }
+		#war_length_with = { tag = RUS  months < 12 }
 	}
 	abort = {
 		has_war_together_with = AUH

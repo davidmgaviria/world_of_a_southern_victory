@@ -270,59 +270,64 @@ wsv_great_war_decisions = {
 
 		
 		ai_will_do = {
-			base = -3  	# 4 conditions needed to surrender
+			base = 0  # Need positive value to surrender
 
-			## Getting pushed back is bad
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = 1
-				surrender_progress > 0.2
-			}
-			# Extreme casualties is also bad
-			modifier = {
-				add = 1
-				casualties > 2000000
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# Litte progress against France while being starved is bad
-			modifier = {
-				add = 1
-				has_idea = GER_blockade_effects  
-				OR = {
-					AND = {
-						has_war_with = FRA
-						FRA = { surrender_progress < 0.2 }
-					}
+				## --- Negatives
+				# Austria-Hungary is our only real ally
+				if = {
+					limit = { is_in_faction_with = AUH }
+					subtract_from_temp_variable = { surrender_chance = 2 }
 				}
-			}	
-			# Litte progress against Russia while being starved is bad
-			modifier = {
-				add = 1
-				has_idea = GER_blockade_effects  
-				OR = {
-					AND = {
-						has_war_with = RUS
-						RUS = { surrender_progress < 0.1 }
-					}
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.1 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 2000000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Low stability is bad
+				if = {
+					limit = { has_stability < 0.25 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Litte progress against Entente while being starved is bad
+				if = {
+					limit = { 
+						has_idea = GER_blockade_effects  
+						OR = {
+							AND = {
+								has_war_with = FRA
+								FRA = { surrender_progress < 0.2 }
+							}
+							AND = {
+								has_war_with = RUS
+								RUS = { surrender_progress < 0.2 }
+							}
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+				
+				add = surrender_chance  # value to modifier
 			}
-
-			# Austria-Hungary surrendering is really bad
-			modifier = {
-				add = 2
-				OR = {
-					has_global_flag = auh_lost_greatwar
-					AND = {
-						is_in_faction_with = AUH
-						AUH = { has_capitulated = yes }
-					}
-				}
-			}	
-
-			# If we're completey losing, give up
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
-			}	
 		}
 	}
 }

@@ -60,33 +60,16 @@ country_event = {
 	immediate = {
 		set_country_flag = {
 			flag = wartime_unrest_cooldown
-			days = 150
+			days = 120
 			value = 1
 		}
 	}
 
 	option = {
 		name = wsv_russia.2.a
-		if = {
-			limit = { longest_war_length < 24 }
-			add_stability = -0.02
-			add_war_support = -0.03
-		}
-		else = {
-			# lose more stability as war drags on
-			add_stability = -0.03
-			add_war_support = -0.05
-		}
-		
-		add_popularity = {
-			ideology = communism
-			popularity = 0.01
-		}
-
-		if = {
-			limit = { has_idea = RUS_threat_of_revolution }
-			add_ideas = RUS_antiwar_pressure
-		}
+		add_stability = -0.03
+		add_war_support = -0.05
+		add_popularity = { ideology = communism  popularity = 0.02 }
 	}
 }
 
@@ -209,44 +192,37 @@ country_event = {
 #############################################################################
 
 
-## Country event of Tsar's abdication
+## Feburary riots + Tsar's abdication
 country_event = {
 	id=wsv_russia.100
 	title=wsv_russia.100.t
 	desc=wsv_russia.100.d
+	picture = report_event_generic_riot
 
 	fire_only_once = yes
-		
+
 	trigger = {
 		tag = RUS
-		# has been at war for at least 6 months
 		has_war_with_major = yes
-		longest_war_length > 5
 		## Conditions for Tsar abdication
 		OR = {
+			surrender_progress > 0.35
 			AND = {
-				surrender_progress > 0.3
-				has_stability < 0.35
+				surrender_progress > 0.25
+				longest_war_length > 18  	# 1.5 years
 			}
 			AND = {
-				surrender_progress > 0.15
-				has_stability < 0.2
+				surrender_progress > 0.1
+				longest_war_length > 30  	# 2.5 years  (historical condition)
 			}
-			AND = {
-				surrender_progress > 0
-				has_stability < 0.1
-			}
-			has_stability < 0.1
 		}
 	}
 
-	immediate = {
-		# Variables for power struggle when Tsar abdicates
-		set_variable = { white_support = 40 }
-		set_variable = { red_support = 20 }
+	mean_time_to_happen = {
+		days = 20
 	}
-	
-	# we must abdicate
+
+	# Tsar abdicates
 	option={
 		name=wsv_russia.100.a
 		news_event = wsv_russia.101
@@ -274,103 +250,18 @@ news_event = {
 				}
 				promote_character = RUS_georgy_lvov
 				set_cosmetic_tag = RUS_provisional_gov
-				# # event on how to proceed with war
-				# country_event = { id = wsv_russia.102  days = 3 }
-				# delay bolshevicks organizing
 			}
 		}
 	}
 	
 	option={
 		name = wsv_russia.101.a
+		if = {
+			limit = { tag = RUS }
+			add_ideas = RUS_unstable_political_situation
+		}
 	}
 }
-
-
-# ## Country event on how to proceed
-# country_event = {
-# 	id=wsv_russia.102
-# 	title=wsv_russia.102.t
-# 	desc=wsv_russia.102.d
-		
-# 	is_triggered_only = yes
-	
-# 	## Continue with war
-# 	option={
-# 		name=wsv_russia.102.a
-# 		add_war_support = -0.1
-# 		add_political_power = -50
-# 		# news event about russian continuing war
-# 		news_event = { id = wsv_russia.103  days = 1 }
-
-# 		ai_chance = {
-# 			factor = 50
-# 			modifier = {
-# 				factor = 2
-# 				has_war_with = GER
-# 				GER = { surrender_progress > 0.1 }
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				has_war_with = AUH
-# 				AUH = { surrender_progress > 0.1 }
-# 			}
-# 			# canonically surrendered
-# 			modifier = {
-# 				factor = 0.1
-# 				is_historical_focus_on = yes
-# 			}
-# 		}
-# 	}
-
-# 	## Negociate a peace
-# 	option={
-# 		name=wsv_russia.102.b
-# 		increase_white_support_effect = yes
-# 		activate_decision = greatwar_russia_peace_with_germany
-# 		# ai_chance = {
-# 		# 	factor = 0
-# 		# }
-# 		ai_chance = {
-# 			factor = 20
-# 			modifier = {
-# 				factor = 3
-# 				surrender_progress > 0.15
-# 			}
-# 			modifier = {
-# 				factor = 3
-# 				is_in_faction_with = FRA
-# 				FRA = { surrender_progress > 0.15 }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# ## News event of Russia continuing war
-# news_event = {
-# 	id=wsv_russia.103
-# 	title=wsv_russia.103.t
-# 	desc=wsv_russia.103.d
-# 	#picture = news_event_tsar_abdicates  
-		
-# 	is_triggered_only = yes
-# 	major = yes
-
-# 	immediate = {
-# 		set_global_flag = russia_continued_war_effort
-# 	}
-	
-# 	option={
-# 		name = wsv_russia.103.a
-# 		trigger = { is_in_faction_with = RUS }
-# 	}
-
-# 	option={
-# 		name = wsv_russia.103.b
-# 		trigger = { NOT = { is_in_faction_with = RUS } }
-# 	}
-# }
 
 
 ## Aleksandr Kerensky takes power after a while
@@ -403,46 +294,6 @@ country_event = {
 }
 
 
-## Reoccuring event of Bolsheviks organizing (country event)
-# country_event = {
-# 	id=wsv_russia.105
-# 	title=wsv_russia.105.t
-# 	desc=wsv_russia.105.d
-		
-# 	trigger = {
-# 		tag = RUS
-# 		has_global_flag = tsar_of_russia_abdicated
-# 		has_government = democratic
-# 		# dont trigger if revolution occured or if cooldown
-# 		NOT = { has_global_flag = russian_revolution_occured }
-# 		NOT = { has_country_flag = bolshevik_cooldown }
-# 		# dont trigger if political crisis resolved
-# 		RUS = { NOT = { has_country_flag = political_crisis_resolved } }
-# 	}
-
-# 	mean_time_to_happen = {
-# 		days = 5
-# 	}
-
-# 	immediate = {
-# 		# more frequent during war time
-# 		if = {
-# 			limit = { has_war = yes }
-# 			set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 80 }
-# 		}
-# 		else = {
-# 			set_country_flag = { flag = bolshevik_cooldown  value = 1  days = 140 }
-# 		}
-# 	}
-	
-# 	option={
-# 		name=wsv_russia.105.a
-# 		increase_red_support_effect = yes
-# 		slightly_decrease_white_support_effect = yes
-# 	}
-# }
-
-
 ## Event notifying we finally restored order
 country_event = {
 	id=wsv_russia.106
@@ -450,19 +301,12 @@ country_event = {
 	desc=wsv_russia.106.d
 	
 	fire_only_once = yes	
-	trigger = {
-		tag = RUS
-		has_global_flag = tsar_of_russia_abdicated
-		# trigger once we reach 100 white support
-		has_government = democratic
-		check_variable = { RUS.white_support > 99 }
-		# ignore if revolution fired
-		NOT = { has_global_flag = russian_revolution_occured }
-	}
+	is_triggered_only = yes
 	
 	option={
 		name=wsv_russia.106.a
 		set_country_flag = political_crisis_resolved
+		remove_ideas = RUS_threat_of_revolution
 		remove_ideas = RUS_unstable_political_situation
 	}
 }
@@ -482,12 +326,14 @@ news_event = {
 	picture = EVENT_hoi4tgw_october_revolution
 
 	major = yes
-	trigger = {
-		has_global_flag = tsar_of_russia_abdicated
-		check_variable = { RUS.red_support > 99 }
+
+	trigger = {   # also triggered by timeout mission after Tsar abdicates
+		RUS = {
+			has_war_with_major = yes
+			has_stability < 0.1 
+			has_idea = RUS_threat_of_revolution
+		}
 		NOT = { has_global_flag = russian_revolution_occured }
-		# dont trigger if political crisis resolved
-		RUS = { NOT = { has_country_flag = political_crisis_resolved } }
 	}
 
 	mean_time_to_happen = {

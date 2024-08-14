@@ -145,17 +145,17 @@ wsv_great_war_decisions = {
 					limit = { casualties > 1000000 }
 					add_to_temp_variable = { surrender_chance = 1 }
 				}
+				# Losing ground is bad
+				if = {
+					limit = { surrender_progress > 0.15 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
 				# Sucking at war makes us sad :(
 				if = {
 					limit = { 
 						war_length_with = { tag = GER   months > 24	}
 						GER = { surrender_progress < 0.1 }    
 					}
-					add_to_temp_variable = { surrender_chance = 1 }
-				}
-				# Army mutinies hurt
-				if = {
-					limit = { has_global_flag = french_army_mutinies }
 					add_to_temp_variable = { surrender_chance = 1 }
 				}
 				# If we're completey losing, give up
