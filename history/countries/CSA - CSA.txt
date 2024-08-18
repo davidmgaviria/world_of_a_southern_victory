@@ -2,9 +2,9 @@ capital = 362
 
 
 set_fuel_ratio = 0.35
-set_research_slots = 3 #was 4
-set_stability = 0.6
-set_war_support = 0.3
+set_research_slots = 3 
+set_stability = 0.65
+set_war_support = 0.25 
 set_convoys = 200
 set_major = yes		#gotta make sure its a major
 
@@ -13,20 +13,18 @@ set_major = yes		#gotta make sure its a major
 
 1910.1.1 = {
 	oob = "CSA_1910"
+	load_focus_tree = csa_focus
 
-	add_opinion_modifier = {  target = USA   modifier = WSV_old_wounds }
-	#create_faction = "Confederate Sphere"
-	#add_to_faction = MEX
+	## Influence over mexico in MEX history
 
 	set_variable = { 
-		var = csa_influence_in_caribbean 
+		var = csa_influence_in_latam
 		value = 0 
 	}
 	set_variable = { 
-		var = csa_influence_edge
+		var = num_red_rebel_operations
 		value = 0 
 	}
-
 	
 
 	#---------------- CHARACTERS ----------------#
@@ -45,10 +43,20 @@ set_major = yes		#gotta make sure its a major
 		recruit_character = CSA_thomas_jj_christian
 		recruit_character = CSA_duncan_n_hood
 		recruit_character = CSA_frank_parker
+
+		# Admirals
+		recruit_character = CSA_william_s._sims
+		recruit_character = CSA_william_b._caperton
+
+		# Generic Generals & Admirals
 		recruit_character = CSA_generic_general_1
 		recruit_character = CSA_generic_general_2
 		recruit_character = CSA_generic_general_3
 		recruit_character = CSA_generic_general_4
+		recruit_character = CSA_generic_general_5
+		recruit_character = CSA_generic_general_6
+		recruit_character = CSA_generic_general_7
+		recruit_character = CSA_generic_general_8
 	}
 
 
@@ -66,14 +74,15 @@ set_major = yes		#gotta make sure its a major
 	}
 
 	add_ideas = {
+		CSA_southern_social_heriarchy
 		CSA_racial_segregation
 		CSA_agricultural_nation
-		CSA_southern_aristocracy
 		CSA_military_traditions
 		CSA_military_nepotism
 		limited_conscription
 		free_trade 
 	}
+
 
 	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
@@ -85,36 +94,36 @@ set_major = yes		#gotta make sure its a major
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
 		#infantry_binoculars = 1
-		motorised_infantry = 1
+		#motorised_infantry = 1
 		marines = 1
 
 		# Support
 		tech_support = 1
 		tech_engineers = 1
-		tech_recon = 1
+		#tech_recon = 1
 		
 		# Artillery
 		light_field_gun1 = 1
 
 		# Armor
-		gwtank = 1
+		ww1_armored_car = 1
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
+		#ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
-		ww1_battleship2 = 1
-		ww1_battlecruiser0 = 1
+		#ww1_battleship2 = 1
+		#ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
-		transport = 1
+		ww1_transport = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
 
 		# Industry
-		ww1_fortification1 = 1
+		#ww1_fortification1 = 1
 	}
 }
 
@@ -291,7 +300,7 @@ set_major = yes		#gotta make sure its a major
 	set_technology = {
 		# Infantry 
 		infantry_weapons1 = 1
-		motorised_infantry2 = 1
+		ww2_motorised_infantry = 1
 
 		# Armor
 		basic_light_tank = 1

@@ -1,0 +1,424 @@
+technologies = {
+
+	@1908 = 0
+	@1915 = 2
+	@1916 = 4
+	@1918 = 6
+	@1920 = 8
+
+
+	ww1_armored_car = {  #first armored car, called tank to not mess up interface
+
+		enable_equipments = { ww1_armored_car_equipment_1 }
+
+		on_research_complete = {
+			hidden_effect = { load_oob = "unlock_ww1_armoredcar" }
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+	
+		path = {
+			leads_to_tech = ww1_armored_car_2
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = tank_unlocker2
+			research_cost_coeff = 1
+		}
+	
+		research_cost = 1.5
+		start_year = 1908
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = -5 y = @1908 }
+		}
+		
+		ai_will_do = {
+			factor = 5
+
+			
+		}
+		
+		categories = {
+			armor
+			cat_armored_car
+		}
+	}
+
+
+	ww1_armored_car_2 = {
+
+		enable_equipments = { ww1_armored_car_equipment_2 }
+	
+		path = {
+			leads_to_tech = ww1_armored_car_3
+			research_cost_coeff = 1
+		}
+	
+		research_cost = 1.5
+		start_year = 1915
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = -5 y = @1915 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			armor
+			cat_armored_car
+		}
+	}
+
+
+	ww1_armored_car_3 = {
+
+		enable_equipments = { ww1_armored_car_equipment_3 }
+	
+		path = {
+		 	leads_to_tech = ww1_armored_car_4
+			research_cost_coeff = 1
+		}
+	
+		research_cost = 1.5
+		start_year = 1918
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = -5 y = @1918 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+			modifier = {
+				factor = 5
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			armor
+			cat_armored_car
+		}
+	}
+
+
+	#### GREAT WAR TANK TREE ###
+
+	tank_unlocker2 = {
+		desc = "TANK_UNLOCKER_SPECIAL"
+
+		on_research_complete = {
+			custom_effect_tooltip = TANK_UNLOCKER_RESEARCHED
+		}
+		
+		start_year = 1915
+		research_cost = 3
+
+		path = {
+			leads_to_tech = ww1_light_tank
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_heavy_tank
+			research_cost_coeff = 1
+		}
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = 3 y = @1915 }
+		}
+		
+		ai_will_do = {
+			factor = 1
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 4
+				OR = { tag = USA  tag = ENG }
+			}
+			modifier = {
+				factor = 3
+				date > 1916.1.1
+			}
+			modifier = {
+				factor = 3
+				date > 1917.1.1
+			}
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+
+	ww1_light_tank = {
+
+		enable_equipments = { ww1_light_tank_equipment_1 }
+
+		on_research_complete = {
+			hidden_effect = { load_oob = "unlock_ww1_light_tank" }
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+
+		path = {
+			leads_to_tech = ww1_light_tank_2
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.5
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = 0 y = @1918 }
+		}
+		
+		start_year = 1918
+
+		categories = {
+			armor
+			cat_light_armor
+		}
+
+		ai_will_do = { 
+			factor = 1
+
+			modifier = {
+				factor = 6
+				tag = FRA
+			}
+		}
+	}
+
+
+	ww1_light_tank_2 = {
+
+		enable_equipments = { ww1_light_tank_equipment_2 }
+
+		path = {
+			leads_to_tech = ww1_light_tank_2
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.5
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = 0 y = @1920 }
+		}
+		
+		start_year = 1920
+
+		categories = {
+			armor
+			cat_light_armor
+		}
+
+		ai_will_do = { 
+			factor = 1
+
+			modifier = {
+				factor = 6
+				tag = FRA
+			}
+		}
+	}
+
+
+	ww1_heavy_tank = {
+		enable_equipments = { ww1_heavy_tank_equipment_1 }
+
+		on_research_complete = {
+			hidden_effect = { load_oob = "unlock_ww1_heavy_tank" }
+			custom_effect_tooltip = UNLOCK_DIVISION_TEMPLATE
+		}
+
+		dependencies = {
+			tank_unlocker2 = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_heavy_tank_2
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.5
+		
+		folder = {
+			name = gw_armour_folder
+			position = { x = 6 y = @1916 }
+		}
+
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+
+		start_year = 1916
+
+		ai_will_do = { 
+			factor=1
+
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+			modifier = {
+				factor = 4
+				OR = { tag = USA  tag = ENG }
+			}
+			modifier = {
+				factor = 3
+				date > 1917.1.1
+			}
+	 	}
+	}
+
+
+	ww1_heavy_tank_2 = {
+		enable_equipments = { ww1_heavy_tank_equipment_2 }
+
+		path = {
+			leads_to_tech = ww1_heavy_tank_3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_super_heavy_tank
+			research_cost_coeff = 1
+		}
+
+		research_cost = 2.5
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = 6 y = @1918 }
+		}
+
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+
+		start_year = 1918
+
+		ai_will_do = { 
+			factor=1
+			
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+			modifier = {
+				factor = 4
+				date > 1919.1.1
+			}
+	 	}
+	}
+
+
+	ww1_heavy_tank_3 = {
+		enable_equipments = { ww1_heavy_tank_equipment_3 }
+
+		research_cost = 2.5
+
+		folder = {
+			name = gw_armour_folder
+			position = { x = 6 y = @1920 }
+		}
+
+		categories = {
+			armor
+			cat_heavy_armor
+		}
+
+		start_year = 1920
+
+		ai_will_do = { 
+			factor=1
+			
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+			modifier = {
+				factor = 4
+				date > 1921.1.1
+			}
+	 	}
+	}
+
+
+	ww1_super_heavy_tank = { # K-Wagen
+
+		enable_equipments = {
+			ww1_super_heavy_tank_equipment
+		}
+	
+		research_cost = 3
+		start_year = 1918
+		folder = {
+			name = gw_armour_folder
+			position = { x = 10 y = @1918 }
+		}
+
+		
+		ai_will_do = {
+			factor = 0
+		}
+		
+		categories = {
+			armor
+		}
+	}
+
+
+	# ww1_light_tank_interwar_1 = {
+	# 	enable_equipments = { ww1_light_tank_equipment_2 }
+
+	# 	path = {
+	# 		leads_to_tech = basic_light_tank
+	# 		research_cost_coeff = 1
+	# 	}
+	
+	# 	research_cost = 2
+	# 	folder =
+	# 	{
+	# 		name = gw_armour_folder
+	# 		position = { x = 0 y = @1918 }
+	# 	}
+	# 	categories = {
+	# 		armor
+	# 		cat_light_armor
+	# 	}
+	# 	ai_will_do = { 
+	# 		factor=1
+	# 		modifier = {
+	# 			factor = 1
+	# 			is_major = yes
+	# 		}
+	# 		modifier = {
+	# 			factor = 5
+	# 			date > "1936.1.1"
+	# 		}
+	#  	}
+	# 	start_year = 1922
+	# }
+
+
+###################################################
+	
+}

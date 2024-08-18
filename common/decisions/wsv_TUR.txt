@@ -1,13 +1,150 @@
 
-wsv_great_war_decisions = {
-	
-	# Turkey throws in the towel
-	greatwar_turkey_offers_peace = {
 
+############################################
+########## Turkish Military Reforms ########
+############################################
+
+TUR_military_reforms_cat = {
+
+	# Get more manpower
+	TUR_reform_conscription_law = {
+		icon = generic_military
+
+		visible = {
+			has_global_flag = firstbalkan_war_over
+		}
+		available = {
+			NOT = { has_country_flag = conducting_ottoman_army_reform }
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 49
+		}
+		custom_cost_text = TUR_military_reform_cost
+		
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = conducting_ottoman_army_reform
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -10
+			}
+		}
+
+		remove_effect = {
+			add_manpower = 200000
+			clr_country_flag = conducting_ottoman_army_reform
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+
+	# Get more manpower
+	TUR_purge_army_officers = {
+		icon = generic_army_support
+
+		visible = {
+			has_global_flag = firstbalkan_war_over
+		}
+		available = {
+			NOT = { has_country_flag = conducting_ottoman_army_reform }
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 49
+		}
+		custom_cost_text = TUR_military_reform_cost
+		
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = conducting_ottoman_army_reform
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -10
+			}
+		}
+
+		remove_effect = {
+			improve_turkish_military_effect = yes
+			clr_country_flag = conducting_ottoman_army_reform
+		}
+
+		ai_will_do = {
+			factor = 5
+		}
+	}
+
+
+	# Get more manpower
+	TUR_purchase_foriegn_equipment = {
+		icon = generic_industry
+
+		visible = {
+			has_global_flag = firstbalkan_war_over
+		}
+		available = {
+			NOT = { has_country_flag = conducting_ottoman_army_reform }
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+			has_political_power > 49
+		}
+		custom_cost_text = TUR_military_reform_cost
+		
+		days_remove = 90
+		fire_only_once = yes
+
+		complete_effect = {
+			set_country_flag = conducting_ottoman_army_reform
+			hidden_effect = {
+				add_political_power = -50
+				add_command_power = -10
+			}
+		}
+
+		remove_effect = {
+			improve_turkish_military_effect = yes
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = 10000
+			}
+			add_equipment_to_stockpile = {
+				type = light_field_gun_equipment_1
+				amount = 300
+			}
+			clr_country_flag = conducting_ottoman_army_reform
+		}
+
+		ai_will_do = {
+			factor = 5
+		}
+	}
+}
+
+
+
+
+############################################
+############ Great War Surrender ###########
+############################################
+
+
+wsv_great_war_decisions = {
+
+	greatwar_turkey_offers_peace = {
 		icon = generic_form_nation
 
 		available = {
-			always = yes
 			OR = {
 				casualties > 300000
 				surrender_progress > 0.5
@@ -17,71 +154,88 @@ wsv_great_war_decisions = {
 		visible = {
 			tag = TUR
 			OR = {
-				has_war_with = ENG
 				has_war_with = FRA
+				has_war_with = RUS
 			}
-			has_global_flag = historical_treaties_on
 			has_start_date < 1937.1.1
 		}
 
+		days_re_enable = 90
 		days_remove = 5
 
-		days_re_enable = 90
-
 		remove_effect = {
-			if = { 
-				limit = { has_war_with = FRA }
-				FRA = { country_event = wsv_ahistorical_treaty.12 }
+			if = {
+				limit = {
+					has_war_with = FRA
+					FRA = { is_faction_leader = yes }
+				}
+				FRA = { country_event = { id = wsv_peace_treaty.50  days = 1 } }
 			}
-			else = {
-				ENG = { country_event = wsv_ahistorical_treaty.12 }
+			else_if = {
+				limit = {
+					has_war_with = RUS
+					RUS = { is_faction_leader = yes }
+				}
+				RUS = { country_event = { id = wsv_peace_treaty.50  days = 1 } }
 			}
 			custom_effect_tooltip = sevres_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# Negatives
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				surrender_progress < 0.10
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.15
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.35
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 500000
-			}
-			modifier = {
-				add = 1
-				casualties > 800000
-			}
-			modifier = {
-				add = 1
-				casualties > 1100000
-			}
-			modifier = {
-				add = 1
-				casualties > 1600000
-			}
+				## --- Negatives
+				# Germany will protect us
+				if = {
+					limit = { is_in_faction_with = GER }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.1 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
 
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 400000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Low stability is bad
+				if = {
+					limit = { has_stability < 0.25 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Bulgaria surrendering is bad
+				if = {
+					limit = { 
+						OR = {
+							has_global_flag = bulgaria_lost_greatwar
+							AND = {
+								is_in_faction_with = BUL
+								BUL = { has_capitulated = yes }
+							}
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+				
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}

@@ -1,9 +1,233 @@
 
 wsv_great_war_decisions = {
+
+	# Schliffen plan
+	germany_schliffen_plan = {
+		icon = generic_pickelhaube
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			has_war_with = FRA
+			OR = {
+				NOT = { has_war_with = BEL }
+				NOT = { has_war_with = LUX }
+			}
+			
+		}
+
+		visible = {
+			NOT = { is_in_faction_with = FRA }
+			NOT = { is_in_faction_with = BEL }
+			NOT = { is_in_faction_with = LUX }
+		}
+
+		fire_only_once = yes
+		days_remove = 4
+
+		remove_effect = {
+			set_country_flag = schliffen_plan_began
+			add_timed_idea = {	idea = GER_schlieffen_plan	days = 60 }
+			declare_war_on = {
+			    target = BEL
+			    type = puppet_wargoal_focus
+			}
+			declare_war_on = {
+			    target = LUX
+			    type = annex_everything
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						BEL = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = BEL }
+				}
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						LUX = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = LUX }
+				}
+			}
+			if = {
+				limit = { ENG = { has_guaranteed = BEL } }
+				custom_effect_tooltip = war_with_england_tt
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	# Fix supply lines in Belgium cause AI wont
+	germany_build_supply_in_belgium = {
+		icon = generic_construction
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			controls_province = 3547
+			controls_province = 3488
+			controls_province = 6537
+			controls_province = 11519
+		}
+
+		visible = {
+			has_war_with = FRA
+		}
+
+		fire_only_once = yes
+		days_remove = 30
+
+		custom_cost_trigger = {
+			num_of_civilian_factories > 3
+			command_power > 25
+		}
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			add_command_power = -25
+		}
+
+		remove_effect = {
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 3547 3488 6537 11519 }
+				start_province = 3547
+				target_province = 11519
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	# Blockade effect - Germany begins rationing
+	germany_effects_of_blockade = {
+		icon = ger_mefo_bills
+		priority = 10
+
+		allowed = {
+			tag = GER
+		}
+		activation = {
+			has_war_with = ENG
+		}
+		available = {   
+			# cancels if any of these conditions are true
+			OR = {		
+				NOT = { has_war_with = ENG }  # cancel if at peace
+				AND = {
+					controls_state = 126
+					controls_state = 125
+					controls_state = 127
+					controls_state = 123
+					controls_state = 338
+				}	
+				# naval_strength_comparison = {
+				# 	other = ENG
+				# 	#tooltip = my_loc_key_tt
+				# 	ratio > 1
+				# 	sub_unit_def_weights = {
+				# 		battleship = 2
+				# 		battle_cruiser = 2
+				# 		heavy_cruiser = 1
+				# 		light_cruiser = 1
+				# 		destroyer = 1
+				# 		# submarine = 1
+				# 	}
+				# }
+			}
+		}
+
+		days_mission_timeout = 360
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			set_country_flag = germany_began_rationing
+			add_war_support = -0.1
+			add_stability = -0.1
+			add_ideas = GER_implement_rationing
+			country_event = wsv_germany.12
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# Blockade effect - Germany runs out of food countdown
+	germany_ran_out_of_food = {
+		icon = decision_revolt
+		priority = 10
+
+		allowed = {
+			tag = GER
+		}
+		activation = {
+			has_war_with = ENG
+			has_country_flag = germany_began_rationing
+		}
+		available = {   
+			# cancels if our navy is stronger
+			OR = {		
+				NOT = { has_war_with = ENG }			
+				naval_strength_comparison = {
+					other = ENG
+					#tooltip = my_loc_key_tt
+					ratio > 1
+					sub_unit_def_weights = {
+						battleship = 2
+						battle_cruiser = 2
+						heavy_cruiser = 1
+						light_cruiser = 1
+						destroyer = 1
+						# submarine = 1
+					}
+				}
+			}
+		}
+
+		days_mission_timeout = 1080
+		fire_only_once = yes
+
+		timeout_effect = {
+			add_war_support = -0.3
+			add_stability = -0.25
+			add_ideas = GER_blockade_effects
+			hidden_effect = {
+				remove_ideas = GER_implement_rationing
+			}
+			country_event = wsv_germany.13
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
 	
 	# Germany throws in the towel
 	greatwar_germany_offers_peace = {
-
 		icon = generic_form_nation
 
 		available = {
@@ -16,74 +240,93 @@ wsv_great_war_decisions = {
 
 		visible = {
 			tag = GER
-			has_war_with = FRA
-			has_global_flag = historical_treaties_on
+			OR = {
+				has_war_with = FRA
+				has_war_with = RUS
+			}
 			has_start_date < 1937.1.1
 		}
 
+		days_re_enable = 90
 		days_remove = 5
 
-		days_re_enable = 90
-
 		remove_effect = {
-			FRA = { country_event = wsv_ahistorical_treaty.4 }
+			if = {
+				limit = {
+					has_war_with = FRA
+					FRA = { is_faction_leader = yes }
+				}
+				FRA = { country_event = { id = wsv_peace_treaty.50  days = 1 } }
+			}
+			else_if = {
+				limit = {
+					has_war_with = RUS
+					RUS = { is_faction_leader = yes }
+				}
+				RUS = { country_event = { id = wsv_peace_treaty.50  days = 1 } }
+			}
 			custom_effect_tooltip = versailles_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# Negatives
-			# not inclined to surrender if we're doing well
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				surrender_progress < 0.1
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.4
-			}
-			# we're motivated if we're pushing France
-			modifier = {
-				add = -1
-				FRA = { surrender_progress > 0.1 }
-			}
-			modifier = {
-				add = -1
-				FRA = { surrender_progress > 0.2 }
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 1000000
-			}
-			modifier = {
-				add = 1
-				casualties > 1500000
-			}
-			modifier = {
-				add = 2
-				casualties > 2000000
-			}
-
-			# Big blow if austria falls
-			modifier = {
-				add = 2
-				OR = {
-					AUH = { has_capitulated = yes }
-					has_global_flag = treaty_of_saint_germain
+				## --- Negatives
+				# Austria-Hungary is our only real ally
+				if = {
+					limit = { is_in_faction_with = AUH }
+					subtract_from_temp_variable = { surrender_chance = 2 }
 				}
-			}
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.1 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
 
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 2000000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Low stability is bad
+				if = {
+					limit = { has_stability < 0.25 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Litte progress against Entente while being starved is bad
+				if = {
+					limit = { 
+						has_idea = GER_blockade_effects  
+						OR = {
+							AND = {
+								has_war_with = FRA
+								FRA = { surrender_progress < 0.2 }
+							}
+							AND = {
+								has_war_with = RUS
+								RUS = { surrender_progress < 0.2 }
+							}
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+				
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}

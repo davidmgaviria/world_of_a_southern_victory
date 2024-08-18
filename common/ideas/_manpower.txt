@@ -7,7 +7,7 @@ ideas = {
 
 		## Disarmed ##
 		disarmed_nation = {
-						
+	
 			cost = 150
 			removal_cost = -1
 			level = 7
@@ -30,7 +30,6 @@ ideas = {
 
 		## Volunteers ##
 		volunteer_only = {
-						
 			cost = 150
 			removal_cost = -1
 			level = 6
@@ -45,8 +44,23 @@ ideas = {
 			}
 			
 			default = yes
+
+			allowed_to_remove = {
+				NOT = {
+					has_idea = ENG_professional_army
+				}
+			}
 			
 			cancel_if_invalid = no
+
+			ai_will_do = {
+				factor = 1
+
+				modifier = {
+					factor = 60 # being disarmed is bad in a wargame yo
+				 	has_idea = disarmed_nation
+				}
+			}
 		}
 		
 
@@ -63,8 +77,6 @@ ideas = {
 
 			modifier = {
 				conscription = 0.025
-				#industrial_capacity_factory = -0.025
-				#production_speed_buildings_factor = -0.025
 			}
 
 
@@ -80,6 +92,20 @@ ideas = {
 					factor = 20
 					manpower_per_military_factory < 1000
 				}
+
+				modifier = {
+					# England needs to rapidly expand its army
+					factor = 10
+					tag = ENG
+					has_manpower < 600000
+					date > 1915.1.1
+				}
+			
+				modifier = {
+					# dont go down to it
+					factor = 0
+					NOT = { has_idea = volunteer_only }
+				}
 			}
 			
 			cancel_if_invalid = no
@@ -88,16 +114,13 @@ ideas = {
 
 		## Extensive conscription ##
 		extensive_conscription = {
-			
+
 			available = {
-				has_war_support > 0.25
+				has_war_support > 0.2
 				OR = {
+					has_war = yes
 					has_government = fascism
-					custom_trigger_tooltip = { tooltip = above_clarification_tooltip always = no }
-					AND = {
-						has_war = yes
-						enemies_strength_ratio > 0.5
-					}					
+					has_government = communism
 				}
 			}
 			
@@ -107,8 +130,8 @@ ideas = {
 			
 			modifier = {
 				conscription = 0.05
-				industrial_capacity_factory = -0.05
-				production_speed_buildings_factor = -0.05
+				industrial_capacity_factory = -0.1
+				production_speed_buildings_factor = -0.1
 				training_time_factor = 0.1
 			}
 
@@ -125,6 +148,29 @@ ideas = {
 					#Prio if low on manpower
 					factor = 20
 					manpower_per_military_factory <  800
+				
+				}
+
+				modifier = {
+					# CSA needs more men to hold off the US
+					factor = 10
+					tag = CSA
+					has_manpower < 800000
+					date > 1915.1.1
+				}
+
+
+				# modifier = {
+				# 	# do a boost for majors
+				# 	factor = 3
+				# 	has_war = yes
+				# 	is_major = yes
+				# }
+
+				modifier = {
+					# Dont go down to it
+					factor = 0
+					NOT = { has_idea = limited_conscription }
 				}
 			}
 			
@@ -138,9 +184,10 @@ ideas = {
 		service_by_requirement = {
 			
 			available = {
+				has_war_support > 0.3
 				OR = {
 					has_government = fascism
-					custom_trigger_tooltip = { tooltip = above_clarification_tooltip always = no }
+					has_government = communism
 					AND = {
 						has_war = yes
 						enemies_strength_ratio > 0.6
@@ -158,9 +205,9 @@ ideas = {
 
 			modifier = {
 				conscription = 0.1
-				industrial_capacity_factory = -0.1
-				industrial_capacity_dockyard = -0.1
-				production_speed_buildings_factor = -0.1
+				industrial_capacity_factory = -0.2
+				industrial_capacity_dockyard = -0.2
+				production_speed_buildings_factor = -0.2
 				training_time_factor = 0.2
 			}
 
@@ -183,6 +230,10 @@ ideas = {
 					NOT = { tag = SOV }
 					manpower_per_military_factory >  3000
 				}
+				modifier = {
+					factor = 0
+					NOT = { has_idea = extensive_conscription }
+				}
 			}
 
 			cancel_if_invalid = no
@@ -193,8 +244,8 @@ ideas = {
 		## All adaults serve ##
 		all_adults_serve = {
 			
-			
 			available = {
+				has_war_support > 0.3
 				has_war = yes
 				OR = {
 					has_war_support > 0.7
@@ -234,6 +285,10 @@ ideas = {
 					NOT = { tag = CHI }
 					manpower_per_military_factory >  5000
 				}
+				modifier = {
+					factor = 0
+					NOT = { has_idea = service_by_requirement }
+				}
 			}	
 			
 			cancel_if_invalid = no
@@ -246,7 +301,7 @@ ideas = {
 			
 			
 			available = {
-				#has_manpower_for_recruit_change_to =  { value = 0.25 group = mobilization_laws }
+				has_war_support > 0.3
 				has_war = yes
 				OR = {
 					has_war_support > 0.85
@@ -284,6 +339,10 @@ ideas = {
 					#Block has plenty manpower
 					factor = 0
 					manpower_per_military_factory >  5000
+				}
+				modifier = {
+					factor = 0
+					NOT = { has_idea = all_adults_serve }
 				}
 			}
 			cancel_if_invalid = no

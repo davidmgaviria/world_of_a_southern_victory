@@ -4,11 +4,11 @@
 #					GENERIC VALUES
 #-------------------------------------------------------
 set_fuel_ratio = 0.3
-set_research_slots = 4 #should be 3
-set_stability = 0.75
-set_war_support = 0.2
+set_research_slots = 4   # testing 4 slots 
+set_stability = 0.80
+set_war_support = 0.25
 set_convoys = 800
-
+set_major = yes		#gotta make sure its a major
 
 
 
@@ -16,9 +16,10 @@ set_convoys = 800
 
 1910.1.1 = {
 	oob = "ENG_1910"
+	load_focus_tree = england_focus
 
 	add_opinion_modifier = {  target = USA   modifier = WSV_dislikes_country }
-	give_guarantee = FRA
+	diplomatic_relation = { country = FRA   relation = non_aggression_pact  active = yes }
 
 	#---------------- GEOPOLITICS ----------------#
 	if = {
@@ -33,39 +34,60 @@ set_convoys = 800
 		set_autonomy = {
 			target = CAN
 			autonomous_state = autonomy_dominion
-			freedom_level = 0.4
+			freedom_level = 0.6
 		}
 
 		set_autonomy = {
 			target = AST
 			autonomous_state = autonomy_dominion
-			freedom_level = 0.2
+			freedom_level = 0.4
 		}
 		set_autonomy = {
 			target = NZL
 			autonomous_state = autonomy_dominion
-			freedom_level = 0.2
+			freedom_level = 0.4
+		}
+		set_autonomy = {
+			target = EGY
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.6
+		}
+		set_autonomy = {
+			target = EGY
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.6
+		}
+		set_autonomy = {
+			target = OMA
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.5
+		}
+		set_autonomy = {
+			target = KUW
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.6
 		}
 		else = {
 			puppet = RAJ
 			puppet = CAN
 			puppet = AST
 			puppet = NZL
+			puppet = EGY
+			puppet = OMA
 		}
 	}
 	give_military_access = RAJ
-	puppet = OMA
 	puppet = NEP
 	puppet = BHU
-	puppet = EGY
 	give_guarantee = BEL # United Kingdom guaranteed the independence of Belgium - Treaty of London (1839)
-	#give_guarantee = CSA # United Kingdom guaranteed the Confederacy against the US
+	give_guarantee = LUX
 
 	#set_country_flag = monroe_doctrine
 
 
 	#---------------- CHARACTERS ----------------#
-	if = { limit = { has_start_date < 1937.1.1 }
+	if = { 
+		limit = { has_start_date < 1937.1.1 }
 
 		# Country Leaders
 		recruit_character = ENG_george_v      
@@ -131,18 +153,9 @@ set_convoys = 800
 		recruit_character = ENG_edward_james_headlam
 		recruit_character = ENG_percy_zachariah_cox
 		recruit_character = ENG_archibald_murray
-
-	#------------- NATIONAL FOCUS --------------#
-		#Army
-		complete_national_focus = ENG_ww1_army_effort
-		complete_national_focus = ENG_ww1_industrial_effort
-		complete_national_focus = ENG_ww1_naval_effort
-	
-		#Diplomatic
-		complete_national_focus = ENG_ww1_diplomatic_effort
 	}
 
-
+		
 	#---------------- POLITICS ----------------#
 	set_politics = {
 	    ruling_party = democratic
@@ -158,13 +171,31 @@ set_convoys = 800
 	}
 
 	add_ideas = {
-		ww1_Scramble_for_Africa
-		stiff_upper_lip
+		ENG_dense_urban_country
+		ENG_imperial_overextension
+		ENG_professional_army
+		ENG_lords_opposition
+		generic_dreadnought_arms_race
 		volunteer_only
-		building_dreadnoughts
-		#ENG_Staff
-		#ENG_british_regulars
 	}
+
+
+	# #--------------- EQUIPMENT ----------------#
+	# add_equipment_to_stockpile = {
+	# 	type = infantry_equipment_0
+	# 	amount = 20000
+	# 	producer = ENG
+	# }
+	# add_equipment_to_stockpile = {
+	# 	type = support_equipment_1
+	# 	producer = ENG
+	# 	amount = 400
+	# }
+	# add_equipment_to_stockpile = {
+	# 	type = light_field_gun_equipment_1
+	# 	producer = ENG
+	# 	amount = 700
+	# }
 
 
 	#--------------- TECHNOLOGY ----------------#
@@ -177,7 +208,7 @@ set_convoys = 800
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
 		#infantry_binoculars = 1
-		motorised_infantry = 1
+		#motorised_infantry = 1
 		marines = 1
 
 		# Support
@@ -193,21 +224,19 @@ set_convoys = 800
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
-		ww1_light_cruiser2 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
 		ww1_battleship2 = 1
 		ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
-		transport = 1
+		ww1_transport = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
 
 		# Industry
-		ww1_fortification1 = 1
+		#ww1_fortification1 = 1
 	}
 }
 
@@ -291,12 +320,12 @@ set_convoys = 800
 # 		#ENG_Staff
 # 	}
 
-# create_equipment_variant={ name="Erin Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
-# create_equipment_variant={ name="Agincourt Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
-# create_equipment_variant={ name="Canada Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+# create_equipment_variant={ name="Erin Class" type=battleship_1916 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+# create_equipment_variant={ name="Agincourt Class" type=battleship_1916 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+# create_equipment_variant={ name="Canada Class" type=battleship_1916 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
 # create_equipment_variant={ name="King George V Class" type=battleship_1910 name_group = ENG_BB_HISTORICAL name_group = ENG_BB_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=2 ship_armor_upgrade=1 ship_engine_upgrade=0 ship_reliability_upgrade=3           } }
-# create_equipment_variant={ name="Queen Elizabeth Class" type=battleship_1914 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=1 ship_engine_upgrade=2 ship_reliability_upgrade=4           } }
-# create_equipment_variant={ name="Tiger Class" type=battle_cruiser_1914 name_group = ENG_BC_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
+# create_equipment_variant={ name="Queen Elizabeth Class" type=battleship_1916 name_group = ENG_BB_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=1 ship_armor_upgrade=1 ship_engine_upgrade=2 ship_reliability_upgrade=4           } }
+# create_equipment_variant={ name="Tiger Class" type=battle_cruiser_1916 name_group = ENG_BC_HISTORICAL parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=0 ship_engine_upgrade=0 ship_reliability_upgrade=0           } }
 # create_equipment_variant={ name="Chatham Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
 # create_equipment_variant={ name="Birmingham Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 2 obsolete=yes upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=0 ship_reliability_upgrade=5 ship_anti_air_upgrade=0          } }
 # create_equipment_variant={ name="Arethusa Class" type=light_cruiser_1910 name_group = ENG_CL_HISTORICAL parent_version = 3 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=5          } }
@@ -305,7 +334,7 @@ set_convoys = 800
 # create_equipment_variant={ name="M Class" type=destroyer_1910 name_group = ENG_DD_HISTORICAL parent_version = 1 obsolete=no upgrades={     ship_anti_air_upgrade=5    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=1 } }
 # create_equipment_variant={ name="W Class" type=coastal_submarine_1910 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
 # create_equipment_variant={ name="V Class" type=submarine_1910 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-# create_equipment_variant={ name="G Class" type=submarine_1914 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=4 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+# create_equipment_variant={ name="G Class" type=submarine_1916 name_group = ENG_SS_HISTORICAL parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=4 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
 
 # 	set_country_flag = titanic
 # }
@@ -322,7 +351,8 @@ set_convoys = 800
 	oob = "ENG_1937"
 	set_stability = 0.75
 	set_war_support = 0.3
-	load_focus_tree = eng_2_focus
+	load_focus_tree = england_2_focus
+
 	set_research_slots = 4 
 
 	diplomatic_relation = { country = BEL  relation = guarantee  active = no }
@@ -439,7 +469,7 @@ set_convoys = 800
 	set_technology = {
 		# Infantry 
 		#infantry_weapons1 = 1
-		motorised_infantry2 = 1
+		ww2_motorised_infantry = 1
 		marines2 = 1
 
 		# Armor

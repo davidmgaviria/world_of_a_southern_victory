@@ -1,17 +1,494 @@
 ﻿add_namespace = wsv_russia
 
 
-#Lenin returns
+
+#############################################################################
+## -- Domestic Events
+#############################################################################
+
+
+# Saint Petersburg renamed to Petrograd
 country_event = {
-	title=wsv_russia.1.t
-	desc=wsv_russia.1.d
-	id=wsv_russia.1
-	picture=report_event_RUS_lenin
+	id = wsv_russia.1
+	title = wsv_russia.1.t
+	desc = wsv_russia.1.d
+	picture = GFX_report_event_german_reichstag_gathering
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_start_date < 1937.1.1
+		RUS = {
+			has_war_with = GER
+			owns_state = 195 
+		}
+	}
+
+	option = { #a great idea!
+		name = wsv_russia.1.a
+		set_province_name = { id = 3151 name = "Petrograd"}
+		hidden_effect = { 195 = { set_state_name = "Petrograd" } }
+		ai_chance = { factor = 100 }
+	}
+
+	option = { #rather not
+		name = wsv_russia.1.b
+		#Open Beta 0.2b
+		add_stability = -0.05
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## War time unrest events
+country_event = {
+	id = wsv_russia.2
+	title = wsv_russia.2.t
+	desc = wsv_russia.2.d
+	picture = report_event_wsv_gathering_protest
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		longest_war_length > 8	 # a bit more than half a year
+		casualties > 500000
+		NOT = { has_country_flag = wartime_unrest_cooldown }
+		NOT = { has_global_flag = tsar_of_russia_abdicated }
+	}
+
+	immediate = {
+		set_country_flag = {
+			flag = wartime_unrest_cooldown
+			days = 120
+			value = 1
+		}
+	}
+
+	option = {
+		name = wsv_russia.2.a
+		add_stability = -0.03
+		add_war_support = -0.05
+		add_popularity = { ideology = communism  popularity = 0.02 }
+	}
+}
+
+
+#############################################################################
+## -- International Events
+#############################################################################
+
+
+## Russia informs us they are protecting us (ROOT is Serbia or Bulgaria)
+country_event = {
+	id = wsv_russia.20
+	title = wsv_russia.20.t
+	desc = wsv_russia.20.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.20.b
+	}
+}
+
+
+## Our patron Serbia was attacked by AUH
+country_event = {
+	id = wsv_russia.21
+	title = wsv_russia.21.t
+	desc = wsv_russia.21.d
+
+	trigger = {
+		tag = RUS
+		has_country_flag = patron_of_serbia
+		SER = {
+			has_defensive_war_with = AUH
+		}
+		# bypass if at war with AUH already or in faction/guaranteeing Serbia
+		NOT = {
+			 has_war_with = AUH
+			 is_in_faction_with = SER 
+			 has_guaranteed = SER
+		}
+	}
+
+	## Help Serbia
+	option = { 
+		name = wsv_russia.21.a
+		AUH = { country_event = wsv_russia.22 }
+		ai_chance = { factor = 100 }
+	}
+
+	## Abandon Serbia
+	option = { 
+		name = wsv_russia.21.b
+		SER = { add_opinion_modifier = { target = ROOT   modifier = faction_traitor } }
+		clr_country_flag = patron_of_serbia
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## AUH informed to back off (ROOT is antagonist)
+country_event = {
+	id = wsv_russia.22
+	title = wsv_russia.22.t
+	desc = wsv_russia.22.d
+
+	is_triggered_only = yes
+	timeout_days = 5
+
+	# Country agrees
+	option = { 
+		name = wsv_russia.22.a
+		white_peace = SER
+		RUS = { country_event = wsv_russia.23 }
+	}
+
+	# Coutry refuses
+	option = { 
+		name = wsv_russia.22.b
+		RUS = { country_event = wsv_russia.24 }
+	}
+}
+
+## AUH agreed to back off
+country_event = {
+	id = wsv_russia.23
+	title = wsv_russia.23.t
+	desc = wsv_russia.23.d
+
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.23.a
+	}
+}
+
+
+## AUH refused to back off
+country_event = {
+	id = wsv_russia.24
+	title = wsv_russia.24.t
+	desc = wsv_russia.24.d
+
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.24.a
+		create_wargoal = {
+			target = FROM
+			type = topple_government
+		}
+	}
+}
+
+
+
+#############################################################################
+## -- Tsar Abdication & Power Struggle
+#############################################################################
+
+
+## Feburary riots + Tsar's abdication
+country_event = {
+	id=wsv_russia.100
+	title=wsv_russia.100.t
+	desc=wsv_russia.100.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		## Conditions for Tsar abdication
+		OR = {
+			surrender_progress > 0.35
+			AND = {
+				surrender_progress > 0.25
+				longest_war_length > 18  	# 1.5 years
+			}
+			AND = {
+				surrender_progress > 0.1
+				longest_war_length > 30  	# 2.5 years  (historical condition)
+			}
+			has_stability < 0.1
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 20
+	}
+
+	# Tsar abdicates
+	option={
+		name=wsv_russia.100.a
+		news_event = wsv_russia.101
+		ai_chance = { factor = 100 }
+	}
+
+	# Civil war
+	option={
+		name=wsv_russia.100.b
+		news_event = { id = wsv_russia.110   days = 3 }
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## News event of Tsar's abdication
+news_event = {
+	id=wsv_russia.101
+	title=wsv_russia.101.t
+	desc=wsv_russia.101.d
+	picture = news_event_tsar_abdicates
 		
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = tsar_of_russia_abdicated
+		hidden_effect = {
+			RUS = {
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				promote_character = RUS_georgy_lvov
+				set_cosmetic_tag = RUS_provisional_gov
+			}
+		}
+	}
+	
+	option={
+		name = wsv_russia.101.a
+		if = {
+			limit = { tag = RUS }
+			add_ideas = RUS_unstable_political_situation
+		}
+	}
+}
+
+
+## Aleksandr Kerensky takes power after a while
+country_event = {
+	id=wsv_russia.104
+	title=wsv_russia.104.t
+	desc=wsv_russia.104.d
+		
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_global_flag = tsar_of_russia_abdicated
+		has_government = democratic
+		NOT = { has_country_flag = kerensky_took_power }
+	}
+
+	mean_time_to_happen = {
+		days = 200
+	}
+
+	immediate = {
+		set_country_flag = kerensky_took_power
+	}
+	
+	option={
+		name=wsv_russia.104.a
+		promote_character = RUS_alexander_kerensky
+	}
+}
+
+
+## Event notifying we finally restored order
+country_event = {
+	id=wsv_russia.106
+	title=wsv_russia.106.t
+	desc=wsv_russia.106.d
+	
+	fire_only_once = yes	
 	is_triggered_only = yes
 	
 	option={
-		name=wsv_russia.1.a
+		name=wsv_russia.106.a
+		set_country_flag = political_crisis_resolved
+		remove_ideas = RUS_threat_of_revolution
+		remove_ideas = RUS_unstable_political_situation
 	}
 }
+
+
+
+#############################################################################
+## -- Russian Revolution & Civil War
+#############################################################################
+
+
+# Russian civil war
+news_event = {
+	id = wsv_russia.110
+	title = wsv_russia.110.t
+	desc = wsv_russia.110.d
+	picture = EVENT_hoi4tgw_october_revolution
+
+	major = yes
+	is_triggered_only = yes
+
+	# trigger = {   # also triggered by timeout mission after Tsar abdicates
+	# 	RUS = {
+	# 		has_war_with_major = yes
+	# 		has_stability < 0.1 
+	# 		has_idea = RUS_threat_of_revolution
+	# 	}
+	# 	NOT = { has_global_flag = russian_revolution_occured }
+	# }
+
+	# mean_time_to_happen = {
+	# 	days = 14
+	# }
+
+	immediate = {
+		set_global_flag = russian_revolution_occured
+		hidden_effect = {
+			SOV = {
+				create_faction = "Comintern"
+				inherit_technology = RUS
+
+				set_stability = 0.9
+				add_political_power = 800
+				add_ideas = { RUS_workers_revolution }
+
+				every_state={
+					limit={ is_core_of = RUS }
+					add_core_of = SOV
+				}
+				transfer_state = 195
+				transfer_state = 219
+				transfer_state = 244
+				transfer_state = 263
+				transfer_state = 208
+				transfer_state = 246
+				transfer_state = 247
+				transfer_state = 248
+				transfer_state = 264
+				transfer_state = 253
+				transfer_state = 254
+				### khazahkstan
+				transfer_state = 584
+				transfer_state = 585
+				transfer_state = 587
+				### mongolia
+				transfer_state = 564
+				transfer_state = 566
+				transfer_state = 567
+				transfer_state = 568
+				# annex_country = {
+				# 	target = MON
+				# 	transfer_troops = yes
+				# }
+				# give troops
+				load_oob = SOV_Revolt_01
+			}
+
+			RUS = {
+				# take care of diplomatic stuff
+				if= {
+					limit = { is_in_faction = yes }
+					# make every country hate the soviets
+					every_country = {
+						limit = { is_in_faction_with = RUS }
+						add_opinion_modifier = { target = SOV   modifier = faction_traitor } 
+					}
+					# if entente leader AT WAR, collapse entente (can only be leader if france already fell)
+					if = { 
+						limit = { is_faction_leader = yes   has_country_flag = entente_leader   has_war_with = GER }
+						GER = { faction_leader = {  save_event_target_as = centralpowers_leader } }  # Germany should be faction leader anyways but just in case
+						collapse_entente_effect = yes
+					}
+					# leave faction normally if not entente leader
+					else = {
+						leave_faction = yes 
+					}
+				}
+				create_faction = "White Movement"
+
+				# domestic changes
+				set_country_flag = white_russia
+				swap_ideas = {
+					remove_idea = RUS_unstable_political_situation
+					add_idea = RUS_unstable_white_alliance
+				}
+				set_popularities = { 
+					neutrality = 25
+					democratic = 50 
+					fascism = 15   
+					communism = 10 
+				}	
+				transfer_units_fraction= {
+					target = SOV
+					size = 0.4
+					stockpile_ratio = 0.5
+					army_ratio = 0.35
+					navy_ratio = 0.3
+					air_ratio = 0.2
+					keep_unit_leaders = {
+						1101 1102 1103 1107 1114 1115 1116 1117
+					}
+				}	
+			}
+
+			# start war
+			SOV = {
+				declare_war_on = {
+		            type = annex_everything
+		            target = RUS
+		        }
+			}
+		}
+	}
+
+	option = {
+		name = wsv_russia.110.a
+	}
+}
+
+
+## Whites won the civil war
+news_event = {
+	id=wsv_russia.111
+	title=wsv_russia.111.t
+	desc=wsv_russia.111.d
+	picture = 	news_event_russian_civil_war_soldiers
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option={
+		name=wsv_russia.111.a
+	}
+}
+
+
+## Reds won the civil war
+news_event = {
+	id=wsv_russia.112
+	title=wsv_russia.112.t
+	desc=wsv_russia.112.d
+	picture = 	news_event_russian_civil_war_soldiers
+	
+	major = yes
+	is_triggered_only = yes
+	
+	option={
+		name=wsv_russia.112.a
+	}
+}
+
+
+
+
+
 

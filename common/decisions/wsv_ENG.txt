@@ -1,9 +1,52 @@
 
 wsv_great_war_decisions = {
-	
-	# England throws in the towel
-	greatwar_england_offers_peace = {
 
+	# Faction with CSA
+	england_make_faction_with_csa = {
+		icon = generic_form_nation
+
+		available = {
+			is_in_faction = no
+			CSA = {
+				is_in_faction = no
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		visible = {
+			tag = ENG
+			has_war_with = USA
+			CSA = { has_war_with = USA }
+			NOT = { has_country_flag = csa_declined_faction_with_england }
+		}
+
+		days_re_enable = 90  # dont spam
+		days_remove = 3
+
+		remove_effect = {
+			CSA = { country_event = wsv_england.25 }
+			custom_effect_tooltip = csa_must_agree_to_faction_tt
+		}
+
+		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		ai_will_do = {
+			base = 5  
+			# dont do if we're gonna join France in Great War
+			modifier = {
+				factor = 0
+				has_war_with = GER
+				FRA = { 
+					is_faction_leader = yes
+					has_war_with = GER
+				}
+			}
+		}
+	}
+
+
+
+	# England offers peace to Germany (will include US if the US is in Central Powers)
+	greatwar_england_peace_with_germany = {
 		icon = generic_form_nation
 
 		available = {
@@ -15,97 +58,77 @@ wsv_great_war_decisions = {
 
 		visible = {
 			tag = ENG
-			#OR = {
-			#	has_war_with = USA
-			#	has_war_with = GER
-			#}
-			#has_global_flag = historical_treaties_on
-			#has_start_date < 1937.1.1
+			has_war_with = GER
 		}
 
+		days_re_enable = 90
 		days_remove = 5
 
-		days_re_enable = 90
-
 		remove_effect = {
-			if = { 
-				limit = { has_war_with = USA }
-				USA = { country_event = wsv_historical_treaty.16 }
-			}
-			else = {
-				GER = { country_event = wsv_historical_treaty.16 }
-			}
+			GER = { country_event = { id = wsv_peace_treaty.10  days = 1 } }
 			custom_effect_tooltip = amsterdam_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		
 		ai_will_do = {
-			factor = 0	
+			base = 0 
 
-			# Negatives
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				surrender_progress < 0.10
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.15
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.35
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 600000
-			}
-			modifier = {
-				add = 1
-				casualties > 900000
-			}
-			modifier = {
-				add = 1
-				casualties > 1400000
-			}
-			modifier = {
-				add = 1
-				casualties > 2000000
-			}
-			# Losing Canada sucks
-			modifier = {
-				add = 1
-				is_in_faction_with = CAN
-				CAN = { has_capitulated = yes }
-			}
-			# Losing CSA sucks
-			modifier = {
-				add = 1
-				OR = {
-					CSA = { has_capitulated = yes }
-					has_global_flag = treaty_of_nashville
+				## --- Negatives
+				# Dont abandon France
+				if = {
+					limit = { has_war_together_with = FRA }
+					if = {
+						limit = { is_in_faction_with = FRA }
+						subtract_from_temp_variable = { surrender_chance = 2 }
+					}
+					# we dont care as much if different faction
+					else = {
+						subtract_from_temp_variable = { surrender_chance = 1 }
+					}
 				}
-			}
-			# Losing France is a huge blow
-			modifier = {
-				add = 2
-				OR = {
-					FRA = { has_capitulated = yes }
-					has_global_flag = second_treaty_of_frankfurt
+				# Having allies is good
+				if = {
+					limit = { has_war_together_with = RUS }
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
+				# Help CSA if fighting US
+				if = {
+					limit = { 
+						has_war_with = USA
+						CSA = { has_war_with = USA }
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
 
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				## --- Positives
+				# Casualties hurt
+				if = {
+					limit = { casualties > 500000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Canada falling is bad ( if we're fighting US )
+				if = {
+					limit = { 
+						has_war_with = USA 
+						CAN = { has_capitulated = yes }
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}
+
 }
 
 

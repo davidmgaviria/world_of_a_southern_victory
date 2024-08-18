@@ -1,15 +1,58 @@
-secondbalkan_war_decisions = {
+secondbalkan_war_cat = {
+
+	## Bulgaria war countdown
+	secondbalkan_countdown_to_war = {
+		icon = generic_ignite_civil_war
+
+		allowed = {
+			original_tag = BUL
+		}
+
+		activation = {
+			has_global_flag = criticized_london_peace_conference
+		}
+		available = {
+			has_country_flag = secondbalkan_war_prep_over
+		}
+
+		days_mission_timeout = 24
+		is_good = no
+		
+		timeout_effect = {
+			set_country_flag = secondbalkan_war_prep_over
+			create_faction = "Greater Bulgaria"
+			declare_war_on = {
+				target = SER
+				type = take_claimed_state
+			}
+			GRE = {
+				if = {
+					limit = { is_in_faction_with = SER }
+					add_to_war = {
+						targeted_alliance = SER
+						enemy = BUL
+					}
+				}
+			}
+			hidden_effect = {
+				news_event = wsv_secondbalkan.6
+			}
+		}
+	}
+
 	
-
-	# Bulgaria throws in the towel
+	# Bulgaria surrenders
 	secondbalkan_bulgaria_offers_peace = {
-
 		icon = generic_form_nation
 
 		allowed = {
-			tag = BUL
+			original_tag = BUL
 		}
-
+		visible = {
+			has_global_flag = secondbalkan_war
+			NOT = { has_global_flag = secondbalkanwar_over }
+			has_war_with = SER
+		}
 		available = {
 			OR = {
 				casualties > 50000
@@ -17,143 +60,123 @@ secondbalkan_war_decisions = {
 			}
 		}
 
-		visible = {
-			has_global_flag = kis_secondbalkan_war
-			NOT = { has_global_flag = kis_secondbalkanwar_victory }
-			OR = {
-				has_war_with = SER
-				has_war_with = GRE
-			}
-		}
-
 		days_remove = 3
 
-		days_re_enable = 60
-
 		remove_effect = {
-			country_event = ww1_secondbalkan.3
+			country_event = wsv_secondbalkan.11
 		}
 
 		ai_will_do = {
 			factor = 0
 
-			# if we're being beaten surrender
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = 1
-				surrender_progress > 0.05
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# macedonia isnt worth this much if we've already lost it
-			modifier = {
-				add = 1
-				casualties > 20000
+				## --- Negatives
+				# Less likely to give up if holding thessalonika
+				if = {
+					limit = { controls_state = 855 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Less likely to give up if holding macedonia
+				if = {
+					limit = { 
+						controls_state = 106
+						controls_state = 731
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+
+				## --- Positives
+				# Losing ground is bad
+				if = {
+					limit = { surrender_progress > 0.1 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# We've lost at this point
+				if = {
+					limit = { surrender_progress > 0.4 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}
 
 
-	# Serbia / Greece ask for peace
-	secondbalkan_bulgaria_wins = {
-
+	# Anti-Bulgarian coalition surrenders
+	secondbalkan_serbia_offers_peace = {
 		icon = generic_form_nation
 
 		allowed = {
 			OR = {
-				tag = SER
-				tag = GRE
+				original_tag = SER
+				original_tag = GRE
+				original_tag = ROM
 			}
 		}
-
-		available = {
-			BUL = {
-				controls_state = 818
-				controls_state = 106
-				controls_state = 731
-			}
-		}
-
 		visible = {
-			has_global_flag = kis_secondbalkan_war
-			NOT = { has_global_flag = kis_secondbalkanwar_victory }
+			has_global_flag = secondbalkan_war
+			NOT = { has_global_flag = secondbalkanwar_over }
 			has_war_with = BUL
-			is_faction_leader = yes
+		}
+		available = {
+			OR = {
+				casualties > 50000
+				surrender_progress > 0
+			}
+			OR = {
+				is_faction_leader = yes
+				SER = { has_capitulated = yes }
+			}
 		}
 
 		days_remove = 3
 
-		days_re_enable = 60
-
 		remove_effect = {
-			BUL = { country_event = ww1_secondbalkan.6 }
+			BUL = { country_event = wsv_secondbalkan.13 }
 			custom_effect_tooltip = secondbalkan_bulgaria_wins_tt
 		}
 
+		
 		ai_will_do = {
 			factor = 0
 
-			# macedonia isnt worth this much if we've already lost it
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = 1
-				OR = { 
-					AND = {
-						tag = SER
-						casualties > 60000
-					}
-					AND = {
-						tag = GRE
-						casualties > 40000
-					}
+				set_temp_variable = { surrender_chance = 0 }
+
+				## --- Negatives
+				# Less likely to give up if holding thessalonika
+				if = {
+					limit = { controls_state = 855 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
-
-			# if we're being beaten surrender
-			modifier = {
-				add = 1
-				surrender_progress > 0.5
-			}
-		}
-	}
-
-
-	# Romania / turkey offers peace
-	secondbalkan_interventionist_dips = {
-
-		icon = generic_form_nation
-
-		allowed = {
-			OR = {
-				tag = ROM
-				tag = BUL
-			}
-		}
-
-		available = {
-			OR = {
-				casualties_inflicted_by = {
-					opponent = BUL
-					thousands > 50
+				# Less likely to give up if holding macedonia
+				if = {
+					limit = { 
+						controls_state = 106
+						controls_state = 731
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-				surrender_progress > 0.15
+
+				## --- Positives
+				# Serbia losing is bad
+				if = {
+					limit = { 
+						SER = {
+							has_war_with = BUL
+							surrender_progress > 0.8
+						} 
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				
+				add = surrender_chance  # value to modifier
 			}
-		}
-
-		visible = {
-			has_global_flag = kis_secondbalkan_war
-			NOT = { has_global_flag = kis_secondbalkanwar_victory }
-			has_war_with = BUL
-		}
-
-		days_remove = 3
-
-		days_re_enable = 60
-
-		remove_effect = {
-			BUL = { country_event = ww1_secondbalkan.5 }
-			custom_effect_tooltip = secondbalkan_whitepeace_tt
-		}
-
-		ai_will_do = {
-			factor = 10
 		}
 	}
 }

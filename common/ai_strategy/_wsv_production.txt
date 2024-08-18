@@ -1,0 +1,72 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+peace_economy_more_civs = {
+	allowed = {
+		always = yes
+	}
+	enable = {
+		has_war = no
+		NOT = { has_idea = partial_economic_mobilisation }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -55
+	}
+}
+
+
+mobilizing_economy_less_civs = {
+	allowed = {
+		always = yes
+	}
+	enable = {
+		has_war = no
+		OR = {
+			has_idea = partial_economic_mobilisation
+			has_idea = war_economy
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -30
+	}
+}
+
+
+# ## no fuel silos during ww1
+# no_fuel_silos_in_GW = {
+# 	allowed = {
+# 		has_start_date < 1936.1.1
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+# 	abort_when_not_enabled = yes
+	
+# 	ai_strategy = {
+# 		type = building_target
+# 		id = fuel_silo
+# 		value = -1000
+# 	}
+# }
+
+
+

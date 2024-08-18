@@ -1,0 +1,79 @@
+on_actions = {
+
+	#end of spanish civil 
+	on_capitulation = {
+		#fascist spain wins
+		effect = {
+			if = {
+				limit = { tag = SPR }		#if loser is monarchist spain
+				every_state = {
+					limit = { is_core_of = SPR }
+					remove_core_of = SPR
+					add_core_of = SPN
+				}
+				SPN = {
+					annex_country = {
+					    target = SPR
+					    transfer_troops = no
+					}
+					set_capital = { state = 41 }
+					set_stability = 0.6
+					set_war_support = 0.25
+					delete_unit_template_and_units = {
+					    division_template = "Milicia Civil"
+					    disband = yes
+					}
+					add_ideas = {
+						limited_conscription
+						partial_economic_mobilisation
+					}
+					add_timed_idea = { idea = generic_recovering_from_civil_war   days = 720 }
+					news_event = { id = wsv_spain.1	  days = 1 }
+				}
+			}
+		}
+		#monarchist spain wins
+		effect = {
+			if = {
+				limit = { tag = SPN }		#if loser is fascist spain
+				every_state = {
+					limit = { is_core_of = SPN }
+					remove_core_of = SPN
+					add_core_of = SPR
+				}
+				SPR = {
+					annex_country = {
+					    target = SPN
+					    transfer_troops = no
+					}
+					set_capital = { state = 41 }
+					set_stability = 0.6
+					set_war_support = 0.25
+					delete_unit_template_and_units = {
+					    division_template = "Milicia Civil"
+					    disband = yes
+					}
+					add_ideas = {
+						limited_conscription
+						partial_economic_mobilisation
+					}
+					add_timed_idea = { idea = generic_recovering_from_civil_war   days = 720 }
+					news_event = { id = wsv_spain.2	    days = 1 }
+				}
+			}
+		}
+	}
+
+	#punish German quasi-satellites if they leave faction
+	on_leave_faction = {
+		effect = {
+			if = {
+				limit = { 
+					has_idea = GER_berlin_influence
+					GER = { is_faction_leader = yes }
+				}
+				country_event = { id = wsv_ww2_germany.2  days = 2 }
+			}
+		}
+	}
+}

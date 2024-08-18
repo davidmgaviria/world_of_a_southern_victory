@@ -1,6 +1,78 @@
 ideas={
 	
 	country={
+
+		AUH_hungarian_oppposition = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = { has_war = yes }
+			picture = generic_disjointed_gov  #GFX_idea_AUH_hungarian_opposition
+
+			modifier={ 
+				political_power_gain = -0.6
+				stability_factor = -0.1
+				conscription_factor = -0.2
+				justify_war_goal_time = 0.5
+			}
+		}
+
+		AUH_diplomatic_isolation = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = { has_war = yes }
+			picture = generic_diplomatic_isolation
+
+			modifier={ 
+				opinion_gain_monthly_factor = -0.5
+				join_faction_tension = 0.25
+				lend_lease_tension = 0.25
+				send_volunteers_tension = 0.25
+				guarantee_cost = 0.5
+			}
+		}
+
+		AUH_multiethnic_army = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = auh_army
+
+			modifier={ 
+				army_attack_factor = -0.1
+				army_defence_factor = -0.1
+				army_org_factor = -0.1
+				army_morale_factor = -0.2
+				training_time_army_factor = 0.1
+				command_power_gain_mult = -0.25
+				#conscription = 0.01
+			}
+		}
+
+		AUH_house_of_cards = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			cancel = {
+				OR = {
+					has_war = no
+					has_global_flag = auh_collapsed
+				}
+			}
+			removal_cost = -1
+			picture =  GFX_idea_AUH_house_of_cards
+
+			modifier={
+				stability_weekly = -0.001
+				war_support_weekly = -0.003
+				army_morale_factor = -0.1
+				conscription_factor = -0.1
+			}
+		}
+
+
+
+		##### old ideas ####
 		AUH_ww1_Multinational_State = {
 
 			allowed = {

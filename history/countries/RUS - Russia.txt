@@ -4,10 +4,11 @@
 #					GENERIC VALUES
 #-------------------------------------------------------
 set_fuel_ratio = 0.45
-set_research_slots = 3 #was 4
-set_stability = 0.5
-set_war_support = 0.2
-set_convoys = 100
+set_research_slots = 4   # testing 4 slots 
+set_stability = 0.55
+set_war_support = 0.2		# later make this 10
+set_convoys = 300
+set_major = yes		#gotta make sure its a major
 
 
 
@@ -22,10 +23,12 @@ set_convoys = 100
 
 1910.1.1 = {
 	oob = "RUS_1910"
+	load_focus_tree = russia_focus
 
 	#---------------- CHARACTERS ----------------#
 	if = { limit = { has_start_date < 1937.1.1 }
 		# Country Leaders
+		recruit_character = RUS_alexander_kerensky
 		recruit_character = RUS_georgy_lvov
 		recruit_character = RUS_vladimir_lenin
 		recruit_character = RUS_alexander_kolchak
@@ -76,15 +79,6 @@ set_convoys = 100
 		recruit_character = RUS_aleksandr_lukomsky
 		recruit_character = RUS_mikhail_alexeev
 		recruit_character = RUS_grand_duke_nikolai
-
-	#------------- NATIONAL FOCUS --------------#
-		#Army
-		#complete_national_focus = RUS_ww1_army_effort
-		#complete_national_focus = RUS_ww1_industrial_effort
-		#complete_national_focus = RUS_ww1_naval_effort
-
-		#Diplomatic
-		#complete_national_focus = RUS_ww1_diplomatic_effort
 	}
 
 
@@ -96,23 +90,39 @@ set_convoys = 100
 	    elections_allowed = yes
 	}
 	set_popularities = {
-	    democratic = 10
-	    fascism = 5
-	    communism = 10
-	    neutrality = 75
+	    democratic = 24
+	    fascism = 9
+	    communism = 13
+	    neutrality = 54 
 	}
 
 	add_ideas = {
+		RUS_agrarian_empire
+		RUS_mixed_railways
+		RUS_tsushima_humiliation
+		RUS_threat_of_revolution
 		limited_conscription
 		limited_exports 
-		#RUS_ww1_orthodox_church
-		RUS_ww1_tsushima_humiliation
-		RUS_ww1_mixed_railways
-		RUS_peasant_army
-		#RUS_russian_staff
-		#RUS_agrarian_empire
-		RUS_threat_of_revolution
 	}
+
+
+	#--------------- EQUIPMENT ----------------#
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_0
+		amount = 50000
+		producer = RUS
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment_1
+		producer = RUS
+		amount = 750
+	}
+	add_equipment_to_stockpile = {
+		type = light_field_gun_equipment_1
+		producer = RUS
+		amount = 1000
+	}
+
 
 	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
@@ -132,7 +142,7 @@ set_convoys = 100
 		light_field_gun1 = 1
 
 		# Armor
-		gwtank = 1
+		ww1_armored_car = 1
 
 		# Naval
 		ww1_destroyer1 = 1
@@ -140,16 +150,15 @@ set_convoys = 100
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
-		ww1_battleship2 = 1
-		ww1_battlecruiser0 = 1
+		#ww1_battleship2 = 1
 		ww1_submarine1 = 1
-		transport = 1
+		ww1_transport = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
 
 		# Industry
-		ww1_fortification1 = 1
+		#ww1_fortification1 = 1
 	}
 }
 

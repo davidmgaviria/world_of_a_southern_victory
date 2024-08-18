@@ -1,0 +1,1016 @@
+﻿add_namespace = wsv_carib
+
+
+#####################################################################
+## -- NICARAGUA CRISIS
+#####################################################################
+
+
+## Nicaraguan Civil War
+news_event = {
+	id = wsv_carib.1
+	title = wsv_carib.1.t
+	desc = wsv_carib.1.d
+	picture =  news_event_south_america_civil_war
+
+	mean_time_to_happen = {	days = 1 }
+
+    trigger = {
+		OR = {
+    		tag = CSA
+			tag = USA
+		}
+		NOT = { has_country_flag = notified_of_nicaragua_civil_war }
+        date > 1913.4.12	#real life date is 1912.7.28 buut we pushed it back for timeline reasons
+    }
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = nic_civil_war
+			set_country_flag = notified_of_nicaragua_civil_war	 # will get applied to both the USA and CSA once it fires for each
+			# start mission for csa
+			if = {
+				limit = { tag = CSA }
+				activate_mission = CSA_intervene_in_nic_conflict
+			}
+			# set civil war in nicaragua
+			NIC = {
+				if = {
+					limit = { NOT = { has_idea = generic_SA_civil_war} }
+					add_timed_idea = {
+						idea = generic_SA_civil_war
+						days = 800 
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_carib.1.a
+		trigger = {
+			tag = CSA
+		}
+		custom_effect_tooltip = enables_nic_intervention_tt
+	}
+
+	option = {
+		name = wsv_carib.1.b
+		trigger = {
+			tag = USA
+		}
+	}
+}
+
+
+
+# US Gets Notice of CSA Landing Marines in Nicaragua
+country_event = {
+	id = wsv_carib.2
+	title = wsv_carib.2.t
+	desc = wsv_carib.2.d
+	picture =  report_event_wsv_soldiers_running
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	## Initate blockade
+	option = {
+		name = wsv_carib.2.a
+		news_event = { id = wsv_carib.3  days = 5 }
+		custom_effect_tooltip =  may_lead_to_war_with_csa_tt
+
+		ai_chance = {
+			base = 80
+			modifier = {
+				factor = 0.75
+				is_historical_focus_on = no
+			}
+		}
+	}
+
+	## Do Nothing ##
+	option = {
+		name = wsv_carib.2.b
+		set_global_flag = usa_gave_up_nicaragua
+		add_political_power = -100
+		add_war_support = -0.1
+		add_stability = -0.05
+		hidden_effect = {
+			news_event = { id = wsv_carib.10  days = 6  random_days = 10 }
+		}
+
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+## Nicaragua Crisis News Event
+news_event = {
+	id = wsv_carib.3
+	title = wsv_carib.3.t
+	desc = wsv_carib.3.d
+	picture = news_event_generic_battleships
+
+	immediate = {
+		hidden_effect = {
+			USA = { 
+				add_named_threat = {
+					threat = 7
+					name = nicaragua_crisis_threat_tt
+				}
+			}
+			set_global_flag = nicaragua_crisis
+			317 = { set_border_war = yes }
+
+			if = {
+				limit = {
+					has_global_flag = confederate_canadian_british_pact
+					ENG = { has_war = no }
+				}
+				ENG = { country_event = { id = wsv_carib.11  days = 1 } }
+			}
+			else = {
+				set_global_flag = britain_no_involvement_in_nicaragua
+			}
+		}
+	}
+
+	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.3.a
+		trigger = {
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_carib.3.b
+		trigger = {
+			OR = {
+				tag = ENG
+				tag = GER
+				tag = CSA
+			}
+		}
+		custom_effect_tooltip = nic_crisis_decisions_available_tt
+	}
+
+	option = {
+		name = wsv_carib.3.c
+		trigger = {
+			NOT = {
+				tag = USA
+				tag = CSA
+				tag = ENG
+				tag = GER
+			}
+		}
+	}
+}
+
+
+## CSA sends peace terms to US
+country_event = {
+	id = wsv_carib.4
+	title = wsv_carib.4.t
+	desc = wsv_carib.4.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# Agree
+	option = {
+		trigger = {
+			NOT = { has_global_flag = nicaragua_crisis_over }
+		}
+		name = wsv_carib.4.a
+
+		set_global_flag = nicaragua_crisis_over
+		set_global_flag = csa_recognize_us_influence_in_haiti
+		CSA = {
+			set_autonomy = {
+				target = NIC
+				autonomous_state = autonomy_protectorate
+				freedom_level = 0.5
+			}
+		}
+		custom_effect_tooltip = csa_recognize_us_in_haiti_tt
+		news_event = { id = wsv_carib.5  days = 1 }
+
+		ai_chance = {
+			base = 60
+		}
+	}
+
+	# Refuse
+	option = {
+		trigger = {
+			NOT = { has_global_flag = nicaragua_crisis_over }
+		}
+		name = wsv_carib.4.b
+		news_event = { id = wsv_carib.6  days = 1 }
+		set_global_flag = usa_rejected_nicaragua_terms
+		custom_effect_tooltip = will_lead_to_war_with_csa_tt
+		if = {
+			limit = { GER = { has_country_flag = conditional_support_usa_in_nicaragua } }
+			custom_effect_tooltip = negociate_for_germany_support_tt
+			end_american_german_pact = yes
+		}
+
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 2
+				GER = { has_country_flag = full_support_usa_in_nicaragua }
+			}
+			modifier = {
+				factor = 2
+				USA = { has_country_leader = { character = USA_leonard_wood   ruling_only = yes } } 
+			}
+		}
+	}
+
+	# CSA was too late lol
+	option = {
+		name = wsv_carib.4.c
+		trigger = {
+			has_global_flag = nicaragua_crisis_over
+		}
+	}
+}
+
+
+## Nicaragua crisis averted -- US accepts terms
+news_event = {
+	id = wsv_carib.5
+	title = wsv_carib.5.t
+	desc = wsv_carib.5.d
+	picture = news_event_tr_vs_wilson
+
+	immediate = {
+		hidden_effect = {
+
+			317 = {
+				if = {
+					limit = { is_border_conflict = yes }
+					set_border_war = no
+				}
+			}
+		}
+	}
+
+	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.5.a
+	}
+}
+
+
+## Nicaragua crisis continues -- US rejected terms
+news_event = {
+	id = wsv_carib.6
+	title = wsv_carib.6.t
+	desc = wsv_carib.6.d
+	picture = news_event_tr_vs_wilson
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		CSA = { 
+			clr_country_flag = sent_peace_terms_nicaragua 
+			hidden_effect = {
+				add_political_power = 50  # so they can free their troops
+			}
+		}
+	}
+
+	option = {
+		name = wsv_carib.6.a
+		trigger = {
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_carib.6.b
+		trigger = {
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_carib.6.c
+		trigger = {
+			NOT = {
+				tag = USA
+				tag = CSA
+			}
+		}
+	}
+}
+
+
+## Nicaragua crisis explodes -- CSA forces open blockade
+news_event = {
+	id = wsv_carib.7
+	title = wsv_carib.7.t
+	desc = wsv_carib.7.d
+	picture = news_event_tr_vs_wilson #news_event_battleships_aiming_turrets   
+
+	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.7.a
+		trigger = {
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_carib.7.b
+		trigger = {
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_carib.7.c
+		trigger = {
+			NOT = {
+				tag = USA
+				tag = CSA
+			}
+		}
+	}
+}
+
+
+## USA gets notice that CSA forced open blockade
+country_event = {
+	id = wsv_carib.8
+	title = wsv_carib.8.t
+	desc = wsv_carib.8.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	## Time for war
+	option = {
+		name = wsv_carib.8.a
+		declare_war_on = {
+			target = CSA
+			type = topple_government
+		}
+		if = {
+			limit = { has_global_flag = confederate_canadian_british_pact }
+			CAN = {
+				add_to_war = {
+					targeted_alliance = CSA
+					enemy = USA
+				}
+			}
+		}
+		news_event = wsv_carib.7
+	}
+}
+
+
+## Nicaragua crisis failure -- CSA garrison surrendered
+news_event = {
+	id = wsv_carib.9
+	title = wsv_carib.9.t
+	desc = wsv_carib.9.d
+	picture = news_event_end_of_civil_war
+
+	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.9.a
+		trigger = {
+			tag = CSA
+		}
+	}
+
+	option = {
+		name = wsv_carib.9.b
+		trigger = {
+			NOT = {
+				tag = CSA
+			}
+		}
+	}
+}
+
+
+## Unopposed Nicaragua intervention -- US failure
+news_event = {
+	id = wsv_carib.10
+	title = wsv_carib.10.t
+	desc = wsv_carib.10.d
+	picture = news_event_confederate_soldiers
+
+	immediate = {
+		hidden_effect = {
+			CSA = { 
+				set_country_flag = csa_took_over_nicaragua
+				annex_country = { target = NIC } 
+			}
+		}
+	}
+
+	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.10.a
+		trigger = {
+			tag = USA
+		}
+	}
+
+	option = {
+		name = wsv_carib.10.b
+		trigger = {
+			NOT = {
+				tag = USA
+			}
+		}
+	}
+}
+
+
+## -- British Response to crisis
+
+# England contemplates response
+country_event = {
+	id = wsv_carib.11
+	title = wsv_carib.11.t
+	desc = wsv_carib.11.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# Full support for the csa
+	option = {
+		name = wsv_carib.11.a
+		set_global_flag = britain_responded_nicaragua_crsis
+		set_country_flag = full_support_csa_in_nicaragua
+		CSA = {
+			country_event = { id = wsv_carib.12  days = 1 }
+		}
+		hidden_effect = {
+			news_event = { id = wsv_carib.15  days = 2 }
+		}
+		custom_effect_tooltip = likely_war_with_usa_tt
+
+		ai_chance = {
+			base = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			# be more aggressive if the US occupied Haiti
+			modifier = {
+				add = 200
+				has_global_flag = usa_intervened_in_haiti
+			}
+		}
+	}
+
+	# Conditional support for the csa
+	option = {
+		name = wsv_carib.11.b
+		set_global_flag = britain_responded_nicaragua_crsis
+		set_country_flag = conditional_support_csa_in_nicaragua
+		CSA = {
+			country_event = { id = wsv_carib.13  days = 1 }
+		}
+		hidden_effect = {
+			news_event = { id = wsv_carib.15  days = 2 }
+		}
+		custom_effect_tooltip = may_lead_to_war_with_usa_tt
+
+		ai_chance = {
+			base = 60
+		}
+	}
+
+	# Refuse to get involved
+	option = {
+		name = wsv_carib.11.c
+		set_global_flag = britain_no_involvement_in_nicaragua
+		CSA = {
+			country_event = { id = wsv_carib.14  days = 1 }
+			add_opinion_modifier = {
+				target = ENG
+				modifier = wsv_dislikes_country
+			}
+		}
+		custom_effect_tooltip = csa_break_antiusa_defense_treaty_tt
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+# England gave us full support
+country_event = {
+	id = wsv_carib.12
+	title = wsv_carib.12.t
+	desc = wsv_carib.12.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.12.a
+	}
+}
+
+# England gave us conditional support
+country_event = {
+	id = wsv_carib.13
+	title = wsv_carib.13.t
+	desc = wsv_carib.13.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.13.a
+	}
+}
+
+# England abandoned us
+country_event = {
+	id = wsv_carib.14
+	title = wsv_carib.14.t
+	desc = wsv_carib.14.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.14.a
+		end_confederate_canadian_british_pact = yes
+	}
+}
+
+## News event of British intervention
+news_event = {
+	id = wsv_carib.15
+	title = wsv_carib.15.t
+	desc = wsv_carib.15.d
+	picture = news_event_send_gunboat
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			if = { 
+				limit = {
+					has_global_flag = american_german_pact
+					GER = { has_war = no }
+				}
+				GER = { country_event = { id = wsv_carib.16 days = 1 } }
+			}
+			else = {
+				set_global_flag = germany_responded_nicaragua_crsis
+			}
+		}
+	}
+
+	option = {
+		name = wsv_carib.15.a
+	}
+}
+
+
+
+## -- German Response to crisis
+
+# Germany contemplates response
+country_event = {
+	id = wsv_carib.16
+	title = wsv_carib.16.t
+	desc = wsv_carib.16.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# Full support for the us
+	option = {
+		name = wsv_carib.16.a
+		set_global_flag = germany_responded_nicaragua_crsis
+		set_country_flag = full_support_usa_in_nicaragua
+		add_state_claim = 687
+		add_state_claim = 691
+		add_state_claim = 692
+		add_state_claim = 308
+		USA = {
+			country_event = { id = wsv_carib.17  days = 1 }
+		}
+		hidden_effect = {
+			news_event = { id = wsv_carib.20  days = 2 }
+		}
+		custom_effect_tooltip = likely_war_with_england_tt
+
+		ai_chance = {
+			base = 30
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+	# Conditional support for the us
+	option = {
+		name = wsv_carib.16.b
+		set_global_flag = germany_responded_nicaragua_crsis
+		set_country_flag = conditional_support_usa_in_nicaragua
+		USA = {
+			country_event = { id = wsv_carib.18  days = 1 }
+		}
+		hidden_effect = {
+			news_event = { id = wsv_carib.20  days = 2 }
+		}
+		custom_effect_tooltip = may_lead_to_war_with_england_tt
+
+		ai_chance = {
+			base = 50
+		}
+	}
+
+	# Refuse to get involved
+	option = {
+		name = wsv_carib.16.c
+		set_global_flag = germany_responded_nicaragua_crsis
+		USA = {
+			country_event = { id = wsv_carib.19  days = 1 }
+			add_opinion_modifier = {
+				target = GER
+				modifier = wsv_dislikes_country
+			}
+		}
+		custom_effect_tooltip = usa_break_americangerrman_pact_tt
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+# Germany gave us full support
+country_event = {
+	id = wsv_carib.17
+	title = wsv_carib.17.t
+	desc = wsv_carib.17.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.17.a
+		GER = {  # just to show us player
+			add_state_claim = 687
+			add_state_claim = 691
+			add_state_claim = 692
+			add_state_claim = 308
+		}
+	}
+}
+
+# Germany gave us conditional support
+country_event = {
+	id = wsv_carib.18
+	title = wsv_carib.18.t
+	desc = wsv_carib.18.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.18.a
+	}
+}
+
+# Germany abandoned us
+country_event = {
+	id = wsv_carib.19
+	title = wsv_carib.19.t
+	desc = wsv_carib.19.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.19.a
+		end_american_german_pact = yes
+	}
+}
+
+
+## News event of German intervention
+news_event = {
+	id = wsv_carib.20
+	title = wsv_carib.20.t
+	desc = wsv_carib.20.d
+	picture = news_event_send_gunboat
+
+	major = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.20.a
+	}
+}
+
+
+
+#################################################################
+## -- Haitian Instability
+#################################################################
+
+
+## Haitian instability (recurring event)
+country_event = {
+	id = wsv_carib.21
+	title = wsv_carib.21.t
+	desc = wsv_carib.21.d
+
+	mean_time_to_happen = {	days = 12 }
+
+    trigger = {
+    	tag = USA
+		HAI = {
+			exists = yes
+			is_guaranteed_by = USA
+			NOT = { has_country_flag = haiti_implodes }
+		}
+		NOT = { has_country_flag = haiti_instability_cooldown }
+    }
+
+	## Assist haiti
+	option = {
+		name = wsv_carib.21.a
+		add_political_power = -35
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -1500
+		}
+		set_country_flag = {
+			flag = haiti_instability_cooldown
+			days = 300
+			value = 1
+		}
+	}
+
+	## Ignore their request (will cause haiti to implode)
+	option = {
+		name = wsv_carib.21.b
+
+		set_country_flag = {
+			flag = haiti_instability_cooldown
+			days = 300
+			value = 1
+		}
+
+		# see if haiti explodes
+		add_to_variable = { HAI.request_ignored_count = 1 }
+		if = {
+			limit = { check_variable = { HAI.request_ignored_count > 1 } }
+			hidden_effect = {
+				country_event = { id = wsv_carib.22  days = 20  random_days = 50 }
+			}
+		}
+	}
+}
+
+
+## Haiti implodes
+country_event = {
+	id = wsv_carib.22
+	title = wsv_carib.22.t
+	desc = wsv_carib.22.d
+	picture = report_event_generic_battle
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			HAI = {
+				set_country_flag = haiti_implodes
+				add_timed_idea = {
+					idea = generic_SA_civil_war
+					days = 460
+				}
+				diplomatic_relation = { country = USA  relation = guarantee  active = no }
+			}
+			USA = { 
+				diplomatic_relation = { country = HAI  relation = docking_rights  active = no }
+			}
+			CSA = { country_event = wsv_carib.23 }
+		}
+	}
+
+	option = {
+		name = wsv_carib.22.a
+	}
+}
+
+
+## CSA gets notice of haitian implosion
+country_event = {
+	id = wsv_carib.23
+	title = wsv_carib.23.t
+	desc = wsv_carib.23.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_carib.23.a
+	}
+}
+
+
+
+
+#################################################################
+## -- US Intervention in Haiti
+#################################################################
+
+
+## News event of US landing troops in Haiti
+news_event = {
+	id = wsv_carib.25
+	title = wsv_carib.25.t
+	desc = wsv_carib.25.d
+	picture = news_event_generic_battleships
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = usa_intervened_in_haiti
+		hidden_effect = {
+			USA = {
+				# set_autonomy = {
+				# 	target = HAI
+				# 	autonomy_state = autonomy_puppet
+				# }
+				annex_country = {
+					target = HAI
+					transfer_troops = no
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = csa_recognize_us_influence_in_haiti } }
+				add_named_threat = {
+					threat = 4
+					name = "USA Occupied Haiti"
+				}
+			}
+			else = {
+				add_named_threat = {
+					threat = 2
+					name = "USA Occupied Haiti"
+				}
+			}
+		}
+	}
+
+	# usa response
+	option = {
+		name = wsv_carib.25.a
+		trigger = { tag = USA }
+	}
+
+	# confederate response if recognized us influence
+	option = {
+		name = wsv_carib.25.b
+		trigger = { 
+			tag = CSA 
+			has_global_flag = csa_recognize_us_influence_in_haiti
+		}
+	}
+
+	# confedereate response if hasnt recognized us influence
+	option = {
+		name = wsv_carib.25.c
+		trigger = { 
+			tag = CSA 
+			NOT = { has_global_flag = csa_recognize_us_influence_in_haiti }
+		}
+		country_event = { id =  wsv_carib.26  days = 3 }
+	}
+
+	# every other country response
+	option = {
+		name = wsv_carib.25.e  # d is used for description
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
+## Confederate response to US intervention (triggered only if US influence wasnt recognized)
+country_event = {
+	id = wsv_carib.26
+	title = wsv_carib.26.t
+	desc = wsv_carib.26.d
+
+	is_triggered_only = yes
+
+	# Occupy the DR
+	option = {
+		name = wsv_carib.26.a
+		annex_country = {
+			target = DOM
+			transfer_troops = no
+		}
+		hidden_effect = {
+			add_named_threat = {
+				threat = 4
+				name = "CSA Occupied the Dominican Republic"
+			}
+		}
+		news_event = wsv_carib.27
+		ai_chance = { factor = 100 }
+	}
+
+	# Do nothing
+	option = {
+		name = wsv_carib.26.b
+		add_political_power = -75
+		add_war_support = -0.1
+
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## News event of CSA occupying DR
+news_event = {
+	id = wsv_carib.27
+	title = wsv_carib.27.t
+	desc = wsv_carib.27.d
+	picture = news_event_confederate_intervention_in_caribbean
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = csa_occupied_the_dr
+	}
+
+	option = {
+		name = wsv_carib.27.a
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_carib.27.b
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_carib.27.c
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+		}
+	}
+}
+
+
+
+
+
+
+

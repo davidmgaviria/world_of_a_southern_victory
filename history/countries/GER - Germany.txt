@@ -4,10 +4,11 @@
 #					GENERIC VALUES
 #-------------------------------------------------------
 set_fuel_ratio = 0.5
-set_research_slots = 4 #should be 3
-set_stability = 0.65
-set_war_support = 0.45
-set_convoys = 200
+set_research_slots = 4   # testing 4 slots 
+set_stability = 0.7
+set_war_support = 0.5
+set_convoys = 400
+set_major = yes		#gotta make sure its a major
 
 
 
@@ -15,6 +16,7 @@ set_convoys = 200
 
 1910.1.1 = {
 	oob = "GER_1910"
+	load_focus_tree = germany_focus
 
 	#---------------- GEOPOLITICS ----------------#
 	#add_opinion_modifier = {  target = USA   modifier = WSV_american-german_alliance }
@@ -61,7 +63,7 @@ set_convoys = 200
 		recruit_character = GER_von_kluck
 		recruit_character = GER_von_francois
 		recruit_character = GER_von_einem
-		recruit_character = GER_von_hutier
+		#recruit_character = GER_von_hutier
 		recruit_character = GER_von_der_marwitz
 		recruit_character = GER_von_lettowvorbeck
 		recruit_character = GER_von_below_o.
@@ -93,17 +95,7 @@ set_convoys = 200
 		recruit_character = GER_adolf_wild_von_hohenborn
 		recruit_character = GER_helmuth_von_moltke
 		recruit_character = GER_rudiger_von_der_goltz
-	
-	#------------- NATIONAL FOCUS --------------#
-		#Army
-		complete_national_focus = GER_ww1_army_effort
-		complete_national_focus = GER_ww1_industrial_effort
-		complete_national_focus = GER_ww1_naval_effort
-	
-		#Diplomatic
-		complete_national_focus = GER_ww1_diplomatic_effort
 	}
-
 
 	#---------------- POLITICS ----------------#
 	set_politics = {
@@ -121,13 +113,30 @@ set_convoys = 200
 
 	add_ideas = {
 		#general_staff
-		German_staff_ww1
-		GER_ww1_North_German_Confederation
-		ww1_Scramble_for_Africa
-		building_dreadnoughts
+		GER_north_german_confederation
+		GER_ohl_idea
+		GER_prussian_militarism
+		generic_dreadnought_arms_race
 		limited_exports
 		limited_conscription
 		low_economic_mobilisation
+	}
+
+	#--------------- EQUIPMENT ----------------#
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_0
+		amount = 40000
+		producer = GER
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment_1
+		producer = GER
+		amount = 500
+	}
+	add_equipment_to_stockpile = {
+		type = light_field_gun_equipment_1
+		producer = GER
+		amount = 800
 	}
 
 
@@ -141,7 +150,7 @@ set_convoys = 200
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
 		#infantry_binoculars = 1
-		motorised_infantry = 1
+		#motorised_infantry = 1
 		tech_mountaineers = 1
 
 		# Support
@@ -154,24 +163,23 @@ set_convoys = 200
 		heavy_field_gun1 = 1
 
 		# Armor
-		gwtank = 1
+		ww1_armored_car = 1
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
 		ww1_battleship2 = 1
 		ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
-		transport = 1
+		ww1_transport = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
 
 		# Industry
-		ww1_fortification1 = 1
+		#ww1_fortification1 = 1
 	}
 }
 
@@ -265,7 +273,7 @@ set_convoys = 200
 # 	}
 	
 # 	create_equipment_variant={ name="König Class" type=battleship_1910 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=3 ship_engine_upgrade=0 ship_reliability_upgrade=3           } }
-# 	create_equipment_variant={ name="Derfflinger Class" type=battle_cruiser_1914 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
+# 	create_equipment_variant={ name="Derfflinger Class" type=battle_cruiser_1916 parent_version = 0 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
 # 	create_equipment_variant={ name="Karlsruhe Class" type=light_cruiser_1910 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=1 ship_reliability_upgrade=1 ship_anti_air_upgrade=0          } }
 # 	create_equipment_variant={ name="Graudenz Class" type=light_cruiser_1910 parent_version = 1 obsolete=yes upgrades={ ship_gun_upgrade=0  ship_engine_upgrade=2 ship_reliability_upgrade=2 ship_anti_air_upgrade=0          } }
 # 	create_equipment_variant={ name="Pillau Class" type=light_cruiser_1910 parent_version = 2 obsolete=no upgrades={ ship_gun_upgrade=5  ship_engine_upgrade=2 ship_reliability_upgrade=5 ship_anti_air_upgrade=5          } }
@@ -273,23 +281,23 @@ set_convoys = 200
 # 	create_equipment_variant={ name="S31' Class" type=destroyer_1910 parent_version = 3 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=5 } }
 # 	create_equipment_variant={ name="G37 Class" type=destroyer_1910 parent_version = 4 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=5 } }
 # 	create_equipment_variant={ name="V43 Class" type=destroyer_1910 parent_version = 5 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=3    ship_torpedo_upgrade=5 } }
-# 	create_equipment_variant={ name="V67 Class" type=destroyer_1914 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-# 	create_equipment_variant={ name="G85 Class" type=destroyer_1914 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-# 	create_equipment_variant={ name="G96 Class" type=destroyer_1914 parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-# 	create_equipment_variant={ name="B97 Class" type=destroyer_1914 parent_version = 3 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=2 } }
-# 	create_equipment_variant={ name="G101 Class" type=destroyer_1914 parent_version = 4 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
-# 	create_equipment_variant={ name="V105 Class" type=destroyer_1914 parent_version = 5 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+# 	create_equipment_variant={ name="V67 Class" type=destroyer_1916 parent_version = 0 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+# 	create_equipment_variant={ name="G85 Class" type=destroyer_1916 parent_version = 1 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+# 	create_equipment_variant={ name="G96 Class" type=destroyer_1916 parent_version = 2 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+# 	create_equipment_variant={ name="B97 Class" type=destroyer_1916 parent_version = 3 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=2    ship_torpedo_upgrade=2 } }
+# 	create_equipment_variant={ name="G101 Class" type=destroyer_1916 parent_version = 4 obsolete=yes upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
+# 	create_equipment_variant={ name="V105 Class" type=destroyer_1916 parent_version = 5 obsolete=no upgrades={     ship_anti_air_upgrade=0    ship_ASW_upgrade=0 destroyer_engine_upgrade=0    ship_torpedo_upgrade=2 } }
 # 	create_equipment_variant={ name="U23 Class" type=submarine_1910 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=3 sub_engine_upgrade=3  } }
 # 	create_equipment_variant={ name="U27 Class" type=submarine_1910 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=3 sub_engine_upgrade=3  } }
 # 	create_equipment_variant={ name="U31 Class" type=submarine_1910 parent_version = 2 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=2 sub_engine_upgrade=2  } }
 # 	create_equipment_variant={ name="U43 Class" type=submarine_1910 parent_version = 3 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=1 sub_engine_upgrade=1  } }
-# 	create_equipment_variant={ name="U57 Class" type=submarine_1914 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-# 	create_equipment_variant={ name="U63 Class" type=submarine_1914 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
-# 	create_equipment_variant={ name="U66 Class" type=submarine_1914 parent_version = 2 obsolete=yes upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=0 sub_stealth_upgrade=1 sub_engine_upgrade=1  } }
-# 	create_equipment_variant={ name="U71 Class" type=submarine_1914 parent_version = 3 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+# 	create_equipment_variant={ name="U57 Class" type=submarine_1916 parent_version = 0 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+# 	create_equipment_variant={ name="U63 Class" type=submarine_1916 parent_version = 1 obsolete=yes upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
+# 	create_equipment_variant={ name="U66 Class" type=submarine_1916 parent_version = 2 obsolete=yes upgrades={    ship_reliability_upgrade=1       sub_torpedo_upgrade=0 sub_stealth_upgrade=1 sub_engine_upgrade=1  } }
+# 	create_equipment_variant={ name="U71 Class" type=submarine_1916 parent_version = 3 obsolete=no upgrades={    ship_reliability_upgrade=0       sub_torpedo_upgrade=0 sub_stealth_upgrade=0 sub_engine_upgrade=0  } }
 # 	create_equipment_variant={ name="U16 Class" type=coastal_submarine_1910 parent_version = 0 obsolete=no upgrades={    ship_reliability_upgrade=5       sub_torpedo_upgrade=5 sub_stealth_upgrade=5 sub_engine_upgrade=5  } }
-# 	create_equipment_variant={ name="Derfflinger Class" type=battle_cruiser_1914 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
-# 	create_equipment_variant={ name="Hindenburg Class" type=battle_cruiser_1914 parent_version = 1 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
+# 	create_equipment_variant={ name="Derfflinger Class" type=battle_cruiser_1916 parent_version = 0 obsolete=yes upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
+# 	create_equipment_variant={ name="Hindenburg Class" type=battle_cruiser_1916 parent_version = 1 obsolete=no upgrades={ ship_gun_upgrade=0 ship_armor_upgrade=4 ship_engine_upgrade=0 ship_reliability_upgrade=4           } }
 # }
 
 

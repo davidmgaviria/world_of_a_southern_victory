@@ -1,0 +1,579 @@
+﻿add_namespace = wsv_germany
+
+## --------------------------------------------------------------------------------------- ##
+## ------------------------------------- HISTORICAL -------------------------------------- ##
+## --------------------------------------------------------------------------------------- ##
+
+# country_event = {
+# 	title=ww1_germany.9.t#Brussels has Fallen
+# 	desc=ww1_germany.9.d#Brussels has fallen to our glorious soldiers, onwards to Paris and a swift victory.
+# 	id=ww1_germany.9
+# 	picture=ww1_germany_9NULL
+# 	fire_only_once=yes
+# 	is_triggered_only=no
+# 	mean_time_to_happen={
+# 		days=1
+# 		}
+# 	trigger={
+# 		tag=GER
+# 		GER={
+# 			has_war_with=ENG
+# 			}
+# 		6={
+# 			is_controlled_by=GER
+# 			}
+# 		NOT={
+# 			has_country_flag=brussels_taken
+# 			}
+# 		}
+# 	option={
+# 		name=ww1_germany.9.a
+# 		add_manpower=100
+# 		set_country_flag=brussels_taken
+# 	}
+# }
+
+
+# state of the triple alliance
+country_event = {
+	id = wsv_germany.1
+	title = wsv_germany.1.t
+	desc = wsv_germany.1.d
+
+    fire_only_once = yes
+	is_triggered_only = yes
+ 
+
+	option = {
+		name = wsv_germany.1.a
+	}
+}
+
+
+# germany sent loan
+country_event = {
+	id = wsv_germany.2
+	title = wsv_germany.2.t
+	desc = wsv_germany.2.d
+
+    fire_only_once = yes
+	is_triggered_only = yes
+ 
+
+	option = {
+		name = wsv_germany.2.a
+	}
+}
+
+
+###############################################
+# -- Call Turkey / Bulgaria to War
+###############################################
+
+# Turkey / Bulgaria  receives german offer
+country_event = {
+	id = wsv_germany.3
+	title = wsv_germany.3.t
+	desc = wsv_germany.3.d
+
+	is_triggered_only = yes
+	
+	# Join war
+	option = {
+		name = wsv_germany.3.a
+		GER = { country_event = { id = wsv_germany.4  days = 2 } }
+		custom_effect_tooltip = join_war_with_central_powers_tt
+		ai_chance = { 
+			factor = 100 
+		}
+	}
+
+	# No
+	option = {
+		name = wsv_germany.3.b
+		GER = { 
+			country_event = { id = wsv_germany.5  days = 2 } 
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+}
+
+
+# Turkey / Bulgaria said yes
+country_event = {
+	id = wsv_germany.4
+	title = wsv_germany.4.t
+	desc = wsv_germany.4.d
+
+	is_triggered_only = yes
+ 
+	option = {
+		name = wsv_germany.4.a
+		add_to_faction = FROM
+	}
+}
+
+
+# Turkey / Bulgaria said no
+country_event = {
+	id = wsv_germany.5
+	title = wsv_germany.5.t
+	desc = wsv_germany.5.d
+
+	is_triggered_only = yes
+ 
+	option = {
+		name = wsv_germany.5.a
+	}
+}
+
+
+
+###############################################
+# -- Court the Swedes
+###############################################
+
+
+# Sweden receives german offer
+country_event = {
+	id = wsv_germany.6
+	title = wsv_germany.6.t
+	desc = wsv_germany.6.d
+
+	is_triggered_only = yes
+	
+	# No
+	option = {
+		name = wsv_germany.6.a
+		GER = { 
+			country_event = { id = wsv_germany.8  days = 2 } 
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_dislikes_country
+			}
+		}
+		ai_chance = {
+			base = 60
+		}
+	}
+
+	# Join war
+	option = {
+		name = wsv_germany.6.b
+		GER = { country_event = { id = wsv_germany.7  days = 2 } }
+		custom_effect_tooltip = join_war_with_central_powers_tt
+		add_state_claim = 148
+		add_state_claim = 149
+		add_state_claim = 150
+		add_state_claim = 111
+
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+			modifier = {
+				factor = 2
+				RUS = { surrender_progress > 0.1 }
+			}
+			modifier = {
+				factor = 2
+				RUS = { surrender_progress > 0.2 }
+			}
+		}
+	}
+}
+
+
+# Sweden said yes
+country_event = {
+	id = wsv_germany.7
+	title = wsv_germany.7.t
+	desc = wsv_germany.7.d
+
+	is_triggered_only = yes
+ 
+	option = {
+		name = wsv_germany.7.a
+		add_to_faction = SWE
+	}
+}
+
+
+# Sweden said no
+country_event = {
+	id = wsv_germany.8
+	title = wsv_germany.8.t
+	desc = wsv_germany.8.d
+
+	is_triggered_only = yes
+ 
+	option = {
+		name = wsv_germany.8.a
+	}
+}
+
+
+
+####################################################
+# -- Schliffen Plan & Kaiserschlat
+####################################################
+
+# Schliffen plan failed
+country_event = {
+	id = wsv_germany.10
+	title = wsv_germany.10.t
+	desc = wsv_germany.10.d
+
+	trigger = {
+		tag = GER
+		has_war_with = FRA
+		has_country_flag = schliffen_plan_began
+		NOT = { has_idea = GER_schlieffen_plan }
+	}
+
+	fire_only_once = yes
+
+	immediate = {
+		set_country_flag = schliffen_plan_failed
+	}
+ 
+	option = {
+		name = wsv_germany.10.a
+		add_war_support = -0.05
+	}
+}
+
+
+# Kaiserschlact failed
+country_event = {
+	id = wsv_germany.11
+	title = wsv_germany.11.t
+	desc = wsv_germany.11.d
+
+	trigger = {
+		tag = GER
+		has_war_with = FRA
+		has_country_flag = kaisers_battle_began
+		NOT = { has_idea = GER_kaisers_battle }
+	}
+
+	fire_only_once = yes
+
+	immediate = {
+		set_country_flag = kaisers_battle_failed
+	}
+ 
+	option = {
+		name = wsv_germany.11.a
+		add_war_support = -0.15
+	}
+}
+
+
+####################################################
+# -- British Blockade
+####################################################
+
+# British blockade effects - rationing begins
+country_event = {
+	id = wsv_germany.12
+	title = wsv_germany.12.t
+	desc = wsv_germany.12.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+ 
+	option = {
+		name = wsv_germany.12.a
+	}
+}
+
+
+# British blockade effects - severe food shortage
+country_event = {
+	id = wsv_germany.13
+	title = wsv_germany.13.t
+	desc = wsv_germany.13.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	option = {
+		name = wsv_germany.13.a
+	}
+}
+
+
+
+## --------------------------------------------------------------------------------------- ##
+## ------------------------------- ALTERNATE HISTORICAL ---------------------------------- ##
+## --------------------------------------------------------------------------------------- ##
+
+
+## Germany is proposing secret pact against AUH  (Italy / Romania)
+country_event = {
+	id = wsv_germany.100
+	title = wsv_germany.100.t
+	desc = wsv_germany.100.d
+
+	is_triggered_only = yes
+
+	## agree
+	option = {
+		name = wsv_germany.100.a
+		set_country_flag = secret_pact_against_AUH
+		GER = { country_event = { id = wsv_germany.101   days = 2 } }
+		custom_effect_tooltip = secret_pact_against_AUH_tt
+		ai_chance = { factor = 100 }
+	}
+
+	## reject
+	option = {
+		name = wsv_germany.100.b
+		GER = { country_event = { id = wsv_germany.102   days = 2 } }
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## Italy / Romania agreed
+country_event = {
+	id = wsv_germany.101
+	title = wsv_germany.101.t
+	desc = wsv_germany.101.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.101.a
+	}
+}
+
+
+## Italy / Romania said no
+country_event = {
+	id = wsv_germany.102
+	title = wsv_germany.102.t
+	desc = wsv_germany.102.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.102.a
+	}
+}
+
+
+## News event of Bruders war
+news_event = {
+	id = wsv_germany.103
+	title = wsv_germany.103.t
+	desc = wsv_germany.103.d
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = bruders_war
+		hidden_effect = {
+			GER = {
+				declare_war_on = {
+					target = AUH
+					type = annex_everything
+				}
+				add_named_threat = {
+					threat = 10
+					name = "Bruder's War"
+				}
+			}
+			# have countries join Germany
+			every_country = {
+				limit = {
+					has_country_flag = secret_pact_against_AUH
+					has_war = no
+					is_in_faction = no
+					is_puppet = no
+				}
+				country_event = { id = wsv_germany.104  days = 3 }
+			}
+		}
+	}
+
+	option = {
+		name = wsv_germany.103.a
+		trigger = { tag = AUH }
+	}
+
+	option = {
+		name = wsv_germany.103.a
+		trigger = { NOT = { tag = AUH } }
+	}
+}
+
+
+## Countries asked to join Germany ##
+country_event = {
+	id = wsv_germany.104
+	title = wsv_germany.104.t
+	desc = wsv_germany.104.d
+
+	trigger = {
+		GER = { has_war_with = AUH }
+		has_country_flag = secret_pact_against_AUH
+		# hasnt joined germany but can do so
+		NOT = { is_in_faction_with = GER }
+		has_war = no
+		is_puppet = no
+		# war must be ongoing
+		NOT = { has_global_flag = bruders_war_over }
+	}
+
+	# join
+	option = {
+		name = wsv_germany.104.a
+		GER = { add_to_faction = ROOT }
+		add_to_war = {
+			targeted_alliance = GER
+			enemy = AUH
+		}
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				GER = { has_war_with = FRA }
+			}
+		}
+	}
+
+	# no
+	option = {
+		name = wsv_germany.104.b
+		GER = {
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = faction_traitor
+			}
+		}
+		clr_country_flag = secret_pact_against_AUH
+		ai_chance = {
+			factor = 0
+			modifier = {
+				add = 100
+				GER = { has_war_with = FRA }
+			}
+		}
+	}
+}
+
+
+## AUH has lost
+country_event = {
+	id = wsv_germany.105
+	title = wsv_germany.105.t
+	desc = wsv_germany.105.d
+
+	trigger = {
+		tag = AUH
+		has_war_with = GER
+		surrender_progress > 0.5
+		is_in_faction = no
+		NOT = { has_global_flag = bruders_war_over }
+	}
+
+	option = {
+		name = wsv_germany.105.a
+		news_event = wsv_germany.106
+	}
+}
+
+
+## News event of German victory
+news_event = {
+	id = wsv_germany.106
+	title = wsv_germany.106.t
+	desc = wsv_germany.106.d
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = bruders_war_over
+		hidden_effect = {
+			# end war
+			GER = { white_peace = AUH }
+
+			## break up AUH ##
+			every_state = {
+				limit = {
+					is_owned_by = AUH
+					OR = {
+						is_core_of = HUN
+						is_claimed_by = HUN
+					}
+				}
+				HUN = { transfer_state = PREV }
+			}
+			CZE = {
+				transfer_state = 9
+				transfer_state = 75
+			}
+			CRO = {
+				transfer_state = 103
+				transfer_state = 109
+				transfer_state = 104
+				transfer_state = 163
+			}
+			GAL = {
+				transfer_state = 88
+				transfer_state = 89
+				transfer_state = 91
+				transfer_state = 80
+				transfer_state = 72
+			}
+			# transfer remaining states to Germany
+			GER = {
+				annex_country = {
+					target = AUH
+					transfer_troops = no
+				}
+				set_autonomy = { target = CZE  autonomy_state = autonomy_ger_colony }
+				set_autonomy = { target = HUN  autonomy_state = autonomy_ger_puppet }
+				set_autonomy = { target = GAL  autonomy_state = autonomy_ger_puppet }
+				set_autonomy = { target = CRO  autonomy_state = autonomy_ger_puppet }
+			}
+
+			## give land to allies ##
+			ITA = {
+				if = {
+					limit = { is_in_faction_with = GER }
+					transfer_state = 163
+					transfer_state = 39
+					leave_faction = yes
+					clr_country_flag = secret_pact_against_AUH
+				}
+			}
+
+			ROM = {
+				if = {
+					limit = { is_in_faction_with = GER }
+					transfer_state = 84
+					transfer_state = 82
+					transfer_state = 83
+					transfer_state = 80
+					leave_faction = yes
+					clr_country_flag = secret_pact_against_AUH
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_germany.106.a
+	}
+}
+

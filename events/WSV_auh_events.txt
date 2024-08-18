@@ -1,0 +1,261 @@
+﻿add_namespace = wsv_auh
+
+
+
+#############################################################################
+## -- Domestic Events
+#############################################################################
+
+
+## War time ethnic unrest events
+country_event = {
+	id = wsv_auh.1
+	title = wsv_auh.1.t
+	desc = wsv_auh.1.d
+	picture = report_event_wsv_gathering_protest
+
+	trigger = {
+		tag = AUH
+		has_war = yes
+		longest_war_length > 24	 # two years into the war
+		casualties > 200000
+		NOT = { has_country_flag = wartime_unrest_cooldown }
+		NOT = { has_country_flag = auh_collapsed }
+	}
+
+	immediate = {
+		set_country_flag = { flag = wartime_unrest_cooldown   days = 150   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
+	}
+							
+	option = {
+		name = wsv_auh.1.a
+		add_stability = -0.01
+		add_war_support = -0.03
+
+		if = {
+			limit = { NOT = { has_idea = AUH_house_of_cards } }
+			add_ideas = AUH_house_of_cards
+		}
+	}
+}
+
+
+## Invade Montenegro
+country_event = {
+	id = wsv_auh.2
+	title = wsv_auh.2.t
+	desc = wsv_auh.2.d
+
+	trigger = {
+		tag = AUH
+		NOT = { has_country_flag = invade_montenegro }
+		# if serbia hasnt fallen
+		SER = {
+			war_length_with = {
+				tag = AUH
+				months > 5
+			}
+			surrender_progress < 0.6
+		}
+		MNT = {
+			NOT = { has_war_with = AUH }
+			is_puppet = no
+			is_in_faction = no
+		}
+	}
+
+	immediate = {
+		set_country_flag = invade_montenegro
+	}
+					
+	option = {
+		name = wsv_auh.2.a
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = MNT
+		}
+	}
+}
+
+
+## Invades Albania (triggered by Serbia)
+country_event = {
+	id = wsv_auh.3
+	title = wsv_auh.3.t
+	desc = wsv_auh.3.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = invade_albania
+	}
+					
+	option = {
+		name = wsv_auh.3.a
+		
+		# invade albania
+		create_wargoal = {
+			type = puppet_wargoal_focus
+			target = ALB
+		}
+	}
+}
+
+
+#############################################################################
+## -- Collapse of Austria Hungary
+#############################################################################
+
+## News event of AUH collapse
+news_event = {
+	id = wsv_auh.10
+	title = wsv_auh.10.t
+	desc = wsv_auh.10.d
+	picture = news_event_auh_collapses
+
+	major = yes
+
+	trigger = {
+		tag = AUH
+		has_idea = AUH_house_of_cards	# will only have during wartime
+		has_stability < 0.11
+		NOT = { has_global_flag = auh_collapsed }
+	}
+
+	immediate = {
+		set_global_flag = auh_collapsed
+		hidden_effect = {
+			## Czechslovakia
+			CZE = {
+				transfer_state = 9
+				transfer_state = 75
+				inherit_technology = AUH
+			}
+			transfer_units_fraction= {		
+				target = CZE
+				size = 0.13
+				stockpile_ratio = 0.13
+				army_ratio = 0.13
+				navy_ratio = 0
+				air_ratio = 0.04
+			}
+			## South Slavs
+			CRO = {
+				transfer_state = 103
+				transfer_state = 109
+				inherit_technology = AUH
+			}
+			transfer_units_fraction= {
+				target = CRO
+				size = 0.05
+				stockpile_ratio = 0.05
+				navy_ratio = 0
+			}
+			## Hungary
+			HUN = {
+				transfer_state = 155
+				transfer_state = 43
+				transfer_state = 154
+				# non core states
+				transfer_state = 664
+				transfer_state = 70
+				transfer_state = 71
+				transfer_state = 73
+				transfer_state = 76
+				transfer_state = 83
+				transfer_state = 84
+				transfer_state = 82
+				transfer_state = 764
+				transfer_state = 45
+				inherit_technology = AUH
+			}
+			# transfer troops
+			transfer_units_fraction= {
+				target = HUN
+				size = 0.4
+				stockpile_ratio = 0.4
+				army_ratio = 0.45		# hungarian forces made up 35%, but only 80% of the empire is left now
+				navy_ratio = 0
+				air_ratio = 0.3
+			}
+			# sue for peace
+			country_event = { id = wsv_auh.11  days = 5 }
+		}
+	}
+
+	option = {
+		name = wsv_auh.10.a
+	}
+}
+
+
+# Sue for peace if collapsed
+country_event = {
+	id = wsv_auh.11
+	title = wsv_auh.11.t
+	desc = wsv_auh.11.d
+
+	is_triggered_only = yes
+
+	timeout_days = 5
+
+	option = {
+		name = wsv_auh.11.a
+		activate_decision = greatwar_auh_offers_peace
+	}
+}
+
+
+## Italy temporarily occupies Tyrol (to fight Germany)
+country_event = {
+	id = wsv_auh.12
+	title = wsv_auh.12.t
+	desc = wsv_auh.12.d
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = italy_occupies_tyrol
+		hidden_effect = {
+			ITA = { transfer_state = 153 }
+		}
+	}
+					
+	option = {
+		name = wsv_auh.12.a
+	}
+}
+
+
+## Italy returns Tyrol
+country_event = {
+	id = wsv_auh.13
+	title = wsv_auh.13.t
+	desc = wsv_auh.13.d
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = AUH
+		has_country_flag = italy_occupies_tyrol
+		ITA = { 
+			owns_state = 153
+			NOT = { has_war_with = GER }
+			NOT = { has_war_with = ROOT }
+		}
+	}
+
+	immediate = {
+		set_country_flag = austria_takes_back_tyrol
+		hidden_effect = {
+			ROOT = { transfer_state = 153 }
+		}
+	}
+					
+	option = {
+		name = wsv_auh.13.a
+	}
+}
+
+

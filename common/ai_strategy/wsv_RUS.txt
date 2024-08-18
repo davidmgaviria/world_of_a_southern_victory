@@ -17,92 +17,6 @@
 ######################### GENERIC ##########################
 
 
-# RUS_area_priority = {
-# 	allowed = {
-# 		original_tag = RUS
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 110 #more focus here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 80
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 25
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = -25
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = 50
-# 	}
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = 30
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = -300
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = -50 #less focus here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = -80
-# 	}
-# }
-
-
-# Russia makes more mils
-# RUS_militarized_society = {
-# 	allowed = {
-# 		original_tag = RUS 
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-	
-# 	ai_strategy = {
-# 		type = added_military_to_civilian_factory_ratio		
-# 		value = 10
-# 	}
-# }
-
-
-
 RUS_ignore_north_america = {
 	allowed = {
 		original_tag = RUS
@@ -135,27 +49,33 @@ RUS_ignore_north_america = {
 }
 
 
-# RUS_focus_on_europe = {
-# 	allowed = {
-# 		original_tag = RUS
-# 	}
-# 	enable = {
-# 		always = yes
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = europe
-# 		value = 60
-# 	}
+RUS_focus_on_europe = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		always = yes
+	}
+	abort_when_not_enabled = yes
 
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = asia
-# 		value = -40
-# 	}
-# }
+	ai_strategy = {
+		type = area_priority
+		id = europe
+		value = 100 
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = asia
+		value = -50 
+	}
+	
+	ai_strategy = {
+		type = front_unit_request
+		area = asia
+		value = -75
+	}
+}
 
 
 RUS_ignore_western_europe = {
@@ -238,8 +158,8 @@ RUS_no_naval_invasions = {
 
 ######################### GREAT WAR ##########################
 
-#stacks from base production
-RUS_gw_modified_unit_production = {
+
+RUS_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
@@ -250,74 +170,134 @@ RUS_gw_modified_unit_production = {
 	abort = { always = no }
 
 	ai_strategy = {
-		type = role_ratio
-		id = garrison	
-		value = 4
-	}
-
-	ai_strategy = {
-		type = role_ratio
-		id = cavalry	
-		value = 3
-	}
-
-	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 5
+		value = 100	 
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
+		value = 75
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = train
+		value = 15
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 10
+	}
+
+	## AIR FACTORY BALANCE
+	ai_strategy = {
+		type = air_factory_balance
+		value = 85
+	}
+}
+
+
+RUS_build_up_more_mils = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date > 1911.1.1
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
 		value = 10
 	}
 }
 
 
 
+## save up less equipment at beginning in case of issues
 RUS_gw_stockpile_less_early_game = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		date < 1914.1.1
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
-	}
-}
-
-
-
-RUS_mobilize_for_serbia = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		SER = { 
-			exists = yes 
-			NOT = { is_puppet_of = AUH }
-		}
-		has_global_flag = kis_franzferdinand_murdered
+		has_war = no
+		date < 1914.1.1
 	}
 	abort_when_not_enabled = yes
 
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10
+	}
+}
+
+
+# massively increase army size
+RUS_increase_army = {		
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		date > 1912.6.1
+		has_army_manpower = { size < 2600000 }		
+	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = contain
-		id = "AUH"
-		value = 100
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 150
+	}
+}
+
+
+
+### ------- opening war strategies  ------- ###
+
+
+# begins mobilizing for serbia
+RUS_opening_war_assault_AUH = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		NOT = { is_in_faction_with = AUH }
+		OR = {
+			threat > 0.25
+			has_global_flag = franzferdinand_assassinated
+		}
+	}
+	#abort_when_not_enabled = yes
+	abort = {
+		OR = {
+			has_global_flag = serbia_submitted_to_austria
+			surrender_progress > 0.15
+			casualties_inflicted_by = {  opponent = AUH  thousands > 250 }
+		}
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
+		type = conquer
 		id = "AUH"
 		value = 100
 	}	
@@ -335,48 +315,199 @@ RUS_mobilize_for_serbia = {
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
-		id = "GER"
-		value = 50
+		type = front_control
+		tag = AUH
+		ratio = 0.4
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = AUH
+		value = 100
 	}
 }
 
-
-RUS_opening_war_assault = {
+# begins mobilizing for serbia
+RUS_opening_war_assault_GER = {
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 	enable = {
+		country_exists = GER
 		OR = {
-			NOT = { is_in_faction_with = GER }
-			NOT = { is_in_faction_with = AUH }
+			threat > 0.25
+			has_global_flag = franzferdinand_assassinated
 		}
-		threat > 0.2
 	}
 	abort = {
 		OR = {
-			has_war_with = GER
-			has_war_with = AUH
+			has_global_flag = serbia_submitted_to_austria
+			surrender_progress > 0.15
+			casualties_inflicted_by = { opponent = GER   thousands > 250 }
 		}
-		OR = {
-			surrender_progress > 0.1
-			casualties > 200000
-		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "GER"
+		value = 100
 	}
 
 	ai_strategy = {
 		type = front_control
 		tag = GER
-		tag = AUH
+		ratio = 0.6
 		priority = 100
-		ratio = 0.35
 		ordertype = front
 		execution_type = balanced
 		execute_order = yes
 		manual_attack = yes
 	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER
+		value = 125
+	}
 }
+
+
+### ------- wartime strategies  ------- ###
+
+
+# fight germany cautiously
+RUS_careful_against_GER = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER 
+		war_length_with = { tag = GER  months > 3 }  	# dont trigger at beginning of war
+	}
+	abort = {
+		GER = { surrender_progress > 0.2 }
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = GER
+		ratio = 0.6
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = GER			
+		value = 100	
+	}
+}
+
+
+
+# fight Austrians cautiously
+RUS_careful_against_AUH = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = AUH 
+		war_length_with = { tag = AUH  months > 3 }  	# dont trigger at beginning of war
+	}
+	abort = {
+		AUH = { surrender_progress > 0.2 }
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = AUH
+		ratio = 0.4
+		priority = 25
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = AUH			
+		value = 75	
+	}
+}
+
+
+RUS_ignore_serbia = {
+	allowed = {
+		original_tag = RUS
+	}
+	enable = {
+		is_in_faction_with = SER
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = SER		
+		value = -1000
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "SER"
+		value = 100
+	}	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MNT"
+		value = 100
+	}	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "ALB"
+		value = 100
+	}	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "GNU"
+		value = 100
+	}	
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "GRE"
+		value = 100
+	}	
+}
+
+
+
+RUS_fight_the_turks = {
+	allowed = {
+		original_tag = RUS
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = TUR
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = consider_weak
+		id = TUR
+		value = 15
+	}
+}
+
 
 
 ########################## WW2 ##########################

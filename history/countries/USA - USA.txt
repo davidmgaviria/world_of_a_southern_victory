@@ -1,32 +1,30 @@
 ﻿capital = 840
 
 set_fuel_ratio = 0.45
-set_research_slots = 3 #was 4
-set_stability = 0.8
+set_research_slots = 4   # testing 4 slots 
+set_stability = 0.65
 set_war_support = 0.4
-set_convoys = 350
-
-
-
+set_convoys = 500
+set_major = yes		#gotta make sure its a major
 
 
 
 1910.1.1 = {
 	oob = "USA_1910"
+	load_focus_tree = usa_focus
 
-	#create_faction = "American Sphere"
-	#add_to_faction = HAI
 	give_guarantee = HAI
 	diplomatic_relation = { country = HAI   relation = docking_rights  active = yes }
-
-	add_opinion_modifier = {  target = CSA   modifier = WSV_bitter_enemies }
-	add_opinion_modifier = {  target = ENG   modifier = WSV_old_wounds }
-	add_opinion_modifier = {  target = FRA   modifier = WSV_old_wounds }
 	diplomatic_relation = { country = GER   relation = non_aggression_pact  active = yes }
-
+	
 	set_variable = { 
-		var = usa_influence_in_caribbean 
-		value = 0
+		var = usa_socialist_militancy
+		value = 10
+	}
+	set_country_flag = {
+		flag = haiti_instability_cooldown  # so it doesnt immediately fire
+		days = 100
+		value = 1
 	}
 	set_variable = { 
 		var = months_to_rememberance_day 
@@ -38,18 +36,25 @@ set_convoys = 350
 	if = { limit = { has_start_date < 1937.1.1 }
 
 		# Country Leaders
-		recruit_character = USA_eugene_v._debs
+		recruit_character = USA_ce_ruthenburg
+		recruit_character = USA_eugene_debs
 		recruit_character = USA_theodore_roosevelt
+		recruit_character = USA_leonard_wood
 		# Active Country Leader
-		recruit_character = USA_nelson_aldrich # should be president
-		recruit_character = USA_charles_j._hexamer
-		promote_character = USA_charles_j._hexamer 
+		recruit_character = USA_nelson_aldrich
+		promote_character = USA_nelson_aldrich 
 
 		# Generals
 		recruit_character = USA_john_j._pershing
 		recruit_character = USA_george_a._custer
 		recruit_character = USA_peyton_c_march
 		recruit_character = USA_tasker_h_bliss
+
+		# Admirals
+		recruit_character = USA_henry_t._mayo
+		recruit_character = USA_frank_f._fletcher
+
+		# Generic Generals & Admirals
 		recruit_character = USA_generic_general_1
 		recruit_character = USA_generic_general_2
 		recruit_character = USA_generic_general_3
@@ -57,27 +62,20 @@ set_convoys = 350
 		recruit_character = USA_generic_general_5
 		recruit_character = USA_generic_general_6
 		recruit_character = USA_generic_general_7
-
-		# Admirals
-		# recruit_character = USA_william_s._sims
-		# recruit_character = USA_victor_h._metcalf
-		# recruit_character = USA_henry_t._mayo
-		# recruit_character = USA_william_b._caperton
-		# recruit_character = USA_frank_f._fletcher
-		# recruit_character = USA_richmond_p._hobson
-
-		# Military Advisors
-		#recruit_character = USA_william_w_wotherspoon
-		#recruit_character = USA_peyton_c_march
-		#recruit_character = USA_samuel_young
-		#recruit_character = USA_robert_e_coontz
-		#recruit_character = USA_william_s_benson
-
-	#------------- NATIONAL FOCUS --------------#
-		#Army
-		# complete_national_focus = USA_ww1_army_effort
-		# complete_national_focus = USA_ww1_industrial_effort
-		# complete_national_focus = USA_ww1_naval_effort
+		recruit_character = USA_generic_general_8
+		recruit_character = USA_generic_general_9
+		recruit_character = USA_generic_general_10
+		recruit_character = USA_generic_general_11
+		recruit_character = USA_generic_general_12
+		recruit_character = USA_generic_general_13
+		recruit_character = USA_generic_general_14
+		recruit_character = USA_generic_general_15
+		recruit_character = USA_generic_general_16
+		recruit_character = USA_generic_admiral_1
+		recruit_character = USA_generic_admiral_2
+		recruit_character = USA_generic_admiral_3
+		recruit_character = USA_generic_admiral_4
+		
 	}
 	
 
@@ -93,18 +91,34 @@ set_convoys = 350
 	    communism = 17
 	    neutrality = 8
 	}
-
 	add_ideas = {
-		USA_remembrance_day
+		USA_remembrance_idea
 		USA_usgc_idea
-		USA_gilded_age
 		USA_socialist_opposition
-		USA_rationing_board
+		USA_throttled_military_spending
+		USA_corporate_trusts
 		limited_conscription
-		low_economic_mobilisation
+		civilian_economy
 		export_focus 
 	}
 
+
+	# # --------------- EQUIPMENT ----------------#
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_0
+		amount = 20000
+		producer = USA
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment_1
+		producer = USA
+		amount = 400
+	}
+	add_equipment_to_stockpile = {
+		type = light_field_gun_equipment_1
+		producer = USA
+		amount = 600
+	}
 
 	#--------------- TECHNOLOGY ----------------#
 	set_technology = {
@@ -115,9 +129,6 @@ set_convoys = 350
 		infantry_weapons = 1
 		ww1infantry_weapons1 = 1
 		support_weapons = 1
-		#infantry_binoculars = 1
-		motorised_infantry = 1
-		#marines = 1
 		tech_mountaineers = 1
 
 		# Support
@@ -127,27 +138,24 @@ set_convoys = 350
 		
 		# Artillery
 		light_field_gun1 = 1
-		heavy_field_gun1 = 1
 
 		# Armor
-		gwtank = 1
+		ww1_armored_car = 1
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
 		ww1_battleship2 = 1
-		ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
-		transport = 1
+		ww1_transport = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
 
 		# Industry
-		ww1_fortification1 = 1
+		#ww1_fortification1 = 1
 	}
 }
 

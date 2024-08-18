@@ -1,0 +1,189 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+BUL_dont_join_ger = {
+	enable = {
+		tag = BUL
+		NOT = { is_in_faction_with = GER }
+		date < 1915.6.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = -1000
+	}
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 20
+	}
+}
+
+
+BUL_increase_army = {	
+	allowed = {
+		original_tag = BUL
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_army_manpower = { size < 300000 }
+		has_war = no 
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = 50
+	}
+}
+
+
+
+BUL_first_balkan = {
+	enable = {
+		tag = BUL
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes	
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "TUR"			
+		value = 75
+	}	
+
+	ai_strategy = {
+		type = consider_weak
+		id = TUR
+		value = 30  # consider Turkey easy prey
+	}
+}
+
+
+
+BUL_second_balkan = {
+	enable = {
+		tag = BUL
+		SER = { 
+			exists = yes
+			NOT = { is_in_faction_with = BUL }
+		}
+		has_global_flag = criticized_london_peace_conference 
+		NOT = { has_global_flag = secondbalkanwar_over }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "SER"			
+		value = 50
+	}
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GER"			
+		value = 50
+	}
+}
+
+
+
+# Bulgarian entry in WW1
+BUL_revenge_on_serbia = {
+	enable = {
+		tag = BUL
+		SER = { 
+			exists = yes
+			NOT = { is_in_faction_with = BUL }
+		}
+		date > 1915.1.1
+		has_start_date < 1937.1.1
+	}
+	abort = {
+		has_war_with = SER  #dont abort before
+		OR = {
+			surrender_progress > 0.15
+			casualties > 50000
+			SER = { has_capitulated = yes }
+		}
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = "SER"			
+		value = 100
+	}
+
+	ai_strategy = {
+		type = ignore_claim
+		id = "GRE"			
+		value = 1
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = SER 
+		value = 200
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = SER
+		ratio = 0.6
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+}
+
+
+BUL_let_turkey_defend_itself = {
+	allowed = {
+		original_tag = BUL
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		is_in_faction_with = TUR
+		NOT = { has_war_with = SER }  # turkey gets land in bulgaria for some reason
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "TUR"
+		value = 100
+	}	
+
+	ai_strategy = {
+		type = front_unit_request
+		area = middle_east		
+		value = -75
+	}	
+}
+
+
+
+
+
+
+
+

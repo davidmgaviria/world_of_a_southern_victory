@@ -1,42 +1,192 @@
 ﻿add_namespace = wsv_england
 
-
-#send men to canada
-country_event = {
+## Pass Parliment Act
+news_event = {
 	id = wsv_england.1
 	title = wsv_england.1.t
 	desc = wsv_england.1.d
-	#picture = report_event_deal_made
+	picture = news_event_wsv_parliament
+
+	# Not major, only for England
 
 	fire_only_once = yes
-
     is_triggered_only = yes
 
 	option = {
 		name = wsv_england.1.a
-		
-		ENG = {
-			transfer_units_fraction= {
-				target = CAN
-				size = 0.25
-				stockpile_ratio = 0.25
-			}
-			add_ideas = ENG_canadian_expeditionary_force_sender
-			set_country_flag = england_canadian_expeditionary_force
+	}
+}
+
+
+
+##########################################################
+# -- Formalize Entente with France
+##########################################################
+
+
+## Ask France for defense pact
+country_event = {
+	id = wsv_england.2
+	title = wsv_england.2.t
+	desc = wsv_england.2.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# yes
+	option = {
+		name = wsv_england.2.a
+		give_guarantee = ENG
+		ENG = { 
+			give_guarantee = FRA
+			country_event = { id = wsv_england.3  days = 1 }
 		}
-		CAN = { 
-			add_ideas = ENG_canadian_expeditionary_force_reciever 
-			#load_oob = "CAN_militia"
+		ai_chance = { factor = 100 }
+	}
+
+	# no
+	option = {
+		name = wsv_england.2.b
+		ENG = { 
+			country_event = { id = wsv_england.4  days = 1 }
 		}
 	}
 }
 
 
-#irish revolt
+## France agrees
+country_event = {
+	id = wsv_england.3
+	title = wsv_england.3.t
+	desc = wsv_england.3.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.3.a
+	}
+}
+
+
+## France rejects
+country_event = {
+	id = wsv_england.4
+	title = wsv_england.4.t
+	desc = wsv_england.4.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.4.a
+	}
+}
+
+
+##########################################################
+# -- British Intervention on the Continent
+##########################################################
+
+## News event of British intervention
 news_event = {
-	id = wsv_england.2
-	title = wsv_england.2.t
-	desc = wsv_england.2.d
+	id = wsv_england.5
+	title = wsv_england.5.t
+	desc = wsv_england.5.d
+	picture = news_event_confederate_soldiers
+
+	major = yes
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.5.a
+	}
+}
+
+
+##########################################################
+
+## Britain sent loans
+country_event = {
+	id = wsv_england.10
+	title = wsv_england.10.t
+	desc = wsv_england.10.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.10.a
+	}
+}
+
+
+
+
+##########################################################
+# -- Home Rule & Irish revolt
+##########################################################
+
+
+## British home rule negociations event
+country_event = {
+	id = wsv_england.12
+	title = wsv_england.12.t
+	desc = wsv_england.12.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.12.a
+	}
+}
+
+
+## Ireland released as puppet
+news_event = {
+	id = wsv_england.13
+	title = wsv_england.13.t
+	desc = wsv_england.13.d
+	picture = news_event_wsv_parliament
+
+	major = yes
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = ireland_granted_home_rule
+		hidden_effect = {
+			IRE = {
+				transfer_state = 134
+				transfer_state = 113
+				transfer_state = 135
+				set_stability = 0.65
+				set_war_support = 0.4
+			}
+			ENG = {
+				set_autonomy = {
+					target = IRE
+					autonomous_state = autonomy_puppet
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_england.13.a
+	}
+}
+
+
+# Irish Easter Rising
+news_event = {
+	id = wsv_england.14
+	title = wsv_england.14.t
+	desc = wsv_england.14.d
 	picture = EVENT_hoi4tgw_interwar_irish_war_of_independence
 
 	major = yes
@@ -49,72 +199,466 @@ news_event = {
     	tag = ENG
         date > 1916.3.1
        	date < 1916.7.1
-        NOT = { IRE = { has_full_control_of_state = 134   has_full_control_of_state = 135  has_full_control_of_state = 113 } } 
-        NOT = { IRE = { has_war_with = ENG } }
-        NOT = { has_global_flag = irish_revolt }
+        IRE = { exists = no }
+		NOT = { has_global_flag = irish_easter_rising }
     }
 
     immediate = { 
     	hidden_effect = {
-    		set_global_flag = irish_revolt
-    		IRE = {
-				transfer_state = 113
-				load_oob = "IRE_revolt"
-				add_political_power = 500
-				add_manpower = 26000
-				set_stability = 0.8
-				set_war_support = 0.5
-				add_ideas = { generic_defiant_spirit_idea }
-				add_equipment_to_stockpile = {
-				    type = infantry_equipment_0
-				    amount = 5000
-				    producer = ENG
-				}		
-			}
+    		set_global_flag = irish_easter_rising
 			ENG =  {
-				load_oob = "ENG_irish_revolt"
-				set_division_template_lock = { division_template = "Ireland Garrison"   is_locked = yes }
-				add_equipment_to_stockpile = {
-				    type = infantry_equipment_0
-				    amount = -5000
-				    producer = ENG
-				}
-				remove_state_core = 135
-				remove_state_core = 134
 				remove_state_core = 113
-				remove_state_core = 19
-				declare_war_on = {
-				    target = IRE
-				    type = annex_everything
+				remove_state_core = 134
+				remove_state_core = 135
+				113 = { # dublin has the highest
+					set_resistance = 45  set_compliance = 18  add_resistance_target = 50 
+					#set_border_war = yes
 				}
-			}		
+				135 = {
+					set_resistance = 23  set_compliance = 24  add_resistance_target = 40 
+					#set_border_war = yes
+				}
+				134 = {
+					set_resistance = 22  set_compliance = 25 add_resistance_target = 40 
+					#set_border_war = yes
+				}
+			}
     	}
    	}
 	
 	option = {
-		name = wsv_england.2.a
-		trigger = { tag = ENG }
+		name = wsv_england.14.a
+	}
+}
+
+
+##########################################################
+# -- Sykes Picot agreement
+##########################################################
+
+
+## Britain asks France on Sykes Picot
+country_event = {
+	id = wsv_england.15
+	title = wsv_england.15.t
+	desc = wsv_england.15.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	# France agrees
+	option = {
+		name = wsv_england.15.a
+		set_global_flag = sykes_picot_agreement_signed
+		ENG = { country_event = { id = wsv_england.16  days = 1 } }
+		custom_effect_tooltip = sykes_picot_tt
+		ai_chance = { factor = 100 }
+	}
+
+	# France rejects
+	option = {
+		name = wsv_england.15.b
+		ENG = { country_event = { id = wsv_england.17  days = 1 } }
+	}
+}
+
+
+## France agrees
+country_event = {
+	id = wsv_england.16
+	title = wsv_england.16.t
+	desc = wsv_england.16.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.16.a
+	}
+}
+
+
+## France rejects
+country_event = {
+	id = wsv_england.17
+	title = wsv_england.17.t
+	desc = wsv_england.17.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.17.a
+	}
+}
+
+
+
+##########################################################
+# -- Occupy Persia
+##########################################################
+
+## Annex Egypt
+country_event = {
+	id = wsv_england.20
+	title = wsv_england.20.t
+	desc = wsv_england.20.d
+
+	fire_only_once = yes
+    trigger = {
+		tag = ENG
+		has_war_with = TUR
+		EGY = { is_puppet_of = ENG }
+		NOT = { has_global_flag = britain_occupies_egypt }
+	}
+
+	mean_time_to_happen = {
+		days = 20
+	}
+
+	immediate = {
+		set_global_flag = britain_occupies_egypt
 	}
 
 	option = {
-		name = wsv_england.2.b
-		trigger = { tag = USA }
-	}
-
-
-	option = {
-		name = wsv_england.2.c
-		trigger = { 
-			NOT = { tag = USA }
-			NOT = { tag = ENG }
+		name = wsv_england.20.a
+		annex_country = {
+			target = EGY
+			transfer_troops = yes
 		}
+	}
+}
+
+
+##########################################################
+# -- Occupy Persia
+##########################################################
+
+
+# Turkey informed of Perisa's occupation
+country_event = {
+	id = wsv_england.21
+	title = wsv_england.21.t
+	desc = wsv_england.21.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.21.a
+	}
+}
+
+
+##########################################################
+# -- England Make Faction with CSA
+##########################################################
+
+
+# England suggests to CSA we should make faction
+country_event = {
+	id = wsv_england.25
+	title = wsv_england.25.t
+	desc = wsv_england.25.d
+
+    is_triggered_only = yes
+
+	# of course
+	option = {
+		name = wsv_england.25.a
+		ENG = { country_event = wsv_england.26 }
+		effect_tooltip = {
+			FROM = {
+				create_faction = "Americas Defense Coalition"
+				add_to_faction = ROOT
+			}
+		}
+		ai_chance = { factor = 100 }
+	}
+
+	# no
+	option = {
+		name = wsv_england.25.b
+		ENG = { country_event = wsv_england.27 }
+		ai_chance = { factor = 0 }
+	}
+}
+
+# CSA said yes
+country_event = {
+	id = wsv_england.26
+	title = wsv_england.26.t
+	desc = wsv_england.26.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.26.a
+		create_faction = "Americas Defense Coalition"
+		add_to_faction = FROM
+	}
+}
+
+
+# CSA said no
+country_event = {
+	id = wsv_england.27
+	title = wsv_england.27.t
+	desc = wsv_england.27.d
+
+    is_triggered_only = yes
+
+	# morons
+	option = {
+		name = wsv_england.26.a
+		set_country_flag = csa_declined_faction_with_england
 	}
 }
 
 
 
 
+# #send men to canada
+# country_event = {
+# 	id = wsv_england.1
+# 	title = wsv_england.1.t
+# 	desc = wsv_england.1.d
+# 	#picture = report_event_deal_made
+
+# 	fire_only_once = yes
+
+#     is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_england.1.a
+		
+# 		ENG = {
+# 			transfer_units_fraction= {
+# 				target = CAN
+# 				size = 0.25
+# 				stockpile_ratio = 0.25
+# 			}
+# 			add_ideas = ENG_canadian_expeditionary_force_sender
+# 			set_country_flag = england_canadian_expeditionary_force
+# 		}
+# 		CAN = { 
+# 			add_ideas = ENG_canadian_expeditionary_force_reciever 
+# 			#load_oob = "CAN_militia"
+# 		}
+# 	}
+# }
 
 
 
 
+
+
+#######################################################################################
+## -- Alternate History
+#######################################################################################
+
+
+# Germany informed of Britain's outreach 
+country_event = {
+	id = wsv_england.100
+	title = wsv_england.100.t
+	desc = wsv_england.100.d
+
+	fire_only_once = yes
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.100.a
+	}
+}
+
+
+
+##################################
+## German British Detente
+##################################
+
+# Britain requests detente (ask us to limit navy and abandon US in exchange for non-aggression pact)
+country_event = {
+	id = wsv_england.101
+	title = wsv_england.101.t
+	desc = wsv_england.101.d
+
+    is_triggered_only = yes
+
+	## We wont abandon the US
+	option = {
+		name = wsv_england.101.a
+		ENG = { country_event = { id = wsv_england.104  days = 2 } }
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	## We'll limit navy as much as you
+	option = {
+		name = wsv_england.101.b
+		ENG = { country_event = { id = wsv_england.102  days = 2 } }
+		custom_effect_tooltip = england_revised_detente_treaty_tt
+		custom_effect_tooltip = england_must_agree_to_revision_tt
+		ai_chance = {
+			factor = 40
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+	## Full acceptance
+	option = {
+		name = wsv_england.101.c
+		set_country_flag = germany_agreed_to_limit_navy
+		ENG = { country_event = { id = wsv_england.103  days = 2 } }
+		custom_effect_tooltip = england_full_detente_treaty_tt
+		effect_tooltip = {
+			add_ideas = GER_limited_navy_treaty
+		}
+
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+
+## Germany suggests revision to Britain (they will only limit ships as much as us)
+country_event = {
+	id = wsv_england.102
+	title = wsv_england.102.t
+	desc = wsv_england.102.d
+
+    is_triggered_only = yes
+
+	## No deal
+	option = {
+		name = wsv_england.102.a
+		GER = { country_event = { id = wsv_england.104  days = 2 } }
+		ai_chance = {
+			factor = 30
+		}
+	}
+
+	## This is acceptable
+	option = {
+		name = wsv_england.102.b
+		GER = { country_event = { id = wsv_england.103  days = 2 } }
+		custom_effect_tooltip = england_revised_detente_treaty_tt
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+
+
+## Germany / Britain agrees
+country_event = {
+	id = wsv_england.103
+	title = wsv_england.103.t
+	desc = wsv_england.103.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.103.a
+		news_event = wsv_england.105
+	}
+}
+
+
+## Germany / Britian refuses
+country_event = {
+	id = wsv_england.104
+	title = wsv_england.104.t
+	desc = wsv_england.104.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_england.104.a
+		add_opinion_modifier = {
+			target = FROM
+			modifier = wsv_dislikes_country
+		}
+	}
+}
+
+
+## News event of British-German Detente
+news_event = {
+	id = wsv_england.105
+	title = wsv_england.105.t
+	desc = wsv_england.105.d
+	picture =  news_event_generic_handshake
+
+    is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = british_german_detente 
+		hidden_effect = {
+			ENG = {
+				diplomatic_relation = { country = GER  relation = non_aggression_pact  active = yes }
+				diplomatic_relation = { country = BEL  relation = guarantee  active = no }
+				diplomatic_relation = { country = LUX  relation = guarantee  active = no }
+				remove_ideas = generic_dreadnought_arms_race
+			}
+			GER = {
+				remove_ideas = generic_dreadnought_arms_race
+				if = {
+					limit = { has_country_flag = germany_agreed_to_limit_navy }
+					add_ideas = GER_limited_navy_treaty
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_england.105.a
+		trigger = { OR = { tag = ENG   tag = GER } }
+	}
+
+	option = {
+		name = wsv_england.105.b
+		trigger = { OR = { tag = FRA   tag = USA } }
+		# France is mad
+		if = {
+			limit = { tag = FRA }
+			FRA = {
+				add_opinion_modifier = {
+					target = ENG
+					modifier = faction_traitor
+				}
+			}
+		}
+		# USA is mad
+		if = {
+			limit = { tag = FRA }
+			USA = {
+				add_opinion_modifier = {
+					target = GER
+					modifier = faction_traitor
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_england.105.c
+		trigger = { 
+			NOT = { tag = ENG }  
+			NOT = { tag = FRA }  
+			NOT = { tag = GER }  
+			NOT = { tag = USA } 
+		}
+	}
+}

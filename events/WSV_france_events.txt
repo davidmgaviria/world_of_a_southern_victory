@@ -1,77 +1,290 @@
-﻿add_namespace = wsv_france
+﻿
+add_namespace = wsv_france
 
 
-#french army mutinies
-news_event = {
+## --------------------------------------------------------------------------------------- ##
+## ------------------------------------- HISTORICAL -------------------------------------- ##
+## --------------------------------------------------------------------------------------- ##
+
+# france sends arms to country
+country_event = {
 	id = wsv_france.1
 	title = wsv_france.1.t
 	desc = wsv_france.1.d
-	picture = news_event_french_army_mutiny
 
-	major = yes
+    is_triggered_only = yes
 
-	mean_time_to_happen = {
-		days = 7
-	}
-
-	trigger = {
-		tag = FRA
-    	FRA = { 
-    		has_war_with = GER 
-    		OR = {
-    			AND = {
-    				casualties > 800000
-    				surrender_progress > 0.15
-    			}
-    			AND = {
-    				casualties > 1000000
-    				GER = { surrender_progress < 0.1 }
-    			}
-    			AND = {
-    				casualties > 1300000
-    				GER = { surrender_progress < 0.25 }
-    			}
-    			AND = {
-    				casualties > 1800000
-    				GER = { surrender_progress < 0.45 }
-    			}
-    		}
-    	}
-    	
-        NOT = { has_global_flag = french_army_mutinies }       
-    }
-
-    immediate = {
-    	hidden_effect = {
-	    	FRA = { add_timed_idea = { idea = FRA_french_army_mutiny days = 30 } }
-	    	set_global_flag = french_army_mutinies
-	    }
-    }
-	
 	option = {
 		name = wsv_france.1.a
-		trigger = { 
-			OR = {
-				tag = FRA 
-				is_in_faction_with = FRA
+	}
+}
+
+# france sent us a loan (italy / russia) 
+country_event = {
+	id = wsv_france.2
+	title = wsv_france.2.t
+	desc = wsv_france.2.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_france.2.a
+	}
+}
+
+
+
+##########################################################
+# -- France & Italy
+##########################################################
+
+# France recognizes italian claims 
+country_event = {
+	id = wsv_france.3
+	title = wsv_france.3.t
+	desc = wsv_france.3.d
+
+    is_triggered_only = yes
+
+	option = {
+		name = wsv_france.3.a
+	}
+}
+
+# France calls italy to war
+country_event = {
+	id = wsv_france.4
+	title = wsv_france.4.t
+	desc = wsv_france.4.d
+
+    is_triggered_only = yes
+
+	# No
+	option = {
+		name = wsv_france.4.a
+		FRA = { 
+			country_event = { id = wsv_france.5   days = 2 } 
+			add_opinion_modifier = {
+				target = ITA
+				modifier = wsv_dislikes_country
+			}
+		}
+		ai_chance = {
+			base = 40
+		}
+	}
+
+	# Yes
+	option = {
+		name = wsv_france.4.b
+		FRA = { add_to_faction = ITA }
+		
+		ai_chance = {
+			base = 80
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+}
+
+# Italy said no
+country_event = {
+	id = wsv_france.5
+	title = wsv_france.5.t
+	desc = wsv_france.5.d
+
+    is_triggered_only = yes
+
+	# No
+	option = {
+		name = wsv_france.5.a
+	}
+}
+
+
+
+##########################################################
+# -- French Army Mutiny
+##########################################################
+
+# French Army mutiny
+news_event = {
+	id = wsv_france.10
+	title = wsv_france.10.t
+	desc = wsv_france.10.d
+	picture = news_event_french_army_mutiny
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = french_army_mutinies
+		hidden_effect = {
+			FRA = {
+				set_country_flag = first_army_mutiny
+				add_ideas = FRA_army_mutinies
+				country_event = { id = wsv_france.11   days = 20 }  	# deal with mutinies event
+				set_variable = { mutiny_rounds_count = 0 }
 			}
 		}
 	}
 
-	option = {
-		name = wsv_france.1.b
-		trigger = { 	
-			has_war_with = FRA
+    option = {
+		name = wsv_france.10.a
+	}	
+}
+
+
+# Respond to the mutiny
+country_event = {
+	id = wsv_france.11
+	title = wsv_france.11.t
+	desc = wsv_france.11.d
+
+	is_triggered_only = yes
+
+	# Give into concerns of mutiniers (will halt offensives)
+    option = {
+		name = wsv_france.11.a
+		set_country_flag = france_gave_into_mutiny_demands
+		country_event = { id = wsv_france.12   days = 7 }
+		effect_tooltip = {
+			remove_ideas = FRA_army_mutinies
+			add_timed_idea = {
+				idea = FRA_halt_army_offensives
+				days = 200
+			}
 		}
-	}
+	}	
 
-
+	# Ignore mutineers (variable outcome)
 	option = {
-		name = wsv_france.1.c
-		trigger = { 
-			NOT = { is_in_faction_with = FRA }
-			NOT = { has_war_with = FRA }
-			NOT = { tag = FRA }
+		name = wsv_france.11.b
+		random_list = {
+			90 = {
+				hidden_effect = { country_event = { id = wsv_france.12   days = 20 } }
+			}
+			10 = { 
+				country_event = { id = wsv_france.12   days = 7 } 
+				effect_tooltip = { remove_ideas = FRA_army_mutinies }
+				modifier = {
+					factor = 3
+					check_variable = { mutiny_rounds_count > 2 }
+				}
+			}
+		}
+
+		add_to_variable = { mutiny_rounds_count = 1 }
+		
+		ai_chance = {
+			factor = 0
 		}
 	}
 }
+
+
+# Mutiny quelled
+country_event = {
+	id = wsv_france.12
+	title = wsv_france.12.t
+	desc = wsv_france.12.d
+
+	is_triggered_only = yes
+
+    option = {
+		name = wsv_france.12.a
+		remove_ideas = FRA_army_mutinies
+		if = {
+			limit = { has_country_flag = france_gave_into_mutiny_demands }
+			add_timed_idea = {
+				idea = FRA_halt_army_offensives
+				days = 200
+			}
+		}
+	}	
+}
+
+
+# Exhausted populace
+country_event = {
+	id = wsv_france.13
+	title = wsv_france.13.t
+	desc = wsv_france.13.d
+
+	fire_only_once = yes
+	trigger = {
+		tag = FRA
+		has_war_with_major = yes
+		has_global_flag = french_army_mutinies
+	}
+
+	mean_time_to_happen = {
+		days = 20
+	}
+
+    option = {
+		name = wsv_france.13.a
+		add_ideas = FRA_exhausted_populace
+	}	
+}
+
+
+
+## --------------------------------------------------------------------------------------- ##
+## ------------------------------- ALTERNATE HISTORICAL ---------------------------------- ##
+## --------------------------------------------------------------------------------------- ##
+
+# England gets country event of France cancelling non-aggression pact
+country_event = {
+	id = wsv_france.50
+	title = wsv_france.50.t
+	desc = wsv_france.50.d
+
+	is_triggered_only = yes
+
+    option = {
+		name = wsv_france.50.a
+	}	
+}
+
+
+# News event of French troops entering Belgium
+news_event = {
+	id = wsv_france.51
+	title = wsv_france.51.t
+	desc = wsv_france.51.d
+	picture =  news_event_gw_french_soldiers
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = french_invasion_of_belgium
+		hidden_effect = {
+			FRA = {
+				diplomatic_relation = {
+					country = BEL
+					relation = guarantee
+					active = no
+				}
+				declare_war_on = {
+					target = BEL
+					type = annex_everything
+				}
+			}
+		}
+	}
+
+    option = {
+		name = wsv_france.51.a
+		trigger = { tag = FRA }
+	}	
+
+	option = {
+		name = wsv_france.51.b
+		trigger = { NOT = { tag = FRA } }
+	}	
+}
+

@@ -1,0 +1,239 @@
+
+
+##################################################
+###########  NICARAGUA CRISIS DECISIONS ##########
+##################################################
+
+nicaragua_crisis_cat = {
+
+	# nicaragua mission (on timeout CS fails)
+	time_to_rescue_confederate_garrison = {
+
+		priority = 100
+		icon = generic_nationalism
+
+		allowed = {
+			OR = {
+				tag = CSA
+				tag = USA
+				tag = GER
+				tag = ENG
+			}
+		}
+
+		activation = {
+			has_global_flag = nicaragua_crisis
+			NOT = { has_global_flag = nicaragua_crisis_over }
+		}
+
+		available = {
+			has_global_flag = nicaragua_crisis_over  #once it gets flag, auto completes
+		}
+
+		days_mission_timeout = 60
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			if = {
+				limit = { tag = CSA }
+				add_political_power = -100
+				add_war_support = -0.1
+				add_stability = -0.05
+				set_global_flag = nicaragua_crisis_over
+				news_event = wsv_carib.9
+				hidden_effect = {
+					317 = { set_border_war = no }
+				}
+			}
+		}
+	}
+
+
+	# CSA sends peace terms to US
+	csa_send_terms_to_us = {
+		icon = execute_decisionicon
+
+		visible = {
+			has_active_mission = time_to_rescue_confederate_garrison
+			tag = CSA
+		}
+		available = {
+			tag = CSA
+			custom_trigger_tooltip = {
+				tooltip = great_power_response_nicaragua_tt
+				OR = {
+					has_global_flag = britain_no_involvement_in_nicaragua
+					AND = {
+						has_global_flag = britain_responded_nicaragua_crsis
+						has_global_flag = germany_responded_nicaragua_crsis
+					}
+				}
+			}
+		}
+		
+		days_remove = 3
+		fire_only_once = yes
+		cost = 0
+
+		remove_effect = {
+			set_country_flag = sent_peace_terms_nicaragua
+			USA = { country_event = wsv_carib.4 }
+			custom_effect_tooltip = csa_peace_terms_nicaragua_tt
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5  
+				is_historical_focus_on = no
+				ENG = { has_country_flag = full_support_csa_in_nicaragua }
+			}
+			# be more aggressive if the US occupied Haiti
+			modifier = {
+				factor = 0.2
+				has_global_flag = usa_intervened_in_haiti
+			}
+		}
+	}
+
+
+	# CSA forces open blockade
+	csa_force_open_blockade = {
+		icon = generic_naval
+
+		visible = {
+			has_active_mission = time_to_rescue_confederate_garrison
+			tag = CSA
+		}
+		available = {
+			tag = CSA
+			custom_trigger_tooltip = {
+				tooltip = great_power_response_nicaragua_tt
+				OR = {
+					has_global_flag = britain_no_involvement_in_nicaragua
+					AND = {
+						has_global_flag = britain_responded_nicaragua_crsis
+						has_global_flag = germany_responded_nicaragua_crsis
+					}
+				}
+			}
+			NOT = { has_country_flag = sent_peace_terms_nicaragua }
+		}
+
+		days_remove = 3
+		fire_only_once = yes
+		cost = 50
+
+		complete_effect = {
+			set_global_flag = nicaragua_crisis_over
+		}
+
+		remove_effect = {
+			hidden_effect = {
+				317 = { set_border_war = no }
+			}
+			annex_country = {
+				target = NIC
+				transfer_troops = no
+			}
+			USA = { country_event = wsv_carib.8 }
+			custom_effect_tooltip = will_lead_to_war_with_usa_tt
+			# will england support us ?
+			if = {
+				limit = { has_global_flag = britain_responded_nicaragua_crsis }
+				if = {
+					limit = { 
+						OR = {
+							ENG = { has_country_flag = full_support_csa_in_nicaragua }
+							AND = {
+								ENG = { has_country_flag = conditional_support_csa_in_nicaragua }
+								has_global_flag = usa_rejected_nicaragua_terms
+							}
+						}
+					}
+					custom_effect_tooltip = england_backs_csa_in_war_tt
+				}
+				else = {
+					custom_effect_tooltip = negoctiation_for_help_from_england_tt
+					end_confederate_canadian_british_pact = yes
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 5
+				ENG = { has_country_flag = full_support_csa_in_nicaragua }
+			}
+			modifier = {
+				add = 10
+				has_global_flag = usa_rejected_nicaragua_terms
+			}
+		}
+	}
+
+
+	# # Germany mobilizes for US
+	# germany_supports_usa_in_nicaragua = {
+	# 	icon = generic_prepare_civil_war
+
+	# 	visible = {
+	# 		has_active_mission = time_to_rescue_confederate_garrison
+	# 		tag = GER
+	# 	}
+	# 	available = {
+	# 		tag = GER
+	# 	}
+
+	# 	fire_only_once = yes
+	# 	cost = 10
+
+	# 	complete_effect = {
+	# 		add_war_support = 0.1
+	# 		USA = { country_event = wsv_carib.11 }
+	# 		CSA = { country_event = wsv_carib.11 }
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 0
+	# 		modifier = {
+	# 			add = 10
+	# 			has_global_flag = american_german_pact
+	# 		}
+	# 	}
+	# }
+	
+
+	# # England mobilizes for CS
+	# britain_supports_csa_in_nicaragua = {
+	# 	icon = generic_prepare_civil_war
+
+	# 	visible = {
+	# 		has_active_mission = time_to_rescue_confederate_garrison
+	# 		tag = ENG
+	# 	}
+	# 	available = {
+	# 		tag = ENG
+	# 	}
+
+	# 	fire_only_once = yes
+	# 	cost = 10
+
+	# 	complete_effect = {
+	# 		add_war_support = 0.1
+	# 		USA = { country_event = wsv_carib.12 }
+	# 		CSA = { country_event = wsv_carib.12 }
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 0
+	# 		modifier = {
+	# 			add = 10
+	# 			CAN = { has_guaranteed = CSA }
+	# 		}
+	# 	}
+	# }
+
+}

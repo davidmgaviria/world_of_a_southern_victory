@@ -1,0 +1,241 @@
+﻿add_namespace = wsv_china
+
+
+#################################################################################
+## -- Xinhai 1911 Revolution
+#################################################################################
+
+
+## Country event of Wuchang Uprising (trigger for revolution
+country_event = {
+	id = wsv_china.1
+	title = wsv_china.1.t
+	desc = wsv_china.1.d
+
+	trigger = {
+		tag = QIN
+		has_war = no
+		date > 1911.10.20
+		NOT = { has_country_flag = wuchang_uprising }
+		NOT = { has_global_flag = chinese_1911_revolution }
+	}
+
+	mean_time_to_happen = {
+		days = 10
+	}
+
+	immediate = {
+		set_country_flag = wuchang_uprising
+		hidden_effect = {
+			## Qing government 
+			start_civil_war = {
+				ruling_party = neutrality
+				ideology = democratic
+				size = 0.35
+				capital = 620  # Hubei province
+				states = {
+					620 602 622 325 600
+				}
+				# set_country_flag =  #todo - PRC flag
+			}
+			set_stability = 0.75
+			set_popularities = {
+				democratic = 5
+				neutrality = 75
+				fascism = 10
+				communism = 2
+			}
+			
+			## Revolutionaries
+			random_country = {
+				limit = {
+					original_tag = QIN
+					has_government = democratic
+				}
+				set_stability = 0.8
+				set_war_support = 0.9
+				set_popularities = {
+					democratic = 60
+					neutrality = 5
+					fascism = 10
+					communism = 25
+				}
+				load_oob = "PRC_1911_uprising"
+				inhereit_technology = QIN
+			}
+		}
+	}
+
+	# Support Revolutionaries
+	option = {
+		name = wsv_china.1.a
+		random_country = {
+			limit = {
+				original_tag = QIN
+				has_government = democratic
+			}
+			change_tag_from = QIN
+		}	
+		hidden_effect = { news_event = wsv_china.2 }  # event of revolution
+		ai_chance = { factor = 0 }
+	}
+
+	# Support Qing
+	option = {
+		name = wsv_china.1.b
+		add_political_power = 50
+		hidden_effect = { news_event = wsv_china.2 }  # event of revolution
+		ai_chance = { factor = 100 }
+	}
+}
+
+
+
+## News event
+news_event = {
+	id = wsv_china.2
+	title = wsv_china.2.t
+	desc = wsv_china.2.d
+	picture = EVENT_hoi4tgw_xinhai_revolution
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = chinese_1911_revolution
+		hidden_effect = {
+			QIN = {
+				release = MON # Release Mongolia
+				release = TIB # Release Tibet
+				release = TAN # Release Tanu
+			}
+			RUS = { puppet = TAN }
+		}
+	}
+
+	option = {
+		name = wsv_china.2.a
+	}
+}
+
+
+## Country event of Qing surrendering
+country_event = {
+	id = wsv_china.3
+	title = wsv_china.3.t
+	desc = wsv_china.3.d
+
+	trigger = {
+		tag = QIN
+		surrender_progress > 0.5
+		has_country_flag = wuchang_uprising
+		NOT = { has_global_flag = chinese_1911_revolution_over }
+	}
+
+	## Give in to revolutionary demands
+	option = {
+		name = wsv_china.3.a
+
+		# Switch player to Republic (does nothing if AI)
+		random_country = {
+			limit = {
+				original_tag = QIN
+				has_government = democratic
+			}
+			change_tag_from = QIN		
+		}	
+		# Republic annexes monarchy
+		random_country = {
+			limit = {
+				original_tag = QIN
+				has_government = democratic
+			}
+			annex_country = {
+				target = QIN
+				transfer_troops = yes
+			}
+		}	
+		news_event = wsv_china.4
+
+		ai_chance = { factor = 100 }
+	}
+
+	## Keep fighting
+	option = {
+		name = wsv_china.3.b
+		add_political_power = -100
+		add_war_support = -0.3
+
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+## News event of Revolutionary victory
+news_event = {
+	id = wsv_china.4
+	title = wsv_china.4.t
+	desc = wsv_china.4.d
+	picture = EVENT_hoi4tgw_xinhai_end
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = chinese_1911_revolution_over
+		set_global_flag = prc_victory
+		hidden_effect = {
+			random_country = {
+				limit = {
+					original_tag = QIN
+					has_government = democratic
+				}
+				delete_unit_template_and_units = {
+					division_template = "Nóngmín Bīng"
+					disband = no 
+				}
+			}	
+		}
+	}
+
+	option = {
+		name = wsv_china.4.a
+	}
+}
+
+
+## News event of Qing victory
+news_event = {
+	id = wsv_china.5
+	title = wsv_china.5.t
+	desc = wsv_china.5.d
+	picture = EVENT_hoi4tgw_xinhai_end
+
+	trigger = {
+		tag = QIN
+		has_global_flag = chinese_1911_revolution
+		NOT = { has_global_flag = chinese_1911_revolution_over }
+		has_civil_war = no	# trigger once we win
+	}
+	major = yes
+
+	immediate = {
+		set_global_flag =  chinese_1911_revolution_over
+		set_global_flag = qing_victory
+		hidden_effect = {
+			QIN = { 
+				delete_unit_template_and_units = {
+					division_template = "Nóngmín Bīng"
+					disband = no 
+				}
+			}	
+		}
+	}
+
+	option = {
+		name = wsv_china.5.a
+	}
+}
+
+
+#################################################################################

@@ -8,54 +8,32 @@ set_research_slots = 3 #was 3, then 2, now 3
 set_stability = 0.50
 set_convoys = 10
 
-#-------------------------------------------------------
-#					POLITICS & ARMY
-#-------------------------------------------------------
-if = { limit = { has_start_date < 1937.1.1 }
-create_country_leader={ name="Mykhaïlo Hrouchevsky" desc=UKR_mykhailo_hrushevskyi_DESC picture="gfx/portraits/UKR/country_leaders/UKR_mykhailo_hrushevskyi.dds" expire="1935.1.1" ideology=despotism traits={  } }
-create_corps_commander={  name = "Konovalets" id=91008 portrait_path="gfx/generals/UKR_konovalets.tga" traits={   } skill=5 }
-create_corps_commander={  name = "Osetskyi" id=91009 portrait_path="gfx/generals/UKR_osetskyi.tga" traits={   } skill=3 }
-create_corps_commander={  name = "Stefaniv" id=91013 portrait_path="gfx/generals/UKR_stefaniv.tga" traits={   } skill=5 }
-create_corps_commander={  name = "Omelianovych-Pavlenko" id=91015 portrait_path="gfx/generals/UKR_omelianovych_pavlenko.tga" traits={  trickster } skill=4 }
-create_corps_commander={  name = "Kossak" id=91016 portrait_path="gfx/generals/UKR_kossak.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Oskilko" id=91017 portrait_path="gfx/generals/UKR_oskilko.tga" traits={   } skill=1 }
-create_corps_commander={  name = "Schamanek" id=91025 portrait_path="gfx/generals/UKR_schamanek.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Grekov" id=91027 portrait_path="gfx/generals/UKR_grekov.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Delwig" id=91028 portrait_path="gfx/generals/UKR_delwig.tga" traits={   } skill=2 }
-create_corps_commander={  name = "Hryhoryiev" id=91030 portrait_path="gfx/generals/UKR_hryhoryiev.tga" traits={  trickster } skill=2 }
-create_corps_commander={  name = "Tiutiunnik" id=91031 portrait_path="gfx/generals/UKR_tiutiunnik.tga" traits={   } skill=2 }
-}
-
-set_politics = {
-    ruling_party = neutrality
-    last_election = "1919.1.1"
-    election_frequency = 48
-    elections_allowed = yes
-}
-set_popularities = {
-    democratic = 20
-    fascism = 18
-    communism = 2
-    neutrality = 60
-}
-add_ideas = {
-	generic_russian_seperatism
-	limited_conscription
-}
 
 1910.1.1 = {
 	oob = "UKR_1910"
 
-	#-------------------------------------------------------
-	#							NF
-	#-------------------------------------------------------
+	if = { 
+		limit = { has_start_date < 1937.1.1 }
+		create_country_leader={ name="Mykhaïlo Hrouchevsky" desc=UKR_mykhailo_hrushevskyi_DESC picture="gfx/portraits/UKR/country_leaders/UKR_mykhailo_hrushevskyi.dds" expire="1935.1.1" ideology=despotism traits={  } }
+	}
 
-	#-------------------------------------------------------
+	set_politics = {
+	    ruling_party = neutrality
+	    last_election = "1919.1.1"
+	    election_frequency = 48
+	    elections_allowed = yes
+	}
 
-	
+	set_popularities = {
+	    democratic = 20
+	    fascism = 18
+	    communism = 2
+	    neutrality = 60
+	}
 
 	add_ideas = {
-
+		generic_russian_seperatism
+		limited_conscription
 	}	
 }
 
@@ -103,7 +81,7 @@ add_ideas = {
 		desc = ""
 		picture = "gfx/portraits/SOV/country_leaders/SOV/Portrait_Soviet_Generic_3.dds"
 		expire = "1953.3.1"
-		ideology = fascism_ideology
+		ideology = ultranationalism
 		traits = {
 			
 		}

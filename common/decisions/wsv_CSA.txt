@@ -1,337 +1,516 @@
 
-### WAR PLANS
+###################################################
+## -- Economic Loans to Allies
+###################################################
 
+CSA_loans_to_allies_cat = {
 
-## Influence in Caribbean ##
+	# Send economic loan to ally in war
+	CSA_send_loan_to_country = {
+		icon = decision_ger_mefo_bills
 
-CSA_influence_in_caribbean_category = {
+		targets = { ENG FRA RUS ITA SER BEL }
 
-	CSA_conduct_naval_exercise = {
-
-		icon = generic_naval
-
+		# triggers for entire cat in decision cat
 		visible = {
-			always = yes
-		}
-		available = {
-			has_war = no
-		}
-
-		cost = 15
-		days_remove = 14
-		days_re_enable = 120
-
-		remove_effect = {
-			add_to_variable = { 
-				var = CSA.csa_influence_in_caribbean
-				value = 5 
-			}
-			custom_effect_tooltip = increase_influence_by_5_tt
-		}
-
-		ai_will_do = {
-			factor = 0.03
-			# make confederates spend to get up quickly
-			modifier = {
-				factor = 500
-				check_variable = { CSA.csa_influence_in_caribbean  < 10 }
-			}
-
-			#increase likelyhood if US is close to us
-			modifier = {
-				factor = 2
-				check_variable = { CSA.csa_influence_edge < 10 }
-			}
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge < 20 }
-			}
-			# decrease if we have over 30
-			modifier = {
-				factor = 0.25
-				check_variable = { CSA.csa_influence_edge < 30 }
-			}
-		}
-	}
-
-	## temporary ##
-	CSA_expand_united_fruit_branch = {
-
-		icon = generic_construction
-
-		visible = {
-			always = yes
-			has_country_flag = unlocked_united_fruit_flag
-		}
-		available = {
-			has_war = no
-		}
-
-		cost = 25
-		days_remove = 14
-		days_re_enable = 180
-
-		remove_effect = {
-			add_offsite_building = { type = industrial_complex level = 1 }
-			add_to_variable = { 
-				var = CSA.csa_influence_in_caribbean
-				value = 10 
-			}
-			custom_effect_tooltip = increase_influence_by_10_tt
-		}
-
-		ai_will_do = {
-			factor = 0.03
-
-			# increase likelyhood if US is close to us
-			# modifier = {
-			# 	factor = 2
-			# 	check_variable = { CSA.csa_influence_edge < 10 }
-			# }
-			# modifier = {
-			# 	factor = 1.5
-			# 	check_variable = { CSA.csa_influence_edge < 20 }
-			# }
-			# # decrease if we have over 30
-			# modifier = {
-			# 	factor = 0.25
-			# 	check_variable = { CSA.csa_influence_edge < 30 }
-			# }
-		}
-	}
-
-	## temporary ##
-	CSA_intervention_in_caribbean = {
-
-		icon = infiltrate_state
-
-		visible = {
-			has_country_flag = unlocked_intervention_flag
-		}
-		available = {
-			has_war = no
-			NOT= { has_country_flag = CSA_recently_conducted_intervention_flag }
-			FROM = {
-				NOT = { is_guaranteed_by = USA }
-				NOT = { is_in_faction_with = USA }
-			}
-		}
-
-		targets = { GUA HON ELS NIC COS }
-
-		target_trigger = {
-			FROM = {
-				NOT = { has_war_with = CSA }
+			FROM = { 
+				has_war_with = GER
+				has_capitulated = no
 				is_puppet = no
+				NOT = { has_war_with = CSA }
+				NOT = { has_idea = CSA_confederate_war_loan }
 			}
 		}
-		
-		cost = 75
-		days_remove = 25
+		available = {
+			has_completed_focus = CSA_loans_to_allies
+		}
+
+		cost = 100
+		days_re_enable = 360
 
 		complete_effect = {
-			set_country_flag = {
-				flag = CSA_recently_conducted_intervention_flag
-				days = 115
+			FROM = {
+				add_timed_idea = {
+					idea = CSA_confederate_war_loan
+					days = 360
+				}
 			}
-		}
-
-		remove_effect = {
-			add_threat = 2
-			puppet = FROM
-			add_to_variable = { 
-				var = CSA.csa_influence_in_caribbean
-				value = 10 
-			}
-			custom_effect_tooltip = increase_influence_by_10_tt
-			#hidden_effect = { news_event = { id =  days = 1 } }
-			# TOOD: news event of intervention
 		}
 
 		ai_will_do = {
-			factor = 0.003  
+			factor = 0
+
 			modifier = {
-				factor = 1.5
-				tag = NIC
+				add = 0.5
+				OR = {
+					tag = ENG
+					tag = FRA
+				}
+			}
+			modifier = {
+				add = 0.2
+				OR = {
+					tag = RUS
+					tag = ITA
+				}
 			}
 		}
 	}
-
-
-	## (FUTURE WORK) ##
-	# CSA_establish_united_fruit_branch = {
-
-	# 	icon = generic_construction
-
-	# 	visible = {
-	# 		has_country_flag = unlocked_united_fruit_flag
-	# 	}
-
-	# 	targets = { DOM GUA HON ELS NIC COS COL VEN }
-
-	# 	target_trigger = {
-	# 		FROM = {
-	# 			NOT = { has_country_flag = united_fruit_established }
-	# 			NOT = { has_war_with = CSA }
-	# 			is_puppet = no
-	# 		}
-	# 	}
-		
-	# 	cost = 40
-	# 	days_remove = 14
-
-	# 	complete_effect = {
-	# 		set_country_flag = building_fruit_branch
-	# 	}
-
-	# 	remove_effect = {
-	# 		clr_country_flag = building_fruit_branch
-	# 		FROM = { set_country_flag = united_fruit_established }
-	# 		add_to_variable = { 
-	# 			var = CSA.csa_influence_in_caribbean
-	# 			value = 5 
-	# 		}
-	# 		add_offsite_building = { type = industrial_complex level = 1 }
-	# 		custom_effect_tooltip = increase_influence_by_5_tt
-	# 		# TODO: hidden effect, send event notice to the US
-	# 	}
-
-	# 	ai_will_do = {
-	# 		factor = 0.01
-
-	# 		modifier = {
-	# 			factor = 0
-	# 			has_country_flag = building_fruit_branch
-	# 		}
-	# 		modifier = {
-	# 			factor = 4
-	# 			tag = DOM
-	# 		}
-	# 		modifier = {
-	# 			factor = 2
-	# 			OR = {
-	# 				tag = COL
-	# 				tag = NIC
-	# 			}
-	# 		}
-			
-	# 		# increase likelyhood if US is high
-	# 		modifier = {
-	# 			factor = 2
-	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 2
-	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 40 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 2
-	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
-	# 		}
-
-	# 		# decrease likelyhood if ours is high
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
-	# 		}
-	# 	}
-	# }
-
-	## (FUTURE WORK) ##
-	# CSA_intervention_in_caribbean = {
-
-	# 	icon = infiltrate_state
-
-	# 	visible = {
-	# 		has_country_flag = unlocked_intervention_flag
-	# 		FROM = {
-	# 			has_country_flag = csa_can_intervene_flag
-	# 		}
-	# 	}
-	# 	available = {
-	# 		FROM = {
-	# 			NOT = { is_guaranteed_by = USA }
-	# 			NOT = { is_in_faction_with = USA }
-	# 		}
-	# 	}
-
-	# 	targets = { DOM GUA HON ELS NIC COS }
-
-	# 	target_trigger = {
-	# 		FROM = {
-	# 			NOT = { has_war_with = CSA }
-	# 			is_puppet = no
-	# 		}
-	# 	}
-		
-	# 	cost = 50
-	# 	days_remove = 14
-
-	# 	remove_effect = {
-	# 		FROM = {
-	# 			save_event_target_as = target_of_csa_intervention
-	# 		}
-	# 		USA = { country_event = { id = wsv_csa.11 days = 1 } }   #us gets info that csa invaded, which starts intervention chain
-	# 		custom_effect_tooltip = attempt_to_puppet_tt
-	# 	}
-
-	# 	ai_will_do = {
-	# 		factor = 0.005  
-	# 		modifier = {
-	# 			factor = 2
-	# 			OR = { tag = DOM   tag = NIC }
-	# 		}
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			has_global_flag = us_threatened_cs_over_caribbean
-	# 		}
-	# 		modifier = {
-	# 			factor = 0
-	# 			AND = {
-	# 				has_global_flag = us_threatened_cs_over_caribbean
-	# 				is_historical_focus_on = yes
-	# 			}
-	# 		}
-	# 	}
-	#}
 }
 
 
-## Red Rebellion ##
+
+###################################################
+## -- Actions in Latin America 
+###################################################
+
+CSA_actions_in_latam_category = {
+
+	# Expand United Fruit
+	CSA_expand_confederate_business = {
+		icon = generic_operation
+		priority = 5
+
+		visible = {
+			tag = CSA
+		}
+		available = {
+			has_war = no
+			has_completed_focus = CSA_latin_american_ambitions
+		}
+
+		cost = 25
+		days_remove = 30
+		days_re_enable = 180
+
+		remove_effect = {
+			add_offsite_building = {
+				type = industrial_complex
+				level = 1
+			}
+			increase_latam_influence_by_5_effect = yes
+		}
+
+		ai_will_do = {
+			factor = 0.05
+			modifier = {
+				factor = 0
+				has_political_power < 50
+			}
+			modifier = {
+				factor = 0
+				check_variable = { CSA.csa_influence_in_latam > 49 }
+			}
+			modifier = {
+				add = 10
+				has_active_mission = CSA_intervene_in_nic_conflict
+			}
+		}
+	}
+
+
+	# Send rifles to LATAM
+	CSA_support_conservative_regimes = {
+		icon = generic_prepare_civil_war
+		priority = 5
+
+		visible = {
+			tag = CSA
+		}
+		available = {
+			has_war = no
+			has_completed_focus = CSA_latin_american_ambitions
+		}
+
+		days_remove = 30
+		days_re_enable = 180
+
+		custom_cost_trigger = {
+			has_equipment = { infantry_equipment > 2500 }
+		}
+		custom_cost_text = CSA_decision_cost_support_conservatives
+
+		remove_effect = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = -2500
+			}
+			increase_latam_influence_by_5_effect = yes
+		}
+
+		ai_will_do = {
+			factor = 0.01
+			modifier = {
+				factor = 0
+				check_variable = { CSA.csa_influence_in_latam > 49 }
+			}
+			modifier = {
+				factor = 0
+				has_equipment = { infantry_equipment < 10000 }
+			}
+			modifier = {
+				add = 10
+				has_active_mission = CSA_intervene_in_nic_conflict
+			}
+		}
+	}
+
+
+	# Intervention in Nicaragua 
+	CSA_intervene_in_nic_conflict = {
+		priority = 10
+		icon = generic_ignite_civil_war
+
+		allowed = { 
+			original_tag = CSA
+		}
+		activation = {
+			has_global_flag = nic_civil_war
+		}
+		available = {
+			has_war = no
+			has_completed_focus = CSA_latin_american_ambitions
+			custom_trigger_tooltip = {
+				tooltip = has_latam_influence_2_tt
+				check_variable = { CSA.csa_influence_in_latam > 49 } 
+			}
+		}
+		
+		fire_only_once = yes
+		days_mission_timeout = 300  #put as 400 if conflict starts in 1912
+		
+		selectable_mission = yes
+		is_good = yes
+		cost = 50
+		days_remove = 7
+
+		remove_effect = {
+			set_global_flag = csa_intervened_in_nicaragua
+			add_named_threat = {
+				threat = 3
+				name = "Confederates Occupy Nicaragua"
+			}
+			USA = { country_event = { id = wsv_carib.2  days = 5 } }
+		}
+		
+		timeout_effect = {
+			add_political_power = -50
+			add_war_support = -0.05
+			set_country_flag = failed_to_intervene_in_nic
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# Attack countries
+	CSA_conquer_latam_country = {
+		icon = generic_infiltrate_state
+		priority = 1
+		
+		targets = {
+			GUA ELS HON NIC COS PAN COL VEN DOM HAI
+		}
+		targets_dynamic = yes
+
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = NIC
+					original_tag = HAI
+					original_tag = DOM
+					any_neighbor_country = { tag = CSA }
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = CSA_caribbean_empire
+			FROM = { exists = yes }
+		}
+
+		available = {
+			has_war = no
+			FROM = { has_war = no }
+			custom_trigger_tooltip = {
+			 	tooltip = latam_country_not_with_major_tt
+				all_country = {
+					OR = {
+						num_of_factories < 50
+						AND = {
+							NOT = { is_in_faction_with = FROM }
+							NOT = { has_guaranteed = FROM }
+							NOT = { has_subject = FROM }
+						}
+					}
+				}
+			}
+		}
+
+		cost = 50
+		days_remove = 14
+		fire_only_once = yes
+
+		war_with_target_on_remove = yes
+		remove_effect = {
+			if = {
+				limit = { FROM = { tag = GUA } }
+				MEX = {
+					add_state_claim = 841
+					add_state_claim = 313
+				}
+				create_wargoal = {
+					target = FROM
+					type = puppet_wargoal_focus
+				}
+			}
+			else_if = {
+				limit = { FROM = { original_tag = COL } }
+				add_state_claim = 493
+				add_state_claim = 304
+				add_state_claim = 685
+				create_wargoal = {
+					target = FROM
+					type = take_claimed_state
+				}
+			}
+			else_if = {
+				limit = { FROM = { original_tag = VEN } }
+				add_state_claim = 489
+				create_wargoal = {
+					target = FROM
+					type = take_claimed_state
+				}
+			}
+			else = {
+				create_wargoal = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0.25
+				is_in_faction = yes
+			}
+		}
+	}
+
+
+	# Construct Nicaragua canal
+	CSA_build_nicaragua_canal = {
+		icon = generic_construction 
+		priority = 4
+
+		visible = {
+			tag = CSA
+			has_completed_focus = CSA_nicaragua_canal
+		}
+		available = {
+			has_war = no
+			has_full_control_of_state = 317
+			has_full_control_of_state = 316
+		}
+
+		days_remove = 360
+		fire_only_once = yes
+
+		custom_cost_trigger = {
+			has_political_power > 100
+			num_of_civilian_factories > 5
+		}
+		custom_cost_text = CSA_decision_cost_build_nicaragua_canal
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -100 }
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			set_global_flag = NICARAGUA_CANAL_CONSTRUCTED
+			custom_effect_tooltip = opens_nicaragua_canal_tt
+		}
+
+		ai_will_do = {
+			factor = 5
+		}
+	}
+}
+
+
+
+###################################################
+## -- Fallout of Red Revolt
+###################################################
+
+
+CSA_fallout_red_revolt_cat = {
+
+	CSA_ban_personal_servants = {
+		icon = generic_break_treaty
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_country_flag = investigate_red_revolt
+		}
+
+		custom_cost_trigger = {
+			command_power > 10
+			has_political_power > 25
+		}
+		custom_cost_text = CSA_ban_personal_servants
+
+		fire_only_once = yes
+		days_remove = 45
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -25
+			}
+		}
+		
+		remove_effect = {
+			add_manpower = -10000
+			set_country_flag = investigation_1_complete
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+
+	CSA_expand_officer_corps = {
+		icon = generic_military #generic_civil_support
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_country_flag = investigate_red_revolt
+		}
+		available = {
+			has_country_flag = investigation_1_complete
+			has_idea = CSA_military_nepotism
+		}
+
+		custom_cost_trigger = {
+			command_power > 10
+			has_political_power > 50
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -10
+				add_political_power = -50
+			}
+		}
+		custom_cost_text = CSA_expand_officer_corps
+
+		remove_effect = {
+			swap_ideas = {
+				remove_idea = CSA_military_nepotism
+				add_idea = CSA_military_nepotism2
+			}
+			set_country_flag = investigation_2_complete
+		}
+
+		ai_will_do = {
+			factor = 5
+		}
+	}
+
+
+	CSA_purge_general_staff = {
+		icon = generic_army_support
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_country_flag = investigate_red_revolt
+		}
+		available = {
+			has_country_flag = investigation_2_complete
+		}
+
+		custom_cost_trigger = {
+			command_power > 25
+			has_political_power > 100
+		}
+		custom_cost_text = CSA_purge_general_staff
+
+		fire_only_once = yes
+		days_remove = 30
+
+		complete_effect = {
+			hidden_effect = {
+				add_command_power = -25
+				add_political_power = -100
+			}
+			every_unit_leader = {
+				limit = { has_trait = politically_connected }
+				hidden_effect = { remove_unit_leader_role = yes	}
+				custom_effect_tooltip = removed_as_unit_leader_tt
+			}
+			add_timed_idea = {
+				idea = CSA_reorganized_general_staff
+				days = 120
+			}
+		}
+
+		remove_effect = {
+			hidden_effect = { remove_ideas = CSA_military_nepotism2 } 
+			custom_effect_tooltip = removed_nepotism_tt
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
+
+
+#####################################################
+################## Red Rebellion ####################
+#####################################################
 
 CSA_red_rebellion_management_cat = {
 
-
+	## red rebellion escalation timeout
 	CSA_red_rebels_resistance_escalation_mission = {
 	
 		priority = 9
-		icon = generic_scorched_earth
+		icon = decision_revolt #generic_scorched_earth
 
 		allowed = { 
 			original_tag = CSA
 		}
 		available = {
-			NOT = {
-		    	371 = { has_state_flag = contains_red_rebels }
-				370 = { has_state_flag = contains_red_rebels }
-				367 = { has_state_flag = contains_red_rebels }
-				365 = { has_state_flag = contains_red_rebels }
-				364 = { has_state_flag = contains_red_rebels }
-				363 = { has_state_flag = contains_red_rebels }
-				362 = { has_state_flag = contains_red_rebels }
-			}
+			371 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
+			370 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
+			367 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
+			365 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
+			364 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
+			363 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
+			362 = { OR = { NOT = { has_state_flag = contains_red_rebels }  NOT = { is_controlled_by = CSA } } }
 		}
 
-		days_mission_timeout = 30
-
+		days_mission_timeout = 40
 		fire_only_once = no
 
 		activation = {
@@ -339,52 +518,50 @@ CSA_red_rebellion_management_cat = {
 			any_owned_state = {
 				has_state_flag = contains_red_rebels
 			}
-			NOT = {
-				has_country_flag = CSA_red_rebels_resistance_cooldown
-			}
 		}
 
 		is_good = no
 
 		timeout_effect = {
 			random_owned_state = {
-				limit = {
-					has_state_flag = contains_red_rebels
-				}
-				save_global_event_target_as = CSA_red_rebels_state_event_target
-			}
-			random_list = {
-				# black rebels escalate
-				88 = { 
-					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_escalate_state_effect = yes
+				limit = { has_state_flag = contains_red_rebels }
+				random_list = {
+					50 = { 
+						damage_building = { type = industrial_complex  damage = 1 }
+						damage_building = { type = infrastructure  damage = 1 }
 					}
-					country_event = wsv_csa.26  # notice of escalation
-				}
-				# black rebels pushed back
-				22 = {
-					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes   
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+					50 = {
+						damage_building = { type = arms_factory  damage = 1 }
+						damage_building = { type = infrastructure  damage = 1 }
 					}
 				}
 			}
-			set_country_flag = {
-				flag = CSA_red_rebels_resistance_cooldown
-				value = 1
-				days = 14
+			random_owned_state = {
+				limit = { has_state_flag = contains_red_rebels }
+				random_list = {
+					50 = { 
+						damage_building = { type = industrial_complex  damage = 1 }
+						damage_building = { type = infrastructure  damage = 1 }
+					}
+					50 = {
+						damage_building = { type = arms_factory  damage = 1 }
+						damage_building = { type = infrastructure  damage = 1 }
+					}
+				}
 			}
 		}
 
 		complete_effect = {
 			set_global_flag = csa_red_rebellion_defeated
-			hidden_effect = { news_event = { id = wsv_news.22  days = 2 } }
+			hidden_effect = { 
+				news_event = { id = wsv_csa.106  days = 2 } 
+				# mop up any states that maybe US took
+				every_state = {
+					limit = { has_state_flag = contains_red_rebels }
+					clr_state_flag = contains_red_rebels
+					set_border_war = no
+				}
+			}
 		}
 	}
 
@@ -398,7 +575,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 362
 			362 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -410,64 +590,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 362 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			362 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			362 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.3  # virginia more important
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -490,7 +659,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 363
 			363 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -502,64 +674,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 363 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			363 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			363 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.1
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -582,7 +743,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 364
 			364 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -594,64 +758,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 364 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			364 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			364 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.1
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -674,7 +827,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 365
 			365 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -686,64 +842,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 365 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			365 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			365 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.2 #georgia a little more importanmt
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -766,7 +911,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 367
 			367 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -778,64 +926,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 367 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			367 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			367 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.2  #alabama a little more importanmt
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -858,7 +995,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 370
 			370 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -870,64 +1010,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 370 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			370 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			370 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.1
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -950,7 +1079,10 @@ CSA_red_rebellion_management_cat = {
 			controls_state = 371
 			371 = { 
 				has_state_flag = contains_red_rebels 
-				NOT = { has_state_flag = anti_rebel_operation_cooldown }
+			}
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_operations_ongoing_tt
+				check_variable = { num_red_rebel_operations < 2 }
 			}
 		}
 
@@ -962,64 +1094,53 @@ CSA_red_rebellion_management_cat = {
 		highlight_states = {
 			highlight_states_trigger = { state = 371 }
 		}
-
 		on_map_mode = map_only
 
 		custom_cost_trigger = {
 			command_power > 9.9
 		}
-
 		custom_cost_text = CSA_decision_cost_red_rebels
+
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -10
-			371 = { 
-				save_global_event_target_as = CSA_red_rebels_state_event_target 
-				set_state_flag = {
-					flag = anti_rebel_operation_cooldown
-					value = 1
-					days = 14
-				}
-			}
+			add_manpower = -2500
+			add_to_variable = { CSA.num_red_rebel_operations = 1 }
+		}
+
+		remove_effect = {
+			subtract_from_variable = { CSA.num_red_rebel_operations = 1 }
+			371 = { save_event_target_as = CSA_red_rebels_state_event_target }
 			random_list = {
-				50 = {
+				# successful attack
+				65 = {
 					modifier = {
-						factor = 0.82
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_enclave } } 
-					}
-					modifier = {
-						factor = 0.68
-						event_target:CSA_red_rebels_state_event_target = { has_dynamic_modifier = { modifier = CSA_red_stronghold } } 
+						factor = 1.9
+						event_target:CSA_red_rebels_state_event_target = { has_state_flag = previous_anti_red_operation } 
 					}
 					event_target:CSA_red_rebels_state_event_target = { 
-						CSA_black_rebels_pacify_state_effect = yes 
-						if = { 
-							limit = { has_state_flag = contains_red_rebels } 
-							ROOT = { country_event = wsv_csa.27 }   # successful attack
-						}
-						else = {
-							ROOT = { country_event = wsv_csa.29 }   # red rebels cleared
-						}
+						clr_state_flag = contains_red_rebels
+						hidden_effect = { set_border_war = no }
+						ROOT = { country_event = wsv_csa.103 }   # notice of successful attack
 					}
 				}
-				50 = {
-					country_event = wsv_csa.28  # notice of failed attack
+				# failed attack
+				35 = {
+					modifier = {
+						factor = 1.5
+						has_global_flag = usa_aiding_black_rebels
+					}
+					event_target:CSA_red_rebels_state_event_target = { 
+						set_state_flag = previous_anti_red_operation
+						ROOT = { country_event = wsv_csa.104 }   # notice of failed attack
+					}
 				}
 			}
 		}
 
 		ai_will_do = {
 			factor = 0.1
-			#try to prevent enclaves becoming strongholds
-			modifier = {
-				factor = 4
-				has_dynamic_modifier = { modifier = CSA_red_enclave } 
-			}
-			#if its a stronghold leave it for the end
-			modifier = {
-				factor = 0.5
-				has_dynamic_modifier = { modifier = CSA_red_stronghold }  
-			}
 			# dont burn command power
 			modifier = {
 				factor = 0.5
@@ -1032,8 +1153,6 @@ CSA_red_rebellion_management_cat = {
 		}
 	}
 }
-
-
 
 
 
@@ -1054,31 +1173,41 @@ wsv_great_war_decisions = {
 		}
 
 		fire_only_once = yes
-		days_remove = 60
+		days_remove = 70
 		days_re_enable = 0
-
-		# targeted_modifier = {
-		#     tag = USA
-		#     defense_bonus_against = -0.1
-		#     #days = 60
-		# }
 		
 		complete_effect = {
-			every_state = {
-				limit = {
-					OR = { state = 361  state = 360  state = 840}
+			add_timed_idea = {
+				idea = CSA_lee_warplan_idea
+				days = 70
+			}
+			361 = {
+				add_province_modifier = {
+					static_modifiers = { CSA_warplan_lee_province_debuff }
+					province = {
+						id = 4653
+						id = 3957
+						id = 11888
+					}
 				}
-				add_dynamic_modifier = { modifier = CSA_warplan_lee_modifier scope = CSA }
+			}
+			hidden_effect = {
+				if = {
+					limit = { is_ai = yes }
+					361 = { add_dynamic_modifier = { modifier = CSA_warplan_lee_state_debuff_AI  days = 70 } }  # special debuff for ai cause its dumb
+				}
 			}
 		}
 
 		remove_effect = {
-			hidden_effect = {
-				every_state = {
-					limit = {
-						OR = { state = 361  state = 360  state = 840}
+			361 = {
+				remove_province_modifier = {
+					static_modifiers = { CSA_warplan_lee_province_debuff }
+					province = {
+						id = 4653
+						id = 3957
+						id = 11888
 					}
-					remove_dynamic_modifier = { modifier = CSA_warplan_lee_modifier }
 				}
 			}
 		}
@@ -1088,9 +1217,9 @@ wsv_great_war_decisions = {
 		}
 	}
 	
-	# CSA throws in the towel
-	greatwar_csa_offers_peace = {
 
+	# CSA throws in the towel
+	greatwar_csa_peace_with_america = {
 		icon = generic_form_nation
 
 		available = {
@@ -1098,71 +1227,68 @@ wsv_great_war_decisions = {
 				casualties > 300000
 				surrender_progress > 0.5
 			}
+			USA = { NOT = { has_country_flag = usa_total_war_the_south } }
 		}
 
 		visible = {
 			tag = CSA
 			has_war_with = USA
-			has_global_flag = historical_treaties_on
 			has_start_date < 1937.1.1
 		}
 
-		days_remove = 0
-
 		days_re_enable = 90
+		days_remove = 5
 
 		remove_effect = {
-			USA = { country_event = wsv_historical_treaty.4 }
+			USA = { country_event = { id = wsv_peace_treaty.10  days = 1 } }
 			custom_effect_tooltip = nashville_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+		## -- Confederates collapse canonially once Nashville is taken and France falls
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# Negatives
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -2
-				surrender_progress < 0.10
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.4
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 700000
-			}	
-			modifier = {
-				add = 1
-				casualties > 1000000
-			}
-			modifier = {
-				add = 1
-				casualties > 1500000
-			}
-			modifier = {
-				add = 1
-				casualties > 2000000
-			}
-			modifier = {
-				add = 1
-				NOT = { has_war_together_with = FRA }
-			}
-			modifier = {
-				add = 1
-				NOT = { has_war_together_with = ENG }
-			}
+				## --- Negatives
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.1 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
 
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 1000000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Entente collapsing is bad
+				if = {
+					limit = { 
+						OR = {
+							has_global_flag = collapse_of_entente
+							AND = {
+								is_in_faction_with = FRA
+								FRA = { has_capitulated = yes }
+							}
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}

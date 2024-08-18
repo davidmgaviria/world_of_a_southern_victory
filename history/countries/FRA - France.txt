@@ -4,33 +4,33 @@
 #					GENERIC VALUES
 #-------------------------------------------------------
 set_fuel_ratio = 0.44
-set_research_slots = 3 #was 4
+set_research_slots = 4   # testing 4 slots 
 set_stability = 0.6
 set_war_support = 0.35
-set_convoys = 300
-
-
+set_convoys = 400
+set_major = yes		#gotta make sure its a major
 
 
 1910.1.1 = {
 	oob = "FRA_1910"
-
-	give_guarantee = ENG
+	load_focus_tree = france_focus
 
 	#---------------- GEOPOLITICS ----------------#
 	create_faction = entente # France is now Leader of the Entente | Since Beta 0.2
 	add_to_faction = RUS
-	puppet = MOR
-	puppet = TUN
 	give_guarantee = BEL # France guaranteed the independence of Belgium - Treaty of London (1839)
+	give_guarantee = LUX
 	add_opinion_modifier = {  target = USA   modifier = WSV_dislikes_country }
 
 	if = { limit = { has_dlc = "Together for Victory" }
 		set_autonomy = {
-			target = TUN
-			autonomous_state = autonomy_integrated_puppet
+			target = MOR
+			autonomous_state = autonomy_protectorate
+			freedom_level = 0.5
 		}
-		else = {}
+		else = {
+			puppet = MOR
+		}
 	}
 
 
@@ -78,15 +78,6 @@ set_convoys = 300
 		recruit_character = FRA_maurice_sarrail
 		recruit_character = FRA_jean_graziani
 		recruit_character = FRA_marie_merveilleux_du_vignaux
-	
-	#------------- NATIONAL FOCUS --------------#
-		#Army
-		complete_national_focus = FRA_ww1_army_effort
-		complete_national_focus = FRA_ww1_industrial_effort
-		complete_national_focus = FRA_ww1_naval_effort
-	
-		#Diplomatic
-		complete_national_focus = FRA_ww1_diplomatic_effort
 	}
 
 
@@ -105,13 +96,30 @@ set_convoys = 300
 	}
 
 	add_ideas = {
-		FRA_ww1_Revanchism
-		ww1_Scramble_for_Africa
 		FRA_disjointed_government
-		low_economic_mobilisation
+		FRA_artisanal_industries
+		FRA_memories_of_1871
 		limited_conscription
+		civilian_economy
 		#generic_poor_quality_weapons
 		#Franch_Staff
+	}
+
+	#--------------- EQUIPMENT ----------------#
+	add_equipment_to_stockpile = {
+		type = infantry_equipment_0
+		amount = 20000
+		producer = FRA
+	}
+	add_equipment_to_stockpile = {
+		type = support_equipment_1
+		producer = FRA
+		amount = 400
+	}
+	add_equipment_to_stockpile = {
+		type = light_field_gun_equipment_1
+		producer = FRA
+		amount = 600
 	}
 
 	#--------------- TECHNOLOGY ----------------#
@@ -123,7 +131,7 @@ set_convoys = 300
 		infantry_weapons = 1
 		support_weapons = 1
 		#infantry_binoculars = 1
-		motorised_infantry = 1
+		#motorised_infantry = 1
 		tech_mountaineers = 1
 
 		# Support
@@ -135,24 +143,23 @@ set_convoys = 300
 		light_field_gun1 = 1
 
 		# Armor
-		gwtank = 1
+		ww1_armored_car = 1
 
 		# Naval
 		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
 		ww1_light_cruiser1 = 1
 		ww1_heavy_cruiser1 = 1
 		ww1_battleship1 = 1
 		ww1_battleship2 = 1
 		ww1_battlecruiser0 = 1
 		ww1_submarine1 = 1
-		transport = 1
+		ww1_transport = 1
 
 		# Engineering
 		electronic_mechanical_engineering = 1
 
 		# Industry
-		ww1_fortification1 = 1
+		#ww1_fortification1 = 1
 	}
 }
 
@@ -388,7 +395,7 @@ set_convoys = 300
 	set_technology = {
 		# Infantry 
 		infantry_weapons1 = 1
-		motorised_infantry2 = 1
+		ww2_motorised_infantry = 1
 
 		# Armor
 		basic_light_tank = 1

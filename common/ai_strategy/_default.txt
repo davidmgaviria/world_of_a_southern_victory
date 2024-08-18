@@ -34,12 +34,12 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = infantry
-		value = 88 
+		value = 80  
 	}
 	ai_strategy = {
 		type = role_ratio
 		id = cavalry
-		value = 5
+		value = 4
 	}
 	ai_strategy = {
 		type = role_ratio
@@ -59,29 +59,34 @@ default_gw_unit_production = {
 	ai_strategy = {
 		type = role_ratio
 		id = armored_car
-		value = 1
+		value = 0
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor   
+		value = 2
 	}
 	
-	#Air unit factors
-	# ai_strategy = {
-	# 	type = unit_ratio
-	# 	id = scout_plane
-	# 	value = 2
-	# }
+	# Air unit factors
+	ai_strategy = {
+		type = unit_ratio
+		id = scout_plane
+		value = 5
+	}
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 70
-	}
-	ai_strategy = {
-		type = unit_ratio
-		id = cas
-		value = 30
+		value = 100
 	}
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 10
+		value = 40
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = cas
+		value = 15
 	}
 	ai_strategy = {
 		type = unit_ratio
@@ -115,22 +120,40 @@ default_gw_unit_production = {
 		id = convoy
 		value = 15
 	}
+}
+
+
+
+default_gw_equipment_production = {
+	allowed = {
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		NOT = {
+			original_tag = USA
+			original_tag = GER
+			original_tag = ENG
+			original_tag = FRA
+			original_tag = RUS
+		}
+	}
+	abort = { always = no }
 
 	# Equipment production
 	ai_strategy = {
 		type = equipment_production_factor
-		id = fighter
-		value = 35
-	}
-	ai_strategy = {
-		type = equipment_production_factor
 		id = infantry
-		value = 45
+		value = 50	 # vanilla is 45
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 20
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 35
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -443,46 +466,46 @@ DEFAULT_template_design = {
 }
 
 
-default_no_ww1_aircraft = {
-	allowed = {
-		has_start_date > 1937.1.1
-	}
-	enable = {
-		always = yes
-	}
-	abort = { always = no }
+# default_no_ww1_aircraft = {
+# 	allowed = {
+# 		has_start_date > 1937.1.1
+# 	}
+# 	enable = {
+# 		always = yes
+# 	}
+# 	abort = { always = no }
 
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = small_biplane_recon_airframe
-		value = -1000
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = small_biplane_fighter_airframe
-		value = -1000
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = small_biplane_cas_airframe
-		value = -1000
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = small_biplane_nav_airframe
-		value = -1000
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = medium_biplane_bomber_airframe
-		value = -1000
-	}
-	ai_strategy = {
-		type = equipment_variant_production_factor
-		id = airship_bomber_equipment
-		value = -1000
-	}
-}
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = small_biplane_recon_airframe
+# 		value = -1000
+# 	}
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = small_biplane_fighter_airframe
+# 		value = -1000
+# 	}
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = small_biplane_cas_airframe
+# 		value = -1000
+# 	}
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = small_biplane_nav_airframe
+# 		value = -1000
+# 	}
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = medium_biplane_bomber_airframe
+# 		value = -1000
+# 	}
+# 	ai_strategy = {
+# 		type = equipment_variant_production_factor
+# 		id = airship_bomber_equipment
+# 		value = -1000
+# 	}
+# }
 
 
 
@@ -494,7 +517,7 @@ default_no_ww1_aircraft = {
 # No cav if we have motor inf
 no_cavalry = {
 	enable = {
-		has_tech = motorised_infantry2
+		has_tech = ww2_motorised_infantry   # WW2 motorized
 	}
 	abort_when_not_enabled = yes
 	
@@ -512,8 +535,7 @@ default_mobile_production = {
 	}
 	enable = {
 		ai_wants_divisions > 11
-		has_tech = motorised_infantry2
-		#has_tech = motorised_infantry
+		has_tech = ww2_motorised_infantry
 	}
 	abort = {
 		ai_wants_divisions < 12
@@ -915,7 +937,6 @@ save_admiral_pp_for_later = {
 
 
 do_not_waste_pp_if_saving_for_manpower_laws = {
-
 	enable = {
 		manpower_per_military_factory < 500
 		has_war = yes
@@ -939,6 +960,7 @@ do_not_waste_pp_if_saving_for_manpower_laws = {
 		value = -9999
 	}
 }
+
 
 build_intelligence_agency_as_major = {
 	enable = {

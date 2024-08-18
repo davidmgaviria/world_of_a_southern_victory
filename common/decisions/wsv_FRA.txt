@@ -1,9 +1,89 @@
 
 wsv_great_war_decisions = {
-	
-	# France throws in the towel
-	greatwar_france_offers_peace = {
 
+	# Notice of impending army revolt
+	france_failing_army_morale = {
+		icon = generic_independence 	#decision_revolt
+		priority = 10
+
+		allowed = {
+			tag = FRA
+		}
+		activation = {
+			NOT = { has_global_flag =  french_army_mutinies }
+			has_war = yes
+			casualties > 800000
+			longest_war_length > 30  # 2.5 years
+		}
+		available = {
+			has_war = no   # condition for event to cancel
+		}
+
+		days_mission_timeout = 80
+		is_good = no
+
+		timeout_effect = {
+			news_event = wsv_france.10
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+
+	# Fix supply lines in Greece cause AI wont
+	france_build_ports_in_salonika = {
+		icon = generic_construction
+
+		allowed = {
+			tag = FRA
+		}
+
+		available = {
+			controls_province = 11818
+		}
+
+		visible = {
+			controls_province = 11818
+		}
+
+		fire_only_once = yes
+		days_remove = 50
+
+		custom_cost_trigger = {
+			num_of_civilian_factories > 3
+			command_power > 25
+		}
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			add_command_power = -25
+		}
+
+		remove_effect = {
+			855 = {
+				add_building_construction = {
+					type = naval_base
+					level = 4
+					province = 11818
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+
+	# France throws in the towel
+	greatwar_france_peace_with_germany = {
 		icon = generic_form_nation
 
 		available = {
@@ -16,72 +96,101 @@ wsv_great_war_decisions = {
 		visible = {
 			tag = FRA
 			has_war_with = GER
-			has_global_flag = historical_treaties_on
 			has_start_date < 1937.1.1
 		}
 
 		days_remove = 5
-
 		days_re_enable = 90
 
 		remove_effect = {
-			GER = { country_event = wsv_historical_treaty.8 }
+			GER = { country_event = { id = wsv_peace_treaty.10  days = 1 } }
 			custom_effect_tooltip = second_frankfurt_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+
+		# PREVENT FALLING DURING WW1
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# Negatives
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				surrender_progress < 0.1
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.15
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.35
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 800000
-			}	
-			modifier = {
-				add = 1
-				casualties > 1200000
-			}
-			modifier = {
-				add = 1
-				casualties > 1600000
-			}
-			modifier = {
-				add = 1
-				casualties > 2000000
-			}
-			modifier = {
-				add = 1
-				NOT = { has_war_together_with = RUS }  
-			}
-			modifier = {
-				add = 1
-				NOT = { has_war_together_with = ENG }
-			}
+				## --- Negatives
+				# Dont abandon Russia (as long as they're not collapsing already)
+				if = {
+					limit = { 
+						is_in_faction_with = RUS 
+						NOT = { has_global_flag = tsar_of_russia_abdicated }
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# England makes us happy
+				if = {
+					limit = { has_war_together_with = ENG }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Hold out for Americans! (OTL)
+				if = {
+					limit = { has_war_together_with = USA }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.15 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 2 }
+				}
+				
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 1000000 }
+					add_to_temp_variable = { surrender_chance = 1 } 
+				}
+				if = {
+					limit = { casualties > 2500000 }
+					add_to_temp_variable = { surrender_chance = 1 } 
+				}
+				# Sucking at war makes us sad :(
+				if = {
+					limit = { 
+						has_war_with = GER
+						war_length_with = { tag = GER   months > 24 }
+						GER = { surrender_progress < 0.1 }
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Low stability is bad
+				if = {
+					limit = { has_stability < 0.25 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Having mutinies or being unable to launch offensives is bad
+				if = {
+					limit = { 
+						OR = {
+							has_idea = FRA_army_mutinies
+							has_idea = FRA_halt_army_offensives
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
 
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				add = surrender_chance  # value to modifier
 			}
 		}
+
+
+
 	}
 }
 

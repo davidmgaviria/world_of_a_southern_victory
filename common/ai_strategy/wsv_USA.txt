@@ -16,74 +16,6 @@
 ######################### GENERIC ##########################
 
 
-# USA_area_priority = {
-# 	enable = {
-# 		tag = USA
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 110  #more here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = 40
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = 120 
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = 75
-# 	}
-# }
-
-
-
 USA_two_oceans_fleet = {
 	allowed = {
 		original_tag = USA
@@ -99,16 +31,16 @@ USA_two_oceans_fleet = {
 	    value = 10
 	}
 
-    ai_strategy = {
-		type = area_priority
-		id = eastern_seaboard
-		value = 1400
-	}
-	ai_strategy = {
-		type = area_priority
-		id = western_seaboard
-		value = 800
-	}
+    # ai_strategy = {
+	# 	type = area_priority
+	# 	id = eastern_seaboard
+	# 	value = 1400
+	# }
+	# ai_strategy = {
+	# 	type = area_priority
+	# 	id = western_seaboard
+	# 	value = 800
+	# }
 }
 
 
@@ -158,9 +90,7 @@ USA_ignore_europe = {
 
 ######################### GREAT WAR ##########################
 
-
-#stacks from base production
-USA_gw_modified_unit_production = {
+USA_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
@@ -171,66 +101,155 @@ USA_gw_modified_unit_production = {
 	abort = { always = no }
 
 	ai_strategy = {
-		type = role_ratio
-		id = garrison	
-		value = 2
+		type = equipment_production_factor
+		id = infantry
+		value = 110
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = artillery
+		value = 65
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = train
+		value = 20
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 10
 	}
 
+	## EXTRA UNIT RATIOS
 	ai_strategy = {
 		type = role_ratio
-		id = marines	
-		value = 2
+		id = garrison	
+		value = 2   # total is 4
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = fighter
-		value = 20   #stacks, total is 100
+		value = 20   # total is 120
 	}
-
 	ai_strategy = {
 		type = unit_ratio
 		id = tactical_bomber
-		value = 5
+		value = 15	# total is 50
 	}
 
+	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 90
+		value = 80
 	}
 }
 
 
-USA_build_army = {
+USA_stockpile_less_equipment = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		num_divisions < 180
+		date < 1914.1.1
 		has_war = no
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 600
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 5
-	}
-	
-	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = -20 	# reduce while we build up in case of issues
 	}
 }
 
 
-USA_germany_ally_ww1 = {
+USA_increase_army_rapidly = {		# massively increase size
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		date > 1911.1.1
+		has_army_manpower = { size < 2800000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 350
+	}
+}
+
+
+## build more civs at the very beginning
+USA_build_up_more_civs = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_idea = USA_throttled_military_spending
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = -12   # not quite 15
+	}
+}
+
+
+## save pp to switch to higher economy law
+USA_save_up_to_switch_to_low_mob = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date > 1911.1.1
+		has_war_support > 0.2
+		has_idea = civilian_economy
+		has_political_power < 205
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = idea
+		value = 0  # baseline is 100
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = decision
+		value = 50   # baseline is 100
+	}
+}
+
+
+USA_germany_ally_greatwar = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
@@ -239,12 +258,14 @@ USA_germany_ally_ww1 = {
 		country_exists = GER
 		NOT = { has_war_with = GER }
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		has_completed_focus = USA_our_own_way
+	}
 	
 	ai_strategy = {
 		type = befriend
 		id = "GER"			
-		value = 50
+		value = 75
 	}	
 }
 
@@ -291,6 +312,12 @@ USA_greatwar_mobilize = {
 	ai_strategy = {
 		type = prepare_for_war
 		id = "CSA"			
+		value = 200
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "CAN"			
 		value = 100
 	}
 
@@ -302,162 +329,454 @@ USA_greatwar_mobilize = {
 }
 
 
-USA_take_CAN = {
+### ------- opening war strategies  ------- ###
+
+USA_opening_war_assault_against_confederates = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		CSA = { exists = yes }
+ 		NOT = { is_in_faction_with = CSA }
+	}
+	abort = {
+		has_war_with = CSA
+		OR = {
+			surrender_progress > 0.15
+			has_country_flag = csa_offensive_failed
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.5
+		priority = 200
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA		
+		value = 100
+	}
+
+	## let confederates take DC ##
+	ai_strategy = {
+		type = front_control
+		state = 814		# arlington
+		state = 361 	# maryland
+		priority = 250		# higher than general attack order
+		ratio = 0.6
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		strategic_region = 117
+		value = -125
+	}
+
+	# buffers to prevent Philadelphia's fall
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 
+			840
+			360
+		}
+		ratio = 0.02
+		subtract_fronts_from_need = no
+	}
+}
+
+
+
+USA_opening_war_assault_against_canada = {
 	allowed = {
 		original_tag = USA
 		has_start_date < 1937.1.1
 	}
 	enable = {
 		CAN = { exists = yes }
-		NOT = { is_in_faction_with = CAN }
-		threat > 0.25
+ 		NOT = { is_in_faction_with = CAN }
 	}
 	abort = {
+		has_war_with = CAN
 		OR = {
-			CAN = { has_capitulated = yes }
+			surrender_progress > 0.15
+			# offensive failed
+			has_country_flag = canada_offensive_failed
 		}
 	}
 
 	ai_strategy = {
-		type = prepare_for_war
-		id = "CAN"			
-		value = 100
+		type = front_control
+		area = american_northeast
+		ratio = 0.5
+		priority = 100
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
 	}
 
 	ai_strategy = {
-		type = conquer
-		id = "CAN"			
-		value = 10
+		type = front_control
+		area = american_northern_plains
+		ratio = 0.5
+		priority = 100
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CAN
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = american_northern_plains
+		value = -65
+	}
+}
+
+
+### ------- wartime strategies  ------- ###
+
+USA_mobilize_industry_for_war = {		
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with_major = yes
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 50
+	}
+
+	ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 150
+	}
+}
+
+
+# fight the confederates aggressively
+USA_fight_the_CSA = {
+	allowed = {
+		original_tag = USA	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		has_country_flag = csa_offensive_failed
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CSA  	
+		value = 75   # use to be 50
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.6
+		priority = 25
+		ordertype = front
+		execution_type = balanced
+		execute_order = yes
+		manual_attack = yes
+	}
+	ai_strategy = {
+		type = consider_weak
+		id = CSA
+		value = -15
+	}
+}
+
+
+# fight the confederates aggressively
+USA_slowly_against_CSA = {
+	allowed = {
+		original_tag = USA	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		has_country_flag = csa_offensive_failed
+		# halt offensive if low on equipment or men
+		OR = {
+			has_manpower < 400000
+			casualties > 1000000
+		}
+	}
+	abort = {
+		OR = {
+			NOT = { has_war_with = CAN }  # dont need to be careful if not on two fronts
+			surrender_progress > 0.15		# we're losing dont hold back
+			has_global_flag = NorthAmerica_WW1_is_stuck
+		}
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.65
+		priority = 50   # overrides order from above
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = CSA   # stacks on above
+		value = -10  
+	}
+}
+
+
+													
+USA_slowly_against_CAN = {
+	allowed = {
+		original_tag = USA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CAN
+		OR = {
+			has_country_flag = canada_offensive_failed
+			casualties_inflicted_by = { opponent = CAN   thousands > 300 }
+		}
+	}
+	abort = {
+		OR = {
+			NOT = { has_war_with = CSA }  # dont need to be careful if not on two fronts
+			surrender_progress > 0.15		# we're losing dont hold back
+			has_global_flag = NorthAmerica_WW1_is_stuck
+		}
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = CAN				
+		value = -10
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = CAN
+		value = 40
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = american_northern_plains
+		value = -15
+	}
+}
+
+
+## control army size production (so france also does offensives)
+USA_limit_army_size = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = USA
+		has_war_with_major = yes
+		OR = {
+			# we dont need a huge army
+			has_army_manpower = { size > 3000000 }
+			# dont spam men if we dont have the equipment for it
+			stockpile_ratio = {	 
+				archetype = infantry_equipment
+				ratio < 0.05
+			}
+		}
+	}
+	abort = {
+		has_army_manpower = { size < 2300000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
 	}
 }
 
 
 
-# USA_rememberance = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = CSA
-# 		#date > 1912.1.1
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
+USA_convoy_raids_british_convoys = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = ENG
+		has_war_with = CAN
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = naval_convoy_raid_region
+		id = 50 # labrador sea
+		value = 100
+	}
+
+	ai_strategy = {
+		type = naval_convoy_raid_region
+		id = 56 # mid atlantic
+		value = 100
+	}
+}
+
+
+
+USA_destroy_the_mormons = {
+	allowed = {
+		original_tag = USA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = DES
+	}
+	abort = {
+		OR = {
+			DES = { has_capitulated = yes }
+			surrender_progress > 0.2
+		}
+	}
 	
-# 	ai_strategy = {
-# 		type = antagonize
-# 		id = "CSA"			
-# 		value = 60
-# 	}	
+	ai_strategy = {
+		type = consider_weak
+		id = DES
+		value = 25
+	}
+}
 
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "CSA"
-# 		value = 20
-# 	}
-# }
 
-# USA_defend_washington = {
+# USA_launch_offensives_against_CSA = {
 # 	allowed = {
 # 		original_tag = USA		
 # 		has_start_date < 1937.1.1
 # 	}
 # 	enable = {
-# 		country_exists = CSA
-# 		NOT = { is_in_faction_with = CSA }
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	#protect washington
-# 	ai_strategy = {
-# 		type = front_unit_request
-
-# 		state = 840
-# 		state = 362
-# 		state = 361
-# 		state = 360
-# 		state = 814
-# 		state = 813
-		
-# 		value = 60
-# 	}
-# }	
-
-
-# USA_attack_csa_during_black_rebellion = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		CSA = { has_idea = CSA_black_rebellion_idea }
-# 	}
-# 	abort_when_not_enabled = yes
-	
-# 	ai_strategy = {
-# 		type = consider_weak
-# 		id = "CSA"			
-# 		value = 5
-# 	}
-# }
-
-
-# USA_attack_canada = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		CAN = { exists = yes }
-# 		NOT = { is_in_faction_with = CAN }
-# 	}
-# 	abort_when_not_enabled = yes
-
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "CAN"			
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = prepare_for_war
-# 		id = "CAN"			
-# 		value = 75
-# 	}
-# }
-
-# USA_take_english_islands = {
-# 	allowed = {
-# 		original_tag = USA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		has_war_with = ENG
-# 		ENG = {
-# 			OR = {
-# 				controls_state = 696 #bermuda
-# 				controls_state = 690 #north bermuda
-# 				controls_state = 693 #south bermuda
-# 				controls_state = 629 #hawaii
-# 			}
+# 		OR = {
+# 			has_war_with = CSA
+# 			has_war_with = CAN
 # 		}
+# 		# launch offensives every 6 months
+# 		set_temp_variable = { days = global.num_days }
+# 		modulo_temp_variable = { days = 180 }		# cycles of 6 months means 2 months combat plus 4 months pause
+# 		check_variable = { days > 100 }
 # 	}
-# 	abort_when_not_enabled = yes
+# 	abort = {
+# 		surrender_progress > 0.15		
+# 	}
 
 # 	ai_strategy = {
 # 		type = front_control
-# 		state = 696 #bermuda
-# 		state = 690 #north bermuda
-# 		state = 693 #south bermuda
-# 		state = 629 #hawaii
+# 		tag = CSA
 # 		ratio = 0.6
-# 		priority = 100
-# 		ordertype = invasion
-# 		execution_type = balanced
+# 		priority = 25
+# 		ordertype = front
+# 		execution_type = careful
 # 		execute_order = yes
+# 		manual_attack = yes
 # 	}
 # }
+
+
+
+### ------- late wartime strategies  ------- ###
+
+USA_prepare_rememberance_offensive = {
+	allowed = {
+		original_tag = USA	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		focus_progress = { focus = USA_remembrance_offensive  progress > 0.01 }
+	}
+	abort = {
+		has_country_flag = remembrance_offensive_failed
+	}
+
+	# halt offensives while we prepare
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.9
+		priority = 100
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+}
+
+
+USA_launch_rememberance_offensive = {
+	allowed = {
+		original_tag = USA	
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CSA
+		has_idea = USA_remembrance_offensive_idea
+	}
+	abort = {
+		has_country_flag = remembrance_offensive_failed
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = CSA
+		ratio = 0.6
+		priority = 150
+		ordertype = front
+		execution_type = rush_weak
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = CSA	
+		value = 15
+	}
+}
 
 
 

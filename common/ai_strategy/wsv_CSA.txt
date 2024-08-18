@@ -15,82 +15,17 @@
 
 ########################## GENERIC ##########################
 
-# CSA_area_priority = {
-# 	enable = {
-# 		tag = CSA
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 110  #more here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 100
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = 40
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 75
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = suez
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = -120 
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = 75
-# 	}
-# }
-
 
 
 CSA_ignore_europe = {
 	allowed = {
-		original_tag = CSA
+		always = yes
 	}
 	enable = {
+		# csa and puppets
 		OR = {
-			is_in_faction_with = ENG
-			is_in_faction_with = FRA
+			original_tag = CSA
+			is_puppet_of = CSA
 		}
 	}
 	abort = {
@@ -126,6 +61,16 @@ CSA_ignore_europe = {
 		type = dont_defend_ally_borders
 		id = "SER"
 		value = 100
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MNT"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "ALB"
+		value = 1
 	}
 
 	ai_strategy = {
@@ -219,26 +164,32 @@ CSA_gw_modified_unit_production = {
 	}
 
 	ai_strategy = {
-		type = unit_ratio
-		id = submarine
-		value = 5
-	}
-	
-	ai_strategy = {
-		type = unit_ratio
-		id = screen_ship
-		value = -5
-	}
-
-	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 10
+		value = 100
 	}
 
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
+		value = 35
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = submarine
+		value = 5
+	}
+
+	ai_strategy = {
+		type = unit_ratio
+		id = screen_ship
+		value = 10
+	}
+	
+	ai_strategy = {
+		type = unit_ratio
+		id = capital_ship
 		value = -10
 	}
 
@@ -248,39 +199,6 @@ CSA_gw_modified_unit_production = {
 	}
 }
 
-
-CSA_build_army = {
-	allowed = {
-		original_tag = CSA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		num_divisions < 110
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 400
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 10
-	}
-
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
-	}
-}
 
 
 CSA_befriend_france_ww1 = {
@@ -318,13 +236,8 @@ CSA_befriend_england_ww1 = {
 		id = "ENG"			
 		value = 50
 	}	
-
-	ai_strategy = {
-		type = befriend
-		id = "FRA"			
-		value = 50
-	}
 }
+
 
 # dont join central powers until we are fighting the csa
 CSA_dont_join_france_yet = {
@@ -343,13 +256,13 @@ CSA_dont_join_france_yet = {
 	ai_strategy = {
 		type = alliance
 		id = "FRA"			
-		value = -10000
+		value = -9999
 	}	
 }
 
 
 # dont join england until we are fighting the usa
-CSA_dont_join_france_yet = {
+CSA_dont_join_englande_yet = {
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
@@ -365,9 +278,140 @@ CSA_dont_join_france_yet = {
 	ai_strategy = {
 		type = alliance
 		id = "ENG"			
-		value = -10000
+		value = -9999
 	}	
 }
+
+
+## save up less equipment at beginning in case of issues
+CSA_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		has_army_manpower = { size < 1300000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -15
+	}
+}
+
+
+## increase army before war
+CSA_increase_army_rapidly = {	
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		date > 1912.1.1
+		has_army_manpower = { size < 1100000 }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 200
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = garrison
+	    value = 25
+	}
+}
+
+
+# ## no point in having a ton of bodies
+CSA_limit_army_size = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = CSA
+		has_army_manpower = { size > 2000000 }
+	}
+	abort = {
+		has_army_manpower = { size < 1000000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
+	}
+}
+
+
+## save pp to switch to higher economy law
+CSA_save_up_to_intervene_in_nicaragua = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		has_active_mission = CSA_intervene_in_nic_conflict
+		has_political_power < 50
+		check_variable = { CSA.csa_influence_in_latam > 49 }   # dont save up if we dont have enough to trigger the decision anyways
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = idea
+		value = 0  # baseline is 100
+	}
+	
+	ai_strategy = {
+		type = pp_spend_amount
+		id = decision
+		value = 0   # baseline is 100
+	}
+}
+
+
+# buffers in virgina
+CSA_defend_richmond = {
+	allowed = {
+		original_tag = CSA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = USA
+		NOT = { is_in_faction_with = USA }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = put_unit_buffers
+		states = { 
+			814
+			362
+		}
+		ratio = 0.06
+		subtract_fronts_from_need = yes
+	}
+}	
 
 
 CSA_greatwar_mobilize = {
@@ -390,31 +434,31 @@ CSA_greatwar_mobilize = {
 }	
 
 
-CSA_take_dc = {
+### ------- wartime strategies  ------- ###
+
+CSA_opening_offensive_against_USA = {
 	allowed = {
 		original_tag = CSA
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		USA = { 
-			exists = yes 
-			NOT = { has_non_aggression_pact_with = CSA }
-		}
+		country_exists = USA
 	}
 	abort = {
+		has_war_with = USA
 		OR = {
 			surrender_progress > 0.1
-			casualties > 100000
+			casualties > 150000
 		}
 	}
 
+	# attack DC aggressively
 	ai_strategy = {
 		type = front_control
 		state = 361
-		#state = 360
-		#state = 840
-		priority = 100
-		ratio = 0.35
+		state = 840
+		priority = 500
+		ratio = 0.4
 		ordertype = front
 		execution_type = rush_weak
 		execute_order = yes
@@ -422,42 +466,131 @@ CSA_take_dc = {
 	}
 
 	ai_strategy = {
-		type = front_unit_request
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		state = 813
-		value = 25
+		type = area_priority
+		id = east_coast
+		value = 50
+	}
+
+	# units for dc
+	ai_strategy = {
+		type = front_unit_request  
+		strategic_region = 117  # east
+		value = 200
+	}
+
+	# hold the line against the rest of the US
+	ai_strategy = {
+		type = front_control
+		tag = USA
+		ratio = 0.6
+		priority = 250
+		ordertype = front
+		execution_type = balanced
+		execute_order = no
+		manual_attack = yes
+	}
+}  
+
+
+# fall back strat once war is going badly
+CSA_careful_against_USA = {
+	allowed = {
+		original_tag = CSA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = USA
+		casualties > 200000
+	}
+	abort = {
+		USA = { surrender_progress > 0.2 }
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = USA			
+		value = -25  # more careful
 	}
 }
 
 
-CSA_defend_richmond = {
+# CSA_defensive_if_lack_of_guns_against_USA = {
+# 	allowed = {
+# 		original_tag = CSA		
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		has_war_with = USA
+# 		stockpile_ratio = {	## 5% of the armies equipment must be in reserves
+# 			archetype = infantry_equipment
+# 			ratio < 0.05
+# 		}
+# 	}
+# 	abort = {
+# 		OR = {
+# 			stockpile_ratio = {	## 7% of the armies equipment must be in reserves
+# 				archetype = infantry_equipment
+# 				ratio > 0.07
+# 			}
+# 			surrender_progress > 0.15
+# 			has_global_flag = NorthAmerica_WW1_is_stuck
+# 		}		
+# 	}
+
+# 	ai_strategy = {
+# 		type = front_control
+# 		tag = USA
+# 		ratio = 0.6
+# 		priority = 50
+# 		ordertype = front
+# 		execution_type = careful
+# 		execute_order = no
+# 		manual_attack = yes
+# 	}
+# }
+
+
+CSA_avoid_fighting_american_fleet = {
 	allowed = {
 		original_tag = CSA		
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		country_exists = USA
-		NOT = { is_in_faction_with = USA }
+		has_war_with = USA
+		naval_strength_ratio = {
+			tag = USA
+			ratio < 0.7
+		}
 	}
 	abort_when_not_enabled = yes
 
-	#protect richmond
 	ai_strategy = {
-		type = front_unit_request
-
-		state = 840
-		state = 362
-		state = 361
-		state = 360
-		state = 814
-		state = 813
-		value = 20
+		type = naval_avoid_region
+		id = 54 #north east coast
+		value = 600 # avoid doing missions as well
 	}
-}	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 55 # north atlantic
+		value = 600 # avoid doing missions as well
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 57 # mid atlantic
+		value = 600 # avoid doing missions as well
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 89 # west coast
+		value = 600 # avoid doing missions as well
+	}
+	
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 170 #south east coast
+		value = 25
+	}
+}
 
 
 CSA_invade_haiti = {
@@ -466,16 +599,42 @@ CSA_invade_haiti = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = HAI
-		#OR = { country_exists = HAI }
-		#focus_progress = {  focus = CSA2_fate_of_hispanola	 progress > 0.1 }
+		OR = { 
+			has_war_with = HAI
+			focus_progress = {  focus = CSA_attack_haiti	progress > 0.5 }
+		}
 	}
-	abort_when_not_enabled = yes
+	abort = {
+		HAI = { has_capitulated = yes }
+	}
 
 	ai_strategy = {
 		type = conquer
 		id = "HAI"			
 		value = 100
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = caribbean_sea
+		value = 200
+	}
+	
+	ai_strategy = {
+		type = front_control
+		tag = HAI
+		priority = 1000
+		ratio = 0.0
+		ordertype = invasion
+		execution_type = rush
+		execute_order = yes
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = invasion_unit_request
+		tag = HAI
+		value = 1000
 	}
 }
 
@@ -497,7 +656,7 @@ CSA_ww2_modified_unit_production = {
 
 	ai_strategy = {
 		type = role_ratio
-		type = garrison
+		id = garrison
 		value = 4
 	}
 	ai_strategy = {
@@ -754,11 +913,11 @@ CSA_operation_blackbeard = {
 		}
 	}
 
-	ai_strategy = {
-		type = area_priority
-		id = middle_america
-		value = 50
-	}
+	# ai_strategy = {
+	# 	type = area_priority
+	# 	strategic_region = 198 # great lakes
+	# 	value = 50
+	# }
 
 	#through ohio
 	ai_strategy = {

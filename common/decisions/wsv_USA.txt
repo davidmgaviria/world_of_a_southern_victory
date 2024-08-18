@@ -1,4 +1,95 @@
+###########################################################
+# -  Socialist Movement
+###########################################################
 
+USA_socialist_movement_cat = {
+
+	# rally to improve political stance
+	USA_conduct_democrat_rally = {
+		icon = generic_civil_support  
+
+		allowed = {
+			original_tag = USA
+		}
+		available = {
+			has_government = democratic
+		}
+
+		cost = 35
+		days_remove = 30
+		days_re_enable = 180
+
+		remove_effect = {
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_war_support = 0.02
+		}
+
+		ai_will_do = {
+		 	factor = 0
+			modifier = {
+				factor = 1
+				communism > 0.2
+			}
+			modifier = {
+				factor = 0.01
+				has_political_power > 150
+			}
+		}
+	}
+
+	# make concessions to reduce militancy
+	USA_concessions_to_socialists = {
+		icon = generic_political_discourse
+
+		allowed = {
+			original_tag = USA
+		}
+		available = {
+			has_government = democratic
+			custom_trigger_tooltip = {
+				check_variable = { USA.usa_socialist_militancy > 35 } 
+				tooltip = militancy_lower_bounds_tt
+			}
+			custom_trigger_tooltip = {
+				check_variable = { USA.usa_socialist_militancy < 100 } 
+				tooltip = militancy_upper_bounds_tt
+			}
+		}
+
+		cost = 75
+		days_remove = 30
+		days_re_enable = 300
+
+		remove_effect = {
+			decrease_militancy_by_5_effect = yes
+		}
+
+		ai_will_do = {
+		 	factor = 0
+			modifier = {
+				add = 0.05
+				check_variable = { USA.usa_socialist_militancy > 50 } 
+			}
+			modifier = {
+				add = 0.5
+				check_variable = { USA.usa_socialist_militancy > 65 } 
+			}
+			modifier = {
+				add = 5
+				check_variable = { USA.usa_socialist_militancy > 80 } 
+			}
+		}
+	}
+}
+
+
+
+#####################################################################
+## -- War Plans
+#####################################################################
 
 USA_warplans_cat = {
 
@@ -18,12 +109,12 @@ USA_warplans_cat = {
 
 		targeted_modifier = {
 		    tag = CSA
-		    attack_bonus_against = 0.15
+		    attack_bonus_against = 0.25
 		    #days = 60
 		}
 		
 		remove_effect = {
-		
+			set_country_flag = csa_offensive_failed
 		}
 
 		ai_will_do = {
@@ -48,60 +139,41 @@ USA_warplans_cat = {
 
 		targeted_modifier = {
 		    tag = CAN
-		    attack_bonus_against = 0.15
+		    attack_bonus_against = 0.25
 		    #days = 60
 		}
 		
 		remove_effect = {
+			set_country_flag = canada_offensive_failed
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	USA_warplan_green = {
+		icon = generic_operation
+
+		available = {
+			has_war_with = CAN
+		}
+		visible = {
+			has_country_flag = USA_war_plan_green
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		targeted_modifier = {
+		    tag = MEX
+		    attack_bonus_against = 0.25
+		    #days = 60
+		}
 		
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-	}
-
-	USA_warplan_pink = {
-		icon = generic_operation
-
-		available = {
-			has_war_with = ENG
-		}
-		visible = {
-			has_country_flag = USA_war_plan_pink
-		}
-
-		fire_only_once = yes
-		days_remove = 30
-		days_re_enable = 0
-
-		complete_effect = {
-			random_country = {
-				limit = { controls_state = 690 }
-				save_event_target_as = country_that_holds_north_bahamas
-			}
-			random_country = {
-				limit = { controls_state = 693 }
-				save_event_target_as = country_that_holds_south_bahamas
-			}
-			random_country = {
-				limit = { controls_state = 696 }
-				save_event_target_as = country_that_holds_bermuda
-			}
-			690 = { add_dynamic_modifier = { modifier = generic_surprise_naval_assault scope = event_target:country_that_holds_north_bahamas } }
-			693 = { add_dynamic_modifier = { modifier = generic_surprise_naval_assault scope = event_target:country_that_holds_south_bahamas } }
-			696 = { add_dynamic_modifier = { modifier = generic_surprise_naval_assault scope = event_target:country_that_holds_bermuda } }
-		}
-
 		remove_effect = {
-			hidden_effect = {
-				every_state = {
-					limit = {
-						OR = { state = 690  state = 693 state = 696 }
-					}
-					remove_dynamic_modifier = { modifier = generic_surprise_naval_assault }
-				}
-			}
+			set_country_flag = mexico_offensive_failed
 		}
 
 		ai_will_do = {
@@ -109,15 +181,63 @@ USA_warplans_cat = {
 		}
 	}
 
+	# USA_warplan_pink = {
+	# 	icon = generic_operation
 
-	USA_warplan_purple = {
+	# 	available = {
+	# 		has_war_with = ENG
+	# 	}
+	# 	visible = {
+	# 		has_country_flag = USA_war_plan_pink
+	# 	}
+
+	# 	fire_only_once = yes
+	# 	days_remove = 30
+	# 	days_re_enable = 0
+
+	# 	complete_effect = {
+	# 		random_country = {
+	# 			limit = { controls_state = 690 }
+	# 			save_event_target_as = country_that_holds_north_bahamas
+	# 		}
+	# 		random_country = {
+	# 			limit = { controls_state = 693 }
+	# 			save_event_target_as = country_that_holds_south_bahamas
+	# 		}
+	# 		random_country = {
+	# 			limit = { controls_state = 696 }
+	# 			save_event_target_as = country_that_holds_bermuda
+	# 		}
+	# 		690 = { add_dynamic_modifier = { modifier = generic_surprise_naval_assault scope = event_target:country_that_holds_north_bahamas } }
+	# 		693 = { add_dynamic_modifier = { modifier = generic_surprise_naval_assault scope = event_target:country_that_holds_south_bahamas } }
+	# 		696 = { add_dynamic_modifier = { modifier = generic_surprise_naval_assault scope = event_target:country_that_holds_bermuda } }
+	# 	}
+
+	# 	remove_effect = {
+	# 		hidden_effect = {
+	# 			every_state = {
+	# 				limit = {
+	# 					OR = { state = 690  state = 693 state = 696 }
+	# 				}
+	# 				remove_dynamic_modifier = { modifier = generic_surprise_naval_assault }
+	# 			}
+	# 		}
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 10
+	# 	}
+	# }
+
+
+	USA_warplan_blue = {
 		icon = generic_operation
 
 		available = {
 			has_war_with = ENG
 		}
 		visible = {
-			has_country_flag = USA_war_plan_purple
+			has_country_flag = USA_war_plan_blue
 		}
 
 		fire_only_once = yes
@@ -125,6 +245,7 @@ USA_warplans_cat = {
 		days_re_enable = 0
 
 		complete_effect = {
+			news_event = { id = wsv_usa.113  days = 1 }
 			random_country = {
 				limit = { controls_state = 629 }
 				save_event_target_as = country_that_holds_hawaii
@@ -147,311 +268,196 @@ USA_warplans_cat = {
 
 
 
-## Influence in Caribbean ##
+#####################################################################
+## -- Revived Monroe Doctrine
+#####################################################################
 
-USA_influence_in_caribbean_category = {
+USA_new_monroe_doctrine_cat = {
 
-	USA_conduct_naval_exercise = {
+	## liberate/puppet mexico
+	USA_liberate_mexico = {
+		icon = infiltrate_state
 
-		icon = generic_operation
+		available = {
+			MEX = { 
+				OR = {
+					NOT = { has_government = democratic }
+					is_puppet = yes
+				}
+			}
+		}
 
 		visible = {
-			always = yes
-		}
-		available = {
-			has_war = no
-		}
-
-		cost = 15
-		days_remove = 14
-		days_re_enable = 120
-
-		remove_effect = {
-			add_to_variable = { 
-				var = USA.usa_influence_in_caribbean
-				value = 5 
+			MEX = {
+				NOT = { is_puppet_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
 			}
-			custom_effect_tooltip = increase_influence_by_5_tt
-			# TODO : naval exercise event
+			has_country_flag = usa_revived_monroe_doctrine
 		}
 
-		ai_will_do = {
-			factor = 0.03
-
-			# increase likelyhood if we're falling behind
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge > 9 }
-			}
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge > 19 }
-			}
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge > 29 }
-			}
-		}
-	}
-
-	## temporary ##
-	USA_send_arms = {
-
-		icon = generic_prepare_civil_war
-
-		visible = {
-			has_country_flag = arms_shipment_to_carribean_flag
-		}
-		available = {
-			has_war = no
-			has_equipment = {
-    			infantry_equipment > 999
-			}
-		}
-
-		cost = 25
-	 	days_remove = 10
-		days_re_enable = 150
-
-		remove_effect = {
-			add_equipment_to_stockpile = {
-			    type = infantry_equipment
-			    amount = -1000
-			}
-			add_to_variable = { 
-				var = USA.usa_influence_in_caribbean
-				value = 5 
-			}
-			custom_effect_tooltip = increase_influence_by_5_tt
-		}
-
-		ai_will_do = {
-			factor = 0.003
-
-			# increase likelyhood if we're falling behind
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge > 9 }
-			}
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge > 19 }
-			}
-			modifier = {
-				factor = 1.5
-				check_variable = { CSA.csa_influence_edge > 29 }
-			}
-		}
-	}
-
-	## temporary ##
-	USA_guarantee_caribbean_country = {
-
-		icon = generic_nationalism
-
-		visible = {
-			has_country_flag = unlocked_guarantee_caribbean_flag
-		}
-		available = {
-			has_war = no
-			NOT= { has_country_flag = USA_recently_guaranteed_country_flag }
-			FROM = {	
-				is_puppet = no
-			}
-		}
-
-		targets = { GUA HON ELS NIC COS }
-
-		target_trigger = {
-			FROM = {
-				NOT = { has_war_with = USA }
-				NOT = { is_guaranteed_by = USA }
-			}
-		}
-		
-		cost = 50
-		days_remove = 5
+		fire_only_once = yes
+		cost = 75
+		days_remove = 0
 
 		complete_effect = {
-			set_country_flag = {
-				flag = USA_recently_guaranteed_country_flag
-				days = 65
+			create_wargoal = {
+				target = MEX
+				type = puppet_wargoal_focus
 			}
-		}
-		remove_effect = {
-			give_guarantee = FROM
-			custom_effect_tooltip = protect_from_csa_tt
-			add_to_variable = { 
-				var = USA.usa_influence_in_caribbean
-				value = 5 
-			}
-			custom_effect_tooltip = increase_influence_by_5_tt
 		}
 
 		ai_will_do = {
-			factor = 0.003  
+			factor = 0
 			modifier = {
-				factor = 1.5
-				tag = NIC
+				add = 1
+				OR = {
+					date > 1916.1.1
+					has_war_with = CSA
+				}
+			}
+		}
+	}
+
+	## liberate cuba
+	USA_liberate_cuba = {
+		icon = infiltrate_state
+
+		available = {
+			CUB = { 
+				OR = {
+					exists = no
+					NOT = { has_government = democratic }
+					is_puppet = yes
+				}
+			}
+		}
+
+		visible = {
+			NOT = { controls_state = 315 }
+			CUB = {
+				NOT = { is_puppet_of = ROOT }
+				NOT = { is_in_faction_with = ROOT }
+			}
+			has_country_flag = usa_revived_monroe_doctrine
+		}
+
+		fire_only_once = yes
+		cost = 75
+		days_remove = 0
+
+		complete_effect = {
+			add_state_claim = 315
+			hidden_effect = {
+				315 = {
+					owner = { save_event_target_as = owner_of_cuba }
+				}
+			}
+			create_wargoal = {
+				target = event_target:owner_of_cuba
+				type = take_claimed_state
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				OR = {
+					date > 1916.1.1
+					has_war_with = CSA
+				}
 			}
 		}
 	}
 
 
-	## (FUTURE WORK) ##
-	# USA_arms_shipments = {
+	## liberate puerto rico
+	USA_liberate_puerto_rico = {
+		icon = infiltrate_state
 
-	# 	icon = generic_prepare_civil_war
+		available = {
+			686 = {
+				owner = { NOT = { is_in_faction_with = ROOT } }
+			}
+		}
 
-	# 	visible = {
-	# 		has_country_flag = arms_shipment_to_carribean_flag
-	# 	}
+		visible = {
+			NOT = { controls_state = 686 }
+			has_country_flag = usa_revived_monroe_doctrine
+		}
 
-	# 	targets = { DOM GUA HON ELS NIC COS COL VEN }
+		fire_only_once = yes
+		cost = 100
+		days_remove = 0
 
-	# 	target_trigger = {
-	# 		FROM = {
-	# 			NOT = { has_country_flag = us_sent_arms_flag }
-	# 			NOT = { has_war_with = USA }
-	# 			is_puppet = no
-	# 		}
-	# 	}
-		
-	# 	cost = 15
-	# 	days_remove = 20
+		complete_effect = {
+			add_state_claim = 686
+			hidden_effect = {
+				686 = {
+					owner = { save_event_target_as = owner_of_pr }
+				}
+			}
+			create_wargoal = {
+				target = event_target:owner_of_pr
+				type = take_claimed_state
+			}
+		}
 
-	# 	complete_effect = {
-	# 		set_country_flag = sending_arms_in_progress
-	# 	}
+		ai_will_do = {
+			factor = 0
+		}
+	}
 
-	# 	remove_effect = {
-	# 		clr_country_flag = sending_arms_in_progress
-	# 		send_equipment = {
-	# 			type = infantry_equipment
-	# 			amount = 1000
-	# 			target = FROM
-	# 		}
-	# 		add_to_variable = { 
-	# 			var = USA.usa_influence_in_caribbean
-	# 			value = 5 
-	# 		}
-	# 		custom_effect_tooltip = increase_influence_by_5_tt
+	## push europe out of caribbean
+	USA_liberate_the_caribbean = {
+		icon = infiltrate_state
 
-	# 		FROM = { 
-	# 			set_country_flag = us_sent_arms_flag 
-	# 			# country_event = { id = ? days = 1 } #TODO: event telling us we got guns  
-	# 		}
-	# 	}
+		available = {
+			OR = {
+				NOT = { owns_state = 694 }
+				NOT = { owns_state = 308 }
+				NOT = { owns_state = 692 }
+				NOT = { owns_state = 750 }
+				NOT = { owns_state = 838 }
+			}
+		}
 
-	# 	ai_will_do = {
-	# 		factor = 0.05
+		visible = {
+			has_country_flag = usa_revived_monroe_doctrine
+		}
 
-	# 		modifier = {
-	# 			factor = 0
-	# 			has_country_flag = sending_arms_in_progress
-	# 		}
-	# 		modifier = {
-	# 			factor = 4
-	# 			tag = HAI
-	# 		}
-	# 		modifier = {
-	# 			factor = 2
-	# 			OR = {
-	# 				tag = DOM
-	# 				tag = COL
-	# 				tag = NIC
-	# 			}
-	# 		}
-	# 		# increase likelyhood if US is high
-	# 		modifier = {
-	# 			factor = 2
-	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 20 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 2
-	# 			check_variable = { var = CSA.csa_influence_in_caribbean  value = 40 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 2
-	# 			check_variable = { var = CSA.csa_influence_in_caribbean value = 60 compare = greater_than_or_equals }
-	# 		}
+		cost = 50
+		fire_only_once = yes
+		days_remove = 0
 
-	# 		# decrease likelyhood if ours is high
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 25 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 50 compare = greater_than_or_equals }
-	# 		}
-	# 		modifier = {
-	# 			factor = 0.5
-	# 			check_variable = { var = USA.usa_influence_in_caribbean value = 75 compare = greater_than_or_equals }
-	# 		}
-	# 	}
-	# }
+		complete_effect = {
+			add_state_claim = 694
+			add_state_claim = 308
+			add_state_claim = 692
+			add_state_claim = 750
+			add_state_claim = 838
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
 }
 
 
 
 
+#####################################################################
+## -- Great War
+#####################################################################
+
 wsv_great_war_decisions = {
 
-	USA_barrel_roll_offensive = {
-		icon = generic_operation
-
-		available = {
-			has_war_with = CSA
-		}
-		visible = {
-			has_country_flag = barrel_roll_offensive_flag
-		}
-
-		fire_only_once = yes
-		days_remove = 0
-		days_re_enable = 0
-
-		complete_effect = {
-			set_country_flag = barrel_roll_offensive_started
-			add_timed_idea = {
-				idea = USA_barrel_offensive_idea
-				days = 60
-			}
-			hidden_effect = { activate_mission = USA_barrel_roll_mission }
-		}
-
-		ai_will_do = {
-			factor = 10
-		}
-	}
-
-	USA_barrel_roll_mission = {
-	    activation = {
-	    	has_country_flag = barrel_roll_offensive_started
-	    }
-	    cancel_trigger = {
-	        NOT = { has_war_with = CSA }
-	    }
-
-	    icon = mission_icon     # For GFX_decision_mission_icon
-	    days_mission_timeout = 90
-
-	    timeout_effect = {
-	        add_war_support = -0.15
-	        add_political_power = -75
-	        hidden_effect = { country_event = wsv_usa.3 }
-	    }
-	}
-
-	
 	# USA throws in the towel
 	greatwar_usa_offers_peace = {
-
 		icon = generic_form_nation
 
 		available = {
-			always = yes
 			OR = {
 				casualties > 500000
 				surrender_progress > 0.5
@@ -460,79 +466,70 @@ wsv_great_war_decisions = {
 
 		visible = {
 			tag = USA
-			has_war_with = CSA
-			has_global_flag = historical_treaties_on
+			OR = {
+				has_war_with = CSA
+				has_war_with = ENG
+			}
 			has_start_date < 1937.1.1
 		}
 
+		days_re_enable = 90
 		days_remove = 5
 
-		days_re_enable = 90
-
 		remove_effect = {
-			CSA = { country_event = wsv_ahistorical_treaty.16 }
+			if = {
+				limit = { has_war_with = CSA }
+				CSA = { country_event = { id = wsv_peace_treaty.50  days = 1 } }
+			}
+			else_if = {
+				limit = { has_war_with = ENG }
+				ENG = { country_event = { id = wsv_peace_treaty.50  days = 1 } }
+			}
 			custom_effect_tooltip = baltimore_treaty_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# Negatives
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				surrender_progress < 0.10
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.15
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.25
-			}
-			modifier = {
-				add = -1
-				surrender_progress < 0.35
-			}
-			# if not fighting two fronts, less likely to surrender
-			modifier = {
-				add = -1
-				OR = {
-					NOT = { has_war_with = CSA }
-					NOT = { has_war_with = CAN }
+				set_temp_variable = { surrender_chance = 0 }
+
+				## --- Negatives
+				# Germany will protect us
+				if = {
+					limit = { is_in_faction_with = GER }
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.1 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
 
-			# Positives
-			modifier = {
-				add = 1
-				casualties > 1000000
-			}
-			modifier = {
-				add = 1
-				casualties > 1500000
-			}		
-			modifier = {
-				add = 1
-				casualties > 2000000
-			}
-			modifier = {
-				add = 1
-				casualties > 2500000
-			}	
-			modifier = {
-				add = 1
-				casualties > 3000000
-			}
-			modifier = {
-				add = 1
-				casualties > 4000000
-			}	
-
-			modifier = {
-				add = 10
-				surrender_progress > 0.55
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 2000000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Socialist revolt is really bad
+				if = {
+					limit = { has_civil_war = yes }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+				
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}

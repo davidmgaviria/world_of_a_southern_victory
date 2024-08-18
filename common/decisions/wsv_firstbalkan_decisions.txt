@@ -1,130 +1,297 @@
-firstbalkan_war_decisions = {
-	
+###################################################
+# -- Forming Balkan League
+###################################################
+
+balkan_league_cat = {
+
+	# Serbia / Bulgaria asks the other to form Balkan League
+	request_balkanleauge_formation = {
+		#icon = generic_civil_support  #generic icon
+
+		allowed = {
+			OR = {
+				original_tag = SER
+				original_tag = BUL
+			}
+		}
+		visible = {
+			OR = {
+				date > 1912.1.1
+				has_global_flag = italoturkish_war
+			}
+			NOT = { has_global_flag = balkan_requests_sent_out }
+		}
+		available = {
+			has_war = no
+			# TODO: check if anyone can join balkan league
+		}
+
+		cost = 25
+		days_remove = 30
+		fire_only_once = yes
+
+		remove_effect = {
+			set_global_flag = balkan_requests_sent_out
+			every_country = {
+				limit = {
+					NOT = { tag = ROOT }
+					OR = {
+						tag = SER
+						tag = BUL
+						tag = GRE
+						tag = MNT
+					}
+					has_war = no
+					is_in_faction = no
+					is_puppet = no	
+				}
+				country_event = wsv_firstbalkan.1
+			}
+			custom_effect_tooltip = balkan_league_join_conditions_tt
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				tag = BUL
+			}
+			modifier = {
+				factor = 0
+				tag = BUL
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+
+	# Negociate territorial differences
+	balkanleague_territorial_negociations = {
+		icon = generic_political_discourse
+
+		visible = {
+			OR = {
+				date > 1912.1.1
+				has_global_flag = italoturkish_war
+			}
+			has_country_flag = balkan_league_member
+			NOT = { has_global_flag = balkan_league_negociations }
+		}
+		available = {
+			has_war = no
+			has_global_flag = balkan_league_formed
+		}
+
+		cost = 50
+		fire_only_once = yes
+		
+		complete_effect = {
+			set_global_flag = balkan_league_negociations
+			every_country = {
+				limit = { 
+					has_country_flag = balkan_league_member 
+					NOT = { tag = THIS }
+				}
+				country_event = wsv_firstbalkan.4
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				is_faction_leader = yes
+			}
+		}
+	}
+
+	# Ongoing negociations mission
+	balkanleague_ongoing_negociations = {
+		icon = generic_political_discourse
+
+		visible = {
+			has_country_flag = balkan_league_member
+			NOT = { has_global_flag = balkan_league_negociations_over }
+		}
+		activation = {
+			has_global_flag = balkan_league_negociations
+			NOT = { has_global_flag = balkan_league_negociations_over }
+		}
+		available = {
+			has_global_flag = balkan_league_negociations_over  # mission to cancel
+		}
+
+		days_mission_timeout = 300
+		is_good = no
+		
+		timeout_effect = {
+			set_global_flag = balkan_league_negociations_over
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				country_event = wsv_firstbalkan.5
+			}
+		}
+	}
+
+	# Declare the balkan war
+	balkanleague_begin_war = {
+		icon = generic_prepare_civil_war
+
+		visible = {
+			OR = {
+				date > 1912.1.1
+				has_global_flag = italoturkish_war
+			}
+			has_global_flag = balkan_league_formed
+			has_country_flag = balkan_league_member
+			NOT = { has_global_flag =  firstbalkan_war }
+		}
+		available = {
+			has_war = no
+			has_global_flag = balkan_league_negociations_over
+			is_faction_leader = yes
+		}
+
+		cost = 25
+		fire_only_once = yes
+		days_remove = 7
+
+		remove_effect = {
+			declare_war_on = {
+				target = TUR
+				type = take_core_state
+			}
+			hidden_effect = {
+				every_country = {
+					limit = { is_in_faction_with = ROOT }
+					add_to_war = {
+						targeted_alliance = ROOT
+						enemy = TUR
+					}
+				}
+			}
+			news_event = wsv_firstbalkan.6
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 100
+				date > 1912.9.30  # historical date is 10/8/1912
+			}
+		}
+	}
+}
+
+
+
+
+###############################################################################
+# -- First Balkan War
+###############################################################################
+
+firstbalkan_war_cat = {
 
 	# Turkey throws in the towel
 	firstbalkan_turkey_offers_peace = {
-
 		icon = generic_form_nation
 
 		allowed = {
 			tag = TUR
 		}
-
 		available = {
 			OR = {
 				casualties > 50000
 				surrender_progress > 0.25
 			}
 		}
-
 		visible = {
-			has_global_flag = kis_firstbalkan_war
-			NOT = { has_global_flag = kis_firstbalkanwar_victory }
+			has_global_flag = firstbalkan_war
+			NOT = { has_global_flag = firstbalkan_war_over }
 			OR = {
 				has_war_with = SER
 				has_war_with = BUL
 			}
 		}
 
-		days_remove = 3
-
-		days_re_enable = 60
+		days_remove = 4
 
 		remove_effect = {
 			if = {
 				limit = { SER = { is_faction_leader = yes } }
-				SER = { country_event = ww1_firstbalkan.6 }
+				SER = { country_event = wsv_firstbalkan.7 }
 			}
 			if = {
 				limit = { BUL = { is_faction_leader = yes } }
-				BUL = { country_event = ww1_firstbalkan.6 }
+				BUL = { country_event = wsv_firstbalkan.7 }
 			}
 			custom_effect_tooltip = firstbalkan_league_wins_tt
 		}
 
-		# this is done by adding and subtracting a combination of modifiers, any positive value will get the ai to surrender
+
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# less likely to give up if holding northern balkans
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				controls_state = 760
-				controls_state = 761
-				controls_state = 44
-				controls_state = 106
-				controls_state = 803
-				controls_state = 758
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# less likely to give up if holding southern balkans
-			modifier = {
-				add = -1
-				controls_state = 759
-				controls_state = 731
-				controls_state = 788
-				controls_state = 184
-			}
-
-			# start losing interest when casualties mount
-			modifier = {
-				add = 1
-				OR = {
-					casualties_inflicted_by = {
-					    opponent = ser
-					    thousands > 50
+				## --- Negatives
+				# Less likely to give up if holding northern balkans
+				if = {
+					limit = { 
+						OR = {
+							controls_state = 760
+							controls_state = 761
+							controls_state = 44
+							controls_state = 106
+							controls_state = 803
+							controls_state = 758
+						}
 					}
-					casualties_inflicted_by = {
-					    opponent = BUL
-					    thousands > 50
-					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
-
-			# god so many casualties
-			modifier = {
-				add = 1
-				OR = {
-					casualties_inflicted_by = {
-					    opponent = ser
-					    thousands > 75
+				# less likely to give up if holding southern balkans
+				if = {
+					limit = { 
+						OR = {
+							controls_state = 759
+							controls_state = 731
+							controls_state = 788
+							controls_state = 184
+						}
 					}
-					casualties_inflicted_by = {
-					    opponent = BUL
-					    thousands > 75
-					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
 
-			# balkans isnt worth this much blood
-			modifier = {
-				add = 1
-				OR = {
-					casualties_inflicted_by = {
-					    opponent = ser
-					    thousands > 100
+				## --- Positives
+				# must take at least 200k to even consider giving up (and dont count if at war with ITA)
+				if = {
+					limit = { 
+						casualties > 150000
+						NOT = { has_war_with = ITA }
 					}
-					casualties_inflicted_by = {
-					    opponent = BUL
-					    thousands > 100
-					}
+					add_to_temp_variable = { surrender_chance = 1 }
 				}
-			}
-
-			# if we lose istanbul give up
-			modifier = {
-				add = 10
-				NOT = { controls_state = 341 }  
+				# give up if only holding part of Balkans but have a ton of casualties
+				if = {
+					limit = { casualties > 250000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# if we lose istanbul give up at once
+				if = {
+					limit = { surrender_progress > 0.25 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+			
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}
 
 
-
-
 	# Balkan league offers peace
 	firstbalkan_league_offers_peace = {
-
 		icon = generic_form_nation
 
 		allowed = {
@@ -133,98 +300,80 @@ firstbalkan_war_decisions = {
 				tag = BUL
 			}
 		}
-
 		available = {
-			casualties_inflicted_by = {
-			    opponent = TUR
-			    thousands > 50
-			}
 			OR = {
-				alliance_strength_ratio < 1
-				TUR = { surrender_progress < 0.05 }
+				casualties_inflicted_by = {
+					opponent = TUR
+					thousands > 50
+				}
+				surrender_progress > 0
 			}
 		}
-
 		visible = {
-			has_global_flag = kis_firstbalkan_war
-			NOT = { has_global_flag = kis_firstbalkanwar_victory }
+			has_global_flag = firstbalkan_war
+			NOT = { has_global_flag = firstbalkan_war_over }
 			has_war_with = TUR
 			is_faction_leader = yes
 		}
 
-		days_remove = 3
-
-		days_re_enable = 60
+		days_remove = 4
 
 		remove_effect = {
-			TUR = { country_event =  ww1_firstbalkan.7 }
-			custom_effect_tooltip = firstbalkan_turkey_wins_tt
+			TUR = { country_event =  wsv_firstbalkan.9 }
+			custom_effect_tooltip = firstbalkan_turkey_wins_tt  	# white peace
 		}
 
+
 		ai_will_do = {
-			factor = 0
+			base = 0  # Need positive value to surrender
 
-			# less likely to give up if holding northern balkans
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
 			modifier = {
-				add = -1
-				controls_state = 760
-				controls_state = 761
-				controls_state = 44
-				controls_state = 106
-				controls_state = 803
-				controls_state = 758
-			}
+				set_temp_variable = { surrender_chance = 0 }
 
-			# less likely to give up if holding southern balkans
-			modifier = {
-				add = -1
-				controls_state = 759
-				controls_state = 731
-				controls_state = 788
-				controls_state = 184
-			}
-
-			# start losing interest when casualties mount
-			modifier = {
-				add = 1
-				OR = { 
-					AND = {
-						tag = BUL
-						casualties > 75000
+				## --- Negatives
+				# Serbia standing is good
+				if = {
+					limit = { 
+						SER = {
+							has_war_with = TUR
+							surrender_progress < 0.5
+						} 
 					}
-					AND = {
-						tag = SER
-						casualties > 60000
-					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
-
-			modifier = {
-				add = 1
-				OR = { 
-					AND = {
-						tag = BUL
-						casualties > 100000
+				# Bulgaria standing is good
+				if = {
+					limit = { 
+						BUL = {
+							has_war_with = TUR
+							surrender_progress < 0.5
+						} 
 					}
-					AND = {
-						tag = SER
-						casualties > 85000
-					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-			}
 
-			modifier = {
-				add = 1
-				OR = { 
-					AND = {
-						tag = BUL
-						casualties > 150000
+				## --- Positives
+				if = {
+					limit = { 
+						any_country = {
+							has_war_with = TUR
+							casualties > 50000
+						}
 					}
-					AND = {
-						tag = SER
-						casualties > 125000
-					}
+					add_to_temp_variable = { surrender_chance = 1 }
 				}
+				if = {
+					limit = { 
+						any_country = {
+							has_war_with = TUR
+							casualties > 100000
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+			
+				add = surrender_chance  # value to modifier
 			}
 		}
 	}

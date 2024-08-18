@@ -1,41 +1,7 @@
 characters={
 
-	# COUNTRY LEADERS
-	USA_eugene_v._debs={
-		name="Eugene V. Debs"
-		portraits={
-			civilian={
-				large="gfx/portraits/USA/country_leaders/USA_eugene_v_debs.dds"
-			}
-		}
-		country_leader={
-			desc="USA_eugene_v_debs_DESC"
-			ideology=marxism
-			expire="1935.1.1.1"
-			id=-1
-			traits = {
-				champion_of_peace_4
-			}
-		}
-	}
-	USA_theodore_roosevelt={
-		name="Theodore Roosevelt"
-		portraits={
-			civilian={
-				large="gfx/portraits/USA/country_leaders/USA_theodore_roosevelt.dds"
-			}
-		}
-		country_leader={
-			ideology=conservatism
-			expire="1919.1.6.1"
-			id=-1
-			traits = {
-				indomitable_perseverance
-				conservative_nationalist
-				hawk
-			}
-		}
-	}
+	####################  COUNTRY LEADERS ####################
+
 	USA_nelson_aldrich={
 		name="Nelson Aldrich"
 		portraits={
@@ -49,65 +15,89 @@ characters={
 			id=-1
 		}
 	}
-	USA_charles_j._hexamer={
-		name="Charles J. Hexamer"
+
+	USA_theodore_roosevelt={
+		name="Theodore Roosevelt"
 		portraits={
 			civilian={
-				large="gfx/portraits/USA/country_leaders/USA_Charles_John_Hexamer.dds"
+				large="gfx/portraits/USA/country_leaders/USA_theodore_roosevelt.dds"
 			}
 		}
 		country_leader={
+			ideology=populism
+			expire="1919.1.6.1"
+			id=-1
+			traits = {
+				indomitable_perseverance
+				conservative_nationalist
+				hawk
+			}
+		}
+	}
+
+	USA_leonard_wood={
+		name="Leonard Wood"
+		portraits={
+			civilian={
+				large="gfx/portraits/USA/country_leaders/USA_leonard_wood.dds"
+			}
+		}
+		# democratic leader
+		country_leader={
+			desc="USA_leonard_wood_DESC"
 			ideology=conservatism
 			expire="1935.1.1.1"
 			id=-1
 		}
+		# totalitarian leader
+		country_leader={
+			desc="USA_leonard_wood_DESC"
+			ideology=military_dictatorship
+			expire="1935.1.1.1"
+			id=-1
+		}
 	}
-	# USA_leonard_wood={
-	# 	name="Leonard Wood"
-	# 	portraits={
-	# 		civilian={
-	# 			large="gfx/portraits/USA/country_leaders/USA_leonard_wood.dds"
-	# 		}
-	# 	}
-	# 	country_leader={
-	# 		desc="USA_leonard_wood_DESC"
-	# 		ideology=despotism
-	# 		expire="1935.1.1.1"
-	# 		id=-1
-	# 	}
-	# }
-	# USA_alton_b._parker={
-	# 	name="Alton B. Parker"
-	# 	portraits={
-	# 		civilian={
-	# 			large="gfx/portraits/USA/country_leaders/USA_alton_b_parker.dds"
-	# 		}
-	# 	}
-	# 	country_leader={
-	# 		desc="USA_alton_b_parker_DESC"
-	# 		ideology=liberalism
-	# 		expire="1935.1.1.1"
-	# 		id=-1
-	# 	}
-	# }
-	# USA_warren_g._harding={
-	# 	name="Warren G. Harding"
-	# 	portraits={
-	# 		civilian={
-	# 			large="gfx/portraits/USA/country_leaders/USA_warren_g_harding.dds"
-	# 		}
-	# 	}
-	# 	country_leader={
-	# 		desc="USA_warren_g_harding_DESC"
-	# 		ideology=liberalism
-	# 		expire="1935.1.1.1"
-	# 		id=-1
-	# 	}
-	# }
+	
+	USA_eugene_debs={
+		name="Eugene V. Debs"
+		portraits={
+			civilian={
+				large="gfx/portraits/USA/country_leaders/USA_eugene_v_debs.dds"
+			}
+		}
+		country_leader={
+			desc="USA_eugene_v_debs_DESC"
+			ideology=socialism			# democratic ideology for now
+			expire="1926.10.20.1"
+			id=-1
+			traits = {
+				champion_of_peace_4
+			}
+		}
+	}
+
+	
+	USA_ce_ruthenburg={
+		name="C. E. Ruthenburg"
+		portraits={
+			civilian={
+				large="gfx/portraits/USA/country_leaders/USA_ce_ruthenburg.dds"
+			}
+		}
+		country_leader={
+			#desc="USA_eugene_v_debs_DESC"
+			ideology=marxism
+			expire="1935.1.1.1"
+			id=-1
+		}
+	}
+
+	## TODO - ## upton sinclair
 	
 
 
-	# GENERALS
+	####################  GENERALS  #################### 
+
 	USA_john_j._pershing={
 		name="John J. Pershing"
 		advisor={
@@ -116,9 +106,6 @@ characters={
 			allowed  = {
 					tag  = USA
 				}
-				#visible  = {
-				#	has_start_date < 1937.1.1
-				#}
 				traits  = {
 					army_chief_offensive_1
 				}
@@ -137,8 +124,8 @@ characters={
 		}
 		field_marshal={
 			traits={ offensive_doctrine logistics_wizard inflexible_strategist }
-			skill=2
-			attack_skill=2
+			skill=4
+			attack_skill=3
 			defense_skill=2
 			planning_skill=3
 			logistics_skill=4
@@ -152,19 +139,11 @@ characters={
 		advisor={
 			slot = high_command
 			idea_token = USA_peyton_c_march
-			allowed  = {
-					tag  = USA
-				}
-				#visible  = {
-				#	has_start_date < 1937.1.1
-				#}
-				traits  = {
-					army_chief_reform_2
-				}
-				ai_will_do  = {
-					factor  = 0.000
-				}
-				
+			allowed  = { tag  = USA }
+			traits  = {
+				army_chief_reform_2
+			}
+			ai_will_do  = { factor  = 0.000 }
 		}
 		portraits={
 			army={
@@ -177,7 +156,7 @@ characters={
 		field_marshal={
 			traits={ offensive_doctrine thorough_planner organizer }
 			skill=3
-			attack_skill=2
+			attack_skill=3
 			defense_skill=2
 			planning_skill=3
 			logistics_skill=3
@@ -197,11 +176,11 @@ characters={
 		}
 		field_marshal={
 			traits={ organisational_leader fast_planner }
-			skill=2
+			skill=3
 			attack_skill=2
-			defense_skill=3
-			planning_skill=2
-			logistics_skill=2
+			defense_skill=2
+			planning_skill=3
+			logistics_skill=3
 			legacy_id=-1
 		}
 	}
@@ -227,457 +206,213 @@ characters={
 		}
 	}
 
+	####################  ADMIRALS ####################
+
+	USA_henry_t._mayo={
+		name="Henry T. Mayo"
+		portraits={
+			#army={
+			#	small=""
+			#}
+			army={
+				large="gfx/portraits/USA/navy_admirals/USA_Henry_Mayo.dds"
+			}
+		}
+		navy_leader={
+			traits={ ironside superior_tactician fleet_protector }
+			skill=4
+			attack_skill=4
+			defense_skill=3
+			maneuvering_skill=3
+			coordination_skill=2
+			legacy_id=0
+		}
+	}
+	USA_frank_f._fletcher={
+		name="Frank F. Fletcher"
+		portraits={
+			#army={
+			#	small=""
+			#}
+			army={
+				large="gfx/portraits/USA/navy_admirals/USA_Frank_Fletcher.dds"
+			}
+		}
+		navy_leader={
+			traits={ blockade_runner spotter }
+			skill=3
+			attack_skill=2
+			defense_skill=3
+			maneuvering_skill=3
+			coordination_skill=2
+			legacy_id=0
+		}
+	}
+
+	####################  GENERIC GENERALS & ADMIRALS ####################
+
 	USA_generic_general_1={
-		name="Generic 1"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_1.dds" } }
 		corps_commander={
 			traits={ }
-			skill=2
-			attack_skill=3
-			defense_skill=3
-			planning_skill=1
-			logistics_skill=2
+			skill=3  attack_skill=3  defense_skill=2  planning_skill=3  logistics_skill=3
 			legacy_id=-1
 		}
 	}
 	USA_generic_general_2={
-		name="Generic 2"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_2.dds" } }
 		corps_commander={
 			traits={ }
-			skill=2
-			attack_skill=2
-			defense_skill=3
-			planning_skill=3
-			logistics_skill=2
+			skill=3  attack_skill=3  defense_skill=3  planning_skill=2  logistics_skill=2
 			legacy_id=-1
 		}
 	}
 	USA_generic_general_3={
-		name="Generic 3"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_3.dds" } }
 		corps_commander={
 			traits={ }
-			skill=2
-			attack_skill=2
-			defense_skill=3
-			planning_skill=1
-			logistics_skill=2
+			skill=3  attack_skill=2  defense_skill=3  planning_skill=3  logistics_skill=2
 			legacy_id=-1
 		}
 	}
 	USA_generic_general_4={
-		name="Generic 4"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_4.dds" } }
 		corps_commander={
 			traits={ }
-			skill=2
-			attack_skill=2
-			defense_skill=1
-			planning_skill=3
-			logistics_skill=2
+			skill=2  attack_skill=2  defense_skill=2  planning_skill=2  logistics_skill=2
 			legacy_id=-1
 		}
 	}
 	USA_generic_general_5={
-		name="Generic 5"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_5.dds" } }
 		corps_commander={
 			traits={ }
-			skill=1
-			attack_skill=2
-			defense_skill=1
-			planning_skill=2
-			logistics_skill=1
+			skill=2  attack_skill=3  defense_skill=2  planning_skill=2  logistics_skill=2
 			legacy_id=-1
 		}
 	}
 	USA_generic_general_6={
-		name="Generic 6"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_1.dds" } }
 		corps_commander={
 			traits={ }
-			skill=1
-			attack_skill=1
-			defense_skill=1
-			planning_skill=2
-			logistics_skill=2
+			skill=2  attack_skill=1  defense_skill=2  planning_skill=2  logistics_skill=2
 			legacy_id=-1
 		}
 	}
 	USA_generic_general_7={
-		name="Generic 7"
-		#portraits="None"
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_2.dds" } }
 		corps_commander={
 			traits={ }
-			skill=1
-			attack_skill=1
-			defense_skill=1
-			planning_skill=2
-			logistics_skill=1
+			skill=2  attack_skill=2  defense_skill=1  planning_skill=2  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_8={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_3.dds" } }
+		corps_commander={
+			traits={ }
+			skill=2  attack_skill=2  defense_skill=3  planning_skill=1  logistics_skill=2
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_9={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_4.dds" } }
+		corps_commander={
+			traits={ }
+			skill=2  attack_skill=2  defense_skill=2  planning_skill=2  logistics_skill=2
+			legacy_id=-1
+		}
+	}
+
+	USA_generic_general_10={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_5.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=2  defense_skill=1  planning_skill=2  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_11={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_1.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=1  defense_skill=2  planning_skill=1  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_12={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_2.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=1  defense_skill=1  planning_skill=1  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_13={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_3.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=2  defense_skill=1  planning_skill=1  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_14={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_4.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=1  defense_skill=2  planning_skill=1  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_15={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_5.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=1  defense_skill=1  planning_skill=1  logistics_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_general_16={
+		portraits={ army={ large="gfx/portraits/USA/army_generals/Portrait_USA_generic_land_1.dds" } }
+		corps_commander={
+			traits={ }
+			skill=1  attack_skill=1  defense_skill=1  planning_skill=1  logistics_skill=1
 			legacy_id=-1
 		}
 	}
 
 
-	### ADMIRALS ##
-	
-	# USA_william_s._sims={
-	# 	name="William S. Sims"
-	# 	portraits={
-	# 		#army={
-	# 		#	small=""
-	# 		#}
-	# 		army={
-	# 			large="gfx/portraits/USA/navy_admirals/USA_William_Sims.dds"
-	# 		}
-	# 	}
-	# 	navy_leader={
-	# 		traits={ blockade_runner superior_tactician }
-	# 		skill=3
-	# 		attack_skill=3
-	# 		defense_skill=3
-	# 		maneuvering_skill=1
-	# 		coordination_skill=1
-	# 		legacy_id=0
-	# 	}
-	# }
-	# USA_victor_h._metcalf={
-	# 	name="Victor H. Metcalf"
-	# 	portraits={
-	# 		#army={
-	# 		#	small=""
-	# 		#}
-	# 		army={
-	# 			large="gfx/portraits/USA/navy_admirals/USA_William_Benson.dds"
-	# 		}
-	# 	}
-	# 	navy_leader={
-	# 		traits={ superior_tactician }
-	# 		skill=2
-	# 		attack_skill=2
-	# 		defense_skill=2
-	# 		maneuvering_skill=1
-	# 		coordination_skill=1
-	# 		legacy_id=0
-	# 	}
-	# }
-	# USA_henry_t._mayo={
-	# 	name="Henry T. Mayo"
-	# 	portraits={
-	# 		#army={
-	# 		#	small=""
-	# 		#}
-	# 		army={
-	# 			large="gfx/portraits/USA/navy_admirals/USA_Henry_Mayo.dds"
-	# 		}
-	# 	}
-	# 	navy_leader={
-	# 		traits={ superior_tactician }
-	# 		skill=4
-	# 		attack_skill=4
-	# 		defense_skill=4
-	# 		maneuvering_skill=1
-	# 		coordination_skill=1
-	# 		legacy_id=0
-	# 	}
-	# }
-	# USA_william_b._caperton={
-	# 	name="William B. Caperton"
-	# 	portraits={
-	# 		#army={
-	# 		#	small=""
-	# 		#}
-	# 		army={
-	# 			large="gfx/portraits/USA/navy_admirals/USA_William_Caperton.dds"
-	# 		}
-	# 	}
-	# 	navy_leader={
-	# 		traits={ blockade_runner spotter }
-	# 		skill=3
-	# 		attack_skill=3
-	# 		defense_skill=3
-	# 		maneuvering_skill=1
-	# 		coordination_skill=1
-	# 		legacy_id=0
-	# 	}
-	# }
-	# USA_frank_f._fletcher={
-	# 	name="Frank F. Fletcher"
-	# 	portraits={
-	# 		#army={
-	# 		#	small=""
-	# 		#}
-	# 		army={
-	# 			large="gfx/portraits/USA/navy_admirals/USA_Frank_Fletcher.dds"
-	# 		}
-	# 	}
-	# 	navy_leader={
-	# 		traits={ superior_tactician }
-	# 		skill=4
-	# 		attack_skill=4
-	# 		defense_skill=4
-	# 		maneuvering_skill=1
-	# 		coordination_skill=1
-	# 		legacy_id=0
-	# 	}
-	# }
-	# USA_richmond_p._hobson={
-	# 	name="Richmond P. Hobson"
-	# 	portraits={
-	# 		#army={
-	# 		#	small=""
-	# 		#}
-	# 		army={
-	# 			large="gfx/portraits/USA/navy_admirals/USA_Richmond_Hobson.dds"
-	# 		}
-	# 	}
-	# 	navy_leader={
-	# 		traits={ spotter }
-	# 		skill=3
-	# 		attack_skill=3
-	# 		defense_skill=3
-	# 		maneuvering_skill=1
-	# 		coordination_skill=1
-	# 		legacy_id=0
-	# 	}
-	# }
-
-
-	# # MILITARY ADVISORS
-
-	# # Pershing up there
-	
-	# USA_william_w_wotherspoon={
-	# 	advisor={
-	# 		slot = high_command
-	# 		idea_token = USA_william_w_wotherspoon
-	# 		ledger  = army 
-	# 			allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				army_entrenchment_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_william_w_wotherspoon"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_william_w_wotherspoon"
-	# 		}
-	# 	}
-	# }
-	# USA_peyton_c_march={
-	# 	advisor={
-	# 		slot = army_chief
-	# 		idea_token = USA_peyton_c_march
-	# 		allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				army_chief_offensive_2 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_peyton_c_march"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_peyton_c_march"
-	# 		}
-	# 	}
-	# }
-	# USA_samuel_young={
-	# 	advisor={
-	# 		slot = high_command
-	# 		idea_token = USA_samuel_young
-	# 		ledger  = army 
-	# 			allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				army_artillery_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_samuel_young"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_samuel_young"
-	# 		}
-	# 	}
-	# }
-	# USA_robert_e_coontz={
-	# 	advisor={
-	# 		slot = navy_chief
-	# 		idea_token = USA_robert_e_coontz
-	# 		allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				navy_chief_decisive_battle_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_robert_e_coontz"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_robert_e_coontz"
-	# 		}
-	# 	}
-	# }
-	# USA_william_s_benson={
-	# 	advisor={
-	# 		slot = high_command
-	# 		idea_token = USA_william_s_benson
-	# 		ledger  = navy 
-	# 			allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				navy_capital_ship_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_william_s_benson"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_william_s_benson"
-	# 		}
-	# 	}
-	# }
-	
-	# USA_william_kenly={
-	# 	advisor={
-	# 		slot = air_chief
-	# 		idea_token = USA_william_kenly
-	# 		allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				air_air_combat_training_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_william_kenly"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_william_kenly"
-	# 		}
-	# 	}
-	# }
-	# USA_benjamin_foulois={
-	# 	advisor={
-	# 		slot = high_command
-	# 		idea_token = USA_benjamin_foulois
-	# 		ledger  = air 
-	# 			allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				air_tactical_bombing_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_benjamin_foulois"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_benjamin_foulois"
-	# 		}
-	# 	}
-	# }	
-	# USA_charles_menoher={
-	# 	advisor={
-	# 		slot = high_command
-	# 		idea_token = USA_charles_menoher
-	# 		ledger  = air 
-	# 			allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				air_close_air_support_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_charles_menoher"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_charles_menoher"
-	# 		}
-	# 	}
-	# }
-	# USA_mason_patrick={
-	# 	advisor={
-	# 		slot = high_command
-	# 		idea_token = USA_mason_patrick
-	# 		ledger  = air 
-	# 			allowed  = {
-	# 				tag  = USA
-	# 			}
-	# 			#visible  = {
-	# 			#	has_start_date < 1937.1.1
-	# 			#}
-	# 			traits  = {
-	# 				air_bomber_interception_1 
-	# 			}
-	# 			ai_will_do  = {
-	# 				factor  = 1.000
-	# 			}
-				
-	# 	}
-	# 	name="USA_mason_patrick"
-	# 	portraits={
-	# 		army={
-	# 			small="GFX_idea_USA_mason_patrick"
-	# 		}
-	# 	}
-	# }
+	## Admirals
+	USA_generic_admiral_1={
+		portraits={ army={ large="gfx/portraits/USA/navy_admirals/Portrait_USA_Generic_navy_1.dds" } }
+		navy_leader={
+			traits={ }
+			skill=2  attack_skill=3  defense_skill=2  maneuvering_skill=2  coordination_skill=2
+			legacy_id=-1
+		}
+	}
+	USA_generic_admiral_2={
+		portraits={ army={ large="gfx/portraits/USA/navy_admirals/Portrait_USA_Generic_navy_2.dds" } }
+		navy_leader={
+			traits={ }
+			skill=2  attack_skill=2  defense_skill=3  maneuvering_skill=2  coordination_skill=2
+			legacy_id=-1
+		}
+	}
+	USA_generic_admiral_3={
+		portraits={ army={ large="gfx/portraits/USA/navy_admirals/Portrait_USA_Generic_navy_3.dds" } }
+		navy_leader={
+			traits={ }
+			skill=1  attack_skill=2  defense_skill=1  maneuvering_skill=2  coordination_skill=1
+			legacy_id=-1
+		}
+	}
+	USA_generic_admiral_4={
+		portraits={ army={ large="gfx/portraits/USA/navy_admirals/Portrait_USA_Generic_navy_1.dds" } }
+		navy_leader={
+			traits={ }
+			skill=1  attack_skill=1  defense_skill=2  maneuvering_skill=2  coordination_skill=2
+			legacy_id=-1
+		}
+	}
 }

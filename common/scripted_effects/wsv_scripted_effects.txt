@@ -17,6 +17,183 @@
 #
 
 
+# Effect to safely dismantle a faction
+dismantle_faction_safely_effect = {
+	every_other_country = {
+		limit = { 
+			is_in_faction_with = PREV  
+		}
+		leave_faction = yes
+	}
+	dismantle_faction = yes
+}
+
+
+## Great War loser ##
+greatwar_loser_effect = {
+	set_rule = { can_join_factions = no }
+	set_rule = { can_not_declare_war = yes }
+	add_ideas = { disarmed_nation   civilian_economy }
+}
+
+
+
+## Entente collapses (ROOT is leader)
+collapse_entente_effect = {
+	## determine action for entente countries
+	every_country = {
+		limit = { 
+			has_country_flag = entente_member
+			is_faction_leader = no
+		}
+		# kick other majors and none european countries (so they dont peace out)
+		if = {
+			limit = { 
+				OR = {
+					NOT = { capital_scope = { is_on_continent = europe } }
+					is_major = yes
+					tag = ITA   # has seperate peace
+				}
+			}
+			set_country_flag = former_entente_member
+			leave_faction = yes
+		}
+		# countries remaining also leave, but are added to an array of 'losers'
+		else = {
+			add_to_array = {
+				array = global.entente_loser_members
+				value = THIS.id
+			}
+			leave_faction = yes
+			white_peace = event_target:centralpowers_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
+			greatwar_loser_effect = yes
+		}
+	}
+	## news event of entente collapse (delayed to let current peace treaty take effect)
+	dismantle_faction = yes
+	set_global_flag = collapse_of_entente
+	news_event = { id = wsv_peace_treaty.12  days = 1 }
+}
+
+
+
+## Central Powers collapses (ROOT is leader)
+collapse_centralpowers_effect = {
+	## determine action for entente countries
+	every_country = {
+		limit = { 
+			has_country_flag = centralpowers_member
+			is_faction_leader = no
+		}
+		# kick other majors and none european countries (so they dont peace out)
+		if = {
+			limit = { 
+				OR = {
+					NOT = { capital_scope = { is_on_continent = europe } }
+					is_major = yes
+					tag = ITA   # has seperate peace
+					tag = BUL   # has seperate peace
+					tag = TUR   # has seperate peace
+				}
+			}
+			set_country_flag = former_centralpowers_member
+			leave_faction = yes
+		}
+		# countries remaining also leave, but peace out and are added to an array of 'losers'
+		else = {
+			add_to_array = {
+				array = global.centralpowers_loser_members
+				value = THIS.id
+			}
+			leave_faction = yes
+			white_peace = event_target:entente_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
+			greatwar_loser_effect = yes
+		}
+	}
+	## news event of Central powers collapse (delayed to let current peace treaty take effect)
+	dismantle_faction = yes
+	set_global_flag = collapse_of_centralpowers
+	news_event = { id = wsv_peace_treaty.52  days = 1 }
+}
+
+
+
+# End American-German Pact
+end_american_german_pact = {
+	clr_global_flag = american_german_pact
+	hidden_effect = {
+		USA = {
+			diplomatic_relation = {
+				country = GER
+				relation = guarantee
+				active = no
+			}
+		}
+		GER = {
+			diplomatic_relation = {
+				country = USA
+				relation = guarantee
+				active = no
+			}
+		}
+	}
+	custom_effect_tooltip = american_german_pact_ends_tt
+}
+
+
+# End Confederate-Canadian-British Pact
+end_confederate_canadian_british_pact = {
+	clr_global_flag = confederate_canadian_british_pact
+	hidden_effect = {
+		CSA = {
+			diplomatic_relation = {
+				country = CAN
+				relation = guarantee
+				active = no
+			}
+		}
+		CAN = {
+			diplomatic_relation = {
+				country = CSA
+				relation = guarantee
+				active = no
+			}
+		}
+		ENG = {
+			diplomatic_relation = {
+				country = CSA
+				relation = non_aggression_pact
+				active = no
+			}
+		}
+	}
+	custom_effect_tooltip = confederate_canadian_british_pact_ends_tt
+}
+
+
+
+# Turkish military reforms (written backwards to prevent chain effect)
+improve_turkish_military_effect = {
+	if = {
+		limit = { has_idea = TUR_outdated_army_2 }
+		custom_effect_tooltip = improve_turkish_military_tt
+		swap_ideas = {
+			remove_idea = TUR_outdated_army_2
+			add_idea = TUR_outdated_army_3
+		}
+	}
+	else_if = {
+		limit = { has_idea = TUR_outdated_army }
+		custom_effect_tooltip = improve_turkish_military_tt
+		swap_ideas = {
+			remove_idea = TUR_outdated_army
+			add_idea = TUR_outdated_army_2
+		}
+	}
+	else = {
+		custom_effect_tooltip = cant_improve_turkish_military_tt
+	}
+}
 
 
 # Increases level of conscription (written backwards to prevent chain effect)
@@ -44,232 +221,338 @@ increase_conscription_tier_effect = {
 }
 
 
+########### LATAM Influence ############
+
+increase_latam_influence_by_5_effect = {
+	add_to_variable = { CSA.csa_influence_in_latam = 5 }
+	custom_effect_tooltip = increase_latam_influence_by_5_tt
+}
+
+increase_latam_influence_by_10_effect = {
+	add_to_variable = { CSA.csa_influence_in_latam = 10 }
+	custom_effect_tooltip = increase_latam_influence_by_10_tt
+}
+
+
+########### Socialist Militancy ############
+
+increase_militancy_by_5_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 95 } }
+		add_to_variable = { USA.usa_socialist_militancy = 5 }
+		custom_effect_tooltip = increase_militancy_by_5_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+increase_militancy_by_10_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 90 } }
+		add_to_variable = { USA.usa_socialist_militancy = 10 }
+		custom_effect_tooltip = increase_militancy_by_10_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+increase_militancy_by_20_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy < 80 } }
+		add_to_variable = { USA.usa_socialist_militancy = 20 }
+		custom_effect_tooltip = increase_militancy_by_20_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 100 }
+		custom_effect_tooltip = set_militancy_at_100_tt
+	}
+}
+
+decrease_militancy_by_5_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy > 5 } }
+		subtract_from_variable = { USA.usa_socialist_militancy = 5 }
+		custom_effect_tooltip = decrease_militancy_by_5_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 0 }
+		custom_effect_tooltip = set_militancy_at_0_tt
+	}
+}
+
+decrease_militancy_by_10_effect = {
+	if = {
+		limit = { check_variable = { USA.usa_socialist_militancy > 10 } }
+		subtract_from_variable = { USA.usa_socialist_militancy = 10 }
+		custom_effect_tooltip = decrease_militancy_by_10_tt
+	}
+	else = {
+		set_variable = { USA.usa_socialist_militancy = 0 }
+		custom_effect_tooltip = set_militancy_at_0_tt
+	}
+}
+
+
+
+########### Russian Political Crisis ############ 
+
+# ## Whites
+# slightly_increase_white_support_effect = {
+# 	add_to_variable = { RUS.white_support = 5 }
+# 	custom_effect_tooltip = slightly_increase_white_support_tt
+# }
+
+# increase_white_support_effect = {
+# 	add_to_variable = { RUS.white_support = 10 }
+# 	custom_effect_tooltip = increase_white_support_tt
+# }
+
+# slightly_decrease_white_support_effect = {
+# 	if = {
+# 		limit = { check_variable = { RUS.white_support > 4 } }
+# 		subtract_from_variable = { RUS.white_support = 5 }
+# 	}
+# 	else = {
+# 		set_variable = { RUS.white_support = 0 }
+# 	}
+# 	custom_effect_tooltip = decrease_white_support_tt
+# }
+
+
+# ## Reds
+# increase_red_support_effect = {
+# 	add_to_variable = { RUS.red_support = 10 }
+# 	custom_effect_tooltip = increase_red_support_tt
+# }
+
+# slightly_decrease_red_support_effect = {
+# 	if = {
+# 		limit = { check_variable = { RUS.red_support > 4 } }
+# 		subtract_from_variable = { RUS.red_support = 5 }
+# 	}
+# 	else = {
+# 		set_variable = { RUS.red_support = 0 }
+# 	}
+# 	custom_effect_tooltip = decrease_red_support_tt
+# }
+
+# massively_decrease_red_support_effect = {
+# 	if = {
+# 		limit = { check_variable = { RUS.red_support > 24 } }
+# 		subtract_from_variable = { RUS.red_support = 25 }
+# 	}
+# 	else = {
+# 		set_variable = { RUS.red_support = 0 }
+# 	}
+# 	custom_effect_tooltip = massively_decrease_red_support_tt
+# }
+
+
+##############################################################
+
+
 
 ### Red Rebellion ###
 
 # scope is state
-CSA_black_rebels_escalate_state_effect = {
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-		damage_building = {
-		    type = infrastructure
-		    damage = 0.5
-		}
-		damage_building = {
-		    type = industrial_complex
-		    damage = 0.5
-		}
-		add_manpower = -1000
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
-		hidden_effect = { 
-			remove_dynamic_modifier = { modifier = CSA_red_enclave } 
-		}
-		add_dynamic_modifier = { modifier = CSA_red_stronghold }
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
-		hidden_effect = { 
-			remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
-		}
-		add_dynamic_modifier = { modifier = CSA_red_enclave }
-	}
-}
-# scope is state
-CSA_black_rebels_pacify_state_effect = {
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
-		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
-		clr_state_flag = contains_red_rebels
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
-		remove_dynamic_modifier = { modifier = CSA_red_enclave } 
-		add_dynamic_modifier = { modifier = CSA_red_insurgents }
-	}
-	if = {
-		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
-		remove_dynamic_modifier = { modifier = CSA_red_stronghold } 
-		add_dynamic_modifier = { modifier = CSA_red_enclave }
-	}
-}
-
-#################################################
+# CSA_black_rebels_escalate_state_effect = {
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
+# 		damage_building = {
+# 		    type = infrastructure
+# 		    damage = 0.5
+# 		}
+# 		damage_building = {
+# 		    type = industrial_complex
+# 		    damage = 0.5
+# 		}
+# 		add_manpower = -1000
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
+# 		hidden_effect = { 
+# 			remove_dynamic_modifier = { modifier = CSA_red_enclave } 
+# 		}
+# 		add_dynamic_modifier = { modifier = CSA_red_stronghold }
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
+# 		hidden_effect = { 
+# 			remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+# 		}
+# 		add_dynamic_modifier = { modifier = CSA_red_enclave }
+# 	}
+# }
+# # scope is state
+# CSA_black_rebels_pacify_state_effect = {
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_insurgents } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_insurgents } 
+# 		clr_state_flag = contains_red_rebels
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_enclave } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_enclave } 
+# 		add_dynamic_modifier = { modifier = CSA_red_insurgents }
+# 	}
+# 	if = {
+# 		limit = { has_dynamic_modifier = { modifier = CSA_red_stronghold } }
+# 		remove_dynamic_modifier = { modifier = CSA_red_stronghold } 
+# 		add_dynamic_modifier = { modifier = CSA_red_enclave }
+# 	}
+# }
 
 
-update_latin_american_exploitation_effect = {
-
-	# first check csa's edge on influence
-	set_temp_variable = { temp_influence_edge = CSA.csa_influence_in_caribbean }
-	subtract_from_temp_variable = { temp_influence_edge = USA.usa_influence_in_caribbean }
-	# update csa influence edge
-	set_variable = { CSA.csa_influence_edge = temp_influence_edge }
-
-	# clear first
-	CSA = { remove_ideas = CSA_caribbean_empire_1 }
-	CSA = { remove_ideas = CSA_caribbean_empire_2 }
-	CSA = { remove_ideas = CSA_caribbean_empire_3 }
-	# update accordingly 
-	if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 30  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_3 }
-	}
-	else_if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 20  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_2 }
-	}
-	else_if = {
-		limit = { check_variable = { var = CSA.csa_influence_edge   value = 10  compare = greater_than_or_equals } }
-		CSA = { add_ideas = CSA_caribbean_empire_1 }
-	}
-}
 
 
 
 # Effect to update country tech to ww2 levels
 full_modernize_tech_effect = {
-	set_technology = {
-		#Infantry
-		infantry_weapons = 1
-		ww1infantry_weapons1 = 1
-		ww1_infantry_equip1 = 1
-		ww1infantry_weapons2 = 1
-		ww1_helmet_equip = 1
-		ww1_infantry_equip2 = 1
-		ww1infantry_weapons3 = 1
-		ww1_infantry_equip3 = 1
-		support_weapons = 1
-		support_weapons2 = 1
-		infantry_ww1_mortar1 = 1
-		support_weapons3 = 1
-		infantry_ww1_mortar2 = 1
-		#infantry_binoculars = 1
-		#infantry_grenade = 1
-		#infantry_gasmask = 1
-		infantry_at_rifle = 1
-		infantry_flamethrower1 = 1
-		motorised_infantry = 1
+	# set_technology = {
+	# 	#Infantry
+	# 	infantry_weapons = 1
+	# 	ww1infantry_weapons1 = 1
+	# 	ww1_infantry_equip1 = 1
+	# 	ww1infantry_weapons2 = 1
+	# 	ww1_helmet_equip = 1
+	# 	ww1_infantry_equip2 = 1
+	# 	ww1infantry_weapons3 = 1
+	# 	ww1_infantry_equip3 = 1
+	# 	support_weapons = 1
+	# 	support_weapons2 = 1
+	# 	infantry_ww1_mortar1 = 1
+	# 	support_weapons3 = 1
+	# 	infantry_ww1_mortar2 = 1
+	# 	#infantry_binoculars = 1
+	# 	#infantry_grenade = 1
+	# 	#infantry_gasmask = 1
+	# 	infantry_at_rifle = 1
+	# 	infantry_flamethrower1 = 1
+	# 	motorised_infantry = 1
 
-		#Artillery
-		light_field_gun1 = 1
-		bonus_artillery1 = 1
-		light_field_gun2 = 1
-		bonus_artillery2 = 1
-		bonus_artillery3 = 1
-		light_field_gun3 = 1
-		#standard_artillery = 1
-		heavy_field_gun1 = 1
-		bonus_bertha1 = 1
-		heavy_field_gun2 = 1
-		bonus_bertha2 = 1
-		bonus_bertha3 = 1
-		ww1_antiair = 1
-		ww1_antiair_upgrade1 = 1
-		ww1_antiair_upgrade2 = 1
-		ww1_antitank = 1
-		ww1_antitank_ugrade1 = 1
+	# 	#Artillery
+	# 	light_field_gun1 = 1
+	# 	bonus_artillery1 = 1
+	# 	light_field_gun2 = 1
+	# 	bonus_artillery2 = 1
+	# 	bonus_artillery3 = 1
+	# 	light_field_gun3 = 1
+	# 	#standard_artillery = 1
+	# 	heavy_field_gun1 = 1
+	# 	bonus_bertha1 = 1
+	# 	heavy_field_gun2 = 1
+	# 	bonus_bertha2 = 1
+	# 	bonus_bertha3 = 1
+	# 	ww1_antiair = 1
+	# 	ww1_antiair_upgrade1 = 1
+	# 	ww1_antiair_upgrade2 = 1
+	# 	ww1_antitank = 1
+	# 	ww1_antitank_ugrade1 = 1
 
-		#Armor 
-		gwtank = 1 # 1910 Armored Car
-		ww1_armored_car_2 = 1
-		ww1_armored_car_3 = 1
-		ww1_armored_car_4 = 1
-		tank_unlocker2 = 1
-		ww1_light_tank = 1
-		ww1_heavy_tank = 1
-		ww1_heavy_tank2 = 1
-		ww1_super_heavy_tank = 1
+	# 	#Armor 
+	# 	gwtank = 1 # 1910 Armored Car
+	# 	ww1_armored_car_2 = 1
+	# 	ww1_armored_car_3 = 1
+	# 	ww1_armored_car_4 = 1
+	# 	tank_unlocker2 = 1
+	# 	ww1_light_tank = 1
+	# 	ww1_heavy_tank = 1
+	# 	ww1_heavy_tank_2 = 1
+	# 	ww1_super_heavy_tank = 1
 
-		#Naval
-		ww1_destroyer1 = 1
-		ww1_destroyer2 = 1
-		ww1_destroyer3 = 1
-		#ww1_destroyer4 = 1
-		#ww1_destroyer5 = 1
-		ww1_smoke_generator = 1
-		ww1_light_cruiser1 = 1
-		ww1_light_cruiser2 = 1
-		ww1_light_cruiser3 = 1
-		#ww1_light_cruiser4 = 1
-		ww1_heavy_cruiser1 = 1
-		ww1_battlecruiser0 = 1
-		ww1_battlecruiser1 = 1
-		#ww1_battlecruiser2 = 1
-		ww1_battleship1 = 1
-		ww1_battleship2 = 1
-		ww1_battleship3 = 1
-		#ww1_battleship4 = 1
-		#ww1_battleship5 = 1
-		ww1_submarine1 = 1
-		ww1_submarine2 = 1
-		#ww1_submarine3 = 1
-		#ww1_submarine4 = 1
-		transport = 1
+	# 	#Naval
+	# 	ww1_destroyer1 = 1
+	# 	ww1_destroyer2 = 1
+	# 	ww1_destroyer3 = 1
+	# 	#ww1_destroyer4 = 1
+	# 	#ww1_destroyer5 = 1
+	# 	ww1_smoke_generator = 1
+	# 	ww1_light_cruiser1 = 1
+	# 	ww1_light_cruiser2 = 1
+	# 	ww1_light_cruiser3 = 1
+	# 	#ww1_light_cruiser4 = 1
+	# 	ww1_heavy_cruiser1 = 1
+	# 	ww1_battlecruiser0 = 1
+	# 	ww1_battlecruiser1 = 1
+	# 	#ww1_battlecruiser2 = 1
+	# 	ww1_battleship1 = 1
+	# 	ww1_battleship2 = 1
+	# 	ww1_battleship3 = 1
+	# 	#ww1_battleship4 = 1
+	# 	#ww1_battleship5 = 1
+	# 	ww1_submarine1 = 1
+	# 	ww1_submarine2 = 1
+	# 	#ww1_submarine3 = 1
+	# 	#ww1_submarine4 = 1
+	# 	transport = 1
 
-		#Air
-		ww1_scout = 1
-		ww1_fighter1 = 1
-		ww1_fighter2 = 1
-		ww1_triplane1 = 1
-		ww1_fighter3 = 1
-		ww1_triplane2 = 1
-		ww1_cas1 = 1
-		ww1_cas2 = 1
-		ww1_seaplane1 = 1
-		ww1_seaplane2 = 1
-		ww1_bomber1 = 1
-		ww1_bomber2 = 1
-		ww1_zeppelin1 = 1
-		ww1_zeppelin2 = 1
+	# 	#Air
+	# 	ww1_scout = 1
+	# 	ww1_fighter1 = 1
+	# 	ww1_fighter2 = 1
+	# 	ww1_triplane1 = 1
+	# 	ww1_fighter3 = 1
+	# 	ww1_triplane2 = 1
+	# 	ww1_cas1 = 1
+	# 	ww1_cas2 = 1
+	# 	ww1_seaplane1 = 1
+	# 	ww1_seaplane2 = 1
+	# 	ww1_bomber1 = 1
+	# 	ww1_bomber2 = 1
+	# 	ww1_zeppelin1 = 1
+	# 	ww1_zeppelin2 = 1
 
-		#Electronics
-		electronic_mechanical_engineering = 1
-		supertech1 = 1
-		supertech2 = 1
-		supertech3 = 1
-		mechanical_computing = 1
-		hoi4tgw_decryption = 1
-		hoi4tgw_encryption = 1
-		mechanical_computing2 = 1
-		hoi4tgw_decryption2 = 1
-		hoi4tgw_encryption2 = 1
-		dingfelder_engine1 = 1
-		dingfelder_engine2 = 1
-		chemical_research = 1
-		chemical_research2 = 1
-		chemical_research3 = 1
-		mechanical_computing3 = 1  # remove for generic ww2
-		hoi4tgw_decryption3 = 1  # remove for generic ww2
-		hoi4tgw_encryption3 = 1  # remove for generic ww2
+	# 	#Electronics
+	# 	electronic_mechanical_engineering = 1
+	# 	supertech1 = 1
+	# 	supertech2 = 1
+	# 	supertech3 = 1
+	# 	mechanical_computing = 1
+	# 	hoi4tgw_decryption = 1
+	# 	hoi4tgw_encryption = 1
+	# 	mechanical_computing2 = 1
+	# 	hoi4tgw_decryption2 = 1
+	# 	hoi4tgw_encryption2 = 1
+	# 	dingfelder_engine1 = 1
+	# 	dingfelder_engine2 = 1
+	# 	chemical_research = 1
+	# 	chemical_research2 = 1
+	# 	chemical_research3 = 1
+	# 	mechanical_computing3 = 1  # remove for generic ww2
+	# 	hoi4tgw_decryption3 = 1  # remove for generic ww2
+	# 	hoi4tgw_encryption3 = 1  # remove for generic ww2
 
-		#Industry
-		ww1_tools1 = 1
-		ww1_tools2 = 1
-		ww1_tools3 = 1
-		ww1_industry1 = 1
-		ww1_industry2 = 1
-		ww1_industry3 = 1
-		ww1_construction1 = 1
-		ww1_construction2 = 1
-		ww1_mining1 = 1
-		ww1_mining2 = 1
-		#ww1_mining3 = 1
-		ww1_oil1 = 1
-		ww1_oil2 = 1
-		#ww1_oil3 = 1
-		ww1_bergiusprocess = 1
-		ww1_fortification1 = 1
-		ww1_fortification2 = 1
-		#ww1_airdefense1 = 1
-		ww1_industry4 = 1  # remove for generic ww2
-		construction1 = 1  # remove for generic ww2
-		construction2 = 1  # remove for generic ww2
-		excavation1 = 1   # remove for generic ww2
-		excavation2 = 1   # remove for generic ww2
-		fuel_refining = 1  # remove for generic ww2
-		fuel_refining2 = 1  # remove for generic ww2
-	}
+	# 	#Industry
+	# 	ww1_tools1 = 1
+	# 	ww1_tools2 = 1
+	# 	ww1_tools3 = 1
+	# 	ww1_industry1 = 1
+	# 	ww1_industry2 = 1
+	# 	ww1_industry3 = 1
+	# 	ww1_construction1 = 1
+	# 	ww1_construction2 = 1
+	# 	ww1_mining1 = 1
+	# 	ww1_mining2 = 1
+	# 	#ww1_mining3 = 1
+	# 	ww1_oil1 = 1
+	# 	ww1_oil2 = 1
+	# 	#ww1_oil3 = 1
+	# 	ww1_bergiusprocess = 1
+	# 	ww1_fortification1 = 1
+	# 	ww1_fortification2 = 1
+	# 	#ww1_airdefense1 = 1
+	# 	ww1_industry4 = 1  # remove for generic ww2
+	# 	construction1 = 1  # remove for generic ww2
+	# 	construction2 = 1  # remove for generic ww2
+	# 	excavation1 = 1   # remove for generic ww2
+	# 	excavation2 = 1   # remove for generic ww2
+	# 	fuel_refining = 1  # remove for generic ww2
+	# 	fuel_refining2 = 1  # remove for generic ww2
+	# }
 }
 
 

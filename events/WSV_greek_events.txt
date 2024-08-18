@@ -1,0 +1,245 @@
+﻿add_namespace = wsv_greece
+
+
+# News event of Allied troops landing in Thessaloniki
+news_event = {
+	id = wsv_greece.1
+	title = wsv_greece.1.t
+	desc = wsv_greece.1.d
+	picture =  news_event_entente_landing_salonika
+
+    is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = entente_landings_in_greece
+		hidden_effect = {
+			GRE = { 
+				set_country_flag = greek_national_schism 
+				activate_decision = greek_political_standoff
+			}
+		}
+	}
+
+	option = {
+		name = wsv_greece.1.a
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = {	is_in_faction_with = FRA }
+		}
+	}
+
+	option = {
+		name = wsv_greece.1.b
+		trigger = {
+			OR = { 
+				tag = FRA
+				is_in_faction_with = FRA
+			}
+		}
+	}
+}
+
+
+# # Allies expand bridgehead
+# country_event = {
+# 	id = wsv_greece.2
+# 	title = wsv_greece.2.t
+# 	desc = wsv_greece.2.d
+
+#     trigger = {
+# 		has_global_flag = entente_landings_in_greece
+# 		OR = {
+# 			tag = GRE
+# 			tag = FRA 
+# 		}
+# 		GRE = { 
+# 			has_full_control_of_state = 184
+# 			NOT = { has_war_with = FRA }
+# 			NOT = { is_in_faction_with =  FRA }
+# 		}
+# 		SER = { has_capitulated = yes }
+# 		NOT = { has_country_flag = entente_expanded_foothold_in_greece }
+# 	}
+
+# 	immediate = {
+# 		set_country_flag = entente_expanded_foothold_in_greece
+# 		hidden_effect = { FRA = { transfer_state = 184 } }
+# 	}
+
+# 	# For Greece
+# 	option = {
+# 		name = wsv_greece.2.a
+# 		trigger = { tag = GRE }
+# 		add_stability = -0.05
+# 		add_political_power = -75
+# 	}
+
+# 	# For France
+# 	option = {
+# 		name = wsv_greece.2.b
+# 		trigger = { tag = FRA }
+# 		transfer_state = 184
+# 	}
+# }
+
+
+# Greek National Front forms
+news_event = {
+	id = wsv_greece.3
+	title = wsv_greece.3.t
+	desc = wsv_greece.3.d
+	picture = news_event_greek_national_front
+
+    is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = greek_national_front_formed
+		hidden_effect = {
+			GNU = {
+				transfer_state = 184
+				transfer_state = 855
+				transfer_state = 731
+				transfer_state = 758
+				every_owned_state = {
+					add_core_of = GNU
+				}
+				inherit_technology = GRE
+				load_focus_tree = { tree = generic_focus  keep_completed = yes }
+				set_country_flag = { flag = gnu_formed_cooldown   value = 1  days = 200 }
+				# boost country stats
+				load_oob = "GNU_volunteers"
+				add_manpower = 100000
+				add_equipment_to_stockpile = {
+					type = infantry_equipment_1
+					amount = 10000
+					producer = FRA
+				}
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.75
+					uses = 3
+					technology = ww1_landdoctrine
+					technology = ww1_delegated_command
+					technology = ww1_centralized_command
+					technology = ww1_trench_warfare
+					technology = ww1_preliminary_bombardment
+				}
+			}
+			GRE = {
+				transfer_units_fraction = {
+					target = GNU
+					size = 0.1
+					army_ratio = 0.05
+					air_ratio = 0
+					navy_ratio = 0
+					stockpile_ratio = 0.1
+				}
+				army_experience = 50
+				add_doctrine_cost_reduction = {
+					cost_reduction = 0.25
+					uses = 2
+					category = land_doctrine
+				}
+			}
+			## add GNU to faction
+			random_country = {
+				limit = {
+					is_faction_leader = yes
+					is_in_faction_with = SER
+				}
+				add_to_faction = GNU
+			}
+		}
+	}
+
+	# For France & allies
+	option = {
+		name = wsv_greece.3.a
+		trigger = {
+			OR = {
+				tag = FRA
+				is_in_faction_with = FRA
+			}
+		}
+	}
+
+	# For French enemies
+	option = {
+		name = wsv_greece.3.b
+		trigger = { has_war_with = FRA }
+		if = {
+			limit = { tag = BUL }
+			create_wargoal = {
+				target = GNU
+				type = take_claimed_state
+			}
+		}
+	}
+
+	# For neutrals
+	option = {
+		name = wsv_greece.3.c
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = { has_war_with = FRA }
+			NOT = { is_in_faction_with = FRA }
+		}
+	}
+}
+
+
+
+
+## Greek King overthrown + reunification of Greece
+country_event = {
+	id = wsv_greece.4
+	title = wsv_greece.4.t
+	desc = wsv_greece.4.d
+
+    trigger = {
+		tag = GRE
+		country_exists = GNU
+		NOT = { has_war_with = GNU }
+		OR = {
+			# if in faction together merge
+			is_in_faction_with = GNU 	
+			# France was unable to overthrow the Greek king due to Russia
+			AND = {
+				FRA = { 
+					is_in_faction_with = GNU
+					OR = {
+						has_global_flag = tsar_of_russia_abdicated
+						NOT = { is_in_faction_with = RUS }
+					}
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = { days = 70 }
+
+	# For Greece
+	option = {
+		name = wsv_greece.4.a
+		set_global_flag = greece_reunited
+		retire_country_leader = yes
+		hidden_effect = { 
+			## add greece to GNU faction
+			GNU = {
+				if = {
+					limit = { is_in_faction = yes }
+					faction_leader = { add_to_faction = GRE }
+				}
+			}
+			## have greece eat the GNU
+			GRE = {
+				annex_country = {
+					target = GNU
+					transfer_troops = yes
+				}
+			}
+		}
+		custom_effect_tooltip = greece_forced_into_entente_tt
+	}
+}

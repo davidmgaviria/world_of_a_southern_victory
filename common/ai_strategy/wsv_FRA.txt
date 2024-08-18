@@ -16,73 +16,6 @@
 
 ######################### GENERIC ##########################
 
-# FRA_area_priority = {
-# 	allowed = { original_tag = FRA }
-# 	enable = {
-# 		always = yes
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = europe
-# 		value = 110 #more focus here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = scandinavia
-# 		value = 0
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = north_america
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = south_america
-# 		value = 10
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = asia
-# 		value = 50
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = middle_east
-# 		value = -25
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = africa
-# 		value = -200
-# 	}
-# 	ai_strategy = {
-#         type = area_priority
-#         id = suez
-#         value = -25
-#     }
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = pacific
-# 		value = 10 #less focus here
-# 	}
-
-# 	ai_strategy = {
-# 		type = area_priority
-# 		id = oceania
-# 		value = 10
-# 	}
-# }
-
-
 
 FRA_ignore_north_america = {
 	allowed = {
@@ -142,10 +75,7 @@ FRA_ignore_russia = {
 
 ######################### GREAT WAR ##########################
 
-
-
-#stacks from base production
-FRA_gw_modified_unit_production = {
+FRA_gw_equipment_and_unit_production = {
 	allowed = {
 		original_tag = FRA
 		has_start_date < 1937.1.1
@@ -158,20 +88,98 @@ FRA_gw_modified_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 15
+		value = 100	 
 	}
-
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = -5
+		value = 25
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = fighter
+		value = 35
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = tactical_bomber
+		value = 30
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = motorized
+		value = 10
+	}
+	ai_strategy = {
+		type = equipment_production_factor
+		id = convoy
+		value = 10
 	}
 
+	## AIR FACTORY BALANCE
 	ai_strategy = {
 		type = air_factory_balance
-		value = 60
+		value = 100
+	}
+	
+	## EXTRA UNIT RATIOS
+	ai_strategy = {
+		type = unit_ratio
+		id = fighter
+		value = 20   # total is 120
+	}
+	ai_strategy = {
+		type = unit_ratio
+		id = tactical_bomber
+		value = 10	# total is 50
+	}
+	ai_strategy = {
+		type = role_ratio
+		id = armor   
+		value = 2   # total is 4
 	}
 }
+
+
+## save up less equipment at beginning in case of issues
+FRA_gw_stockpile_less_early_game = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war = no
+		date < 1914.1.1
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10
+	}
+}
+
+
+FRA_befriend_england = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = ENG
+		NOT = { has_war_with = ENG }
+	}
+	abort = {
+		has_completed_focus = FRA_franco_british_split
+	}
+	
+	ai_strategy = {
+		type = befriend
+		id = "ENG"			
+		value = 100
+	}	
+}
+
 
 FRA_loss_of_alsacelorraine = {
 	allowed = {
@@ -188,48 +196,7 @@ FRA_loss_of_alsacelorraine = {
 	ai_strategy = {
 		type = antagonize
 		id = "GER"
-		value = 50
-	}
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "GER"
-		value = 20
-	}
-}
-
-
-
-FRA_build_army = {
-	allowed = {
-		original_tag = FRA
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_army_manpower = { size < 1100000 }
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 400
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 5
-	}
-
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
-	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -10 # reduce while we build up in case of issues
+		value = 25
 	}
 }
 
@@ -242,20 +209,64 @@ FRA_greatwar_mobilize = {
 	enable = {
 		country_exists = GER
 		NOT = { is_in_faction_with = GER }
-		threat > 0.25	
+		threat > 0.3	
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = prepare_for_war
 		id = "GER"
-		value = 200
+		value = 100
 	}
 
 	ai_strategy = {
 		type = support
 		id = "RUS"
 		value = 80
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = europe
+		value = 100
+	}
+}
+
+
+
+FRA_focus_on_western_front = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		country_exists = GER
+		NOT = { is_in_faction_with = GER }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = area_priority
+		id = western_front
+		value = 100
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = western_front		
+		value = 75
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -75
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = middle_east		
+		value = -50
 	}
 }
 
@@ -269,7 +280,7 @@ FRA_opening_war_assault = {
 		OR = {
 			NOT = { is_in_faction_with = GER }
 		}
-		threat > 0.25
+		threat > 0.3
 	}
 	abort = {
 		has_war_with = GER  #dont abort before
@@ -281,47 +292,269 @@ FRA_opening_war_assault = {
 
 	ai_strategy = {
 		type = front_control
-		tag = GER
+		state = 28
 		priority = 100
-		ratio = 0.35
+		ratio = 0.6
 		ordertype = front
-		execution_type = balanced
+		execution_type = rush
 		execute_order = yes
 		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = "GER"
+		value = 50
 	}
 }	
 
 
-# FRA_focus_on_germany = {
-# 	allowed = {
-# 		original_tag = FRA
-# 		has_start_date < 1937.1.1
-# 	}
-# 	enable = {
-# 		country_exists = GER
-# 		NOT = { is_in_faction_with = GER }
-# 		has_war_with = GER
-# 	}
-# 	abort_when_not_enabled = yes
+FRA_early_defense_of_belgium = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER
+		BEL = { 
+			has_war_with = GER
+			NOT = { is_puppet_of = FRA }
+		}
+	}
+	abort = {
+		OR = {
+			BEL = { surrender_progress > 0.6 }
+			war_length_with = { tag = GER  months > 3 }   # start helping belgium
+		}
+	}
 
-# 	ai_strategy = {
-# 		type = conquer
-# 		id = "GER"			
-# 		value = 50
-# 	}
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = africa
-# 		value = -60
-# 	}
-# 	ai_strategy = {
-# 		type = front_unit_request
-# 		area = middle_east
-# 		area = suez
-# 		value = -80
-# 	}
-# }
+	# defend northern france
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			29
+			785
+			18
+			16
+		}
+		ratio = 0.15
+		#priority = 9999
+		area = europe
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
 
+	# dont really defend belgium
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 2
+		states = {
+			6
+			34
+		}
+		ratio = 0.03
+		area = europe
+		subtract_invasions_from_need = yes
+		subtract_fronts_from_need = yes
+	}
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = BEL
+		value = 1
+	}
+}	
+
+
+# fight germany cautiously
+FRA_careful_against_GER = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = GER 
+		war_length_with = { tag = GER  months > 3 }  	# dont trigger at beginning of war
+	}
+	abort = {
+		GER = { surrender_progress > 0.2 }
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = GER			
+		value = -15
+	}
+}
+
+
+## control army size production (so france also does offensives)
+FRA_limit_army_size = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		tag = FRA
+		has_war_with_major = yes
+		OR = {
+			# we dont need a huge army
+			has_army_manpower = { size > 2000000 }
+			# dont spam men if we dont have the equipment for it
+			stockpile_ratio = {	 
+				archetype = infantry_equipment
+				ratio < 0.05
+			}
+		}
+	}
+	abort = {
+		has_army_manpower = { size < 1200000 }
+	}
+
+	ai_strategy = {
+		type = build_army
+		id = garrison
+		value = -9999
+	}
+	ai_strategy = {
+		type = build_army
+		id = infantry
+		value = -9999
+	}
+	ai_strategy = {
+		type = force_build_armies
+		value = -9999
+	}
+}
+
+
+## dont send troops to Serbia
+FRA_ignore_serbia = {
+	allowed = {
+		original_tag = FRA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_together_with = SER
+		NOT = { has_global_flag = greek_national_front_formed }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "SER"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "MNT"
+		value = 1
+	}
+	ai_strategy = {
+		type = dont_defend_ally_borders
+		id = "ALB"
+		value = 1
+	}
+}
+
+
+## move troops to salonika front
+FRA_stage_troops_in_salonika = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		controls_state = 855
+	}
+	abort = {
+		has_war_together_with = GNU
+	}
+
+	# move troops to salonika
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			855
+			184
+		}
+		ratio = 0.2
+		#priority = 9999
+		area = europe
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
+
+
+## support salonika front
+FRA_aid_salonika_front = {
+	allowed = {
+		original_tag = FRA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_together_with = GNU
+		NOT = { has_war_with = GRE }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_control
+		tag = BUL
+		ratio = 0.5
+		priority = 50  
+		ordertype = front
+		execution_type = careful
+		execute_order = no
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = BUL	
+		value = 25
+	}
+
+	ai_strategy = {
+		type = protect
+		id = GNU
+		value = 100
+	}
+	ai_strategy = {
+		type = support
+		id = GNU
+		value = 100
+	}
+	ai_strategy = {
+		type = support
+		id = GRE
+		value = 100
+	}
+
+	ai_strategy = {
+		type = force_defend_ally_borders
+		id = GNU
+		value = 1
+	}
+
+	# troops to hold salonika
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			855
+			184
+		}
+		ratio = 0.1
+		#priority = 9999
+		area = europe
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
 
 
 
@@ -401,7 +634,7 @@ FRA_ww2_stockpile_less_early_game = {
 	
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 # reduce while we build up in case of issues
+		value = -15 # reduce while we build up in case of issues
 	}
 }
 

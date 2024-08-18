@@ -1,0 +1,73 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+
+GRE_first_balkan = {
+	enable = {
+		tag = GRE
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes	
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = "TUR"			
+		value = 75
+	}	
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 10
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = TUR
+		value = 20  # consider Turkey easy prey
+	}
+}
+
+
+
+## support salonika front
+GRE_salonika_front = {
+	allowed = {
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date > 1914.1.1
+		OR = {
+			tag = GRE
+			tag = GNU 
+		}
+		has_war_with = BUL
+		is_in_faction_with = FRA
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = BUL	
+		value = 25
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = BUL	
+		value = 15
+	}
+}
