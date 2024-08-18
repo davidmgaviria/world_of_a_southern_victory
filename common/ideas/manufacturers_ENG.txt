@@ -77,7 +77,21 @@ ideas={
 	}
 	materiel_manufacturer = {
 		designer = yes
-		rsaf_enfield={ allowed={ TAG=ENG } research_bonus={ infantry_weapons=0.10 } traits={ infantry_equipment_manufacturer } }
+		rsaf_enfield={ 
+			allowed={ TAG=ENG }
+			research_bonus={ infantry_weapons=0.10 }
+			equipment_bonus = {
+				infantry_equipment = {
+					soft_attack = 0.05
+					reliability = 0.05
+				}
+			}
+			traits={ infantry_equipment_manufacturer } 
+			ai_will_do={ factor = 0.25 }
+		}
+
+
+
 		leyland_motors={ allowed={ TAG=ENG } research_bonus={ motorized_equipment=0.10 } traits={ motorized_equipment_manufacturer } picture=generic_motorized_equipment_manufacturer_3 }
 		royal_arsenal={ allowed={ TAG=ENG } research_bonus={ artillery=0.10 } traits={ artillery_manufacturer } }
 		vauxhall={ allowed={ TAG=ENG } research_bonus={ motorized_equipment=0.10 } traits={ motorized_equipment_manufacturer } }

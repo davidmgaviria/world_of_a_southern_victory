@@ -284,19 +284,28 @@ country_event = {
 	# send in the military
 	option = {
 		name = wsv_usa.6.c
-
 		trigger = {
 			OR = {
-				has_country_flag = usa_favour_the_army
 				check_variable = { USA.strike_popup_count > 4 }
+				AND = {
+					has_country_flag = usa_crackdown_on_strikes
+					check_variable = { USA.strike_popup_count > 1 }
+				}
 			}
 		}
-
 		country_event = { id = wsv_usa.7  days = 3 }   # strikes end
-		increase_militancy_by_10_effect = yes
+		increase_militancy_by_5_effect = yes
 
 		ai_chance = {
 			factor = 100
+			modifier = {
+				factor = 0.5
+				check_variable = { USA.usa_socialist_militancy > 50 }
+			}
+			modifier = {
+				factor = 0.5
+				check_variable = { USA.usa_socialist_militancy > 75 }
+			}
 		}
 	}
 }
@@ -314,11 +323,7 @@ country_event = {
 		hidden_effect = {
 			remove_ideas = USA_worker_strikes
 			clear_variable = USA.strike_popup_count
-			set_country_flag = {
-				flag = strike_cooldown
-				value = 1
-				days = 275	# originally at 200
-			}
+			set_country_flag = { flag = strike_cooldown  value = 1  days = 225 }  # originally at 200
 		}
 	}
 
@@ -572,14 +577,14 @@ country_event = {
 				USA = { has_country_leader = { character = USA_theodore_roosevelt   ruling_only = yes } } }
 			set_country_flag = {
 				flag = antiwar_protest_cooldown
-				days = 175
+				days = 200
 				value = 1
 			}
 		}
 		else = {
 			set_country_flag = {
 				flag = antiwar_protest_cooldown
-				days = 125
+				days = 150
 				value = 1
 			}
 		}
@@ -587,8 +592,8 @@ country_event = {
 
 	option = {
 		name = wsv_usa.16.a
-		add_war_support = -0.04
-		add_stability = -0.02
+		add_war_support = -0.03
+		add_stability = -0.01
 	}
 }
 
@@ -619,6 +624,7 @@ country_event = {
 	# teddy roosevelt
 	option = {
 		name = wsv_usa.17.a
+		trigger = { surrender_progress < 0.25 }
 		custom_effect_tooltip = TR_remains_president_tt
     	hidden_effect = {
     		set_politics = {
@@ -636,35 +642,17 @@ country_event = {
     	}
 	}
 
-	## TODO - simply uncomment this section, the 1916 stuff is mostly made
-	# debs wins (only happens if losing the war)			
-	# option = {
-	# 	name = wsv_usa.17.b
-	# 	trigger = { surrender_progress > 0.3 }		# if the war is going badly we're voted out
-	# 	custom_effect_tooltip = debs_becomes_president_tt
-	# 	add_popularity = {
-	# 		ideology = communism
-	# 		popularity = 0.1
-	# 	}
-	# 	add_ideas = USA_demoralized_army_idea		# army gives up since debs plans to end the war
-    # 	hidden_effect = {
-    # 		retire_country_leader = yes
-	# 		promote_character = USA_eugene_debs
-    # 		set_politics = {
-	# 		    ruling_party = communism
-	# 		    last_election = "1916.11.5"
-	# 		    election_frequency = 48
-	# 		    elections_allowed = yes
-	# 		}
-	# 		news_event = { id = wsv_usa.20  days = 1 }
-    # 	}
-	# 	# Debs is expected to peace out within a year
-	# 	set_country_flag = {
-	# 		flag = expected_peace_cooldown
-	# 		days = 275
-	# 		value = 1
-	# 	}
-	# }
+	# Debs wins (only happens if losing the war)			
+	option = {
+		name = wsv_usa.17.b
+		trigger = { surrender_progress > 0.25 }		# if the war is going badly we're voted out
+		custom_effect_tooltip = debs_becomes_president_tt
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
+		}
+    	news_event = { id = wsv_usa.40 }  # event takes care of stuff
+	}
 }
 
 
@@ -699,27 +687,208 @@ country_event = {
 }
 
 
+
+#######################################################################
+## -- Woods Presidency (during war time)
+#######################################################################
+
+## Socialists get very mad that we went to war (only for Woods)
+country_event = {
+	id = wsv_usa.20
+	title = wsv_usa.20.t
+	desc = wsv_usa.20.d
+
+	fire_only_once = yes
+	trigger = {
+		tag = USA
+		has_war_with_major = yes
+		USA = { has_country_leader = { character = USA_leonard_wood   ruling_only = yes } } 
+	}
+
+	option = {
+		name = wsv_usa.20.a
+		increase_militancy_by_5_effect = yes
+		add_war_support = -0.1
+	}
+}
+
+
+## Election of 1916 - Woods is president & war time ##  
+country_event = {
+	id = wsv_usa.21
+	title = wsv_usa.21.t
+	desc = wsv_usa.21.d
+
+	fire_only_once = yes
+	mean_time_to_happen = {	days = 4 }
+
+    trigger = {
+    	tag = USA
+        date > 1916.11.1
+        date < 1917.10.10
+        has_elections = yes
+		USA_leonard_wood = { is_country_leader = yes }
+		has_war = yes
+		NOT = { has_country_flag = USA_1916_election }
+    }
+
+	immediate = {
+		set_country_flag = USA_1916_election
+    }
+
+	# Woods wins handidly
+	option = {
+		name = wsv_usa.21.a
+		trigger = { surrender_progress < 0.1 }	# only if war is going well (much smaller margin of error than TR)
+		custom_effect_tooltip = woods_remains_president_tt
+    	hidden_effect = {
+    		set_politics = {
+			    ruling_party = democratic
+			    last_election = "1916.11.5"
+			    election_frequency = 48
+			    elections_allowed = yes
+			}
+    	}
+	}
+
+	# Debs wins... 		
+	option = {
+		name = wsv_usa.21.b
+		trigger = { surrender_progress > 0.1 }		# if the war is going badly we're voted out
+		custom_effect_tooltip = debs_becomes_president_tt
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
+		}
+		news_event = { id = wsv_usa.40 }  # event takes care of stuff
+		ai_chance = { factor = 1 }  
+	}
+
+	# Nullify the election (Debs won)
+	option = {
+		name = wsv_usa.21.c
+		trigger = { 
+			surrender_progress > 0.1  # if the war is going badly we're voted out
+			has_completed_focus = USA_military_dictatorship 
+		}		
+		news_event = { id = wsv_usa.22  days = 3 }
+		custom_effect_tooltip = likely_lead_to_usa_civil_war_tt
+		ai_chance = { factor = 100 }
+	}
+}
+
+
+# Coup in the US (elections nullified)
+news_event = {
+	id = wsv_usa.22
+	title = wsv_usa.22.t
+	desc = wsv_usa.22.d
+	picture =  news_event_woods_coup
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = usa_coup_conducted_by_woods
+		hidden_effect = {
+			USA = {
+				set_politics = {
+					ruling_party = neutrality
+					last_election = "1916.11.5"
+					election_frequency = 48
+					elections_allowed = no
+				}
+				promote_character = USA_leonard_wood   # make sure he's president
+				if = {
+					# socialists will automatically start militarizing
+					limit = { check_variable = { USA.usa_socialist_militancy < 45 } }
+					set_variable = { USA.usa_socialist_militancy = 65 }
+				}
+				else = {
+					increase_militancy_by_20_effect = yes
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_usa.22.a
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_usa.22.b
+		trigger = { NOT = { tag = USA } }
+	}
+}
+
+
+## Mass protest against election overturn
+country_event = {
+	id = wsv_usa.23
+	title = wsv_usa.23.t
+	desc = wsv_usa.23.d
+	picture = report_event_generic_riot
+
+	fire_only_once = yes
+	trigger = {
+		has_global_flag = usa_coup_conducted_by_woods
+		NOT = { has_civil_war = no }
+	}
+
+	option = {
+		name = wsv_usa.23.a
+		add_stability = -0.15
+		add_war_support = -0.2
+	}
+}
+
+
+
 #######################################################################
 ## -- Debs Wins 1916 Election (and effects)
 #######################################################################
 
 # Debs wins Presidency (news event)
 news_event = {
-	id = wsv_usa.20
-	title = wsv_usa.20.t
-	desc = wsv_usa.20.d
+	id = wsv_usa.40
+	title = wsv_usa.40.t
+	desc = wsv_usa.40.d
 	picture =   news_event_eugene_debs
 
 	is_triggered_only = yes
 	major = yes
 
+	immediate = {
+		hidden_effect = {
+			USA = {
+				retire_country_leader = yes
+				promote_character = USA_eugene_debs
+				set_politics = {
+					ruling_party = communism
+					last_election = "1916.11.5"
+					election_frequency = 48
+					elections_allowed = yes
+				}
+				# army doesnt want to fight for socialists
+				add_ideas = USA_demoralized_army_idea
+				# Debs is expected to peace out within a year
+				set_country_flag = {
+					flag = expected_peace_cooldown
+					days = 275
+					value = 1
+				}
+			}
+		}
+	}
+
 	option = {
-		name = wsv_usa.20.a
+		name = wsv_usa.40.a
 		trigger = { tag = USA }
 	}
 
 	option = {
-		name = wsv_usa.20.b
+		name = wsv_usa.40.b
 		trigger = { NOT = { tag = USA } }
 	}
 }
@@ -727,9 +896,9 @@ news_event = {
 
 # Start peace negociations with Confederates & British
 country_event = {
-	id = wsv_usa.21
-	title = wsv_usa.21.t
-	desc = wsv_usa.21.d
+	id = wsv_usa.41
+	title = wsv_usa.41.t
+	desc = wsv_usa.41.d
 
 	fire_only_once = yes
 	mean_time_to_happen = {
@@ -745,25 +914,25 @@ country_event = {
 	}
 
 	option = {
-		name = wsv_usa.21.a
-		CSA = { country_event = { id = wsv_usa.22  days = 1 } }
+		name = wsv_usa.41.a
+		CSA = { country_event = { id = wsv_usa.42  days = 1 } }
 	}
 }
 
 
 ## Confederates recieve peace offer
 country_event = {
-	id = wsv_usa.22
-	title = wsv_usa.22.t
-	desc = wsv_usa.22.d
+	id = wsv_usa.42
+	title = wsv_usa.42.t
+	desc = wsv_usa.42.d
 
 	fire_only_once = yes
 	is_triggered_only = yes
 
 	# Tell them our terms
 	option = {
-		name = wsv_usa.22.a	
-		USA = { country_event = { id = wsv_usa.23  days = 1 } }
+		name = wsv_usa.42.a	
+		USA = { country_event = { id = wsv_usa.43  days = 1 } }
 		ai_chance = { 
 			factor = 40 
 		}
@@ -772,8 +941,8 @@ country_event = {
 
 	# Reject all compromised peace
 	option = {
-		name = wsv_usa.22.b	
-		USA = { country_event = { id = wsv_usa.25  days = 1 } }
+		name = wsv_usa.42.b	
+		USA = { country_event = { id = wsv_usa.45  days = 1 } }
 		ai_chance = { 
 			factor = 0 
 			modifier = {
@@ -787,24 +956,24 @@ country_event = {
 
 ## Recieved Confederate peace terms
 country_event = {
-	id = wsv_usa.23
-	title = wsv_usa.23.t
-	desc = wsv_usa.23.d
+	id = wsv_usa.43
+	title = wsv_usa.43.t
+	desc = wsv_usa.43.d
 
 	fire_only_once = yes
 	is_triggered_only = yes
 
 	# Accept terms
 	option = {
-		name = wsv_usa.23.a	
-		news_event = wsv_usa.24
+		name = wsv_usa.43.a	
+		news_event = wsv_usa.44
 		ai_chance = { factor = 100 }
 	}
 
 	# Reject terms
 	option = {
-		name = wsv_usa.23.b
-		news_event = wsv_usa.26
+		name = wsv_usa.43.b
+		news_event = wsv_usa.46
 		ai_chance = { factor = 0 }
 	}
 }
@@ -812,9 +981,9 @@ country_event = {
 
 # Compromise peace in North America (news event) 
 news_event = {
-	id = wsv_usa.24
-	title = wsv_usa.24.t
-	desc = wsv_usa.24.d
+	id = wsv_usa.44
+	title = wsv_usa.44.t
+	desc = wsv_usa.44.d
 	picture = news_event_sign_treaty
 
 	is_triggered_only = yes
@@ -849,9 +1018,7 @@ news_event = {
 						leave_faction = yes
 					}
 				}
-				set_rule = { can_join_factions = no }
-				set_rule = { can_not_declare_war = yes }
-				add_ideas = { disarmed_nation   civilian_economy }
+				greatwar_loser_effect = yes
 			}
 			every_country = {
 				limit = { 
@@ -864,32 +1031,32 @@ news_event = {
 	}
 
 	option = {
-		name = wsv_usa.24.a
+		name = wsv_usa.44.a
 	}
 }
 
 
 # Confederate reject all peace negotiations
 country_event = {
-	id = wsv_usa.25
-	title = wsv_usa.25.t
-	desc = wsv_usa.25.d
+	id = wsv_usa.45
+	title = wsv_usa.45.t
+	desc = wsv_usa.45.d
 
 	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_usa.25.a
-		news_event = wsv_usa.26
+		name = wsv_usa.45.a
+		news_event = wsv_usa.46
 	}
 }
 
 
 # No peace in North America (news event)
 news_event = {
-	id = wsv_usa.26
-	title = wsv_usa.26.t
-	desc = wsv_usa.26.d
+	id = wsv_usa.46
+	title = wsv_usa.46.t
+	desc = wsv_usa.46.d
 	picture = news_event_soldiers_in_trenches
 
 	immediate = {
@@ -902,9 +1069,11 @@ news_event = {
 	major = yes
 
 	option = {
-		name = wsv_usa.26.a
+		name = wsv_usa.46.a
 	}
 }
+
+
 
 
 
@@ -932,7 +1101,7 @@ country_event = {
 				NOT = { has_country_flag = expected_peace_cooldown }
 			}
 			# Alternatively split when militancy becomes high
-			check_variable = { USA.usa_socialist_militancy > 65 } 
+			check_variable = { USA.usa_socialist_militancy > 59 } 
 		}
     }
 
@@ -944,7 +1113,11 @@ country_event = {
 	option = {
 		name = wsv_usa.50.a
 		add_stability = -0.05
-		increase_militancy_by_20_effect = yes
+		# dont increase militancy if this triggered due to militancy increase
+		if = {
+			limit = { check_variable = { USA.usa_socialist_militancy < 60 } }
+			increase_militancy_by_10_effect = yes
+		}
 	}
 }
 
@@ -1093,237 +1266,6 @@ country_event = {
 	}
 }
 
-
-
-
-#######################################################################
-## -- Woods Presidency  (20 and up)
-#######################################################################
-
-
-# ## US Outreach to Socialists
-# country_event = {
-# 	id = wsv_usa.3
-# 	title = wsv_usa.3.t
-# 	desc = wsv_usa.3.d
-# 	#picture = 
-
-# 	fire_only_once = yes
-
-# 	is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.3.a
-# 	}
-# }
-
-
-# ## Worker's Rights Bill passed
-# country_event = {
-# 	id = wsv_usa.4
-# 	title = wsv_usa.4.t
-# 	desc = wsv_usa.4.d
-# 	#picture = 
-
-# 	fire_only_once = yes
-
-# 	is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.4.a
-# 	}
-# }
-
-
-# ## Socialists Sidelined
-# country_event = {
-# 	id = wsv_usa.5
-# 	title = wsv_usa.5.t
-# 	desc = wsv_usa.5.d
-# 	#picture = 
-
-# 	fire_only_once = yes
-
-# 	is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.5.a
-# 	}
-# }
-
-
-# ## American Paramilitaries
-# country_event = {
-# 	id = wsv_usa.6
-# 	title = wsv_usa.6.t
-# 	desc = wsv_usa.6.d
-# 	#picture = 
-
-# 	fire_only_once = yes
-
-# 	is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.6.a
-# 		add_stability = -0.03
-# 	}
-# }
-
-
-
-
-#########################################################
-################# 1916 Election Options #################
-#########################################################
-
-# ## Election of 1916 - Peace time ##
-# country_event = {
-# 	id = wsv_usa.11
-# 	title = wsv_usa.11.t
-# 	desc = wsv_usa.11.d
- 
-# 	fire_only_once = yes
-# 	mean_time_to_happen = {	days = 4 }
-
-#     trigger = {
-#     	tag = USA
-#         date > 1916.11.1
-#         date < 1917.10.10
-#         has_elections = yes
-# 		has_war = no
-# 		NOT = { has_country_flag = USA_1916_election }
-#     }
-
-# 	immediate = {
-# 		set_country_flag = USA_1916_election
-# 	}
-
-# 	#current president
-# 	option = {
-# 		name = wsv_usa.11.a
-# 		custom_effect_tooltip = incumbent_remains_president_tt
-#     	hidden_effect = {
-#     		set_politics = {
-# 			    ruling_party = democratic
-# 			    last_election = "1916.11.5"
-# 			    election_frequency = 48
-# 			    elections_allowed = yes
-# 			}
-#     	}
-
-#     	ai_chance = {
-# 			base = 100
-# 		}
-# 	}
-
-# 	# eugene debs
-# 	option = {
-# 		name = wsv_usa.11.b
-# 		custom_effect_tooltip = debs_becomes_president_tt
-# 		add_popularity = {
-# 			ideology = communism
-# 			popularity = 0.1
-# 		}
-# 		add_ideas = USA_socialist_administration_idea
-#     	hidden_effect = {
-#     		retire_country_leader = yes
-# 			promote_character = USA_eugene_debs
-#     		set_politics = {
-# 			    ruling_party = communism
-# 			    last_election = "1916.11.5"
-# 			    election_frequency = 48
-# 			    elections_allowed = yes
-# 			}
-#     	}
-			
-#     	ai_chance = {
-# 			base = 40
-# 			modifier = {
-# 				is_historical_focus_on = yes
-# 				factor = 0
-# 			}
-# 		}
-# 	}
-# }
-
-
-# ## Election of 1916 - Wood is president & war time (event occurs before election) ##
-# country_event = {
-# 	id = wsv_usa.13
-# 	title = wsv_usa.13.t
-# 	desc = wsv_usa.13.d
-
-# 	fire_only_once = yes
-# 	mean_time_to_happen = {	days = 4 }
-
-#     trigger = {
-#     	tag = USA
-#         date > 1916.10.15
-#         date < 1917.10.10
-#         has_elections = yes
-# 		USA_leonard_wood = { is_country_leader = yes }
-# 		has_war = yes
-# 		NOT = { has_country_flag = USA_1916_election }
-#     }
-
-# 	immediate = {
-# 		set_country_flag = USA_1916_election
-#     }
-
-  
-# 	# suspend the election
-# 	option = {
-# 		name = wsv_usa.13.a
-# 		set_country_flag = wood_suspended_elections
-# 		set_politics = {
-# 			ruling_party = democratic  
-# 			last_election = "1916.11.5"
-# 			election_frequency = 48
-# 			elections_allowed = no
-# 		}
-# 		add_popularity = {
-# 			ideology = neutrality
-# 			popularity = 0.1
-# 		}
-# 	}
-# }
-
-
-# ## news event of US army suspending elections
-# news_event = {
-# 	id = wsv_usa.14
-# 	title = wsv_usa.14.t
-# 	desc = wsv_usa.14.d
-# 	#picture = 
-
-# 	major = yes
-# 	is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.14.a
-# 	}
-# }
-
-
-# ## Mass protest against election overturn
-# country_event = {
-# 	id = wsv_usa.15
-# 	title = wsv_usa.15.t
-# 	desc = wsv_usa.15.d
-# 	picture = report_event_generic_riot
-
-# 	fire_only_once = yes
-
-# 	trigger = {
-# 		has_country_flag = wood_suspended_elections
-# 	}
-
-# 	option = {
-# 		name = wsv_usa.15.a
-# 		add_war_support = -0.1
-# 		add_stability = -0.1
-# 	}
-# }
 
 
 ##########################################################
@@ -2182,930 +2124,6 @@ country_event = {
 }
 
 
-
-
-
-
-
-
-
-# ## Establish Quebec?
-# country_event = {
-# 	id = wsv_usa.31
-# 	title = wsv_usa.31.t
-# 	desc = wsv_usa.31.d
-# 	picture = report_event_sign_paper
-
-# 	fire_only_once = yes
-
-# 	mean_time_to_happen = {	days = 10 }
-
-#     trigger = {
-#     	tag = USA
-#     	controls_state = 466
-#     	controls_state = 468
-#     	CAN = {
-#     		OR = {
-#     			has_capitulated = yes
-#     			exists = no
-#     			is_puppet_of = USA
-#     		}
-#     	}
-#     }
-
-#     #yes
-# 	option = {
-# 		name = wsv_usa.34.a
-# 		puppet = QUE
-# 		QUE = { transfer_state = 466   transfer_state = 468   add_state_core = 466   add_state_core = 468 }
-# 		hidden_effect = {
-# 			news_event = { id = wsv_news.40 }
-# 		}
-
-# 		ai_chance = {
-# 			factor = 100
-# 		}
-# 	}
-
-# 	#no
-# 	option = {
-# 		name = wsv_usa.31.b
-
-# 		ai_chance = {
-# 			factor = 0
-# 		}
-# 	}
-# }
-
-
-# #### HAITIAN CRISIS ###
-
-# # CSA gets informed of haitian ships
-# country_event = {
-# 	id = wsv_usa.32
-# 	title = wsv_usa.32.t
-# 	desc = wsv_usa.32.d
-# 	#picture = report_event_sign_paper  
-
-#     is_triggered_only = yes
-
-# 	# do something
-# 	option = {
-# 		name = wsv_usa.32.a
-# 		set_global_flag = haitian_crisis_flag
-# 		USA = { country_event = { id = wsv_usa.33  days = 3 } }
-# 		custom_effect_tooltip = may_lead_to_war_with_usa_tt
-# 		hidden_effect = { news_event = { id = wsv_news.4  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 100
-# 		}
-# 	}
-
-# 	# say nothing
-# 	option = {
-# 		name = wsv_usa.32.b
-# 		add_political_power = -75
-# 		add_war_support = -0.1
-
-# 		ai_chance = {
-# 			factor = 20
-# 			modifier = {
-# 				factor = 0
-# 				is_historical_focus_on = yes
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				CSA = { has_army_manpower = { size < 700000 } }
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				CSA = { has_army_manpower = { size < 500000 } }
-# 			}	
-# 			modifier = {
-# 				factor = 2 
-# 				CSA = { has_army_manpower = { size < 400000 } }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # US gets cs ultimatum
-# country_event = {
-# 	id = wsv_usa.33
-# 	title = wsv_usa.33.t
-# 	desc = wsv_usa.33.d
-# 	#picture = report_event_sign_paper 
-
-#     is_triggered_only = yes
-
-# 	# bow to csa ultimatum
-# 	option = {
-# 		name = wsv_usa.33.a
-# 		set_global_flag = haitian_crisis_usa_backed_down
-# 		add_political_power = -75
-# 		add_war_support = -0.1
-# 		# haiti gets mad
-# 		HAI = { add_opinion_modifier = { target = USA modifier = faction_traitor } }
-# 		diplomatic_relation = { country = HAI   relation = guarantee  active = no }
-# 		diplomatic_relation = { country = HAI   relation = docking_rights  active = no }
-# 		news_event = { id = wsv_news.5  days = 2 }
-
-# 		ai_chance = {
-# 			factor = 5
-# 			modifier = {
-# 				factor = 0
-# 				is_historical_focus_on = yes
-# 			}
-# 		}
-# 	}
-
-# 	# hold firm
-# 	option = {
-# 		name = wsv_usa.33.b
-# 		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
-# 		HAI = { country_event = wsv_usa.12 }
-# 		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
-# 		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 40
-# 			modifier = {
-# 				factor = 0
-# 				is_historical_focus_on = yes
-# 			}
-# 			modifier = {
-# 				factor = 1.5 
-# 				USA = { has_army_manpower = { size > 1000000 } }
-# 			}
-# 			modifier = {
-# 				factor = 2 
-# 				USA = { has_army_manpower = { size > 1500000 } }
-# 			}
-# 		}
-# 	}
-
-# 	# ask germany for help
-# 	option = {
-# 		name = wsv_usa.33.c
-# 		custom_effect_tooltip = haitian_crisis_german_mediation_tt
-# 		GER = { country_event = { id = wsv_usa.34  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 100
-# 		}
-# 	}
-
-# 	# ask britain for help
-# 	option = {
-# 		name = wsv_usa.33.e  #d is description
-# 		custom_effect_tooltip = haitian_crisis_british_mediation_tt
-# 		ENG = { country_event = { id = wsv_usa.35  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 20
-# 			modifier = {
-# 				factor = 0
-# 				is_historical_focus_on = yes
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # US requests germany for mediation (German event)
-# country_event = {
-# 	id = wsv_usa.34
-# 	title = wsv_usa.34.t
-# 	desc = wsv_usa.34.d
-# 	#picture = report_event_sign_paper  
-
-#     is_triggered_only = yes
-
-# 	# offer to buy the ships
-# 	option = {
-# 		name = wsv_usa.34.a
-# 		USA = { country_event = { id = wsv_usa.9  days = 2 } }
-# 	}
-# }
-
-
-# # US requests britain for mediation (British event)
-# country_event = {
-# 	id = wsv_usa.35
-# 	title = wsv_usa.35.t
-# 	desc = wsv_usa.35.d
-# 	#picture = report_event_sign_paper  
-
-#     is_triggered_only = yes
-
-# 	# offer to buy the ships
-# 	option = {
-# 		name = wsv_usa.35.a
-# 		USA = { country_event = { id = wsv_usa.9  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 60
-# 		}
-# 	}
-
-# 	# side with cs
-# 	option = {
-# 		name = wsv_usa.35.b
-# 		USA = { country_event = { id = wsv_usa.10  days = 2 } }
-# 		ai_chance = {
-# 			factor = 20
-
-# 			modifier = {
-# 				factor = 2 
-# 				USA = { has_army_manpower = { size < 1200000 } }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # Country offered to buy ships (US event)
-# country_event = {
-# 	id = wsv_usa.9
-# 	title = wsv_usa.9.t
-# 	desc = wsv_usa.9.d
-# 	#picture = report_event_sign_paper  
-
-#     is_triggered_only = yes
-
-# 	# accept offer
-# 	option = {
-# 		name = wsv_usa.9.a
-# 		# crisis averted by buying ships news event
-# 		FROM = { 
-# 			save_event_target_as = bought_cruisers 
-# 			country_event = wsv_usa.12
-# 		}
-# 		news_event = { id = wsv_news.7  days = 2 } 
-
-# 		ai_chance = {
-# 			factor = 100
-# 			modifier = {
-# 				factor = 0.75
-# 				FROM = { tag = ENG }
-# 			}
-# 		}
-# 	}
-
-# 	# stick to our guns
-# 	option = {
-# 		name = wsv_usa.9.b
-# 		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
-# 		HAI = { country_event = wsv_usa.12 }
-# 		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
-# 		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
-# 		# crisis to turn to war news event
-# 		ai_chance = {
-# 			factor = 20
-# 			modifier = {
-# 				factor = 0
-# 				is_historical_focus_on = yes
-# 			}
-# 			modifier = {
-# 				factor = 3 
-# 				USA = { has_army_manpower = { size > 1400000 } }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # Britain sided with csa (US event)
-# country_event = {
-# 	id = wsv_usa.10
-# 	title = wsv_usa.10.t
-# 	desc = wsv_usa.10.d
-# 	#picture = report_event_sign_paper  
-
-#     is_triggered_only = yes
-
-# 	# stick to our guns
-# 	option = {
-# 		name = wsv_usa.10.a
-# 		CSA = { country_event =  { id = wsv_usa.11  days = 3 } }
-# 		HAI = { country_event = wsv_usa.12 }
-# 		custom_effect_tooltip = will_likely_lead_to_war_with_csa_tt
-# 		hidden_effect = { news_event = { id = wsv_news.6  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 80
-# 			modifier = {
-# 				factor = 1.5
-# 				USA = { has_army_manpower = { size > 1600000 } }
-# 			}
-# 		}
-# 	}
-
-# 	# back down
-# 	option = {
-# 		name = wsv_usa.10.b
-# 		set_global_flag = haitian_crisis_usa_backed_down
-# 		add_political_power = -75
-# 		add_war_support = -0.1
-# 		# haiti gets mad
-# 		HAI = { add_opinion_modifier = { target = USA modifier = faction_traitor } }
-# 		diplomatic_relation = { country = HAI   relation = guarantee  active = no }
-# 		diplomatic_relation = { country = HAI   relation = docking_rights  active = no }
-# 		hidden_effect = { news_event = { id = wsv_news.5  days = 2 } }
-
-# 		ai_chance = {
-# 			factor = 20
-# 			modifier = {
-# 				factor = 2
-# 				USA = { has_army_manpower = { size < 1500000 } }
-# 			}
-# 			modifier = {
-# 				factor = 3
-# 				USA = { has_army_manpower = { size < 1000000 } }
-# 			}
-# 		}
-# 	}
-# }
-
-
-# # US rejected our ultimatum (CS event)
-# country_event = {
-# 	id = wsv_usa.11
-# 	title = wsv_usa.11.t
-# 	desc = wsv_usa.11.d
-# 	#picture = report_event_sign_paper 
-
-#     is_triggered_only = yes
-
-# 	# war it is
-# 	option = {
-# 		name = wsv_usa.11.a
-		
-# 		declare_war_on = {
-# 		    target = HAI
-# 		    type = puppet_wargoal_focus
-# 		}
-# 		USA = {
-# 			add_to_war = {
-# 			    targeted_alliance = HAI
-# 			    enemy = CSA
-# 			    hostility_reason = asked_to_join
-# 			}
-# 		}
-
-# 		ai_chance = {
-# 			factor = 100
-# 			modifier = {
-# 				factor = 0.5 
-# 				CSA = { has_army_manpower = { size < 600000 } }
-# 			}
-# 		}
-# 	}
-
-# 	# back down
-# 	option = {
-# 		name = wsv_usa.11.b
-# 		set_global_flag = haitian_crisis_csa_backed_down
-# 		add_political_power = -100
-# 		add_war_support = -0.2
-
-# 		ai_chance = {
-# 			factor = 10
-# 		}
-# 	}
-# }
-
-
-# # US transferred ships
-# country_event = {
-# 	id = wsv_usa.12
-# 	title = wsv_usa.12.t
-# 	desc = wsv_usa.12.d
-# 	#picture = report_event_sign_paper   
-
-#     is_triggered_only = yes
-
-#     immediate = {
-#     	hidden_effect = {
-#     		USA = {
-#     			transfer_ship = {
-#     			    #prefer_name = "HMS Achilles"
-#     			    type = heavy_cruiser
-#     			    target = ROOT
-#     			    exclude_refitting = no
-#     			}
-#     			transfer_ship = {
-#     			    #prefer_name = "HMS Achilles"
-#     			    type = heavy_cruiser
-#     			    target = ROOT
-#     			    exclude_refitting = no
-#     			}
-#     		}
-#     	}
-#     }
-
-# 	# war it is
-# 	option = {
-# 		name = wsv_usa.12.a
-# 	}
-# }
-
-
-# #black revolt aid
-# country_event = {
-# 	id = wsv_usa.30
-# 	title = wsv_usa.30.t
-# 	desc = wsv_usa.30.d
-# 	#picture = report_event_smuggle_arms
-
-#     mean_time_to_happen = {
-#         days = 10
-#     }
-
-#     trigger = {
-#     	tag = USA
-#     	has_global_flag = csa_black_revolt_occured
-#     	NOT = { has_country_flag = sent_blacks_aid }
-#     }
-
-#     immediate = { USA = { set_country_flag = sent_blacks_aid  } }
-	
-# 	#no help
-# 	option = {
-# 		name = wsv_usa.30.a
-
-# 		ai_chance = {
-# 			factor = 20
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 < -5000	}
-# 					has_equipment = { infantry_equipment_1 < -5000	}
-# 				}
-# 			}
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 < -10000	}
-# 					has_equipment = { infantry_equipment_1 < -10000	}
-# 				}
-# 			}
-# 		}
-# 	}
-
-# 	#some help
-# 	option = {
-# 		name = wsv_usa.30.b
-# 		USA = {
-# 			add_equipment_to_stockpile = {
-# 			    type = infantry_equipment_1
-# 			    amount = -2500
-# 			    producer = USA
-# 			}
-# 		}
-# 		custom_effect_tooltip = black_rebellion_increased_slightly
-# 		hidden_effect = { 
-# 			CSA = {
-# 				modify_timed_idea = {
-# 				    idea = CSA_black_rebellion_idea
-# 				    days = 60
-# 				}
-# 				set_country_flag = black_rebellion_extended_60_days
-#     		}
-# 		}
-# 		ai_chance = {
-# 			factor = 80
-
-# 		}
-# 	}
-
-# 	#lots of help
-# 	option = {
-# 		name = wsv_usa.30.c
-# 		USA = {
-# 			add_equipment_to_stockpile = {
-# 			    type = infantry_equipment_1
-# 			    amount = -5000
-# 			    producer = USA
-# 			}
-# 		}
-# 		custom_effect_tooltip = black_rebellion_increased_greatly
-# 		hidden_effect = { 
-# 			CSA = {
-# 				remove_ideas = CSA_black_rebellion_idea 
-# 				modify_timed_idea = {
-# 				    idea = CSA_black_rebellion_idea
-# 				    days = 120
-# 				}
-# 				set_country_flag = black_rebellion_extended_120_days
-#     		}
-# 		}
-# 		ai_chance = {
-# 			factor = 40
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 > 5000	}
-# 					has_equipment = { infantry_equipment_1 > 5000	}
-# 				}
-# 			}
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 > 10000	}
-# 					has_equipment = { infantry_equipment_1 > 10000	}
-# 				}
-# 			}
-# 		}
-# 	}
-# }
-
-
-
-
-# #mexican alliance (mexico is root)
-# country_event = {
-# 	id = wsv_usa.31
-# 	title = wsv_usa.31.t
-# 	desc = wsv_usa.31.d
-# 	#picture = report_event_sign_paper
-
-#     is_triggered_only = yes
-
-#     fire_only_once = yes
-
- 
-# 	#yes
-# 	option = {
-# 		name = wsv_usa.31.a
-
-# 		if = {
-# 			limit = { USA = { is_in_faction = yes } }
-# 			random_country = {
-# 				limit = { is_faction_leader = yes    OR = { is_in_faction_with = USA   tag = USA } }
-# 				add_to_faction = MEX
-# 			}
-# 		}
-# 		else = {
-# 			USA = { create_faction = "Anti-Confederate Pact"   add_to_faction = MEX }
-# 		}
-
-# 		add_state_claim = 483
-# 		add_state_claim = 482
-# 		CSA = { 
-# 			add_opinion_modifier = {
-# 				target = MEX
-# 				modifier = faction_traitor
-# 			}
-# 			country_event = { id = wsv_generic.7 }
-# 		}
-# 		USA = { 
-# 			country_event = { id = wsv_usa.32 } 
-# 			set_country_flag = promised_mexico_land
-# 		} 
-
-
-# 		ai_chance = {
-# 			factor = 20
-
-# 			modifier = {
-# 				factor = 2
-# 				has_opinion = {
-# 					target = FROM
-# 					value > 49
-# 				}
-# 			}
-# 		}
-# 	}
-
-
-# 	#no
-# 	option = {
-# 		name = wsv_usa.31.b
-		
-# 		USA = { 
-# 			add_opinion_modifier = { 
-# 				target = MEX
-# 				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
-# 			}
-# 		}
-# 		USA = { country_event = { id = wsv_usa.33 } } 
-
-
-# 		ai_chance = {
-# 			factor = 80
-
-# 			modifier = {
-# 				factor = 2
-# 				has_opinion = {
-# 					target = FROM
-# 					value < 0
-# 				}
-# 			}
-# 		}
-# 	}
-# }
-
-
-# #mexican said yes
-# country_event = {
-# 	id = wsv_usa.32
-# 	title = wsv_usa.32.t
-# 	desc = wsv_usa.32.d
-# 	#picture = report_event_deal_made
-
-#     is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.32.a
-# 	}
-# }
-
-# #mexican said no
-# country_event = {
-# 	id = wsv_usa.33
-# 	title = wsv_usa.33.t
-# 	desc = wsv_usa.33.d
-# 	#picture = report_event_walked_out
-
-#     is_triggered_only = yes
-
-# 	option = {
-# 		name = wsv_usa.33.a
-# 	}
-# }
-
-
-
-
-# #news event of republic of quebec
-# news_event = {
-# 	id = wsv_usa.35
-# 	title = wsv_usa.35.t
-# 	desc = wsv_usa.35.d
-# 	picture = news_event_wsv_parliament
-# 	major = yes
-
-#     is_triggered_only = yes
-	
-# 	option = {
-# 		name = wsv_usa.35.a
-# 		trigger = { 
-# 			OR = {
-# 				is_in_faction_with = USA 
-# 				tag = USA
-# 				tag = QUE
-# 			}
-# 		}
-# 	}
-
-# 	option = {
-# 		name = wsv_usa.35.b
-# 		trigger = { 
-# 			OR = {
-# 				is_in_faction_with = CAN 
-# 				tag = CAN
-# 			}
-# 		}
-# 	}
-
-
-# 	option = {
-# 		name = wsv_usa.35.c
-# 		trigger = { 
-# 			NOT = { is_in_faction_with = USA }
-# 			NOT = { is_in_faction_with = CAN }
-# 			NOT = { tag = USA }
-# 			NOT = { tag = QUE }
-# 			NOT = { tag = CAN }
-# 		}
-# 	}
-# }
-
-
-# #Irish revolt aid
-# country_event = {
-# 	id = wsv_usa.11
-# 	title = wsv_usa.11.t
-# 	desc = wsv_usa.11.d
-# 	#picture = report_event_smuggle_arms
-
-#     mean_time_to_happen = {
-#         days = 10
-#     }
-
-#     fire_only_once = yes
-
-#     trigger = {
-#     	tag = USA
-#     	has_global_flag = irish_revolt
-#     	IRE = { has_capitulated = no }
-#     }
-	
-
-# 	#no help
-# 	option = {
-# 		name = wsv_usa.11.a
-
-# 		ai_chance = {
-# 			factor = 20
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 < -5000	}
-# 					has_equipment = { infantry_equipment_1 < -5000	}
-# 				}
-# 			}
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 < -10000	}
-# 					has_equipment = { infantry_equipment_1 < -10000	}
-# 				}
-# 			}
-# 		}
-# 	}
-
-# 	#some help
-# 	option = {
-# 		name = wsv_usa.11.b
-# 		USA = {
-# 			add_equipment_to_stockpile = {
-# 			    type = infantry_equipment_1
-# 			    amount = -2500
-# 			    producer = USA
-# 			}
-# 		}
-# 		IRE = {
-# 			add_equipment_to_stockpile = {
-# 			    type = infantry_equipment_1
-# 			    amount = 2000
-# 			    producer = USA
-# 			}
-# 		}
-
-# 		ai_chance = {
-# 			factor = 80
-
-# 		}
-# 	}
-
-
-# 	#lots of help
-# 	option = {
-# 		name = wsv_usa.11.c
-# 		USA = {
-# 			add_equipment_to_stockpile = {
-# 			    type = infantry_equipment_1
-# 			    amount = -5000
-# 			    producer = USA
-# 			}
-# 		}
-# 		IRE = {
-# 			add_equipment_to_stockpile = {
-# 			    type = infantry_equipment_1
-# 			    amount = 4000
-# 			    producer = USA
-# 			}
-# 		}
-
-# 		ai_chance = {
-# 			factor = 40
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 > 5000	}
-# 					has_equipment = { infantry_equipment_1 > 5000	}
-# 				}
-# 			}
-
-# 			modifier = {
-# 				factor = 2
-# 				OR = {
-# 					has_equipment = { infantry_equipment_0 > 10000	}
-# 					has_equipment = { infantry_equipment_1 > 10000	}
-# 				}
-# 			}
-# 		}
-# 	}
-# }
-
-
-
-
-# #we promised mexico land
-# country_event = {
-# 	id = wsv_usa.13
-# 	title = wsv_usa.13.t
-# 	desc = wsv_usa.13.d
-# 	#picture = report_event_sign_paper
-
-#     trigger = {
-# 		tag = USA
-# 		USA = {
-# 			has_country_flag = promised_mexico_land
-# 			OR = { 
-# 				has_full_control_of_state = 483
-# 				has_full_control_of_state = 482
-# 			}
-# 		}
-# 	}
-
-# 	mean_time_to_happen = {	days = 0 }
-
-# 	immediate = {
-# 		hidden_effect = { clr_country_flag = promised_mexico_lands }
-# 	}
- 
-# 	#give them land
-# 	option = {
-# 		name = wsv_usa.13.a
-# 		if = {
-# 			limit = { USA = { has_full_control_of_state = 483 } }
-# 			MEX = {	transfer_state = 483 }
-# 		}
-# 		if = {
-# 			limit = { USA = { has_full_control_of_state = 482 } }
-# 			MEX = {	transfer_state = 482 }
-# 		}
-
-# 		ai_chance = {
-# 			factor = 60
-# 		}
-# 	}
-
-
-# 	#no
-# 	option = {
-# 		name = wsv_usa.13.b
-# 		MEX = { country_event = wsv_usa.14 }
-
-# 		ai_chance = {
-# 			factor = 10
-# 		}
-# 	}
-# }
-
-
-
-# #usa didn't give land
-# country_event = {
-# 	id = wsv_usa.14
-# 	title = wsv_usa.14.t
-# 	desc = wsv_usa.14.d
-# 	#picture = report_event_sign_paper
-
-#     fire_only_once = yes
-
-# 	is_triggered_only = yes
- 
-# 	#war
-# 	option = {
-# 		name = wsv_usa.14.a
-# 		create_wargoal = {
-# 			type = take_claimed_state
-# 			target = USA
-# 		}
-
-# 		ai_chance = {
-# 			factor = 40
-# 		}
-# 	}
-
-
-# 	#no
-# 	option = {
-# 		name = wsv_usa.14.b
-
-# 		ai_chance = {
-# 			factor = 20
-
-# 			modifier = {
-# 				factor = 2
-# 				strength_ratio = {
-# 				    tag = USA
-# 				    ratio < 1
-# 				}
-# 			}
-# 			modifier = {
-# 				factor = 2
-# 				strength_ratio = {
-# 				    tag = USA
-# 				    ratio < 0.5
-# 				}
-# 			}
-# 		}
-# 	}
-# }
 
 
 

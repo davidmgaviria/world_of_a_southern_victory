@@ -1001,7 +1001,7 @@ focus_tree = {
 
 	focus = {
 		id = CSA_caribbean_empire
-		#icon = GFX_goal_generic_more_territorial_claims
+		icon = GFX_goal_generic_more_territorial_claims
 		prerequisite = { focus = CSA_pressure_central_america }
 		prerequisite = { focus = CSA_pressure_caribbean }
 		prerequisite = { focus = CSA_expand_caribbean_fleet }
@@ -1010,21 +1010,26 @@ focus_tree = {
 		y = 2
 		relative_position_id = CSA_expand_caribbean_fleet
 
-		ai_will_do = {	factor = 1}
+		ai_will_do = { factor = 10 }
 
-		available = { has_country_flag = path_complete }
-
-		#bypass = {}
+		available = { 
+			has_war = no
+			has_global_flag = csa_intervened_in_nicaragua
+			OR = { 
+				has_country_flag = beat_usa_in_greatwar
+				has_country_flag = csa_took_over_nicaragua
+			}
+		}
 
 		completion_reward = { 
-			#TODO: decision category that lets you declare war on different LATAM countries
+			custom_effect_tooltip = unlocks_caribbean_empire_decisions_tt
 		}
 	}
 
 
 	focus = {
 		id = CSA_nicaragua_canal
-		#icon = GFX_focus_generic_land_reclamation  #GFX_goal_generic_construction2
+		icon = GFX_focus_generic_land_reclamation  #GFX_goal_generic_construction2
 		prerequisite = { focus = CSA_caribbean_empire }
 
 		cost = 10
@@ -1032,15 +1037,15 @@ focus_tree = {
 		y = 1
 		relative_position_id = CSA_caribbean_empire
 
-		ai_will_do = {	factor = 1}
+		ai_will_do = { factor = 10 }
 
-
-		available = { has_country_flag = path_complete }
-
-		#bypass = {}
+		available = { 
+			has_war = no
+			has_full_control_of_state = 317
+		}
 
 		completion_reward = { 
-			#TODO: decision category that lets you build the canal gradually (put in funds every month, once progress reaches 100, canal done)
+			custom_effect_tooltip = unlocks_decision_to_build_canal_tt
 		}
 	}
 

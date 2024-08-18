@@ -68,13 +68,15 @@ CSA_actions_in_latam_category = {
 
 	# Expand United Fruit
 	CSA_expand_confederate_business = {
-		#icon = generic_prepare_civil_war
+		icon = generic_operation
+		priority = 5
 
 		visible = {
-			has_completed_focus = CSA_latin_american_ambitions
+			tag = CSA
 		}
 		available = {
 			has_war = no
+			has_completed_focus = CSA_latin_american_ambitions
 		}
 
 		cost = 25
@@ -109,13 +111,15 @@ CSA_actions_in_latam_category = {
 
 	# Send rifles to LATAM
 	CSA_support_conservative_regimes = {
-		#icon = generic_prepare_civil_war
+		icon = generic_prepare_civil_war
+		priority = 5
 
 		visible = {
-			has_completed_focus = CSA_latin_american_ambitions
+			tag = CSA
 		}
 		available = {
 			has_war = no
+			has_completed_focus = CSA_latin_american_ambitions
 		}
 
 		days_remove = 30
@@ -154,7 +158,7 @@ CSA_actions_in_latam_category = {
 
 	# Intervention in Nicaragua 
 	CSA_intervene_in_nic_conflict = {
-		priority = 4
+		priority = 10
 		icon = generic_ignite_civil_war
 
 		allowed = { 
@@ -197,6 +201,145 @@ CSA_actions_in_latam_category = {
 
 		ai_will_do = {
 			factor = 1
+		}
+	}
+
+
+	# Attack countries
+	CSA_conquer_latam_country = {
+		icon = generic_infiltrate_state
+		priority = 1
+		
+		targets = {
+			GUA ELS HON NIC COS PAN COL VEN DOM HAI
+		}
+		targets_dynamic = yes
+
+		target_trigger = {
+			FROM = {
+				OR = {
+					original_tag = NIC
+					original_tag = HAI
+					original_tag = DOM
+					any_neighbor_country = { tag = CSA }
+				}
+			}
+		}
+
+		visible = {
+			has_completed_focus = CSA_caribbean_empire
+			FROM = { exists = yes }
+		}
+
+		available = {
+			has_war = no
+			FROM = { has_war = no }
+			custom_trigger_tooltip = {
+			 	tooltip = latam_country_not_with_major_tt
+				all_country = {
+					OR = {
+						num_of_factories < 50
+						AND = {
+							NOT = { is_in_faction_with = FROM }
+							NOT = { has_guaranteed = FROM }
+							NOT = { has_subject = FROM }
+						}
+					}
+				}
+			}
+		}
+
+		cost = 50
+		days_remove = 14
+		fire_only_once = yes
+
+		war_with_target_on_remove = yes
+		remove_effect = {
+			if = {
+				limit = { FROM = { tag = GUA } }
+				MEX = {
+					add_state_claim = 841
+					add_state_claim = 313
+				}
+				create_wargoal = {
+					target = FROM
+					type = puppet_wargoal_focus
+				}
+			}
+			else_if = {
+				limit = { FROM = { original_tag = COL } }
+				add_state_claim = 493
+				add_state_claim = 304
+				add_state_claim = 685
+				create_wargoal = {
+					target = FROM
+					type = take_claimed_state
+				}
+			}
+			else_if = {
+				limit = { FROM = { original_tag = VEN } }
+				add_state_claim = 489
+				create_wargoal = {
+					target = FROM
+					type = take_claimed_state
+				}
+			}
+			else = {
+				create_wargoal = {
+					target = FROM
+					type = annex_everything
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0.25
+				is_in_faction = yes
+			}
+		}
+	}
+
+
+	# Construct Nicaragua canal
+	CSA_build_nicaragua_canal = {
+		icon = generic_construction 
+		priority = 4
+
+		visible = {
+			tag = CSA
+			has_completed_focus = CSA_nicaragua_canal
+		}
+		available = {
+			has_war = no
+			has_full_control_of_state = 317
+			has_full_control_of_state = 316
+		}
+
+		days_remove = 360
+		fire_only_once = yes
+
+		custom_cost_trigger = {
+			has_political_power > 100
+			num_of_civilian_factories > 5
+		}
+		custom_cost_text = CSA_decision_cost_build_nicaragua_canal
+
+		complete_effect = {
+			hidden_effect = { add_political_power = -100 }
+		}
+		modifier = {
+			civilian_factory_use = 5
+		}
+
+		remove_effect = {
+			set_global_flag = NICARAGUA_CANAL_CONSTRUCTED
+			custom_effect_tooltip = opens_nicaragua_canal_tt
+		}
+
+		ai_will_do = {
+			factor = 5
 		}
 	}
 }
