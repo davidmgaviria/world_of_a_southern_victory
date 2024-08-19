@@ -46,10 +46,16 @@ country_event = {
     # side with socialists
 	option = {
 		name = wsv_usa.2.a
-		trigger = { NOT = { USA_leonard_wood = { is_country_leader = yes} } } # cannot take if we have Wood
+		trigger = { NOT = { USA_leonard_wood = { is_country_leader = yes } } } # cannot take if we have Wood
 		set_country_flag = usa_work_with_socialists
 		custom_effect_tooltip = unlock_socialist_path_tt
-		ai_chance = { base = 60 }
+		ai_chance = { 
+			base = 60 
+			modifier = {
+				factor = 0
+				has_country_flag = debug_wood_path
+			}
+		}
 	}
 
 	# favour the army
@@ -63,6 +69,7 @@ country_event = {
 			modifier = {
 				factor = 0
 				is_historical_focus_on = yes
+				NOT = { has_country_flag = debug_wood_path }
 			}
 		}
 	}
@@ -105,13 +112,13 @@ country_event = {
 		}
     	hidden_effect = {
     		retire_country_leader = yes
-			promote_character = USA_theodore_roosevelt
     		set_politics = {
 			    ruling_party = democratic
 			    last_election = "1912.11.5"
 			    election_frequency = 48
 			    elections_allowed = yes
 			}
+			promote_character = { character = USA_theodore_roosevelt  ideology = populism }
 			news_event = { id = wsv_usa.4  days = 1 }
     	}
     	
@@ -133,13 +140,13 @@ country_event = {
 		}
     	hidden_effect = {
     		retire_country_leader = yes
-			promote_character = USA_leonard_wood
     		set_politics = {
 			    ruling_party = democratic
 			    last_election = "1912.11.5"
 			    election_frequency = 48
 			    elections_allowed = yes
 			}
+			promote_character = { character = USA_leonard_wood  ideology = conservatism }
 			news_event = { id = wsv_usa.5  days = 1 }
     	}
 			
@@ -468,13 +475,13 @@ country_event = {
 		add_ideas = USA_demoralized_army_idea		# army gives up
     	hidden_effect = {
     		retire_country_leader = yes
-			promote_character = USA_eugene_debs
     		set_politics = {
 			    ruling_party = democratic	# socialists still represented as democratic when in power (for now)
 			    last_election = "1916.11.5"
 			    election_frequency = 48
 			    elections_allowed = yes
 			}
+			promote_character = { character = USA_eugene_debs  ideology = socialism }
 			news_event = { id = wsv_usa.12  days = 1 }
     	}
 	}
@@ -754,7 +761,7 @@ country_event = {
 	# Debs wins... 		
 	option = {
 		name = wsv_usa.21.b
-		trigger = { surrender_progress > 0.1 }		# if the war is going badly we're voted out
+		#trigger = { surrender_progress > 0.1 }		# if the war is going badly we're voted out
 		custom_effect_tooltip = debs_becomes_president_tt
 		add_popularity = {
 			ideology = communism
@@ -767,10 +774,10 @@ country_event = {
 	# Nullify the election (Debs won)
 	option = {
 		name = wsv_usa.21.c
-		trigger = { 
-			surrender_progress > 0.1  # if the war is going badly we're voted out
-			has_completed_focus = USA_military_dictatorship 
-		}		
+		#trigger = { 
+		#	surrender_progress > 0.1  # if the war is going badly we're voted out
+		#	has_completed_focus = USA_military_dictatorship 
+		#}		
 		news_event = { id = wsv_usa.22  days = 3 }
 		custom_effect_tooltip = likely_lead_to_usa_civil_war_tt
 		ai_chance = { factor = 100 }
@@ -798,7 +805,7 @@ news_event = {
 					election_frequency = 48
 					elections_allowed = no
 				}
-				promote_character = USA_leonard_wood   # make sure he's president
+				promote_character = { character = USA_leonard_wood  ideology = military_dictatorship }  # make sure he's president
 				if = {
 					# socialists will automatically start militarizing
 					limit = { check_variable = { USA.usa_socialist_militancy < 45 } }
@@ -863,13 +870,13 @@ news_event = {
 		hidden_effect = {
 			USA = {
 				retire_country_leader = yes
-				promote_character = USA_eugene_debs
 				set_politics = {
-					ruling_party = communism
+					ruling_party = democratic   # socialists are represented by democratic for now
 					last_election = "1916.11.5"
 					election_frequency = 48
 					elections_allowed = yes
 				}
+				promote_character = { character = USA_eugene_debs  ideology = socialism }
 				# army doesnt want to fight for socialists
 				add_ideas = USA_demoralized_army_idea
 				# Debs is expected to peace out within a year
@@ -1148,14 +1155,14 @@ country_event = {
 			set_country_flag = {
 				flag = militants_cooldown
 				value = 1
-				days = 150
+				days = 120
 			}
 		}
 	}
 
 	option = {
 		name = wsv_usa.51.a
-		increase_militancy_by_10_effect = yes
+		increase_militancy_by_5_effect = yes
 		add_stability = -0.02
 	}
 }
@@ -1184,7 +1191,7 @@ news_event = {
 			# Democrats stay in power
 			start_civil_war = {
 				ideology = communism
-				size = 0.15
+				size = 0.05
 				states = {
 					358
 				}
@@ -1200,14 +1207,15 @@ news_event = {
 				set_equipment_fraction = 0.05
 				set_stability = 0.65
 				set_war_support = 0.8
-				promote_character = USA_ce_ruthenburg
 				set_popularities = {
 					democratic = 15
 					communism = 75
 					neutrality = 5
 					fascism = 5
 				}
+				promote_character = USA_ce_ruthenburg
 				add_political_power = 250
+				create_faction = "American Socialist Front"
 			}
 			# expand revolt in a few days
 			country_event = { id = wsv_usa.56   days = 10 }
@@ -1250,10 +1258,11 @@ country_event = {
 				USA = {
 					transfer_units_fraction= {
 						target = event_target:USA_communist_side
-						size = 0.01
-						stockpile_ratio = 0.2
-						army_ratio = 0.15
-						air_ratio = 0.08
+						size = 0.1
+						stockpile_ratio = 0.1
+						army_ratio = 0.1
+						air_ratio = 0.05
+						navy_ratio = 0
 					}
 				}
 			}

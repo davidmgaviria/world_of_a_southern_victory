@@ -30,12 +30,16 @@ USA_socialist_movement_cat = {
 		ai_will_do = {
 		 	factor = 0
 			modifier = {
-				factor = 1
-				communism > 0.2
+				add = 1
+				communism > 0.25
+			}
+			modifier = {
+				add = 1
+				communism > 0.35
 			}
 			modifier = {
 				factor = 0.01
-				has_political_power > 150
+				has_political_power < 100
 			}
 		}
 	}
@@ -518,10 +522,10 @@ wsv_great_war_decisions = {
 					limit = { casualties > 2000000 }
 					add_to_temp_variable = { surrender_chance = 1 }
 				}
-				# Socialist revolt is really bad
+				# Socialist revolt is bad
 				if = {
 					limit = { has_civil_war = yes }
-					add_to_temp_variable = { surrender_chance = 10 }
+					add_to_temp_variable = { surrender_chance = 1 }
 				}
 				# If we're completey losing, give up
 				if = {
