@@ -40,6 +40,7 @@ replace_path="events"
 replace_path="history/countries"
 replace_path="history/general"
 replace_path="history/states"
+replace_path="gfx/loadingscreens"
 replace_path="map/strategicregions"
 replace_path="map"
 tags={

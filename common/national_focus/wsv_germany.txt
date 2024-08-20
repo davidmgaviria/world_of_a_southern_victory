@@ -347,9 +347,17 @@ focus_tree = {
 			}
 		}
 
-
 		completion_reward = { 
-			send_embargo = SER
+			if = {
+				limit = { has_dlc = "By Blood Alone"}
+				send_embargo = SER
+			}
+			else = {
+				add_opinion_modifier = {
+					target = SER
+					modifier = embargo
+				}
+			}
 			SER = {
 				add_opinion_modifier = {
 					target = GER
