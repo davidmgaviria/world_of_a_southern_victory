@@ -103,12 +103,12 @@ USA_gw_equipment_and_unit_production = {
 	ai_strategy = {
 		type = equipment_production_factor
 		id = infantry
-		value = 110
+		value = 100
 	}
 	ai_strategy = {
 		type = equipment_production_factor
 		id = artillery
-		value = 65
+		value = 55
 	}
 	ai_strategy = {
 		type = equipment_production_factor
@@ -174,7 +174,7 @@ USA_stockpile_less_equipment = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -20 	# reduce while we build up in case of issues
+		value = -25 	# reduce while we build up in case of issues
 	}
 }
 
@@ -216,7 +216,7 @@ USA_build_up_more_civs = {
 	
 	ai_strategy = {
 		type = added_military_to_civilian_factory_ratio		
-		value = -12   # not quite 15
+		value = -5
 	}
 }
 
@@ -538,11 +538,11 @@ USA_slowly_against_CSA = {
 	ai_strategy = {
 		type = front_control
 		tag = CSA
-		ratio = 0.65
+		ratio = 0.35
 		priority = 50   # overrides order from above
 		ordertype = front
 		execution_type = careful
-		execute_order = yes
+		execute_order = no
 		manual_attack = yes
 	}
 
@@ -594,6 +594,33 @@ USA_slowly_against_CAN = {
 	}
 }
 
+
+USA_defenses_rustbelt = {
+	allowed = {
+		original_tag = USA		
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_war_with = CAN
+	}
+	abort = {
+		CAN = { surrender_progress > 0.5 }
+	}
+
+	# nova scotia & new brunswick
+	ai_strategy = {
+		type = put_unit_buffers
+		order_id = 1
+		states = {
+			846
+			393
+		}
+		ratio = 0.04
+		area = north_america
+		subtract_invasions_from_need = no
+		subtract_fronts_from_need = no
+	}
+}
 
 ## control army size production (so france also does offensives)
 USA_limit_army_size = {

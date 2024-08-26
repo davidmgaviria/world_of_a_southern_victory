@@ -211,6 +211,25 @@ GER_anglo_german_naval_arms_race = {
 
 
 # reduce while we build up in case of issues
+GER_more_mil_factories = {
+	allowed = {
+		original_tag = GER
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		date < 1915.1.1
+		has_war = no
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = added_military_to_civilian_factory_ratio		
+		value = 25 
+	}
+}
+	
+
+# reduce while we build up in case of issues
 GER_gw_stockpile_less_early_game = {
 	allowed = {
 		original_tag = GER
@@ -224,7 +243,7 @@ GER_gw_stockpile_less_early_game = {
 
 	ai_strategy = {
 		type = equipment_stockpile_surplus_ratio
-		value = -10
+		value = -15
 	}
 }
 
@@ -534,7 +553,7 @@ GER_fight_measured_against_FRA = {
 	ai_strategy = {
 		type = front_control
 		tag = FRA
-		ratio = 0.6
+		ratio = 0.65
 		priority = 1
 		ordertype = front
 		execution_type = careful
