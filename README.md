@@ -5,7 +5,7 @@ The codebase for the *World of a Southern Victory* mod for *Hearts of Iron IV*, 
 ---
 
 #### **DISCLAIMER**  
-This mod does not reflect the political beliefs of the creator, who unequivocally condemns the "Lost Cause" myth and revisionist Civil War narratives. It was created solely out of a love for military history and a passion for game development. The goal was to allow fans of Harry Turtledove's *Timeline-191* series to experience an alternate history within *Hearts of Iron IV*.
+This mod does not reflect the political beliefs of the creator, who unequivocally condemns the "Lost Cause" myth and revisionist Civil War narratives. It was created solely out of a love for military history and a passion for game development, and so other fans of Harry Turtledove's *Timeline-191* series could explore its alternate reality within *Hearts of Iron IV*.
 
 ---
 
