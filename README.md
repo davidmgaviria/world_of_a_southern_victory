@@ -10,7 +10,7 @@ This mod does not reflect the political beliefs of the creator, who unequivocall
 ---
 
 ## Description  
-The *World of a Southern Victory* mod offers an alternate history scenario where the Confederate States successfully secede from the Union with the help of Britain and France by 1862. In this world, the United States, defeated and bitter, allies with the rising German Empire in the following decades to challenge the Confederates, British, and French.
+The *World of a Southern Victory* mod offers a bleak alternate history scenario where the Confederate States successfully secede from the Union with the help of Britain and France by 1862. In this world, the United States, defeated and bitter, allies with the rising German Empire in the following decades to challenge the Confederates, British, and French.
 
 ### Key Features:
 - **Playable countries**: Includes the United States, Confederate States, United Kingdom, France, Germany, Russia, Italy, Turkey, Canada, and more.
