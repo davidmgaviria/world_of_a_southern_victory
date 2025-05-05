@@ -19,7 +19,6 @@ technologies = {
 		
 		enable_subunits = {
 			infantry
-			heavy_infantry
 		}
 		
 		path = {
@@ -861,7 +860,7 @@ technologies = {
 	support_weapons = {
 
 		enable_equipments = {
-			heavy_infantry_equipment_1
+			heavy_weapons_equipment_1
 		}
 
 		enable_subunits = {
@@ -947,12 +946,12 @@ technologies = {
 
 	support_weapons2 = {
 
-		#enable_subunits = {
-		#	infantry
-		#}
+		enable_subunits = {
+			heavy_infantry
+		}
 
 		enable_equipments = {
-			heavy_infantry_equipment_2
+			heavy_weapons_equipment_2
 		}
 
 		#category_all_infantry = {
@@ -1021,7 +1020,7 @@ technologies = {
 	support_weapons3 = {
 
 		enable_equipments = {
-			heavy_infantry_equipment_3
+			heavy_weapons_equipment_3
 		}
 
 		#category_all_infantry = {
@@ -1091,6 +1090,44 @@ technologies = {
 	}
 
 
+	tech_trucks = {
+
+		enable_equipments = {
+			motorized_equipment_0
+		}
+
+		path = {
+			leads_to_tech = motorised_infantry
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1.5
+		start_year = 1914
+
+		folder = {
+			name = gw_infantry_folder
+			position = { x = 0 y = @1914 }
+		}
+		folder = {
+			name = gw_support_folder
+			position = { x = 9 y = 5 }
+		}
+				
+		categories = {
+			motorized_equipment
+			infantry_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+		}
+	}
+
+
 	motorised_infantry = {
 
 		enable_equipments = {
@@ -1119,11 +1156,11 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1914
+		start_year = 1916
 
 		folder = {
 			name = gw_infantry_folder
-			position = { x = 0 y = @1914 }
+			position = { x = 0 y = @1916 }
 		}
 				
 		categories = {
@@ -1141,30 +1178,30 @@ technologies = {
 	}
 
 
-	motorised_hospital = {
+	# motorised_hospital = {
 
-		category_army = {
-			casualty_trickleback = 0.03
-			experience_loss_factor = -0.03
-		}
+	# 	category_army = {
+	# 		casualty_trickleback = 0.03
+	# 		experience_loss_factor = -0.03
+	# 	}
 
-		research_cost = 1.5
-		start_year = 1916
+	# 	research_cost = 1.5
+	# 	start_year = 1916
 
-		folder = {
-			name = gw_infantry_folder
-			position = { x = 0 y = @1916 }
-		}
+	# 	folder = {
+	# 		name = gw_infantry_folder
+	# 		position = { x = 0 y = @1916 }
+	# 	}
 		
-		categories = {
-			motorized_equipment
-			infantry_tech
-		}
+	# 	categories = {
+	# 		motorized_equipment
+	# 		infantry_tech
+	# 	}
 		
-		ai_will_do = {
-			factor = 1
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 	}
+	# }
 
 
 	desert_warfare = {

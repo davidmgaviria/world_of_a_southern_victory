@@ -1,8 +1,7 @@
 sub_units = {
 
-	## Horse-drawn field hopsital
-	horse_drawn_field_hospital = {
-		abbreviation = "HHOS"
+	horse_drawn_logistics_company = {
+		abbreviation = "HLOG"
 		sprite = infantry
 		map_icon_category = infantry
 		priority = 0
@@ -22,46 +21,41 @@ sub_units = {
 			category_army
 		}
 
+	
 		combat_width = 0
 	
 		#Size Definitions
-		max_strength = 2
-		max_organisation = 20
+		max_strength = 1
+		max_organisation = 10	
 		default_morale = 0.3
 		manpower = 500
 		training_time = 120
 
 		#Misc Abilities
 		weight = 0.1
-		supply_consumption = 0.05
 		can_be_parachuted = yes
 
 		# Important Ability
-		casualty_trickleback = 0.10   
-		experience_loss_factor = -0.08
+		supply_consumption_factor = -0.08
+		fuel_consumption_factor = -0.04
 
 		own_equipment_fuel_consumption_mult = 0.0 # no fuel use
-		
-		battalion_mult = {
-			category = category_all_infantry
-			max_strength = 0.10
-		}
 		
 		essential = {
 			support_equipment
 		}
-		
-		need = {
-			support_equipment = 30
-		}
 
-		same_support_type = field_hospital
+		need = {
+			support_equipment = 20  
+		}
+		same_support_type = logistics_company
 	}
 
 
-	## Motorized field hopsital
-	field_hospital = {
-		abbreviation = "HOS"
+
+	## Regular logistics
+	logistics_company = {
+		abbreviation = "LOG"
 		sprite = infantry
 		map_icon_category = infantry
 		priority = 0
@@ -85,45 +79,41 @@ sub_units = {
 		combat_width = 0
 	
 		#Size Definitions
-		max_strength = 2
-		max_organisation = 20
+		max_strength = 1
+		max_organisation = 10	
 		default_morale = 0.3
 		manpower = 500
 		training_time = 120
 
 		#Misc Abilities
 		weight = 0.1
-		supply_consumption = 0.05
 		can_be_parachuted = yes
 
 		# Important Ability
-		casualty_trickleback = 0.16   # vanilla is 20
-		experience_loss_factor = -0.12   # vanilla is 15
+		supply_consumption_factor = -0.12    # vanilla is 10, improved so its better than horse-drawn
+		fuel_consumption_factor = -0.04
 
 		own_equipment_fuel_consumption_mult = 0.0 # no fuel use
-		
-		battalion_mult = {
-			category = category_all_infantry
-			max_strength = 0.10
-		}
 		
 		essential = {
 			support_equipment
 			motorized_equipment
 		}
-		
-		need = {
-			support_equipment = 30
-			motorized_equipment = 20
-		}
 
-		same_support_type = field_hospital
+		need = {
+			support_equipment = 20
+			motorized_equipment = 10
+		}
+		same_support_type = logistics_company
 	}
 
+	########################
+	### SPECIAL PROJECTS ###
+	########################
 
-	## Heli field lmfao
-	helicopter_field_hospital = {
-		abbreviation = "HELF"
+	# WW - SP tech - Helicopter Logistics - Using Helicopters -> Helicopter Transport
+	helicopter_transport = {
+		abbreviation = "HELT"
 		sprite = helicopter_brigade
 		map_icon_category = infantry
 		priority = 0
@@ -132,7 +122,6 @@ sub_units = {
 		affects_speed = no
 
 		type = {
-			infantry
 			support
 		}
 		
@@ -143,47 +132,63 @@ sub_units = {
 			category_army
 			category_helicopter_support_companies
 		}
-
 	
 		combat_width = 0
 	
 		#Size Definitions
-		max_strength = 2 #Same as reg hospital
-		max_organisation = 20
+		max_strength = 1
+		max_organisation = 12	
 		default_morale = 0.3
 		manpower = 500
 		training_time = 120
 
 		#Misc Abilities
 		weight = 0.1
-		supply_consumption = 0.070
-		can_be_parachuted = yes
+		can_be_parachuted = no
 
 		# Important Ability
-		casualty_trickleback = 0.25
-		experience_loss_factor = -0.10
-		
-		battalion_mult = {
-			category = category_all_infantry
-			max_strength = 0.05 #Less than reg hospital (0.1)
-			default_morale = 0.1 #More than reg hospital (0)
-		}
+		supply_consumption_factor = -0.1
+		#fuel_consumption_factor = -0.05 #MM: No bonus or penalty to fuel consumption, just extra supply bonus
+		own_equipment_fuel_consumption_mult = 0.0 # no fuel use
 		
 		essential = {
 			support_equipment
 			helicopter_equipment
 		}
-		
+
 		need = {
-			support_equipment = 30
-			helicopter_equipment = 15
-			motorized_equipment = 15
+			support_equipment = 20
+			helicopter_equipment = 10
+			motorized_equipment = 10
 		}
 
-		same_support_type = field_hospital
-		same_support_type = helicopter_field_hospital
+		forest = {
+			movement = 0.05
+		}
+		hills = {
+			movement = 0.05
+		}
+		mountain = {
+			movement = 0.05
+		}
+		jungle = {
+			movement = 0.05
+		}
+		marsh = {
+			movement = 0.05
+		}
+		plains = {
+			movement = 0.05
+		}
+		desert = {
+			movement = 0.05
+		}
+		river = {
+			movement = 0.05
+		}
+
+		same_support_type = logistics_company
+		same_support_type = helicopter_transport
 	}
 
 }
-
-
