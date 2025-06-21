@@ -761,23 +761,23 @@ country_event = {
 	# Debs wins... 		
 	option = {
 		name = wsv_usa.21.b
-		#trigger = { surrender_progress > 0.1 }		# if the war is going badly we're voted out
+		trigger = { surrender_progress >= 0.1 }		# if the war is going badly we're voted out
 		custom_effect_tooltip = debs_becomes_president_tt
 		add_popularity = {
 			ideology = communism
 			popularity = 0.1
 		}
 		news_event = { id = wsv_usa.40 }  # event takes care of stuff
-		ai_chance = { factor = 1 }  
+		ai_chance = { factor = 0 }  
 	}
 
 	# Nullify the election (Debs won)
 	option = {
 		name = wsv_usa.21.c
-		#trigger = { 
-		#	surrender_progress > 0.1  # if the war is going badly we're voted out
-		#	has_completed_focus = USA_military_dictatorship 
-		#}		
+		trigger = { 
+			surrender_progress >= 0.1  # if the war is going badly we're voted out
+			has_completed_focus = USA_military_dictatorship_focus 
+		}		
 		news_event = { id = wsv_usa.22  days = 3 }
 		custom_effect_tooltip = likely_lead_to_usa_civil_war_tt
 		ai_chance = { factor = 100 }
