@@ -1,0 +1,84 @@
+####################################################################################
+############################## SOUTHERN VICTORY ####################################
+####################################################################################
+
+
+
+infantry_CHI = {
+
+	available_for = {
+		CHI
+		QIN
+	}
+
+	role = infantry
+	
+	upgrade_prio = {
+		factor = 10
+	}
+
+	## Start infantry template
+	infantry_default_CHI = {
+	
+		upgrade_prio = {
+			factor = 2
+
+			# modifier = {
+			# 	factor = 0
+			# 	date > 1937.1.1
+			# }
+		}
+		
+		target_template = {			
+			support = {
+				artillery = 1
+			}
+			
+			regiments = {
+				infantry = 6
+			}
+		}
+	}
+}
+
+
+
+garrison_CHI = {
+
+	available_for = {
+		CHI
+		QIN
+	}
+
+	role = garrison
+	
+	upgrade_prio = {
+		factor = 80
+
+		modifier = {
+			factor = 0
+			ai_has_role_template = garrison
+		}
+	}
+
+
+	garrison_CHI = {
+	
+		reinforce_prio = 0
+		custom_icon = 7
+	
+		upgrade_prio = {
+			factor = 2
+
+			modifier = {
+				factor = 1
+			}
+		}
+
+		target_template = {			
+			regiments = {
+				infantry = 4
+			}
+		}
+	}
+}
