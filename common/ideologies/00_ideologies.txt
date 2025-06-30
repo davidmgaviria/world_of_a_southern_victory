@@ -2,20 +2,19 @@ ideologies = {
 
 	## DEMOCRACY ##
 
-	democratic = {
-
+	democratic = {    # 'ordinary' democracy (conservatives, liberals, and populists)
 		types = {
+			national_populism = {
+			}
+
 			conservatism = {
 			}
 
 			liberalism = {
 			}
 
-			socialism = {
-			}
-
-			populism = {
-			}
+			# socialism = {    ## todo - remove this
+			# }
 		}
 
 		dynamic_faction_names = {
@@ -62,80 +61,75 @@ ideologies = {
 			faction_trade_opinion_factor = 0.50 #plus 50% trade opinion
 		}
 		ai_democratic = yes # uses the democratic AI behaviour
-		ai_ideology_wanted_units_factor = 1.10 # multiplies threat impact on number of desired units by this value, defaults to 1.0. If at war, the larger of this value and NDefines::NAI::WANTED_UNITS_WAR_THREAT_FACTOR will be used instead
+		ai_ideology_wanted_units_factor = 1 # multiplies threat impact on number of desired units by this value, defaults to 1.0. If at war, the larger of this value and NDefines::NAI::WANTED_UNITS_WAR_THREAT_FACTOR will be used instead
 	}
 
 
 	## DEMOCRATIC SOCIALIST ##
+	demsocialism = {    # democractic socialist
+		types = {
+			socialism = {
+			}
 
-	# democratic_socialism = {
+			lincolnism = {
+			}
 
-	# 	types = {
-	# 		social_democrat = {
-	# 		}
+			social_democrat = {
+			}
+		}
 
-	# 		lincolnism = {
-	# 		}
+		dynamic_faction_names = {
+			"FACTION_NAME_DEMOCRATIC_1"
+			"FACTION_NAME_DEMOCRATIC_2"
+			"FACTION_NAME_DEMOCRATIC_3"
+			"FACTION_NAME_DEMOCRATIC_4"
+			"FACTION_NAME_DEMOCRATIC_5"
+			"FACTION_NAME_DEMOCRATIC_6"
+		}
 
-	# 		socialism = {
-	# 		}
-	# 	}
+		color = { 228 136 242 }
 
-	# 	dynamic_faction_names = {
-	# 		"FACTION_NAME_DEMOCRATIC_1"
-	# 		"FACTION_NAME_DEMOCRATIC_2"
-	# 		"FACTION_NAME_DEMOCRATIC_3"
-	# 		"FACTION_NAME_DEMOCRATIC_4"
-	# 		"FACTION_NAME_DEMOCRATIC_5"
-	# 		"FACTION_NAME_DEMOCRATIC_6"
-	# 	}
+		rules = {
+			can_declare_war_on_same_ideology = no
+			can_force_government = yes
+			can_send_volunteers = no
+			can_puppet = yes
+			can_lower_tension = yes
+			can_only_justify_war_on_threat_country = yes
+			can_guarantee_other_ideologies = yes
+		}
 
-	# 	color = { 255 204 255 }
+		can_host_government_in_exile = yes
 
-	# 	rules = {
-	# 		can_declare_war_on_same_ideology = no
-	# 		can_force_government = yes
-	# 		can_send_volunteers = no
-	# 		can_puppet = no
-	# 		can_lower_tension = yes
-	# 		can_only_justify_war_on_threat_country = yes
-	# 		can_guarantee_other_ideologies = yes
-	# 	}
+		war_impact_on_world_tension = 0.35		# vanilla was 0.25
+		faction_impact_on_world_tension = 0.2   # vanilla was 0.1
 
-	# 	can_host_government_in_exile = yes
+		modifiers = {
+			generate_wargoal_tension = 1.00
+			join_faction_tension = 0.80
+			lend_lease_tension = 0.50
+			send_volunteers_tension = 0.50
+			guarantee_tension = 0.25
+			civilian_intel_to_others = 20.0
+			army_intel_to_others = 5.0
+			navy_intel_to_others = 20.0
+			airforce_intel_to_others = 5
+			embargo_cost_factor = -0.5
+			embargo_threshold_factor = -0.5
+		}
 
-	# 	war_impact_on_world_tension = 0.35		# vanilla was 0.25
-	# 	faction_impact_on_world_tension = 0.2   # vanilla was 0.1
-
-	# 	modifiers = {
-	# 		generate_wargoal_tension = 1.00
-	# 		join_faction_tension = 0.80
-	# 		lend_lease_tension = 0.50
-	# 		send_volunteers_tension = 0.50
-	# 		guarantee_tension = 0.25
-	# 		civilian_intel_to_others = 20.0
-	# 		army_intel_to_others = 5.0
-	# 		navy_intel_to_others = 20.0
-	# 		airforce_intel_to_others = 5
-	# 		embargo_cost_factor = -0.5
-	# 		embargo_threshold_factor = -0.5
-	# 	}
-
-	# 	faction_modifiers = {
-	# 		faction_trade_opinion_factor = 0.50 #plus 50% trade opinion
-	# 	}
-	# 	ai_democratic = yes # uses the democratic AI behaviour
-	# 	ai_ideology_wanted_units_factor = 0.9
-	# }
+		faction_modifiers = {
+			faction_trade_opinion_factor = 0.50 #plus 50% trade opinion
+		}
+		ai_democratic = yes # uses the democratic AI behaviour
+		ai_ideology_wanted_units_factor = 0.8
+	}
 
 
 
 	## COMMUNIST ##
-
 	communism = {
-
 		types = {
-
 			marxism = {
 			}
 
@@ -194,15 +188,12 @@ ideologies = {
 
 
 	## FASCIST ##
-
 	fascism = {
-
 		types = {
-
 			nazism = {
 			}
 
-			ultranationalism = { 
+			gen_nazism = {
 			}
 
 			falangism = {
@@ -211,11 +202,16 @@ ideologies = {
 			rexism = {
 			}
 
+			fascism_ideology = { 
+			}
+
 			revisonism = {
 			}
 
-			fascism_ideology = {
+			white_supremacy = {
 			}
+
+			## ultranationalism got removed
 		}
 
 		dynamic_faction_names = {
@@ -268,8 +264,8 @@ ideologies = {
 			oligarchism  = {
 			}
 
-			autocracy = {
-			}
+			monarchy = {   
+			}   
 
 			military_dictatorship = {
 			}
@@ -321,6 +317,5 @@ ideologies = {
 
 		faction_modifiers = {
 		}
-
 	}
 }

@@ -2,45 +2,43 @@
 ###################################################################
 
 division_template = {
-	name = "Infantry Division"
+	name = "Régiment d'infanterie"
 	regiments = {
 		infantry = { x = 0 y = 0 }
-		infantry = { x = 0 y = 1 }
 		infantry = { x = 1 y = 0 }
-		infantry = { x = 1 y = 1 }
+		infantry = { x = 2 y = 0 }
 	}
 }
 
 division_template = {
-	name = "Infantry Brigade"
-	regiments = {
-		infantry = { x = 0 y = 0 }
-		infantry = { x = 1 y = 0 }
-	}
-	priority = 0
-}
-
-division_template = {
-	name = "Cavalry Division"
+	name = "Gendarmerie"
 	regiments = {
 		cavalry = { x = 0 y = 0 }
 		cavalry = { x = 0 y = 1 }
-		cavalry = { x = 1 y = 0 }
-		cavalry = { x = 1 y = 1 }
 	}
+	priority = 0
 }
 
 ###################################################################
 
 units = {
 	division= { 
-			name = "1ère Brigade d'Infanterie Haitien"
-			location = 4641 # Port au Prince
-			division_template="Infantry Brigade"
-			start_experience_factor=0
-			}
-	
+		name = "1ère Brigade d'Infanterie Haitien"
+		location = 13307 # Port au Prince
+		division_template="Régiment d'infanterie"
+		start_experience_factor=0.1
+		start_manpower_factor = 0.6
+		start_equipment_factor = 0.7
 	}
+	division= { 
+		name = "2ère Brigade d'Infanterie Haitien"
+		location = 13307 # Port au Prince
+		division_template="Régiment d'infanterie"
+		start_experience_factor=0.1
+		start_manpower_factor = 0.6
+		start_equipment_factor = 0.7
+	}
+}
 air_wings = { 
 	}
 instant_effect = {

@@ -19,6 +19,7 @@ technologies = {
 		
 		enable_subunits = {
 			infantry
+			militia
 		}
 		
 		path = {
@@ -859,16 +860,24 @@ technologies = {
 	
 	support_weapons = {
 
-		category_all_infantry = {
-			defense = 0.08
-			breakthrough = 0.01
-			soft_attack = 0.03
+		enable_equipments = {
+			heavy_weapons_equipment_1
 		}
-		cavalry = {
-			defense = 0.03
-			breakthrough = 0.01
-			soft_attack = 0.01
-		}		
+
+		enable_subunits = {
+			support_mg_company
+		}
+
+		#category_all_infantry = {
+		#	defense = 0.08
+		#	breakthrough = 0.01
+		#	soft_attack = 0.03
+		#}
+		#cavalry = {
+		#	defense = 0.03
+		#	breakthrough = 0.01
+		#	soft_attack = 0.01
+		#}		
 		
 		path = {
 			leads_to_tech = sniper_rifles
@@ -938,16 +947,24 @@ technologies = {
 
 	support_weapons2 = {
 
-		category_all_infantry = {
-			defense = 0.08
-			breakthrough = 0.01
-			soft_attack = 0.03
+		enable_subunits = {
+			heavy_infantry
 		}
-		cavalry = {
-			defense = 0.03
-			breakthrough = 0.01
-			soft_attack = 0.01
+
+		enable_equipments = {
+			heavy_weapons_equipment_2
 		}
+
+		#category_all_infantry = {
+		#	defense = 0.08
+		#	breakthrough = 0.01
+		#	soft_attack = 0.03
+		#}
+		#cavalry = {
+		#	defense = 0.03
+		#	breakthrough = 0.01
+		#	soft_attack = 0.01
+		#}
 		
 		path = {
 			leads_to_tech = infantry_ww1_mortar1
@@ -1003,16 +1020,20 @@ technologies = {
 
 	support_weapons3 = {
 
-		category_all_infantry = {
-			defense = 0.08
-			breakthrough = 0.01
-			soft_attack = 0.03
+		enable_equipments = {
+			heavy_weapons_equipment_3
 		}
-		cavalry = {
-			defense = 0.03
-			breakthrough = 0.01
-			soft_attack = 0.01
-		}
+
+		#category_all_infantry = {
+		#	defense = 0.08
+		#	breakthrough = 0.01
+		#	soft_attack = 0.03
+		#}
+		#cavalry = {
+		#	defense = 0.03
+		#	breakthrough = 0.01
+		#	soft_attack = 0.01
+		#}
 		
 		path = {
 			leads_to_tech = infantry_ww1_mortar2
@@ -1070,6 +1091,44 @@ technologies = {
 	}
 
 
+	tech_trucks = {
+
+		enable_equipments = {
+			motorized_equipment_0
+		}
+
+		path = {
+			leads_to_tech = motorised_infantry
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1.5
+		start_year = 1914
+
+		folder = {
+			name = gw_infantry_folder
+			position = { x = 0 y = @1914 }
+		}
+		folder = {
+			name = gw_support_folder
+			position = { x = 9 y = 5 }
+		}
+				
+		categories = {
+			motorized_equipment
+			infantry_tech
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 3
+				is_major = yes
+			}
+		}
+	}
+
+
 	motorised_infantry = {
 
 		enable_equipments = {
@@ -1078,6 +1137,7 @@ technologies = {
 
 		enable_subunits = {
 			motorized
+			mot_artillery_brigade
 		}
 
 		on_research_complete_limit = {
@@ -1098,11 +1158,11 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1914
+		start_year = 1916
 
 		folder = {
 			name = gw_infantry_folder
-			position = { x = 0 y = @1914 }
+			position = { x = 0 y = @1916 }
 		}
 				
 		categories = {
@@ -1120,30 +1180,30 @@ technologies = {
 	}
 
 
-	motorised_hospital = {
+	# motorised_hospital = {
 
-		category_army = {
-			casualty_trickleback = 0.03
-			experience_loss_factor = -0.03
-		}
+	# 	category_army = {
+	# 		casualty_trickleback = 0.03
+	# 		experience_loss_factor = -0.03
+	# 	}
 
-		research_cost = 1.5
-		start_year = 1916
+	# 	research_cost = 1.5
+	# 	start_year = 1916
 
-		folder = {
-			name = gw_infantry_folder
-			position = { x = 0 y = @1916 }
-		}
+	# 	folder = {
+	# 		name = gw_infantry_folder
+	# 		position = { x = 0 y = @1916 }
+	# 	}
 		
-		categories = {
-			motorized_equipment
-			infantry_tech
-		}
+	# 	categories = {
+	# 		motorized_equipment
+	# 		infantry_tech
+	# 	}
 		
-		ai_will_do = {
-			factor = 1
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 1
+	# 	}
+	# }
 
 
 	desert_warfare = {

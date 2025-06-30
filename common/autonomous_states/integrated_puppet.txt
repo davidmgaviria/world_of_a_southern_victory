@@ -42,12 +42,12 @@ autonomy_state = {
 	}
 
 	allowed = {
-		OR = {
-			NOT = { has_government = neutrality }			# non neutral nations can always use this
-			OVERLORD = {									# only blocked if overlord is imperial germany
+		NOT = {			# imperial/fascist germany uses a different system
+			OVERLORD = {
+				original_tag = GER
 				OR = {
-					NOT = { original_tag = GER }
-					NOT = {	has_government = neutrality }
+					has_government = neutrality
+					has_government = fascism
 				}
 			}
 		}

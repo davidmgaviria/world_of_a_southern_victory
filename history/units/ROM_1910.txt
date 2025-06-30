@@ -4,17 +4,22 @@ division_template = {
 	name = "Divizia de Infanterie"
 	regiments = {
 		infantry = { x = 0 y = 0 }
-        infantry = { x = 0 y = 1 }
-        infantry = { x = 0 y = 2 }
-        infantry = { x = 1 y = 0 }
-        infantry = { x = 1 y = 1 }
-        infantry = { x = 1 y = 2 }
-        infantry = { x = 2 y = 0 }
-        infantry = { x = 2 y = 1 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+		infantry = { x = 2 y = 0 }
+		infantry = { x = 2 y = 1 }
         infantry = { x = 2 y = 2 }
-        artillery_brigade = { x = 3 y = 0 }
+        infantry = { x = 3 y = 0 }
+		infantry = { x = 3 y = 1 }
+        infantry = { x = 3 y = 2 }
+        artillery_brigade = { x = 4 y = 0 }
+        artillery_brigade = { x = 4 y = 1 }
 	}
 	support = {
+		engineer = { x = 0 y = 0 }
 	}
 }
 
@@ -23,11 +28,29 @@ division_template = {
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
-		#infantry = { x = 1 y = 0 }
-		#infantry = { x = 1 y = 1 }
+		infantry = { x = 0 y = 2 }
+		infantry = { x = 1 y = 0 }
+		infantry = { x = 1 y = 1 }
+		infantry = { x = 1 y = 2 }
+		artillery_brigade = { x = 2 y = 0 }
 	}
 	priority = 0
 }
+
+
+division_template = {
+	name = "Garda Nationala"
+	regiments = {
+		militia = { x = 0 y = 0 }
+		militia = { x = 0 y = 1 }
+		militia = { x = 0 y = 2 }
+		militia = { x = 1 y = 0 }
+		militia = { x = 1 y = 1 }
+		militia = { x = 1 y = 2 }
+	}
+	priority = 0
+}
+
 
 division_template = {
 	name = "Divizia de Cavalerie"
@@ -36,8 +59,11 @@ division_template = {
 		cavalry = { x = 0 y = 1 }
 		cavalry = { x = 1 y = 0 }
 		cavalry = { x = 1 y = 1 }
+		cavalry = { x = 2 y = 0 }
+		cavalry = { x = 2 y = 1 }
 	}
 	support = {
+		recon = { x = 0 y = 0 }
 	}
 }
 
@@ -60,7 +86,6 @@ fleet = {
 			location = 3645 # Craiova
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 	
 	
@@ -69,7 +94,6 @@ fleet = {
 			location = 3645 # Craiova
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 	
 	
@@ -78,7 +102,6 @@ fleet = {
 			location = 9617 # Bucuresti
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 	
 	
@@ -87,7 +110,6 @@ fleet = {
 			location = 9617 # Bucuresti
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 	
 	
@@ -96,7 +118,6 @@ fleet = {
 			location = 9617 # Bucuresti
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 
 	division= { 
@@ -104,7 +125,6 @@ fleet = {
 			location = 9617 # Bucuresti
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 
 	division= { 
@@ -112,16 +132,14 @@ fleet = {
 			location = 9617 # Bucuresti
 			division_template="Divizia de Infanterie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
 			}
 
-	# division= { 
-	# 		name = "Divizia 8 Infanterie"
-	# 		location = 9617 # Bucuresti
-	# 		division_template="Divizia de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		start_equipment_factor = 0.8
-	# 	}
+	division= { 
+			name = "Divizia 8 Infanterie"
+			location = 9617 # Bucuresti
+			division_template="Divizia de Infanterie"
+			start_experience_factor=0.1
+		}
 
 
 	division= { 
@@ -173,54 +191,54 @@ fleet = {
 			#start_equipment_factor = 0.05
 		}
 	
-	# division= { 
-	# 		name = "Brigada 7 Infanterie"
-	# 		location=9716 # Iasi
-	# 		division_template="Brigada de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		#start_equipment_factor = 0.05
-	# 	}
+	division= { 
+			name = "Garda 1 Nationala"
+			location=9716 # Iasi
+			division_template="Garda Nationala"
+			start_experience_factor=0.1
+			#start_equipment_factor = 0.05
+		}
 	
-	# division= { 
-	# 		name = "Brigada 8 Infanterie"
-	# 		location=9716 # Iasi
-	# 		division_template="Brigada de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		#start_equipment_factor = 0.05
-	# 	}
+	division= { 
+			name = "Garda 2 Nationala"
+			location=9716 # Iasi
+			division_template="Garda Nationala"
+			start_experience_factor=0.1
+			#start_equipment_factor = 0.05
+		}
 
-	# division= { 
-	# 		name = "Brigada 9 Infanterie"
-	# 		location = 9617 # Bucuresti
-	# 		division_template="Brigada de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		start_equipment_factor = 0.05
-	# 	}
+	division= { 
+			name = "Garda 3 Nationala"
+			location = 9617 # Bucuresti
+			division_template="Garda Nationala"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.05
+		}
 
-	# division= { 
-	# 		name = "Brigada 10 Infanterie"
-	# 		location = 9617 # Bucuresti
-	# 		division_template="Brigada de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		start_equipment_factor = 0.05
-	# 	}
+	division= { 
+			name = "Garda 4 Nationala"
+			location = 9617 # Bucuresti
+			division_template="Garda Nationala"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.05
+		}
 
-	# division= { 
-	# 		name = "Brigada 11 Infanterie"
-	# 		location = 657 # Constanta
-	# 		division_template="Brigada de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		start_equipment_factor = 0.05
-	# 	}
+	division= { 
+			name = "Garda 5 Nationala"
+			location = 657 # Constanta
+			division_template="Garda Nationala"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.05
+		}
 	
 	
-	# division= { 
-	# 		name = "Brigada 12 Infanterie"
-	# 		location = 657 # Constanta
-	# 		division_template="Brigada de Infanterie"
-	# 		start_experience_factor=0.1
-	# 		start_equipment_factor = 0.05
-	# 	}
+	division= { 
+			name = "Garda 6 Nationala"
+			location = 657 # Constanta
+			division_template="Garda Nationala"
+			start_experience_factor=0.1
+			start_equipment_factor = 0.05
+		}
 
 	
 	division= { 
@@ -228,7 +246,7 @@ fleet = {
 			location = 3645 # Craiova
 			division_template="Divizia de Cavalerie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
+			#start_equipment_factor = 
 		}
 	
 	
@@ -237,25 +255,16 @@ fleet = {
 			location = 3645 # Craiova
 			division_template="Divizia de Cavalerie"
 			start_experience_factor=0.1
-			start_equipment_factor = 0.8
+			#start_equipment_factor = 
 		}
-	
-	
-	
-	division= { 
-			name = "Divizia 3 Cavalerie"
-			location = 9617 # Bucuresti
-			division_template="Divizia de Cavalerie"
-			start_experience_factor=0.1
-			start_equipment_factor = 0.8
-		}
+
 	
 	# division= { 
 	# 		name = "Divizia 4 Cavalerie"
 	# 		location = 657 # Constanta
 	# 		division_template="Divizia de Cavalerie"
 	# 		start_experience_factor=0.1
-	# 		start_equipment_factor = 0.8
+	# 		#start_equipment_factor = 
 	# 	}
 	# }
 
