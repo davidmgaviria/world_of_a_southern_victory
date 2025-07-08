@@ -6,15 +6,17 @@ division_template = {
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 1 y = 0 }
-		infantry = { x = 2 y = 0 }
+	}
+	support = {
+		artillery = { x = 0  y = 0 }
 	}
 }
 
 division_template = {
 	name = "Gendarmerie"
 	regiments = {
-		cavalry = { x = 0 y = 0 }
-		cavalry = { x = 0 y = 1 }
+		militia = { x = 0 y = 0 }
+		militia = { x = 1 y = 0 }
 	}
 	priority = 0
 }
@@ -23,20 +25,27 @@ division_template = {
 
 units = {
 	division= { 
-		name = "1ère Brigade d'Infanterie Haitien"
+		name = "1ère Régiment d'Infanterie Haitien"
 		location = 13307 # Port au Prince
 		division_template="Régiment d'infanterie"
-		start_experience_factor=0.1
-		start_manpower_factor = 0.6
-		start_equipment_factor = 0.7
+		start_experience_factor=0.05
+		start_manpower_factor = 0.8
+		start_equipment_factor = 0.8
 	}
 	division= { 
-		name = "2ère Brigade d'Infanterie Haitien"
+		name = "2ère Régiment d'Infanterie Haitien"
 		location = 13307 # Port au Prince
 		division_template="Régiment d'infanterie"
-		start_experience_factor=0.1
-		start_manpower_factor = 0.6
-		start_equipment_factor = 0.7
+		start_experience_factor=0.05
+		start_manpower_factor = 0.8
+		start_equipment_factor = 0.8
+	}
+	division= { 
+		name = "1ère Gendarmerie"
+		location = 13307 # Port au Prince
+		division_template="Gendarmerie"
+		start_experience_factor=0.05
+		start_equipment_factor = 0.5
 	}
 }
 air_wings = { 
@@ -44,4 +53,4 @@ air_wings = {
 instant_effect = {
 add_equipment_production = { equipment = { type = infantry_equipment_0 creator = "HAI" } requested_factories = 1 progress = 0.1 efficiency = 50}
 
-	}
+}

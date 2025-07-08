@@ -1,44 +1,59 @@
 ﻿capital = 318
 
-set_fuel_ratio = 0.20
-set_convoys = 5
-
 
 1910.1.1 = {
 	oob = "HAI_1910"
+	load_focus_tree = "haiti_focus"
+	set_war_support = 0.1	# low
+	set_stability = 0.5  	# default
+	set_convoys = 5			# default
+	set_fuel_ratio = 0.20	# default
 
 	## US relations ##
-	#give_guarantee = USA
 	set_variable = { 
 		var = request_ignored_count 
 		value = 0
 	}
 	#################
 
-	create_country_leader={ name = "Oreste Zamor" desc=HAI_oreste_zamor_DESC picture="gfx/portraits/HAI/country_leaders/HAI_oreste_zamor.dds" expire="1935.1.1" ideology=despotism  traits={  } }
-	create_country_leader={ name = "Joseph Davilmar Théodore" desc=HAI_joseph_davilmar_theodore_DESC picture="gfx/portraits/HAI/country_leaders/HAI_joseph_davilmar_theodore.dds" expire="1935.1.1" ideology=despotism  traits={  } }
-	create_country_leader={ name = "Vilbrun Guillaume Sam" desc=HAI_vilbrun_guillaume_sam_DESC picture="gfx/portraits/HAI/country_leaders/HAI_vilbrun_guillaume_sam.dds" expire="1935.1.1" ideology=despotism  traits={  } }
-	create_country_leader={ name = "Philippe Sudré Dartiguenave" desc=HAI_philippe_sudre_dartiguenave_DESC picture="gfx/portraits/HAI/country_leaders/HAI_philippe_sudre_dartiguenave.dds" expire="1935.1.1" ideology=despotism  traits={  } }
-	create_country_leader={ name = "Louis Borno" desc=HAI_louis_borno_DESC picture="gfx/portraits/HAI/country_leaders/HAI_louis_borno.dds" expire="1935.1.1" ideology=despotism  traits={  } }
-	create_country_leader={ name = "François C. Antoine Simon" desc=HAI_francois_c_antoine_simon_DESC picture="gfx/portraits/HAI/country_leaders/HAI_francois_c_antoine_simon.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+	#---------------- CHARACTERS ----------------#
+	if = { limit = { has_start_date < 1937.1.1 }
 
+		# Country Leaders
+		recruit_character = HAI_antenor_firmin
+		# Active Country Leader
+		recruit_character = HAI_francois_antoine_simon
+		promote_character = HAI_francois_antoine_simon 
 
+		# Generals
+		recruit_character = HAI_cincinnatus_leconte
+		recruit_character = HAI_vilbrun_guillaume_sam
+		recruit_character = HAI_oreste_zamor
+	}
+
+	#---------------- POLITICS ----------------#
 	set_politics = {
-	    ruling_party = democratic
+	    ruling_party = neutrality
 	    last_election = "1908.1.1"
-	    election_frequency = 36
+	    election_frequency = 84
 	    elections_allowed = yes
 	}
 	set_popularities = {
-	    democratic = 97
-	    fascism = 1
-	    communism = 1
-	    neutrality = 1
+		neutrality = 55
+		demsocialism = 20
+	    democratic = 20
+	    fascism = 0
+	    communism = 5
 	}
 
 	add_ideas = {
-
+		HAI_french_debt
+		HAI_political_turmoil
+		HAI_ragtag_army
+		HAI_illiterate_populace
 	}	
+
+	#--------------- TECHNOLOGY ----------------#
 
 	set_technology = {
 		#Trains
@@ -49,9 +64,6 @@ set_convoys = 5
 		
 		# Artillery
 		light_field_gun1 = 1
-
-		# Naval
-		ww1_destroyer1 = 1
 	}
 }
 
