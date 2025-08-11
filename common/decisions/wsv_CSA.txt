@@ -340,6 +340,163 @@ CSA_actions_in_latam_category = {
 			factor = 5
 		}
 	}
+
+	## --- Other
+
+	# send guns to Haitian rebels
+	CSA_send_guns_haiti = {
+		icon = generic_prepare_civil_war
+
+		targets = { HAI }   # target so that we get the icon
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_global_flag = HAI_1911_revolt
+			NOT = { has_global_flag = HAI_1911_revolt_over }
+		}
+		available = {
+			# US not in major war currently
+			has_war_with_major = no
+			## Simon government exists and is at peace with us
+			any_country = {
+				original_tag = HAI
+				has_cosmetic_tag = HAI_leconte_government
+				has_civil_war = yes
+				NOT = { has_war_with = CSA }
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 35
+		days_remove = 0
+		#days_re_enable = 0
+
+		complete_effect = {
+			random_country = {
+				limit = {
+					original_tag = HAI
+					has_cosmetic_tag = HAI_leconte_government
+				}
+				## TODO - country event
+			}
+			# TODO - increase CS influence
+		}
+
+		ai_will_do = {
+		 	factor = 0
+		}
+	}
+
+	# send guns to DR autocratic government
+	CSA_send_guns_DR = {
+		icon = generic_prepare_civil_war
+
+		targets = { DOM }   # target so that we get the icon
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_global_flag = DOM_1911_civil_war
+			NOT = { has_global_flag = DOM_1911_civil_war_over }
+		}
+		available = {
+			# CS not in major war currently
+			has_war_with_major = no
+			## DR government exists and is at peace with us
+			any_country = {
+				original_tag = DOM
+				has_government = neutrality
+				has_civil_war = yes
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 25
+		days_remove = 0
+		#days_re_enable = 0
+
+		complete_effect = {
+			random_country = {
+				limit = {
+					original_tag = DOM
+					has_government = neutrality
+				}
+				save_event_target_as = dr_government
+				country_event = wsv_carib_game.100		# notify dr		
+			}
+			# send equipment to dr
+			send_equipment = {
+    			equipment = infantry_equipment
+    			amount = 2000
+    			target = event_target:dr_government
+			}	
+			set_country_flag = sent_guns_to_dr_flag
+			# TODO - increase CS influence
+		}
+
+		ai_will_do = {
+		 	factor = 0
+		}
+	}
+
+
+	# send warships to bombard rebels in Haiti
+	CSA_send_warship_support_DR = {
+		icon = generic_naval
+
+		targets = { DOM }   # target so that we get the icon
+
+		allowed = {
+			original_tag = CSA
+		}
+		visible = {
+			has_global_flag = DOM_1911_civil_war
+			NOT = { has_global_flag = DOM_1911_civil_war_over }
+		}
+		available = {
+			# CS not in major war currently
+			has_war_with_major = no
+			has_country_flag = sent_guns_to_dr_flag
+			## DR government exists and is at peace with us
+			any_country = {
+				original_tag = DOM
+				has_government = neutrality
+				has_civil_war = yes
+			}
+		}
+
+		fire_only_once = yes
+
+		cost = 50
+		days_remove = 7
+		#days_re_enable = 0
+
+		remove_effect = {
+			## TODO - event chain
+			random_country = {
+				limit = {
+					original_tag = DOM
+					has_government = neutrality
+				}
+				save_event_target_as = minor_country_supported
+				country_event = wsv_carib_game.101
+			}
+			hidden_effect = {
+				USA = {
+					country_event = wsv_carib_game.102
+				}
+			}
+		}
+
+		ai_will_do = { 
+		 	factor = 0
+		}
+	}
 }
 
 

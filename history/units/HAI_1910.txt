@@ -2,13 +2,21 @@
 ###################################################################
 
 division_template = {
-	name = "Régiment d'infanterie"
+	name = "Gad Prezidansyèl"
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		artillery_brigade = { x = 1  y = 0 }
+	}
+	priority = 1
+	division_cap = 1
+	is_locked = yes
+}
+
+division_template = {
+	name = "Rejiman Enfantri"
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 1 y = 0 }
-	}
-	support = {
-		artillery = { x = 0  y = 0 }
 	}
 }
 
@@ -25,28 +33,34 @@ division_template = {
 
 units = {
 	division= { 
-		name = "1ère 'Gad Prezidansyèl' Régiment d'Infanterie"
+		name = "1ère 'Gad Prezidansyèl'"
 		location = 13307 # Port au Prince
-		division_template="Régiment d'infanterie"
+		division_template="Gad Prezidansyèl"
 		start_experience_factor=0.2
-		start_manpower_factor = 0.8
 	}
-	
+	division= { 
+		name = "1ère Rejiman Enfantri"
+		location = 13307 # Port au Prince
+		division_template="Rejiman Enfantri"
+		start_experience_factor=0.1
+		start_manpower_factor = 0.65
+		start_equipment_factor = 0.5
+	}
+	division= { 
+		name = "2ère Rejiman Enfantri"
+		location = 13307 # Port au Prince
+		division_template="Rejiman Enfantri"
+		start_experience_factor=0.1
+		start_manpower_factor = 0.65
+		start_equipment_factor = 0.5
+	}
 	division= { 
 		name = "1ère Gendarmerie"
-		location = 13307 # Port au Prince
-		division_template="Gendarmerie"
-		start_experience_factor=0.05
-		start_manpower_factor = 0.75
-		start_equipment_factor = 0.35
-	}
-	division= { 
-		name = "2ère Gendarmerie"
 		location = 1594 # Cap-Haiten
 		division_template="Gendarmerie"
 		start_experience_factor=0.05
-		start_manpower_factor = 0.75
-		start_equipment_factor = 0.35
+		start_manpower_factor = 0.5
+		start_equipment_factor = 0.25
 	}
 }
 air_wings = { 

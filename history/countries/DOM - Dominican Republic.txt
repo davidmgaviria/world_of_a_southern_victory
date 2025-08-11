@@ -10,10 +10,23 @@ set_convoys = 5
 	oob = "DOM_1910"
 
 	
-	create_country_leader={ name = "José Bordas Valdés" desc=DOM_jose_bordas_valdes_DESC picture="gfx/portraits/DOM/country_leaders/DOM_jose_bordas_valdes.dds" expire="1935.1.1" ideology=liberalism traits={  } }
-	create_country_leader={ name = "Ramón Baez Machado" desc=DOM_ramon_baez_machado_DESC picture="gfx/portraits/DOM/country_leaders/DOM_ramon_baez_machado.dds" expire="1935.1.1" ideology=liberalism traits={  } }
-	create_country_leader={ name = "Juan Isidro Jimenes" desc=DOM_juan_isidro_jimenes_DESC picture="gfx/portraits/DOM/country_leaders/DOM_juan_isidro_jimenes.dds" expire="1935.1.1" ideology=liberalism traits={  } }
-	create_country_leader={ name = "Ramón Cáceres" desc=DOM_ramon_caceres_DESC picture="gfx/portraits/DOM/country_leaders/DOM_ramon_caceres.dds" expire="1935.1.1" ideology=despotism  traits={  } }
+	#---------------- CHARACTERS ----------------#
+	if = { limit = { has_start_date < 1937.1.1 }
+
+		# Active Country Leader
+		recruit_character = DOM_ramon_caceres
+		promote_character = DOM_ramon_caceres 
+
+		# Generals
+		recruit_character = DOM_luis_tejera
+		recruit_character = DOM_alfredo_victoria
+		recruit_character = DOM_desiderio_arias
+	}
+
+	# create_country_leader={ name = "José Bordas Valdés" desc=DOM_jose_bordas_valdes_DESC picture="gfx/portraits/DOM/country_leaders/DOM_jose_bordas_valdes.dds" expire="1935.1.1" ideology=liberalism traits={  } }
+	# create_country_leader={ name = "Ramón Baez Machado" desc=DOM_ramon_baez_machado_DESC picture="gfx/portraits/DOM/country_leaders/DOM_ramon_baez_machado.dds" expire="1935.1.1" ideology=liberalism traits={  } }
+	# create_country_leader={ name = "Juan Isidro Jimenes" desc=DOM_juan_isidro_jimenes_DESC picture="gfx/portraits/DOM/country_leaders/DOM_juan_isidro_jimenes.dds" expire="1935.1.1" ideology=liberalism traits={  } }
+	# create_country_leader={ name = "Ramón Cáceres" desc=DOM_ramon_caceres_DESC picture="gfx/portraits/DOM/country_leaders/DOM_ramon_caceres.dds" expire="1935.1.1" ideology=despotism  traits={  } }
 
 	set_politics = {
 	    ruling_party = neutrality
@@ -22,10 +35,10 @@ set_convoys = 5
 	    elections_allowed = yes
 	}
 	set_popularities = {
-	    democratic = 1
+	    democratic = 23
 	    fascism = 1
 	    communism = 1
-	    neutrality = 97
+	    neutrality = 75
 	}
 
 	add_ideas = {

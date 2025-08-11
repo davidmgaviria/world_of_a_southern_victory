@@ -13,23 +13,28 @@ set_major = yes		#gotta make sure its a major
 	oob = "USA_1910"
 	load_focus_tree = usa_focus
 
-	give_guarantee = HAI
-	diplomatic_relation = { country = HAI   relation = docking_rights  active = yes }
-	diplomatic_relation = { country = GER   relation = non_aggression_pact  active = yes }
-	
+	# US Politics
 	set_variable = { 
 		var = usa_socialist_militancy
 		value = 10
-	}
-	set_country_flag = {
-		flag = haiti_instability_cooldown  # so it doesnt immediately fire
-		days = 100
-		value = 1
 	}
 	set_variable = { 
 		var = months_to_rememberance_day 
 		value = 11
 	}
+
+	# Germany
+	diplomatic_relation = { country = GER   relation = non_aggression_pact  active = yes }
+	
+	# LATAM
+	give_guarantee = HAI
+	diplomatic_relation = { country = HAI   relation = docking_rights  active = yes }
+	set_variable = { 
+		var = usa_influence_in_latam
+		value = 10 
+	}
+	set_country_flag = interest_in_haitian_events
+	
 
 
 	#---------------- CHARACTERS ----------------#

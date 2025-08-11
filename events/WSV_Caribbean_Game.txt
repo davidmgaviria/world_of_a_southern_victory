@@ -1,0 +1,85 @@
+﻿add_namespace = wsv_carib_game
+
+## -------------------------------------------------------------------------------------------------------------------------------------------------- ##
+## Events for the 'Carribean Game' that occured between the US & CS in this timeline (modelled after the 'Great Game' between Britain and Russia.. ]
+## 	- trivia but the Europeans referred to this struggle between the US & CS dispariginly as the 'Little Game'
+## -------------------------------------------------------------------------------------------------------------------------------------------------- ##	
+
+
+## US informed of Simon's victory in the revolt/civil war
+country_event = {
+	id = wsv_carib_game.2
+	title = wsv_carib_game.2.t
+	desc = wsv_carib_game.2.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.2.a	
+	}
+}
+
+
+## US informed Lecote's victory in the revolt/civil war
+country_event = {
+	id = wsv_carib_game.3
+	title = wsv_carib_game.3.t
+	desc = wsv_carib_game.3.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.3.a
+		# protect the new government	
+		give_guarantee = FROM
+		diplomatic_relation = { country = FROM   relation = docking_rights  active = yes }
+	}
+}
+
+
+## --------------------- General Events ------------------ ##
+
+# US / CS sends guns to Caribbean country (FROM is sender, ROOT is carribean country)
+country_event = {
+	id = wsv_carib_game.100
+	title = wsv_carib_game.100.t
+	desc = wsv_carib_game.100.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.100.a	
+	}
+}
+
+
+# Caribbean country informed that warships were sent to aid forces (FROM is sender, ROOT is carribean country)
+country_event = {
+	id = wsv_carib_game.101
+	title = wsv_carib_game.101.t
+	desc = wsv_carib_game.101.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.101.a
+		#add_ideas =   ## TODO - add supporting idea
+	}
+}
+
+
+# Rival country informed of warship manuevers  (FROM is sender, ROOT is rival country, minor_country_supported = supported country )
+country_event = {
+	id = wsv_carib_game.102
+	title = wsv_carib_game.102.t
+	desc = wsv_carib_game.102.d
+	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.102.a
+	}
+}
+
+

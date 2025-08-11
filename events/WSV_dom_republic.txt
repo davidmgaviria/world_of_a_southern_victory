@@ -1,0 +1,95 @@
+﻿add_namespace = wsv_dr
+
+# events for DR
+
+# 1911 assassination of Ramón Cáceres
+country_event = {
+	id = wsv_dr.100
+	title = wsv_dr.100.t
+	desc = wsv_dr.100.d
+	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+	trigger = {
+		NOT = { has_global_flag = DOM_ramon_caceres_assassinated }
+		date > 1911.11.1  
+		# does DR exist & have Cáceres?
+		original_tag = DOM
+		is_puppet = no
+		has_war = no
+		DOM_ramon_caceres = { is_country_leader = yes }
+	}
+
+	mean_time_to_happen = { days = 18 }  # Nov 19, 1911 historically
+
+	immediate = {
+		hidden_effect = {
+			DOM = {
+				set_global_flag = DOM_ramon_caceres_assassinated 
+				retire_character = DOM_ramon_caceres
+				retire_character = DOM_luis_tejera
+				promote_character = DOM_alfredo_victoria
+				news_event = { id = wsv_dr.101   days = 17  random_hours = 144 }   # civil war
+			}
+		}
+	}
+
+	option = {
+		name = wsv_dr.100.a	
+	}
+}
+
+
+
+# Civil war after presidential assassination
+news_event = {
+	id = wsv_dr.101
+	title = wsv_dr.101.t
+	desc = wsv_dr.101.d
+	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = DOM_1911_civil_war
+			DOM = {
+				start_civil_war = {
+					ideology = democratic 
+					size = 0   # dont get anything, we'll manually transfer stuff
+					capital = 858
+					states = {
+						858
+					}
+					# Effects for rebels
+					load_oob = "DOM_1911_rebel_troops"
+					recruit_character = DOM_horacio_vasquez
+					recruit_character = DOM_desiderio_arias
+					set_popularities = {
+						democratic = 60
+						neutrality = 38
+						fascism = 1
+						communism = 1
+					}
+					# Effect for original Dominican government (under Victoria)
+					PREV = {
+						# TODO - remove old generals
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = wsv_dr.101.a	
+		trigger = { NOT = { tag = CSA } }
+	}
+
+	option = {
+		name = wsv_dr.101.b	
+		trigger = { tag = CSA }
+		custom_effect_tooltip = CSA_latam_decisions_available_tt
+	}
+}
+
+
+## TODO - who wins?
