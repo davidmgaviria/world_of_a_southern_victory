@@ -1,12 +1,11 @@
 ﻿add_namespace = wsv_dr
 
-# events for DR
 
 # 1911 assassination of Ramón Cáceres
 country_event = {
-	id = wsv_dr.100
-	title = wsv_dr.100.t
-	desc = wsv_dr.100.d
+	id = wsv_dr.1
+	title = wsv_dr.1.t
+	desc = wsv_dr.1.d
 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
 
 	trigger = {
@@ -28,28 +27,31 @@ country_event = {
 				retire_character = DOM_ramon_caceres
 				retire_character = DOM_luis_tejera
 				promote_character = DOM_alfredo_victoria
-				news_event = { id = wsv_dr.101   days = 17  random_hours = 144 }   # civil war
+				country_event = { id = wsv_dr.2   days = 17  random_hours = 144 }   # civil war
 			}
 		}
 	}
 
 	option = {
-		name = wsv_dr.100.a	
+		name = wsv_dr.1.a	
 	}
 }
 
 
 
 # Civil war after presidential assassination
-news_event = {
-	id = wsv_dr.101
-	title = wsv_dr.101.t
-	desc = wsv_dr.101.d
+country_event = {
+	id = wsv_dr.2
+	title = wsv_dr.2.t
+	desc = wsv_dr.2.d
 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
 
 	is_triggered_only = yes
 
-	immediate = {
+	# side with the government
+	option = {
+		name = wsv_dr.2.a
+		custom_effect_tooltip = DOM_1911_civil_war_tt
 		hidden_effect = {
 			set_global_flag = DOM_1911_civil_war
 			DOM = {
@@ -61,35 +63,90 @@ news_event = {
 						858
 					}
 					# Effects for rebels
+					set_cosmetic_tag = DOM_rebel_side
 					load_oob = "DOM_1911_rebel_troops"
-					recruit_character = DOM_horacio_vasquez
 					recruit_character = DOM_desiderio_arias
+					recruit_character = DOM_horacio_vasquez
+					promote_character = DOM_horacio_vasquez
+
 					set_popularities = {
 						democratic = 60
 						neutrality = 38
 						fascism = 1
 						communism = 1
 					}
+					remove_ideas = latam_cauldillo_ruler
+
 					# Effect for original Dominican government (under Victoria)
 					PREV = {
-						# TODO - remove old generals
+						# set Eladio as president
+						recruit_character = DOM_eladio_victoria
+						promote_character = DOM_eladio_victoria
+						remove_country_leader_role = { character = DOM_alfredo_victoria  ideology = military_dictatorship }
+		
+						# remove old generals / leaders
+						set_cosmetic_tag = DOM_government_side
+						load_oob = "DOM_1911_government_troops"
+						DOM_horacio_vasquez	= {
+							remove_country_leader_role = { character = THIS  ideology = liberalism }
+						}
+						DOM_desiderio_arias	= { 
+							remove_unit_leader_role = yes   
+						}
 					}
 				}
 			}
+			news_event = wsv_carib_game.10
 		}
-	}
-
-	option = {
-		name = wsv_dr.101.a	
-		trigger = { NOT = { tag = CSA } }
-	}
-
-	option = {
-		name = wsv_dr.101.b	
-		trigger = { tag = CSA }
-		custom_effect_tooltip = CSA_latam_decisions_available_tt
 	}
 }
 
 
-## TODO - who wins?
+## Dominican civil war ended
+country_event = {
+	id = wsv_dr.3
+	title = wsv_dr.3.t
+	desc = wsv_dr.3.d
+
+	trigger = {
+		original_tag = DOM
+		has_global_flag = DOM_1911_civil_war
+		NOT = { has_global_flag = DOM_1911_civil_war_over }
+		has_civil_war = no
+		is_puppet = no
+	}
+
+	mean_time_to_happen = { days = 2 } 
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = DOM_1911_civil_war_over
+		}
+	}
+
+	# Government won
+	option = {
+		name = wsv_dr.1.a	
+		trigger = {
+			has_cosmetic_tag = DOM_government_side
+		}
+		set_country_flag = DOM_government_won_1911_civil_war
+		drop_cosmetic_tag = yes
+		hidden_effect = {
+			news_event = wsv_carib_game.11
+		}
+	}
+
+	# Rebels won
+	option = {
+		name = wsv_dr.1.b
+		trigger = {
+			has_cosmetic_tag = DOM_rebel_side
+		}
+		set_country_flag = DOM_rebels_won_1911_civil_war
+		drop_cosmetic_tag = yes
+		hidden_effect = {
+			news_event = wsv_carib_game.12
+		}
+	}
+}

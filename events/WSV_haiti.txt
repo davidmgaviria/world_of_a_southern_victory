@@ -1,338 +1,468 @@
 ﻿add_namespace = wsv_haiti
 
-### events for Haiti
 
-# Cincinnatus Leconte prepares to move against Simon
+#####################################################################
+## -- 1911 Revolt Occurs
+#####################################################################
+
+
+# Notice that General Cinncanatus has defected to the Cacos
 country_event = {
-	id = wsv_haiti.99
-	title = wsv_haiti.99.t
-	desc = wsv_haiti.99.d
+	id = wsv_haiti.1
+	title = wsv_haiti.1.t
+	desc = wsv_haiti.1.d
 
 	fire_only_once = yes
-	trigger = {
-		NOT = { has_global_flag = HAI_1911_revolt }
-		date > 1911.5.1  
-		# does Haiti exist & have Simon?
-		original_tag = HAI
-		is_puppet = no
-		has_war = no
-		HAI_francois_antoine_simon = { is_country_leader = yes }
-	}
+	is_triggered_only = yes
 
-	mean_time_to_happen = { days = 60 }  # some point in july
-	
-	option = {
-		name = wsv_haiti.99.a
+	immediate = {
 		HAI_cincinnatus_leconte	= {
 			remove_unit_leader_role = yes
 		}
-		hidden_effect = {
-			news_event = { id = wsv_haiti.100  days = 2 }
-		}
 	}
-}
-
-
-# 1911 revolt/civil war by Cincinnatus Leconte against Antoine Simon
-news_event = {
-	id = wsv_haiti.100
-	title = wsv_haiti.100.t
-	desc = wsv_haiti.100.d
-	#picture =  report_event_wsv_soldiers_running TODO - needs pic
-
-	major = yes
-	show_major = { 	
-		OR = {
-			has_country_flag = interest_in_haitian_events
-			original_tag = HAI
-		}
-	}
-
-	immediate = {
-		hidden_effect = {
-			HAI = {
-				set_global_flag = HAI_1911_revolt 
-				start_civil_war = {
-					ideology = democratic 
-					size = 0   # dont get anything, we'll manually transfer stuff
-					capital = 857
-					states = {
-						857
-					}
-					keep_unit_leaders_trigger = {
-						has_trait = politically_connected
-						is_field_marshal = no
-					}
-					# Effects for Leconte's revolt
-					set_cosmetic_tag = HAI_leconte_government
-					recruit_character = HAI_cincinnatus_leconte
-					add_country_leader_role = {
-						character = HAI_cincinnatus_leconte
-						country_leader = {
-							ideology = conservatism   # democratic character so he can lead revolt
-							expire = "1935.1.1.1"
-							id = -1
-						}
-					}
-					promote_character = {
-						character = HAI_cincinnatus_leconte
-						ideology = conservatism
-					}
-					load_oob = "HAI_1911_leconte_troops"
-					set_stability = 0.45
-					set_popularities = {
-						democratic = 35
-						neutrality = 63
-						fascism = 1
-						communism = 1
-					}
-					# Effect for original Haitian government (under Simon)
-					PREV = {
-						set_cosmetic_tag = HAI_simon_government
-						# TODO - remove leconte
-					}
-				}
+	
+	option = {
+		name = wsv_haiti.1.a
+		effect_tooltip  =  {
+			HAI_cincinnatus_leconte	= {
+				remove_unit_leader_role = yes
 			}
 		}
 	}
-
-	option = {
-		name = wsv_haiti.100.a	
-		trigger = { original_tag = USA }
-		custom_effect_tooltip = USA_latam_decisions_available_tt
-	}
-
-	option = {
-		name = wsv_haiti.100.b 
-		trigger = { original_tag = CSA }
-		custom_effect_tooltip = CSA_latam_decisions_available_tt
-	}
-
-	option = {
-		name = wsv_haiti.100.c 
-		trigger = { tag = HAI }
-	}
-
-	option = {
-		name = wsv_haiti.100.d 
-		trigger = { 
-			NOT = { original_tag = USA }
-			NOT = { original_tag = CSA } 
-			NOT = { tag = HAI } 
-		}
-	}
 }
 
 
-# Haitian government (Simon) defeats 1911 revolt
+# Event of failed offensive against rebels
 country_event = {
-	id = wsv_haiti.101
-	title = wsv_haiti.101.t
-	desc = wsv_haiti.101.d
-	#picture =  report_event_wsv_soldiers_running TODO - needs pic
-
-	fire_only_once = yes
-	trigger = {
-		has_global_flag = HAI_1911_revolt
-		NOT = { has_global_flag = HAI_1911_revolt_over }
-		# who won the war?
-		original_tag = HAI
-		has_cosmetic_tag = HAI_simon_government
-		is_puppet = no
-		has_civil_war = no 
-	}
-
-	mean_time_to_happen = { days = 2 } 
-
-	immediate = {
-		set_global_flag = HAI_1911_revolt_over
-		hidden_effect = {
-			HAI = {
-				set_country_flag = HAI_simon_won_revolt
-				drop_cosmetic_tag = yes
-			}
-			USA = {
-				if = {
-					limit = { has_country_flag = interest_in_haitian_events }
-					country_event = wsv_carib_game.2 
-				}
-			}
-		}
-	}
-
-	option = {
-		name = wsv_haiti.101.a	
-	}
-}
-
-
-# Leconte wins the 1911 revolt
-country_event = {
-	id = wsv_haiti.102
-	title = wsv_haiti.102.t
-	desc = wsv_haiti.102.d
-	#picture =  report_event_wsv_soldiers_running TODO - needs pic
-
-	fire_only_once = yes
-	trigger = {
-		has_global_flag = HAI_1911_revolt
-		NOT = { has_global_flag = HAI_1911_revolt_over }
-		# who won the war?
-		original_tag = HAI
-		has_cosmetic_tag = HAI_leconte_government
-		is_puppet = no
-		has_civil_war = no 
-	}
-
-	mean_time_to_happen = { days = 2 } 
-
-	immediate = {
-		set_global_flag = HAI_1911_revolt_over
-		hidden_effect = {
-			HAI = {
-				set_country_flag = HAI_leconte_won_revolt
-				drop_cosmetic_tag = yes
-				# Leconte takes full power
-				set_politics = {
-					ruling_party = neutrality
-				}
-				remove_country_leader_role = {
-					character = HAI_cincinnatus_leconte
-					ideology = conservatism
-				}
-			}
-			USA = {
-				if = {
-					limit = { has_country_flag = interest_in_haitian_events }
-					country_event = wsv_carib_game.3 
-				}
-			}
-		}
-	}
-
-	option = {
-		name = wsv_haiti.102.a	
-	}
-}
-
-
-
-# Palace explosion & Cinccinatus death (or whoever is currently president)
-news_event = {
-	id = wsv_haiti.103
-	title = wsv_haiti.103.t
-	desc = wsv_haiti.103.d
-	#picture =  report_event_wsv_soldiers_running TODO - needs pic
-
-	major = yes
-	show_major = { 		# US & CS get these alerts too
-		OR = {
-			has_country_flag = interest_in_haitian_events
-			original_tag = HAI
-		}
-	}
-
-	trigger = {
-		original_tag = HAI
-		has_country_flag = HAI_leconte_won_revolt
-		NOT = { has_global_flag = HAI_palace_explosion }
-		is_puppet = no
-		has_war = no
-		date > 1912.7.1 
-	}
-
-	mean_time_to_happen = { days = 38 }  # historically occured August 8
-
-	immediate = {
-		set_global_flag = HAI_palace_explosion
-		hidden_effect = {
-			if = {
-				limit = { original_tag = HAI }
-				retire_country_leader = yes
-				##promote_character = ## TODO interim leader
-				country_event = { id = wsv_haiti.104  days = 5  random_hours = 168 }  # start warlord period
-				add_political_power = -75
-			}
-		}
-	}
-
-	option = {
-		name = wsv_haiti.103.a	
-	}
-}
-
-
-# Repeating warlord revolt event, begins occuring if Leconte took power
-country_event = {
-	id = wsv_haiti.104
-	title = wsv_haiti.104.t
-	desc = wsv_haiti.104.d
-	#picture =  report_event_wsv_soldiers_running TODO - needs pic
-
-	trigger = {
-		original_tag = HAI
-		has_country_flag = HAI_warlord_period   # trigger for later repeating events, first time fired manually
-		is_puppet = no
-		has_war = no 
-	}
-
-	mean_time_to_happen = { days = 900 }  # roughly every 2.5 years
-
-	immediate = {
-		hidden_effect = {
-			if = {
-				# first time this fires will be after palace explosion, wont have flag yet
-				limit = { NOT = { has_country_flag = HAI_warlord_period } }
-				set_country_flag = HAI_warlord_period
-				news_event =  { id = wsv_haiti.105  days = 1 }  # alert world
-			}
-			## TODO - a list of random civil war posibilities
-
-			## - weak general coup
-
-			## - strong general coup
-
-			# democratic coup
-		}
-	}
-
-	option = {
-		name = wsv_haiti.104.a	
-	}
-}
-
-
-## News event of warlord period beginning in Haiti
-news_event = {
-	id = wsv_haiti.105
-	title = wsv_haiti.105.t
-	desc = wsv_haiti.105.d
-	#picture =  report_event_wsv_soldiers_running TODO - needs pic
-
-	major = yes
-	show_major = { 		# US & CS get these alerts too
-		OR = {
-			has_country_flag = interest_in_haitian_events
-			original_tag = HAI
-		}
-	}
+	id = wsv_haiti.2
+	title = wsv_haiti.2.t
+	desc = wsv_haiti.2.d
 
 	is_triggered_only = yes
 
-	option = {
-		name = wsv_haiti.105.a	
-		trigger = { tag = USA }
-		diplomatic_relation = { country = HAI   relation = guarantee  active = no }
-		diplomatic_relation = { country = HAI   relation = docking_rights  active = no }
+	immediate = {
+		hidden_effect = {
+			USA = { country_event = wsv_carib_game.2 }  # usa told of fail offensive
+		}
 	}
-
+	
 	option = {
-		name = wsv_haiti.105.a	
-		trigger = { tag = CSA }
-	}
-
-	option = {
-		name = wsv_haiti.105.a	
-		trigger = { NOT = { tag = USA } NOT = { tag = CSA } }
+		name = wsv_haiti.2.a
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -100
+		}
+		add_manpower = -250
 	}
 }
+
+
+# Event of successful offensive / defeated rebels
+country_event = {
+	id = wsv_haiti.3
+	title = wsv_haiti.3.t
+	desc = wsv_haiti.3.d
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = HAI_1911_revolt_over
+	}
+	
+	option = {
+		name = wsv_haiti.3.a
+		set_country_flag = HAI_simon_won_revolt
+		add_equipment_to_stockpile = {
+			type = infantry_equipment
+			amount = -70
+		}
+		add_manpower = -130
+
+		857 = { set_demilitarized_zone = no }
+		hidden_effect = {
+			USA = { country_event = wsv_carib_game.3 }
+		}
+	}
+}
+
+
+# Event that rebels won
+country_event = {
+	id = wsv_haiti.4
+	title = wsv_haiti.4.t
+	desc = wsv_haiti.4.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = HAI_1911_revolt_over
+	}
+	
+	option = {
+		name = wsv_haiti.4.a
+		set_country_flag = HAI_leconte_won_revolt
+		857 = { set_demilitarized_zone = no }
+
+		retire_character = HAI_francois_antoine_simon
+		recruit_character = HAI_cincinnatus_leconte
+		add_country_leader_role = {
+			character = HAI_cincinnatus_leconte
+			promote_leader = yes
+			country_leader = {
+				ideology = military_dictatorship
+				expire = "1965.1.1.1"
+			}
+		}
+
+		hidden_effect = {
+			USA = { country_event = wsv_carib_game.4 }
+		}
+	}
+}
+
+
+
+
+
+
+
+
+## -- TODO: temporarily disabled
+
+# ### events for Haiti
+
+# # Cincinnatus Leconte prepares to move against Simon
+# country_event = {
+# 	id = wsv_haiti.99
+# 	title = wsv_haiti.99.t
+# 	desc = wsv_haiti.99.d
+
+# 	fire_only_once = yes
+# 	trigger = {
+# 		NOT = { has_global_flag = HAI_1911_revolt }
+# 		date > 1911.5.1  
+# 		# does Haiti exist & have Simon?
+# 		original_tag = HAI
+# 		is_puppet = no
+# 		has_war = no
+# 		HAI_francois_antoine_simon = { is_country_leader = yes }
+# 	}
+
+# 	mean_time_to_happen = { days = 60 }  # some point in july
+	
+# 	option = {
+# 		name = wsv_haiti.99.a
+# 		HAI_cincinnatus_leconte	= {
+# 			remove_unit_leader_role = yes
+# 		}
+# 		hidden_effect = {
+# 			news_event = { id = wsv_haiti.100  days = 2 }
+# 		}
+# 	}
+# }
+
+
+# # 1911 revolt/civil war by Cincinnatus Leconte against Antoine Simon
+# news_event = {
+# 	id = wsv_haiti.100
+# 	title = wsv_haiti.100.t
+# 	desc = wsv_haiti.100.d
+# 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+# 	major = yes
+# 	show_major = { 	
+# 		OR = {
+# 			has_country_flag = interest_in_haitian_events
+# 			original_tag = HAI
+# 		}
+# 	}
+
+# 	immediate = {
+# 		hidden_effect = {
+# 			HAI = {
+# 				set_global_flag = HAI_1911_revolt 
+# 				start_civil_war = {
+# 					ideology = democratic 
+# 					size = 0   # dont get anything, we'll manually transfer stuff
+# 					capital = 857
+# 					states = {
+# 						857
+# 					}
+# 					keep_unit_leaders_trigger = {
+# 						has_trait = politically_connected
+# 						is_field_marshal = no
+# 					}
+# 					# Effects for Leconte's revolt
+# 					set_cosmetic_tag = HAI_leconte_government
+# 					recruit_character = HAI_cincinnatus_leconte
+# 					add_country_leader_role = {
+# 						character = HAI_cincinnatus_leconte
+# 						country_leader = {
+# 							ideology = conservatism   # democratic character so he can lead revolt
+# 							expire = "1935.1.1.1"
+# 							id = -1
+# 						}
+# 					}
+# 					promote_character = {
+# 						character = HAI_cincinnatus_leconte
+# 						ideology = conservatism
+# 					}
+# 					load_oob = "HAI_1911_leconte_troops"
+# 					set_stability = 0.45
+# 					set_popularities = {
+# 						democratic = 35
+# 						neutrality = 63
+# 						fascism = 1
+# 						communism = 1
+# 					}
+# 					# Effect for original Haitian government (under Simon)
+# 					PREV = {
+# 						set_cosmetic_tag = HAI_simon_government
+# 						# TODO - remove leconte
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.100.a	
+# 		trigger = { original_tag = USA }
+# 		custom_effect_tooltip = USA_latam_decisions_available_tt
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.100.b 
+# 		trigger = { original_tag = CSA }
+# 		custom_effect_tooltip = CSA_latam_decisions_available_tt
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.100.c 
+# 		trigger = { tag = HAI }
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.100.d 
+# 		trigger = { 
+# 			NOT = { original_tag = USA }
+# 			NOT = { original_tag = CSA } 
+# 			NOT = { tag = HAI } 
+# 		}
+# 	}
+# }
+
+
+# # Haitian government (Simon) defeats 1911 revolt
+# country_event = {
+# 	id = wsv_haiti.101
+# 	title = wsv_haiti.101.t
+# 	desc = wsv_haiti.101.d
+# 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+# 	fire_only_once = yes
+# 	trigger = {
+# 		has_global_flag = HAI_1911_revolt
+# 		NOT = { has_global_flag = HAI_1911_revolt_over }
+# 		# who won the war?
+# 		original_tag = HAI
+# 		has_cosmetic_tag = HAI_simon_government
+# 		is_puppet = no
+# 		has_civil_war = no 
+# 	}
+
+# 	mean_time_to_happen = { days = 2 } 
+
+# 	immediate = {
+# 		set_global_flag = HAI_1911_revolt_over
+# 		hidden_effect = {
+# 			HAI = {
+# 				set_country_flag = HAI_simon_won_revolt
+# 				drop_cosmetic_tag = yes
+# 			}
+# 			USA = {
+# 				if = {
+# 					limit = { has_country_flag = interest_in_haitian_events }
+# 					country_event = wsv_carib_game.2 
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.101.a	
+# 	}
+# }
+
+
+# # Leconte wins the 1911 revolt
+# country_event = {
+# 	id = wsv_haiti.102
+# 	title = wsv_haiti.102.t
+# 	desc = wsv_haiti.102.d
+# 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+# 	fire_only_once = yes
+# 	trigger = {
+# 		has_global_flag = HAI_1911_revolt
+# 		NOT = { has_global_flag = HAI_1911_revolt_over }
+# 		# who won the war?
+# 		original_tag = HAI
+# 		has_cosmetic_tag = HAI_leconte_government
+# 		is_puppet = no
+# 		has_civil_war = no 
+# 	}
+
+# 	mean_time_to_happen = { days = 2 } 
+
+# 	immediate = {
+# 		set_global_flag = HAI_1911_revolt_over
+# 		hidden_effect = {
+# 			HAI = {
+# 				set_country_flag = HAI_leconte_won_revolt
+# 				drop_cosmetic_tag = yes
+# 				# Leconte takes full power
+# 				set_politics = {
+# 					ruling_party = neutrality
+# 				}
+# 				remove_country_leader_role = {
+# 					character = HAI_cincinnatus_leconte
+# 					ideology = conservatism
+# 				}
+# 			}
+# 			USA = {
+# 				if = {
+# 					limit = { has_country_flag = interest_in_haitian_events }
+# 					country_event = wsv_carib_game.3 
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.102.a	
+# 	}
+# }
+
+
+
+# # Palace explosion & Cinccinatus death (or whoever is currently president)
+# news_event = {
+# 	id = wsv_haiti.103
+# 	title = wsv_haiti.103.t
+# 	desc = wsv_haiti.103.d
+# 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+# 	major = yes
+# 	show_major = { 		# US & CS get these alerts too
+# 		OR = {
+# 			has_country_flag = interest_in_haitian_events
+# 			original_tag = HAI
+# 		}
+# 	}
+
+# 	trigger = {
+# 		original_tag = HAI
+# 		has_country_flag = HAI_leconte_won_revolt
+# 		NOT = { has_global_flag = HAI_palace_explosion }
+# 		is_puppet = no
+# 		has_war = no
+# 		date > 1912.7.1 
+# 	}
+
+# 	mean_time_to_happen = { days = 38 }  # historically occured August 8
+
+# 	immediate = {
+# 		set_global_flag = HAI_palace_explosion
+# 		hidden_effect = {
+# 			if = {
+# 				limit = { original_tag = HAI }
+# 				retire_country_leader = yes
+# 				##promote_character = ## TODO interim leader
+# 				country_event = { id = wsv_haiti.104  days = 5  random_hours = 168 }  # start warlord period
+# 				add_political_power = -75
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.103.a	
+# 	}
+# }
+
+
+# # Repeating warlord revolt event, begins occuring if Leconte took power
+# country_event = {
+# 	id = wsv_haiti.104
+# 	title = wsv_haiti.104.t
+# 	desc = wsv_haiti.104.d
+# 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+# 	trigger = {
+# 		original_tag = HAI
+# 		has_country_flag = HAI_warlord_period   # trigger for later repeating events, first time fired manually
+# 		is_puppet = no
+# 		has_war = no 
+# 	}
+
+# 	mean_time_to_happen = { days = 900 }  # roughly every 2.5 years
+
+# 	immediate = {
+# 		hidden_effect = {
+# 			if = {
+# 				# first time this fires will be after palace explosion, wont have flag yet
+# 				limit = { NOT = { has_country_flag = HAI_warlord_period } }
+# 				set_country_flag = HAI_warlord_period
+# 				news_event =  { id = wsv_haiti.105  days = 1 }  # alert world
+# 			}
+# 			## TODO - a list of random civil war posibilities
+
+# 			## - weak general coup
+
+# 			## - strong general coup
+
+# 			# democratic coup
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.104.a	
+# 	}
+# }
+
+
+# ## News event of warlord period beginning in Haiti
+# news_event = {
+# 	id = wsv_haiti.105
+# 	title = wsv_haiti.105.t
+# 	desc = wsv_haiti.105.d
+# 	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+# 	major = yes
+# 	show_major = { 		# US & CS get these alerts too
+# 		OR = {
+# 			has_country_flag = interest_in_haitian_events
+# 			original_tag = HAI
+# 		}
+# 	}
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_haiti.105.a	
+# 		trigger = { tag = USA }
+# 		diplomatic_relation = { country = HAI   relation = guarantee  active = no }
+# 		diplomatic_relation = { country = HAI   relation = docking_rights  active = no }
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.105.a	
+# 		trigger = { tag = CSA }
+# 	}
+
+# 	option = {
+# 		name = wsv_haiti.105.a	
+# 		trigger = { NOT = { tag = USA } NOT = { tag = CSA } }
+# 	}
+# }

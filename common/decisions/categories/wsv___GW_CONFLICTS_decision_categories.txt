@@ -1,16 +1,22 @@
+
 ########################################################
-# - Great War
+# - Agadir Crisis
 ########################################################
 
-wsv_great_war_decisions = {
-	icon = border_conflicts
-	priority = 400
+
+agadir_crisis_cat = {
+	icon = generic_crisis
+	priority = 150
 
 	allowed = {
 		has_start_date < 1937.1.1
+		OR = {
+			original_tag = ENG
+			original_tag = GER
+			original_tag = FRA
+		}
 	}
 
-	visible_when_empty = no
 	visible = {
 		always = yes
 	}
@@ -105,7 +111,6 @@ firstbalkan_war_cat = {
 # - Second Balkan War
 ########################################################
 
-
 secondbalkan_war_cat = {
 	icon = border_conflicts
 	priority = 80
@@ -125,3 +130,88 @@ secondbalkan_war_cat = {
 		always = yes
 	}
 }
+
+
+########################################################
+# - Nicaragua Crisis
+########################################################
+
+nicaragua_crisis_cat = {
+	icon = generic_crisis
+	priority = 150
+
+	allowed = {
+		has_start_date < 1937.1.1
+		OR = {
+			original_tag = CSA
+			original_tag = USA
+			original_tag = ENG
+			original_tag = GER
+		}
+	}
+
+	#visible_when_empty = yes
+	
+	visible = {
+		always = yes
+	}
+}
+
+
+########################################################
+# - July Crisis
+########################################################
+
+july_crisis_cat = {
+	icon = generic_crisis
+	priority = 200
+
+	allowed = {
+		has_start_date < 1937.1.1
+	}
+
+	#visible_when_empty = yes
+	
+	visible = {
+		OR = {
+			tag = USA
+			tag = CSA
+			tag = ENG
+			tag = CAN
+			tag = FRA
+			tag = GER
+			tag = AUH
+			tag = RUS
+			tag = SER
+		}
+	}
+}
+
+
+########################################################
+# - Great War
+########################################################
+
+wsv_great_war_decisions = {
+	icon = border_conflicts
+	priority = 400
+
+	allowed = {
+		has_start_date < 1937.1.1
+	}
+
+	visible_when_empty = no
+	visible = {
+		always = yes
+	}
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+
+#####################################################################
+## -- War Plans
+#####################################################################
+
+HAI_political_unrest_category = {
+	# Deadline to successfully suppress the 1911 revolt
+	HAI_suppress_1911_revolt_deadline = {
+		icon = decision_revolt
+		priority = 10
+
+		allowed = {
+			tag = HAI
+		}
+		activation = {
+			has_global_flag = HAI_1911_revolt
+			NOT = { has_global_flag = HAI_1911_revolt_over }
+		}
+		available = {
+			has_global_flag = HAI_1911_revolt_over
+			#always = yes  # dont allow player / ai to cancel
+		}
+		#cancel_trigger = { has_global_flag = HAI_1911_revolt_over }
+		is_good = no
+
+		days_mission_timeout = 100
+		fire_only_once = yes
+
+		timeout_effect = {
+			HAI = { country_event = wsv_haiti.4 }  # event where Haitian government takes over
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	HAI_launch_offensive_against_rebels = {
+		icon = generic_prepare_civil_war
+
+		allowed = {
+			tag = HAI
+		}
+		available = {
+			always = yes
+		}
+		visible = {
+			has_global_flag = HAI_1911_revolt
+			NOT = { has_global_flag = HAI_1911_revolt_over }
+		}
+
+		days_remove = 8
+		days_re_enable = 14
+
+		remove_effect = {
+			## costs
+			add_political_power = -25
+			custom_effect_tooltip = HAI_equip_and_manpower_loss_tt
+
+			## result
+			random_list = {
+				# offensive fails
+				80 = {
+					## TODO - modifiers
+					country_event = wsv_haiti.2
+				}
+				# offensive succeeds
+				20 = {
+					country_event = wsv_haiti.3
+					modifier = {
+						factor = 2
+						has_country_flag = USA_sent_guns_to_us_first_flag
+					}
+					modifier = {
+						factor = 2
+						has_country_flag = USA_sent_guns_to_us_second_flag
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+	}
+}

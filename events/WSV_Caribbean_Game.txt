@@ -1,18 +1,76 @@
 ﻿add_namespace = wsv_carib_game
 
+
 ## -------------------------------------------------------------------------------------------------------------------------------------------------- ##
 ## Events for the 'Carribean Game' that occured between the US & CS in this timeline (modelled after the 'Great Game' between Britain and Russia.. ]
 ## 	- trivia but the Europeans referred to this struggle between the US & CS dispariginly as the 'Little Game'
 ## -------------------------------------------------------------------------------------------------------------------------------------------------- ##	
 
 
-## US informed of Simon's victory in the revolt/civil war
+### ------------------------- Haiti 1911 ------------------------- ###
+
+## wsv_carib_game.1 -- Simon faces revolt in Haiti (news event for US, CS, Haiti)
+news_event = {
+	id = wsv_carib_game.1
+	title =wsv_carib_game.1.t
+	desc = wsv_carib_game.1.d
+	#picture =  news_event_south_america_civil_war -- TODO
+
+	trigger = {
+		NOT = { has_global_flag = HAI_1911_revolt }
+		date > 1911.5.1  
+		# does Haiti exist & have Simon?
+		HAI = {
+			is_puppet = no
+			has_war = no
+			HAI_francois_antoine_simon = { is_country_leader = yes }
+		}
+	}
+	mean_time_to_happen = { days = 60 }  # some point in july
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = HAI_1911_revolt
+			HAI = {
+				857 = { set_demilitarized_zone = yes } 
+				activate_decision = HAI_suppress_1911_revolt_deadline
+				country_event = { id =  wsv_haiti.1  days = 5 }   # General Cinncanatus defects
+			}
+		}
+	}
+
+	option = {
+		name = wsv_carib_game.1.a
+		trigger = { tag = USA }
+	}
+
+	option = {
+		name = wsv_carib_game.1.b
+		trigger = { tag = CSA }
+	}
+
+	option = {
+		name = wsv_carib_game.1.c
+		trigger = { tag = HAI }
+		custom_effect_tooltip = HAI_1911_revolt_decisions_tt
+	}
+
+	option = {
+		name = wsv_carib_game.1.e
+		trigger = { 
+			NOT = { tag = USA }
+			NOT = { tag = CSA }
+			NOT = { tag = HAI }
+		}
+	}
+}
+
+
+## US informed of failed Haitian government offensive
 country_event = {
 	id = wsv_carib_game.2
 	title = wsv_carib_game.2.t
 	desc = wsv_carib_game.2.d
-
-	is_triggered_only = yes
 	
 	option = {
 		name = wsv_carib_game.2.a	
@@ -20,7 +78,7 @@ country_event = {
 }
 
 
-## US informed Lecote's victory in the revolt/civil war
+## US informed of Simon's victory in the revolt/civil war
 country_event = {
 	id = wsv_carib_game.3
 	title = wsv_carib_game.3.t
@@ -29,12 +87,297 @@ country_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = wsv_carib_game.3.a
+		name = wsv_carib_game.3.a	
+	}
+}
+
+
+# ## US informed Lecote's victory in the revolt/civil war
+country_event = {
+	id = wsv_carib_game.4
+	title = wsv_carib_game.4.t
+	desc = wsv_carib_game.4.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.4.a
 		# protect the new government	
 		give_guarantee = FROM
 		diplomatic_relation = { country = FROM   relation = docking_rights  active = yes }
 	}
 }
+
+
+
+### ------------------------- DR 1912 ------------------------- ###
+
+# DR erupts in civil war (news event, triggered by event in wsv_dom_events.txt)
+news_event = {
+	id = wsv_carib_game.10
+	title = wsv_carib_game.10.t
+	desc = wsv_carib_game.10.d
+	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+	is_triggered_only = yes
+	fire_for_sender = no
+
+	option = {
+		name = wsv_carib_game.10.a	
+		trigger = { tag = CSA }
+		custom_effect_tooltip = CSA_latam_decisions_available_tt
+	}
+	
+	option = {
+		name = wsv_carib_game.10.b	
+		trigger = { NOT = { tag = CSA } }
+	}	
+}
+
+
+# TODO carib_1? - allow the csa sends marines to land in the DR (if enough influence)? 
+
+
+# Government wins the civil war in DR
+news_event = {
+	id = wsv_carib_game.11
+	title = wsv_carib_game.11.t
+	desc = wsv_carib_game.11.d
+	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+	is_triggered_only = yes
+	fire_for_sender = no
+	
+	option = {
+		name = wsv_carib_game.11.a
+	}	
+}
+
+
+# Rebels wins the civil war in DR
+news_event = {
+	id = wsv_carib_game.12
+	title = wsv_carib_game.12.t
+	desc = wsv_carib_game.12.d
+	#picture =  report_event_wsv_soldiers_running TODO - needs pic
+
+	is_triggered_only = yes
+	fire_for_sender = no
+
+	is_triggered_only = yes
+	fire_for_sender = no
+	
+	option = {
+		name = wsv_carib_game.12.a
+	}
+}
+
+
+
+
+### ------------------------- Haiti 1912 ------------------------- ###
+
+# Haitian president thwarts assassination attempt (news event)
+news_event = {
+	id = wsv_carib_game.20
+	title =wsv_carib_game.20.t
+	desc = wsv_carib_game.20.d
+	#picture =  news_event_south_america_civil_war -- TODO 
+
+    trigger = {
+		NOT = { has_global_flag = HAI_1912_assassination_thwarted }
+		date > 1912.6.20  
+		# does Haiti exist & is free
+		HAI = {
+			is_puppet = no
+			has_war = no
+		}
+	}
+	mean_time_to_happen = { days = 30 }  # some point in August
+
+	## TODO - later make it that attempt can be thwarted or can succeed
+
+	immediate = {
+		hidden_effect = {
+			HAI = {
+				set_global_flag = HAI_1912_assassination_thwarted
+				country_event = { id = wsv_carib_game.21  days = 5 }  # event of mass protests in Haiti
+			}
+		}
+	}
+
+	option = {
+		name = wsv_carib_game.20.a
+		trigger = { tag = HAI }
+	}
+
+	option = {
+		name = wsv_carib_game.20.b
+		trigger = { NOT = { tag = HAI } }
+	}
+}
+
+
+# Mass protests breaking out in haiti (event for haiti)
+country_event = {
+	id = wsv_carib_game.21
+	title = wsv_carib_game.21.t
+	desc = wsv_carib_game.21.d
+
+	is_triggered_only = yes
+	
+	# request the US for help
+	option = {
+		name = wsv_carib_game.21.a
+		USA = { country_event = { id = wsv_carib_game.22  days = 2 } }
+	}
+}
+
+
+# US gets event of Haiti requesting aid from marines
+country_event = {
+	id = wsv_carib_game.22
+	title = wsv_carib_game.22.t
+	desc = wsv_carib_game.22.d
+
+	is_triggered_only = yes
+
+	# Send marines to help Haitian gov
+	option = {
+		name = wsv_carib_game.22.a
+		news_event = { id = wsv_carib_game.24  days = 4 }  # sets a global flag
+	}
+
+	# Refuse help for Haiti
+	option = {
+		name = wsv_carib_game.22.b
+		HAI = { 
+			set_country_flag = USA_refused_to_send_marines
+			country_event = { id = wsv_carib_game.23  days = 2 }
+		}
+	}
+}
+
+
+# Haiti informed that US denies sending marines to Haiti
+country_event = {
+	id = wsv_carib_game.23
+	title = wsv_carib_game.23.t
+	desc = wsv_carib_game.23.d
+
+	is_triggered_only = yes
+
+	# - US can deny or support
+	
+	option = {
+		name = wsv_carib_game.23.a
+	}
+}
+
+
+# US lands marines in Haiti (news event)
+news_event = {
+	id = wsv_carib_game.24
+	title =wsv_carib_game.24.t
+	desc = wsv_carib_game.24.d
+	#picture =  news_event_south_america_civil_war
+
+	mean_time_to_happen = {	days = 2 }
+
+    is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = USA_sends_marines_to_haiti
+		}
+	}
+
+	option = {
+		name = wsv_carib_game.24.a
+		trigger = {
+			OR = { tag = USA   tag = HAI }
+		}
+	}
+
+	option = {
+		name = wsv_carib_game.24.b
+		trigger = { tag = CSA }
+		# CSA sends protest to the US
+		USA = { country_event = { id = wsv_carib_game.25  days = 2 } }
+	}
+
+	option = {
+		name = wsv_carib_game.24.c
+		trigger = { 
+			NOT = {
+				tag = USA
+				tag = HAI
+				tag = CSA
+			}
+		}
+	}
+}
+
+
+# CS sends the US strongly worded protest
+country_event = {
+	id = wsv_carib_game.25
+	title = wsv_carib_game.25.t
+	desc = wsv_carib_game.25.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.25.a
+	}
+}
+
+
+# US withdraws marines from Haiti (news event)
+news_event = {
+	id = wsv_carib_game.26
+	title =wsv_carib_game.26.t
+	desc = wsv_carib_game.26.d
+	#picture =  news_event_south_america_civil_war
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = USA_withdraws_marines_from_haiti
+		}
+	}
+
+	option = {
+		name = wsv_carib_game.26.a
+		trigger = { NOT = { tag = CSA } }
+	}
+
+	option = {
+		name = wsv_carib_game.26.a
+		trigger = { tag = CSA }
+	}
+}
+
+
+
+### ------------------------- Nicaragua 1913 ------------------------- ###
+
+	# News event of uprising in Nicaragua
+
+		#  CSA has decision to send guns to the rebels
+
+		#  if enough support, csa can choose to land marines
+	
+	# landing marines starts Nicaragua crisis
+
+
+
+
+
+
+
+
 
 
 ## --------------------- General Events ------------------ ##
@@ -49,6 +392,14 @@ country_event = {
 	
 	option = {
 		name = wsv_carib_game.100.a	
+		effect_tooltip = {
+			add_equipment_to_stockpile = {
+				type = infantry_equipment
+				amount = ROOT.temp_num_rifles_sent
+				producer = FROM
+			}
+		}
+		clear_variable = ROOT.temp_num_rifles_sent
 	}
 }
 
@@ -63,12 +414,26 @@ country_event = {
 	
 	option = {
 		name = wsv_carib_game.101.a
-		#add_ideas =   ## TODO - add supporting idea
+		event_target:State_to_bombard = {
+			damage_units = {
+				state = THIS # optional
+				limit = {
+					tag = event_target:Country_attacked
+				}
+				damage = 0.1
+				str_damage = 0.1
+				org_damage = 0.35
+				ratio = yes
+				army = yes
+				navy = no
+			}
+		}
+		custom_effect_tooltip = minor_recieves_warship_support_tt
 	}
 }
 
 
-# Rival country informed of warship manuevers  (FROM is sender, ROOT is rival country, minor_country_supported = supported country )
+# Rival country informed of warship manuevers  (FROM.FROM is rival country, FROM is minor_country_supported by rival)
 country_event = {
 	id = wsv_carib_game.102
 	title = wsv_carib_game.102.t
@@ -79,6 +444,23 @@ country_event = {
 	
 	option = {
 		name = wsv_carib_game.102.a
+		FROM.FROM = {
+			country_event = { id = wsv_carib_game.103  days = 2 }
+		}
+	}
+}
+
+
+# Country that sent warships recieves protest from ITS rival
+country_event = {
+	id = wsv_carib_game.103
+	title = wsv_carib_game.103.t
+	desc = wsv_carib_game.103.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_carib_game.103.a
 	}
 }
 
