@@ -41,37 +41,89 @@ country_event = {
 }
 
 
-## War time unrest events
+# ## War time unrest events
+# country_event = {
+# 	id = wsv_russia.2
+# 	title = wsv_russia.2.t
+# 	desc = wsv_russia.2.d
+# 	picture = report_event_wsv_gathering_protest
+
+# 	trigger = {
+# 		tag = RUS
+# 		has_war_with_major = yes
+# 		longest_war_length > 8	 # a bit more than half a year
+# 		casualties > 500000
+# 		NOT = { has_country_flag = wartime_unrest_cooldown }
+# 		NOT = { has_global_flag = tsar_of_russia_abdicated }
+# 	}
+
+# 	mean_time_to_happen = { days = 2 }  #cant be days=1 or will cause error
+
+# 	immediate = {
+# 		set_country_flag = {
+# 			flag = wartime_unrest_cooldown
+# 			days = 120
+# 			value = 1
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_russia.2.a
+# 		add_stability = -0.03
+# 		add_war_support = -0.05
+# 		add_popularity = { ideology = communism  popularity = 0.02 }
+# 	}
+# }
+
+
+## Food shortages hit during war
 country_event = {
-	id = wsv_russia.2
-	title = wsv_russia.2.t
-	desc = wsv_russia.2.d
-	picture = report_event_wsv_gathering_protest
+	id = wsv_russia.3
+	title = wsv_russia.3.t
+	desc = wsv_russia.3.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
 
 	trigger = {
 		tag = RUS
 		has_war_with_major = yes
-		longest_war_length > 8	 # a bit more than half a year
-		casualties > 500000
-		NOT = { has_country_flag = wartime_unrest_cooldown }
-		NOT = { has_global_flag = tsar_of_russia_abdicated }
+		# bascially either at war for 1.5 years or 1 year but w/ war economy
+		OR = {
+			longest_war_length > 17
+			AND = {
+				longest_war_length > 11
+				OR = {
+					has_idea = war_economy
+					has_idea = tot_economic_mobilisation
+				}
+			}
+		}
+		NOT = { has_country_flag = food_shortage_1 }
 	}
 
-	mean_time_to_happen = { days = 2 }  #cant be days=1 or will cause error
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
 
 	immediate = {
-		set_country_flag = {
-			flag = wartime_unrest_cooldown
-			days = 120
-			value = 1
-		}
+		set_country_flag = food_shortage_1
+		# TODO - add idea
 	}
 
 	option = {
+		name = wsv_russia.3.a
+	}
+}
+
+
+## Worsening food situation (triggrered by mission -- which fires after about event occurs)
+country_event = {
+	id = wsv_russia.4
+	title = wsv_russia.4.t
+	desc = wsv_russia.4.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	is_triggered_only = yes
+
+	option = {
 		name = wsv_russia.2.a
-		add_stability = -0.03
-		add_war_support = -0.05
-		add_popularity = { ideology = communism  popularity = 0.02 }
 	}
 }
 
@@ -196,6 +248,7 @@ country_event = {
 #############################################################################
 
 
+
 ## Feburary riots + Tsar's abdication
 country_event = {
 	id=wsv_russia.100
@@ -237,7 +290,7 @@ country_event = {
 	# Civil war
 	option={
 		name=wsv_russia.100.b
-		news_event = { id = wsv_russia.110   days = 3 }
+		news_event = { id = wsv_russia.110   days = 10 }
 		ai_chance = { factor = 0 }
 	}
 }
@@ -342,17 +395,6 @@ news_event = {
 	is_triggered_only = yes
 
 	# trigger = {   # also triggered by timeout mission after Tsar abdicates
-	# 	RUS = {
-	# 		has_war_with_major = yes
-	# 		has_stability < 0.1 
-	# 		has_idea = RUS_threat_of_revolution
-	# 	}
-	# 	NOT = { has_global_flag = russian_revolution_occured }
-	# }
-
-	# mean_time_to_happen = {
-	# 	days = 14
-	# }
 
 	immediate = {
 		set_global_flag = russian_revolution_occured

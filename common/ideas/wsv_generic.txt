@@ -54,6 +54,48 @@ ideas = {
 		}
 
 
+		generic_wartime_food_shortage_1 = {   # food shortage / rationing, but manageable
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=50
+			cancel = { has_war = no }
+			picture = generic_risk_of_famine
+
+			modifier = {
+				war_support_factor = -0.1
+				stability_factor = -0.1
+				stability_weekly = -0.001
+				war_support_weekly = -0.02
+				army_attack_factor = -0.1
+				army_morale_factor = -0.1
+				army_org_factor = -0.1
+			}
+		}
+
+		generic_wartime_food_shortage_2 = {   # severe food shortage
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=50
+			cancel = { has_war = no }
+			picture = generic_risk_of_famine
+
+			modifier = {
+				stability_factor = -0.2
+				war_support_factor = -0.25
+				stability_weekly = -0.001
+				war_support_weekly = -0.03
+				army_attack_factor = -0.25
+				army_morale_factor = -0.2
+				army_org_factor = -0.2
+				army_defence_factor = -0.1
+				surrender_limit = -0.25
+			}
+		}
+
+
+
+
+
 		generic_SA_civil_war = {   # civil war idea for DR and Nicaragua
 			allowed={ always=no }
 			#allowed_civil_war = { has_government=communism }
@@ -296,54 +338,54 @@ ideas = {
 			}
 		}
 
-		generic_war_exhaustion1 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			cancel = { has_war = no }
-			removal_cost=-1
-			picture = generic_war_exhaustion1_icon
+		# generic_war_exhaustion1 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	cancel = { has_war = no }
+		# 	removal_cost=-1
+		# 	picture = generic_war_exhaustion1_icon
 			
-			modifier = {
-				stability_weekly = -0.001
-				war_support_weekly = -0.003
-			}
-		}
+		# 	modifier = {
+		# 		stability_weekly = -0.001
+		# 		war_support_weekly = -0.003
+		# 	}
+		# }
 
-		generic_war_exhaustion2 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			cancel = { has_war = no }
-			removal_cost=-1
-			picture = generic_war_exhaustion2_icon
+		# generic_war_exhaustion2 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	cancel = { has_war = no }
+		# 	removal_cost=-1
+		# 	picture = generic_war_exhaustion2_icon
 			
-			modifier = {
-				stability_weekly = -0.002
-				war_support_weekly = -0.005
+		# 	modifier = {
+		# 		stability_weekly = -0.002
+		# 		war_support_weekly = -0.005
 
-				conscription_factor = -0.1
-				army_morale_factor = -0.05
-				army_org = -5
+		# 		conscription_factor = -0.1
+		# 		army_morale_factor = -0.05
+		# 		army_org = -5
 
-				surrender_limit = -0.25
-			}
-		}
+		# 		surrender_limit = -0.25
+		# 	}
+		# }
 
-		generic_war_exhaustion3 = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			cancel = { has_war = no }
-			removal_cost=-1
-			picture = generic_war_exhaustion3_icon
+		# generic_war_exhaustion3 = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = yes }
+		# 	cancel = { has_war = no }
+		# 	removal_cost=-1
+		# 	picture = generic_war_exhaustion3_icon
 			
-			modifier = {
-				stability_weekly = -0.003
-				war_support_weekly = -0.01
-				conscription_factor = -0.25
-				army_morale_factor = -0.1
-				army_org = -10
-				surrender_limit = -0.5
-			}
-		}
+		# 	modifier = {
+		# 		stability_weekly = -0.003
+		# 		war_support_weekly = -0.01
+		# 		conscription_factor = -0.25
+		# 		army_morale_factor = -0.1
+		# 		army_org = -10
+		# 		surrender_limit = -0.5
+		# 	}
+		# }
 
 
 		generic_reserve_divisions_idea = {
