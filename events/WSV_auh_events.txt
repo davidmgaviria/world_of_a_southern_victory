@@ -7,41 +7,41 @@
 #############################################################################
 
 
-## War time ethnic unrest events
-country_event = {
-	id = wsv_auh.1
-	title = wsv_auh.1.t
-	desc = wsv_auh.1.d
-	picture = report_event_wsv_gathering_protest
+# ## War time ethnic unrest events
+# country_event = {
+# 	id = wsv_auh.1
+# 	title = wsv_auh.1.t
+# 	desc = wsv_auh.1.d
+# 	picture = report_event_wsv_gathering_protest
 
-	trigger = {
-		tag = AUH
-		has_war = yes
-		longest_war_length > 24	 # two years into the war
-		casualties > 200000
-		NOT = { has_country_flag = wartime_unrest_cooldown }
-		NOT = { has_country_flag = auh_collapsed }
-	}
+# 	trigger = {
+# 		tag = AUH
+# 		has_war = yes
+# 		longest_war_length > 24	 # two years into the war
+# 		casualties > 200000
+# 		NOT = { has_country_flag = wartime_unrest_cooldown }
+# 		NOT = { has_country_flag = auh_collapsed }
+# 	}
 
-	mean_time_to_happen = {
-		days = 5
-	}
+# 	mean_time_to_happen = {
+# 		days = 5
+# 	}
 
-	immediate = {
-		set_country_flag = { flag = wartime_unrest_cooldown   days = 150   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
-	}
+# 	immediate = {
+# 		set_country_flag = { flag = wartime_unrest_cooldown   days = 150   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
+# 	}
 							
-	option = {
-		name = wsv_auh.1.a
-		add_stability = -0.01
-		add_war_support = -0.03
+# 	option = {
+# 		name = wsv_auh.1.a
+# 		add_stability = -0.01
+# 		add_war_support = -0.03
 
-		if = {
-			limit = { NOT = { has_idea = AUH_house_of_cards } }
-			add_ideas = AUH_house_of_cards
-		}
-	}
-}
+# 		if = {
+# 			limit = { NOT = { has_idea = AUH_house_of_cards } }
+# 			add_ideas = AUH_house_of_cards
+# 		}
+# 	}
+# }
 
 
 ## Invade Montenegro
@@ -109,15 +109,138 @@ country_event = {
 }
 
 
+
+
+
+#############################################################################
+## -- Wartime Issues Events
+#############################################################################
+
+
+## Food shortages hit during war
+country_event = {
+	id = wsv_auh.20
+	title = wsv_auh.20.t
+	desc = wsv_auh.20.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		# bascially either at war for 1.5 years or 1 year but w/ war economy
+		OR = {
+			longest_war_length > 17
+			AND = {
+				longest_war_length > 11
+				OR = {
+					has_idea = war_economy
+					has_idea = tot_economic_mobilisation
+				}
+			}
+		}
+		NOT = { has_idea = generic_wartime_food_crisis_1 }
+		NOT = { has_idea = generic_wartime_food_crisis_2 }
+	}
+
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_auh.20.a
+		add_ideas = generic_wartime_food_crisis_1
+		set_country_flag = {
+			flag = food_crisis_escalation_countdown
+			days = 500  # about 16 months
+			value = 1
+		}
+	}
+}
+
+
+## Worsening food situation
+country_event = {
+	id = wsv_auh.21
+	title = wsv_auh.21.t
+	desc = wsv_auh.51.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		# a year after previous trigger
+		has_idea = generic_wartime_food_crisis_1
+		NOT = {
+			has_country_flag = food_crisis_escalation_countdown
+		}
+		NOT = { has_idea = generic_wartime_food_crisis_2 }
+	}
+
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_auh.21.a
+		swap_ideas = {
+			remove_idea = generic_wartime_food_crisis_1
+			add_idea = generic_wartime_food_crisis_2
+		}
+	}
+}
+
+
+## -- Death of Franz Joseph
+news_event = {
+    id = wsv_auh.25
+    title = wsv_auh.25.t
+    desc = wsv_auh.25.d
+    picture = ww1_austria_1
+
+    major = yes
+
+    trigger = {
+        AUH = {
+            NOT = { has_country_flag = emperor_franz_dead }
+            date > 1916.11.21
+            date < 1937.1.1
+        }
+    }
+
+	mean_time_to_happen = {
+        days = 0
+    }
+
+    immediate = {
+        hidden_effect = {
+            AUH = {
+                kill_country_leader = yes
+                create_country_leader={ name = "Karl I" desc=AUH_karl_i_DESC picture="gfx/portraits/AUH/country_leaders/AUH_karl_i.dds" expire="1935.1.1" ideology=monarchy  traits={  } }
+                set_country_flag = emperor_franz_dead
+            }
+        }
+    }
+
+    option = {
+        name = ww1_austria.1.a
+        trigger = { TAG = AUH }
+    }
+
+    option = {
+        name = ww1_austria.1.b
+        trigger = {
+            NOT = { TAG = AUH }
+        }
+    }
+}
+
+
+
 #############################################################################
 ## -- Collapse of Austria Hungary
 #############################################################################
 
 ## News event of AUH collapse
 news_event = {
-	id = wsv_auh.10
-	title = wsv_auh.10.t
-	desc = wsv_auh.10.d
+	id = wsv_auh.50
+	title = wsv_auh.50.t
+	desc = wsv_auh.50.d
 	picture = news_event_auh_collapses
 
 	major = yes
@@ -190,28 +313,28 @@ news_event = {
 				air_ratio = 0.3
 			}
 			# sue for peace
-			country_event = { id = wsv_auh.11  days = 5 }
+			country_event = { id = wsv_auh.51  days = 5 }
 		}
 	}
 
 	option = {
-		name = wsv_auh.10.a
+		name = wsv_auh.50.a
 	}
 }
 
 
 # Sue for peace if collapsed
 country_event = {
-	id = wsv_auh.11
-	title = wsv_auh.11.t
-	desc = wsv_auh.11.d
+	id = wsv_auh.51
+	title = wsv_auh.51.t
+	desc = wsv_auh.51.d
 
 	is_triggered_only = yes
 
 	timeout_days = 5
 
 	option = {
-		name = wsv_auh.11.a
+		name = wsv_auh.51.a
 		activate_decision = greatwar_auh_offers_peace
 	}
 }
@@ -219,9 +342,9 @@ country_event = {
 
 ## Italy temporarily occupies Tyrol (to fight Germany)
 country_event = {
-	id = wsv_auh.12
-	title = wsv_auh.12.t
-	desc = wsv_auh.12.d
+	id = wsv_auh.52
+	title = wsv_auh.52.t
+	desc = wsv_auh.52.d
 
 	is_triggered_only = yes
 
@@ -233,16 +356,16 @@ country_event = {
 	}
 					
 	option = {
-		name = wsv_auh.12.a
+		name = wsv_auh.52.a
 	}
 }
 
 
 ## Italy returns Tyrol
 country_event = {
-	id = wsv_auh.13
-	title = wsv_auh.13.t
-	desc = wsv_auh.13.d
+	id = wsv_auh.53
+	title = wsv_auh.53.t
+	desc = wsv_auh.53.d
 
 	fire_only_once = yes
 
@@ -264,7 +387,7 @@ country_event = {
 	}
 					
 	option = {
-		name = wsv_auh.13.a
+		name = wsv_auh.53.a
 	}
 }
 

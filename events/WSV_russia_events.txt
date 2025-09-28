@@ -97,33 +97,51 @@ country_event = {
 				}
 			}
 		}
-		NOT = { has_country_flag = food_shortage_1 }
+		NOT = { has_idea = generic_wartime_food_crisis_1 }
+		NOT = { has_idea = generic_wartime_food_crisis_2 }
 	}
 
 	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
 
-	immediate = {
-		set_country_flag = food_shortage_1
-		# TODO - add idea
-	}
-
 	option = {
 		name = wsv_russia.3.a
+		add_ideas = generic_wartime_food_crisis_1
+		set_country_flag = {
+			flag = food_crisis_escalation_countdown
+			days = 500  # about 16 months
+			value = 1
+		}
+		add_ideas = RUS_increased_revolutionary_activity
 	}
 }
 
 
-## Worsening food situation (triggrered by mission -- which fires after about event occurs)
+## Worsening food situation
 country_event = {
 	id = wsv_russia.4
 	title = wsv_russia.4.t
 	desc = wsv_russia.4.d
 	#picture = report_event_wsv_gathering_protest  # TODO - picture
 
-	is_triggered_only = yes
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		# a year after previous trigger
+		has_idea = generic_wartime_food_crisis_1
+		NOT = {
+			has_country_flag = food_crisis_escalation_countdown
+		}
+		NOT = { has_idea = generic_wartime_food_crisis_2 }
+	}
+
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
 
 	option = {
 		name = wsv_russia.2.a
+		swap_ideas = {
+			remove_idea = generic_wartime_food_crisis_1
+			add_idea = generic_wartime_food_crisis_2
+		}
 	}
 }
 
@@ -248,6 +266,54 @@ country_event = {
 #############################################################################
 
 
+## Alt-hist Tsar abdication (if war is going bad)
+country_event = {
+	id=wsv_russia.99
+	title=wsv_russia.99.t
+	desc=wsv_russia.99.d
+	picture = GFX_report_event_generic_riot
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_government = neutrality
+		has_war_with_major = yes
+		## Alt-hist Conditions for Tsar abdication
+		OR = {
+			has_stability < 0.1
+			AND = {
+				surrender_progress > 0.34
+				longest_war_length > 24  # 2 years
+			}
+			surrender_progress > 0.44
+		}
+		NOT = { has_country_flag = tsar_rule_crisis }
+	}
+
+	mean_time_to_happen = {
+		days = 3
+	}
+
+	immediate = {
+		set_country_flag = tsar_rule_crisis
+	}
+
+	# Tsar abdicates
+	option={
+		name=wsv_russia.99.a
+		news_event = wsv_russia.101
+		ai_chance = { factor = 100 }
+	}
+
+	# # Civil war
+	# option={
+	# 	name=wsv_russia.99.b
+	# 	news_event = { id = wsv_russia.110   days = 10 }
+	# 	ai_chance = { factor = 0 }
+	# }
+}
+
 
 ## Feburary riots + Tsar's abdication
 country_event = {
@@ -260,24 +326,24 @@ country_event = {
 
 	trigger = {
 		tag = RUS
+		has_government = neutrality
 		has_war_with_major = yes
 		## Conditions for Tsar abdication
+		surrender_progress > 0.05
+		has_idea = generic_wartime_food_crisis_2
 		OR = {
-			surrender_progress > 0.35
-			AND = {
-				surrender_progress > 0.25
-				longest_war_length > 18  	# 1.5 years
-			}
-			AND = {
-				surrender_progress > 0.1
-				longest_war_length > 30  	# 2.5 years  (historical condition)
-			}
-			has_stability < 0.1
+			date > 1917.2.20			# occured Feb 23, 1917
+			longest_war_length > 36		# over three years of war
 		}
+		NOT = { has_country_flag = tsar_rule_crisis }
 	}
 
 	mean_time_to_happen = {
-		days = 20
+		days = 3
+	}
+
+	immediate = {
+		set_country_flag = tsar_rule_crisis
 	}
 
 	# Tsar abdicates
@@ -287,12 +353,12 @@ country_event = {
 		ai_chance = { factor = 100 }
 	}
 
-	# Civil war
-	option={
-		name=wsv_russia.100.b
-		news_event = { id = wsv_russia.110   days = 10 }
-		ai_chance = { factor = 0 }
-	}
+	# # Civil war
+	# option={
+	# 	name=wsv_russia.100.b
+	# 	news_event = { id = wsv_russia.110   days = 10 }
+	# 	ai_chance = { factor = 0 }
+	# }
 }
 
 
