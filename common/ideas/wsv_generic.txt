@@ -321,6 +321,68 @@ ideas = {
 			}
 		}
 
+		generic_army_desertions_minor = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			cancel = { 
+				OR = {
+					has_idea = generic_army_desertions_moderate
+					has_war = no
+				}
+			}
+			removal_cost=-1
+			picture = generic_army_collapse_icon
+
+			modifier = {
+				army_attack_factor = -0.1
+				army_defence_factor = -0.05
+				army_org_factor = -0.1
+				army_org_regain = -0.1
+				coordination_bonus = -0.1
+			}
+		}
+
+		generic_army_desertions_moderate = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			cancel = { 
+				OR = {
+					has_idea = generic_army_desertions_severe
+					has_war = no
+				}
+			}
+			removal_cost=-1
+			picture = generic_army_collapse_icon
+
+			modifier = {
+				army_attack_factor = -0.25
+				army_defence_factor = -0.1
+				army_org_factor = -0.2
+				army_org_regain = -0.2
+				coordination_bonus = -0.2
+				land_reinforce_rate = -0.005
+			}
+		}
+
+		generic_army_desertions_severe = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			cancel = {
+				has_war = no
+			}
+			removal_cost=-1
+			picture = generic_army_collapse_icon
+
+			modifier = {
+				army_attack_factor = -0.5
+				army_defence_factor = -0.35
+				army_org_factor = -0.35
+				army_org_regain = -0.35
+				coordination_bonus = -0.25
+				land_reinforce_rate = -0.01
+			}
+		}
+
 		generic_army_collapse_idea = {
 			allowed={ always=no }
 			allowed_civil_war = { always = no }

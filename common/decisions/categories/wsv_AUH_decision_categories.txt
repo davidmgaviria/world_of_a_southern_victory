@@ -1,0 +1,43 @@
+
+
+
+#### GREAT WAR ####
+
+# Seperatism in Austria-Hungary
+AUH_seperatism_in_the_empire_cat = {
+	icon = decision_cat_generic_austria_hungary
+	priority = 200
+
+	allowed = {
+		original_tag = AUH
+		has_start_date < 1937.1.1
+	}
+
+	on_map_area = {
+		target_array = AUH.seperatist_states
+		name = AUH_seperatist_movements_map
+		zoom = 150
+		target_trigger  = {
+			FROM = {
+				is_owned_and_controlled_by = ROOT
+			}
+		}
+	}
+
+	visible_when_empty = yes
+	visible = {
+		NOT = { has_country_flag = AUH_imposed_wartime_censorship }
+		check_variable = { AUH.active_seperatist_groups > 0 }
+	}
+}
+
+
+
+#### WORLD WAR 2 ####
+
+
+
+
+
+
+

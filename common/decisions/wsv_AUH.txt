@@ -1,5 +1,257 @@
 
+
+AUH_seperatism_in_the_empire_cat = {
+
+	AUH_bosnian_rebels = {
+		icon = generic_civil_support
+		priority = 10
+
+		allowed = {
+			tag = AUH
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				NOT = { has_full_control_of_state = 104 }
+				104 = { is_core_of = ROOT }
+				has_country_flag = AUH_imposed_wartime_censorship
+			}
+		}
+
+		selectable_mission = yes
+		cost = 25
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 104
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+
+		days_mission_timeout = 90  
+		is_good = no
+		
+		complete_effect = {
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+		timeout_effect = {
+			country_event = wsv_auh.3 
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+
+		ai_will_do = {
+			factor = 20   # take it unless very low pp
+			modifier = {
+				factor = 0
+				has_political_power < 50
+			}
+		}
+	}
+
+	AUH_italian_seperatists = {
+	 	icon = generic_nationalism
+		priority = 20
+
+		allowed = {
+			tag = AUH
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_country_flag = AUH_imposed_wartime_censorship
+				AND = {
+					NOT = { has_full_control_of_state = 736 }
+					NOT = { has_full_control_of_state = 39 }
+				}
+			}
+		}
+
+		selectable_mission = yes
+		cost = 15
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 736
+				state = 39
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+
+		days_mission_timeout = 90  
+		is_good = no
+		
+		complete_effect = {
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+		timeout_effect = {
+			country_event = wsv_auh.2
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+
+		ai_will_do = {
+			factor = 15   # take it unless very low pp
+			modifier = {
+				factor = 0
+				has_political_power < 50
+			}
+		}
+	}
+
+
+	AUH_galician_seperatists = {
+	 	icon = generic_nationalism
+		priority = 20
+
+		allowed = {
+			tag = AUH
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_country_flag = AUH_imposed_wartime_censorship
+				AND = {
+					NOT = { has_full_control_of_state = 88 }
+					NOT = { has_full_control_of_state = 89 }
+					NOT = { has_full_control_of_state = 91 }
+				}
+			}
+		}
+
+		selectable_mission = yes
+		cost = 15
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 88
+				state = 89
+				state = 91
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+
+		days_mission_timeout = 90  
+		is_good = no
+		
+		complete_effect = {
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+		timeout_effect = {
+			country_event = wsv_auh.2
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+
+		ai_will_do = {
+			factor = 10   # take it unless very low pp
+			modifier = {
+				factor = 0
+				has_political_power < 50
+			}
+		}
+	}
+
+	AUH_romanian_seperatists = {
+	 	icon = generic_nationalism
+		priority = 20
+
+		allowed = {
+			tag = AUH
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_country_flag = AUH_imposed_wartime_censorship
+				AND = {
+					NOT = { has_full_control_of_state = 84 }
+					NOT = { has_full_control_of_state = 82 }
+					NOT = { has_full_control_of_state = 83 }
+					NOT = { has_full_control_of_state = 76 }
+				}
+			}
+		}
+
+		selectable_mission = yes
+		cost = 15
+
+		highlight_states = {
+			highlight_state_targets = {
+				state = 84
+				state = 83
+				state = 82
+				state = 76
+			}
+			highlight_color_while_active = 3
+			highlight_color_before_active = 2
+		}
+
+		days_mission_timeout = 90  
+		is_good = no
+		
+		complete_effect = {
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+		timeout_effect = {
+			country_event = wsv_auh.2
+			subtract_from_variable = { AUH.active_seperatist_missions = 1 }
+		}
+
+		ai_will_do = {
+			factor = 10   # take it unless very low pp
+			modifier = {
+				factor = 0
+				has_political_power < 50
+			}
+		}
+	}
+}
+
+
 wsv_great_war_decisions = {
+
+	# countdoown to the empire collapsing
+	AUH_empire_collapse_countdown = {
+		icon = revolt 
+		priority = 200
+
+		allowed = {
+			tag = AUH
+		}
+		activation = {
+			has_idea = AUH_house_of_cards_2
+		}
+		available = {		
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_capitulated = yes
+				has_war_with_major = no
+				has_global_flag = AUH_collapsed
+			}
+		}
+
+
+		days_mission_timeout = 300  
+		is_good = no
+
+		timeout_effect = {
+			news_event = wsv_auh.50
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
 	
 	# AUH throws in the towel
 	greatwar_auh_offers_peace = {

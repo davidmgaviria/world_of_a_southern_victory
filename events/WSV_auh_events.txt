@@ -7,48 +7,246 @@
 #############################################################################
 
 
-# ## War time ethnic unrest events
-# country_event = {
-# 	id = wsv_auh.1
-# 	title = wsv_auh.1.t
-# 	desc = wsv_auh.1.d
-# 	picture = report_event_wsv_gathering_protest
+# Hidden seperatism trigger
 
-# 	trigger = {
-# 		tag = AUH
-# 		has_war = yes
-# 		longest_war_length > 24	 # two years into the war
-# 		casualties > 200000
-# 		NOT = { has_country_flag = wartime_unrest_cooldown }
-# 		NOT = { has_country_flag = auh_collapsed }
-# 	}
+country_event = {
+	id = wsv_auh.1
+	title = wsv_auh.1.t
+	desc = wsv_auh1.d
 
-# 	mean_time_to_happen = {
-# 		days = 5
-# 	}
+	trigger = {
+		tag = AUH
+		has_war_with_major = no
+		NOT = { has_country_flag = seperatist_trigger_event_cooldown }
+		check_variable = { AUH.active_seperatist_groups > 0 }
+	}
 
-# 	immediate = {
-# 		set_country_flag = { flag = wartime_unrest_cooldown   days = 150   value = 1 }			## AUH collapses mid October 1918 if starts war with 62% stability and 82% war support (each tick must take off 1.5%)
-# 	}
-							
-# 	option = {
-# 		name = wsv_auh.1.a
-# 		add_stability = -0.01
-# 		add_war_support = -0.03
+	mean_time_to_happen = { days = 0 }
 
-# 		if = {
-# 			limit = { NOT = { has_idea = AUH_house_of_cards } }
-# 			add_ideas = AUH_house_of_cards
-# 		}
-# 	}
-# }
+	hidden = yes   # AI takes care of choice
+
+	immediate = {
+		add_to_variable = { AUH.active_seperatist_missions = 1 }
+		if = {
+			# if we can still pick another group (up to 2 max) do so
+			limit = {
+				check_variable = { AUH.active_seperatist_missions < 2 }
+				check_variable = { AUH.active_seperatist_missions < AUH.active_seperatist_groups }
+			}
+			country_event = { id = wsv_auh.1  hours = 1 }  # select another group
+		} else = {
+			# cooldown flag
+			set_country_flag = {
+				flag = seperatist_trigger_event_cooldown
+				value = 1
+				days = 120
+			}
+		}
+	}
+	
+	option = {  # Italian seperatists
+		name = wsv_auh.1.a
+		trigger = {
+			NOT = { has_active_mission = AUH_italian_seperatists }
+			OR = { has_full_control_of_state = 736  has_full_control_of_state = 39 }
+		}
+		activate_mission = AUH_italian_seperatists
+		ai_chance = { factor = 20 }
+	}
+	option = {  # Galician seperatists
+		name = wsv_auh.1.b
+		trigger = {
+			NOT = { has_active_mission = AUH_galician_seperatists }
+			OR = { has_full_control_of_state = 88  has_full_control_of_state = 89  has_full_control_of_state = 91 }
+		}
+		activate_mission = AUH_galician_seperatists
+		ai_chance = { factor = 20 }
+	}
+	option = { # Romanian seperatists
+		name = wsv_auh.1.c
+		trigger = {
+			NOT = { has_active_mission = AUH_romanian_seperatists }
+			OR = { has_full_control_of_state = 84  has_full_control_of_state = 82  has_full_control_of_state = 83   has_full_control_of_state = 76 }
+		}
+		activate_mission = AUH_romanian_seperatists
+		ai_chance = { factor = 20 }
+	}
+	option = { 	# Bosnian rebels
+		name = wsv_auh.1.e
+		trigger = {
+			NOT = { has_active_mission = AUH_bosnian_rebels }
+			104 = {
+				is_owned_and_controlled_by = ROOT
+				NOT = { is_core_of = ROOT }
+			}
+		}
+		activate_mission = AUH_bosnian_rebels
+		ai_chance = { factor = 40 }
+	}
+}
 
 
-## Invade Montenegro
+# Pacific seperatists (Italians, Galicians, Romanians)
 country_event = {
 	id = wsv_auh.2
 	title = wsv_auh.2.t
 	desc = wsv_auh.2.d
+
+	is_triggered_only = yes
+					
+	option = {
+		name = wsv_auh.2.a
+		add_stability = -0.03
+		add_war_support = -0.03
+		add_political_power = -10
+	}
+}
+
+# Bosnian rebels (mean!)
+country_event = {
+	id = wsv_auh.3
+	title = wsv_auh.3.t
+	desc = wsv_auh.3.d
+
+	is_triggered_only = yes
+					
+	option = {
+		name = wsv_auh.3.a
+		add_political_power = -35
+		104 = {
+			add_resistance = 8
+			add_compliance = -4
+		}
+	}
+}
+
+
+
+
+#############################################################################
+## -- Wartime Issues Events
+#############################################################################
+
+
+# Disolve the Imperial Council 
+country_event = {
+	id = wsv_auh.19
+	title = wsv_auh.19.t
+	desc = wsv_auh.19.d
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		NOT = { has_country_flag = AUH_dissolved_imperial_council }
+	}
+
+	mean_time_to_happen = { days = 7 }
+
+	immediate = {
+		set_country_flag = AUH_dissolved_imperial_council 
+	}
+							
+	option = {
+		name = wsv_auh.19.a
+		remove_ideas = AUH_hungarian_oppposition
+	}
+}
+
+
+# End seperatists by enacting wartime censorship
+country_event = {
+	id = wsv_auh.20
+	title = wsv_auh.20.t
+	desc = wsv_auh.20.d
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		NOT = { has_country_flag = AUH_imposed_wartime_censorship }
+	}
+
+	mean_time_to_happen = { days = 15 }
+
+	immediate = {
+		set_country_flag = AUH_imposed_wartime_censorship 
+		add_stability = -0.05
+		add_political_power = 100
+	}
+}
+
+
+## Food shortages hit during war
+country_event = {
+	id = wsv_auh.21
+	title = wsv_auh.21.t
+	desc = wsv_auh.21.d
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		# bascially either at war for 1.5 years or 1 year but w/ war economy
+		OR = {
+			longest_war_length > 17
+			AND = {
+				longest_war_length > 11
+				OR = {
+					has_idea = war_economy
+					has_idea = tot_economic_mobilisation
+				}
+			}
+		}
+		NOT = { has_idea = generic_wartime_food_crisis_1 }
+		NOT = { has_idea = generic_wartime_food_crisis_2 }
+	}
+
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_auh.21.a
+		add_ideas = generic_wartime_food_crisis_1
+		set_country_flag = {
+			flag = food_crisis_escalation_countdown
+			days = 500  # about 16 months
+			value = 1
+		}
+	}
+}
+
+
+## Worsening food situation
+country_event = {
+	id = wsv_auh.22
+	title = wsv_auh.22.t
+	desc = wsv_auh.22.d
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		# a year after previous trigger
+		has_idea = generic_wartime_food_crisis_1
+		NOT = {
+			has_country_flag = food_crisis_escalation_countdown
+		}
+		NOT = { has_idea = generic_wartime_food_crisis_2 }
+	}
+
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_auh.22.a
+		swap_ideas = {
+			remove_idea = generic_wartime_food_crisis_1
+			add_idea = generic_wartime_food_crisis_2
+		}
+	}
+}
+
+
+## Invade Montenegro
+country_event = {
+	id = wsv_auh.23
+	title = wsv_auh.23.t
+	desc = wsv_auh.23.d
 
 	trigger = {
 		tag = AUH
@@ -75,7 +273,7 @@ country_event = {
 	}
 					
 	option = {
-		name = wsv_auh.2.a
+		name = wsv_auh.23.a
 		create_wargoal = {
 			type = puppet_wargoal_focus
 			target = MNT
@@ -86,9 +284,9 @@ country_event = {
 
 ## Invades Albania (triggered by Serbia)
 country_event = {
-	id = wsv_auh.3
-	title = wsv_auh.3.t
-	desc = wsv_auh.3.d
+	id = wsv_auh.24
+	title = wsv_auh.24.t
+	desc = wsv_auh.24.d
 
 	fire_only_once = yes
 	is_triggered_only = yes
@@ -98,7 +296,7 @@ country_event = {
 	}
 					
 	option = {
-		name = wsv_auh.3.a
+		name = wsv_auh.24.a
 		
 		# invade albania
 		create_wargoal = {
@@ -110,83 +308,12 @@ country_event = {
 
 
 
-
-
 #############################################################################
-## -- Wartime Issues Events
+## -- Spiraling Ethnic Situation
 #############################################################################
 
 
-## Food shortages hit during war
-country_event = {
-	id = wsv_auh.20
-	title = wsv_auh.20.t
-	desc = wsv_auh.20.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
-
-	trigger = {
-		tag = AUH
-		has_war_with_major = yes
-		# bascially either at war for 1.5 years or 1 year but w/ war economy
-		OR = {
-			longest_war_length > 17
-			AND = {
-				longest_war_length > 11
-				OR = {
-					has_idea = war_economy
-					has_idea = tot_economic_mobilisation
-				}
-			}
-		}
-		NOT = { has_idea = generic_wartime_food_crisis_1 }
-		NOT = { has_idea = generic_wartime_food_crisis_2 }
-	}
-
-	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
-
-	option = {
-		name = wsv_auh.20.a
-		add_ideas = generic_wartime_food_crisis_1
-		set_country_flag = {
-			flag = food_crisis_escalation_countdown
-			days = 500  # about 16 months
-			value = 1
-		}
-	}
-}
-
-
-## Worsening food situation
-country_event = {
-	id = wsv_auh.21
-	title = wsv_auh.21.t
-	desc = wsv_auh.51.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
-
-	trigger = {
-		tag = AUH
-		has_war_with_major = yes
-		# a year after previous trigger
-		has_idea = generic_wartime_food_crisis_1
-		NOT = {
-			has_country_flag = food_crisis_escalation_countdown
-		}
-		NOT = { has_idea = generic_wartime_food_crisis_2 }
-	}
-
-	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
-
-	option = {
-		name = wsv_auh.21.a
-		swap_ideas = {
-			remove_idea = generic_wartime_food_crisis_1
-			add_idea = generic_wartime_food_crisis_2
-		}
-	}
-}
-
-
-## -- Death of Franz Joseph
+## Death of Franz Joseph
 news_event = {
     id = wsv_auh.25
     title = wsv_auh.25.t
@@ -218,12 +345,12 @@ news_event = {
     }
 
     option = {
-        name = ww1_austria.1.a
+        name = ww1_austria.25.a
         trigger = { TAG = AUH }
     }
 
     option = {
-        name = ww1_austria.1.b
+        name = ww1_austria.25.b
         trigger = {
             NOT = { TAG = AUH }
         }
@@ -231,10 +358,226 @@ news_event = {
 }
 
 
+## Demands to summon Imperial Parliment to discuss ethnic issues
+country_event = {
+	id = wsv_auh.27
+	title = wsv_auh.27.t
+	desc = wsv_auh.27.d
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+
+		OR = {
+			date > 1917.5.20  				 # historical
+			longest_war_length > 36 		 # 3 years
+			has_stability < 0.35  			 # stability is plumetting
+		}
+
+		## TODO - trigger (year, ethnic tension, etc?)
+		NOT = { has_country_flag = AUH_summoned_imperial_council_1917 }
+		NOT = { has_country_flag = AUH_cooldown_to_summon_imperial_council }
+	}
+
+
+	mean_time_to_happen = { days = 0 }
+
+	immediate = {
+		if = {
+			limit = { NOT = { has_variable = ROOT.rejected_council_summon } }
+			set_variable = { ROOT.rejected_council_summon = 0 }
+		}
+	}
+
+	# Agree
+	option = {
+		name = wsv_auh.27.a
+		country_event = { id = wsv_auh.28  days = 10 }
+		set_country_flag = AUH_summoned_imperial_council_1917
+	}
+
+	# Refuse
+	option = {
+		name = wsv_auh.27.a
+		trigger = { has_country_leader = AUH_franz_joseph_i }    # only Franz joseph can refuse
+		set_country_flag = {
+			flag = AUH_cooldown_to_summon_imperial_council
+			value = 1
+			days = 180
+		}
+		add_to_variable = { ROOT.rejected_council_summon = 1 }
+		country_event = { id = wsv_auh.29 days = 2 }
+	}
+}
+
+
+## Imperial Parliment summoned (actual event) to disucss ethnic issues
+country_event = {
+	id = wsv_auh.28
+	title = wsv_auh.28.t
+	desc = wsv_auh.28.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	is_triggered_only = yes
+
+	# That was useless lol
+	option = {
+		name = wsv_auh.28.a
+	}
+}
+
+
+# Notice of mass protests due to refusal to summon Imperial Council
+country_event = {
+	id = wsv_auh.29
+	title = wsv_auh.29.t
+	desc = wsv_auh.29.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	is_triggered_only = yes
+
+	# Ignore them
+	option = {
+		name = wsv_auh.29.a
+	}
+
+	# Use the army
+	option = {
+		name = wsv_auh.29.b
+		trigger = {
+			check_variable = { ROOT.rejected_council_summon > 1 }
+		}
+		add_command_power = -10
+		country_event = wsv_auh.30
+	}
+}
+
+
+# Army fired on protestors.. uh oh
+country_event = {
+	id = wsv_auh.30
+	title = wsv_auh.30.t
+	desc = wsv_auh.30.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	is_triggered_only = yes
+
+	# That was useless lol
+	option = {
+		name = wsv_auh.30.a
+	}
+}
+
+
 
 #############################################################################
 ## -- Collapse of Austria Hungary
 #############################################################################
+
+## Increased ethnic tension in wartime
+country_event = {
+	id = wsv_auh.40
+	title = wsv_auh.40.t
+	desc = wsv_auh.40.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		longest_war_length > 24  # more than 2 years
+		NOT = { has_idea = AUH_house_of_cards_1 }
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	# Agree
+	option = {
+		name = wsv_auh.40.a
+		add_ideas = AUH_house_of_cards_1
+		set_country_flag = AUH_ethnic_tensions_increase
+	}
+}
+
+
+# House of Cards event chain starter  (240 day chain) 
+country_event = {
+	id = wsv_auh.44
+	title = wsv_auh.44.t
+	desc = wsv_auh.44.d
+
+	trigger = {
+		tag = AUH
+		has_war_with_major = yes
+		has_idea = AUH_house_of_cards_1
+		OR = {
+			longest_war_length > 48  # 4 years
+			date > 1918.1.5   # 300 days from now is early Nov
+		}
+	}
+
+	option = {
+		name = wsv_auh.44.a
+		swap_ideas = {
+			remove_idea = AUH_house_of_cards_1
+			add_idea = AUH_house_of_cards_2
+		}
+		activate_decision = AUH_empire_collapse_countdown
+
+		set_country_flag = {
+			flag = AUH_collapse_mass_desertions_timer
+			value = 1
+			days = 250   # 50 days less than the total length of the countdown (mid september)
+		}
+		set_country_flag = {
+			flag = AUH_collapse_nation_councils_timer
+			value = 1
+			days = 293   # 7 days less than the total length of the countdown (last days of october)
+		}
+	}
+}
+
+
+# Mass desertion  (once decision has been activated)
+country_event = {
+	id = wsv_auh.45
+	title = wsv_auh.45.t
+	desc = wsv_auh.45.d
+	#picture = report_event_wsv_gathering_protest 
+
+	trigger = {
+		tag = AUH
+		has_active_mission = AUH_empire_collapse_countdown
+		NOT = { has_country_flag = AUH_collapse_mass_desertions_timer }
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	option = {
+		name = wsv_auh.45.a
+		add_ideas = generic_army_desertions_severe
+	}
+}
+
+# Formation of ethnic parliments 
+country_event = {
+	id = wsv_auh.46
+	title = wsv_auh.46.t
+	desc = wsv_auh.46.d
+	#picture = report_event_wsv_gathering_protest 
+
+	trigger = {
+		tag = AUH
+		has_active_mission = AUH_empire_collapse_countdown
+		NOT = { has_country_flag = AUH_collapse_mass_desertions_timer }
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	option = {
+		name = wsv_auh.46.a
+	}
+}
+
 
 ## News event of AUH collapse
 news_event = {
@@ -245,19 +588,14 @@ news_event = {
 
 	major = yes
 
-	trigger = {
-		tag = AUH
-		has_idea = AUH_house_of_cards	# will only have during wartime
-		has_stability < 0.11
-		NOT = { has_global_flag = auh_collapsed }
-	}
+	is_triggered_only = yes
 
 	mean_time_to_happen = {
 		days = 2  # needed to prevent error
 	}
 
 	immediate = {
-		set_global_flag = auh_collapsed
+		set_global_flag = AUH_collapsed
 		hidden_effect = {
 			## Czechslovakia
 			CZE = {
@@ -277,6 +615,7 @@ news_event = {
 			CRO = {
 				transfer_state = 103
 				transfer_state = 109
+				transfer_state = 104
 				inherit_technology = AUH
 			}
 			transfer_units_fraction= {
