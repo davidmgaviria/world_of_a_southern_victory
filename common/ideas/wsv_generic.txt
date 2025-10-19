@@ -54,7 +54,7 @@ ideas = {
 		}
 
 
-		generic_wartime_food_crisis_1 = {   # food shortage / rationing, but manageable
+		generic_wartime_food_shortage_1 = {   # food shortage / rationing, but manageable
 			allowed={ always=no }
 			allowed_civil_war={ always = no }
 			removal_cost=50
@@ -64,15 +64,11 @@ ideas = {
 			modifier = {
 				war_support_factor = -0.1
 				stability_factor = -0.1
-				stability_weekly = -0.001
-				war_support_weekly = -0.02
-				army_attack_factor = -0.1
-				army_morale_factor = -0.1
-				army_org_factor = -0.1
+				war_support_weekly = -0.01
 			}
 		}
 
-		generic_wartime_food_crisis_2 = {   # severe food shortage
+		generic_wartime_food_shortage_2 = {   # severe food shortage
 			allowed={ always=no }
 			allowed_civil_war={ always = no }
 			removal_cost=50
@@ -81,16 +77,37 @@ ideas = {
 
 			modifier = {
 				stability_factor = -0.2
-				war_support_factor = -0.25
-				stability_weekly = -0.001
-				war_support_weekly = -0.03
-				army_attack_factor = -0.25
-				army_morale_factor = -0.2
-				army_org_factor = -0.2
-				army_defence_factor = -0.1
-				surrender_limit = -0.25
+				war_support_factor = -0.3
+				war_support_weekly = -0.02
+				surrender_limit = -0.15
+
+				army_attack_factor = -0.1
+				army_morale_factor = -0.1
+				army_org_factor = -0.05
 			}
 		}
+
+
+		generic_wartime_food_shortage_3 = {   # severe food shortage
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=50
+			cancel = { has_war = no }
+			picture = generic_risk_of_famine
+
+			modifier = {
+				stability_factor = -0.4
+				war_support_factor = -0.5
+				war_support_weekly = -0.03
+				surrender_limit = -0.25
+				
+				army_attack_factor = -0.25
+				army_morale_factor = -0.2
+				army_org_factor = -0.15
+				army_defence_factor = -0.1
+			}
+		}
+
 
 
 

@@ -2,152 +2,9 @@
 
 
 
-#############################################################################
-## -- Domestic Events
-#############################################################################
-
-
-# Saint Petersburg renamed to Petrograd
-country_event = {
-	id = wsv_russia.1
-	title = wsv_russia.1.t
-	desc = wsv_russia.1.d
-	picture = GFX_report_event_german_reichstag_gathering
-
-	fire_only_once = yes
-
-	trigger = {
-		tag = RUS
-		has_start_date < 1937.1.1
-		RUS = {
-			has_war_with = GER
-			owns_state = 195 
-		}
-	}
-
-	option = { #a great idea!
-		name = wsv_russia.1.a
-		set_province_name = { id = 3151 name = "Petrograd"}
-		hidden_effect = { 195 = { set_state_name = "Petrograd" } }
-		ai_chance = { factor = 100 }
-	}
-
-	option = { #rather not
-		name = wsv_russia.1.b
-		#Open Beta 0.2b
-		add_stability = -0.05
-		ai_chance = { factor = 0 }
-	}
-}
-
-
-# ## War time unrest events
-# country_event = {
-# 	id = wsv_russia.2
-# 	title = wsv_russia.2.t
-# 	desc = wsv_russia.2.d
-# 	picture = report_event_wsv_gathering_protest
-
-# 	trigger = {
-# 		tag = RUS
-# 		has_war_with_major = yes
-# 		longest_war_length > 8	 # a bit more than half a year
-# 		casualties > 500000
-# 		NOT = { has_country_flag = wartime_unrest_cooldown }
-# 		NOT = { has_global_flag = tsar_of_russia_abdicated }
-# 	}
-
-# 	mean_time_to_happen = { days = 2 }  #cant be days=1 or will cause error
-
-# 	immediate = {
-# 		set_country_flag = {
-# 			flag = wartime_unrest_cooldown
-# 			days = 120
-# 			value = 1
-# 		}
-# 	}
-
-# 	option = {
-# 		name = wsv_russia.2.a
-# 		add_stability = -0.03
-# 		add_war_support = -0.05
-# 		add_popularity = { ideology = communism  popularity = 0.02 }
-# 	}
-# }
-
-
-## Food shortages hit during war
-country_event = {
-	id = wsv_russia.3
-	title = wsv_russia.3.t
-	desc = wsv_russia.3.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
-
-	trigger = {
-		tag = RUS
-		has_war_with_major = yes
-		# bascially either at war for 1.5 years or 1 year but w/ war economy
-		OR = {
-			longest_war_length > 17
-			AND = {
-				longest_war_length > 11
-				OR = {
-					has_idea = war_economy
-					has_idea = tot_economic_mobilisation
-				}
-			}
-		}
-		NOT = { has_idea = generic_wartime_food_crisis_1 }
-		NOT = { has_idea = generic_wartime_food_crisis_2 }
-	}
-
-	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
-
-	option = {
-		name = wsv_russia.3.a
-		add_ideas = generic_wartime_food_crisis_1
-		set_country_flag = {
-			flag = food_crisis_escalation_countdown
-			days = 500  # about 16 months
-			value = 1
-		}
-		add_ideas = RUS_increased_revolutionary_activity
-	}
-}
-
-
-## Worsening food situation
-country_event = {
-	id = wsv_russia.4
-	title = wsv_russia.4.t
-	desc = wsv_russia.4.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
-
-	trigger = {
-		tag = RUS
-		has_war_with_major = yes
-		# a year after previous trigger
-		has_idea = generic_wartime_food_crisis_1
-		NOT = {
-			has_country_flag = food_crisis_escalation_countdown
-		}
-		NOT = { has_idea = generic_wartime_food_crisis_2 }
-	}
-
-	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
-
-	option = {
-		name = wsv_russia.2.a
-		swap_ideas = {
-			remove_idea = generic_wartime_food_crisis_1
-			add_idea = generic_wartime_food_crisis_2
-		}
-	}
-}
-
 
 #############################################################################
-## -- International Events
+## -- Pre-War Events
 #############################################################################
 
 
@@ -261,8 +118,259 @@ country_event = {
 
 
 
+
 #############################################################################
-## -- Tsar Abdication & Power Struggle
+## -- Wartime Events
+#############################################################################
+
+
+# Saint Petersburg renamed to Petrograd
+country_event = {
+	id = wsv_russia.50
+	title = wsv_russia.50.t
+	desc = wsv_russia.50.d
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_start_date < 1937.1.1
+		RUS = {
+			has_war_with = GER
+			owns_state = 195 
+		}
+	}
+
+	option = { #a great idea!
+		name = wsv_russia.50.a
+		set_province_name = { id = 3151 name = "Petrograd"}
+		hidden_effect = { 195 = { set_state_name = "Petrograd" } }
+		ai_chance = { factor = 100 }
+	}
+
+	option = { #rather not
+		name = wsv_russia.50.b
+		#Open Beta 0.2b
+		add_stability = -0.05
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+# Prioritize army supplies or civilian grain?
+country_event = {
+	id = wsv_russia.51
+	title = wsv_russia.51.t
+	desc = wsv_russia.51.d
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		longest_war_length > 4
+	}
+
+	# prioritize army supplies
+	option = { 
+		name = wsv_russia.50.a
+		add_ideas = RUS_prioritize_army_supplies
+		ai_chance = { factor = 100 }
+	}
+
+	# prioritize civilian grain
+	option = { 
+		name = wsv_russia.50.b
+		add_ideas = RUS_prioritize_civilian_supplies
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+# The Great Retreat happens
+country_event = {
+	id = wsv_russia.52
+	title = wsv_russia.52.t
+	desc = wsv_russia.52.d
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		OR = {
+			has_war_with = 	GER
+			has_war_with = AUH
+		}
+		# basically if lost Warsaw and the surronding area
+		owns_state = 10
+		NOT = { controls_state = 10 }
+		NOT = { controls_state = 87 }
+		NOT = { controls_state = 90 }
+		NOT = { controls_state = 98 }
+		NOT = { controls_state = 5 }
+		NOT = { controls_state = 88 }
+	}
+
+	option = { 
+		name = wsv_russia.52.a
+		set_country_flag = RUS_great_retreat
+		add_timed_idea = {
+			idea = RUS_great_retreat_idea
+			days = 35
+		}
+	}
+}
+
+
+# Tsar Nicolas takes over + Great Retreat ends
+country_event = {
+	id = wsv_russia.53
+	title = wsv_russia.53.t
+	desc = wsv_russia.53.d
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		OR = {
+			has_war_with = 	GER
+			has_war_with = AUH
+		}
+		has_country_flag = RUS_great_retreat
+		NOT = { has_idea = RUS_great_retreat_idea }
+	}
+
+	option = { 
+		name = wsv_russia.53.a
+		set_country_flag = RUS_great_retreat_ended
+		add_war_support = 0.07
+	}
+}
+
+
+## Food shortages hit during war
+country_event = {
+	id = wsv_russia.55
+	title = wsv_russia.55.t
+	desc = wsv_russia.55.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		# bascially either at war for 1.5 years or 1 year but w/ war economy
+		OR = {
+			longest_war_length > 17
+			AND = {
+				longest_war_length > 11		# a year into the war, calculated at Aug 1, 1915
+				OR = {
+					has_idea = war_economy
+					has_idea = tot_economic_mobilisation 
+					has_idea = RUS_prioritize_army_supplies
+				}
+			}
+		}
+		NOT = { has_idea = generic_wartime_food_shortage_1 }
+		NOT = { has_idea = generic_wartime_food_shortage_2 }
+		NOT = { has_idea = generic_wartime_food_shortage_3 }
+	}
+
+	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_russia.55.a
+		add_ideas = generic_wartime_food_shortage_1
+		set_country_flag = {
+			flag = food_crisis_escalation_countdown
+			days = 480  # a little less than 1.5 years after, calculated to Dec 1, 1916
+			value = 1
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.07
+		}
+	}
+}
+
+
+## Worsening food situation
+country_event = {
+	id = wsv_russia.56
+	title = wsv_russia.56.t
+	desc = wsv_russia.56.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		# a year after previous trigger
+		has_idea = generic_wartime_food_shortage_1
+		NOT = {
+			has_country_flag = food_crisis_escalation_countdown
+		}
+		NOT = { has_idea = generic_wartime_food_shortage_2 }
+	}
+
+	mean_time_to_happen = { days = 10 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_russia.56.a
+		swap_ideas = {
+			remove_idea = generic_wartime_food_shortage_1
+			add_idea = generic_wartime_food_shortage_2
+		}
+		set_country_flag = {
+			flag = food_crisis_escalation_countdown
+			days = 570  # 1.5 years after, calculated to July 1, 1918
+			value = 1
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.07
+		}
+	}
+}
+
+
+## Famine (Russain civil war should fire before then however)
+country_event = {
+	id = wsv_russia.57
+	title = wsv_russia.57.t
+	desc = wsv_russia.57.d
+	#picture = report_event_wsv_gathering_protest  # TODO - picture
+
+	trigger = {
+		tag = RUS
+		has_war_with_major = yes
+		# a year after previous trigger
+		has_idea = generic_wartime_food_shortage_2
+		NOT = {
+			has_country_flag = food_crisis_escalation_countdown
+		}
+		NOT = { has_idea = generic_wartime_food_shortage_3 }
+	}
+
+	mean_time_to_happen = { days = 10 }  #cant be days=1 or will cause error
+
+	option = {
+		name = wsv_russia.57.a
+		swap_ideas = {
+			remove_idea = generic_wartime_food_shortage_2
+			add_idea = generic_wartime_food_shortage_3
+		}
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
+		}
+	}
+}
+
+
+
+
+
+#############################################################################
+## -- Tsar Abdication + Provisional Government
 #############################################################################
 
 
