@@ -368,67 +368,17 @@ country_event = {
 
 
 
-
 #############################################################################
 ## -- Tsar Abdication + Provisional Government
 #############################################################################
 
 
-## Alt-hist Tsar abdication (if war is going bad)
+## Feburary riots (International Womens Day) + Tsar's abdication
 country_event = {
-	id=wsv_russia.99
-	title=wsv_russia.99.t
-	desc=wsv_russia.99.d
-	picture = GFX_report_event_generic_riot
-
-	fire_only_once = yes
-
-	trigger = {
-		tag = RUS
-		has_government = neutrality
-		has_war_with_major = yes
-		## Alt-hist Conditions for Tsar abdication
-		OR = {
-			has_stability < 0.1
-			AND = {
-				surrender_progress > 0.34
-				longest_war_length > 24  # 2 years
-			}
-			surrender_progress > 0.44
-		}
-		NOT = { has_country_flag = tsar_rule_crisis }
-	}
-
-	mean_time_to_happen = {
-		days = 3
-	}
-
-	immediate = {
-		set_country_flag = tsar_rule_crisis
-	}
-
-	# Tsar abdicates
-	option={
-		name=wsv_russia.99.a
-		news_event = wsv_russia.101
-		ai_chance = { factor = 100 }
-	}
-
-	# # Civil war
-	# option={
-	# 	name=wsv_russia.99.b
-	# 	news_event = { id = wsv_russia.110   days = 10 }
-	# 	ai_chance = { factor = 0 }
-	# }
-}
-
-
-## Feburary riots + Tsar's abdication
-country_event = {
-	id=wsv_russia.100
-	title=wsv_russia.100.t
-	desc=wsv_russia.100.d
-	picture = GFX_report_event_generic_riot
+	id=wsv_russia.60
+	title=wsv_russia.60.t
+	desc=wsv_russia.60.d
+	picture = GFX_report_event_generic_riot  ## TODO - better picture
 
 	fire_only_once = yes
 
@@ -437,44 +387,80 @@ country_event = {
 		has_government = neutrality
 		has_war_with_major = yes
 		## Conditions for Tsar abdication
-		surrender_progress > 0.05
-		has_idea = generic_wartime_food_crisis_2
+		surrender_progress > 0.15
+		has_idea = generic_wartime_food_shortage_2
 		OR = {
-			date > 1917.2.20			# occured Feb 23, 1917
-			longest_war_length > 36		# over three years of war
+			# either historical date (Feb 23, 1917) or 3 years into war
+			date > 1917.2.22			
+			AND = {
+				date < 1917.2.22		
+				longest_war_length > 36
+			}
 		}
-		NOT = { has_country_flag = tsar_rule_crisis }
+		NOT = { has_global_flag = tsar_of_russia_abdicated }
+		NOT = { has_country_flag = tsar_rule_ending_event }  # to prevent dual firing with alt-hist event
 	}
 
 	mean_time_to_happen = {
-		days = 3
+		days = 0
 	}
 
+	timeout_days = 5  # force quick decision
+
 	immediate = {
-		set_country_flag = tsar_rule_crisis
+		set_country_flag = tsar_rule_ending_event
 	}
 
 	# Tsar abdicates
 	option={
-		name=wsv_russia.100.a
-		news_event = wsv_russia.101
-		ai_chance = { factor = 100 }
+		name=wsv_russia.60.a
+		news_event = wsv_russia.63
+	}
+}
+
+
+## Alt-hist Tsar abdication (if war is going bad)
+country_event = {
+	id=wsv_russia.61
+	title=wsv_russia.61.t
+	desc=wsv_russia.61.d
+	picture = GFX_report_event_generic_riot 
+
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_government = neutrality
+		has_war_with_major = yes
+		## Conditions for Tsar abdication
+		surrender_progress > 0.35
+		NOT = { has_global_flag = tsar_of_russia_abdicated }
+		NOT = { has_country_flag = tsar_rule_ending_event }  # to prevent dual firing with alt-hist event
 	}
 
-	# # Civil war
-	# option={
-	# 	name=wsv_russia.100.b
-	# 	news_event = { id = wsv_russia.110   days = 10 }
-	# 	ai_chance = { factor = 0 }
-	# }
+	mean_time_to_happen = {
+		days = 2
+	}
+
+	timeout_days = 5  # force quick decision
+
+	immediate = {
+		set_country_flag = tsar_rule_ending_event
+	}
+
+	# Tsar abdicates
+	option={
+		name=wsv_russia.61.a
+		news_event = wsv_russia.63
+	}
 }
 
 
 ## News event of Tsar's abdication
 news_event = {
-	id=wsv_russia.101
-	title=wsv_russia.101.t
-	desc=wsv_russia.101.d
+	id=wsv_russia.63
+	title=wsv_russia.63.t
+	desc=wsv_russia.63.d
 	picture = news_event_tsar_abdicates
 		
 	is_triggered_only = yes
@@ -490,66 +476,115 @@ news_event = {
 				}
 				promote_character = RUS_georgy_lvov
 				set_cosmetic_tag = RUS_provisional_gov
+				country_event = { id = wsv_russia.64  days = 3 }
 			}
 		}
-	}
+	} 
 	
 	option={
-		name = wsv_russia.101.a
-		if = {
-			limit = { tag = RUS }
-			add_ideas = RUS_unstable_political_situation
-		}
+		name = wsv_russia.63.a
 	}
 }
 
 
-## Aleksandr Kerensky takes power after a while
-country_event = {
-	id=wsv_russia.104
-	title=wsv_russia.104.t
-	desc=wsv_russia.104.d
+# # Power sharing with the Soviets
+# country_event = {
+# 	id=wsv_russia.64
+# 	title=wsv_russia.64.t
+# 	desc=wsv_russia.64.d
+
+# 	fire_only_once = yes
+
+# 	mean_time_to_happen = {
+# 		days = 3
+# 	}
+
+# 	immediate = {
+# 		set_country_flag = tsar_rule_crisis
+# 	}
+
+# 	option={
+# 		name=wsv_russia.64.a
+# 	}
+# }
+
+
+# # Soviets issue order no.1 + demand dropping of offensive war goals
+# country_event = {
+# 	id=wsv_russia.65
+# 	title=wsv_russia.65.t
+# 	desc=wsv_russia.65.d
+
+# 	fire_only_once = yes
+
+	
+
+# 	mean_time_to_happen = {
+# 		days = 3
+# 	}
+
+# 	immediate = {
 		
-	fire_only_once = yes
+# 	}
 
-	trigger = {
-		tag = RUS
-		has_global_flag = tsar_of_russia_abdicated
-		has_government = democratic
-		NOT = { has_country_flag = kerensky_took_power }
-	}
+# 	option={
+# 		name=wsv_russia.65.a
+# 	}
+# }
 
-	mean_time_to_happen = {
-		days = 200
-	}
 
-	immediate = {
-		set_country_flag = kerensky_took_power
-	}
+
+
+## TODO - lenin, july days, bolesvik units, keresensky offensive
+
+
+
+# ## Aleksandr Kerensky takes power after a while
+# country_event = {
+# 	id=wsv_russia.104
+# 	title=wsv_russia.104.t
+# 	desc=wsv_russia.104.d
+		
+# 	fire_only_once = yes
+
+# 	trigger = {
+# 		tag = RUS
+# 		has_global_flag = tsar_of_russia_abdicated
+# 		has_government = democratic
+# 		NOT = { has_country_flag = kerensky_took_power }
+# 	}
+
+# 	mean_time_to_happen = {
+# 		days = 200
+# 	}
+
+# 	immediate = {
+# 		set_country_flag = kerensky_took_power
+# 	}
 	
-	option={
-		name=wsv_russia.104.a
-		promote_character = RUS_alexander_kerensky
-	}
-}
+# 	option={
+# 		name=wsv_russia.104.a
+# 		promote_character = RUS_alexander_kerensky
+# 	}
+# }
 
 
-## Event notifying we finally restored order
-country_event = {
-	id=wsv_russia.106
-	title=wsv_russia.106.t
-	desc=wsv_russia.106.d
+# ## Event notifying we finally restored order
+# country_event = {
+# 	id=wsv_russia.106
+# 	title=wsv_russia.106.t
+# 	desc=wsv_russia.106.d
 	
-	fire_only_once = yes	
-	is_triggered_only = yes
+# 	fire_only_once = yes	
+# 	is_triggered_only = yes
 	
-	option={
-		name=wsv_russia.106.a
-		set_country_flag = political_crisis_resolved
-		remove_ideas = RUS_threat_of_revolution
-		remove_ideas = RUS_unstable_political_situation
-	}
-}
+# 	option={
+# 		name=wsv_russia.106.a
+# 		set_country_flag = political_crisis_resolved
+# 		remove_ideas = RUS_threat_of_revolution
+# 		remove_ideas = RUS_unstable_political_situation
+# 	}
+# }
 
 
 
