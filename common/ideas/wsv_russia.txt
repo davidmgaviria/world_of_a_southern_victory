@@ -41,7 +41,7 @@ ideas = {
 			picture = generic_red_revolution
 			modifier = {
 				political_power_gain = -0.25
-				surrender_limit = -0.3   #-0.35 is a little too high,
+				surrender_limit = -0.25   #around 0.32% is ideal (makes losing warsaw 15% capit), the decrease instability during the war will push effective surrender limit to around these numbers
 				drift_defence_factor = -0.25
 				communism_drift = 0.01
 				army_attack_factor = -0.15
@@ -50,7 +50,6 @@ ideas = {
 				conscription_factor = -0.25
 			}
 		}
-
 
 		RUS_tsushima_humiliation = {
 			allowed = {original_tag = RUS} 
@@ -258,33 +257,61 @@ ideas = {
 			}
 		}
 
-
-		RUS_increased_revolutionary_activity = {
-			allowed={ has_government = communism  }
-			cancel = { has_war = no }
-			removal_cost=-1
-			picture = FRA_scw_intervention_republicans_focus
-			
-			modifier = {
-				communism_drift = 0.02
-				drift_defence_factor = -0.25
-			}
-		}
-
-		RUS_unstable_political_situation = {  # stacks onto 'Threat of Revolution'
+		RUS_dual_power_system = {
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
 			removal_cost = -1
-			picture = POL_the_peasants_strike
-			
+	
+			picture = generic_disjointed_gov
+
 			modifier = {
-				political_power_gain = -0.2
-				drift_defence_factor = -0.25
-				army_attack_factor = -0.15
-				army_org_factor = -0.1
+				political_power_gain = -0.5
 				conscription_factor = -0.1
 			}
 		}
+
+		RUS_order_no_1_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+	
+			picture = SOV_war_heroes
+
+			modifier = {
+				army_attack_factor = -0.5
+				army_org_factor = -0.25
+				army_morale_factor = -0.1
+				command_power_gain_mult = -0.5
+			}
+		}
+
+
+		# RUS_increased_revolutionary_activity = {
+		# 	allowed={ has_government = communism  }
+		# 	cancel = { has_war = no }
+		# 	removal_cost=-1
+		# 	picture = FRA_scw_intervention_republicans_focus
+			
+		# 	modifier = {
+		# 		communism_drift = 0.02
+		# 		drift_defence_factor = -0.25
+		# 	}
+		# }
+
+		# RUS_unstable_political_situation = {  # stacks onto 'Threat of Revolution'
+		# 	allowed = { always = no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost = -1
+		# 	picture = POL_the_peasants_strike
+			
+		# 	modifier = {
+		# 		political_power_gain = -0.2
+		# 		drift_defence_factor = -0.25
+		# 		army_attack_factor = -0.15
+		# 		army_org_factor = -0.1
+		# 		conscription_factor = -0.1
+		# 	}
+		# }
 
 
 		RUS_unstable_white_alliance = {  # replaces 'Threat of Revolution' and 'Unstable Political Situation'

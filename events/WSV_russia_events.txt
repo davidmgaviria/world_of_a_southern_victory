@@ -476,7 +476,7 @@ news_event = {
 				}
 				promote_character = RUS_georgy_lvov
 				set_cosmetic_tag = RUS_provisional_gov
-				country_event = { id = wsv_russia.64  days = 3 }
+				country_event = { id = wsv_russia.64  days = 4 }
 			}
 		}
 	} 
@@ -487,55 +487,143 @@ news_event = {
 }
 
 
-# # Power sharing with the Soviets
-# country_event = {
-# 	id=wsv_russia.64
-# 	title=wsv_russia.64.t
-# 	desc=wsv_russia.64.d
+# Power sharing with the Soviets
+country_event = {
+	id=wsv_russia.64
+	title=wsv_russia.64.t
+	desc=wsv_russia.64.d
 
-# 	fire_only_once = yes
+	is_triggered_only = yes
 
-# 	mean_time_to_happen = {
-# 		days = 3
-# 	}
+	immediate = {
+		hidden_effect = {
+			country_event = { id = wsv_russia.65  days = 4 }  # trigger order no. 1 & demand dropping of offensive war goals
+		}
+	}
 
-# 	immediate = {
-# 		set_country_flag = tsar_rule_crisis
-# 	}
+	# agree to work with soviets
+	option={
+		name=wsv_russia.64.a
+		add_stability = 0.1
+		add_ideas = RUS_dual_power_system
+		## TODO - trigger mission timer
+	}
+}
 
-# 	option={
-# 		name=wsv_russia.64.a
-# 	}
-# }
+
+# Soviets issue order no.1 + demand dropping of offensive war goals
+country_event = {
+	id=wsv_russia.65
+	title=wsv_russia.65.t
+	desc=wsv_russia.65.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option={
+		name=wsv_russia.65.a
+		add_ideas = RUS_order_no_1_idea
+		#drop offensive war goals
+		hidden_effect = {
+			every_enemy_country = {
+				every_owned_state = {
+					limit = { 
+						is_claimed_by = ROOT 
+						NOT = { is_core_of = ROOT }
+					}
+					remove_claim_by = ROOT
+				}
+			}
+		}
+		custom_effect_tooltip = RUS_drop_offensive_wargoals_tt
+	}
+}
 
 
-# # Soviets issue order no.1 + demand dropping of offensive war goals
-# country_event = {
-# 	id=wsv_russia.65
-# 	title=wsv_russia.65.t
-# 	desc=wsv_russia.65.d
-
-# 	fire_only_once = yes
-
-	
-
-# 	mean_time_to_happen = {
-# 		days = 3
-# 	}
-
-# 	immediate = {
+## Lenin returns to Russia
+country_event = {
+	id=wsv_russia.66
+	title=wsv_russia.66.t
+	desc=wsv_russia.66.d
+	#picture = # TODO
 		
-# 	}
+	fire_only_once = yes
 
-# 	option={
-# 		name=wsv_russia.65.a
-# 	}
-# }
+	trigger = {
+		tag = RUS
+		has_global_flag = tsar_of_russia_abdicated
+		has_government = democratic
+		NOT = { has_country_flag = kerensky_took_power }
+	}
+	
+	option={
+		name=wsv_russia.66.a
+		promote_character = RUS_alexander_kerensky
+	}
+}
 
 
+## Kersensky offensive fails
+country_event = {
+	id=wsv_russia.67
+	title=wsv_russia.67.t
+	desc=wsv_russia.67.d
+		
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	option={
+		name=wsv_russia.67.a
+		promote_character = RUS_alexander_kerensky
+	}
+}
 
 
-## TODO - lenin, july days, bolesvik units, keresensky offensive
+## July Days 
+country_event = {
+	id=wsv_russia.68
+	title=wsv_russia.68.t
+	desc=wsv_russia.68.d
+	#picture = # TODO
+		
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_global_flag = tsar_of_russia_abdicated
+		has_government = democratic
+		NOT = { has_country_flag = kerensky_took_power }
+	}
+	
+	option={
+		name=wsv_russia.68.a
+		promote_character = RUS_alexander_kerensky
+	}
+}
+
+
+## Bolshevik milita units forming
+country_event = {
+	id=wsv_russia.69
+	title=wsv_russia.69.t
+	desc=wsv_russia.69.d
+	#picture = # TODO
+		
+	fire_only_once = yes
+
+	trigger = {
+		tag = RUS
+		has_global_flag = tsar_of_russia_abdicated
+		has_government = democratic
+		NOT = { has_country_flag = kerensky_took_power }
+	}
+	
+	option={
+		name=wsv_russia.69.a
+	}
+}
+
+
 
 
 
@@ -672,10 +760,10 @@ news_event = {
 
 				# domestic changes
 				set_country_flag = white_russia
-				swap_ideas = {
-					remove_idea = RUS_unstable_political_situation
-					add_idea = RUS_unstable_white_alliance
-				}
+				# swap_ideas = {
+				# 	remove_idea = RUS_unstable_political_situation
+				# 	add_idea = RUS_unstable_white_alliance
+				# }
 				set_popularities = { 
 					neutrality = 25
 					democratic = 50 

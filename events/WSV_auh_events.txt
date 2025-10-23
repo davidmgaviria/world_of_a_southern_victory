@@ -196,15 +196,15 @@ country_event = {
 				}
 			}
 		}
-		NOT = { has_idea = generic_wartime_food_crisis_1 }
-		NOT = { has_idea = generic_wartime_food_crisis_2 }
+		NOT = { has_idea = generic_wartime_food_shortage_1 }
+		NOT = { has_idea = generic_wartime_food_shortage_2 }
 	}
 
 	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
 
 	option = {
 		name = wsv_auh.21.a
-		add_ideas = generic_wartime_food_crisis_1
+		add_ideas = generic_wartime_food_shortage_1
 		set_country_flag = {
 			flag = food_crisis_escalation_countdown
 			days = 500  # about 16 months
@@ -224,11 +224,11 @@ country_event = {
 		tag = AUH
 		has_war_with_major = yes
 		# a year after previous trigger
-		has_idea = generic_wartime_food_crisis_1
+		has_idea = generic_wartime_food_shortage_1
 		NOT = {
 			has_country_flag = food_crisis_escalation_countdown
 		}
-		NOT = { has_idea = generic_wartime_food_crisis_2 }
+		NOT = { has_idea = generic_wartime_food_shortage_2 }
 	}
 
 	mean_time_to_happen = { days = 14 }  #cant be days=1 or will cause error
@@ -236,8 +236,8 @@ country_event = {
 	option = {
 		name = wsv_auh.22.a
 		swap_ideas = {
-			remove_idea = generic_wartime_food_crisis_1
-			add_idea = generic_wartime_food_crisis_2
+			remove_idea = generic_wartime_food_shortage_1
+			add_idea = generic_wartime_food_shortage_2
 		}
 	}
 }
@@ -398,7 +398,10 @@ country_event = {
 	# Refuse
 	option = {
 		name = wsv_auh.27.a
-		trigger = { has_country_leader = AUH_franz_joseph_i }    # only Franz joseph can refuse
+		# only Franz joseph can refuse
+		trigger = { 
+			has_country_leader = { character = AUH_franz_joseph_i  ruling_only = yes }
+		}
 		set_country_flag = {
 			flag = AUH_cooldown_to_summon_imperial_council
 			value = 1
