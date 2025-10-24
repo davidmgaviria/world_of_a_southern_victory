@@ -1,45 +1,11 @@
 
 
 
-
 #################### Great War capitulation ####################
+
 
 wsv_great_war_decisions = {
 
-	## october revolution
-	RUS_october_revolution_brewing = {
-		icon = decision_revolt 
-		priority = 50
-
-		allowed = {
-			tag = RUS
-		}
-		activation = {
-			has_global_flag = tsar_of_russia_abdicated
-			NOT = { has_country_flag = political_crisis_resolved }
-			NOT = { has_global_flag = russian_revolution_occured }
-		}
-		available = {
-			has_country_flag = political_crisis_resolved   # condition to cancel
-			AND = {
-				has_war = no
-				NOT = { has_country_flag = russia_lost_greatwar }
-			}
-		}
-
-		days_mission_timeout = 240
-		is_good = no
-
-		timeout_effect = {
-			news_event = wsv_russia.110   # wasnt triggered?
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-	}
-
-	
 	# Russia throws in the towel
 	greatwar_russia_peace_with_germany = {
 		icon = generic_form_nation
@@ -100,7 +66,7 @@ wsv_great_war_decisions = {
 				}
 				# Civil war means its joever
 				if = {
-					limit = { has_global_flag = russian_revolution_occured }
+					limit = { has_global_flag = russian_bolshevik_revolution_occured }
 					add_to_temp_variable = { surrender_chance = 10 }
 				}
 				# If we're completey losing, give up
@@ -119,106 +85,189 @@ wsv_great_war_decisions = {
 
 #################### Political struggle when Tsar abdicates ####################
 
-# RUS_political_crisis_cat = {
+RUS_provisional_gov_category = {
 
-# 	# patriotic speeches
-# 	RUS_patriotic_speeches = {
-# 		icon = generic_civil_support
+	# Bolshevik coup timeout mission
+	RUS_october_revolution = {		
+	 	icon = revolt
+		priority = 100
 
-# 		visible = {
-# 			always = yes
-# 		}
+		allowed = {
+			tag = RUS
+		}
+		activation = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_capitulated = yes
+				has_government = communism
+				NOT = { has_cosmetic_tag = RUS_provisional_gov }
+			}
+		}
 
-# 		cost = 25
-# 		days_re_enable = 30
+		selectable_mission = no
+		days_mission_timeout = 215	# 215 after Lenin returns to Russia  
+		is_good = no
+		
+		timeout_effect = {
+			news_event = wsv_russia.70
+		}
 
-# 		complete_effect = {
-# 			add_war_support = 0.05
-# 			slightly_increase_white_support_effect = yes
-# 		}
-
-# 		ai_will_do = {
-# 			factor = 0
-# 			modifier = {
-# 				add = 1
-# 				has_war_support < 0.5
-# 			}
-# 		}
-# 	}
-
-
-# 	# distribute grain
-# 	RUS_distribute_grain = {
-# 		icon = ger_mefo_bills
-
-# 		visible = {
-# 			always = yes
-# 		}
-
-# 		cost = 40
-# 		days_re_enable = 30
-
-# 		complete_effect = {
-# 			add_stability = 0.05
-# 			increase_white_support_effect = yes
-# 		}
-
-# 		ai_will_do = {
-# 			factor = 0
-# 			modifier = {
-# 				add = 1
-# 				has_stability  < 0.5
-# 			}
-# 			modifier = {
-# 				add = 2
-# 				has_stability  < 0.3
-# 			}
-# 		}
-# 	}
+		ai_will_do = {
+			factor = 1
+		}
+	}
 
 
-# 	# suppress reds
-# 	RUS_suppress_communists = {
-# 		icon = oppression
+	RUS_distribute_grain = {
+		icon = ger_mefo_bills
+		priority = 50
 
-# 		visible = {
-# 			always = yes
-# 		}
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_stability < 0.7
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+		}
 
-# 		cost = 50
-# 		days_re_enable = 30
+		days_remove = 7
+		days_re_enable = 21
 
-# 		complete_effect = {
-# 			slightly_decrease_red_support_effect = yes
-# 		}
+		complete_effect = {
+			add_stability = 0.07
+		}
 
-# 		ai_will_do = {
-# 			factor = 0
-# 			modifier = {
-# 				add = 1
-# 				check_variable = { RUS.red_support > 20 }
-# 			}
-# 			modifier = {
-# 				add = 1
-# 				check_variable = { RUS.red_support > 40 }
-# 			}
-# 			modifier = {
-# 				add = 1
-# 				check_variable = { RUS.red_support > 65 }
-# 			}
-# 		}
-# 	}
-# }
-
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 10
+				has_stability  < 0.5
+			}
+			modifier = {
+				add = 10
+				has_stability  < 0.3
+			}
+			modifier = {
+				factor = 0
+				has_political_power < 75
+			}
+		}
+	}
 
 
+	RUS_patriotic_speeches = {
+		icon = generic_civil_support
+		priority = 50
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_support < 0.7
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+		}
+
+		cost = 25
+		days_remove = 7
+		days_re_enable = 21
+
+		complete_effect = {
+			add_war_support = 0.07
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 7
+				has_war_support  < 0.5
+			}
+			modifier = {
+				add = 7
+				has_war_support  < 0.3
+			}
+			modifier = {
+				factor = 0
+				has_political_power < 75
+			}
+		}
+	}
+
+
+	RUS_prepare_kerensky_offensive = {
+		icon = infiltrate_state
+		priority = 25
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with_major = yes
+			has_war_support > 0.35
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+		}
+
+		fire_only_once = yes
+
+		custom_cost_trigger = {
+			## TODO - requires command power
+		}
+		days_remove = 90
+
+		complete_effect = {
+			set_country_flag = RUS_prepared_keresenky_offensive
+		}
+
+		ai_will_do = {
+			factor = 25
+		}
+	}
+
+
+	RUS_launch_kerensky_offensive = {
+		icon = generic_prepare_civil_war
+		priority = 25
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with_major = yes
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+			has_country_flag = RUS_prepared_keresenky_offensive
+		}
+
+		fire_only_once = yes
+
+		custom_cost_trigger = {
+			## requires command power
+		}
+
+		complete_effect = {
+			set_country_flag = RUS_started_kerensky_offensive
+			## TODO - add idea
+		}
+
+		ai_will_do = {
+			factor = 25
+		}
+	}
+
+}
 
 
 ######################################################################
 #########################  WORLD WAR 2  ##############################
 ######################################################################
-
-
 
 
 wsv_ww2_decisions = {

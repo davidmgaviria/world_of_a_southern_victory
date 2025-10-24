@@ -253,7 +253,7 @@ country_event = {
 	id = wsv_russia.55
 	title = wsv_russia.55.t
 	desc = wsv_russia.55.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
+	picture = report_event_generic_breadlines
 
 	trigger = {
 		tag = RUS
@@ -298,7 +298,7 @@ country_event = {
 	id = wsv_russia.56
 	title = wsv_russia.56.t
 	desc = wsv_russia.56.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
+	picture = report_event_generic_breadlines
 
 	trigger = {
 		tag = RUS
@@ -337,7 +337,7 @@ country_event = {
 	id = wsv_russia.57
 	title = wsv_russia.57.t
 	desc = wsv_russia.57.d
-	#picture = report_event_wsv_gathering_protest  # TODO - picture
+	picture = report_event_generic_breadlines  ## todo - better pic?
 
 	trigger = {
 		tag = RUS
@@ -378,7 +378,7 @@ country_event = {
 	id=wsv_russia.60
 	title=wsv_russia.60.t
 	desc=wsv_russia.60.d
-	picture = GFX_report_event_generic_riot  ## TODO - better picture
+	picture = report_event_RUS_feb_revolution
 
 	fire_only_once = yes
 
@@ -387,7 +387,7 @@ country_event = {
 		has_government = neutrality
 		has_war_with_major = yes
 		## Conditions for Tsar abdication
-		surrender_progress > 0.15
+		surrender_progress > 0.14
 		has_idea = generic_wartime_food_shortage_2
 		OR = {
 			# either historical date (Feb 23, 1917) or 3 years into war
@@ -476,7 +476,12 @@ news_event = {
 				}
 				promote_character = RUS_georgy_lvov
 				set_cosmetic_tag = RUS_provisional_gov
-				country_event = { id = wsv_russia.64  days = 4 }
+				country_event = { id = wsv_russia.64  days = 2 }
+			}
+			set_country_flag = {
+				flag = timer_till_lenins_return
+				days = 30 
+				value = 1
 			}
 		}
 	} 
@@ -506,7 +511,6 @@ country_event = {
 		name=wsv_russia.64.a
 		add_stability = 0.1
 		add_ideas = RUS_dual_power_system
-		## TODO - trigger mission timer
 	}
 }
 
@@ -545,38 +549,59 @@ country_event = {
 	id=wsv_russia.66
 	title=wsv_russia.66.t
 	desc=wsv_russia.66.d
-	#picture = # TODO
+	picture = report_event_RUS_lenin
 		
 	fire_only_once = yes
 
 	trigger = {
 		tag = RUS
 		has_global_flag = tsar_of_russia_abdicated
-		has_government = democratic
-		NOT = { has_country_flag = kerensky_took_power }
+		has_cosmetic_tag = RUS_provisional_gov
+		NOT = { has_country_flag = timer_till_lenins_return }
 	}
 	
 	option={
 		name=wsv_russia.66.a
-		promote_character = RUS_alexander_kerensky
+		# party boost + start time for bolshevik coup
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
+		}
+		add_political_power = -50
+		hidden_effect = {
+			recruit_character = RUS_vladimir_lenin
+			set_country_flag = RUS_lenin_returns_to_russia
+		}
+		activate_mission = RUS_october_revolution
+		# additional timers
+		set_country_flag = {
+			flag = timer_till_july_days
+			days = 80
+			value = 1
+		}
+		set_country_flag = {
+			flag = timer_till_bolshevik_militas
+			days = 150
+			value = 1
+		}
 	}
 }
 
 
-## Kersensky offensive fails
-country_event = {
-	id=wsv_russia.67
-	title=wsv_russia.67.t
-	desc=wsv_russia.67.d
+# ## Kersensky offensive fails
+# country_event = {
+# 	id=wsv_russia.67
+# 	title=wsv_russia.67.t
+# 	desc=wsv_russia.67.d
 		
-	fire_only_once = yes
-	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
 	
-	option={
-		name=wsv_russia.67.a
-		promote_character = RUS_alexander_kerensky
-	}
-}
+# 	option={
+# 		name=wsv_russia.67.a
+# 		promote_character = RUS_alexander_kerensky
+# 	}
+# }
 
 
 ## July Days 
@@ -584,20 +609,21 @@ country_event = {
 	id=wsv_russia.68
 	title=wsv_russia.68.t
 	desc=wsv_russia.68.d
-	#picture = # TODO
+	picture = report_event_RUS_bolshevik_rally
 		
 	fire_only_once = yes
 
 	trigger = {
 		tag = RUS
 		has_global_flag = tsar_of_russia_abdicated
-		has_government = democratic
-		NOT = { has_country_flag = kerensky_took_power }
+		has_active_mission = RUS_october_revolution
+		NOT = { has_country_flag = timer_till_july_days }
 	}
 	
 	option={
 		name=wsv_russia.68.a
-		promote_character = RUS_alexander_kerensky
+		add_stability = -0.1
+		add_political_power = -50
 	}
 }
 
@@ -607,72 +633,83 @@ country_event = {
 	id=wsv_russia.69
 	title=wsv_russia.69.t
 	desc=wsv_russia.69.d
-	#picture = # TODO
+	picture = report_event_RUS_bolshevik_milita
 		
 	fire_only_once = yes
 
 	trigger = {
 		tag = RUS
 		has_global_flag = tsar_of_russia_abdicated
-		has_government = democratic
-		NOT = { has_country_flag = kerensky_took_power }
+		has_active_mission = RUS_october_revolution
+		NOT = { has_country_flag = timer_till_bolshevik_militas }
 	}
 	
 	option={
 		name=wsv_russia.69.a
+		add_stability = -0.05
+		add_popularity = {
+			ideology = communism
+			popularity = 0.1
+		}
+	}
+}
+
+
+#############################################################################
+## --Bolshevik Coup & Soviet Russia
+#############################################################################
+
+# Bolsheviks seize power (triggered by timeout mission)
+news_event = {
+	id = wsv_russia.70
+	title = wsv_russia.70.t
+	desc = wsv_russia.70.d
+	picture = EVENT_hoi4tgw_october_revolution
+
+	major = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		set_global_flag = russian_bolshevik_revolution_occured
+		hidden_effect = {
+			RUS = {
+				set_politics = {
+					ruling_party = communism
+					elections_allowed = no
+					last_election = "1917.10.1"
+					election_frequency = 48
+				}
+				set_popularities = {
+					communism = 50
+					democratic = 30
+					neutrality = 12
+					fascism = 8
+				}
+				promote_character = RUS_vladimir_lenin
+				set_cosmetic_tag = RUS_soviet_gov
+				# add_ideas = RUS_workers_revolution
+				## TODO - fire 'peace in the east' decision and disarm army event
+			}
+		}
+	}
+
+	option = {
+		name = wsv_russia.70.a
+		trigger = {
+			tag = RUS
+		}
+	}
+
+	option = {
+		name = wsv_russia.70.b
+		trigger = {
+			NOT = { tag = RUS }
+		}
 	}
 }
 
 
 
-
-
-# ## Aleksandr Kerensky takes power after a while
-# country_event = {
-# 	id=wsv_russia.104
-# 	title=wsv_russia.104.t
-# 	desc=wsv_russia.104.d
-		
-# 	fire_only_once = yes
-
-# 	trigger = {
-# 		tag = RUS
-# 		has_global_flag = tsar_of_russia_abdicated
-# 		has_government = democratic
-# 		NOT = { has_country_flag = kerensky_took_power }
-# 	}
-
-# 	mean_time_to_happen = {
-# 		days = 200
-# 	}
-
-# 	immediate = {
-# 		set_country_flag = kerensky_took_power
-# 	}
-	
-# 	option={
-# 		name=wsv_russia.104.a
-# 		promote_character = RUS_alexander_kerensky
-# 	}
-# }
-
-
-# ## Event notifying we finally restored order
-# country_event = {
-# 	id=wsv_russia.106
-# 	title=wsv_russia.106.t
-# 	desc=wsv_russia.106.d
-	
-# 	fire_only_once = yes	
-# 	is_triggered_only = yes
-	
-# 	option={
-# 		name=wsv_russia.106.a
-# 		set_country_flag = political_crisis_resolved
-# 		remove_ideas = RUS_threat_of_revolution
-# 		remove_ideas = RUS_unstable_political_situation
-# 	}
-# }
 
 
 
@@ -681,154 +718,154 @@ country_event = {
 #############################################################################
 
 
-# Russian civil war
-news_event = {
-	id = wsv_russia.110
-	title = wsv_russia.110.t
-	desc = wsv_russia.110.d
-	picture = EVENT_hoi4tgw_october_revolution
+# # Russian civil war
+# news_event = {
+# 	id = wsv_russia.110
+# 	title = wsv_russia.110.t
+# 	desc = wsv_russia.110.d
+# 	picture = EVENT_hoi4tgw_october_revolution
 
-	major = yes
-	is_triggered_only = yes
+# 	major = yes
+# 	is_triggered_only = yes
 
-	# trigger = {   # also triggered by timeout mission after Tsar abdicates
+# 	# trigger = {   # also triggered by timeout mission after Tsar abdicates
 
-	immediate = {
-		set_global_flag = russian_revolution_occured
-		hidden_effect = {
-			SOV = {
-				create_faction = "Comintern"
-				inherit_technology = RUS
+# 	immediate = {
+# 		set_global_flag = russian_bolshevik_revolution_occured
+# 		hidden_effect = {
+# 			SOV = {
+# 				create_faction = "Comintern"
+# 				inherit_technology = RUS
 
-				set_stability = 0.9
-				add_political_power = 800
-				add_ideas = { RUS_workers_revolution }
+# 				set_stability = 0.9
+# 				add_political_power = 800
+# 				add_ideas = { RUS_workers_revolution }
 
-				every_state={
-					limit={ is_core_of = RUS }
-					add_core_of = SOV
-				}
-				transfer_state = 195
-				transfer_state = 219
-				transfer_state = 244
-				transfer_state = 263
-				transfer_state = 208
-				transfer_state = 246
-				transfer_state = 247
-				transfer_state = 248
-				transfer_state = 264
-				transfer_state = 253
-				transfer_state = 254
-				### khazahkstan
-				transfer_state = 584
-				transfer_state = 585
-				transfer_state = 587
-				### mongolia
-				transfer_state = 564
-				transfer_state = 566
-				transfer_state = 567
-				transfer_state = 568
-				# annex_country = {
-				# 	target = MON
-				# 	transfer_troops = yes
-				# }
-				# give troops
-				load_oob = SOV_Revolt_01
-			}
+# 				every_state={
+# 					limit={ is_core_of = RUS }
+# 					add_core_of = SOV
+# 				}
+# 				transfer_state = 195
+# 				transfer_state = 219
+# 				transfer_state = 244
+# 				transfer_state = 263
+# 				transfer_state = 208
+# 				transfer_state = 246
+# 				transfer_state = 247
+# 				transfer_state = 248
+# 				transfer_state = 264
+# 				transfer_state = 253
+# 				transfer_state = 254
+# 				### khazahkstan
+# 				transfer_state = 584
+# 				transfer_state = 585
+# 				transfer_state = 587
+# 				### mongolia
+# 				transfer_state = 564
+# 				transfer_state = 566
+# 				transfer_state = 567
+# 				transfer_state = 568
+# 				# annex_country = {
+# 				# 	target = MON
+# 				# 	transfer_troops = yes
+# 				# }
+# 				# give troops
+# 				load_oob = SOV_Revolt_01
+# 			}
 
-			RUS = {
-				# take care of diplomatic stuff
-				if= {
-					limit = { is_in_faction = yes }
-					# make every country hate the soviets
-					every_country = {
-						limit = { is_in_faction_with = RUS }
-						add_opinion_modifier = { target = SOV   modifier = faction_traitor } 
-					}
-					# if entente leader AT WAR, collapse entente (can only be leader if france already fell)
-					if = { 
-						limit = { is_faction_leader = yes   has_country_flag = entente_leader   has_war_with = GER }
-						GER = { faction_leader = {  save_event_target_as = centralpowers_leader } }  # Germany should be faction leader anyways but just in case
-						collapse_entente_effect = yes
-					}
-					# leave faction normally if not entente leader
-					else = {
-						leave_faction = yes 
-					}
-				}
-				create_faction = "White Movement"
+# 			RUS = {
+# 				# take care of diplomatic stuff
+# 				if= {
+# 					limit = { is_in_faction = yes }
+# 					# make every country hate the soviets
+# 					every_country = {
+# 						limit = { is_in_faction_with = RUS }
+# 						add_opinion_modifier = { target = SOV   modifier = faction_traitor } 
+# 					}
+# 					# if entente leader AT WAR, collapse entente (can only be leader if france already fell)
+# 					if = { 
+# 						limit = { is_faction_leader = yes   has_country_flag = entente_leader   has_war_with = GER }
+# 						GER = { faction_leader = {  save_event_target_as = centralpowers_leader } }  # Germany should be faction leader anyways but just in case
+# 						collapse_entente_effect = yes
+# 					}
+# 					# leave faction normally if not entente leader
+# 					else = {
+# 						leave_faction = yes 
+# 					}
+# 				}
+# 				create_faction = "White Movement"
 
-				# domestic changes
-				set_country_flag = white_russia
-				# swap_ideas = {
-				# 	remove_idea = RUS_unstable_political_situation
-				# 	add_idea = RUS_unstable_white_alliance
-				# }
-				set_popularities = { 
-					neutrality = 25
-					democratic = 50 
-					fascism = 15   
-					communism = 10 
-				}	
-				transfer_units_fraction= {
-					target = SOV
-					size = 0.4
-					stockpile_ratio = 0.5
-					army_ratio = 0.35
-					navy_ratio = 0.3
-					air_ratio = 0.2
-					keep_unit_leaders = {
-						1101 1102 1103 1107 1114 1115 1116 1117
-					}
-				}	
-			}
+# 				# domestic changes
+# 				set_country_flag = white_russia
+# 				# swap_ideas = {
+# 				# 	remove_idea = RUS_unstable_political_situation
+# 				# 	add_idea = RUS_unstable_white_alliance
+# 				# }
+# 				set_popularities = { 
+# 					neutrality = 25
+# 					democratic = 50 
+# 					fascism = 15   
+# 					communism = 10 
+# 				}	
+# 				transfer_units_fraction= {
+# 					target = SOV
+# 					size = 0.4
+# 					stockpile_ratio = 0.5
+# 					army_ratio = 0.35
+# 					navy_ratio = 0.3
+# 					air_ratio = 0.2
+# 					keep_unit_leaders = {
+# 						1101 1102 1103 1107 1114 1115 1116 1117
+# 					}
+# 				}	
+# 			}
 
-			# start war
-			SOV = {
-				declare_war_on = {
-		            type = annex_everything
-		            target = RUS
-		        }
-			}
-		}
-	}
+# 			# start war
+# 			SOV = {
+# 				declare_war_on = {
+# 		            type = annex_everything
+# 		            target = RUS
+# 		        }
+# 			}
+# 		}
+# 	}
 
-	option = {
-		name = wsv_russia.110.a
-	}
-}
+# 	option = {
+# 		name = wsv_russia.110.a
+# 	}
+# }
 
 
-## Whites won the civil war
-news_event = {
-	id=wsv_russia.111
-	title=wsv_russia.111.t
-	desc=wsv_russia.111.d
-	picture = 	news_event_russian_civil_war_soldiers
+# ## Whites won the civil war
+# news_event = {
+# 	id=wsv_russia.111
+# 	title=wsv_russia.111.t
+# 	desc=wsv_russia.111.d
+# 	picture = 	news_event_russian_civil_war_soldiers
 	
-	major = yes
-	is_triggered_only = yes
+# 	major = yes
+# 	is_triggered_only = yes
 	
-	option={
-		name=wsv_russia.111.a
-	}
-}
+# 	option={
+# 		name=wsv_russia.111.a
+# 	}
+# }
 
 
-## Reds won the civil war
-news_event = {
-	id=wsv_russia.112
-	title=wsv_russia.112.t
-	desc=wsv_russia.112.d
-	picture = 	news_event_russian_civil_war_soldiers
+# ## Reds won the civil war
+# news_event = {
+# 	id=wsv_russia.112
+# 	title=wsv_russia.112.t
+# 	desc=wsv_russia.112.d
+# 	picture = 	news_event_russian_civil_war_soldiers
 	
-	major = yes
-	is_triggered_only = yes
+# 	major = yes
+# 	is_triggered_only = yes
 	
-	option={
-		name=wsv_russia.112.a
-	}
-}
+# 	option={
+# 		name=wsv_russia.112.a
+# 	}
+# }
 
 
 

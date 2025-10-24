@@ -4,26 +4,20 @@
 #### GREAT WAR ####
 
 # Political struggle when Tsar abdicates
-RUS_political_crisis_cat = {
+RUS_provisional_gov_category = {
 	icon = category_power_struggle
 	#picture = GFX_decision_cat_picture_gateway_to_europe
-	priority = 50
+	priority = 150
 
 	allowed = {
 		original_tag = RUS
 		has_start_date < 1937.1.1
 	}
 
-
-	visible_when_empty = no
+	visible_when_empty = yes
 	visible = {
 		has_global_flag = tsar_of_russia_abdicated
-		# if revolution occurs this ends
-		NOT = { has_global_flag = russian_revolution_occured }
-		# conditions to cancel crisis
-		RUS = {
-			NOT = { has_country_flag = political_crisis_resolved }
-		}
+		has_cosmetic_tag = RUS_provisional_gov		# cosmetic tag indicating the phase we are in
 	}
 }
 
