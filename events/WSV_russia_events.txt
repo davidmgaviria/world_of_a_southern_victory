@@ -387,8 +387,13 @@ country_event = {
 		has_government = neutrality
 		has_war_with_major = yes
 		## Conditions for Tsar abdication
-		surrender_progress > 0.14
-		has_idea = generic_wartime_food_shortage_2
+		OR = {
+			AND = {
+				surrender_progress > 0.14
+				has_idea = generic_wartime_food_shortage_2
+			}
+			has_idea = generic_wartime_food_shortage_3
+		}
 		OR = {
 			# either historical date (Feb 23, 1917) or 3 years into war
 			date > 1917.2.22			
@@ -588,27 +593,70 @@ country_event = {
 }
 
 
-# ## Kersensky offensive fails
-# country_event = {
-# 	id=wsv_russia.67
-# 	title=wsv_russia.67.t
-# 	desc=wsv_russia.67.d
+## Kersensky offensive fails
+country_event = {
+	id=wsv_russia.67
+	title=wsv_russia.67.t
+	desc=wsv_russia.67.d
 		
-# 	fire_only_once = yes
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 	
-# 	option={
-# 		name=wsv_russia.67.a
-# 		promote_character = RUS_alexander_kerensky
-# 	}
-# }
+	option={
+		name=wsv_russia.67.a
+		add_war_support = -0.1
+		add_political_power = -50
+	}
+}
 
 
-## July Days 
+## Successful Kerensky offensive (alt-hist)
 country_event = {
 	id=wsv_russia.68
 	title=wsv_russia.68.t
 	desc=wsv_russia.68.d
+		
+	is_triggered_only = yes
+
+	immediate = {
+		# delay the coup & militas (also July Days dont occur)
+		set_country_flag = sucessful_kerensky_offensive
+		hidden_effect = {
+			if = {
+				limit = { has_active_mission = RUS_october_revolution }
+				add_days_mission_timeout = {
+					mission = RUS_october_revolution
+					days = 100
+				}
+				modify_country_flag = {
+					flag = timer_till_bolshevik_militas
+					value = 100
+				}
+			}
+		}
+	}
+	
+	option={
+		name=wsv_russia.68.a
+		add_war_support = 0.15
+		add_popularity = {
+			ideology = democratic
+			popularity = 0.05
+		}
+		add_political_power = 100
+		# tooltip
+		if = {
+			limit = { has_active_mission = RUS_october_revolution }
+			custom_effect_tooltip = delayed_bolshevik_coup_tt
+		}
+	}
+}
+
+
+## July Days 
+country_event = {
+	id=wsv_russia.69
+	title=wsv_russia.69.t
+	desc=wsv_russia.69.d
 	picture = report_event_RUS_bolshevik_rally
 		
 	fire_only_once = yes
@@ -618,10 +666,11 @@ country_event = {
 		has_global_flag = tsar_of_russia_abdicated
 		has_active_mission = RUS_october_revolution
 		NOT = { has_country_flag = timer_till_july_days }
+		NOT = { has_country_flag = sucessful_kerensky_offensive }  # dont fire if Kerensky offensive went well
 	}
 	
 	option={
-		name=wsv_russia.68.a
+		name=wsv_russia.69.a
 		add_stability = -0.1
 		add_political_power = -50
 	}
@@ -630,9 +679,9 @@ country_event = {
 
 ## Bolshevik milita units forming
 country_event = {
-	id=wsv_russia.69
-	title=wsv_russia.69.t
-	desc=wsv_russia.69.d
+	id=wsv_russia.70
+	title=wsv_russia.70.t
+	desc=wsv_russia.70.d
 	picture = report_event_RUS_bolshevik_milita
 		
 	fire_only_once = yes
@@ -645,7 +694,7 @@ country_event = {
 	}
 	
 	option={
-		name=wsv_russia.69.a
+		name=wsv_russia.70.a
 		add_stability = -0.05
 		add_popularity = {
 			ideology = communism
@@ -655,15 +704,16 @@ country_event = {
 }
 
 
+
 #############################################################################
 ## --Bolshevik Coup & Soviet Russia
 #############################################################################
 
 # Bolsheviks seize power (triggered by timeout mission)
 news_event = {
-	id = wsv_russia.70
-	title = wsv_russia.70.t
-	desc = wsv_russia.70.d
+	id = wsv_russia.75
+	title = wsv_russia.75.t
+	desc = wsv_russia.75.d
 	picture = EVENT_hoi4tgw_october_revolution
 
 	major = yes
@@ -687,21 +737,30 @@ news_event = {
 				}
 				promote_character = RUS_vladimir_lenin
 				set_cosmetic_tag = RUS_soviet_gov
-				# add_ideas = RUS_workers_revolution
-				## TODO - fire 'peace in the east' decision and disarm army event
+				remove_ideas = RUS_threat_of_revolution
+				if = {
+					# do the peace in the east
+					limit = {
+						OR = {
+							has_war_with = GER
+							has_war_with = AUH
+						}
+					}
+					country_event = { id = wsv_russia.76  days = 1 }  
+				}
 			}
 		}
 	}
 
 	option = {
-		name = wsv_russia.70.a
+		name = wsv_russia.75.a
 		trigger = {
 			tag = RUS
 		}
 	}
 
 	option = {
-		name = wsv_russia.70.b
+		name = wsv_russia.75.b
 		trigger = {
 			NOT = { tag = RUS }
 		}
@@ -709,6 +768,39 @@ news_event = {
 }
 
 
+# Peace with Germany
+country_event = {
+	id=wsv_russia.76
+	title=wsv_russia.76.t
+	desc=wsv_russia.76.d
+		
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	timeout_days = 5
+
+	## TODO - we want to make this more complicated later
+	
+	# a humilitating peace
+	option={
+		trigger = {
+			surrender_progress > 0.06
+		}
+		name=wsv_russia.76.a
+		activate_decision = greatwar_russia_peace_with_germany
+		set_country_flag = bolsheviks_request_peace_with_germany
+	}
+
+	# white peace
+	option={
+		trigger = {
+			surrender_progress < 0.06
+		}
+		name=wsv_russia.76.b
+		## TODO - white peace event
+		set_country_flag = bolsheviks_request_peace_with_germany
+	}
+}
 
 
 
@@ -716,6 +808,9 @@ news_event = {
 #############################################################################
 ## -- Russian Revolution & Civil War
 #############################################################################
+
+## TODO - alt hist where provisionals win war (will still have to deal with bolsheviks)
+## TODO - alt hist where war ends on a lose while proviosionals are in power
 
 
 # # Russian civil war

@@ -14,7 +14,6 @@ wsv_great_war_decisions = {
 			OR = {
 				casualties > 500000
 				surrender_progress > 0.5
-				has_war_with = SOV
 			}
 		}
 
@@ -28,10 +27,16 @@ wsv_great_war_decisions = {
 		}
 
 		days_re_enable = 90
-		days_remove = 5
+		days_remove = 4
 
 		remove_effect = {
-			GER = { country_event = { id = wsv_peace_treaty.10  days = 1 } }
+			random_country = {
+				limit = {
+					OR = { tag = GER  tag = AUH }
+					is_faction_leader = yes
+				}
+				country_event = { id = wsv_peace_treaty.10  days = 1 }
+			}
 			custom_effect_tooltip = brest_litvosk_treaty_tt
 		}
 
@@ -44,31 +49,28 @@ wsv_great_war_decisions = {
 				
 				## --- Negatives
 				# Not losing ground is good
-				# if = {
-				# 	limit = { surrender_progress < 0.1 }
-				# 	subtract_from_temp_variable = { surrender_chance = 1 }
-				# }
 				if = {
 					limit = { surrender_progress < 0.25 }
 					subtract_from_temp_variable = { surrender_chance = 1 }
 				}
-				# Having allies is good
+				# DONT ABANDON FRANCE!!
 				if = {
 					limit = { is_in_faction_with = FRA }
-					subtract_from_temp_variable = { surrender_chance = 1 }
+					subtract_from_temp_variable = { surrender_chance = 2 }
 				}
 
 				## --- Positives
 				# Extreme casualties are bad
 				if = {
-					limit = { casualties > 1000000 }
+					limit = { casualties > 2000000 }
 					add_to_temp_variable = { surrender_chance = 1 }
 				}
-				# Civil war means its joever
+				# Less will to fight with provisional gov
 				if = {
-					limit = { has_global_flag = russian_bolshevik_revolution_occured }
-					add_to_temp_variable = { surrender_chance = 10 }
+					limit = { has_cosmetic_tag = RUS_provisional_gov }
+					add_to_temp_variable = { surrender_chance = 1 }
 				}
+				## - Note: we dont need bolsheviks here cause theres an event that makes them sue for peace
 				# If we're completey losing, give up
 				if = {
 					limit = { surrender_progress > 0.55 }
@@ -95,14 +97,13 @@ RUS_provisional_gov_category = {
 		allowed = {
 			tag = RUS
 		}
-		activation = {
+		available = {
 			always = no
 		}
 		cancel_trigger = {
 			OR = {
-				has_capitulated = yes
 				has_government = communism
-				NOT = { has_cosmetic_tag = RUS_provisional_gov }
+				has_war = no   #TODO - temporary cancel trigger if provisionals win war, remove late
 			}
 		}
 
@@ -111,7 +112,7 @@ RUS_provisional_gov_category = {
 		is_good = no
 		
 		timeout_effect = {
-			news_event = wsv_russia.70
+			news_event = wsv_russia.75
 		}
 
 		ai_will_do = {
@@ -134,11 +135,12 @@ RUS_provisional_gov_category = {
 			has_cosmetic_tag = RUS_provisional_gov
 		}
 
+		cost = 40
 		days_remove = 7
 		days_re_enable = 21
 
 		complete_effect = {
-			add_stability = 0.07
+			add_stability = 0.05
 		}
 
 		ai_will_do = {
@@ -152,7 +154,7 @@ RUS_provisional_gov_category = {
 				has_stability  < 0.3
 			}
 			modifier = {
-				factor = 0
+				factor = 0.5
 				has_political_power < 75
 			}
 		}
@@ -178,21 +180,25 @@ RUS_provisional_gov_category = {
 		days_re_enable = 21
 
 		complete_effect = {
-			add_war_support = 0.07
+			add_war_support = 0.05
 		}
 
 		ai_will_do = {
 			factor = 0
 			modifier = {
-				add = 7
+				add = 10
 				has_war_support  < 0.5
 			}
 			modifier = {
-				add = 7
+				add = 10
 				has_war_support  < 0.3
 			}
 			modifier = {
-				factor = 0
+				factor = 0.5
+				has_stability < 0.5   # prioritize stability
+			}
+			modifier = {
+				factor = 0.5
 				has_political_power < 75
 			}
 		}
@@ -208,7 +214,8 @@ RUS_provisional_gov_category = {
 		}
 		available = {
 			has_war_with_major = yes
-			has_war_support > 0.35
+			has_war_support > 0.15
+			has_army_manpower = { size > 999999 }
 		}
 		visible = {
 			has_cosmetic_tag = RUS_provisional_gov
@@ -217,16 +224,19 @@ RUS_provisional_gov_category = {
 		fire_only_once = yes
 
 		custom_cost_trigger = {
-			## TODO - requires command power
+			command_power > 24.9
 		}
+		custom_cost_text = RUS_decision_cost_prepare_keresky_off
+
 		days_remove = 90
 
 		complete_effect = {
+			add_command_power = -25
 			set_country_flag = RUS_prepared_keresenky_offensive
 		}
 
 		ai_will_do = {
-			factor = 25
+			factor = 50
 		}
 	}
 
@@ -240,28 +250,58 @@ RUS_provisional_gov_category = {
 		}
 		available = {
 			has_war_with_major = yes
+			has_war_support > 0.15
+			has_army_manpower = { size > 999999 }
 		}
 		visible = {
 			has_cosmetic_tag = RUS_provisional_gov
 			has_country_flag = RUS_prepared_keresenky_offensive
 		}
 
-		fire_only_once = yes
-
 		custom_cost_trigger = {
-			## requires command power
+			command_power > 9.9
+		}
+		custom_cost_text = RUS_decision_cost_start_keresky_off
+
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_command_power = -10
+			set_country_flag = RUS_started_kerensky_offensive
+			add_timed_idea = {
+				idea = RUS_kerensky_offensive_idea
+				days = 30  # not quite the full 30 days lol
+			}
 		}
 
-		complete_effect = {
-			set_country_flag = RUS_started_kerensky_offensive
-			## TODO - add idea
+		days_remove = 30
+
+		cancel_trigger = {
+			has_war_with_major = no
+		}
+		cancel_effect = {
+			remove_ideas = RUS_kerensky_offensive_idea
+		}
+
+		remove_effect = {
+			if = {
+				# on removal, if still at war and losing, bad effects
+				limit = { 
+					has_war = yes 
+					surrender_progress > 0.04
+				}    
+				country_event = wsv_russia.67
+			}
+			# if the offensive is successful (aka pushes enemy out of russia or ends war), we get pp and bolshevik coup is delayed
+			else = {
+				country_event = wsv_russia.68
+			}
 		}
 
 		ai_will_do = {
-			factor = 25
+			factor = 50
 		}
 	}
-
 }
 
 
