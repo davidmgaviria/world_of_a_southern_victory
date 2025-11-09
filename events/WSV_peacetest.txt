@@ -1,0 +1,145 @@
+﻿add_namespace = wsv_peace
+
+## -------- Peace keys -------- ###
+# Peace 1: Brest-Litvosk
+
+
+
+## ---------------------------- ###
+
+
+
+
+##-------------------------------------  Brest Litvosk -------------------------------------##
+
+country_event = {
+	id = wsv_peace.0
+	title = wsv_peace.0.t
+	desc = wsv_peace.0.d
+
+	is_triggered_only = yes
+
+	# Agree
+	option = {
+		name = wsv_peace.0.a
+		GER = {
+			country_event = { id =  wsv_peace.1  days = 1 }
+		}
+	}
+}
+
+
+
+
+
+
+## - Russia aksa for peace (russia is defeated, harsh peace)
+	# ROOT is enemy faction leader, FROM is Russia
+country_event = {
+	id = wsv_peace.1
+	title = wsv_peace.1.t
+	desc = wsv_peace.1.d
+
+	is_triggered_only = yes
+
+	# Agree
+	option = {
+		name = wsv_peace.1.a
+
+		hidden_effect = {
+			# mark victor countries 
+			every_country = {
+				limit = {
+					OR = { tag = ROOT  is_in_faction_with = ROOT }
+					has_war_with = FROM
+				}
+				add_to_array = { global.peace1_victors = THIS }
+			}
+
+			# mark losers
+			FROM = {
+				add_to_array = { global.peace1_losers = THIS }
+			}
+		}
+
+		## fates
+
+		if = {
+			limit = {
+				GER = { owns_state = 202 }
+			}
+			set_global_flag = peace1_ukraine_occupied
+		}
+
+		if = {
+			limit = {
+				has_global_flag = russian_bolshevik_revolution_occured
+				RUS = { has_government = communism }
+			}
+		}
+
+
+
+
+
+
+		# the news event
+		ROOT = { save_event_target_as = peace1_primary_victor }
+		FROM = { save_event_target_as = peace1_primary_loser }
+		news_event = wsv_peace.3
+	}
+}
+
+
+# ## - Russia offers white peace (war is a draw)
+# country_event = {
+# 	id = wsv_peace.2
+# 	title = wsv_peace.2.t
+# 	desc = wsv_peace.2.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_peace.2.a
+# 	}
+# }
+
+
+## Event of ceasefire (harsh peace)
+news_event = {
+	id = wsv_peace.3
+	title = wsv_peace.3.t
+	desc = wsv_peace.3.d
+
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			# victors occupy states
+			for_each_scope_loop = {
+				array = global.peace1_victors
+				THIS = {
+					set_country_flag = peace1_negotiations_victor   # this country is taking part in the negotiations and is a victor
+					# every_controlled_state = {
+					# 	limit = {
+					# 		is_in_array = { global.peace1_losers = THIS.owner }
+					# 	}
+					# 	transfer_state_to = PREV
+					# }
+				}
+			}
+
+			# white peace
+			event_target:peace1_primary_loser = {
+				leave_faction = yes					## TODO - collapse entente if needed, set 'lost great war' flag
+				white_peace = event_target:peace1_primary_victor
+			}
+		}
+	}
+
+	option = {
+		name = wsv_peace.3.a
+	}
+}
+
+

@@ -1,0 +1,109 @@
+
+wsv_great_war_decisions = {
+
+
+	##------------------------------ Brest-Litvosk (aka Russia surrendered) -----------------------------##
+
+	# 
+	brest_livtosk_progress = {
+		icon = generic_operation
+		priority = 175
+
+		allowed = {
+			always = yes
+		}
+		activation = {
+			has_country_flag = brest_livtosk_participant   # TODO - change later
+		}
+		available = {   
+			always = no
+		}
+		cancel_trigger = {
+			## ?
+		}
+
+		days_mission_timeout = 90
+		is_good = yes
+
+		timeout_effect = {
+			## peace event
+		}
+	}
+
+	
+	fate_of_poland = {
+		icon = generic_operation
+		priority = 170
+
+		allowed = {
+			OR = {
+				tag = GER
+				tag = AUH
+			}
+			is_faction_leader = yes
+			is_puppet = no
+		}
+		activation = {
+			has_country_flag = brest_livtosk_participant   # TODO - change later
+			NOT = { has_country_flag = brest_livtosk_poland_decision }
+		}
+		available = {   
+			always = no
+		}
+		cancel_trigger = {
+			## ?
+		}
+
+		days_mission_timeout = 20
+		is_good = yes
+
+		timeout_effect = {
+			## TODO - germany gets event
+			set_country_flag = brest_livtosk_poland_decision
+		}
+	}
+
+	
+	fate_of_lithuania = {
+		icon = generic_operation
+		priority = 170
+
+		allowed = {
+			OR = {
+				tag = GER
+				tag = AUH
+			}
+			is_faction_leader = yes
+			is_puppet = no
+		}
+		activation = {
+			has_country_flag = brest_livtosk_participant   # TODO - change later
+			NOT = { has_country_flag = brest_livtosk_lithuania_decision }
+		}
+		available = {   
+			always = no
+		}
+		cancel_trigger = {
+			## ?
+		}
+
+		days_mission_timeout = 30
+		is_good = yes
+
+		timeout_effect = {
+			## TODO - germany gets event
+			set_country_flag = brest_livtosk_lithuania_decision
+		}
+	}
+}
+
+
+
+
+
+
+######################################################################
+#########################  WORLD WAR 2  ##############################
+######################################################################
+
+
