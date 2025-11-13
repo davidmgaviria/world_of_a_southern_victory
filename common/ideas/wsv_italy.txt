@@ -6,6 +6,71 @@ ideas = {
 		# -- Great War
 		###################################################### 
 
+		ITA_italian_irrendentalism = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			#picture =  
+
+			modifier = {
+				offensive_war_stability_factor = 0.2
+				mobilization_speed = 0.02
+				army_morale_factor = 0.1
+				war_support_factor = 0.2
+            }
+        }
+
+		ITA_sluggish_industralization = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			#picture =  
+
+			modifier = {
+				industrial_capacity_factory = -0.15
+				industrial_capacity_dockyard = -0.15
+				production_speed_buildings_factor = -0.2
+				research_speed_factor = -0.1
+            }
+        }
+
+		ITA_messina_earthquake_aftermath = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			#picture =  
+
+			modifier = {
+				political_power_gain = -0.35
+				consumer_goods_factor = 0.2
+            }
+        }
+
+		ITA_fake_alliance = {   # italy cant join other factions cause 'stuck' in faction with germany and auh
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			#picture = 
+			
+			on_add = {
+				set_rule = { can_join_factions = no }
+			}
+			on_remove = {
+				set_rule = { can_join_factions = yes }
+			}
+			modifier = {
+				ai_join_ally_desire_factor = -100
+            }
+        }
+
+		
+
+		## -- During game ##
+
 		ITA_libyan_supply_lines = {
             allowed={ always=no }
 			allowed_civil_war = { always = no }
