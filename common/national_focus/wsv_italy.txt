@@ -1,0 +1,312 @@
+
+focus_tree = {
+	id=italy_focus 
+	default=no
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = ITA 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
+	continuous_focus_position = { x = 50 y = 2200 }
+
+
+	####################################
+	## -- Colonial Efforts
+	####################################
+
+
+	focus = {
+		id = ITA_colonial_ambitions
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 8
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_claims_on_libya
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_colonial_ambitions }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ITA_colonial_ambitions
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_invade_libya
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_claims_on_libya }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ITA_claims_on_libya
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_settlers_to_libya
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_invade_libya }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ITA_invade_libya
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_develop_libya
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_invade_libya }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ITA_invade_libya
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_study_defeat_in_ethopia
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_colonial_ambitions }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ITA_colonial_ambitions
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_world_stage
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 13
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_outreach_france
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_world_stage }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ITA_world_stage
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_outreach_auh
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_world_stage }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ITA_world_stage
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_the_great_war
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_outreach_france }
+		prerequisite = { focus = ITA_outreach_auh }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ITA_outreach_france
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_london_conference
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_the_great_war }
+		mutually_exclusive = { focus = ITA_tyrol_accords }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = ITA_the_great_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_join_entente
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_london_conference }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = ITA_london_conference
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = ITA_tyrol_accords
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_the_great_war }
+		mutually_exclusive = { focus=ITA_london_conference  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = ITA_the_great_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	
+}
