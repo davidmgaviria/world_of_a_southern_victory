@@ -40,6 +40,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_war_support = 0.2
 		}
 	}
 
@@ -62,12 +63,26 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			custom_override_tooltip = {
+				tooltip = ITA_gain_libyan_claims_tt
+				add_state_claim = 448
+				add_state_claim = 449
+				add_state_claim = 450
+				add_state_claim = 451
+				add_state_claim = 661
+				add_state_claim = 662
+				add_state_claim = 663
+				add_state_claim = 273
+			}
+			hidden_effect = {
+				country_event = { id = wsv_italy.1  days = 3 }
+			}
 		}
 	}
 
 		
 	focus = {
-		id = ITA_invade_libya
+		id = ITA_invade_libya_focus
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_claims_on_libya }
 		#mutually_exclusive = { focus = }
@@ -81,26 +96,35 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_country_flag = ITA_great_power_support_for_libya
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			news_event = wsv_italy.2
 		}
 	}
 
 		
 	focus = {
 		id = ITA_settlers_to_libya
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = ITA_invade_libya }
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_invade_libya_focus }
 		#mutually_exclusive = { focus = }
 
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = ITA_invade_libya
+		relative_position_id = ITA_invade_libya_focus
 
 		ai_will_do = { 
 			factor = 0 
+		}
+
+		available = {
+			has_country_flag = ITA_victory_in_libya
 		}
 
 		#bypass = {}
@@ -112,17 +136,21 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_develop_libya
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = ITA_invade_libya }
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = ITA_invade_libya_focus }
 		#mutually_exclusive = { focus = }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = ITA_invade_libya
+		relative_position_id = ITA_invade_libya_focus
 
 		ai_will_do = { 
 			factor = 0 
+		}
+
+		available = {
+			has_country_flag = ITA_victory_in_libya
 		}
 
 		#bypass = {}
@@ -134,7 +162,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_study_defeat_in_ethopia
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_colonial_ambitions }
 		#mutually_exclusive = { focus = }
 
@@ -172,13 +200,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
 		
 	focus = {
 		id = ITA_outreach_france
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_world_stage }
 		#mutually_exclusive = { focus = }
 
@@ -200,7 +229,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_outreach_auh
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_world_stage }
 		#mutually_exclusive = { focus = }
 
@@ -222,7 +251,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_the_great_war
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_outreach_france }
 		prerequisite = { focus = ITA_outreach_auh }
 		#mutually_exclusive = { focus = }
@@ -245,7 +274,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_london_conference
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_the_great_war }
 		mutually_exclusive = { focus = ITA_tyrol_accords }
 
@@ -267,7 +296,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_join_entente
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_london_conference }
 		#mutually_exclusive = { focus = }
 
@@ -289,7 +318,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_tyrol_accords
-		icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_the_great_war }
 		mutually_exclusive = { focus=ITA_london_conference  }
 		cost = 10

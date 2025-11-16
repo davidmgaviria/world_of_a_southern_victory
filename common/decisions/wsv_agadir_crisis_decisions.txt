@@ -7,31 +7,38 @@
 agadir_crisis_cat = {
 
 	# time limit for intervening mission (on timeout Germany fails)
-	relevance_of_morocco_occupation = {
-		priority = 100
+	agadir_relevance_of_morocco_occupation = {
+		priority = 25
 		icon = generic_ignite_civil_war
 
 		visible = {
 			OR = {
 				tag = GER
 				tag = FRA
-				tag = ENG
+				is_in_faction_with = GER
+				is_in_faction_with = FRA
+				AND = {
+					tag = ENG
+					has_global_flag = britain_backs_france_in_agadir
+				}
 			}
 		}
-
 		activation = {
-			OR = {
-				has_global_flag = france_occupies_morocco
-				has_global_flag = agadir_crisis
-			}
+			has_global_flag = france_occupies_morocco
 			NOT = { has_global_flag = agadir_crisis_over }
 		}
-
-		available = {   # conditions that 'terminate' the mission
-			has_global_flag = agadir_crisis_over  
+		available = {
+			always = no
+		}
+		cancel_trigger = {   # conditions that 'terminate' the mission
+			OR = {
+				has_global_flag = agadir_crisis_over 
+				FRA = { has_war_with = GER }
+				FRA = { exists = no }
+			} 
 		}
 
-		days_mission_timeout = 240
+		days_mission_timeout = 100
 		fire_only_once = yes
 		is_good = no
 
@@ -39,47 +46,49 @@ agadir_crisis_cat = {
 			set_global_flag = agadir_crisis_over
 			if = {
 				limit = { tag = GER }
-				add_political_power = -100
-				add_war_support = -0.1
-				add_stability = -0.05
+				country_event = wsv_agadir.27
 			}
 		}
 	}
 
 
 	# # Germany sends demands to France
-	germany_send_gunboat = {
+	agadir_germany_send_gunboat = {
+		priority = 20
 		icon = generic_naval
 
 		visible = {
-			has_active_mission = relevance_of_morocco_occupation
+			has_active_mission = agadir_relevance_of_morocco_occupation
 			tag = GER
 			NOT = { has_country_flag = sent_gunboat_to_agadir }
 		}
 		available = {
+			has_active_mission = agadir_relevance_of_morocco_occupation
 			has_war = no
 		}
 
 		fire_only_once = yes
-		days_remove = 10
-		cost = 10
+		days_remove = 7
+		cost = 25
 
 		remove_effect = {
 			news_event = wsv_agadir.2
 		}
 
 		ai_will_do = {
-			factor = 10
+			factor = 50
 		}
 	}
 
-
+	### ------------------ Negotiations ------------------ ####
+	
 	## Germany sends demands to France
-	germany_demands_compensation = {
+	agadir_germany_demands_compensation = {
 		icon = generic_operation
+		priority = 15
 
 		visible = {
-			has_active_mission = relevance_of_morocco_occupation
+			has_active_mission = agadir_relevance_of_morocco_occupation
 			has_global_flag = agadir_crisis
 			tag = GER
 		}
@@ -88,31 +97,125 @@ agadir_crisis_cat = {
 		}
 
 		fire_only_once = yes
-		days_remove = 4
+		days_remove = 3
 		cost = 0
 
+		complete_effect = {
+			hidden_effect = {
+				add_days_mission_timeout = {
+					mission = agadir_relevance_of_morocco_occupation
+					days = 140
+				}
+			}
+		}
+
 		remove_effect = {
+			set_global_flag = agadir_negotiations_ongoing
 			FRA = { country_event = wsv_agadir.8 }
-			custom_effect_tooltip = compensation_in_congo_tt
+			custom_effect_tooltip = agadir_negoitations_begin_tt
 		}
 
 		ai_will_do = {
-			factor = 5
+			factor = 50
 		}
 	}
 
 
-	# Germany escalates by demanding withdrawal
-	germany_escalates_crisis = {
-		icon = generic_prepare_civil_war
+	# negotiations ongoing timer
+	agadir_negotiation_timeout_mission = {
+		priority = 23
+		icon = generic_political_discourse
 
 		visible = {
-			has_active_mission = relevance_of_morocco_occupation
+			OR = {
+				tag = GER
+				tag = FRA
+				is_in_faction_with = GER
+				is_in_faction_with = FRA
+				AND = {
+					tag = ENG
+					has_global_flag = britain_backs_france_in_agadir
+				}
+			}
+		}
+		available = {  
+			always = no
+		}
+		activation = {
+			has_global_flag = agadir_negotiations_ongoing
+		}
+		cancel_trigger = {
+			has_global_flag = agadir_crisis_over  
+		}
+		cancel_effect = {
+			clr_global_flag = agadir_negotiations_ongoing
+		}
+
+		days_mission_timeout = 120
+		fire_only_once = yes
+
+		timeout_effect = {
+			news_event = wsv_agadir.20
+			clr_global_flag = agadir_negotiations_ongoing
+			custom_effect_tooltip = end_of_negotiations_is_bad_tt
+		}
+	}
+
+	# agreement implementation delay
+	agadir_compromise_implementation_delay_mission = {
+		priority = 24
+		icon = generic_operation
+
+		visible = {
+			OR = {
+				tag = GER
+				tag = FRA
+				is_in_faction_with = GER
+				is_in_faction_with = FRA
+				AND = {
+					tag = ENG
+					has_global_flag = britain_backs_france_in_agadir
+				}
+			}
+		}
+		activation = {
+			has_global_flag = agadir_crisis_compromise_reached
+		}
+		available = {  
+			always = no
+		}
+		cancel_trigger = {
+			FRA = { has_war_with = GER }
+		}
+
+		days_mission_timeout = 100
+		fire_only_once = yes
+
+		timeout_effect = {
+			if = {
+				limit = { NOT = { has_global_flag = agadir_territorial_transfer } }
+				news_event = wsv_agadir.21
+			}
+		}
+	}
+
+
+
+# 	### ------------------ Escalation ------------------ ####
+
+	# Germany escalates by demanding withdrawal
+	agadir_germany_escalates_crisis = {
+		icon = generic_prepare_civil_war
+		priority = 10
+
+		visible = {
+			has_active_mission = agadir_relevance_of_morocco_occupation
 			has_global_flag = agadir_crisis
 			tag = GER
 		}
 		available = {
 			has_global_flag = britain_response_to_agadir
+			NOT = { has_global_flag = agadir_negotiations_ongoing }
 		}
 
 		fire_only_once = yes
@@ -120,12 +223,18 @@ agadir_crisis_cat = {
 		cost = 75
 
 		remove_effect = {
-			FRA = { country_event = wsv_agadir.11 }
+			news_event = wsv_agadir.22
 			custom_effect_tooltip = likely_war_with_france_tt
 		}
 
 		ai_will_do = {
 			factor = 0
+			modifier = {
+				add = 100
+				has_global_flag = agadir_negotations_failed
+			}
 		}
 	}
 }
+
+

@@ -1,0 +1,109 @@
+italoturkish_war_cat = {
+	
+	# Inital expected duration of the invasion
+	italoturkish_expedition_first_deadline = {
+		icon = generic_operation
+		priority = 25
+
+		allowed = {
+			tag = ITA
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 60
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			country_event = wsv_italy.4
+			swap_ideas = {
+				remove_idea = ITA_conquest_of_libya
+				add_idea = ITA_conquest_of_libya_2
+			}
+			hidden_effect = {
+				activate_mission = italoturkish_expedition_second_deadline
+			}
+		}
+	}
+
+
+	# International pressure to end the war
+	italoturkish_expedition_second_deadline = {
+		icon = generic_political_discourse
+		priority = 23
+
+		allowed = {
+			tag = ITA
+		}
+		activation = {
+			always = no
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 400
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			country_event = wsv_italy.9
+			hidden_effect = { 
+				TUR = { country_event = wsv_italy.9  } 
+				news_event = { id = wsv_italy.12   days = 7 }
+			}
+		}
+	}
+
+	# Take Dodecanese
+	italy_sieze_the_dodecanese = {
+		icon = generic_naval
+		priority = 10
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			war_length_with = { tag = LBA   months > 6 }
+			TUR = { has_full_control_of_state = 164 }
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		custom_cost_trigger = {
+			command_power > 14.9
+		}
+		custom_cost_text = ITA_dodecanese_operation_cost
+
+		fire_only_once = yes
+		days_remove = 12
+
+		remove_effect = {
+			add_command_power = -15
+			transfer_state = 164
+			TUR = { country_event = wsv_italy.5 }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+
+}

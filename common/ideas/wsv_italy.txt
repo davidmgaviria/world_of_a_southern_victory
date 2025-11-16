@@ -85,38 +85,77 @@ ideas = {
 
 		## -- During game ##
 
-		ITA_libyan_supply_lines = {
+		ITA_conquest_of_libya = {
             allowed={ always=no }
 			allowed_civil_war = { always = no }
             removal_cost = -1 
-			cancel = {
-				NOT = { has_war_with = TUR }
-			}
 
-			picture = generic_supply_lines 
+			cancel = {
+				has_global_flag = italoturkish_war_over
+			}
+			picture = HUN_secret_rearmament 
 
 			modifier = {
-				supply_node_range = 0.5
-                out_of_supply_factor = -0.25
-				attrition = -0.25
-            }
-        }
-
-		ITA_amphibious_war_effort = {
-            allowed={ always=no }
-			allowed_civil_war = { always = no }
-            removal_cost = -1 
-			cancel = {
-				NOT = { has_war_with = TUR }
-			}
-
-			picture = escort_effort_focus 
-
-			modifier = {
+				offensive_war_stability_factor = 0.2
+				war_support_factor = 0.4
 				naval_invasion_prep_speed = 0.5
 				naval_invasion_penalty = -0.25
-				naval_invasion_capacity = 10
+				naval_invasion_capacity = 2
             }
         }
+
+		ITA_conquest_of_libya_2 = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			cancel = {
+				has_global_flag = italoturkish_war_over
+			}
+
+			picture = HUN_secret_rearmament 
+
+			modifier = {
+				offensive_war_stability_factor = 0.1
+				war_support_factor = 0.2
+				naval_invasion_prep_speed = 0.5
+				naval_invasion_penalty = -0.25
+				naval_invasion_capacity = 6
+            }
+        }
+
+		# ITA_libyan_supply_lines = {
+        #     allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+        #     removal_cost = -1 
+		# 	cancel = {
+		# 		NOT = { has_war_with = TUR }
+		# 	}
+
+		# 	picture = generic_supply_lines 
+
+		# 	modifier = {
+		# 		supply_node_range = 0.5
+        #         out_of_supply_factor = -0.25
+		# 		attrition = -0.25
+        #     }
+        # }
+
+		# ITA_amphibious_war_effort = {
+        #     allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+        #     removal_cost = -1 
+		# 	cancel = {
+		# 		NOT = { has_war_with = TUR }
+		# 	}
+
+		# 	picture = escort_effort_focus 
+
+		# 	modifier = {
+		# 		naval_invasion_prep_speed = 0.5
+		# 		naval_invasion_penalty = -0.25
+		# 		naval_invasion_capacity = 10
+        #     }
+        # }
 	}
 }

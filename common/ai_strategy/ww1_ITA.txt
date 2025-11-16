@@ -29,21 +29,31 @@ ITA_increase_army = {		# massively increase size
 ITA_italoturkish_war = {
 	enable = {
 		original_tag = ITA
-		ITA = {
-			OR = {
-				has_country_flag = prepared_libyan_invasion
-				has_global_flag = italoturkish_war
-			}
+		OR = {
+			focus_progress = { focus = ITA_invade_libya_focus   progress > 0.01 }
+			has_global_flag = italoturkish_war
 		}
+		NOT = { has_global_flag = italoturkish_war_over }
+		
 	}
-	abort = {
-		has_global_flag = italoturkish_war_over
-	}
+	abort_when_not_enabled = yes
 
 	ai_strategy = {
 		type = consider_weak
 		id = TUR
 		value = 15  # consider Turkey easy prey
+	}
+
+	ai_strategy = {
+		type = consider_weak
+		id = LBA
+		value = 15  # consider Turkey easy prey
+	}
+
+	ai_strategy = {
+		type = conquer
+		id = LBA
+		value = 25  # consider Turkey easy prey
 	}
 
 	ai_strategy = {
