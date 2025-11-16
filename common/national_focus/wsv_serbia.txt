@@ -1,0 +1,197 @@
+
+focus_tree = {
+	id=serbia_focus 
+	default=no
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			AND = {
+				original_tag = SER 
+				has_start_date < 1936.1.1
+			}
+		} 
+	}
+
+	continuous_focus_position = { x = 50 y = 2200 }
+
+
+	####################################
+	## -- Colonial Efforts
+	####################################
+
+
+	focus = {
+		id = SER_national_aspirations
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 8
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_war_support = 0.2
+		}
+	}
+
+
+	focus = {
+		id = SER_propose_the_balkan_league
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_national_aspirations }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_national_aspirations
+
+		ai_will_do = { 
+			factor = 0 
+		}
+	
+		available = {
+			has_war = no
+			OR = {
+				country_exists = BUL
+				country_exists = GRE
+			}
+		}
+		cancel = {
+			has_war = yes
+		}
+
+		completion_reward = { 
+			if = {
+				limit = { BUL = { exists = yes  NOT = { is_in_faction_with = TUR } } }
+				BUL = { country_event = { id =  wsv_firstbalkan.1  days = 2 } }
+			}
+			if = {
+				limit = { GRE = { exists = yes  NOT = { is_in_faction_with = TUR } } }
+				GRE = { country_event = { id =  wsv_firstbalkan.1  days = 2 } }
+			}
+		}
+	}
+
+	focus = {
+		id = SER_balkan_league_talks
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=SER_propose_the_balkan_league  }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_propose_the_balkan_league
+
+		cost = 2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war = no
+			has_country_flag = SER_one_yes_to_balkan_league
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				country_event = wsv_firstbalkan.4
+			}
+		}
+	}
+
+
+	focus = {
+		id = SER_first_balkan_war
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_balkan_league_talks }
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = SER_balkan_league_talks
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war = no
+			is_in_faction = yes
+			has_country_flag = balkan_league_member
+			has_global_flag = balkan_league_territorial_negotiations_over
+		}
+
+		bypass = {
+			has_war_with = TUR
+		}
+
+		completion_reward = { 
+			news_event = wsv_firstbalkan.11
+		}
+	}
+
+
+	focus = {
+		id = SER_dislike_auh
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_national_aspirations }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = SER_national_aspirations
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = SER_bosnian_ultimatum
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_dislike_auh }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_dislike_auh
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war = no
+			OR = {
+				has_army_manpower = { size > 499999 }
+				AUH = { has_war_with_major =  yes }
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			##
+		}
+	}
+		
+		
+		
+
+
+}
