@@ -234,6 +234,192 @@ news_event = {
 }
 
 
+# Turkey (notif) informed that war is lost
+country_event = {
+	id = wsv_firstbalkan.12
+	title = wsv_firstbalkan.12.t
+	desc = wsv_firstbalkan.12.d
+
+	trigger = {
+		has_global_flag = firstbalkan_war
+		NOT = { has_global_flag = firstbalkan_war_over  }
+		has_war_with = SER
+		OR = {
+			surrender_progress > 0.25
+			AND = {
+				NOT = { controls_state = 756 } # eastern thrace
+				NOT = { controls_state = 788 } # rumelia
+				NOT = { controls_state = 184 } # thrace
+				NOT = { controls_state = 855 } # thessalonika
+				NOT = { controls_state = 731 } # central macedonia
+				NOT = { controls_state = 758 } # central epirus
+				NOT = { controls_state = 44  } # albania
+				NOT = { controls_state = 106 } # macedonia
+			}
+		}
+	}
+	fire_only_once = yes
+	
+	option = {
+		name = wsv_firstbalkan.12.a
+		SER = { 
+			country_event = { id = wsv_firstbalkan.13  days = 3 }
+		}
+	}
+}
+
+
+# Serbia informed Turkey wants peace
+country_event = {
+	id = wsv_firstbalkan.13
+	title = wsv_firstbalkan.13.t
+	desc = wsv_firstbalkan.13.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.13.a
+		news_event = { id = wsv_firstbalkan.20  days = 1 }
+	}
+}
+
+## TODO - what if balkan league loses?
+
+##################################
+
+
+# Armistice in First Balkan War (Balkan League victory)
+news_event = {
+	id = wsv_firstbalkan.20
+	title = wsv_firstbalkan.20.t
+	desc = wsv_firstbalkan.20.d
+	picture = EVENT_hoi4tgw_first_balkan_war_end
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = firstbalkan_war_over
+		hidden_effect = {
+			# peace out
+			every_country = {
+				limit = {
+					has_war_with = TUR
+					has_country_flag = balkan_league_member
+					is_faction_leader = yes
+				}
+				white_peace = TUR			# peaces out everyone
+				dismantle_faction = yes
+			}
+
+			SER = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 106
+					transfer_state = 760
+					add_state_core = 106
+					add_state_core = 760
+					remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+				}
+			}
+			GRE = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 731
+					transfer_state = 758
+					transfer_state = 855
+					add_state_core = 731
+					add_state_core = 758
+					remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+				}
+			}
+			BUL = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 184
+					transfer_state = 756
+					transfer_state = 757
+					transfer_state = 788
+					transfer_state = 759	
+					add_state_core = 184
+					add_state_core = 756
+					add_state_core = 757
+					add_state_core = 788
+					add_state_core = 759
+					remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+					country_event = { id = wsv_secondbalkan.1  days = 5 }   # second balkan war
+				}
+			}
+			MNT = {
+				if = {
+					limit = { has_country_flag = balkan_league_member }
+					transfer_state = 761
+					add_state_core = 761
+					remove_ideas = generic_liberation_of_balkans
+					clr_country_flag = balkan_league_member
+				}
+			}
+			ALB = {
+				transfer_state = 44
+				transfer_state = 803
+				add_state_core = 44
+				add_state_core = 803
+				add_state_core = 866
+				diplomatic_relation = {
+					country = TUR
+					relation = non_aggression_pact
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = wsv_firstbalkan.20.a
+	}
+}
+
+# ## Austria gets notif of Serbian encroachment in Albania
+# country_event = {
+# 	id = wsv_firstbalkan.7
+# 	title = wsv_firstbalkan.7.t
+# 	desc = wsv_firstbalkan.7.d
+# 	#picture = wsv_firstbalkan_6
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+	
+# 	# SER Yes
+# 	option = {
+# 		name = wsv_firstbalkan.7.a
+# 		news_event = { days = 1  id = wsv_firstbalkan.8 }
+# 		custom_effect_tooltip = firstbalkan_league_wins_tt
+# 	}
+# }
+
+
+# ## Serbia warned by AUH to back down
+# country_event = {
+# 	id = wsv_firstbalkan.7
+# 	title = wsv_firstbalkan.7.t
+# 	desc = wsv_firstbalkan.7.d
+# 	#picture = wsv_firstbalkan_6
+
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+	
+# 	# SER Yes
+# 	option = {
+# 		name = wsv_firstbalkan.7.a
+# 		news_event = { days = 1  id = wsv_firstbalkan.8 }
+# 		custom_effect_tooltip = firstbalkan_league_wins_tt
+# 	}
+# }
+
+
+
 # # Serbia receive Peace Offer from Ottoman
 # country_event = {
 # 	id = wsv_firstbalkan.7
