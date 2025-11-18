@@ -921,7 +921,7 @@ news_event = {
 
 
 #####################################################################
-# -- Decision on Albania (during First Balkan peace negotiations
+# -- Decision on Albania (during First Balkan peace negotiations)
 #####################################################################
 
 ## Britain / France / Germany -- should we restrain or support our ally?
@@ -1224,5 +1224,271 @@ country_event = {
 
 	option = {
 		name = wsv_firstbalkan.48.a
+	}
+}
+
+
+#######################################################################
+## - Crisis Over Albania
+#######################################################################
+
+## AUH gets notice to send ultimatum
+country_event = {
+	id = wsv_firstbalkan.50
+	title = wsv_firstbalkan.50.t
+	desc = wsv_firstbalkan.50.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.50.a
+	}
+}
+
+
+## Ultimatum news event
+news_event = {
+	id = wsv_firstbalkan.51
+	title = wsv_firstbalkan.51.t
+	desc = wsv_firstbalkan.51.d
+	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = austria_ultimatum_over_albania
+		hidden_effect = {
+			AUH = {
+				add_named_threat = {
+					threat = 10
+					name = "Ultimatum to Serbia Over Albania"
+				}
+			}
+			SER = { country_event = { id = wsv_firstbalkan.52   days = 2 } }
+			ENG = {
+				if = {
+					limit = {
+						has_war = no
+						FRA = {
+							is_guaranteed_by = ENG
+							is_in_faction_with = RUS
+						}
+					}
+				}
+				country_event = { id = wsv_firstbalkan.52   days = 1 }
+			}
+		}
+	}
+	
+	option = {
+		name = wsv_firstbalkan.51.a
+	}
+}
+
+## Britain can choose to withdraw or stand with France / Russia
+country_event = {
+	id = wsv_firstbalkan.52
+	title = wsv_firstbalkan.52.t
+	desc = wsv_firstbalkan.52.d
+
+	is_triggered_only = yes
+	
+	# Stand and fight
+	option = {
+		name = wsv_firstbalkan.52.a
+		set_country_flag = ENG_stands_with_entente_over_albania
+		FRA = { country_event = wsv_firstbalkan.53 }
+		RUS = { country_event = wsv_firstbalkan.53 }
+		ai_chance = { 
+			factor = 20 
+			modifier = {
+				factor = 5
+				has_country_flag = albania_question_encouraged_aggression  
+			}
+		}
+	}
+
+	# Back down
+	option = {
+		name = wsv_firstbalkan.52.b
+		FRA = { country_event = wsv_firstbalkan.54 }
+		RUS = { country_event = wsv_firstbalkan.54 }
+		ai_chance = { 
+			factor = 10 
+			modifier = {
+				factor = 4
+				has_country_flag = albania_question_urged_restraint
+			}
+		}
+	}
+}
+
+
+## Britain stands with us (France, Russia)
+country_event = {
+	id = wsv_firstbalkan.53
+	title = wsv_firstbalkan.53.t
+	desc = wsv_firstbalkan.53.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.53.a
+	}
+}
+
+## Britain flinches (France / Russia)
+country_event = {
+	id = wsv_firstbalkan.54
+	title = wsv_firstbalkan.54.t
+	desc = wsv_firstbalkan.54.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.54.a
+	}
+}
+
+
+## Serbia has to make decision
+country_event = {
+	id = wsv_firstbalkan.55
+	title = wsv_firstbalkan.55.t
+	desc = wsv_firstbalkan.55.d
+
+	is_triggered_only = yes
+	timeout_days = 5
+	
+	# Stand firm
+	option = {
+		name = wsv_firstbalkan.55.a
+		news_event = { id = wsv_firstbalkan.57  days = 1 }
+		ai_chance = { 
+			factor = 100 
+			modifier = {
+				factor = 0
+				has_war = yes
+			}
+		}
+	}
+
+	# Backdown
+	option = {
+		name = wsv_firstbalkan.55.b
+		news_event = { id = wsv_firstbalkan.56  days = 1 }
+		ai_chance = { 
+			factor = 0 
+			modifier = {
+				add = 10
+				has_war = yes
+			}
+		}
+	}
+}
+
+
+## Serbia backs down - news event
+news_event = {
+	id = wsv_firstbalkan.56
+	title = wsv_firstbalkan.56.t
+	desc = wsv_firstbalkan.56.d
+	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			SER = {
+				set_country_flag = SER_dropped_claims_on_albania  # use to trigger 'birth of albania' event
+			}
+		}
+	}
+	
+	option = {
+		name = wsv_firstbalkan.56.a
+		trigger = { not = { tag = SER } }
+	}
+
+	option = {
+		name = wsv_firstbalkan.56.b
+		trigger = { tag = SER }
+	}
+}
+
+
+## Serbia defiant - news event
+news_event = {
+	id = wsv_firstbalkan.57
+	title = wsv_firstbalkan.57.t
+	desc = wsv_firstbalkan.57.d
+	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = albania_crisis_goes_hot
+		hidden_effect = {
+			AUH = {
+				country_event = { id = wsv_firstbalkan.58  days = 1 }
+			}
+			ENG = {
+				if = { 
+					limit = { NOT = { has_country_flag = ENG_stands_with_entente_over_albania } }
+					diplomatic_relation = {
+						country = FRA
+						relation = guarantee
+						active = no
+					} 
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = wsv_firstbalkan.57.a
+	}
+}
+
+
+## Austria gets event to declare war
+country_event = {
+	id = wsv_firstbalkan.58
+	title = wsv_firstbalkan.58.t
+	desc = wsv_firstbalkan.58.d
+
+	is_triggered_only = yes
+	timeout_days = 5
+	
+	option = {
+		name = wsv_firstbalkan.58.a
+
+		declare_war_on = {
+			target = SER
+			type = topple_government
+		}
+		hidden_effect = {
+			RUS = { 
+				if = {
+					limit = { has_country_flag = albania_question_encouraged_aggression }
+					add_to_war = { targeted_alliance = SER   enemy = AUH } 
+					FRA = {
+						if = { 
+							limit = { is_in_faction_with = RUS } 
+							add_to_war = { targeted_alliance = SER   enemy = AUH } 
+							ENG = {
+								if = {
+									limit = { has_country_flag = ENG_stands_with_entente_over_albania }
+									add_to_war = { targeted_alliance = SER   enemy = AUH }
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }
