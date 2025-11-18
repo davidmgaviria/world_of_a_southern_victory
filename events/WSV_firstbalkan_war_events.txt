@@ -16,6 +16,7 @@ country_event = {
 	option = {
 		name = wsv_firstbalkan.1.a
 		set_country_flag = balkan_league_member
+		add_to_variable = { SER.num_major_league_members = 1 }
 		SER = { 
 			country_event = { id = wsv_firstbalkan.2  days = 1  random_hours = 125 }  # about 5 days randomized
 		}
@@ -49,8 +50,9 @@ country_event = {
 	option = {
 		name = wsv_firstbalkan.2.a
 		if = {
-			limit = { NOT = { has_country_flag = SER_one_yes_to_balkan_league } }
+			limit = { NOT = { has_country_flag = balkan_league_member } }
 			set_country_flag = balkan_league_member
+			add_to_variable = { SER.num_major_league_members = 1 }
 			if = {
 				limit = { MNT = { exists = yes  is_guaranteed_by = SER } }
 				set_country_flag = balkan_league_member
@@ -101,26 +103,46 @@ country_event = {
 	desc = wsv_firstbalkan.5.d
 
 	is_triggered_only = yes
-	
+
 	# No we want it too
 	option = {
 		name = wsv_firstbalkan.5.a
+		trigger = {
+			event_target:league_target_state = { 
+				NOT = { is_core_of = FROM } 
+				NOT = { FROM = { tag = MNT } state=866  state=761 }
+				NOT = { FROM = { tag = GRE } state=758 }
+				NOT = { FROM = { tag = BUL } state=756 state=757  state=758 }
+			}
+		}
+		## TODO - set as disputed zone
 		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2 } }
+		ai_chance = { factor = 100 }
+	}
+
+	# Fine let them have it
+	option = {
+		name = wsv_firstbalkan.5.b
+		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2 } }
+		# drop our claim
+		event_target:league_target_state = {
+			remove_claim_by = ROOT
+		}
 	}
 }
 
-# # Other country agrees
-# country_event = {
-# 	id = wsv_firstbalkan.6
-# 	title = wsv_firstbalkan.6.t
-# 	desc = wsv_firstbalkan.6.d
+# Other country agrees
+country_event = {
+	id = wsv_firstbalkan.6
+	title = wsv_firstbalkan.6.t
+	desc = wsv_firstbalkan.6.d
 
-# 	is_triggered_only = yes
+	is_triggered_only = yes
 	
-# 	option = {
-# 		name = wsv_firstbalkan.7.a
-# 	}
-# }
+	option = {
+		name = wsv_firstbalkan.6.a
+	}
+}
 
 # Other country opposes (will 'arbitrate' later)
 country_event = {
@@ -136,12 +158,44 @@ country_event = {
 }
 
 
+# Country gets notif that has to withdraw from talks
+country_event = {
+	id = wsv_firstbalkan.8
+	title = wsv_firstbalkan.8.t
+	desc = wsv_firstbalkan.8.d
 
-# Negotiations ended -- formation of the Balkan League
+	trigger ={
+		has_country_flag = balkan_league_member
+		has_global_flag = balkan_league_territorial_negotiations
+		NOT = { has_global_flag = balkan_league_territorial_negotiations_over }
+		has_war = yes
+	}
+	
+	option = {
+		name = wsv_firstbalkan.8.a
+		activate_decision = league_withdraw_from_conference
+	}
+}
+
+# Rest of members told that x country left talks
 country_event = {
 	id = wsv_firstbalkan.9
 	title = wsv_firstbalkan.9.t
 	desc = wsv_firstbalkan.9.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.9.a
+	}
+}
+
+
+# Negotiations ended -- formation of the Balkan League
+country_event = {
+	id = wsv_firstbalkan.10
+	title = wsv_firstbalkan.10.t
+	desc = wsv_firstbalkan.10.d
 
 	is_triggered_only = yes
 
@@ -150,45 +204,42 @@ country_event = {
 	}
 	
 	option = {
-		name = wsv_firstbalkan.9.a
+		name = wsv_firstbalkan.10.a
 		if = {
 			limit = { SER = { is_in_faction = no  has_war = no } }
 			create_faction = "Balkan League"
 			every_country = {
-				limit = { NOT={ tag=SER }  is_in_faction=no   has_country_flag=balkan_league_member  has_war=no }
-				SER = { add_to_faction = ROOT }   # root is the current country
+				limit = { NOT={ tag=SER }  is_in_faction=no   has_country_flag=balkan_league_member }
+				SER = { add_to_faction = THIS }   # root is the current country
 			}
 		}
-		every_country = {
-			limit = { has_country_flag=balkan_league_member  is_in_faction=no } 
-			clr_country_flag = balkan_league_member
-		}
-		hidden_effect = {
-			TUR = { country_event = wsv_firstbalkan.10 }
-			AUH = { country_event = wsv_firstbalkan.10 }
-			RUS = { country_event = wsv_firstbalkan.10 }
-		}
+		# hidden_effect = {
+		# 	TUR = { country_event = wsv_firstbalkan.10 }
+		# 	AUH = { country_event = wsv_firstbalkan.10 }
+		# 	RUS = { country_event = wsv_firstbalkan.10 }
+		# }
 	}
 }
 
-# Turkey / AUH / Russia informed of Balkan League creation
-country_event = {
-	id = wsv_firstbalkan.10
-	title = wsv_firstbalkan.10.t
-	desc = wsv_firstbalkan.10.d
 
-	is_triggered_only = yes
+# # Turkey / AUH / Russia informed of Balkan League creation
+# country_event = {
+# 	id = wsv_firstbalkan.10
+# 	title = wsv_firstbalkan.10.t
+# 	desc = wsv_firstbalkan.10.d
+
+# 	is_triggered_only = yes
 	
-	option = {
-		trigger = { NOT = {  tag = RUS } }
-		name = wsv_firstbalkan.10.a
-	}
+# 	option = {
+# 		trigger = { NOT = {  tag = RUS } }
+# 		name = wsv_firstbalkan.10.a
+# 	}
 
-	option = {
-		trigger= { tag = RUS }
-		name = wsv_firstbalkan.10.b
-	}
-}
+# 	option = {
+# 		trigger= { tag = RUS }
+# 		name = wsv_firstbalkan.10.b
+# 	}
+# }
 
 
 # ####################################################################
@@ -224,7 +275,6 @@ news_event = {
 				add_to_war = {
 					targeted_alliance = SER
 					enemy = TUR
-					hostility_reason = asked_to_join
 				}
 			}
 		}
@@ -244,6 +294,7 @@ country_event = {
 
 	trigger = {
 		has_global_flag = firstbalkan_war
+		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
 		NOT = { has_global_flag = firstbalkan_war_over  }
 		has_war_with = SER
 		OR = {
@@ -295,7 +346,8 @@ country_event = {
 
 	trigger = {
 		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = firstbalkan_war_over }
+		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
+		NOT = { has_global_flag = firstbalkan_war_over  }
 		NOT  = { has_global_flag = firstbalkan_great_powers_intervene }
 		OR = {
 			tag = RUS
@@ -348,7 +400,8 @@ country_event = {
 
 	trigger = {
 		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = firstbalkan_war_over }
+		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
+		NOT = { has_global_flag = firstbalkan_war_over  }
 		NOT  = { has_global_flag = firstbalkan_great_powers_intervene }
 		OR = {
 			tag = RUS
@@ -358,7 +411,7 @@ country_event = {
 		}
 		# War over a year and a half and Turkey controls Thessalonika, no one in the league is losing
 		TUR = { controls_state = 855 }
-		TUR = { war_length_with = { tag = SER   months > 17 } }
+		TUR = { war_length_with = { tag = SER   months > 12 } }
 	}
 	
 	option = {
@@ -440,6 +493,7 @@ news_event = {
 	}
 }
 
+## TODO - clean up these peace events (how states are split)
 
 # End of First Balkan War (Balkan League victory)
 news_event = {
@@ -524,7 +578,6 @@ news_event = {
 					relation = non_aggression_pact
 				}
 			}
-			## TODO - improve depending on decided territory
 		}
 	}
 	

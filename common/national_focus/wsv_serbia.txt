@@ -25,17 +25,13 @@ focus_tree = {
 	focus = {
 		id = SER_national_aspirations
 		icon = GFX_focus_chi_legislative_yuan
-		#prerequisite = { focus = }
-		#mutually_exclusive = { focus = }
 
 		cost = 10
 		x = 8
 		y = 0
 		#relative_position_id = 
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		#bypass = {}
 
@@ -47,18 +43,17 @@ focus_tree = {
 
 	focus = {
 		id = SER_propose_the_balkan_league
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = SER_national_aspirations }
 		cost = 10
 		x = 1
 		y = 1
 		relative_position_id = SER_national_aspirations
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 10 }
 	
 		available = {
+			date > 1911.6.1
 			has_war = no
 			OR = {
 				country_exists = BUL
@@ -83,7 +78,7 @@ focus_tree = {
 
 	focus = {
 		id = SER_balkan_league_talks
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus=SER_propose_the_balkan_league  }
 		cost = 10
 		x = 0
@@ -91,14 +86,15 @@ focus_tree = {
 		relative_position_id = SER_propose_the_balkan_league
 
 		cost = 2
-
-		ai_will_do = { 
-			factor = 0 
-		}
+		
+		ai_will_do = { factor = 10 }
 
 		available = {
 			has_war = no
-			has_country_flag = SER_one_yes_to_balkan_league
+			custom_trigger_tooltip = {
+				tooltip = one_yes_to_balkan_league_tt
+				check_variable = { SER.num_major_league_members > 1 }
+			}
 		}
 
 		#bypass = {}
@@ -108,22 +104,21 @@ focus_tree = {
 				limit = { has_country_flag = balkan_league_member }
 				country_event = wsv_firstbalkan.4
 			}
+			custom_effect_tooltip = league_begin_territorial_discussions_tt
 		}
 	}
 
 
 	focus = {
 		id = SER_first_balkan_war
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = SER_balkan_league_talks }
 		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = SER_balkan_league_talks
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 10 }
 
 		available = {
 			has_war = no
@@ -144,20 +139,27 @@ focus_tree = {
 
 	focus = {
 		id = SER_dislike_auh
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = SER_national_aspirations }
 		cost = 10
 		x = -1
 		y = 1
 		relative_position_id = SER_national_aspirations
 
-		ai_will_do = { 
-			factor = 0 
+		ai_will_do = { factor = 1 }
+
+		bypass = { has_war_with = AUH }
+
+		available = {
+			country_exists = AUH
+			NOT = { is_in_faction_with = AUH }
 		}
 
-		#bypass = {}
-
 		completion_reward = { 
+			add_opinion_modifier = {
+				target = AUH
+				modifier = wsv_dislikes_country
+			}
 		}
 	}
 
@@ -171,9 +173,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = SER_dislike_auh
 
-		ai_will_do = { 
-			factor = 0 
-		}
+		ai_will_do = { factor = 1 }
 
 		available = {
 			has_war = no

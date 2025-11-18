@@ -19,16 +19,18 @@ balkan_league_cat = {
 			always = no
 		}
 		cancel_trigger = {
-			# if two states are fighting, end negotiations
-			any_country = {
-				has_country_flag = balkan_league_member
-				any_enemy_country = {
-					has_country_flag = balkan_league_member
-				}
+			custom_trigger_tooltip = {
+				tooltip = league_needs_two_major_members_tt
+				check_variable = { SER.num_major_league_members < 2 }
 			}
 		}
 		cancel_effect = {
 			set_global_flag = balkan_league_territorial_negotiations_over
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				clr_country_flag = balkan_league_member
+				subtract_from_variable = { SER.num_major_league_members = 1 }
+			}
 		}
 
 		selectable_mission = no
@@ -37,7 +39,7 @@ balkan_league_cat = {
 		timeout_effect = {
 			every_country = {
 				limit = { has_country_flag = balkan_league_member }
-				country_event = wsv_firstbalkan.9
+				country_event = wsv_firstbalkan.10
 			}
 		}
 	}
@@ -56,13 +58,11 @@ balkan_league_cat = {
 			}
 		}
 		visible = {
-			always = yes
 			has_country_flag = balkan_league_member
 			has_global_flag = balkan_league_territorial_negotiations
 			NOT = { has_global_flag = balkan_league_territorial_negotiations_over }
 		}
 		available = {
-			always=yes
 			custom_trigger_tooltip = {
 				tooltip = league_max_claims_at_a_time_tt
 				check_variable = { ROOT.claiming_balkan_states < 2 }
@@ -73,16 +73,25 @@ balkan_league_cat = {
 		on_map_mode = map_and_decisions_view
 		target_trigger  = { 
 			FROM = {
+				# what states are allowed?
 				OR = { region = 24  region = 25  region = 26 }
 				OR = {
 					is_core_of=ROOT
 					is_claimed_by=ROOT
 				}
-				is_owned_by=TUR
-				NOT = { state=341 }
+				AND = {
+					is_owned_by=TUR
+					NOT = { state=341 }
+				}
+				# BLOCK if: someone else in the Balkan League has a core
+				NOT = {
+					any_country_with_core = {
+						has_country_flag = balkan_league_member
+						NOT = { tag = ROOT }   # meaning: it's a different member
+					}
+				}
 			}
 		}
-		## TODO - hide certain states
 
 		cost = 5
 		days_remove = 30
@@ -95,7 +104,7 @@ balkan_league_cat = {
 				every_country = {
 					limit = { 
 						NOT = { tag=ROOT }
-						#has_country_flag = balkan_league_member  
+						has_country_flag = balkan_league_member  
 						FROM={ is_claimed_by=PREV }
 					}
 					country_event = { id = wsv_firstbalkan.5   days = 3 }
@@ -108,6 +117,70 @@ balkan_league_cat = {
 
 		ai_will_do = {
 			factor = 100
+		}
+	}
+
+
+	league_withdraw_from_conference = {
+		icon = generic_break_treaty
+		priority = 0
+
+		allowed = {
+			OR = {
+				tag = SER
+				tag = BUL
+				tag = GRE
+				tag = MNT
+			}
+		}
+		visible = {
+			has_country_flag = balkan_league_member
+			has_global_flag = balkan_league_territorial_negotiations
+			NOT = { has_global_flag = balkan_league_territorial_negotiations_over }
+		}
+		available = {
+			always = yes
+		}
+
+		cost = 0
+		days_remove = 0
+
+		complete_effect = {
+			# clear our flag
+			clr_country_flag = balkan_league_member
+			if = {
+				limit = { NOT = { tag = MNT } }
+				subtract_from_variable = { SER.num_major_league_members = 1 }
+			}
+			custom_effect_tooltip = leave_league_and_forfit_claims_tt
+			# send to fellow league members + update their timers if needed
+			every_country = {
+				limit = { NOT= { tag = ROOT }  has_country_flag = balkan_league_member }
+				country_event =  wsv_firstbalkan.9
+				hidden_effect = {
+					set_temp_variable = { days_left_for_talks = days_mission_timeout@THIS.league_territorial_negotiations_timer }
+					if = {
+						limit = { check_variable = { days_left_for_talks < 30 }	}
+						hidden_effect = { { add_days_mission_timeout = league_territorial_negotiations_timer  days = 30 } }
+					}
+				}
+			}
+			# if we're Serbia and we leave, collapse faction
+			if = {
+				limit = { tag = SER }
+				custom_effect_tooltip = league_collapses_tt
+				hidden_effect = {
+					every_country = {
+						limit = { has_country_flag = balkan_league_member }
+						clr_country_flag = balkan_league_member
+						subtract_from_variable = { SER.num_major_league_members = 1 }
+					}
+				}
+			{}
+		}
+
+		ai_will_do = {
+			factor = 0
 		}
 	}
 }
@@ -147,8 +220,23 @@ firstbalkan_war_cat = {
 		days_mission_timeout = 30
 
 		timeout_effect = {
+			if = {
+				limit = { NOT = { has_global_flag = firstbalkan_war_over } }
+				# news event depends on victory
+				if = {
+					limit = { { has_global_flag = firstbalkan_outcome_balkan_league_victory } }
+					news_event = wsv_firstbalkan.20
+				}
+				if = {
+					limit = { { has_global_flag = firstbalkan_outcome_ottoman_victory } }
+					news_event = wsv_firstbalkan.21
+				}
+				if = {
+					limit = { { has_global_flag = firstbalkan_outcome_stalemate } }
+					news_event = wsv_firstbalkan.22
+				}
+			}
 			set_global_flag = firstbalkan_war_over
-			## TODO - armistice event depending on peace
 		}
 	}
 }
