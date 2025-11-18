@@ -98,7 +98,10 @@ balkan_league_cat = {
 
 		complete_effect = {
 			add_to_variable = { ROOT.claiming_balkan_states = 1 }
-			FROM = { save_event_target_as = league_target_state  }
+			FROM = { 
+				set_state_flag = ottoman_state_claimed_by_league
+				save_event_target_as = league_target_state  
+			}
 			# send event notice to other countries that also claim this state
 			hidden_effect = {
 				every_country = {

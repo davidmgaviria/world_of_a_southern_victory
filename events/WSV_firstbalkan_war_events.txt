@@ -115,7 +115,25 @@ country_event = {
 				NOT = { FROM = { tag = BUL } state=756 state=757  state=758 }
 			}
 		}
-		## TODO - set as disputed zone
+		# set as disputed
+		event_target:current_state = {
+			set_state_flag = league_disputed_claim  
+			if = {
+				limit = { OR = { state = 855  state = 731 } }  # thessalonika & central macedonia
+				set_variable = { primary_claimer = GRE }
+				set_variable = { secondary_claimer = BUL }
+			}
+			if = {
+				limit = { state = 107 }  # northern macedonia
+				set_variable = { primary_claimer = SER }
+				set_variable = { secondary_claimer = BUL }
+			}
+			if = {
+				limit = { state = 759 }  # east macedonia
+				set_variable = { primary_claimer = BUL }
+				set_variable = { secondary_claimer = SER }
+			}
+		}
 		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2 } }
 		ai_chance = { factor = 100 }
 	}
@@ -127,6 +145,7 @@ country_event = {
 		# drop our claim
 		event_target:league_target_state = {
 			remove_claim_by = ROOT
+			clr_state_flag = league_disputed_claim  
 		}
 	}
 }
@@ -170,6 +189,7 @@ country_event = {
 		NOT = { has_global_flag = balkan_league_territorial_negotiations_over }
 		has_war = yes
 	}
+	mean_time_to_happen = { days=0 }
 	
 	option = {
 		name = wsv_firstbalkan.8.a
@@ -298,16 +318,21 @@ country_event = {
 		NOT = { has_global_flag = firstbalkan_war_over  }
 		has_war_with = SER
 		OR = {
-			surrender_progress > 0.25
+			surrender_progress > 0.35
 			AND = {
 				NOT = { controls_state = 756 } # eastern thrace
 				NOT = { controls_state = 788 } # rumelia
 				NOT = { controls_state = 184 } # thrace
 				NOT = { controls_state = 855 } # thessalonika
+				NOT = { controls_state = 759 } # east macedonia
+				NOT = { controls_state = 106 } # north macedonia
 				NOT = { controls_state = 731 } # central macedonia
+				NOT = { controls_state = 867 } # south macedonia
 				NOT = { controls_state = 758 } # central epirus
 				NOT = { controls_state = 44  } # albania
-				NOT = { controls_state = 106 } # macedonia
+				NOT = { controls_state = 760 } # kosovo
+				NOT = { controls_state = 761 } # plav
+				NOT = { controls_state = 866 } # scutari
 			}
 		}
 	}
@@ -373,6 +398,7 @@ country_event = {
 			}
 		}
 	}
+	mean_time_to_happen = { days=0 }
 	
 	option = {
 		name = wsv_firstbalkan.14.a
@@ -413,6 +439,7 @@ country_event = {
 		TUR = { controls_state = 855 }
 		TUR = { war_length_with = { tag = SER   months > 12 } }
 	}
+	mean_time_to_happen = { days=0 }
 	
 	option = {
 		name = wsv_firstbalkan.15.a
@@ -493,8 +520,6 @@ news_event = {
 	}
 }
 
-## TODO - clean up these peace events (how states are split)
-
 # End of First Balkan War (Balkan League victory)
 news_event = {
 	id = wsv_firstbalkan.20
@@ -508,75 +533,89 @@ news_event = {
 	immediate = {
 		set_global_flag = firstbalkan_war_over
 		hidden_effect = {
+			# transfer back occupied territory to Turkey first
+			every_state = {
+				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
+				clr_state_flag = firstbalkan_occupied_ottoman_state
+				transfer_state_to = TUR
+			}
+
+			## transfer cores next to Balkan victors
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				if = { 
+					limit = { tag = SER }
+					760 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # kosovo
+				}
+				if = { 
+					limit = { tag = GRE }
+					758 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # epirus
+					867 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # south macedonia
+				}
+				if = { 
+					limit = { tag = BUL }
+					788 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # east rumelia
+				}
+			}
+
+			## transfer claims next
+			every_state = {
+				limit = { 
+					has_state_flag=ottoman_state_claimed_by_league  
+					NOT={ has_state_flag=league_disputed_claim }    
+					is_owned_by=TUR 
+				}
+				save_event_target_as = current_state
+
+				# is the claim contested or not?
+				if = {
+					limit = { NOT = { has_state_flag = league_disputed_claim } }
+					random_country = {
+						limit = { has_country_flag = balkan_league_member    event_target:current_state = { is_claimed_by = PREV } }
+						transfer_state = event_target:current_state 
+					} 
+				} else = {
+					random_country = {
+						limit = { tag = var:current_state.primary_claimer }	
+						save_event_target_as = primary_claimer_TAG
+					}
+					random_country = {
+						limit = { tag = var:current_state.secondary_claimer }	
+						save_event_target_as = secondary_claimer_TAG
+					}
+					if = {
+						limit = { event_target:primary_claimer_TAG ={ has_country_flag = balkan_league_member } }
+						transfer_state_to = event_target:primary_claimer_TAG
+					} else_if  = {
+						limit = { event_target:secondary_claimer_TAG ={ has_country_flag = balkan_league_member } }
+						transfer_state_to = event_target:secondary_claimer_TAG
+					}
+				}
+				clr_state_flag=ottoman_state_claimed_by_league  
+				clr_state_flag=league_disputed_claim  
+			}
 			
-			# dismantle faction
+			## form albania if agreed upon  # TODO --- form Albania if Serbia agreed to withdraw
+			# ALB = {
+			# 	transfer_state = 44
+			# 	transfer_state = 803
+			# 	transfer_state = 866
+			# 	AUH = { give_guarantee = ALB }
+			# 	ITA = { give_guarantee = ALB }
+			# }
+
+			# last step - dismantle faction
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				remove_ideas = generic_liberation_of_balkans
+				clr_country_flag = balkan_league_member
+			}
 			random_country = {
 				limit = {
 					has_country_flag = balkan_league_member
 					is_faction_leader = yes
 				}
 				dismantle_faction = yes
-			}
-			SER = {
-				if = {
-					limit = { has_country_flag = balkan_league_member }
-					transfer_state = 106
-					transfer_state = 760
-					add_state_core = 106
-					add_state_core = 760
-					remove_ideas = generic_liberation_of_balkans
-					clr_country_flag = balkan_league_member
-				}
-			}
-			GRE = {
-				if = {
-					limit = { has_country_flag = balkan_league_member }
-					transfer_state = 731
-					transfer_state = 758
-					transfer_state = 855
-					add_state_core = 731
-					add_state_core = 758
-					remove_ideas = generic_liberation_of_balkans
-					clr_country_flag = balkan_league_member
-				}
-			}
-			BUL = {
-				if = {
-					limit = { has_country_flag = balkan_league_member }
-					transfer_state = 184
-					transfer_state = 756
-					transfer_state = 757
-					transfer_state = 788
-					transfer_state = 759	
-					add_state_core = 184
-					add_state_core = 756
-					add_state_core = 757
-					add_state_core = 788
-					add_state_core = 759
-					remove_ideas = generic_liberation_of_balkans
-					clr_country_flag = balkan_league_member
-					country_event = { id = wsv_secondbalkan.1  days = 5 }   # second balkan war
-				}
-			}
-			MNT = {
-				if = {
-					limit = { has_country_flag = balkan_league_member }
-					transfer_state = 761
-					add_state_core = 761
-					remove_ideas = generic_liberation_of_balkans
-					clr_country_flag = balkan_league_member
-				}
-			}
-			ALB = {
-				transfer_state = 44
-				transfer_state = 803
-				add_state_core = 44
-				add_state_core = 803
-				add_state_core = 866
-				diplomatic_relation = {
-					country = TUR
-					relation = non_aggression_pact
-				}
 			}
 		}
 	}
@@ -600,7 +639,27 @@ news_event = {
 	immediate = {
 		set_global_flag = firstbalkan_war_over
 		hidden_effect = {
-			# dismantle faction
+			TUR= {
+				add_timed_idea = {
+					idea = TUR_victory_in_firstbalkan_war
+					days = 1080
+				}
+			}
+			# dismantle balkan league
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				remove_ideas = generic_liberation_of_balkans
+				add_timed_idea = {
+					idea = generic_balkan_war_league_lost_idea
+					days = 1080 
+				}
+				clr_country_flag = balkan_league_member
+				diplomatic_relation = {
+					country = TUR
+					relation = non_aggression_pact
+					active = yes
+				}
+			}
 			random_country = {
 				limit = {
 					has_country_flag = balkan_league_member
@@ -608,20 +667,6 @@ news_event = {
 				}
 				dismantle_faction = yes
 			}
-			## TODO - war indemities
-			# every_country = {
-			# 	limit = {
-			# 		has_country_flag = balkan_league_member
-			# 	}
-			# 	clr_country_flag = balkan_league_member
-			# 	add_stability = -0.25
-			# 	add_war_support = -0.3
-			# 	add_political_power = -250
-			# 	diplomatic_relation = {
-			# 		country = TUR
-			# 		relation = non_aggression_pact
-			# 	}
-			# }
 		}
 	}
 	
@@ -644,7 +689,55 @@ news_event = {
 	immediate = {
 		set_global_flag = firstbalkan_war_over
 		hidden_effect = {
-			# dismantle faction
+			# transfer back occupied territory to Turkey first
+			every_state = {
+				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
+				clr_state_flag = firstbalkan_occupied_ottoman_state
+				transfer_state_to = TUR
+			}
+
+			## transfer only cores to Balkan states,
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				if = { 
+					limit = { tag = SER }
+					760 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # kosovo
+					# transfer Plav if MNT not in faction
+					if = {
+						limit = { MNT = { NOT = { has_country_flag = balkan_league_member} } }
+						761 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # plav
+					}
+				}
+				if = { 
+					limit = { tag = GRE }
+					758 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # epirus
+					867 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # south macedonia
+				}
+				if = { 
+					limit = { tag = BUL }
+					788 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # east rumelia
+				}
+				if = { 
+					limit = { tag = MNT }
+					761 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # plav
+				}
+			}
+			
+			## Great Powers push for an independent Albania
+			ALB = {
+				transfer_state = 44
+				transfer_state = 803
+				transfer_state = 866
+				AUH = { give_guarantee = ALB }
+				ITA = { give_guarantee = ALB }
+			}
+
+			# last step - dismantle faction
+			every_country = {
+				limit = { has_country_flag = balkan_league_member }
+				remove_ideas = generic_liberation_of_balkans
+				clr_country_flag = balkan_league_member
+			}
 			random_country = {
 				limit = {
 					has_country_flag = balkan_league_member
@@ -682,6 +775,8 @@ country_event = {
 			has_full_control_of_state = 44
 		}
 	}
+
+	mean_time_to_happen = { days=0 }
 	
 	option = {
 		name = wsv_firstbalkan.25.a
