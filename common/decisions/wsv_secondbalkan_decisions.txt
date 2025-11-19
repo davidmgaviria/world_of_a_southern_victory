@@ -7,176 +7,200 @@ secondbalkan_war_cat = {
 		allowed = {
 			original_tag = BUL
 		}
-
 		activation = {
-			has_global_flag = criticized_london_peace_conference
+			has_global_flag = BUL_prepares_against_serbia_over_macedonia
+			NOT = { has_country_flag = secondbalkan_war_prep_over }
 		}
 		available = {
-			has_country_flag = secondbalkan_war_prep_over
+			always = no
 		}
-
+		cancel_trigger = {
+			has_full_control_of_state = 106
+		}
+		cancel_effect = {
+			set_country_flag = secondbalkan_war_prep_over
+		}
+		
+		selectable_mission = no
 		days_mission_timeout = 24
 		is_good = no
 		
 		timeout_effect = {
 			set_country_flag = secondbalkan_war_prep_over
-			create_faction = "Greater Bulgaria"
-			declare_war_on = {
-				target = SER
-				type = take_claimed_state
+			news_event = wsv_secondbalkan.20
+		}
+	}
+
+	# Serbia can stop the war
+	secondbalkan_serbia_prevent_war = {
+		icon = generic_form_nation
+
+		allowed = {
+			original_tag = SER
+		}
+		visible = {
+			has_global_flag = BUL_prepares_against_serbia_over_macedonia
+			NOT = { has_country_flag = secondbalkan_war_prep_over }	
+			NOT = { has_war_with = BUL }
+		}
+		available = {
+			has_global_flag = austria_ultimatum_over_albania
+			has_full_control_of_state = 106
+		}
+
+		days_remove = 3
+
+		complete_effect = {
+			add_political_power = -75
+			BUL = { 
+				effect_tooltip = { transfer_state = 106 }
+				country_event = wsv_secondbalkan.10 
 			}
-			GRE = {
-				if = {
-					limit = { is_in_faction_with = SER }
-					add_to_war = {
-						targeted_alliance = SER
-						enemy = BUL
-					}
-				}
-			}
-			hidden_effect = {
-				news_event = wsv_secondbalkan.6
-			}
+			custom_effect_tooltip = bulgaria_will_halt_war_prep_tt
+		}
+
+		ai_will_do = {
+			factor = 100
 		}
 	}
 
 	
-	# Bulgaria surrenders
-	secondbalkan_bulgaria_offers_peace = {
-		icon = generic_form_nation
+	# # Bulgaria surrenders
+	# secondbalkan_bulgaria_offers_peace = {
+	# 	icon = generic_form_nation
 
-		allowed = {
-			original_tag = BUL
-		}
-		visible = {
-			has_global_flag = secondbalkan_war
-			NOT = { has_global_flag = secondbalkanwar_over }
-			has_war_with = SER
-		}
-		available = {
-			OR = {
-				casualties > 50000
-				surrender_progress > 0
-			}
-		}
+	# 	allowed = {
+	# 		original_tag = BUL
+	# 	}
+	# 	visible = {
+	# 		has_global_flag = secondbalkan_war
+	# 		NOT = { has_global_flag = secondbalkanwar_over }
+	# 		has_war_with = SER
+	# 	}
+	# 	available = {
+	# 		OR = {
+	# 			casualties > 50000
+	# 			surrender_progress > 0
+	# 		}
+	# 	}
 
-		days_remove = 3
+	# 	days_remove = 3
 
-		remove_effect = {
-			country_event = wsv_secondbalkan.11
-		}
+	# 	remove_effect = {
+	# 		country_event = wsv_secondbalkan.11
+	# 	}
 
-		ai_will_do = {
-			factor = 0
+	# 	ai_will_do = {
+	# 		factor = 0
 
-			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
-			modifier = {
-				set_temp_variable = { surrender_chance = 0 }
+	# 		# This horrendously clunky system was required cause negatives on ai_factor doesnt work
+	# 		modifier = {
+	# 			set_temp_variable = { surrender_chance = 0 }
 
-				## --- Negatives
-				# Less likely to give up if holding thessalonika
-				if = {
-					limit = { controls_state = 855 }
-					subtract_from_temp_variable = { surrender_chance = 1 }
-				}
-				# Less likely to give up if holding macedonia
-				if = {
-					limit = { 
-						controls_state = 106
-						controls_state = 731
-					}
-					subtract_from_temp_variable = { surrender_chance = 1 }
-				}
+	# 			## --- Negatives
+	# 			# Less likely to give up if holding thessalonika
+	# 			if = {
+	# 				limit = { controls_state = 855 }
+	# 				subtract_from_temp_variable = { surrender_chance = 1 }
+	# 			}
+	# 			# Less likely to give up if holding macedonia
+	# 			if = {
+	# 				limit = { 
+	# 					controls_state = 106
+	# 					controls_state = 731
+	# 				}
+	# 				subtract_from_temp_variable = { surrender_chance = 1 }
+	# 			}
 
-				## --- Positives
-				# Losing ground is bad
-				if = {
-					limit = { surrender_progress > 0.1 }
-					add_to_temp_variable = { surrender_chance = 1 }
-				}
-				# We've lost at this point
-				if = {
-					limit = { surrender_progress > 0.4 }
-					add_to_temp_variable = { surrender_chance = 10 }
-				}
+	# 			## --- Positives
+	# 			# Losing ground is bad
+	# 			if = {
+	# 				limit = { surrender_progress > 0.1 }
+	# 				add_to_temp_variable = { surrender_chance = 1 }
+	# 			}
+	# 			# We've lost at this point
+	# 			if = {
+	# 				limit = { surrender_progress > 0.4 }
+	# 				add_to_temp_variable = { surrender_chance = 10 }
+	# 			}
 
-				add = surrender_chance  # value to modifier
-			}
-		}
-	}
+	# 			add = surrender_chance  # value to modifier
+	# 		}
+	# 	}
+	# }
 
 
-	# Anti-Bulgarian coalition surrenders
-	secondbalkan_serbia_offers_peace = {
-		icon = generic_form_nation
+	# # Anti-Bulgarian coalition surrenders
+	# secondbalkan_serbia_offers_peace = {
+	# 	icon = generic_form_nation
 
-		allowed = {
-			OR = {
-				original_tag = SER
-				original_tag = GRE
-				original_tag = ROM
-			}
-		}
-		visible = {
-			has_global_flag = secondbalkan_war
-			NOT = { has_global_flag = secondbalkanwar_over }
-			has_war_with = BUL
-		}
-		available = {
-			OR = {
-				casualties > 50000
-				surrender_progress > 0
-			}
-			OR = {
-				is_faction_leader = yes
-				SER = { has_capitulated = yes }
-			}
-		}
+	# 	allowed = {
+	# 		OR = {
+	# 			original_tag = SER
+	# 			original_tag = GRE
+	# 			original_tag = ROM
+	# 		}
+	# 	}
+	# 	visible = {
+	# 		has_global_flag = secondbalkan_war
+	# 		NOT = { has_global_flag = secondbalkanwar_over }
+	# 		has_war_with = BUL
+	# 	}
+	# 	available = {
+	# 		OR = {
+	# 			casualties > 50000
+	# 			surrender_progress > 0
+	# 		}
+	# 		OR = {
+	# 			is_faction_leader = yes
+	# 			SER = { has_capitulated = yes }
+	# 		}
+	# 	}
 
-		days_remove = 3
+	# 	days_remove = 3
 
-		remove_effect = {
-			BUL = { country_event = wsv_secondbalkan.13 }
-			custom_effect_tooltip = secondbalkan_bulgaria_wins_tt
-		}
+	# 	remove_effect = {
+	# 		BUL = { country_event = wsv_secondbalkan.13 }
+	# 		custom_effect_tooltip = secondbalkan_bulgaria_wins_tt
+	# 	}
 
 		
-		ai_will_do = {
-			factor = 0
+	# 	ai_will_do = {
+	# 		factor = 0
 
-			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
-			modifier = {
-				set_temp_variable = { surrender_chance = 0 }
+	# 		# This horrendously clunky system was required cause negatives on ai_factor doesnt work
+	# 		modifier = {
+	# 			set_temp_variable = { surrender_chance = 0 }
 
-				## --- Negatives
-				# Less likely to give up if holding thessalonika
-				if = {
-					limit = { controls_state = 855 }
-					subtract_from_temp_variable = { surrender_chance = 1 }
-				}
-				# Less likely to give up if holding macedonia
-				if = {
-					limit = { 
-						controls_state = 106
-						controls_state = 731
-					}
-					subtract_from_temp_variable = { surrender_chance = 1 }
-				}
+	# 			## --- Negatives
+	# 			# Less likely to give up if holding thessalonika
+	# 			if = {
+	# 				limit = { controls_state = 855 }
+	# 				subtract_from_temp_variable = { surrender_chance = 1 }
+	# 			}
+	# 			# Less likely to give up if holding macedonia
+	# 			if = {
+	# 				limit = { 
+	# 					controls_state = 106
+	# 					controls_state = 731
+	# 				}
+	# 				subtract_from_temp_variable = { surrender_chance = 1 }
+	# 			}
 
-				## --- Positives
-				# Serbia losing is bad
-				if = {
-					limit = { 
-						SER = {
-							has_war_with = BUL
-							surrender_progress > 0.8
-						} 
-					}
-					add_to_temp_variable = { surrender_chance = 1 }
-				}
+	# 			## --- Positives
+	# 			# Serbia losing is bad
+	# 			if = {
+	# 				limit = { 
+	# 					SER = {
+	# 						has_war_with = BUL
+	# 						surrender_progress > 0.8
+	# 					} 
+	# 				}
+	# 				add_to_temp_variable = { surrender_chance = 1 }
+	# 			}
 				
-				add = surrender_chance  # value to modifier
-			}
-		}
-	}
+	# 			add = surrender_chance  # value to modifier
+	# 		}
+	# 	}
+	# }
 }
