@@ -813,12 +813,22 @@ country_event = {
 	title = wsv_agadir.28.t
 	desc = wsv_agadir.28.d
 
-    is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		tag = ITA
+		has_global_flag = agadir_crisis
+		has_war = no
+		NOT = { is_in_faction_with = TUR }
+		NOT = { has_completed_focus = ITA_invade_libya_focus }
+	}
+	mean_time_to_happen = { days = 20 }
 
 	# Court France
 	option = {
 		name = wsv_agadir.28.a
+		trigger = { country_exists = FRA }
 		FRA = { country_event =  { id = wsv_agadir.29   days = 4 } }
+		set_country_flag = ITA_asked_france_for_approval_in_libya
 		ai_chance = {
 			factor = 80
 		}
@@ -826,10 +836,16 @@ country_event = {
 
 	# Court Germany
 	option = {
-		name = wsv_agadir.28.a
+		name = wsv_agadir.28.b
+		trigger = { country_exists = GER }
 		GER = { country_event =  { id = wsv_agadir.29   days = 4 } }
 		ai_chance = {
-			factor = 10
+			factor = 20
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+				NOT = { has_country_flag = ITA_asked_france_for_approval_in_libya }
+			}
 		}
 	}
 } 

@@ -211,7 +211,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_outreach_france
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_world_stage }
 		#mutually_exclusive = { focus = }
 
@@ -227,13 +227,25 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			FRA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = FRA
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_outreach_auh
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_world_stage }
 		#mutually_exclusive = { focus = }
 
@@ -249,6 +261,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			AUH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = AUH
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
 		}
 	}
 
@@ -269,7 +293,13 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
+		available = {
+			has_global_flag = greatwar_began
+		}
+
+		bypass = {
+			has_global_flag = greatwar_began
+		}
 
 		completion_reward = { 
 		}
