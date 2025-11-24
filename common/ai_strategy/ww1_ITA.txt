@@ -29,37 +29,15 @@ ITA_increase_army = {		# massively increase size
 ITA_italoturkish_war = {
 	enable = {
 		original_tag = ITA
-		OR = {
-			focus_progress = { focus = ITA_invade_libya_focus   progress > 0.01 }
-			has_global_flag = italoturkish_war
-		}
+		has_global_flag = italoturkish_war
 		NOT = { has_global_flag = italoturkish_war_over }
-		
 	}
 	abort_when_not_enabled = yes
 
 	ai_strategy = {
-		type = consider_weak
-		id = TUR
-		value = 15  # consider Turkey easy prey
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = LBA
-		value = 15  # consider Turkey easy prey
-	}
-
-	ai_strategy = {
-		type = conquer
-		id = LBA
-		value = 25  # consider Turkey easy prey
-	}
-
-	ai_strategy = {
 		type = area_priority
 		id = africa
-		value = 20
+		value = 25
 	}
 
 	ai_strategy = {
@@ -71,30 +49,31 @@ ITA_italoturkish_war = {
 	ai_strategy = {
 		type = front_unit_request
 		area = africa
-		value = 25
+		value = 50
 	}
 
-	ai_strategy = {
-		type = invasion_unit_request
-		strategic_region = 24 #western balkans
-		strategic_region = 25 #greece
-		strategic_region = 28 #middle east
-		strategic_region = 129  #asia minor
-		strategic_region = 196  #middle east
-		value = -1000
-	}
+	# dont need this since no more actual fighting
+	# ai_strategy = {
+	# 	type = invasion_unit_request
+	# 	strategic_region = 24 #western balkans
+	# 	strategic_region = 25 #greece
+	# 	strategic_region = 28 #middle east
+	# 	strategic_region = 129  #asia minor
+	# 	strategic_region = 196  #middle east
+	# 	value = -1000
+	# }
 
-	ai_strategy = {
-		type = alliance
-		id = "SER"			
-		value = -1000			#do not join serbia	
-	}
+	# ai_strategy = {
+	# 	type = alliance
+	# 	id = "SER"			
+	# 	value = -1000			#do not join serbia	
+	# }
 	
-	ai_strategy = {
-		type = alliance
-		id = "BUL"			
-		value = -1000			#do not join bulgaria	
-	}
+	# ai_strategy = {
+	# 	type = alliance
+	# 	id = "BUL"			
+	# 	value = -1000			#do not join bulgaria	
+	#}
 }
 
 

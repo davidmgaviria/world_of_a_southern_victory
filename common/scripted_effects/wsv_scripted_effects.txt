@@ -117,7 +117,6 @@ collapse_centralpowers_effect = {
 }
 
 
-
 # End American-German Pact
 end_american_german_pact = {
 	clr_global_flag = american_german_pact
@@ -168,6 +167,24 @@ end_confederate_canadian_british_pact = {
 		}
 	}
 	custom_effect_tooltip = confederate_canadian_british_pact_ends_tt
+}
+
+
+
+# Leave Balkan league
+leave_balkan_league_effect =  {
+	# clear our flag and state claims
+	clr_country_flag = balkan_league_member
+	for_each_scope_loop = {
+		array = THIS.claimed_balkan_states
+		clr_state_flag = state_claimed_by_balkan_member
+	}
+	clear_array = THIS.claimed_balkan_states
+	# reduce member count for serbia
+	if = {
+		limit = { NOT = { tag = MNT } }
+		subtract_from_variable = { SER.num_major_league_members = 1 }
+	}
 }
 
 

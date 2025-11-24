@@ -569,7 +569,7 @@ country_event = {
 	trigger = {
 		has_global_flag = secondbalkan_war
 		NOT = { has_global_flag = secondbalkan_war_over }
-		NOT = { set_global_flag = antibulgarian_league_requests_peace_secondbalkan }
+		NOT = { has_global_flag = antibulgarian_league_requests_peace_secondbalkan }
 		# who gets the event?
 		OR = {
 			# serbia is alone
@@ -587,9 +587,10 @@ country_event = {
 				surrender_progress > 0.2  # we're getting pushed back
 				surrender_progress < 0.6
 				# all our allies have fallen
-				every_allied_country = {
-					surrender_progress > 0.6
+				NOT = {
+					any_allied_country = { surrender_progress < 0.6 }
 				}
+				
 			}
 		}
 	}

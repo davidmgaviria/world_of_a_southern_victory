@@ -146,44 +146,16 @@ TUR_italoturkish_war = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_war_with = ITA
+		has_global_flag = italoturkish_war
+		NOT = { has_global_flag = italoturkish_war_over }
 	}
-	abort = {
-		has_global_flag = italoturkish_war_over
-	}
+	abort_when_not_enabled = yes
 
-	# dont lose our navy
-	ai_strategy = {
-		type = 	naval_avoid_region
-		id = 69   #turkish coast
-		value = 9999
-	}
-	ai_strategy = {
-		type = 	naval_avoid_region
-		id = 29   #libyan coast
-		value = 9999
-	}
-	ai_strategy = {
-		type = 	naval_avoid_region
-		id = 168   #libyan coast
-		value = 9999
-	}
-	ai_strategy = {
-		type = 	naval_avoid_region
-		id = 169   #libyan coast
-		value = 9999
-	}
-	ai_strategy = {
-		type = 	naval_avoid_region
-		id = 68   #libyan coast
-		value = 9999
-	}
-
-	# dont bleed over libya
+	# doesnt really do much other than keep units here
 	ai_strategy = {
 		type = front_unit_request
 		area = africa
-		value = -60
+		value = 25
 	}
 }
 

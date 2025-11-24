@@ -53,9 +53,11 @@ country_event = {
 			limit = { NOT = { has_country_flag = balkan_league_member } }
 			set_country_flag = balkan_league_member
 			add_to_variable = { SER.num_major_league_members = 1 }
-			if = {
-				limit = { MNT = { exists = yes  is_guaranteed_by = SER } }
-				set_country_flag = balkan_league_member
+			MNT = {
+				if = {
+					limit = { exists = yes  is_guaranteed_by = SER } 
+					set_country_flag = balkan_league_member
+				}
 			}
 		}
 	}
@@ -96,6 +98,25 @@ country_event = {
 	}
 }
 
+
+# Claim went undisputed
+country_event = {
+	id = wsv_firstbalkan.100
+	title = wsv_firstbalkan.100.t
+	desc = wsv_firstbalkan.100.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.100.a
+		add_to_array = {
+			array = ROOT.claimed_balkan_states
+			value = event_target:league_target_state.id
+		}
+	}
+}
+
+
 # Country claims x state which we also want
 country_event = {
 	id = wsv_firstbalkan.5
@@ -104,44 +125,49 @@ country_event = {
 
 	is_triggered_only = yes
 
-	# No we want it too
+	# No that land is ours
 	option = {
 		name = wsv_firstbalkan.5.a
 		trigger = {
-			event_target:league_target_state = { 
-				NOT = { is_core_of = FROM } 
-				NOT = { FROM = { tag = MNT } state=866  state=761 }   # scutari & plav
-				NOT = { FROM = { tag = GRE } state=803 }  # north epirus
-				NOT = { FROM = { tag = BUL } state=184  state=756 state=757  }  # thrace
+			OR = {
+				AND = {
+					tag = SER
+					event_target:league_target_state = { state=106 }  # thrace
+				}
+				AND = {
+					tag = MNT
+					event_target:league_target_state = { OR = { state=866  state=761 } }  # scutari & plav
+				}
+				AND = {
+					tag = GRE
+					event_target:league_target_state = { state=803 }  # north epirus
+				}
+				AND = {
+					tag = BUL
+					event_target:league_target_state = { OR = { state=184  state=756  state=757  state=759 } }  # thrace & vadar macedonia
+				}
 			}
 		}
-		# set as disputed
-		event_target:current_state = {
-			set_state_flag = league_disputed_claim  
-			if = {
-				limit = { OR = { state = 855  state = 731 } }  # thessalonika & central macedonia
-				set_variable = { primary_claimer = GRE }
-				set_variable = { secondary_claimer = BUL }
-			}
-			if = {
-				limit = { state = 107  state = 759  }  # north & vardar macedonia
-				set_variable = { primary_claimer = SER }
-				set_variable = { secondary_claimer = BUL }
-			}
+		add_political_power = -25
+		add_to_array = {
+			array = ROOT.claimed_balkan_states
+			value = event_target:league_target_state.id
 		}
-		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2 } }
+		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2   random_hours = 110  } }
 		ai_chance = { factor = 100 }
 	}
 
 	# Fine let them have it
 	option = {
 		name = wsv_firstbalkan.5.b
-		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2 } }
-		# drop our claim
-		event_target:league_target_state = {
-			remove_claim_by = ROOT
-			clr_state_flag = league_disputed_claim  
+		FROM = { 
+			add_to_array = {
+				array = THIS.claimed_balkan_states
+				value = event_target:league_target_state.id
+			}
+			country_event = { id = wsv_firstbalkan.6  days = 2   random_hours = 110  } 
 		}
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -158,7 +184,7 @@ country_event = {
 	}
 }
 
-# Other country opposes (will 'arbitrate' later)
+# Other country insists land is theirs
 country_event = {
 	id = wsv_firstbalkan.7
 	title = wsv_firstbalkan.7.t
@@ -168,6 +194,7 @@ country_event = {
 	
 	option = {
 		name = wsv_firstbalkan.7.a
+		add_political_power = 10 # give back a little PP for losing state
 	}
 }
 
@@ -536,61 +563,21 @@ news_event = {
 				transfer_state_to = TUR
 			}
 
-			## transfer cores next to Balkan victors
+			## transfer states to Balkan victors
 			every_country = {
-				limit = { has_country_flag = balkan_league_member }
-				if = { 
-					limit = { tag = SER }
-					760 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # kosovo
-				}
-				if = { 
-					limit = { tag = GRE }
-					758 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # epirus
-					867 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # south macedonia
-				}
-				if = { 
-					limit = { tag = BUL }
-					788 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # east rumelia
+			 	limit = { has_country_flag = balkan_league_member }
+				for_each_loop = {
+					array = THIS.claimed_balkan_states
+					value = s
+					break = break
+					transfer_state = s
 				}
 			}
-
-			## transfer claims next
 			every_state = {
-				limit = { 
-					has_state_flag=ottoman_state_claimed_by_league  
-					NOT={ has_state_flag=league_disputed_claim }    
-					is_owned_by=TUR 
-				}
-				save_event_target_as = current_state
-
-				# is the claim contested or not?
-				if = {
-					limit = { NOT = { has_state_flag = league_disputed_claim } }
-					random_country = {
-						limit = { has_country_flag = balkan_league_member    event_target:current_state = { is_claimed_by = PREV } }
-						transfer_state = event_target:current_state 
-					} 
-				} else = {
-					random_country = {
-						limit = { tag = var:current_state.primary_claimer }	
-						save_event_target_as = primary_claimer_TAG
-					}
-					random_country = {
-						limit = { tag = var:current_state.secondary_claimer }	
-						save_event_target_as = secondary_claimer_TAG
-					}
-					if = {
-						limit = { event_target:primary_claimer_TAG ={ has_country_flag = balkan_league_member } }
-						transfer_state_to = event_target:primary_claimer_TAG
-					} else_if  = {
-						limit = { event_target:secondary_claimer_TAG ={ has_country_flag = balkan_league_member } }
-						transfer_state_to = event_target:secondary_claimer_TAG
-					}
-				}
-				clr_state_flag=ottoman_state_claimed_by_league  
-				clr_state_flag=league_disputed_claim  
+				limit = { has_state_flag = state_claimed_by_balkan_member }
+				clr_state_flag = state_claimed_by_balkan_member
 			}
-			
+
 			## form Albania if Serbia agreed to withdraw
 			if = {
 				limit = { SER = {  has_country_flag = SER_dropped_claims_on_albania } }
@@ -602,13 +589,17 @@ news_event = {
 					ITA = { give_guarantee = ALB }
 					set_global_flag = birth_of_albania
 				}
+				# serbia takes Vadar Macedonia in response
+				SER = {
+					transfer_state = 759
+				}
 			}
 
 			# last step - dismantle faction
 			every_country = {
 				limit = { has_country_flag = balkan_league_member }
 				remove_ideas = generic_liberation_of_balkans
-				clr_country_flag = balkan_league_member
+				leave_balkan_league_effect = yes
 			}
 			random_country = {
 				limit = {
@@ -645,6 +636,11 @@ news_event = {
 					days = 1080
 				}
 			}
+			# clear flags
+			every_state = {
+				limit = { has_state_flag = state_claimed_by_balkan_member }
+				clr_state_flag = state_claimed_by_balkan_member
+			}
 			# dismantle balkan league
 			every_country = {
 				limit = { has_country_flag = balkan_league_member }
@@ -653,12 +649,12 @@ news_event = {
 					idea = generic_balkan_war_league_lost_idea
 					days = 1080 
 				}
-				clr_country_flag = balkan_league_member
 				diplomatic_relation = {
 					country = TUR
 					relation = non_aggression_pact
 					active = yes
 				}
+				leave_balkan_league_effect = yes
 			}
 			random_country = {
 				limit = {
@@ -689,38 +685,34 @@ news_event = {
 	immediate = {
 		set_global_flag = firstbalkan_war_over
 		hidden_effect = {
-			# transfer back occupied territory to Turkey first
+			## transfer some states to Balkan victors (cores and occupied macedonia)
+			every_country = {
+			 	limit = { has_country_flag = balkan_league_member }
+				for_each_scope_loop = {
+					array = THIS.claimed_balkan_states
+					if = {
+						limit = { 
+							OR = { 
+								is_core_of=PREV 
+								AND = {
+									has_state_flag = firstbalkan_occupied_ottoman_state
+									OR = { state=206  state=759  state=731  state=761 }
+								}
+							} 
+						}  
+						transfer_state_to = PREV  # the country this loop was running in
+						clr_country_flag = firstbalkan_occupied_ottoman_state
+					}
+				}
+			}
+			every_state = {
+				limit = { has_state_flag = state_claimed_by_balkan_member }
+				clr_state_flag = state_claimed_by_balkan_member
+			}
 			every_state = {
 				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
 				clr_state_flag = firstbalkan_occupied_ottoman_state
 				transfer_state_to = TUR
-			}
-
-			## transfer only cores to Balkan states,
-			every_country = {
-				limit = { has_country_flag = balkan_league_member }
-				if = { 
-					limit = { tag = SER }
-					760 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # kosovo
-					# transfer Plav if MNT not in faction
-					if = {
-						limit = { MNT = { NOT = { has_country_flag = balkan_league_member} } }
-						761 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # plav
-					}
-				}
-				if = { 
-					limit = { tag = GRE }
-					758 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # epirus
-					867 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # south macedonia
-				}
-				if = { 
-					limit = { tag = BUL }
-					788 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # east rumelia
-				}
-				if = { 
-					limit = { tag = MNT }
-					761 = { transfer_state_to = PREV   clr_state_flag = ottoman_state_claimed_by_league }  # plav
-				}
 			}
 			
 			## Great Powers push for an independent Albania
@@ -737,12 +729,12 @@ news_event = {
 			every_country = {
 				limit = { has_country_flag = balkan_league_member }
 				remove_ideas = generic_liberation_of_balkans
-				clr_country_flag = balkan_league_member
 				diplomatic_relation = {
 					country = TUR
 					relation = non_aggression_pact
 					active = yes
 				}
+				leave_balkan_league_effect = yes
 			}
 			random_country = {
 				limit = {
@@ -1134,9 +1126,6 @@ country_event = {
 		SER = { has_country_flag = SER_dropped_claims_on_albania }
 	}
 	mean_time_to_happen = { days = 3 }
-
-	fire_only_once = yes
-	is_triggered_only = yes
 	
 	option = {
 		name = wsv_firstbalkan.46.a

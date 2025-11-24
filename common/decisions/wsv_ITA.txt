@@ -9,7 +9,7 @@ italoturkish_war_cat = {
 			tag = ITA
 		}
 		activation = {
-			always = no
+			has_global_flag = italoturkish_war
 		}
 		available = {
 			always = no
@@ -25,10 +25,7 @@ italoturkish_war_cat = {
 
 		timeout_effect = {
 			country_event = wsv_italy.4
-			swap_ideas = {
-				remove_idea = ITA_conquest_of_libya
-				add_idea = ITA_conquest_of_libya_2
-			}
+			set_country_flag = ITA_italoturkish_long_war
 			hidden_effect = {
 				activate_mission = italoturkish_expedition_second_deadline
 			}
@@ -69,6 +66,40 @@ italoturkish_war_cat = {
 	}
 
 	# Take Dodecanese
+	italy_increase_war_spending = {
+		icon = GER_mefo_bills
+		priority = 15
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			has_country_flag = ITA_italoturkish_long_war
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		fire_only_once = yes
+		days_remove = 7
+
+		remove_effect = {
+			swap_ideas = {
+				remove_ideas = ITA_conquest_of_libya
+				add_ideas = ITA_conquest_of_libya_2
+			}
+		}
+
+		ai_will_do = {
+			factor = 20
+		}
+	}
+
+	# Take Dodecanese
 	italy_sieze_the_dodecanese = {
 		icon = generic_naval
 		priority = 10
@@ -81,15 +112,15 @@ italoturkish_war_cat = {
 			NOT = { has_global_flag = italoturkish_war_over }
 		}
 		available = {
-			war_length_with = { tag = LBA   months > 6 }
 			TUR = { has_full_control_of_state = 164 }
+			NOT = { has_country_flag = ITA_italoturkisk_delay_for_dodecanese }
 		}
 		cancel_trigger = {
 			has_global_flag = italoturkish_war_over  	# condition for event to cancel
 		}
 
 		custom_cost_trigger = {
-			command_power > 14.9
+			command_power > 49.9
 		}
 		custom_cost_text = ITA_dodecanese_operation_cost
 
@@ -97,7 +128,7 @@ italoturkish_war_cat = {
 		days_remove = 12
 
 		remove_effect = {
-			add_command_power = -15
+			add_command_power = -50
 			transfer_state = 164
 			TUR = { country_event = wsv_italy.5 }
 		}
@@ -107,6 +138,94 @@ italoturkish_war_cat = {
 		}
 	}
 
+	# Attack
+	italy_attack_libyan_state_x = {
+		icon = generic_prepare_civil_war
+	
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			NOT = { 
+				has_border_war_with = TUR
+				has_country_flag = italoturkish_is_preparing_attack
+			}
+		}
+	
+		state_target = yes
+		targets = { 448 449 450 451 661 662 663 869 870 }  # libyan theatre
+	    target_trigger = {
+	        FROM = {
+				is_owned_by=TUR
+	        	any_neighbor_state = { is_owned_by=ITA }
+	        }
+	    }
+	    on_map_mode = map_only
 
+	    custom_cost_trigger = {
+			command_power > 24.9
+		}
+		custom_cost_text = ITA_attack_libyan_state_cost
+		
+		fire_only_once = no
+		days_remove = 10
 
+		complete_effect = {
+			ROOT = { 
+				add_command_power = -25
+				set_country_flag = italoturkish_is_preparing_attack
+			}
+		}
+
+		remove_effect = {
+			ROOT = { clr_country_flag = italoturkish_is_preparing_attack }
+			# determine states
+			FROM = {
+				save_global_event_target_as = italoturkish_defender_state
+				random_neighbor_state = {
+					limit = { OWNER = { tag = ITA } } 
+					save_global_event_target_as = italoturkish_attacker_state  
+				}
+			}
+			# attacker bonus
+			if = {
+				limit = { FROM = { is_coastal = yes } }
+				set_temp_variable = { italoturkish_attacker_bonus = 0.25 }
+			}
+			else = { set_temp_variable = { italoturkish_attacker_bonus = -0.33 } }
+			# border war
+			start_border_war = {
+				change_state_after_war = no
+				combat_width = 50
+				minimum_duration_in_days = 14
+				attacker = {
+					state = event_target:italoturkish_attacker_state
+					num_provinces = 4
+					on_win = wsv_italy.100
+					on_lose = wsv_italy.101
+					modifier = var.italoturkish_attacker_bonus	
+					dig_in_factor = 0
+					terrain_factor = 0
+				}	
+				defender = {
+					state = event_target:italoturkish_defender_state
+					num_provinces = 4
+					on_win = wsv_italy.102
+					on_lose = wsv_italy.103
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 10
+			modifier = {
+				factor = 10
+				FROM = { OR = { state=451  state=870 } }
+			}
+		}
+	}
 }

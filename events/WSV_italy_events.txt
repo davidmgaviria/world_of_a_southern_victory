@@ -19,56 +19,32 @@ news_event = {
 	immediate = {
 		set_global_flag = italoturkish_war
 	    hidden_effect = {
-			LBA = {
-				transfer_state = 448
-				transfer_state = 449
-				transfer_state = 450
-				transfer_state = 451
-				transfer_state = 663
-				transfer_state = 662
-				transfer_state = 661
-				transfer_state = 273
-				every_owned_state = {
-					add_core_of = PREV
-				}
-				# move capiol & deploy troops
-				add_victory_points = { province = 10785 value = 1 }
-				set_capital = { state = 273 }
-				load_oob=TUR_italoturkish_garrison
-				add_ideas = TUR_libyan_resistance
-				add_manpower = 15000
-				add_equipment_to_stockpile = { type = infantry_equipment_0   amount = 4000 }
-			}
-
 			ITA = {
+				set_country_flag = italian_libya_war
 				add_named_threat = {
-					threat = 4
+					threat = 3
 					name = "Italo-Turkish War"
 				}
-				declare_war_on = {
-					type = annex_everything
-					target = LBA
-				}
-				# tobruk				
-				set_province_controller = 1130
-				set_province_controller = 4136
-				# benghasi
-				set_province_controller = 11954
-				set_province_controller = 4120
-				# tobruk
-				set_province_controller = 1149
-				set_province_controller = 4194
+				transfer_state = 869 # tobruk
+				transfer_state = 450 # benghasi
+				transfer_state = 448 # tripoli
 				load_oob=ITA_italoturkish_inital_landing
-
-				# state modifiers
-				449 = { add_dynamic_modifier = { modifier = ITA_unprepared_for_italoturkish_war_debuff } }
-				661 = { add_dynamic_modifier = { modifier = ITA_unprepared_for_italoturkish_war_debuff } }
-				662 = { add_dynamic_modifier = { modifier = ITA_unprepared_for_italoturkish_war_debuff } }
-				663 = { add_dynamic_modifier = { modifier = ITA_unprepared_for_italoturkish_war_debuff } }
-        		set_country_flag = italian_libya_war
-				add_ideas = ITA_conquest_of_libya
         		activate_decision = italoturkish_expedition_first_deadline
+				add_ideas = ITA_conquest_of_libya
+				set_country_flag = {
+					flag = ITA_italoturkisk_delay_for_dodecanese
+					value = 1 
+					days = 210
+				}
 	        }
+			TUR = {
+				load_oob=TUR_italoturkish_garrison
+			}
+			# libyan theatre
+			every_state = {
+				limit = { OR = { state=448 state=449 state=450 state=451 state=869 state=870  state=661  state=662  state=663 } }
+				set_state_flag = libyan_theatre_state
+			}
 	    }
 	}
 		
@@ -99,10 +75,12 @@ country_event = {
 	trigger = {
 		tag = ITA
 		has_global_flag = italoturkish_war
-		has_war_with = LBA
+		NOT = { has_global_flag = italoturkish_war_over }
 		controls_state = 448
 		controls_state = 450
 		controls_state = 451
+		controls_state = 869
+		controls_state = 870
 	}
 
 	fire_only_once = yes
@@ -157,9 +135,9 @@ country_event = {
 		NOT = { has_global_flag = italoturkish_war_over }
 		NOT = { has_active_mission = italoturkish_expedition_first_deadline }
 		NOT = {
-			controls_state = 448
-			controls_state = 450
-			controls_state = 451
+			controls_state = 869 # tobruk
+			controls_state = 450 # benghasi
+			controls_state = 448 # tripoli
 		}
 	}
 	mean_time_to_happen = { days = 5 }
@@ -183,9 +161,9 @@ country_event = {
 		has_global_flag = italoturkish_war
 		NOT = { has_global_flag = italoturkish_war_over }
 		ITA = {
-			controls_state = 448
-			controls_state = 450
-			controls_state = 451
+			controls_state = 869 # tobruk
+			controls_state = 450 # benghasi
+			controls_state = 448 # tripoli
 		}
 		# either First Balkan or lost all the territory
 		OR = {
@@ -193,13 +171,8 @@ country_event = {
 				has_global_flag = firstbalkan_war
 				NOT = { has_global_flag = firstbalkan_war_over }
 			}
-			AND = {
-				ITA = {
-					controls_state = 449
-					controls_state = 661
-					controls_state = 662
-					controls_state = 663
-				}
+			NOT = {
+				any_owned_state = { has_state_flag = libyan_theatre_state }
 			}
 		}
 	}
@@ -257,10 +230,19 @@ news_event = {
 		set_global_flag = italoturkish_war_over
 		hidden_effect = {
 			ITA = {
-				annex_country = { target = LBA   transfer_troops = no }
 				set_country_flag = ITA_victory_in_libya
 				remove_ideas = ITA_conquest_of_libya
 				remove_ideas = ITA_conquest_of_libya_2
+				delete_unit_template_and_units = "Reggimento di Spedizione Coloniale"
+			}
+			TUR = {
+				delete_unit_template_and_units = "Libya Milisleri"
+				delete_unit_template_and_units = "Arap Asiretciler"
+			}
+			every_state = {
+				limit = { OR = { has_state_flag = libyan_theatre_state  state=273 } }
+				transfer_state_to = ITA
+				clr_state_flag = libyan_theatre_state
 			}
 		}
 	}
@@ -301,17 +283,19 @@ news_event = {
 		set_global_flag = italoturkish_war_over
 		hidden_effect = {
 			ITA = {
-				white_peace = LBA
 				set_country_flag = ITA_defeat_in_libya
 				remove_ideas = ITA_conquest_of_libya
 				remove_ideas = ITA_conquest_of_libya_2
+				delete_unit_template_and_units = "Reggimento di Spedizione Coloniale"
 			}
 			TUR = {
-				annex_country = { target = LBA   transfer_troops = no }
-				if = {
-					limit = { 164 = { is_controlled_by = ITA } }
-					transfer_state = 164
-				}
+				delete_unit_template_and_units = "Libya Milisleri"
+				delete_unit_template_and_units = "Arap Asiretciler"
+			}
+			every_state = {
+				limit = { OR = { has_state_flag = libyan_theatre_state  state=273 } }
+				transfer_state_to = TUR
+				clr_state_flag = libyan_theatre_state
 			}
 		}
 	}
@@ -388,5 +372,93 @@ news_event = {
 		trigger = { 
 			TAG = TUR
 		}
+	}
+}
+
+
+##################################################
+
+
+## TESTING italo turkish border war
+
+# Attacker win fight
+country_event = {
+	id = wsv_italy.100
+	title = wsv_italy.100.t
+	desc = wsv_italy.100.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.100.a
+		add_manpower = -400
+		transfer_state = event_target:italoturkish_defender_state
+		clear_global_event_target = event_target:italoturkish_attacker_state
+		clear_global_event_target = event_target:italoturkish_defender_state
+	}
+}
+
+# Attacker loses fight
+country_event = {
+	id = wsv_italy.101
+	title = wsv_italy.101.t
+	desc = wsv_italy.101.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.101.a
+		add_manpower = -600
+		clear_global_event_target = event_target:italoturkish_attacker_state
+		clear_global_event_target = event_target:italoturkish_defender_state
+	}
+}
+
+# Defender wins fight
+country_event = {
+	id = wsv_italy.102
+	title = wsv_italy.102.t
+	desc = wsv_italy.102.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.102.a
+		add_manpower = -300
+		clear_global_event_target = event_target:italoturkish_attacker_state
+		clear_global_event_target = event_target:italoturkish_defender_state
+	}
+}
+
+# Defender loses fight
+country_event = {
+	id = wsv_italy.103
+	title = wsv_italy.103.t
+	desc = wsv_italy.103.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.103.a
+		add_manpower = -600
+		clear_global_event_target = event_target:italoturkish_attacker_state
+		clear_global_event_target = event_target:italoturkish_defender_state
+	}
+}
+
+# Draw
+country_event = {
+	id = wsv_italy.104
+	title = wsv_italy.104.t
+	desc = wsv_italy.104.d
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.104.a
+		add_manpower = -250
+		clear_global_event_target = event_target:italoturkish_attacker_state
+		clear_global_event_target = event_target:italoturkish_defender_state
 	}
 }
