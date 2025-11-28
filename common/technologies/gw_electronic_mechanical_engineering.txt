@@ -1,10 +1,10 @@
 technologies = {
 
-	# @1900 = 0
-	# @1910 = 2
-	# @1912 = 
-	# @1915
-	# @1918
+	@1900 = 0
+	@1900.2 = 2
+	@1912 = 4
+	@1915 = 6
+	@1918 = 8
 	# @1936
 	# @1938
 	# @1940
@@ -12,191 +12,20 @@ technologies = {
 	# @1944
 
 
-#======================================================
-
-	# tank_unlocker1 = {
-
-	# 	research_speed_factor = 0.01
-		
-	# 	path = {
-	# 		leads_to_tech = tank_unlocker2
-	# 		research_cost_coeff = 1
-	# 	}
-		
-	# 	start_year = 1903
-	# 	research_cost = 1.5
-		
-	# 	folder = {
-	# 		name = gw_electronics_folder
-	# 		position = { x = 0 y = 0 }
-	# 	}
-		
-	# 	ai_will_do = {
-	# 		factor = 1
-
-	# 		modifier = {
-	# 			factor = 5
-	# 			has_war = yes
-	# 		}
-
-	# 		modifier = {
-	# 			factor = 2
-	# 			is_major = yes
-	# 		}
-
-	# 		modifier = {
-	# 			factor = 5
-	# 			date > 1915.1.1
-	# 		}
-	# 	}
-		
-	# 	categories = {
-	# 		armor
-	# 	}
-	# }
 	
-
-
-#======================================================
-
-	chemical_research = {
-
-		research_speed_factor = 0.01
-		
-		path = {
-			leads_to_tech = chemical_research2
-			research_cost_coeff = 1
-		}
-		
-		start_year = 1890
-		research_cost = 1.5
-		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = 0 y = -2 }
-		}
-		
-		ai_will_do = {
-			factor = 3
-
-			modifier = {
-				factor = 2
-				has_war = yes
-			}
-
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-		}
-		
-		categories = {
-			chemical_weapons
-		}
-	}
-	
-	chemical_research2 = {
-
-		category_line_artillery = {
-			soft_attack = 0.05
-			breakthrough = 0.1
-		}
-
-		on_research_complete = {
-		    if = { 
-		    	limit = { NOT = { has_global_flag = gas_invented }  has_start_date < 1937.1.1 }
-		    	news_event = { id = wsv_generic.8 }
-		    	hidden_effect = { set_global_flag = gas_invented }
-		    }
-		}
-		
-		start_year = 1915
-		research_cost = 2
-		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = 0 y = 2 }
-		}
-
-		path = {
-			leads_to_tech = chemical_research3
-			research_cost_coeff = 1
-		}
-		
-		ai_will_do = {
-			factor = 1
-
-			modifier = {
-				factor = 1.5
-				has_war = yes
-			}
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 2
-				OR = { tag = USA  tag = GER }
-			}
-		}
-		
-		categories = {
-			chemical_weapons
-		}
-	}
-
-	chemical_research3 = {
-
-		category_line_artillery = {
-			soft_attack = 0.1
-			breakthrough = 0.1
-		}
-	
-		start_year = 1917
-		research_cost = 2
-		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = 0 y = 4 }
-		}
-
-		ai_will_do = {
-			factor = 1
-
-			modifier = {
-				factor = 1.5
-				has_war = yes
-			}
-
-			modifier = {
-				factor = 4
-				is_major = yes
-			}
-		}
-		
-		categories = {
-			chemical_weapons
-		}
-	}
-#======================================================
-
 
 
 	electronic_mechanical_engineering = {
 
 		# small boost to research speed
-  		research_speed_factor = 0.01
+  		research_speed_factor = 0.03
 		
 		path = {
-			leads_to_tech = supertech1 
+			leads_to_tech = communications1 
 			research_cost_coeff = 1
 		}
 		path = {
 			leads_to_tech = mechanical_computing 
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = dingfelder_engine1
 			research_cost_coeff = 1
 		}
 
@@ -204,7 +33,7 @@ technologies = {
 		start_year = 1900
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 0 y = 0 }
+			position = { x = 0 y = @1900 }
 		}
 		
 		ai_will_do = {
@@ -217,21 +46,21 @@ technologies = {
 	}
 
 
-	supertech1 = {
+	communications1 = {
 		land_reinforce_rate = 0.02
-		coordination_bonus = 0.01
+		coordination_bonus = 0.02
 		
 		path = {
-			leads_to_tech = supertech2
+			leads_to_tech = communications2
 			research_cost_coeff = 1
 		}
 		
 		research_cost = 1.5
-		start_year = 1912
+		start_year = 1900
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = -2 y = 2 }
+			position = { x = -2 y = @1900.2 }
 		}
 		
 		ai_will_do = {
@@ -244,21 +73,16 @@ technologies = {
 	}
 
 
-	supertech2 = {
+	communications2 = {
 		land_reinforce_rate = 0.02
-		coordination_bonus = 0.01
-		
-		path = {
-			leads_to_tech = supertech3
-			research_cost_coeff = 1
-		}
+		coordination_bonus = 0.02
 		
 		research_cost = 1.5
 		start_year = 1915
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = -2 y = 4 }
+			position = { x = -2 y = @1915 }
 		}
 			
 		ai_will_do = {
@@ -270,38 +94,37 @@ technologies = {
 		}
 	}
 
-
-	supertech3 = {
-		land_reinforce_rate = 0.02
-		coordination_bonus = 0.01
+	# supertech3 = {
+	# 	land_reinforce_rate = 0.02
+	# 	coordination_bonus = 0.01
 		
-		path = {
-			leads_to_tech = electronic_ww2
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = electronic_ww2
+	# 		research_cost_coeff = 1
+	# 	}
 		
-		research_cost = 1.5
-		start_year = 1918
+	# 	research_cost = 1.5
+	# 	start_year = 1918
 		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = -2 y = 6 }
-		}
+	# 	folder = {
+	# 		name = gw_electronics_folder
+	# 		position = { x = -2 y = 6 }
+	# 	}
 			
-		ai_will_do = {
-			factor = 3
-		}
+	# 	ai_will_do = {
+	# 		factor = 3
+	# 	}
 		
-		categories = {
-			electronics
-		}
-	}
+	# 	categories = {
+	# 		electronics
+	# 	}
+	# }
 
 
 	mechanical_computing = {
 
 		# small boost to research speed
-		research_speed_factor = 0.02
+		research_speed_factor = 0.03
 		
 		path = {
 			leads_to_tech = mechanical_computing2
@@ -319,7 +142,7 @@ technologies = {
 		}
 
 		research_cost = 1.5
-		start_year = 1912
+		start_year = 1900
 		
 		folder = {
 			name = gw_electronics_folder
@@ -337,17 +160,43 @@ technologies = {
 	}
 
 
-	hoi4tgw_decryption = {
+	mechanical_computing2 = {
 
-		# decryption 1
-		decryption = 1
-		
+		research_speed_factor = 0.03
+
 		research_cost = 1.5
-		start_year = 1912
+		start_year = 1918
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 4 y = 2 }
+			position = { x = 2 y = 8 }
+		}
+		
+		ai_will_do = {
+			factor = 4
+		}
+		
+		categories = {
+			electronics
+			computing_tech
+		}
+	}
+
+	
+	hoi4tgw_decryption = {
+		decryption = 1
+
+		path = {
+			leads_to_tech = hoi4tgw_decryption2
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 1.5
+		start_year = 1912
+
+		folder = {
+			name = gw_electronics_folder
+			position = { x = 4 y = @1912 }
 		}
 		
 		ai_will_do = {
@@ -361,16 +210,20 @@ technologies = {
 	}
 
 	hoi4tgw_encryption = {
-
-		# encryption 1
 		encryption = 1
+
+		path = {
+			leads_to_tech = hoi4tgw_encryption2
+			research_cost_coeff = 1
+		}
 		
 		research_cost = 1.5
 		start_year = 1912
 		
+		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 0 y = 2 }
+			position = { x = 0 y = @1912 }
 		}
 		
 		ai_will_do = {
@@ -384,53 +237,20 @@ technologies = {
 	}
 
 
-	mechanical_computing2 = {
-
-		# small boost to research speed
-		research_speed_factor = 0.02
-		
-		path = {
-			leads_to_tech = mechanical_computing3
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = hoi4tgw_decryption2
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = hoi4tgw_encryption2
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 1.5
-		start_year = 1915
-		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = 2 y = 4 }
-		}
-		
-		ai_will_do = {
-			factor = 4
-		}
-		
-		categories = {
-			electronics
-			computing_tech
-		}
-	}
-
 	hoi4tgw_decryption2 = {
-
-		# decryption 1
 		decryption = 1
+
+		path = {
+			leads_to_tech = hoi4tgw_decryption3
+			research_cost_coeff = 1
+		}
 		
 		research_cost = 1.5
 		start_year = 1915
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 4 y = 4 }
+			position = { x = 4 y = @1915 }
 		}
 		
 		ai_will_do = {
@@ -444,16 +264,19 @@ technologies = {
 	}
 
 	hoi4tgw_encryption2 = {
-
-		# encryption 1
 		encryption = 1
+
+		path = {
+			leads_to_tech = hoi4tgw_encryption3
+			research_cost_coeff = 1
+		}
 		
 		research_cost = 1.5
 		start_year = 1915
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 0 y = 4 }
+			position = { x = 0 y = @1915 }
 		}
 		
 		ai_will_do = {
@@ -467,46 +290,7 @@ technologies = {
 	}
 
 
-	mechanical_computing3 = {
-
-		# small boost to research speed
-		research_speed_factor = 0.02
-		
-		path = {
-			leads_to_tech = electronic_ww2
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = hoi4tgw_decryption3
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = hoi4tgw_encryption3
-			research_cost_coeff = 1
-		}
-		
-		research_cost = 1.5
-		start_year = 1918
-		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = 2 y = 6 }
-		}
-		
-		ai_will_do = {
-			factor = 4
-		}
-		
-		categories = {
-			electronics
-			computing_tech
-		}
-	}
-
-
 	hoi4tgw_decryption3 = {
-
-		# decryption 1
 		decryption = 1
 		
 		research_cost = 1.5
@@ -514,7 +298,7 @@ technologies = {
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 4 y = 6 }
+			position = { x = 4 y = @1918 }
 		}
 		
 		ai_will_do = {
@@ -528,8 +312,6 @@ technologies = {
 	}
 
 	hoi4tgw_encryption3 = {
-
-		# encryption 1
 		encryption = 1
 		
 		research_cost = 1.5
@@ -537,7 +319,7 @@ technologies = {
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 0 y = 6 }
+			position = { x = 0 y = @1918 }
 		}
 		
 		ai_will_do = {
@@ -551,51 +333,189 @@ technologies = {
 	}
 
 
-	dingfelder_engine1 = {
-		air_superiority_efficiency = 0.02
-		army_fuel_consumption_factor = -0.02
-				
-		research_cost = 1.5
-		start_year = 1900
+#======================================================
 
+	chemical_research = {
+		research_speed_factor = 0.02
+		
 		path = {
-			leads_to_tech = dingfelder_engine2
+			leads_to_tech = chemical_research2
 			research_cost_coeff = 1
 		}
 		
-		folder = {
-			name = gw_electronics_folder
-			position = { x = 6 y = 0 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-		
-		categories = {
-			electronics
-		}
-	}
-
-
-	dingfelder_engine2 = {
-		air_superiority_efficiency = 0.03
-		army_fuel_consumption_factor = -0.03
-				
+		start_year = 1900
 		research_cost = 1.5
-		start_year = 1918
 		
 		folder = {
 			name = gw_electronics_folder
-			position = { x = 6 y = 6 }
+			position = { x = 1 y = -2 }
+		}
+		
+		ai_will_do = {
+			factor = 3
+
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			chemical_weapons
+		}
+	}
+
+
+	chemical_research2 = {
+		research_speed_factor = 0.02
+		
+		path = {
+			leads_to_tech = chemical_research3
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = chemical_research3b
+			research_cost_coeff = 1
+		}
+		
+		start_year = 1912
+		research_cost = 1.5
+		
+		folder = {
+			name = gw_electronics_folder
+			position = { x = 1 y = 2 }
+		}
+		
+		ai_will_do = {
+			factor = 3
+
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+		}
+		
+		categories = {
+			chemical_weapons
+		}
+	}
+	
+	
+	chemical_research3 = {
+
+		category_line_artillery = {
+			soft_attack = 0.05
+			breakthrough = 0.1
+		}
+
+		on_research_complete = {
+		    if = { 
+		    	limit = { NOT = { has_global_flag = gas_invented }  has_start_date < 1937.1.1 }
+		    	news_event = { id = wsv_generic.8 }
+		    	hidden_effect = { set_global_flag = gas_invented }
+		    }
+		}
+		
+		start_year = 1915
+		research_cost = 1.5
+		
+		folder = {
+			name = gw_electronics_folder
+			position = { x = 0 y = 4 }
+		}
+		
+
+		path = {
+			leads_to_tech = chemical_research4
+			research_cost_coeff = 1
+		}
+		
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 1.5
+				OR = { tag = USA  tag = GER }
+			}
+		}
+		
+		categories = {
+			chemical_weapons
+		}
+	}
+
+	chemical_research3b = {
+
+		production_lack_of_resource_penalty_factor = -0.15
+
+		start_year = 1915
+		research_cost = 1.5
+		
+		folder = {
+			name = gw_electronics_folder
+			position = { x = 2 y = 4 }
 		}
 		
 		ai_will_do = {
 			factor = 1
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 2
+				tag = GER
+			}
 		}
 		
 		categories = {
-			electronics
+			chemical_weapons
 		}
 	}
+
+	chemical_research4 = {
+
+		category_line_artillery = {
+			soft_attack = 0.1
+			breakthrough = 0.1
+		}
+	
+		start_year = 1917
+		research_cost = 1.5
+		
+		folder = {
+			name = gw_electronics_folder
+			position = { x = 0 y = 6 }
+		}
+
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 2
+				is_major = yes
+			}
+			modifier = {
+				factor = 1.5
+				OR = { tag = USA  tag = GER }
+			}
+		}
+		
+		categories = {
+			chemical_weapons
+		}
+	}
+
 }
