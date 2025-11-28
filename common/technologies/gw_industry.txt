@@ -1,7 +1,7 @@
 technologies = {
 
 	@1900 = 0
-	@1910 = 2
+	@1900.2 = 2
 	@1914 = 4
 	@1916 = 6
 	@1918 = 8
@@ -47,11 +47,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1910
+		start_year = 1900
 
 		folder = {
 			name = gw_industry_folder
-			position = { x = 0 y = @1910 }
+			position = { x = 0 y = @1900.2 }
 		}
 		
 		ai_will_do = {
@@ -178,11 +178,11 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1910
+		start_year = 1900
 				
 		folder = {
 			name = gw_industry_folder
-			position = { x = 4 y = @1910 }
+			position = { x = 4 y = @1900.2 }
 		}
 		
 		ai_will_do = { factor = 5 }
@@ -292,7 +292,7 @@ technologies = {
 			research_cost_coeff = 1
 		}
 		path = {
-			leads_to_tech = ww1_fortification1
+			leads_to_tech = ww1_mining1
 			research_cost_coeff = 1
 		}
 
@@ -306,7 +306,7 @@ technologies = {
 		
 		folder = {
 			name = gw_industry_folder
-			position = { x = 0 y = @1900 }
+			position = { x = -1 y = @1900.2 }
 		}
 		
 		ai_will_do = {
@@ -321,31 +321,9 @@ technologies = {
 			leads_to_tech = ww1_construction3
 			research_cost_coeff = 1
 		}
-		
-		research_cost = 2
-		start_year = 1910
-		
-		categories = {
-			industry
-			construction_tech
-		}
-		
-		folder = {
-			name = gw_industry_folder
-			position = { x = -1 y = @1910 }
-		}
-		
-		ai_will_do = {
-			factor = 5
-		}
-	}
-
-	ww1_construction3 = {
-		production_speed_buildings_factor = 0.1
-
 		path = {
-			leads_to_tech = ww1_construction4
-			research_cost_coeff = 1
+			leads_to_tech = ww1_mining2
+			research_cost_coeff = 0.8
 		}
 		
 		research_cost = 2
@@ -366,12 +344,16 @@ technologies = {
 		}
 	}
 
-	ww1_construction4 = {
+	ww1_construction3 = {
 		production_speed_buildings_factor = 0.1
-		
+
 		path = {
-			leads_to_tech = ww1_construction5
+			leads_to_tech = ww1_construction4
 			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_mining3
+			research_cost_coeff = 0.8
 		}
 		
 		research_cost = 2
@@ -392,9 +374,14 @@ technologies = {
 		}
 	}
 
-	ww1_construction5 = {
+	ww1_construction4 = {
 		production_speed_buildings_factor = 0.1
-
+		
+		path = {
+			leads_to_tech = ww1_construction5
+			research_cost_coeff = 1
+		}
+		
 		research_cost = 2
 		start_year = 1918
 		
@@ -413,198 +400,26 @@ technologies = {
 		}
 	}
 
-	### FORTIFICATIONS ##
-	ww1_fortification1 = {
-		enable_building = {
-			building = bunker
-			level = 5
-		}
-		enable_building = {
-			building = coastal_bunker
-			level = 5
-		}
-		
-		path = {
-			leads_to_tech = ww1_fortification2
-			research_cost_coeff = 1
-		}
-	
-		research_cost = 1.2
-		start_year = 1910
+	# ww1_construction5 = {
+	# 	production_speed_buildings_factor = 0.1
 
-		folder = {
-			name = gw_industry_folder
-			position = { x = 1 y = @1910 }
-		}
+	# 	research_cost = 2
+	# 	start_year = 1918
 		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-		}
+	# 	categories = {
+	# 		industry
+	# 		construction_tech
+	# 	}
 		
-		categories = {
-			fortification
-		}
-	}
-
-	ww1_fortification2 = {
-		enable_building = {
-			building = bunker
-			level = 8
-		}
-		enable_building = {
-			building = coastal_bunker
-			level = 8
-		}
+	# 	folder = {
+	# 		name = gw_industry_folder
+	# 		position = { x = -1 y = @1918 }
+	# 	}
 		
-		path = {
-			leads_to_tech = ww1_airdefense1
-			research_cost_coeff = 1
-		}
-		path = {
-			leads_to_tech = ww1_fortification3
-			research_cost_coeff = 1
-		}
-	
-		research_cost = 1.5
-		start_year = 1914
-
-		folder = {
-			name = gw_industry_folder
-			position = { x = 1 y = @1914 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-		}
-		
-		categories = {
-			fortification
-		}
-	}
-
-
-	ww1_airdefense1 = {
-		enable_building = {
-			building = anti_air_building
-			level = 2
-		}
-		path = {
-			leads_to_tech = ww1_airdefense2
-			research_cost_coeff = 1
-		}
-	
-		research_cost = 1.5
-		start_year = 1914
-
-		folder = {
-			name = gw_industry_folder
-			position = { x = 3 y = @1914 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-		}
-		
-		categories = {
-			fortification
-		}
-	}
-
-
-	ww1_fortification3 = {
-		enable_building = {
-			building = bunker
-			level = 10
-		}
-		enable_building = {
-			building = coastal_bunker
-			level = 10
-		}
-	
-		research_cost = 1.5
-		start_year = 1918   #make it 1916
-
-		folder = {
-			name = gw_industry_folder
-			position = { x = 1 y = @1918 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-		}
-		
-		categories = {
-			fortification
-		}
-	}
-
-
-	ww1_airdefense2 = {
-		enable_building = {
-			building = anti_air_building
-			level = 4
-		}
-		path = {
-			leads_to_tech = ww1_airdefense2
-			research_cost_coeff = 1
-		}
-	
-		research_cost = 1.5
-		start_year = 1918
-
-		folder = {
-			name = gw_industry_folder
-			position = { x = 3 y = @1918 }
-		}
-		
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 2
-				is_major = yes
-			}
-			modifier = {
-				factor = 5
-				has_war = yes
-			}
-		}
-		
-		categories = {
-			fortification
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 5
+	# 	}
+	# }
 
 
 	### MINING ###
@@ -615,15 +430,13 @@ technologies = {
 			research_cost_coeff = 1
 			leads_to_tech = ww1_mining2
 		}
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = ww1_oil1
-		}
+		# path = {
+		# 	research_cost_coeff = 1
+		# 	leads_to_tech = ww1_oil1
+		# }
 
 		research_cost = 2
 		start_year = 1900
-
-		
 		
 		categories = {
 			industry
@@ -632,7 +445,7 @@ technologies = {
 		
 		folder = {
 			name = gw_industry_folder
-			position = { x = 0 y = 0 }
+			position = { x = 1 y = @1900.2 }
 		}
 		
 		ai_will_do = {
@@ -659,7 +472,7 @@ technologies = {
 		
 		folder = {
 			name = gw_industry_folder
-			position = { x = 0 y = 2 }
+			position = { x = 1 y = @1914 }
 		}
 		
 		ai_will_do = {
@@ -676,7 +489,7 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1914
+		start_year = 1916
 		
 		categories = {
 			industry
@@ -685,7 +498,7 @@ technologies = {
 		
 		folder = {
 			name = gw_industry_folder
-			position = { x = 0 y = 4 }
+			position = { x = 1 y = @1916 }
 		}
 		
 		ai_will_do = {
@@ -702,33 +515,6 @@ technologies = {
 		}
 		
 		research_cost = 2
-		start_year = 1916
-		
-		categories = {
-			industry
-			construction_tech
-		}
-		
-		folder = {
-			name = gw_industry_folder
-			position = { x = 0 y = 6 }
-		}
-		
-		ai_will_do = {
-			factor = 3
-		}
-	}
-
-
-	ww1_mining5 = {
-		local_resources_factor = 0.1
-		
-		path = {
-			research_cost_coeff = 1
-			leads_to_tech = excavation1
-		}
-		
-		research_cost = 2
 		start_year = 1918
 		
 		categories = {
@@ -738,11 +524,195 @@ technologies = {
 		
 		folder = {
 			name = gw_industry_folder
-			position = { x = 0 y = 8 }
+			position = { x = 1 y = @1918 }
 		}
 		
 		ai_will_do = {
 			factor = 3
+		}
+	}
+
+
+	# ww1_mining5 = {
+	# 	local_resources_factor = 0.1
+		
+	# 	path = {
+	# 		research_cost_coeff = 1
+	# 		leads_to_tech = excavation1
+	# 	}
+		
+	# 	research_cost = 2
+	# 	start_year = 1918
+		
+	# 	categories = {
+	# 		industry
+	# 		construction_tech
+	# 	}
+		
+	# 	folder = {
+	# 		name = gw_industry_folder
+	# 		position = { x = 1 y = @1918 }
+	# 	}
+		
+	# 	ai_will_do = {
+	# 		factor = 3
+	# 	}
+	# }
+
+
+	## Railways ##
+	railroad_tech = {
+		production_speed_rail_way_factor = 0.05
+
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = railroad_tech_2a
+		}
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = railroad_tech_2b
+		}
+
+		research_cost = 1.5
+		start_year = 1900
+		
+		categories = {
+			industry
+			construction_tech
+		}
+		
+		folder = {
+			name = gw_industry_folder
+			position = { x = 0 y = @1900 }
+		}
+		
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+	# Narrow gauge
+	railroad_tech_2a = {
+		production_cost_rail_way_factor = -0.1	
+		supply_factor = -0.1
+
+		XOR = {
+			railroad_tech_2b
+		}
+
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = railroad_tech_3
+		}
+
+		research_cost = 1.5
+		start_year = 1900
+		
+		categories = {
+			industry
+			construction_tech
+		}
+		
+		folder = {
+			name = gw_industry_folder
+			position = { x = -1 y = @1900.2 }
+		}
+		
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				factor = 0.1
+				# these countries preferred narrow guage as its cheaper
+				OR = {
+					is_major = no
+					tag = AUH
+					tag = ITA
+					tag = TUR
+				}
+			}
+		}
+	}
+
+	# Wide gauge
+	railroad_tech_2b = {
+		production_cost_rail_way_factor = 0.1
+		supply_factor = 0.1
+
+		XOR = {
+			railroad_tech_2a
+		}
+
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = railroad_tech_3
+		}
+
+		research_cost = 1.5
+		start_year = 1900
+		
+		categories = {
+			industry
+			construction_tech
+		}
+		
+		folder = {
+			name = gw_industry_folder
+			position = { x = 1 y = @1900.2 }
+		}
+		
+		ai_will_do = {
+			factor = 4
+		}
+	}
+
+
+	railroad_tech_3 = {
+		production_speed_rail_way_factor = 0.05
+		production_speed_supply_node_factor = 0.07
+
+		path = {
+			research_cost_coeff = 1
+			leads_to_tech = railroad_tech_4
+		}
+
+		research_cost = 1.5
+		start_year = 1916
+		
+		categories = {
+			industry
+			construction_tech
+		}
+		
+		folder = {
+			name = gw_industry_folder
+			position = { x = 0 y = @1916 }
+		}
+		
+		ai_will_do = {
+			factor = 2
+		}
+	}
+
+
+	railroad_tech_4 = {
+		production_speed_rail_way_factor = 0.05
+		production_speed_supply_node_factor = 0.07
+
+		research_cost = 1.5
+		start_year = 1918
+		
+		categories = {
+			industry
+			construction_tech
+		}
+		
+		folder = {
+			name = gw_industry_folder
+			position = { x = 0 y = @1918 }
+		}
+		
+		ai_will_do = {
+			factor = 2
 		}
 	}
 
@@ -756,18 +726,19 @@ technologies = {
 			building = fuel_silo
 			level = 1
 		}
-		
+
 		path = {
-			leads_to_tech = ww1_bergiusprocess
+			leads_to_tech = ww1_oil2
 			research_cost_coeff = 1
 		}
+
 		
 		research_cost = 2
-		start_year = 1910
+		start_year = 1900
 
 		folder = {
 			name = gw_industry_folder
-			position = { x = 2 y = @1910 }
+			position = { x = 0 y = @1900 }
 		}
 		
 		categories = {
@@ -816,73 +787,77 @@ technologies = {
 		}
 	}
 
-	# ww1_oil2 = {
-	# 	fuel_gain_factor = 0.1
-	# 	#fuel_gain_factor_from_states = 0.1
-		
-	# 	path = {
-	# 		leads_to_tech = ww1_oil3
-	# 		research_cost_coeff = 1
-	# 	}
+	ww1_oil2 = {
+		fuel_gain_factor = 0.1
+		#fuel_gain_factor_from_states = 0.1
 
-	# 	path = {
-	# 		leads_to_tech = ww1_bergiusprocess
-	# 		research_cost_coeff = 1
-	# 	}
+		enable_building = {
+			building = fuel_silo
+			level = 2
+		}
 		
-	# 	research_cost = 2
-	# 	start_year = 1910
+		path = {
+			leads_to_tech = ww1_bergiusprocess
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_fuel_refining
+			research_cost_coeff = 1
+		}
+		
+		research_cost = 2
+		start_year = 1900
 
-	# 	folder = {
-	# 		name = gw_industry_folder
-	# 		position = { x = 0 y = @1910 }
-	# 	}
+		folder = {
+			name = gw_industry_folder
+			position = { x = 0 y = @1900.2 }
+		}
 		
-	# 	categories = {
-	# 		industry
-	# 	}
+		categories = {
+			industry
+		}
 		
-	# 	ai_will_do = {
-	# 		factor = 4
-	# 		modifier = {
-	# 			tag = USA
-	# 			factor = 0.5
-	# 		}
-	# 		modifier = {
-	# 			has_war = yes
-	# 			factor = 2
-	# 		}
-	# 		modifier = {
-	# 			is_major = no
-	# 			factor = 0.25
-	# 		}
-	# 		modifier = {
-	# 			factor = 1.5
-	# 			num_of_military_factories > 10
-	# 		}	
-	# 		modifier = {
-	# 			factor = 1.5
-	# 			num_of_military_factories > 20
-	# 		}	
-	# 		modifier = {
-	# 			factor = 1.5
-	# 			num_of_military_factories > 30
-	# 		}	
+		ai_will_do = {
+			factor = 4
+			modifier = {
+				tag = USA
+				factor = 0.5
+			}
+			modifier = {
+				has_war = yes
+				factor = 2
+			}
+			modifier = {
+				is_major = no
+				factor = 0.25
+			}
+			modifier = {
+				factor = 1.5
+				num_of_military_factories > 10
+			}	
+			modifier = {
+				factor = 1.5
+				num_of_military_factories > 20
+			}	
+			modifier = {
+				factor = 1.5
+				num_of_military_factories > 30
+			}	
 
-	# 		modifier = {
-	# 			factor = 1.5
-	# 			num_of_naval_factories > 10
-	# 		}	
-	# 		modifier = {
-	# 			factor = 1.5
-	# 			num_of_naval_factories > 20
-	# 		}	
-	# 		modifier = {
-	# 			factor = 1.5
-	# 			num_of_naval_factories > 30
-	# 		}
-	# 	}
-	# }
+			modifier = {
+				factor = 1.5
+				num_of_naval_factories > 10
+			}	
+			modifier = {
+				factor = 1.5
+				num_of_naval_factories > 20
+			}	
+			modifier = {
+				factor = 1.5
+				num_of_naval_factories > 30
+			}
+		}
+	}
 
 	
 	ww1_bergiusprocess = {
@@ -895,16 +870,12 @@ technologies = {
 			leads_to_tech = ww1_oil3 
 			research_cost_coeff = 1
 		}
-		path = {
-			leads_to_tech = ww1_fuel_refining
-			research_cost_coeff = 1
-		}
 		
 		research_cost = 5
 		start_year = 1914
 		folder = {
 			name = gw_industry_folder
-			position = { x = 2 y = @1914 }
+			position = { x = -1 y = @1914 }
 		}
 		
 		categories = {
@@ -968,7 +939,7 @@ technologies = {
 
 		folder = {
 			name = gw_industry_folder
-			position = { x = 2 y = @1918 }
+			position = { x = -1 y = @1918 }
 		}
 		
 		categories = {
@@ -1030,7 +1001,7 @@ technologies = {
 		start_year = 1914
 		folder = {
 			name = gw_industry_folder
-			position = { x = 4 y = @1914 }
+			position = { x = 1 y = @1914 }
 		}
 		
 		categories = {
@@ -1090,7 +1061,7 @@ technologies = {
 		start_year = 1918
 		folder = {
 			name = gw_industry_folder
-			position = { x = 4 y = @1918 }
+			position = { x = 1 y = @1918 }
 		}
 		
 		categories = {
