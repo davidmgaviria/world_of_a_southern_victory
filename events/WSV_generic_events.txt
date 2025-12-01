@@ -1,263 +1,138 @@
-﻿add_namespace = wsv_generic
+﻿add_namespace = wsv_gw_generic
+
 
 ###################################################################
-
-#non-aggression
-country_event = {
-	id = wsv_generic.1
-	title = wsv_generic.1.t
-	desc = wsv_generic.1.d
-	picture = report_event_sign_paper
-
-	is_triggered_only = yes
-	
-	#accept pact
-	option = {
-		name = wsv_generic.1.a
-		
-		diplomatic_relation = {
-		    country = FROM
-		    relation = non_aggression_pact
-		    active = yes
-		}
-		FROM = { country_event = { id = wsv_generic.2 } } 
-
-		ai_chance = {
-			factor = 40
-			modifier = {
-				add = 20
-				has_opinion = {
-					target = FROM
-					value > 9
-				}
-			}
-			modifier = {
-				add = 20
-				has_opinion = {
-					target = FROM
-					value > 29
-				}
-			}
-			modifier = {
-				add = 40
-				has_opinion = {
-					target = FROM
-					value > 49
-				}
-			}
-			modifier = {
-				add = 20
-				strength_ratio = {
-				    tag = FROM
-				    ratio < 1
-				}
-			}
-			modifier = {
-				add = 20
-				strength_ratio = {
-				    tag = FROM
-				    ratio < 0.5
-				}
-			}
-			modifier = {
-				factor = 0
-				FROM = {
-					any_owned_state = {
-						OR = { is_claimed_by = ROOT   is_core_of = ROOT }
-					}
-				}
-			}
-		}
-	}
-	
-	#refuse pact
-	option = {
-		name = wsv_generic.1.b
-
-		FROM = { 
-			add_opinion_modifier = { 
-				target = ROOT
-				modifier =  HOI4TGW_Opinion_hostile_diplomatic_relations
-			}
-			country_event = { id = wsv_generic.3 }
-		}
-
-		ai_chance = {
-			factor = 40
-			modifier = {
-				add = 20
-				has_opinion = {
-					target = FROM
-					value < -9
-				}
-			}
-			modifier = {
-				add = 20
-				has_opinion = {
-					target = FROM
-					value < -29
-				}
-			}
-			modifier = {
-				add = 40
-				has_opinion = {
-					target = FROM
-					value < -49
-				}
-			}
-		}
-	}
-}
-
-
-
-#reconcile successful	
-country_event = {
-	id = wsv_generic.2
-	title = wsv_generic.2.t
-	desc = wsv_generic.2.d
-	picture = report_event_deal_made
-
-    is_triggered_only = yes
-
-	option = {
-		name = wsv_generic.2.a
-		
-	}
-}
-
-
-#reconcile unsuccessful	
-country_event = {
-	id = wsv_generic.3
-	title = wsv_generic.3.t
-	desc = wsv_generic.3.d
-	picture = report_event_walked_out
-
-    is_triggered_only = yes
-
-	option = {
-		name = wsv_generic.3.a
-		
-	}
-}
-
+## -- Focus Tree Events
 ###################################################################
 
-
-#request aid
+## Who to ally with?  -- "Take Side" National focus
 country_event = {
-	id = wsv_generic.4
-	title = wsv_generic.4.t
-	desc = wsv_generic.4.d
-	picture =  report_event_request_aid
+	id = wsv_gw_generic.1
+	title = wsv_gw_generic.1.t
+	desc = wsv_gw_generic.1.d
 
-	is_triggered_only = yes
-	
-	#grant aid
+    is_triggered_only = yes
+
+	# Ally US
 	option = {
-		name = wsv_generic.4.a
-
-		send_equipment = {
-		    equipment = infantry_equipment_1
-		    amount = 5000
-		    target = FROM
-		}
-		FROM = { country_event = { id = wsv_generic.5 } }
-
-		ai_chance = {
-			factor = 40
-
-			modifier = {
-				factor = 2
-				OR = {
-					has_equipment = { infantry_equipment_0 > 8000	}
-					has_equipment = { infantry_equipment_1 > 8000	}
-				}
-			}
-
-			modifier = {
-				factor = 2
-				OR = {
-					has_equipment = { infantry_equipment_0 > 12000	}
-					has_equipment = { infantry_equipment_1 > 12000	}
-				}
-			}
-		}
+		name = wsv_gw_generic.1.a
+		trigger = { has_completed_focus=generic_court_americans }
+		set_variable = { ROOT.request_ally_target = USA.id }
 	}
 
-	#refuse aid
+	# Ally Britain
 	option = {
-		name = wsv_generic.4.b
+		name = wsv_gw_generic.1.b
+		trigger = { has_completed_focus=generic_court_british }
+		set_variable = { ROOT.request_ally_target = ENG.id }
+	}
 
-		FROM = { country_event = { id = wsv_generic.6 } }
+	# Ally France
+	option = {
+		name = wsv_gw_generic.1.c
+		trigger = { has_completed_focus=generic_court_french }
+		set_variable = { ROOT.request_ally_target = FRA.id }
+	}
 
-		ai_chance = {
-			factor = 40
+	# Ally Germany
+	option = {
+		name = wsv_gw_generic.1.e
+		trigger = { has_completed_focus=generic_court_germans }
+		set_variable = { ROOT.request_ally_target = GER.id }
+	}
 
-			modifier = {
-				factor = 2
-				OR = {
-					has_equipment = { infantry_equipment_0 < -5000	}
-					has_equipment = { infantry_equipment_1 < -5000	}
-				}
-			}
-
-			modifier = {
-				factor = 2
-				OR = {
-					has_equipment = { infantry_equipment_0 < -10000	}
-					has_equipment = { infantry_equipment_1 < -10000	}
-				}
-			}
-		}
+	# Ally Russia
+	option = {
+		name = wsv_gw_generic.1.f
+		trigger = { has_completed_focus=generic_court_russians }
+		set_variable = { ROOT.request_ally_target = RUS.id }
 	}
 }
 
 
-#aid recieved	
+# ---- Request to join faction -- "Join War" National focus
+# Can we join?   ROOT is country recieving request, FROM is sender
 country_event = {
-	id = wsv_generic.5
-	title = wsv_generic.5.t
-	desc = wsv_generic.5.d
-	picture = report_event_request_aid
+	id = wsv_gw_generic.2
+	title = wsv_gw_generic.2.t
+	desc = wsv_gw_generic.2.d
+
+    is_triggered_only = yes
+
+	# Yes
+	option = {
+		name = wsv_gw_generic.2.a
+		if = {
+			limit = { is_faction_leader = yes }
+			add_to_faction = FROM
+		} else = {
+			FACTION_LEADER = { add_to_faction = FROM }
+		}
+		FROM = { country_event = { id = wsv_gw_generic.3  days = 1 } }
+		ai_chance = { factor = 100 }
+	}
+
+	# No
+	option = {
+		name = wsv_gw_generic.2.b
+		FROM = { country_event = { id = wsv_gw_generic.4  days = 1 } }
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Country said yes
+country_event = {
+	id = wsv_gw_generic.3
+	title = wsv_gw_generic.3.t
+	desc = wsv_gw_generic.3.d
 
     is_triggered_only = yes
 
 	option = {
-		name = wsv_generic.5.a
-		
+		name = wsv_gw_generic.3.a
 	}
 }
 
-
-#aid refused
+# Country said no
 country_event = {
-	id = wsv_generic.6
-	title = wsv_generic.6.t
-	desc = wsv_generic.6.d
-	picture = report_event_walked_out
+	id = wsv_gw_generic.4
+	title = wsv_gw_generic.4.t
+	desc = wsv_gw_generic.4.d
 
     is_triggered_only = yes
 
 	option = {
-		name = wsv_generic.6.a
-		
+		name = wsv_gw_generic.4.a
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################################
+## -- Old Events
+###################################################################
 
 #broke away
 country_event = {
-	id = wsv_generic.7
-	title = wsv_generic.7.t
-	desc = wsv_generic.7.d
+	id = wsv_gw_generic.100
+	title = wsv_gw_generic.100.t
+	desc = wsv_gw_generic.100.d
 	picture = report_event_giving_speech
 
     is_triggered_only = yes
 
 	option = {
-		name = wsv_generic.7.a
+		name = wsv_gw_generic.100.a
 
 		ai_chance = {
 			factor = 40
@@ -270,7 +145,7 @@ country_event = {
 	}
 
 	option = {
-		name = wsv_generic.7.b
+		name = wsv_gw_generic.100.b
 		create_wargoal = {
 		    type = puppet_wargoal_focus
 		    target = FROM
@@ -288,11 +163,11 @@ country_event = {
 }
 
 
-
+# gas attack
 news_event = {
-	id = wsv_generic.8
-	title = wsv_generic.8.t
-	desc = wsv_generic.8.d
+	id = wsv_gw_generic.102
+	title = wsv_gw_generic.102.t
+	desc = wsv_gw_generic.102.d
 	picture = news_event_gas_attack
 
 	major = yes
@@ -300,12 +175,12 @@ news_event = {
     is_triggered_only = yes
 	
 	option = {
-		name = wsv_generic.8.a
+		name = wsv_gw_generic.102.a
 		trigger = { tag = FROM }
 	}
 
 	option = {
-		name = wsv_generic.8.b
+		name = wsv_gw_generic.102.b
 		trigger = { NOT = { tag = FROM } }
 	}
 }
@@ -313,9 +188,9 @@ news_event = {
 
 #christmas truce
 news_event = {
-	id = wsv_generic.9
-	title = wsv_generic.9.t
-	desc = wsv_generic.9.d
+	id = wsv_gw_generic.103
+	title = wsv_gw_generic.103.t
+	desc = wsv_gw_generic.103.d
 	picture = news_event_wsv_christmas_truce
 
 	mean_time_to_happen = { days = 2 }  #cant be days=1 or will cause error
@@ -344,44 +219,13 @@ news_event = {
     immediate = { hidden_effect = { set_global_flag = christmas_truce } }
 	
 	option = {
-		name = wsv_generic.9.a
+		name = wsv_gw_generic.103.a
 		trigger = { has_war = yes }
 	}
 
 	option = {
-		name = wsv_generic.9.b
+		name = wsv_gw_generic.103.b
 		trigger = { has_war = no }
-	}
-}
-
-
-#country joins faction
-news_event = {
-	id = wsv_generic.10
-	title = wsv_generic.10.t
-	desc = wsv_generic.10.d
-	picture = news_event_joined_alliance
-
-	major = yes
-
-    is_triggered_only = yes
-
-   immediate = { 
-    	hidden_effect = { 
-    		FROM = {
-	    		if = {
-	    			limit = { is_major = yes }
-	    			add_threat = 3
-	    		}
-	    		else = {
-	    			add_threat = 1
-	    		}
-	    	}
-    	} 
-    }
-	
-	option = {
-		name = wsv_generic.10.a
 	}
 }
 

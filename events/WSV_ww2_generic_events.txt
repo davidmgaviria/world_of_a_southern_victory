@@ -1,0 +1,40 @@
+﻿add_namespace = wsv_ww2generic
+
+
+
+###################################################################
+
+###################################################################
+
+
+#country joins faction
+news_event = {
+	id = wsv_ww2generic.100
+	title = wsv_ww2generic.100.t
+	desc = wsv_ww2generic.100.d
+	picture = news_event_joined_alliance
+
+	major = yes
+
+    is_triggered_only = yes
+
+   immediate = { 
+    	hidden_effect = { 
+    		FROM = {
+	    		if = {
+	    			limit = { is_major = yes }
+	    			add_threat = 3
+	    		}
+	    		else = {
+	    			add_threat = 1
+	    		}
+	    	}
+    	} 
+    }
+	
+	option = {
+		name = wsv_ww2generic.100.a
+	}
+}
+
+

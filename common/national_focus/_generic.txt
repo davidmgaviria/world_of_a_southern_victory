@@ -623,10 +623,8 @@ focus_tree = {
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_political_power = 75
@@ -636,7 +634,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_court_americans
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_befriend_usa
 		prerequisite = { focus = generic_world_stage }
 		
 		cost = 10
@@ -645,7 +643,7 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -692,7 +690,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_american_investments
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construction
 		prerequisite = { focus = generic_court_americans }
 		
 		cost = 10
@@ -701,7 +699,7 @@ focus_tree = {
 		relative_position_id = generic_court_americans
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -712,12 +710,12 @@ focus_tree = {
 
 		completion_reward = { 
 			add_timed_idea = {
-				idea = generic_american_investments_idea
+				idea = generic_civilian_investments_idea
 				days = 360
 			}
 			add_tech_bonus = {
-				bonus = 0.5
-				uses = 2
+				bonus = 0.75
+				uses = 1
 				category = industry
 			}
 		}
@@ -735,7 +733,7 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -776,7 +774,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_british_investments
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_naval_dockyard
 		prerequisite = { focus = generic_court_british }
 		
 		cost = 10
@@ -785,15 +783,24 @@ focus_tree = {
 		relative_position_id = generic_court_british
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		available = {
+			is_puppet = no
+			country_exists = ENG
+			NOT = { has_war_with = ENG }
+		}
 
 		completion_reward = { 
 			add_timed_idea = {
-				idea = generic_british_investments_idea
+				idea = generic_naval_investments_idea
 				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = industry
 			}
 		}
 	}
@@ -801,7 +808,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_gp_naval_advisors
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_generic_navy_battleship2
 		prerequisite = { focus = generic_court_british  focus = generic_court_americans  }
 		
 		cost = 10
@@ -810,10 +817,8 @@ focus_tree = {
 		relative_position_id = generic_court_americans
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_timed_idea = {
@@ -835,7 +840,7 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -876,7 +881,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_french_investments
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_civ_factory
 		prerequisite = { focus = generic_court_french }
 		
 		cost = 10
@@ -885,15 +890,24 @@ focus_tree = {
 		relative_position_id = generic_court_french
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		available = {
+			is_puppet = no
+			country_exists = FRA
+			NOT = { has_war_with = FRA }
+		}
 
 		completion_reward = { 
 			add_timed_idea = {
-				idea = generic_french_investments_idea
+				idea = generic_civilian_investments_idea
 				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = artillery
 			}
 		}
 	}
@@ -901,7 +915,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_gp_capital_influx
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_mex_privatisation
 		prerequisite = { focus = generic_court_british  focus = generic_court_french  }
 		
 		cost = 10
@@ -910,10 +924,8 @@ focus_tree = {
 		relative_position_id = generic_court_british
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
-
-		#bypass = {}
 
 		completion_reward = { 
 			add_timed_idea = {
@@ -935,7 +947,7 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -976,7 +988,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_german_investments
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_mil_factory
 		prerequisite = { focus = generic_court_germans }
 		
 		cost = 10
@@ -985,19 +997,23 @@ focus_tree = {
 		relative_position_id = generic_court_germans
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		available = {
+			is_puppet = no
+			country_exists = GER
+			NOT = { has_war_with = GER }
+		}
 
 		completion_reward = { 
 			add_timed_idea = {
-				idea = generic_german_investments_idea
+				idea = generic_military_investments_idea
 				days = 360
 			}
 			add_tech_bonus = {
-				bonus = 0.5
-				uses = 2
+				bonus = 0.75
+				uses = 1
 				category = electronics
 				category = chemical_tech
 			}
@@ -1007,7 +1023,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_gp_military_advisors
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_rhineland
 		prerequisite = { focus = generic_court_germans  focus = generic_court_french  }
 		
 		cost = 10
@@ -1016,7 +1032,7 @@ focus_tree = {
 		relative_position_id = generic_court_french
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		#bypass = {}
@@ -1032,7 +1048,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_court_russians
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_invite_russia_to_entente
 		prerequisite = { focus = generic_world_stage }
 		
 		cost = 10
@@ -1041,7 +1057,7 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -1088,7 +1104,7 @@ focus_tree = {
 
 	focus = {
 		id = generic_gp_railway_loans
-		icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = generic_court_germans  focus = generic_court_russians  }
 		
 		cost = 10
@@ -1097,7 +1113,7 @@ focus_tree = {
 		relative_position_id = generic_court_germans
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		#bypass = {}
@@ -1113,7 +1129,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_russian_investments
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_small_arms
 		prerequisite = { focus = generic_court_russians }
 		
 		cost = 10
@@ -1122,15 +1138,24 @@ focus_tree = {
 		relative_position_id = generic_court_russians
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		available = {
+			is_puppet = no
+			country_exists = RUS
+			NOT = { has_war_with = RUS }
+		}
 
 		completion_reward = { 
 			add_timed_idea = {
-				idea = generic_russian_investments_idea
+				idea = generic_civilian_investments_idea
 				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = infantry_weapons
 			}
 		}
 	}
@@ -1147,7 +1172,7 @@ focus_tree = {
 		relative_position_id = generic_french_investments
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		available = {
@@ -1165,7 +1190,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_take_a_side
-		#icon = GFX_goal_generic_alliance
+		icon = GFX_goal_generic_alliance
 		prerequisite = { focus = generic_the_great_war }
 		mutually_exclusive = { focus= generic_affirm_neutrality }
 		
@@ -1175,12 +1200,21 @@ focus_tree = {
 		relative_position_id = generic_the_great_war
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		available = {
+			has_war = no
+			is_puppet = no
+			is_in_faction = no
+		}
+
+		bypass = {
+			is_in_faction = yes
+		}
 
 		completion_reward = { 
+			country_event = wsv_gw_generic.1
 		}
 	}
 
@@ -1196,10 +1230,12 @@ focus_tree = {
 		relative_position_id = generic_take_a_side
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		bypass = {
+			has_war = yes
+		}
 
 		completion_reward = { 
 			add_timed_idea = {
@@ -1212,7 +1248,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_join_the_war
-		#icon = GFX_goal_generic_major_war
+		icon = GFX_goal_generic_major_war
 		prerequisite = { focus = generic_mobilize_economy }
 		
 		cost = 10
@@ -1221,12 +1257,32 @@ focus_tree = {
 		relative_position_id = generic_mobilize_economy
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
-		#bypass = {}
+		available = {
+			has_war = no
+			is_puppet = no
+			is_in_faction = no
+		}
+
+		bypass = {
+			is_in_faction = yes
+			has_war = yes
+		}
 
 		completion_reward = { 
+			if = {
+				limit = { has_variable = ROOT.request_ally_target }
+				var:request_ally_target = {
+					if = {
+						limit = { exists=yes  has_capitulated=no  is_in_faction=yes }
+						country_event = { id = wsv_gw_generic.2  days = 2 }
+					} 
+					else = { custom_effect_tooltip = join_the_war_broken_focus_tt }
+				}
+			} 
+			else = { custom_effect_tooltip = join_the_war_undecided_focus_tt }
 		}
 	}
 
@@ -1293,7 +1349,7 @@ focus_tree = {
 		relative_position_id = generic_affirm_neutrality
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		#bypass = {}
@@ -1315,7 +1371,7 @@ focus_tree = {
 		relative_position_id = generic_affirm_neutrality
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		#bypass = {}
@@ -1328,7 +1384,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_abandon_neutrality
-		#icon = GFX_focus_chi_legislative_yuan
+		#icon = GFX_focus_renounce_the_treaty_of_trianon
 		prerequisite = { focus = generic_deterrence }
 		prerequisite = { focus = generic_reserve_divisions }
 		
@@ -1338,12 +1394,20 @@ focus_tree = {
 		relative_position_id = generic_deterrence
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
+		}
+
+		available = {
+			OR = {
+				has_war = yes
+				## TODO - great war lasted over 4 years
+			}
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			remove_ideas = neutrality_idea
 		}
 	}
 
@@ -1359,7 +1423,12 @@ focus_tree = {
 		relative_position_id = generic_join_the_war
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
+		}
+
+		available = {
+			has_war = yes
+			is_puppet = no
 		}
 
 		#bypass = {}
@@ -2142,7 +2211,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_infantry_effort2
-		icon = GFX_goal_generic_military_sphere
+		icon = GFX_focus_phi_battalion_combat_teams
 		prerequisite = { focus = generic_trench_warfare }
 		cost = 10
 		x = -2
