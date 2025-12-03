@@ -24,7 +24,7 @@ focus_tree = {
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 5
+			factor = 50
 		}
 
 		#bypass = {}
@@ -49,7 +49,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		#bypass = {}
@@ -77,7 +77,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		#bypass = {}
@@ -111,7 +111,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		#bypass = {}
@@ -141,7 +141,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 			modifier = {
 				factor = 2
 				date > 1912.1.1
@@ -175,7 +175,7 @@ focus_tree = {
 		relative_position_id = generic_mil_factories
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 			modifier = {
 				factor = 2
 				date > 1912.1.1
@@ -206,7 +206,7 @@ focus_tree = {
 		relative_position_id = generic_infrastructure_effort
 
 		ai_will_do = { 
-			factor = 5
+			factor = 50
 		}
 
 		available = {
@@ -235,7 +235,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort2
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -263,7 +263,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort2
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -297,7 +297,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort2
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -327,7 +327,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories3
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -357,7 +357,7 @@ focus_tree = {
 		relative_position_id = generic_infrastructure_effort2
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		available = {
@@ -386,7 +386,7 @@ focus_tree = {
 		relative_position_id = generic_mil_factories3
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -414,7 +414,7 @@ focus_tree = {
 		relative_position_id = generic_research_effort1
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		available = {
@@ -443,7 +443,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort3
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -473,7 +473,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort3
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -507,7 +507,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort3
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -536,7 +536,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories5
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -564,7 +564,7 @@ focus_tree = {
 		relative_position_id = generic_mil_factories5
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -593,7 +593,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories6
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -623,7 +623,11 @@ focus_tree = {
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 20
+			modifier = {
+				factor = 3
+				date > 1912.1.1
+			} 
 		}
 
 		completion_reward = { 
@@ -643,12 +647,24 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 20   # if we're in the Americas will likely court the US
+			# these countries dont like the USA
+			modifier = {
+				factor = 0
+				OR = { 
+					tag=ARG
+					tag=MEX   # TODO remove once they get a focus tree
+				}
+			}
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = USA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=USA }
+				is_in_faction_with=USA
+			}
 			NOT = { has_war_with = USA }
 			custom_trigger_tooltip = {
 				tooltip = less_than_two_gp_courted_tt	
@@ -699,12 +715,20 @@ focus_tree = {
 		relative_position_id = generic_court_americans
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = USA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=USA }
+				is_in_faction_with=USA
+			}
 			NOT = { has_war_with = USA }
 		}
 
@@ -733,12 +757,30 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 30   # global influence 
+			# less influence in Europe compared to France / Germany
+			modifier = {
+				factor = 0.2
+				capital_scope = { is_on_continent=europe }
+				NOT = { tag=NOR  tag=SWE  tag=DEN  tag=HOL }  # these countries were close to Britain
+			}
+			# these countries dont like Britain
+			modifier = {
+				factor = 0
+				OR = { 
+					tag=HAI
+					tag=CHL
+				}
+			}
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = ENG
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=ENG }
+				is_in_faction_with=ENG
+			}
 			NOT = { has_war_with = ENG }
 			custom_trigger_tooltip = {
 				tooltip = less_than_two_gp_courted_tt	
@@ -783,12 +825,20 @@ focus_tree = {
 		relative_position_id = generic_court_british
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = ENG
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=ENG }
+				is_in_faction_with=ENG
+			}
 			NOT = { has_war_with = ENG }
 		}
 
@@ -817,7 +867,7 @@ focus_tree = {
 		relative_position_id = generic_court_americans
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 10 
 		}
 
 		completion_reward = { 
@@ -840,12 +890,39 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 10 
+			# main influence in Europe
+			modifier = {
+				factor = 3
+				capital_scope = { is_on_continent=europe } 
+				NOT = { tag=NOR  tag=SWE  tag=DEN  tag=HOL }    # more aligned with Britain
+			}
+			# some influence outside Europe
+			modifier = {
+				factor = 1.5
+				OR = {
+					capital_scope = { is_on_continent=middle_east }
+					capital_scope = { is_on_continent=africa } 
+					capital_scope = { is_on_continent=south_america }
+				}
+			}
+			# these countries dont like France
+			modifier = {
+				factor = 0
+				OR = {
+					tag=HAI
+					tag=CHL
+				}
+			}
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = FRA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=FRA }
+				is_in_faction_with=FRA
+			}
 			NOT = { has_war_with = FRA }
 			custom_trigger_tooltip = {
 				tooltip = less_than_two_gp_courted_tt	
@@ -890,12 +967,20 @@ focus_tree = {
 		relative_position_id = generic_court_french
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = FRA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=FRA }
+				is_in_faction_with=FRA
+			}
 			NOT = { has_war_with = FRA }
 		}
 
@@ -924,7 +1009,7 @@ focus_tree = {
 		relative_position_id = generic_court_british
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 15 
 		}
 
 		completion_reward = { 
@@ -947,12 +1032,45 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 10
+			# main influence in Europe
+			modifier = {
+				factor = 3
+				capital_scope = { is_on_continent=europe } 
+			}
+			# some influence outside Europe
+			modifier = {
+				factor = 1.5
+				OR = {
+					capital_scope = { is_on_continent=middle_east}
+					capital_scope = { is_on_continent=africa } 
+					capital_scope = { is_on_continent=south_america } 
+					tag=CHI
+					tag=QIN
+				}
+			}
+			# these countries dont like Germany
+			modifier = {
+				factor = 0
+				OR = {
+					tag=MEX
+					tag=ARG
+					tag=BEL
+					tag=ROM
+					tag=MNT
+					tag=GRE
+				}
+			}
 		}
 
+
 		available = {
-			is_puppet = no
 			country_exists = GER
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=GER }
+				is_in_faction_with=GER
+			}
 			NOT = { has_war_with = GER }
 			custom_trigger_tooltip = {
 				tooltip = less_than_two_gp_courted_tt	
@@ -997,12 +1115,20 @@ focus_tree = {
 		relative_position_id = generic_court_germans
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = GER
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=GER }
+				is_in_faction_with=GER
+			}
 			NOT = { has_war_with = GER }
 		}
 
@@ -1032,7 +1158,7 @@ focus_tree = {
 		relative_position_id = generic_court_french
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 10 
 		}
 
 		#bypass = {}
@@ -1057,12 +1183,23 @@ focus_tree = {
 		relative_position_id = generic_world_stage
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 0 
+			modifier = {
+				add = 20
+				OR = {
+					tag=ROM
+					tag=PER
+				}
+			}
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = RUS
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=RUS }
+				is_in_faction_with=RUS
+			}
 			NOT = { has_war_with = RUS }
 			custom_trigger_tooltip = {
 				tooltip = less_than_two_gp_courted_tt	
@@ -1113,7 +1250,7 @@ focus_tree = {
 		relative_position_id = generic_court_germans
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 10 
 		}
 
 		#bypass = {}
@@ -1138,12 +1275,20 @@ focus_tree = {
 		relative_position_id = generic_court_russians
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
 		}
 
 		available = {
-			is_puppet = no
 			country_exists = RUS
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=RUS }
+				is_in_faction_with=RUS
+			}
 			NOT = { has_war_with = RUS }
 		}
 
@@ -1200,7 +1345,17 @@ focus_tree = {
 		relative_position_id = generic_the_great_war
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 0
+			# these countries joined the war historically
+			modifier = {
+				add = 50
+				tag=HAI
+				tag=CHL
+				tag=ARG
+				tag=BRA
+				tag=ROM
+				tag=BUL
+			} 
 		}
 
 		available = {
@@ -1230,7 +1385,7 @@ focus_tree = {
 		relative_position_id = generic_take_a_side
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 20 
 		}
 
 		bypass = {
@@ -1257,7 +1412,7 @@ focus_tree = {
 		relative_position_id = generic_mobilize_economy
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 0   # TODO - when does each country join?
 		}
 
 		available = {
@@ -1298,28 +1453,21 @@ focus_tree = {
 		y =  1
 		relative_position_id = generic_the_great_war
 
-		# ai_will_do = { 
-		# 	factor = 1
-		# 	modifier = {
-		# 		factor = 0.5
-		# 		threat < 0.4
-		# 	}
-		# 	modifier = {
-		# 		factor = 5
-		# 		threat > 0.5
-		# 	}
-		# 	# these nations chose sides
-		# 	modifier = {
-		# 		factor = 0
-		# 		OR = {
-		# 			tag = SER
-		# 			tag = BUL
-		# 			tag = ITA
-		# 			tag = ROM
-		# 			tag = JAP
-		# 		}
-		# 	}
-		# }
+		ai_will_do = { 
+			factor = 50
+			# these countries joined the war historically
+			modifier = {
+				factor = 0
+				OR = {
+					tag=HAI
+					tag=CHL
+					tag=ARG
+					tag=BRA
+					tag=ROM
+					tag=BUL
+				}
+			}
+		}
 
 		available = {
 			has_war = no
@@ -1349,7 +1497,7 @@ focus_tree = {
 		relative_position_id = generic_affirm_neutrality
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 20 
 		}
 
 		#bypass = {}
@@ -1371,7 +1519,7 @@ focus_tree = {
 		relative_position_id = generic_affirm_neutrality
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 20 
 		}
 
 		#bypass = {}
@@ -1384,7 +1532,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_abandon_neutrality
-		#icon = GFX_focus_renounce_the_treaty_of_trianon
+		icon = GFX_focus_renounce_the_treaty_of_trianon
 		prerequisite = { focus = generic_deterrence }
 		prerequisite = { focus = generic_reserve_divisions }
 		
@@ -1394,17 +1542,19 @@ focus_tree = {
 		relative_position_id = generic_deterrence
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 0
 		}
 
 		available = {
 			OR = {
-				has_war = yes
-				## TODO - great war lasted over 4 years
+				num_of_factories > 75
+				has_army_manpower = { size > 399999 }
 			}
 		}
 
-		#bypass = {}
+		bypass = {
+			has_war = yes
+		}
 
 		completion_reward = { 
 			remove_ideas = neutrality_idea
@@ -1423,7 +1573,7 @@ focus_tree = {
 		relative_position_id = generic_join_the_war
 
 		ai_will_do = { 
-			factor = 1 
+			factor = 0
 		}
 
 		available = {
@@ -2070,9 +2220,9 @@ focus_tree = {
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
-				factor = 2
+				factor = 3
 				has_war = yes
 			}
 		}
@@ -2101,9 +2251,9 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
-				factor = 2
+				factor = 2.5
 				has_war = yes
 			}
 		}
@@ -2131,7 +2281,7 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		bypass = {
@@ -2188,7 +2338,7 @@ focus_tree = {
 		relative_position_id = generic_infantry_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
 				factor = 2
 				has_war = yes
@@ -2219,7 +2369,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -2245,7 +2395,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -2272,7 +2422,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -2302,7 +2452,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -2385,7 +2535,7 @@ focus_tree = {
 		relative_position_id = generic_defensive_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -2412,14 +2562,14 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
-				factor = 0.5
-				num_of_military_factories < 8
+				factor = 0.1
+				num_of_military_factories < 15
 			}
 			modifier = {
-				factor = 2
-				num_of_military_factories > 13
+				factor = 3
+				num_of_military_factories > 25
 			}
 		}
 
@@ -2453,10 +2603,10 @@ focus_tree = {
 		relative_position_id = generic_air_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 			modifier = {
-				factor = 2
-				num_of_military_factories > 13
+				factor = 3
+				num_of_military_factories > 25
 			}
 		}
 
@@ -2510,8 +2660,8 @@ focus_tree = {
 		ai_will_do = { 
 			factor = 1
 			modifier = {
-				factor = 2
-				num_of_military_factories > 19
+				factor = 20
+				num_of_military_factories > 40
 			}
 		}
 
@@ -2537,10 +2687,14 @@ focus_tree = {
 		relative_position_id = generic_light_aircraft
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
 			modifier = {
-				factor = 2
+				factor = 3
 				has_war = yes
+			}
+			modifier = {
+				factor = 6
+				num_of_military_factories > 40
 			}
 		}
 
@@ -2696,10 +2850,10 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 15
 			modifier = {
 				factor = 3
-				num_of_naval_factories > 6  # 7 or more factorie
+				num_of_naval_factories > 10
 			}
 		}
 
@@ -2743,9 +2897,9 @@ focus_tree = {
 		relative_position_id = generic_navy_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 			modifier = {
-				factor = 2
+				factor = 3
 				num_of_naval_factories > 10
 			}
 		}
@@ -2772,10 +2926,10 @@ focus_tree = {
 		relative_position_id = generic_navy_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 			modifier = {
-				factor = 2
-				num_of_naval_factories > 10
+				factor = 3
+				num_of_naval_factories > 15
 			}
 		}
 
@@ -2802,10 +2956,10 @@ focus_tree = {
 		relative_position_id = generic_navy_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
 			modifier = {
-				factor = 2
-				num_of_naval_factories > 10
+				factor = 10
+				num_of_naval_factories > 15
 			}
 		}
 
@@ -2834,7 +2988,11 @@ focus_tree = {
 		relative_position_id = generic_cruiser_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
+			modifier = {
+				factor = 10
+				num_of_naval_factories > 15
+			}
 		}
 
 		#bypass = {}
@@ -2885,7 +3043,11 @@ focus_tree = {
 		relative_position_id = generic_improved_nav_doctrine
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
+			modifier = {
+				factor = 10
+				num_of_naval_factories > 15
+			}
 		}
 
 		#bypass = {}
@@ -2907,7 +3069,12 @@ focus_tree = {
 
 		ai_will_do = { 
 			factor = 1
+			modifier = {
+				factor = 10
+				num_of_naval_factories > 15
+			}
 		}
+
 
 		available = {
 			any_owned_state = {
