@@ -1,7 +1,7 @@
 focus_tree = {
 	id = generic_focus
 	country = { 
-		factor = 2 
+		factor = 1 
 		modifier={ 
 			factor = 0 
 			has_start_date > 1935.1.1
@@ -10,7 +10,7 @@ focus_tree = {
 	default = yes
 	reset_on_civilwar = no
 
-	continuous_focus_position = { x = 50 y = 2000 }
+	continuous_focus_position = { x = 50 y = 2100 }
 
 	####################################
 	## -- Industrial
@@ -618,8 +618,8 @@ focus_tree = {
 		#prerequisite = { focus = }
 		
 		cost = 5
-		x = 16
-		y = 7
+		x = 12
+		y = 0
 		#relative_position_id = 
 
 		ai_will_do = { 
@@ -1403,7 +1403,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_join_the_war
-		icon = GFX_goal_generic_major_war
+		icon = GFX_goal_generic_major_war  #Focus_PRC_stoke_the_flames
 		prerequisite = { focus = generic_mobilize_economy }
 		
 		cost = 10
@@ -1586,6 +1586,7 @@ focus_tree = {
 		completion_reward = { 
 		}
 	}
+	
 
 
 	# focus = {
@@ -1944,7 +1945,7 @@ focus_tree = {
 		
 	# # focus = {
 	# # 	id = generic_abandon_neutrality
-	# # 	##icon = GFX_focus_chi_legislative_yuan
+	# # 	###icon = GFX_focus_chi_legislative_yuan
 	# # 	prerequisite = { focus = generic_mobilize_economy }
 	# # 	mutually_exclusive = { focus=generic_home_defense  }
 	# # 	cost = 10
@@ -2215,8 +2216,8 @@ focus_tree = {
 		icon = GFX_focus_generic_commonwealth_build_infantry
 		#prerequisite = { focus = }
 		cost = 10
-		x = 10
-		y = 0
+		x = 9
+		y = 9
 		#relative_position_id = 
 
 		ai_will_do = { 
@@ -3163,882 +3164,657 @@ focus_tree = {
 		}
 	}
 
+
 	#############################################
 	## Political Section
 	############################################
 
 	focus = {
 		id = generic_political_effort
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		icon = GFX_focus_generic_improve_the_administration  
+		#prerequisite = { focus = }
+		
 		cost = 10
-		x = 60
+		x = 24
 		y = 0
 		#relative_position_id = 
-		#ai_will_do = { 
-		#	factor = 5
-		#}
+
+		ai_will_do = { 
+			factor = 40   # always good to get political power 
+		}
+
 		#bypass = {}
-		#available = {}
+
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
-
+		
 	focus = {
-		id = generic_democracy
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		id = generic_democracy_focus
+		icon = GFX_focus_generic_election  #goal_generic_support_democracy
 		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_authoritarian }
-		mutually_exclusive = { focus = generic_proto_fascism }
-		mutually_exclusive = { focus = generic_revolutionary_socialism }
+		mutually_exclusive = { focus=generic_populism_focus }
+		mutually_exclusive = { focus=generic_authoritarianism_focus }
+		
 		cost = 10
-		x = -11
+		x = -4
 		y = 1
 		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
+
+		ai_will_do = { 
+			factor = 25 
+		}
+
+		available = {
+			has_government = democratic
+		}
+
 		completion_reward = { 
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_democratric_growth_idea
+			}
+			custom_effect_tooltip = unlocks_democratic_advisor_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_consumer_protections_focus
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_democracy_focus }
+		mutually_exclusive = { focus=generic_free_market_ideals_focus  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_democracy_focus
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_consumer_protections_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_welfare_state_focus
+		icon = GFX_focus_generic_welfare
+		prerequisite = { focus = generic_consumer_protections_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_consumer_protections_focus
+
+		ai_will_do = { 
+			factor = 5 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_wellfare_state_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_free_market_ideals_focus
+		icon = GFX_focus_RAJ_special_economic_zones  #focus_generic_currency_reforms
+		prerequisite = { focus = generic_democracy_focus }
+		mutually_exclusive = { focus=generic_consumer_protections_focus  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_democracy_focus
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_free_market_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_land_of_opportunity_focus
+		icon = GFX_focus_generic_industrialists
+		prerequisite = { focus = generic_free_market_ideals_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_free_market_ideals_focus
+
+		ai_will_do = { 
+			factor = 10 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_land_of_opportunity_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_threat_abroad_focus
+		icon = GFX_focus_generic_strike_at_democracy2
+		prerequisite = { focus=generic_consumer_protections_focus focus=generic_free_market_ideals_focus  }
+		
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = generic_free_market_ideals_focus
+
+		ai_will_do = { 
+			factor = 25
+			modifier = {
+				factor = 2
+				threat > 0.5
+			}
+		}
+
+		available = {
+			has_government = democratic
+			threat > 0.3
+		}
+
+		completion_reward = { 
+			add_war_support = 0.1
+			add_political_power = 75
+		}
+	}
+
+		
+	focus = {
+		id = generic_armed_neutrality_focus
+		icon = GFX_goal_generic_construct_military  #goal_generic_military_sphere
+		prerequisite = { focus = generic_threat_abroad_focus }
+		mutually_exclusive = { focus = generic_interventionism_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_threat_abroad_focus
+
+		ai_will_do = { 
+			factor = 25
+			modifier = {
+				factor = 2
+				OR = {
+					threat > 0.5
+					has_war = yes
+				}
+			}
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_armed_neutrality_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_interventionism_focus
+		icon = GFX_focus_generic_democratic_europe
+		prerequisite = { focus = generic_threat_abroad_focus }
+		mutually_exclusive = { focus = generic_armed_neutrality_focus }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_threat_abroad_focus
+
+		ai_will_do = { 
+			factor = 0   # AI doesnt do this branch, mainly for players
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			set_rule = { can_send_volunteers = yes } 
+		}
+	}
+
+		
+	focus = {
+		id = generic_volunteer_corps_focus
+		icon = GFX_goal_generic_military_sphere  #goal_generic_allies_build_infantry  
+		prerequisite = { focus = generic_interventionism_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_interventionism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_volunteer_corps_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_why_we_fight_focus
+		icon = GFX_focus_generic_fight_for_democracy
+		prerequisite = { focus = generic_armed_neutrality_focus focus=generic_volunteer_corps_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_volunteer_corps_focus
+
+		ai_will_do = { 
+			factor = 10 
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_why_we_fight_idea
+			add_war_support = 0.1
 		}
 	}
 
 
+	## TODO --
 	focus = {
-		id = generic_authoritarian
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		id = generic_authoritarianism_focus
+		icon = GFX_focus_hun_elect_a_king
 		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_proto_fascism }
-		mutually_exclusive = { focus = generic_revolutionary_socialism }
+		mutually_exclusive = { focus=generic_democracy_focus }
+		mutually_exclusive = { focus=generic_populism_focus }
+
 		cost = 10
-		x = -3
+		x = 0
 		y = 1
 		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
+
+		ai_will_do = { 
+			factor = 25 
+		}
+
+		available = {
+			has_government = neutrality
+		}
+
 		completion_reward = { 
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_neutrality_growth_idea
+			}
+			custom_effect_tooltip = unlocks_neutrality_advisor_tt
 		}
 	}
 
 
 	focus = {
-		id = generic_proto_fascism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		id = generic_populism_focus
+		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_proto-generic_authoritarian }
-		mutually_exclusive = { focus = generic_revolutionary_socialism }
+		mutually_exclusive = { focus=generic_democracy_focus }
+		mutually_exclusive = { focus=generic_authoritarianism_focus }
+
 		cost = 10
 		x = 4
 		y = 1
 		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
+
+		ai_will_do = { 
+			factor = 0  # AI isnt suppose to do this branch (mainly for players)
+		}
+
 		completion_reward = { 
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.05
+			}
 		}
 	}
 
-
-	focus = {
-		id = generic_revolutionary_socialism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_proto-generic_authoritarian }
-		mutually_exclusive = { focus = generic_proto_fascism }
-		cost = 10
-		x = 10		y = 1
-		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_expanded_social_programs
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_free_market_ideals }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_democracy
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = generic_fight_the_corporations
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_expanded_social_programs }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_expanded_social_programs
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_tax_the_rich
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_fight_the_corporations }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_fight_the_corporations
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_welfare_state
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_expanded_social_programs }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_expanded_social_programs
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_free_market_ideals
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_expanded_social_programs }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_democracy
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_market_with_regulation
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_free_market_ideals }
-		mutually_exclusive = { focus = generic_unfettered_capitalism }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_free_market_ideals
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_unfettered_capitalism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_free_market_ideals }
-		mutually_exclusive = { focus = generic_market_with_regulation }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_free_market_ideals
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_corporate-owned_state
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_unfettered_capitalism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_unfettered_capitalism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_ideological_defense
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_welfare_state  focus = generic_market_with_regulation focus = generic_unfettered_capitalism }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_market_with_regulation
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_deterrence
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_ideological_defense }
-		mutually_exclusive = { focus = generic_volunteer_corps }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_ideological_defense
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_volunteer_corps
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_ideological_defense }
-		mutually_exclusive = { focus = generic_deterrence }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_ideological_defense
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_crusader_of_democracy
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_volunteer_corps }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_volunteer_corps
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_oppressive_rule
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_authoritarian }
-		mutually_exclusive = { focus = generic_enlightened_governance }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_authoritarian
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_suppress_opposition
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_oppressive_rule }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_oppressive_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_crony_networks
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_oppressive_rule }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_oppressive_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_neo_serfdom
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_suppress_opposition }
-		prerequisite = { focus = generic_crony_networks }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_suppress_opposition
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_enlightened_governance
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_authoritarian }
-		mutually_exclusive = { focus = generic_oppressive_rule }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_authoritarian
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_limited_suffrage
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_enlightened_governance }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_enlightened_governance
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = generic_meritocratic_reform
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_enlightened_governance }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_enlightened_governance
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_national_pride
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_limited_suffrage }
-		prerequisite = { focus = generic_meritocratic_reform }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_meritocratic_reform
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_personal_enrichment
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_neo_serfdom }
-		mutually_exclusive = { focus = generic_expansionist_ambitions }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_neo_serfdom
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	# focus = {
-	# 	id = generic_a_new_dynasty
-	# 	#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-	# 	prerequisite = { focus = generic_personal_enrichment }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = generic_personal_enrichment
-	# 	#ai_will_do = { 
-	# 	#	factor = 5
-	# 	#}
-	# 	#bypass = {}
-	# 	#available = {}
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-
-	focus = {
-		id = generic_expansionist_ambitions
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_national_pride  focus = generic_neo_serfdom }
-		mutually_exclusive = { focus = generic_personal_enrichment }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_national_pride
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_for_king_and_country
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_expansionist_ambitions }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_expansionist_ambitions
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_street_politics
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_proto_fascism }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_proto_fascism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_nationalist_agitation
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_proto_fascism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_proto_fascism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_paramilitary_groups
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_proto_fascism }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_proto_fascism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_fascist_revolution
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_nationalist_agitation }
-		prerequisite = { focus = generic_street_politics }
-		prerequisite = { focus = generic_paramilitary_groups }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_nationalist_agitation
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_consolidate_fascist_rule
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_fascist_revolution }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_fascist_revolution
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_pursue_territorial_ambitions
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_fascist_rule }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_consolidate_fascist_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_militarism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_fascist_rule }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_consolidate_fascist_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = generic_territorial_claims
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_pursue_territorial_ambitions  focus = generic_expansionist_ambitions }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_pursue_territorial_ambitions
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_greater_country_name
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_territorial_claims }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_territorial_claims
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	###
-
-
-	focus = {
-		id = generic_underground_networks
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_revolutionary_socialism }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_revolutionary_socialism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_workers_councils
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_revolutionary_socialism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_revolutionary_socialism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_industrial_strikes
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_revolutionary_socialism }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_revolutionary_socialism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_peoples_revolution
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_workers_councils }
-		prerequisite = { focus = generic_underground_networks }
-		prerequisite = { focus = generic_industrial_strikes }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_workers_councils
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_consolidate_soviet_power
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_peoples_revolution }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_peoples_revolution
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_export_revolution
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_soviet_power }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_consolidate_soviet_power
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_collectivization
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_soviet_power }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_consolidate_soviet_power
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_state-controlled_industry
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_collectivization }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_collectivization
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_ideological_fanaticism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_militarism focus = generic_export_revolution }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_militarism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
 		
+	focus = {
+		id = generic_fascism_focus
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_populism_focus }
+		mutually_exclusive = { focus=generic_communism_focus  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_populism_focus
+
+		ai_will_do = { 
+			factor = 0   
+		}
+
+		bypass = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_fascism_growth_idea
+			}
+			custom_effect_tooltip = unlocks_fascism_advisor_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_communism_focus
+		icon = GFX_focus_generic_red_flags  #focus_generic_workers #GFX_goal_support_communism
+		prerequisite = { focus = generic_populism_focus }
+		mutually_exclusive = { focus=generic_fascism_focus  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_populism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_communism_growth_idea
+			}
+			custom_effect_tooltip = unlocks_communism_advisor_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_paramilitarism_focus
+		icon = GFX_focus_ITA_generic_fascist_workers
+		prerequisite = { focus = generic_fascism_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_fascism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_paramilitarism_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_worker_councils_focus
+		icon = GFX_focus_YUG_pan_slavic_congress  #GFX_focus_generic_worker_administration
+		prerequisite = { focus = generic_communism_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_communism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_worker_council_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_consolidate_new_regime
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = generic_paramilitarism_focus focus=generic_worker_councils_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_paramilitarism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_civil_war = no
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			if = {
+				limit = { has_idea = generic_paramilitarism_idea }
+				remove_ideas = generic_paramilitarism_idea
+			}
+			if = {
+				limit = { has_idea = generic_worker_council_idea }
+				remove_ideas = generic_worker_council_idea
+			}
+			set_country_flag = politic_allow_suppress_opposition
+			custom_effect_tooltip = unlocks_political_repression_decisions_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_militarism_focus
+		icon = GFX_focus_generic_fascist_troops
+		prerequisite = { focus = generic_consolidate_new_regime }
+		mutually_exclusive = { focus=generic_collectivization_focus  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_consolidate_new_regime
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_militarism_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_expansionism_focus
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = generic_militarism_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_militarism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_expansionism_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_collectivization_focus
+		icon = GFX_focus_generic_communist_industry
+		prerequisite = { focus = generic_consolidate_new_regime }
+		mutually_exclusive = { focus=generic_militarism_focus  }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_consolidate_new_regime
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_collectivization_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_socialism_one_country_focus
+		icon = GFX_focus_SWE_refuge_for_revolutionaries
+		prerequisite = { focus = generic_collectivization_focus }
+		mutually_exclusive = { focus = generic_global_revolution_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_collectivization_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_socialism_one_country_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_global_revolution_focus
+		icon = GFX_focus_generic_spur_communist_revolutions
+		prerequisite = { focus = generic_collectivization_focus }
+		mutually_exclusive = { focus = generic_socialism_one_country_focus }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_collectivization_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_global_revolution_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_ideological_fanaticism_focus
+		icon = GFX_focus_generic_ideological_fanaticism
+		prerequisite = { focus=generic_expansionism_focus  focus=generic_socialism_one_country_focus  focus=generic_global_revolution_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_expansionism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+
+		completion_reward = {
+			add_ideas = generic_ideological_fanaticism_idea 
+		}
+	}
 }
-	
+
+
+
 
 

@@ -1,57 +1,24 @@
-# For minor countries where advisors are not defined
+# For generic countries that dont have a focus tree
 # Generate them from a generic template
 
 # Political advisors
 every_possible_country = {
 	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-		# avoid generic advisors in temporary countries
-		is_dynamic_country = no
-		NOT = {
-			has_allowed_idea_with_traits = { idea = communist_revolutionary characters = yes }
-		}
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = TUR tag = GRE }
-		}
+		has_focus_tree = generic_focus   
+		is_dynamic_country = no  # avoid generic advisors in temporary countries
 	}
-	generate_character = {
-		token_base = generic_communist_revolutionary # token will be TAG_token_base
-		advisor = {
-			slot = political_advisor
-			traits = { communist_revolutionary }
-			available = {
-				is_puppet = no
-			}
-			ai_will_do = {
-				factor = 0
-			}
-		}
-		portraits = { 
-			army = { small = GFX_idea_generic_communist_revolutionary }
-		}
-	}
-}
-
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-		is_dynamic_country = no
-		NOT = {
-			has_allowed_idea_with_traits = { idea = democratic_reformer characters = yes }
-		}
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = TUR tag = GRE }
-		}
-	}
+	
 	generate_character = {
 		token_base = generic_democratic_reformer # token will be TAG_token_base
 		advisor = {
 			slot = political_advisor
 			traits = { democratic_reformer }
 			available = {
-				is_puppet = no
+				has_completed_focus = generic_democracy_focus
+				OR = {
+					is_puppet = no
+					OVERLORD = { has_government = democratic }
+				}
 			}
 			ai_will_do = {
 				factor = 0
@@ -61,37 +28,71 @@ every_possible_country = {
 			army = { small = GFX_idea_generic_democratic_reformer }
 		}
 	}
-}
 
-every_possible_country = {
-	limit = {
-		NOT = { OR = { tag = USA tag = CSA tag = ENG tag = FRA tag = GER tag = AUH tag = RUS } }
-		is_dynamic_country = no
-		NOT = {
-			has_allowed_idea_with_traits = { idea = fascist_demagogue characters = yes }
-		}
-		if = {
-			limit = { has_dlc = "Battle for the Bosporus" }
-			NOT = { tag = TUR tag = GRE }
-		}
-	}
 	generate_character = {
-		token_base = generic_fascist_demagogue # token will be TAG_token_base
+		token_base = generic_monarchist_advocate # token will be TAG_token_base
 		advisor = {
 			slot = political_advisor
-			traits = { fascist_demagogue }
+			traits = { staunch_monarchist }
 			available = {
-				is_puppet = no			
+				has_completed_focus = generic_authoritarianism_focus
+				OR = {
+					is_puppet = no
+					OVERLORD = { has_government = neutrality }
+				}
 			}
 			ai_will_do = {
 				factor = 0
 			}
 		}
 		portraits = { 
+			army = { small = GFX_idea_generic_fascist_demagogue }   # use same portrait, doesnt matter
+		}
+	}
+
+	generate_character = {
+		token_base = generic_fascist_demagogue # token will be TAG_token_base
+		advisor = {
+			slot = political_advisor
+			traits = { fascist_demagogue }
+			available = {
+				has_completed_focus = generic_fascism_focus
+				OR = {
+					is_puppet = no
+					OVERLORD = { has_government = fascism }
+				}
+			}
+			ai_will_do = {
+				factor = 5  # ai will likely do if possible
+			}
+		}
+		portraits = { 
 			army = { small = GFX_idea_generic_fascist_demagogue }
 		}
 	}
+	
+	generate_character = {
+		token_base = generic_communist_revolutionary # token will be TAG_token_base
+		advisor = {
+			slot = political_advisor
+			traits = { communist_revolutionary }
+			available = {
+				has_completed_focus = generic_communism_focus
+				OR = {
+					is_puppet = no
+					OVERLORD = { has_government = communism }
+				}
+			}
+			ai_will_do = {
+				factor = 5  # ai will likely do if possible
+			}
+		}
+		portraits = { 
+			army = { small = GFX_idea_generic_communist_revolutionary }
+		}
+	}
 }
+
 
 every_possible_country = {
 	limit = {
