@@ -1,0 +1,100 @@
+﻿## ------------------------------------------------------------------ ##
+## Events for the multinational army that made up the Macedonia front ##
+## ------------------------------------------------------------------ ##
+add_namespace = wsv_armyorient
+
+
+
+# News event of Allied troops landing in Thessaloniki
+news_event = {
+	id = wsv_armyorient.1
+	title = wsv_armyorient.1.t
+	desc = wsv_armyorient.1.d
+	picture =  news_event_entente_landing_salonika
+
+    is_triggered_only = yes
+	major = yes
+
+	immediate = {			# DEBUG NOTE: event wsv_greek.52 sets the ARMY_ORIENT_OVERLORD
+		set_global_flag = entente_landings_in_greece
+		set_global_flag = allied_army_orient_formed
+		hidden_effect = {
+			var:global.ARMY_ORIENT_OVERLORD	= {
+				# create Army of the Orient
+				create_dynamic_country = {
+					original_tag = GRE   # breaks if I put it as france
+					copy_tag = FRA	
+					# effects
+					set_variable = { global.ARMY_ORIENT_ACTUAL = THIS.id }
+					transfer_state = 855
+					855 = { add_core_of = THIS } 
+				}
+				change_tag_from = var:global.ARMY_ORIENT_ACTUAL  	# transfer player back
+			}
+			# determine based off overlord
+			var:global.ARMY_ORIENT_ACTUAL = {
+				var:global.ARMY_ORIENT_OVERLORD = {
+					puppet = PREV
+					set_autonomy = {
+						target = PREV
+						autonomous_state = autonomy_protectorate
+					}
+				}
+				every_state = {
+					limit = { is_owned_by = var:global.ARMY_ORIENT_OVERLORD	 }
+					remove_claim_by = PREV
+					remove_core_of = PREV
+				}
+				set_politics = {
+					ruling_party = democratic
+					elections_allowed = no
+				}
+				set_popularities = {
+					democratic = 100
+					neutrality = 0
+					fascism = 0
+					communism = 0
+				}
+				if = { 
+					limit = { check_variable = { global.ARMY_ORIENT_OVERLORD = FRA.id } }
+					set_cosmetic_tag = FRA_armee_d_orient
+					recruit_character = FRA_maurice_sarrail_commander
+					promote_character = FRA_maurice_sarrail_commander  ## TODO - not working, ugh
+				} 
+				else ={
+					set_cosmetic_tag = ENG_army_of_orient
+					## TODO - british commander
+				}
+			}
+			# Greece gets event of what happened
+			GRE = { country_event = { id = wsv_greece.53   days = 1 } }
+		}
+	}
+
+	option = {
+		name = wsv_armyorient.1.a
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = {	is_in_faction_with = FRA }
+			NOT = { tag = GRE }
+		}
+	}
+
+	option = {
+		name = wsv_armyorient.1.b
+		trigger = {
+			OR = { 
+				tag = FRA
+				is_in_faction_with = FRA
+			}
+			NOT = { tag = GRE }
+		}
+	}
+
+	option = {
+		name = wsv_armyorient.1.c
+		trigger = {
+			tag = GRE
+		}
+	}
+}
