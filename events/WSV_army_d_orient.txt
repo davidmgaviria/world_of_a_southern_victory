@@ -55,16 +55,20 @@ news_event = {
 					fascism = 0
 					communism = 0
 				}
+				# set cosmetic tag
 				if = { 
 					limit = { check_variable = { global.ARMY_ORIENT_OVERLORD = FRA.id } }
 					set_cosmetic_tag = FRA_armee_d_orient
-					recruit_character = FRA_maurice_sarrail_commander
-					promote_character = FRA_maurice_sarrail_commander  ## TODO - not working, ugh
+					# recruit_character = FRA_maurice_sarrail_commander
+					# promote_character = FRA_maurice_sarrail_commander  ## TODO - not working, ugh
 				} 
 				else ={
 					set_cosmetic_tag = ENG_army_of_orient
 					## TODO - british commander
 				}
+				# spawn troops
+				spawn_3_orient_infantry_divisions = yes
+				country_event = { id = wsv_armyorient.100  days = 1 }  # start logistic event
 			}
 			# Greece gets event of what happened
 			GRE = { country_event = { id = wsv_greece.53   days = 1 } }
@@ -95,6 +99,116 @@ news_event = {
 		name = wsv_armyorient.1.c
 		trigger = {
 			tag = GRE
+		}
+	}
+}
+
+
+## TODO - needs event marking opening of Salonika Front
+
+## TODO - needs event to clean up 'Salonika front' and return land / divisions once war is over
+
+
+######################################################################
+## -- Test Logistics Systems
+######################################################################
+
+
+# (Every 2 weeks) -- get manpower/supplies from majors
+country_event = {
+	id = wsv_armyorient.100
+	title = wsv_armyorient.100.t
+	desc = wsv_armyorient.100.d
+
+	hidden = yes  # turn off to debug
+
+	trigger = {
+		has_global_flag = allied_army_orient_formed
+		tag = var:global.ARMY_ORIENT_ACTUAL
+		has_capitulated = no
+		num_divisions > 0
+		NOT = { has_country_flag = AdO_logistics_cooldown }
+	}
+	mean_time_to_happen = { days = 2 }
+
+	immediate = {
+		set_country_flag =  { flag = AdO_logistics_cooldown   value = 1  days = 15 }  
+	}
+
+	option = {
+		name = wsv_armyorient.100.a
+		### --- overhead calculations  --- ###
+		# caclulate manpower we want
+		set_temp_variable = { AdO_needed_manpower = ROOT.num_armies }   # this is in thousands, will increase below
+		multiply_temp_variable  = { AdO_needed_manpower = 13280 }   # size of an Allied Oriental Division 
+		multiply_temp_variable  = { AdO_needed_manpower = 1.33 }   # account for reserves
+		set_temp_variable = { AdO_deployed_and_reserve_manpower = ROOT.deployed_army_manpower_k }   
+		add_to_temp_variable = { AdO_deployed_and_reserve_manpower = ROOT.manpower_k }   
+		multiply_temp_variable  = { AdO_deployed_and_reserve_manpower = 1000 }
+		subtract_from_temp_variable = { AdO_needed_manpower = AdO_deployed_and_reserve_manpower }
+		# caclulate rifles we want
+		set_temp_variable = { AdO_needed_rifles = ROOT.num_target_equipment_in_armies@infantry_equipment }   
+		multiply_temp_variable  = { AdO_needed_rifles = 1.33 }
+		subtract_from_temp_variable = { AdO_needed_rifles = ROOT.num_equipment_in_armies@infantry_equipment }  # equipment in our armies
+		subtract_from_temp_variable = { AdO_needed_rifles = ROOT.num_equipment@infantry_equipment }	# equipment in stockpile
+		# caclulate artillery we want
+		set_temp_variable = { AdO_needed_arty = ROOT.num_target_equipment_in_armies@artillery_equipment }   
+		multiply_temp_variable  = { AdO_needed_arty = 1.33 }
+		subtract_from_temp_variable = { AdO_needed_arty = ROOT.num_equipment_in_armies@artillery_equipment }  # equipment in our armies
+		subtract_from_temp_variable = { AdO_needed_arty = ROOT.num_equipment@artillery_equipment }	# equipment in stockpile
+		# caclulate support eq we want
+		set_temp_variable = { AdO_needed_support_eq = ROOT.num_target_equipment_in_armies@support_equipment }   
+		multiply_temp_variable  = { AdO_needed_support_eq = 1.33 }
+		subtract_from_temp_variable = { AdO_needed_support_eq = ROOT.num_equipment_in_armies@support_equipment }  # equipment in our armies
+		subtract_from_temp_variable = { AdO_needed_support_eq = ROOT.num_equipment@support_equipment }	# equipment in stockpile
+		# caclulate machine guns we want
+		set_temp_variable = { AdO_needed_mgs = ROOT.num_target_equipment_in_armies@heavy_weapons_equipment }   
+		multiply_temp_variable  = { AdO_needed_mgs = 1.33 }
+		subtract_from_temp_variable = { AdO_needed_mgs = ROOT.num_equipment_in_armies@heavy_weapons_equipment }  # equipment in our armies
+		subtract_from_temp_variable = { AdO_needed_mgs = ROOT.num_equipment@heavy_weapons_equipment }	# equipment in stockpile
+
+		every_country = {
+			limit = { has_variable = THIS.num_orient_divisions  }
+			# get country contribution
+			set_temp_variable = { contribution_perct = THIS.num_orient_divisions }  divide_temp_variable = { contribution_perct  = ROOT.num_armies }  
+			# give manpower if needed
+			if = {
+				limit = { check_variable = { AdO_needed_manpower  > 0 }  has_manpower > 0 }    # country needs to have manpower available
+				set_temp_variable = { manpower_to_give = AdO_needed_manpower }   
+				multiply_temp_variable  = { manpower_to_give = contribution_perct }
+				set_temp_variable = { manpower_to_remove = manpower_to_give }   
+				multiply_temp_variable  = { manpower_to_remove = -1 }
+				ROOT = { add_manpower = manpower_to_give }
+				THIS = { add_manpower = manpower_to_remove   add_to_variable = { THIS.manpower_sent_to_orient = manpower_to_give } }
+			}
+			# give rifles if needed
+			if = {
+				limit = { check_variable = { AdO_needed_rifles  > 0 } }   
+				set_temp_variable = { rifles_to_give = AdO_needed_rifles }   
+				multiply_temp_variable  = { rifles_to_give = contribution_perct }
+				send_equipment = { equipment = infantry_equipment  amount = rifles_to_give  target = ROOT }  # will send if available
+			}
+			# give artillery if needed
+			if = {
+				limit = { check_variable = { AdO_needed_arty  > 0 } }   
+				set_temp_variable = { arty_to_give = AdO_needed_arty }   
+				multiply_temp_variable  = { arty_to_give = contribution_perct }
+				send_equipment = { equipment = artillery_equipment  amount = arty_to_give  target = ROOT }   # will send if available
+			}
+			# give support eq if needed
+			if = {
+				limit = { check_variable = { AdO_needed_support_eq  > 0 } }   
+				set_temp_variable = { support_eq_to_give = AdO_needed_support_eq }   
+				multiply_temp_variable  = { support_eq_to_give = contribution_perct }
+				send_equipment = { equipment = support_equipment  amount = support_eq_to_give  target = ROOT }  # will send if available
+			}
+			# give mgs if needed
+			if = {
+				limit = { check_variable = { AdO_needed_mgs  > 0 } }   
+				set_temp_variable = { mgs_to_give = AdO_needed_mgs }   
+				multiply_temp_variable  = { mgs_to_give = contribution_perct }
+				send_equipment = { equipment = heavy_weapons_equipment  amount = mgs_to_give  target = ROOT }  # will send if available
+			}
 		}
 	}
 }

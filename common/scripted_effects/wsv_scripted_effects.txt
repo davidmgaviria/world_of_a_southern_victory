@@ -315,6 +315,55 @@ decrease_militancy_by_10_effect = {
 
 
 
+########## Army of the Orient ####################
+
+send_3_divisions_to_army_orient = {
+	add_manpower = -40500
+	add_equipment_to_stockpile = { type = infantry_equipment  amount = -3750  producer = ROOT }
+	add_equipment_to_stockpile = { type = artillery_equipment  amount = -108  producer = ROOT }
+	add_equipment_to_stockpile = { type = support_equipment  amount = -90  producer = ROOT }
+	if = {
+		limit = { NOT = { has_variable = THIS.num_orient_divisions } }
+		set_variable = { THIS.num_orient_divisions = 0 }
+	}
+	add_to_variable = { THIS.num_orient_divisions = 3 }
+	if = {
+		limit = { NOT = { has_variable = THIS.manpower_sent_to_orient } }
+		set_variable = { THIS.manpower_sent_to_orient = 0 }
+	}
+	add_to_variable = { THIS.manpower_sent_to_orient = 40500 }
+}
+
+spawn_3_orient_infantry_divisions = {
+	division_template = {
+		name = "Allied Oriental Division"
+		is_locked = yes
+		regiments = {
+			infantry = { x = 0 y = 0 } infantry = { x = 0 y = 1 } infantry = { x = 0 y = 2 }
+			infantry = { x = 1 y = 0 } infantry = { x = 1 y = 1 } infantry = { x = 1 y = 2 }
+			infantry = { x = 2 y = 0 } infantry = { x = 2 y = 1 } infantry = { x = 2 y = 2 }
+			infantry = { x = 3 y = 0 } infantry = { x = 3 y = 1 } infantry = { x = 3 y = 2 }
+			artillery_brigade = { x = 4 y = 0 }
+		}
+		support = {
+			engineer = { x = 0 y = 0 }
+			artillery = { x = 0 y = 1 }
+			mg_company = { x = 0 y = 2 }
+		}
+	}
+	random_owned_state = {
+		create_unit = {
+			division = "division_template = \"Allied Oriental Division\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
+			owner = PREV
+			count = 3
+		}
+	}
+}
+
+
+
+
+
 ########### Russian Political Crisis ############ 
 
 # ## Whites
