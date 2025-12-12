@@ -1,44 +1,164 @@
 ﻿add_namespace = wsv_greece
 
 
-# News event of Allied troops landing in Thessaloniki
-news_event = {
-	id = wsv_greece.1
-	title = wsv_greece.1.t
-	desc = wsv_greece.1.d
-	picture =  news_event_entente_landing_salonika
 
-    is_triggered_only = yes
-	major = yes
+# ## TODO: Greek King decides to remain neutral in WW1
+# country_event = {
+# 	id = wsv_greece.50  # at 50 to leave space in case im ever crazy enough to make custom content for Greece
+# 	title = wsv_greece.50.t
+# 	desc = wsv_greece.50.d
 
-	immediate = {
-		set_global_flag = entente_landings_in_greece
-		hidden_effect = {
-			GRE = { 
-				set_country_flag = greek_national_schism 
-				activate_decision = greek_political_standoff
-			}
-		}
-	}
+#     trigger = {
+		
+# 	}
 
-	option = {
-		name = wsv_greece.1.a
-		trigger = {
-			NOT = { tag = FRA }
-			NOT = {	is_in_faction_with = FRA }
-		}
-	}
+# 	# For Greece
+# 	option = {
+# 		name = wsv_greece.50.a
+# 	}
+# }
 
-	option = {
-		name = wsv_greece.1.b
-		trigger = {
-			OR = { 
-				tag = FRA
+
+### ------ Venizelos invites the Entente to Salonika ------ ###
+
+# Hidden Greek event to send invitation to either France or Britain
+country_event = {
+	id = wsv_greece.51
+	title = wsv_greece.51.t
+	desc = wsv_greece.51.d
+
+	fire_only_once = yes
+	hidden = yes
+
+    trigger = {
+		tag = GRE
+		has_war = no
+		is_in_faction = no
+		is_puppet = no
+		# serbia is falling
+		SER = {
+			has_war_with = AUH
+			surrender_progress > 0.65
+			OR = {
 				is_in_faction_with = FRA
+				is_in_faction_with = ENG
 			}
+		}
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	option = {
+		name = wsv_greece.51.a
+		SER = { 
+			FACTION_LEADER = {  country_event = wsv_greece.52 }   # send to Serbia' faction leader
 		}
 	}
 }
+
+
+# Target country (France or Britain) get invitation
+country_event = {
+	id = wsv_greece.52
+	title = wsv_greece.52.t
+	desc = wsv_greece.52.d
+
+	is_triggered_only = yes
+
+	# Land troops in Salonika (begin the arc)
+	option = {
+		name = wsv_greece.52.a
+		set_variable = { global.ARMY_ORIENT_OVERLORD = ROOT.id }
+		news_event = { id = wsv_armyorient.1  days = 4 }
+		send_3_divisions_to_army_orient = yes
+		ai_chance = { factor = 100 }
+	}
+
+	# Decline offer
+	option = {
+		name = wsv_greece.52.b
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+# Greek player (aka the Kings government) informed of Venizelos actions (after Entente troops landed)
+country_event = {
+	id = wsv_greece.53
+	title = wsv_greece.53.t
+	desc = wsv_greece.53.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+	# Dismiss Venizelos 
+	option = {
+		name = wsv_greece.53.a
+		set_country_flag = GRE_greek_national_schism 
+		add_ideas = GRE_national_schism_idea
+		#activate_decision = greek_political_standoff
+		ai_chance = { factor = 100 }
+	}
+
+	# # Abdicate the throne
+	# option = {
+	# 	name = wsv_greece.53.a   ## TODO - allow as an option, skips to Greece under Venizelos
+	#   ai_chance = { factor = 0 }
+	# }
+}
+
+
+### ------------------------------------------------- ###
+
+
+
+
+
+
+
+
+
+
+
+# # News event of Allied troops landing in Thessaloniki
+# news_event = {
+# 	id = wsv_greece.1
+# 	title = wsv_greece.1.t
+# 	desc = wsv_greece.1.d
+# 	picture =  news_event_entente_landing_salonika
+
+#     is_triggered_only = yes
+# 	major = yes
+
+# 	immediate = {
+# 		set_global_flag = entente_landings_in_greece
+# 		set_global_flag = armee_d_orient_formed
+# 		hidden_effect = {
+# 			GRE = { 
+# 				set_country_flag = greek_national_schism 
+# 				activate_decision = greek_political_standoff
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_greece.1.a
+# 		trigger = {
+# 			NOT = { tag = FRA }
+# 			NOT = {	is_in_faction_with = FRA }
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_greece.1.b
+# 		trigger = {
+# 			OR = { 
+# 				tag = FRA
+# 				is_in_faction_with = FRA
+# 			}
+# 		}
+# 	}
+# }
 
 
 # # Allies expand bridgehead
@@ -84,109 +204,109 @@ news_event = {
 # }
 
 
-# Greek National Front forms
-news_event = {
-	id = wsv_greece.3
-	title = wsv_greece.3.t
-	desc = wsv_greece.3.d
-	picture = news_event_greek_national_front
+# # Greek National Front forms
+# news_event = {
+# 	id = wsv_greece.3
+# 	title = wsv_greece.3.t
+# 	desc = wsv_greece.3.d
+# 	picture = news_event_greek_national_front
 
-    is_triggered_only = yes
-	major = yes
+#     is_triggered_only = yes
+# 	major = yes
 
-	immediate = {
-		set_global_flag = greek_national_front_formed
-		hidden_effect = {
-			GNU = {
-				transfer_state = 184
-				transfer_state = 855
-				transfer_state = 731
-				transfer_state = 758
-				every_owned_state = {
-					add_core_of = GNU
-				}
-				inherit_technology = GRE
-				load_focus_tree = { tree = generic_focus  keep_completed = yes }
-				set_country_flag = { flag = gnu_formed_cooldown   value = 1  days = 200 }
-				# boost country stats
-				load_oob = "GNU_volunteers"
-				add_manpower = 100000
-				add_equipment_to_stockpile = {
-					type = infantry_equipment_1
-					amount = 10000
-					producer = FRA
-				}
-				add_doctrine_cost_reduction = {
-					cost_reduction = 0.75
-					uses = 3
-					technology = ww1_landdoctrine
-					technology = ww1_delegated_command
-					technology = ww1_centralized_command
-					technology = ww1_trench_warfare
-					technology = ww1_preliminary_bombardment
-				}
-			}
-			GRE = {
-				transfer_units_fraction = {
-					target = GNU
-					size = 0.1
-					army_ratio = 0.05
-					air_ratio = 0
-					navy_ratio = 0
-					stockpile_ratio = 0.1
-				}
-				army_experience = 50
-				add_doctrine_cost_reduction = {
-					cost_reduction = 0.25
-					uses = 2
-					category = land_doctrine
-				}
-			}
-			## add GNU to faction
-			random_country = {
-				limit = {
-					is_faction_leader = yes
-					is_in_faction_with = SER
-				}
-				add_to_faction = GNU
-			}
-		}
-	}
+# 	immediate = {
+# 		set_global_flag = greek_national_front_formed
+# 		hidden_effect = {
+# 			GNU = {
+# 				transfer_state = 184
+# 				transfer_state = 855
+# 				transfer_state = 731
+# 				transfer_state = 758
+# 				every_owned_state = {
+# 					add_core_of = GNU
+# 				}
+# 				inherit_technology = GRE
+# 				load_focus_tree = { tree = generic_focus  keep_completed = yes }
+# 				set_country_flag = { flag = gnu_formed_cooldown   value = 1  days = 200 }
+# 				# boost country stats
+# 				load_oob = "GNU_volunteers"
+# 				add_manpower = 100000
+# 				add_equipment_to_stockpile = {
+# 					type = infantry_equipment_1
+# 					amount = 10000
+# 					producer = FRA
+# 				}
+# 				add_doctrine_cost_reduction = {
+# 					cost_reduction = 0.75
+# 					uses = 3
+# 					technology = ww1_landdoctrine
+# 					technology = ww1_delegated_command
+# 					technology = ww1_centralized_command
+# 					technology = ww1_trench_warfare
+# 					technology = ww1_preliminary_bombardment
+# 				}
+# 			}
+# 			GRE = {
+# 				transfer_units_fraction = {
+# 					target = GNU
+# 					size = 0.1
+# 					army_ratio = 0.05
+# 					air_ratio = 0
+# 					navy_ratio = 0
+# 					stockpile_ratio = 0.1
+# 				}
+# 				army_experience = 50
+# 				add_doctrine_cost_reduction = {
+# 					cost_reduction = 0.25
+# 					uses = 2
+# 					category = land_doctrine
+# 				}
+# 			}
+# 			## add GNU to faction
+# 			random_country = {
+# 				limit = {
+# 					is_faction_leader = yes
+# 					is_in_faction_with = SER
+# 				}
+# 				add_to_faction = GNU
+# 			}
+# 		}
+# 	}
 
-	# For France & allies
-	option = {
-		name = wsv_greece.3.a
-		trigger = {
-			OR = {
-				tag = FRA
-				is_in_faction_with = FRA
-			}
-		}
-	}
+# 	# For France & allies
+# 	option = {
+# 		name = wsv_greece.3.a
+# 		trigger = {
+# 			OR = {
+# 				tag = FRA
+# 				is_in_faction_with = FRA
+# 			}
+# 		}
+# 	}
 
-	# For French enemies
-	option = {
-		name = wsv_greece.3.b
-		trigger = { has_war_with = FRA }
-		if = {
-			limit = { tag = BUL }
-			create_wargoal = {
-				target = GNU
-				type = take_claimed_state
-			}
-		}
-	}
+# 	# For French enemies
+# 	option = {
+# 		name = wsv_greece.3.b
+# 		trigger = { has_war_with = FRA }
+# 		if = {
+# 			limit = { tag = BUL }
+# 			create_wargoal = {
+# 				target = GNU
+# 				type = take_claimed_state
+# 			}
+# 		}
+# 	}
 
-	# For neutrals
-	option = {
-		name = wsv_greece.3.c
-		trigger = {
-			NOT = { tag = FRA }
-			NOT = { has_war_with = FRA }
-			NOT = { is_in_faction_with = FRA }
-		}
-	}
-}
+# 	# For neutrals
+# 	option = {
+# 		name = wsv_greece.3.c
+# 		trigger = {
+# 			NOT = { tag = FRA }
+# 			NOT = { has_war_with = FRA }
+# 			NOT = { is_in_faction_with = FRA }
+# 		}
+# 	}
+# }
 
 
 

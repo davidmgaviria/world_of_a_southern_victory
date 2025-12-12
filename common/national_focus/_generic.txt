@@ -1,7 +1,7 @@
 focus_tree = {
 	id = generic_focus
 	country = { 
-		factor = 2 
+		factor = 1 
 		modifier={ 
 			factor = 0 
 			has_start_date > 1935.1.1
@@ -10,631 +10,7 @@ focus_tree = {
 	default = yes
 	reset_on_civilwar = no
 
-	continuous_focus_position = { x = 50 y = 2000 }
-
-
-	
-	####################################
-	## -- International
-	####################################
-	focus = {
-		id = generic_take_position
-		icon = GFX_goal_generic_improve_relations 
-
-		cost = 10
-		x = 24
-		y = 8
-		#relative_position_id = 
-
-		ai_will_do = { 
-			factor = 5
-		}
-
-		#bypass = {}
-
-		available = {
-			threat > 0.2
-		}
-
-		completion_reward = { 
-			add_political_power = 100
-		}
-	}
-
-		
-	focus = {
-		id = generic_favor_germany
-		icon = GFX_focus_USA_diplomatic_germany
-		prerequisite = { focus = generic_take_position }
-		mutually_exclusive = { focus=generic_neutrality_focus }
-		mutually_exclusive = { focus=generic_favor_france  }
-
-		cost = 10
-		x = -4
-		y = 1
-		relative_position_id = generic_take_position
-
-		ai_will_do = { 
-			factor = 0
-			# bulgaria favored Germany
-			modifier = {
-				add = 3
-				tag = BUL
-			}
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = GER }
-			NOT = { original_tag = SER }	# serbia cant join germany
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_opinion_modifier = {
-				target = GER
-				modifier = wsv_improve_relations
-			}
-			add_opinion_modifier = {
-				target = FRA
-				modifier = wsv_dislikes_country
-			}
-		}
-	}
-
-		
-	focus = {
-		id = generic_german_investments
-		icon = GFX_goal_generic_construct_mil_factory
-		prerequisite = { focus = generic_favor_germany }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_favor_germany
-
-		ai_will_do = { 
-			factor = 2
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = GER }
-		}
-
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = GER_german_industry_loans
-		}
-	}
-
-		
-	focus = {
-		id = generic_german_military_advisors
-		icon = GFX_goal_generic_axis_build_infantry
-		prerequisite = { focus = generic_favor_germany }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_favor_germany
-
-		ai_will_do = { 
-			factor = 2
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = GER }
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = GER_german_military_advisors
-		}
-	}
-
-		
-	focus = {
-		id = generic_embargo_entente
-		icon = GFX_goal_generic_trade
-		prerequisite = { focus = generic_german_military_advisors }
-		prerequisite = { focus = generic_german_investments }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_german_investments
-
-		ai_will_do = { 
-			factor = 2
-		}
-
-		#bypass = {}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = GER }
-			GER = { 
-				is_faction_leader = yes
-				has_war = yes 
-			}
-		}
-
-		completion_reward = { 
-			custom_effect_tooltip = embargo_entente_tt
-			hidden_effect = {
-				every_country = {
-					limit = { 
-						OR = { 
-							tag = FRA
-							is_in_faction_with = FRA
-						}
-					}
-					if = {
-						limit = { has_dlc = "By Blood Alone" }
-						ROOT = { send_embargo = PREV }
-					}
-					else = {
-						ROOT = {
-							add_opinion_modifier = {
-								target = PREV
-								modifier = embargo
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = generic_join_germany
-		icon = GFX_focus_ger_return_of_the_kaiser
-		prerequisite = { focus = generic_embargo_entente }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_embargo_entente
-
-		ai_will_do = { 
-			factor = 0
-			# bulgaria favored Germany
-			modifier = {
-				add = 5
-				tag = BUL
-				OR = {
-					date > 1915.7.1
-					AND = {
-						SER = { has_war_with = GER }
-						SER = { surrender_progress > 0.6 }
-					}
-				}
-			}
-		}
-
-		available = {
-			has_war = no
-			is_in_faction = no
-			is_puppet = no
-			GER = { 
-				is_faction_leader = yes
-				has_war = yes 
-			}
-		}
-
-		completion_reward = { 
-			GER = { add_to_faction = ROOT }
-		}
-	}
-
-		
-	focus = {
-		id = generic_neutrality_focus
-		icon = GFX_goal_generic_neutrality_focus
-		prerequisite = { focus = generic_take_position }
-		mutually_exclusive = { focus=generic_favor_germany }
-		mutually_exclusive = { focus=generic_favor_france  }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_take_position
-
-		ai_will_do = { 
-			factor = 1
-			modifier = {
-				factor = 0.5
-				threat < 0.4
-			}
-			modifier = {
-				factor = 5
-				threat > 0.5
-			}
-			# these nations chose sides
-			modifier = {
-				factor = 0
-				OR = {
-					tag = SER
-					tag = BUL
-					tag = ITA
-					tag = ROM
-					tag = JAP
-				}
-			}
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			has_war = no
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = neutrality_idea
-		}
-	}
-
-		
-	focus = {
-		id = generic_reserve_divisions
-		icon = GFX_focus_generic_limited_social_mobilization
-		prerequisite = { focus = generic_neutrality_focus }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_neutrality_focus
-
-		ai_will_do = { 
-			factor = 1
-			modifier = {
-				factor = 2
-				threat > 0.5
-			}
-		}
-
-		available = {
-			threat > 0.25
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = generic_reserve_divisions_idea
-		}
-	}
-
-		
-	focus = {
-		id = generic_deterrence
-		icon = GFX_goal_generic_defence
-		prerequisite = { focus = generic_neutrality_focus }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_neutrality_focus
-
-		ai_will_do = { 
-			factor = 1
-			modifier = {
-				factor = 2
-				threat > 0.5
-			}
-		}
-
-		available = {
-			threat > 0.25
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = generic_deterrence_idea
-		}
-	}
-
-		
-	focus = {
-		id = generic_mobilize_economy
-		icon = GFX_focus_generic_reorient_production
-		prerequisite = { focus = generic_reserve_divisions }
-		prerequisite = { focus = generic_deterrence }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_reserve_divisions
-
-		ai_will_do = { 
-			factor = 1
-			modifier = {
-				factor = 2
-				threat > 0.6
-			}
-		}
-
-		available = {
-			threat > 0.5
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = generic_mobilizing_economy_idea
-		}
-	}
-
-		
-	# focus = {
-	# 	id = generic_abandon_neutrality
-	# 	#icon = GFX_focus_chi_legislative_yuan
-	# 	prerequisite = { focus = generic_mobilize_economy }
-	# 	mutually_exclusive = { focus=generic_home_defense  }
-	# 	cost = 10
-	# 	x = -1
-	# 	y = 1
-	# 	relative_position_id = generic_mobilize_economy
-
-	# 	ai_will_do = { 
-	# 		factor = 0 
-	# 	}
-
-	# 	#bypass = {}
-
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-		
-	focus = {
-		id = generic_home_defense
-		icon = GFX_goal_generic_demand_territory
-		prerequisite = { focus = generic_mobilize_economy }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_mobilize_economy
-
-		ai_will_do = { 
-			factor = 1
-			modifier = {
-				factor = 2
-				threat > 0.6
-			}
-		}
-
-		available = {
-			threat > 0.5
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = generic_home_defense_idea
-		}
-	}
-
-		
-	focus = {
-		id = generic_favor_france
-		icon = GFX_focus_chi_reach_out_to_france
-		prerequisite = { focus = generic_take_position }
-		mutually_exclusive = { focus=generic_neutrality_focus }
-		mutually_exclusive = { focus=generic_favor_germany }
-		cost = 10
-		x = 4
-		y = 1
-		relative_position_id = generic_take_position
-
-		ai_will_do = { 
-			factor = 0
-			# these nations sided with France
-			modifier = {
-				add = 3
-				OR = {
-					tag = SER
-					tag = ITA
-					tag = ROM
-					tag = JAP
-				}
-			}
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = FRA }
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_opinion_modifier = {
-				target = FRA
-				modifier = wsv_improve_relations
-			}
-			add_opinion_modifier = {
-				target = GER
-				modifier = wsv_dislikes_country
-			}
-		}
-	}
-
-
-	focus = {
-		id = generic_french_military_advisors
-		icon = GFX_goal_generic_army_artillery2
-		prerequisite = { focus = generic_favor_france }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_favor_france
-
-		ai_will_do = { 
-			factor = 2
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = FRA }
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = FRA_french_military_advisors
-		}
-	}
-
-		
-	focus = {
-		id = generic_french_investments
-		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = generic_favor_france }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_favor_france
-
-		ai_will_do = { 
-			factor = 2
-		}
-
-		available = {
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = FRA }
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_ideas = FRA_french_industry_loans
-		}
-	}
-
-		
-	focus = {
-		id = generic_embargo_the_central_powers
-		icon = GFX_goal_generic_trade
-		prerequisite = { focus = generic_french_military_advisors }
-		prerequisite = { focus = generic_french_investments }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_french_investments
-
-		ai_will_do = { 
-			factor = 2
-		}
-
-		available = {
-			GER = { has_war_with = FRA }
-			is_in_faction = no
-			is_puppet = no
-			NOT = { has_war_with = FRA }
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			custom_effect_tooltip = embargo_central_powers_tt
-			hidden_effect = {
-				every_country = {
-					limit = { 
-						OR = { 
-							tag = GER
-							is_in_faction_with = GER
-						}
-					}
-					if = {
-						limit = { has_dlc = "By Blood Alone" }
-						ROOT = { send_embargo = PREV }
-					}
-					else = {
-						ROOT = {
-							add_opinion_modifier = {
-								target = PREV
-								modifier = embargo
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = generic_join_france
-		icon = GFX_focus_fra_french_union
-		prerequisite = { focus = generic_embargo_the_central_powers }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_embargo_the_central_powers
-
-		ai_will_do = { 
-			factor = 0
-			# romania joined in august 1916
-			modifier = {
-				add = 5
-				tag = ROM
-				RUS = { has_war_with = AUH }
-				OR = {
-					date > 1916.5.1  # historical date
-					AUH = { surrender_progress > 0.25 }
-					AND = {
-						# join sooner if we supported AUH claims
-						AUH = { surrender_progress > 0.15 }
-						has_country_flag = russia_supports_transylvania_claims
-					}
-				}
-			}
-			# italy only joins if war is going well for entente (or late war)
-			modifier = {
-				add = 5
-				tag = ITA
-				OR = {
-					date > 1918.2.1  
-					AUH = { surrender_progress > 0.15 }
-					GER = { surrender_progress > 0.15 }
-				}
-			}
-			# serbia joins in alt hist if war is going bad for AUH
-			modifier = {
-				add = 5
-				tag = SER
-				AUH = { surrender_progress > 0.15 }
-			}
-		}
-
-		available = {
-			has_war = no
-			is_in_faction = no
-			is_puppet = no
-			FRA = { 
-				is_faction_leader = yes
-				has_war = yes 
-			}
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			FRA = { add_to_faction = ROOT }
-			
-		}
-	}
-
-
+	continuous_focus_position = { x = 50 y = 2100 }
 
 	####################################
 	## -- Industrial
@@ -643,12 +19,12 @@ focus_tree = {
 		id = generic_industrial_effort
 		icon = GFX_goal_generic_production2
 		cost = 10
-		x = 32
+		x = 3
 		y = 0
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 5
+			factor = 50
 		}
 
 		#bypass = {}
@@ -673,7 +49,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		#bypass = {}
@@ -701,7 +77,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		#bypass = {}
@@ -735,7 +111,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		#bypass = {}
@@ -765,7 +141,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 			modifier = {
 				factor = 2
 				date > 1912.1.1
@@ -799,7 +175,7 @@ focus_tree = {
 		relative_position_id = generic_mil_factories
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 			modifier = {
 				factor = 2
 				date > 1912.1.1
@@ -830,7 +206,7 @@ focus_tree = {
 		relative_position_id = generic_infrastructure_effort
 
 		ai_will_do = { 
-			factor = 5
+			factor = 50
 		}
 
 		available = {
@@ -859,7 +235,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort2
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -887,7 +263,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort2
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -921,7 +297,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort2
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -951,7 +327,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories3
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -981,7 +357,7 @@ focus_tree = {
 		relative_position_id = generic_infrastructure_effort2
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		available = {
@@ -1010,7 +386,7 @@ focus_tree = {
 		relative_position_id = generic_mil_factories3
 
 		ai_will_do = { 
-			factor = 2
+			factor = 20
 		}
 
 		#bypass = {}
@@ -1038,7 +414,7 @@ focus_tree = {
 		relative_position_id = generic_research_effort1
 
 		ai_will_do = { 
-			factor = 3
+			factor = 30
 		}
 
 		available = {
@@ -1067,7 +443,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort3
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -1097,7 +473,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort3
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -1131,7 +507,7 @@ focus_tree = {
 		relative_position_id = generic_industrial_effort3
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -1160,7 +536,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories5
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -1188,7 +564,7 @@ focus_tree = {
 		relative_position_id = generic_mil_factories5
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -1217,7 +593,7 @@ focus_tree = {
 		relative_position_id = generic_civ_factories6
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		#bypass = {}
@@ -1231,7 +607,1605 @@ focus_tree = {
 			add_research_slot = 1
 		}
 	}
+
 	
+	####################################
+	## -- International
+	####################################
+	focus = {
+		id = generic_world_stage
+		icon = GFX_goal_generic_improve_relations
+		#prerequisite = { focus = }
+		
+		cost = 5
+		x = 12
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 20
+			modifier = {
+				factor = 3
+				date > 1912.1.1
+			} 
+		}
+
+		completion_reward = { 
+			add_political_power = 75
+		}
+	}
+
+		
+	focus = {
+		id = generic_court_americans
+		icon = GFX_focus_generic_befriend_usa
+		prerequisite = { focus = generic_world_stage }
+		
+		cost = 10
+		x = -4
+		y =  1
+		relative_position_id = generic_world_stage
+
+		ai_will_do = { 
+			factor = 20   # if we're in the Americas will likely court the US
+			# these countries dont like the USA
+			modifier = {
+				factor = 0
+				OR = { 
+					tag=ARG
+					tag=MEX   # TODO remove once they get a focus tree
+				}
+			}
+		}
+
+		available = {
+			country_exists = USA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=USA }
+				is_in_faction_with=USA
+			}
+			NOT = { has_war_with = USA }
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_gp_courted_tt	
+				OR = {
+					NOT = { has_variable = ROOT.gp_courted_focuses }
+					check_variable = { ROOT.gp_courted_focuses < 2 }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = is_in_americas_tt	
+				capital_scope = {
+					OR = {is_on_continent=north_america  is_on_continent=south_america}
+				}
+			}
+		}
+
+		completion_reward = { 
+			if = {
+				limit = { NOT = { has_variable = ROOT.gp_courted_focuses } }
+				set_variable = { ROOT.gp_courted_focuses  = 0 }
+			}
+			add_to_variable = { ROOT.gp_courted_focuses = 1 }
+			USA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			custom_effect_tooltip = gp_focus_will_influence_future_ally_options_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_american_investments
+		icon = GFX_goal_generic_construction
+		prerequisite = { focus = generic_court_americans }
+		
+		cost = 10
+		x = 0
+		y =  2
+		relative_position_id = generic_court_americans
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
+		}
+
+		available = {
+			country_exists = USA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=USA }
+				is_in_faction_with=USA
+			}
+			NOT = { has_war_with = USA }
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = generic_civilian_investments_idea
+				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_court_british
+		icon = GFX_focus_chi_british_cooperation
+		prerequisite = { focus = generic_world_stage }
+		
+		cost = 10
+		x = -2
+		y =  1
+		relative_position_id = generic_world_stage
+
+		ai_will_do = { 
+			factor = 30   # global influence 
+			# less influence in Europe compared to France / Germany
+			modifier = {
+				factor = 0.2
+				capital_scope = { is_on_continent=europe }
+				NOT = { tag=NOR  tag=SWE  tag=DEN  tag=HOL }  # these countries were close to Britain
+			}
+			# these countries dont like Britain
+			modifier = {
+				factor = 0
+				OR = { 
+					tag=HAI
+					tag=CHL
+				}
+			}
+		}
+
+		available = {
+			country_exists = ENG
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=ENG }
+				is_in_faction_with=ENG
+			}
+			NOT = { has_war_with = ENG }
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_gp_courted_tt	
+				OR = {
+					NOT = { has_variable = ROOT.gp_courted_focuses }
+					check_variable = { ROOT.gp_courted_focuses < 2 }
+				}
+			}
+		}
+
+		completion_reward = { 
+			if = {
+				limit = { NOT = { has_variable = ROOT.gp_courted_focuses } }
+				set_variable = { ROOT.gp_courted_focuses  = 0 }
+			}
+			add_to_variable = { ROOT.gp_courted_focuses = 1 }
+			ENG = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			custom_effect_tooltip = gp_focus_will_influence_future_ally_options_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_british_investments
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = generic_court_british }
+		
+		cost = 10
+		x = 0
+		y =  2
+		relative_position_id = generic_court_british
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
+		}
+
+		available = {
+			country_exists = ENG
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=ENG }
+				is_in_faction_with=ENG
+			}
+			NOT = { has_war_with = ENG }
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = generic_naval_investments_idea
+				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = industry
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_gp_naval_advisors
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = generic_court_british  focus = generic_court_americans  }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = generic_court_americans
+
+		ai_will_do = { 
+			factor = 10 
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				days = 360
+				idea = generic_foriegn_naval_advisors_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_court_french
+		icon = GFX_focus_chi_reach_out_to_france
+		prerequisite = { focus = generic_world_stage }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_world_stage
+
+		ai_will_do = { 
+			factor = 10 
+			# main influence in Europe
+			modifier = {
+				factor = 3
+				capital_scope = { is_on_continent=europe } 
+				NOT = { tag=NOR  tag=SWE  tag=DEN  tag=HOL }    # more aligned with Britain
+			}
+			# some influence outside Europe
+			modifier = {
+				factor = 1.5
+				OR = {
+					capital_scope = { is_on_continent=middle_east }
+					capital_scope = { is_on_continent=africa } 
+					capital_scope = { is_on_continent=south_america }
+				}
+			}
+			# these countries dont like France
+			modifier = {
+				factor = 0
+				OR = {
+					tag=HAI
+					tag=CHL
+				}
+			}
+		}
+
+		available = {
+			country_exists = FRA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=FRA }
+				is_in_faction_with=FRA
+			}
+			NOT = { has_war_with = FRA }
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_gp_courted_tt	
+				OR = {
+					NOT = { has_variable = ROOT.gp_courted_focuses }
+					check_variable = { ROOT.gp_courted_focuses < 2 }
+				}
+			}
+		}
+
+		completion_reward = { 
+			if = {
+				limit = { NOT = { has_variable = ROOT.gp_courted_focuses } }
+				set_variable = { ROOT.gp_courted_focuses  = 0 }
+			}
+			add_to_variable = { ROOT.gp_courted_focuses = 1 }
+			FRA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			custom_effect_tooltip = gp_focus_will_influence_future_ally_options_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_french_investments
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = generic_court_french }
+		
+		cost = 10
+		x = 0
+		y =  2
+		relative_position_id = generic_court_french
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
+		}
+
+		available = {
+			country_exists = FRA
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=FRA }
+				is_in_faction_with=FRA
+			}
+			NOT = { has_war_with = FRA }
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = generic_civilian_investments_idea
+				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_gp_capital_influx
+		icon = GFX_focus_mex_privatisation
+		prerequisite = { focus = generic_court_british  focus = generic_court_french  }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = generic_court_british
+
+		ai_will_do = { 
+			factor = 15 
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				days = 360
+				idea = generic_foriegn_capital_loans_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_court_germans
+		icon = GFX_focus_USA_diplomatic_germany
+		prerequisite = { focus = generic_world_stage }
+		
+		cost = 10
+		x = 2
+		y =  1
+		relative_position_id = generic_world_stage
+
+		ai_will_do = { 
+			factor = 10
+			# main influence in Europe
+			modifier = {
+				factor = 3
+				capital_scope = { is_on_continent=europe } 
+			}
+			# some influence outside Europe
+			modifier = {
+				factor = 1.5
+				OR = {
+					capital_scope = { is_on_continent=middle_east}
+					capital_scope = { is_on_continent=africa } 
+					capital_scope = { is_on_continent=south_america } 
+					tag=CHI
+					tag=QIN
+				}
+			}
+			# these countries dont like Germany
+			modifier = {
+				factor = 0
+				OR = {
+					tag=MEX
+					tag=ARG
+					tag=BEL
+					tag=ROM
+					tag=MNT
+					tag=GRE
+				}
+			}
+		}
+
+
+		available = {
+			country_exists = GER
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=GER }
+				is_in_faction_with=GER
+			}
+			NOT = { has_war_with = GER }
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_gp_courted_tt	
+				OR = {
+					NOT = { has_variable = ROOT.gp_courted_focuses }
+					check_variable = { ROOT.gp_courted_focuses < 2 }
+				}
+			}
+		}
+
+		completion_reward = { 
+			if = {
+				limit = { NOT = { has_variable = ROOT.gp_courted_focuses } }
+				set_variable = { ROOT.gp_courted_focuses  = 0 }
+			}
+			add_to_variable = { ROOT.gp_courted_focuses = 1 }
+			GER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			custom_effect_tooltip = gp_focus_will_influence_future_ally_options_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_german_investments
+		icon = GFX_goal_generic_construct_mil_factory
+		prerequisite = { focus = generic_court_germans }
+		
+		cost = 10
+		x = 0
+		y =  2
+		relative_position_id = generic_court_germans
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
+		}
+
+		available = {
+			country_exists = GER
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=GER }
+				is_in_faction_with=GER
+			}
+			NOT = { has_war_with = GER }
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = generic_military_investments_idea
+				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = electronics
+				category = chemical_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_gp_military_advisors
+		icon = GFX_goal_rhineland
+		prerequisite = { focus = generic_court_germans  focus = generic_court_french  }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = generic_court_french
+
+		ai_will_do = { 
+			factor = 10 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_timed_idea = {
+				days = 360
+				idea = generic_foriegn_military_advisors_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_court_russians
+		icon = GFX_focus_invite_russia_to_entente
+		prerequisite = { focus = generic_world_stage }
+		
+		cost = 10
+		x = 4
+		y =  1
+		relative_position_id = generic_world_stage
+
+		ai_will_do = { 
+			factor = 0 
+			modifier = {
+				add = 20
+				OR = {
+					tag=ROM
+					tag=PER
+				}
+			}
+		}
+
+		available = {
+			country_exists = RUS
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=RUS }
+				is_in_faction_with=RUS
+			}
+			NOT = { has_war_with = RUS }
+			custom_trigger_tooltip = {
+				tooltip = less_than_two_gp_courted_tt	
+				OR = {
+					NOT = { has_variable = ROOT.gp_courted_focuses }
+					check_variable = { ROOT.gp_courted_focuses < 2 }
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = is_in_eurasia_tt	
+				capital_scope = {
+					OR = {is_on_continent=europe  is_on_continent=asia  is_on_continent=middle_east}
+				}
+			}
+		}
+
+		completion_reward = {
+			if = {
+				limit = { NOT = { has_variable = ROOT.gp_courted_focuses } }
+				set_variable = { ROOT.gp_courted_focuses  = 0 }
+			}
+			add_to_variable = { ROOT.gp_courted_focuses = 1 }
+			RUS = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+				}
+			}
+			custom_effect_tooltip = gp_focus_will_influence_future_ally_options_tt
+		}
+	}
+
+
+	focus = {
+		id = generic_gp_railway_loans
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = generic_court_germans  focus = generic_court_russians  }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = generic_court_germans
+
+		ai_will_do = { 
+			factor = 10 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_timed_idea = {
+				days = 360
+				idea = generic_foriegn_railway_loans_idea
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_russian_investments
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = generic_court_russians }
+		
+		cost = 10
+		x = 0
+		y =  2
+		relative_position_id = generic_court_russians
+
+		ai_will_do = { 
+			factor = 15
+			modifier = {
+				factor = 2
+				threat > 0.4
+			} 
+		}
+
+		available = {
+			country_exists = RUS
+			OR = {
+				is_puppet = no
+				OVERLORD={ tag=RUS }
+				is_in_faction_with=RUS
+			}
+			NOT = { has_war_with = RUS }
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = generic_civilian_investments_idea
+				days = 360
+			}
+			add_tech_bonus = {
+				bonus = 0.75
+				uses = 1
+				category = infantry_weapons
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_the_great_war
+		icon = GFX_focus_generic_total_war
+		prerequisite = { focus=generic_american_investments focus=generic_british_investments focus=generic_french_investments focus=generic_german_investments focus=generic_russian_investments }
+		
+		cost = 0
+		x = 0
+		y =  1
+		relative_position_id = generic_french_investments
+
+		ai_will_do = { 
+			factor = 1 
+		}
+
+		available = {
+			always = no
+		}
+
+		bypass = {
+			has_global_flag = great_war
+		}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = generic_take_a_side
+		icon = GFX_goal_generic_alliance
+		prerequisite = { focus = generic_the_great_war }
+		mutually_exclusive = { focus= generic_affirm_neutrality }
+		
+		cost = 10
+		x = -2
+		y =  1
+		relative_position_id = generic_the_great_war
+
+		ai_will_do = { 
+			factor = 0
+			# these countries joined the war historically
+			modifier = {
+				add = 50
+				tag=HAI
+				tag=CHL
+				tag=ARG
+				tag=BRA
+				tag=ROM
+				tag=BUL
+			} 
+		}
+
+		available = {
+			has_war = no
+			is_puppet = no
+			is_in_faction = no
+		}
+
+		bypass = {
+			is_in_faction = yes
+		}
+
+		completion_reward = { 
+			country_event = wsv_gw_generic.1
+		}
+	}
+
+		
+	focus = {
+		id = generic_mobilize_economy
+		icon = GFX_focus_CONGO_copper_cartridges
+		prerequisite = { focus = generic_take_a_side }
+		
+		cost = 10
+		x = 0
+		y =  1
+		relative_position_id = generic_take_a_side
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		bypass = {
+			has_war = yes
+		}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = generic_mobilizing_economy_idea
+				days = 360
+			}
+		}
+	}
+
+		
+	focus = {
+		id = generic_join_the_war
+		icon = GFX_goal_generic_major_war  #Focus_PRC_stoke_the_flames
+		prerequisite = { focus = generic_mobilize_economy }
+		
+		cost = 10
+		x = 0
+		y =  1
+		relative_position_id = generic_mobilize_economy
+
+		ai_will_do = { 
+			factor = 0   # TODO - when does each country join?
+		}
+
+		available = {
+			has_war = no
+			is_puppet = no
+			is_in_faction = no
+		}
+
+		bypass = {
+			is_in_faction = yes
+			has_war = yes
+		}
+
+		completion_reward = { 
+			if = {
+				limit = { has_variable = ROOT.request_ally_target }
+				var:request_ally_target = {
+					if = {
+						limit = { exists=yes  has_capitulated=no  is_in_faction=yes }
+						country_event = { id = wsv_gw_generic.2  days = 2 }
+					} 
+					else = { custom_effect_tooltip = join_the_war_broken_focus_tt }
+				}
+			} 
+			else = { custom_effect_tooltip = join_the_war_undecided_focus_tt }
+		}
+	}
+
+		
+	focus = {
+		id = generic_affirm_neutrality
+		icon = GFX_goal_generic_neutrality_focus
+		prerequisite = { focus = generic_the_great_war }
+		mutually_exclusive = { focus= generic_take_a_side }
+		
+		cost = 10
+		x = 2
+		y =  1
+		relative_position_id = generic_the_great_war
+
+		ai_will_do = { 
+			factor = 50
+			# these countries joined the war historically
+			modifier = {
+				factor = 0
+				OR = {
+					tag=HAI
+					tag=CHL
+					tag=ARG
+					tag=BRA
+					tag=ROM
+					tag=BUL
+				}
+			}
+		}
+
+		available = {
+			has_war = no
+			OR = {
+				AND = {
+					is_puppet = no
+					is_in_faction = no
+				}
+				OVERLORD = { has_idea = neutrality_idea }
+			}
+		}
+
+		completion_reward = { 
+			add_ideas = neutrality_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_deterrence
+		icon = GFX_goal_generic_defence
+		prerequisite = { focus = generic_affirm_neutrality }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = generic_affirm_neutrality
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = generic_deterrence_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_reserve_divisions
+		icon = GFX_focus_generic_limited_social_mobilization
+		prerequisite = { focus = generic_affirm_neutrality }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = generic_affirm_neutrality
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = generic_reserve_divisions_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_abandon_neutrality
+		icon = GFX_focus_renounce_the_treaty_of_trianon
+		prerequisite = { focus = generic_deterrence }
+		prerequisite = { focus = generic_reserve_divisions }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = generic_deterrence
+
+		ai_will_do = { 
+			factor = 0
+		}
+
+		available = {
+			OR = {
+				num_of_factories > 75
+				has_army_manpower = { size > 399999 }
+			}
+		}
+
+		bypass = {
+			has_war = yes
+		}
+
+		completion_reward = { 
+			remove_ideas = neutrality_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_territorial_ambitions
+		#icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = generic_join_the_war  focus = generic_abandon_neutrality }
+		
+		cost = 10
+		x = 2
+		y =  1
+		relative_position_id = generic_join_the_war
+
+		ai_will_do = { 
+			factor = 0
+		}
+
+		available = {
+			has_war = yes
+			is_puppet = no
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+	
+
+
+	# focus = {
+	# 	id = generic_take_position
+	# 	icon = GFX_goal_generic_improve_relations 
+
+	# 	cost = 10
+	# 	x = 16
+	# 	y = 0
+	# 	#relative_position_id = 
+
+	# 	ai_will_do = { 
+	# 		factor = 5
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	available = {
+	# 		threat > 0.2
+	# 	}
+
+	# 	completion_reward = { 
+	# 		add_political_power = 100
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_favor_germany
+	# 	icon = GFX_focus_USA_diplomatic_germany
+	# 	prerequisite = { focus = generic_take_position }
+	# 	mutually_exclusive = { focus=generic_neutrality_focus }
+	# 	mutually_exclusive = { focus=generic_favor_france  }
+
+	# 	cost = 10
+	# 	x = -4
+	# 	y = 1
+	# 	relative_position_id = generic_take_position
+
+	# 	ai_will_do = { 
+	# 		factor = 0
+	# 		# bulgaria favored Germany
+	# 		modifier = {
+	# 			add = 3
+	# 			tag = BUL
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = GER }
+	# 		NOT = { original_tag = SER }	# serbia cant join germany
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_opinion_modifier = {
+	# 			target = GER
+	# 			modifier = wsv_improve_relations
+	# 		}
+	# 		add_opinion_modifier = {
+	# 			target = FRA
+	# 			modifier = wsv_dislikes_country
+	# 		}
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_german_investments
+	# 	icon = GFX_goal_generic_construct_mil_factory
+	# 	prerequisite = { focus = generic_favor_germany }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = generic_favor_germany
+
+	# 	ai_will_do = { 
+	# 		factor = 2
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = GER }
+	# 	}
+
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = GER_german_industry_loans
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_german_military_advisors
+	# 	icon = GFX_goal_generic_axis_build_infantry
+	# 	prerequisite = { focus = generic_favor_germany }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = generic_favor_germany
+
+	# 	ai_will_do = { 
+	# 		factor = 2
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = GER }
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = GER_german_military_advisors
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_embargo_entente
+	# 	icon = GFX_goal_generic_trade
+	# 	prerequisite = { focus = generic_german_military_advisors }
+	# 	prerequisite = { focus = generic_german_investments }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = generic_german_investments
+
+	# 	ai_will_do = { 
+	# 		factor = 2
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = GER }
+	# 		GER = { 
+	# 			is_faction_leader = yes
+	# 			has_war = yes 
+	# 		}
+	# 	}
+
+	# 	completion_reward = { 
+	# 		custom_effect_tooltip = embargo_entente_tt
+	# 		hidden_effect = {
+	# 			every_country = {
+	# 				limit = { 
+	# 					OR = { 
+	# 						tag = FRA
+	# 						is_in_faction_with = FRA
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = { has_dlc = "By Blood Alone" }
+	# 					ROOT = { send_embargo = PREV }
+	# 				}
+	# 				else = {
+	# 					ROOT = {
+	# 						add_opinion_modifier = {
+	# 							target = PREV
+	# 							modifier = embargo
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_join_germany
+	# 	icon = GFX_focus_ger_return_of_the_kaiser
+	# 	prerequisite = { focus = generic_embargo_entente }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = generic_embargo_entente
+
+	# 	ai_will_do = { 
+	# 		factor = 0
+	# 		# bulgaria favored Germany
+	# 		modifier = {
+	# 			add = 5
+	# 			tag = BUL
+	# 			OR = {
+	# 				date > 1915.7.1
+	# 				AND = {
+	# 					SER = { has_war_with = GER }
+	# 					SER = { surrender_progress > 0.6 }
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		has_war = no
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		GER = { 
+	# 			is_faction_leader = yes
+	# 			has_war = yes 
+	# 		}
+	# 	}
+
+	# 	completion_reward = { 
+	# 		GER = { add_to_faction = ROOT }
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_neutrality_focus
+	# 	icon = GFX_goal_generic_neutrality_focus
+	# 	prerequisite = { focus = generic_take_position }
+	# 	mutually_exclusive = { focus=generic_favor_germany }
+	# 	mutually_exclusive = { focus=generic_favor_france  }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = generic_take_position
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 0.5
+	# 			threat < 0.4
+	# 		}
+	# 		modifier = {
+	# 			factor = 5
+	# 			threat > 0.5
+	# 		}
+	# 		# these nations chose sides
+	# 		modifier = {
+	# 			factor = 0
+	# 			OR = {
+	# 				tag = SER
+	# 				tag = BUL
+	# 				tag = ITA
+	# 				tag = ROM
+	# 				tag = JAP
+	# 			}
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		has_war = no
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = neutrality_idea
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_reserve_divisions
+	# 	icon = GFX_focus_generic_limited_social_mobilization
+	# 	prerequisite = { focus = generic_neutrality_focus }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = generic_neutrality_focus
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 2
+	# 			threat > 0.5
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		threat > 0.25
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = generic_reserve_divisions_idea
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_deterrence
+	# 	icon = GFX_goal_generic_defence
+	# 	prerequisite = { focus = generic_neutrality_focus }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = generic_neutrality_focus
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 2
+	# 			threat > 0.5
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		threat > 0.25
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = generic_deterrence_idea
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_mobilize_economy
+	# 	icon = GFX_focus_generic_reorient_production
+	# 	prerequisite = { focus = generic_reserve_divisions }
+	# 	prerequisite = { focus = generic_deterrence }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = generic_reserve_divisions
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 2
+	# 			threat > 0.6
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		threat > 0.5
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = generic_mobilizing_economy_idea
+	# 	}
+	# }
+
+		
+	# # focus = {
+	# # 	id = generic_abandon_neutrality
+	# # 	###icon = GFX_focus_chi_legislative_yuan
+	# # 	prerequisite = { focus = generic_mobilize_economy }
+	# # 	mutually_exclusive = { focus=generic_home_defense  }
+	# # 	cost = 10
+	# # 	x = -1
+	# # 	y = 1
+	# # 	relative_position_id = generic_mobilize_economy
+
+	# # 	ai_will_do = { 
+	# # 		factor = 0 
+	# # 	}
+
+	# # 	#bypass = {}
+
+	# # 	completion_reward = { 
+	# # 	}
+	# # }
+
+		
+	# focus = {
+	# 	id = generic_home_defense
+	# 	icon = GFX_goal_generic_demand_territory
+	# 	prerequisite = { focus = generic_mobilize_economy }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = generic_mobilize_economy
+
+	# 	ai_will_do = { 
+	# 		factor = 1
+	# 		modifier = {
+	# 			factor = 2
+	# 			threat > 0.6
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		threat > 0.5
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = generic_home_defense_idea
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_favor_france
+	# 	icon = GFX_focus_chi_reach_out_to_france
+	# 	prerequisite = { focus = generic_take_position }
+	# 	mutually_exclusive = { focus=generic_neutrality_focus }
+	# 	mutually_exclusive = { focus=generic_favor_germany }
+	# 	cost = 10
+	# 	x = 4
+	# 	y = 1
+	# 	relative_position_id = generic_take_position
+
+	# 	ai_will_do = { 
+	# 		factor = 0
+	# 		# these nations sided with France
+	# 		modifier = {
+	# 			add = 3
+	# 			OR = {
+	# 				tag = SER
+	# 				tag = ITA
+	# 				tag = ROM
+	# 				tag = JAP
+	# 			}
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = FRA }
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_opinion_modifier = {
+	# 			target = FRA
+	# 			modifier = wsv_improve_relations
+	# 		}
+	# 		add_opinion_modifier = {
+	# 			target = GER
+	# 			modifier = wsv_dislikes_country
+	# 		}
+	# 	}
+	# }
+
+
+	# focus = {
+	# 	id = generic_french_military_advisors
+	# 	icon = GFX_goal_generic_army_artillery2
+	# 	prerequisite = { focus = generic_favor_france }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = generic_favor_france
+
+	# 	ai_will_do = { 
+	# 		factor = 2
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = FRA }
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = FRA_french_military_advisors
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_french_investments
+	# 	icon = GFX_goal_generic_construct_civ_factory
+	# 	prerequisite = { focus = generic_favor_france }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = generic_favor_france
+
+	# 	ai_will_do = { 
+	# 		factor = 2
+	# 	}
+
+	# 	available = {
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = FRA }
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_ideas = FRA_french_industry_loans
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_embargo_the_central_powers
+	# 	icon = GFX_goal_generic_trade
+	# 	prerequisite = { focus = generic_french_military_advisors }
+	# 	prerequisite = { focus = generic_french_investments }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = generic_french_investments
+
+	# 	ai_will_do = { 
+	# 		factor = 2
+	# 	}
+
+	# 	available = {
+	# 		GER = { has_war_with = FRA }
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		NOT = { has_war_with = FRA }
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		custom_effect_tooltip = embargo_central_powers_tt
+	# 		hidden_effect = {
+	# 			every_country = {
+	# 				limit = { 
+	# 					OR = { 
+	# 						tag = GER
+	# 						is_in_faction_with = GER
+	# 					}
+	# 				}
+	# 				if = {
+	# 					limit = { has_dlc = "By Blood Alone" }
+	# 					ROOT = { send_embargo = PREV }
+	# 				}
+	# 				else = {
+	# 					ROOT = {
+	# 						add_opinion_modifier = {
+	# 							target = PREV
+	# 							modifier = embargo
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = generic_join_france
+	# 	icon = GFX_focus_fra_french_union
+	# 	prerequisite = { focus = generic_embargo_the_central_powers }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = generic_embargo_the_central_powers
+
+	# 	ai_will_do = { 
+	# 		factor = 0
+	# 		# romania joined in august 1916
+	# 		modifier = {
+	# 			add = 5
+	# 			tag = ROM
+	# 			RUS = { has_war_with = AUH }
+	# 			OR = {
+	# 				date > 1916.5.1  # historical date
+	# 				AUH = { surrender_progress > 0.25 }
+	# 				AND = {
+	# 					# join sooner if we supported AUH claims
+	# 					AUH = { surrender_progress > 0.15 }
+	# 					has_country_flag = russia_supports_transylvania_claims
+	# 				}
+	# 			}
+	# 		}
+	# 		# italy only joins if war is going well for entente (or late war)
+	# 		modifier = {
+	# 			add = 5
+	# 			tag = ITA
+	# 			OR = {
+	# 				date > 1918.2.1  
+	# 				AUH = { surrender_progress > 0.15 }
+	# 				GER = { surrender_progress > 0.15 }
+	# 			}
+	# 		}
+	# 		# serbia joins in alt hist if war is going bad for AUH
+	# 		modifier = {
+	# 			add = 5
+	# 			tag = SER
+	# 			AUH = { surrender_progress > 0.15 }
+	# 		}
+	# 	}
+
+	# 	available = {
+	# 		has_war = no
+	# 		is_in_faction = no
+	# 		is_puppet = no
+	# 		FRA = { 
+	# 			is_faction_leader = yes
+	# 			has_war = yes 
+	# 		}
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		FRA = { add_to_faction = ROOT }
+			
+	# 	}
+	# }
+
 	
 	####################################
 	## -- Army / Air
@@ -1242,14 +2216,14 @@ focus_tree = {
 		icon = GFX_focus_generic_commonwealth_build_infantry
 		#prerequisite = { focus = }
 		cost = 10
-		x = 8
-		y = 8
+		x = 9
+		y = 9
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
-				factor = 2
+				factor = 3
 				has_war = yes
 			}
 		}
@@ -1278,9 +2252,9 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
-				factor = 2
+				factor = 2.5
 				has_war = yes
 			}
 		}
@@ -1308,7 +2282,7 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 		}
 
 		bypass = {
@@ -1365,7 +2339,7 @@ focus_tree = {
 		relative_position_id = generic_infantry_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
 				factor = 2
 				has_war = yes
@@ -1388,7 +2362,7 @@ focus_tree = {
 		
 	focus = {
 		id = generic_infantry_effort2
-		icon = GFX_goal_generic_military_sphere
+		icon = GFX_focus_phi_battalion_combat_teams
 		prerequisite = { focus = generic_trench_warfare }
 		cost = 10
 		x = -2
@@ -1396,7 +2370,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -1422,7 +2396,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -1449,7 +2423,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -1479,7 +2453,7 @@ focus_tree = {
 		relative_position_id = generic_trench_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -1562,7 +2536,7 @@ focus_tree = {
 		relative_position_id = generic_defensive_warfare
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 		}
 
 		#bypass = {}
@@ -1589,14 +2563,14 @@ focus_tree = {
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 10
 			modifier = {
-				factor = 0.5
-				num_of_military_factories < 8
+				factor = 0.1
+				num_of_military_factories < 15
 			}
 			modifier = {
-				factor = 2
-				num_of_military_factories > 13
+				factor = 3
+				num_of_military_factories > 25
 			}
 		}
 
@@ -1630,10 +2604,10 @@ focus_tree = {
 		relative_position_id = generic_air_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 			modifier = {
-				factor = 2
-				num_of_military_factories > 13
+				factor = 3
+				num_of_military_factories > 25
 			}
 		}
 
@@ -1687,8 +2661,8 @@ focus_tree = {
 		ai_will_do = { 
 			factor = 1
 			modifier = {
-				factor = 2
-				num_of_military_factories > 19
+				factor = 20
+				num_of_military_factories > 40
 			}
 		}
 
@@ -1714,10 +2688,14 @@ focus_tree = {
 		relative_position_id = generic_light_aircraft
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
 			modifier = {
-				factor = 2
+				factor = 3
 				has_war = yes
+			}
+			modifier = {
+				factor = 6
+				num_of_military_factories > 40
 			}
 		}
 
@@ -1868,15 +2846,15 @@ focus_tree = {
 		id = generic_navy_effort
 		icon = GFX_goal_generic_construct_naval_dockyard
 		cost = 10
-		x = -6
+		x = 12
 		y = 0
 		relative_position_id = generic_army_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 15
 			modifier = {
 				factor = 3
-				num_of_naval_factories > 6  # 7 or more factorie
+				num_of_naval_factories > 10
 			}
 		}
 
@@ -1920,9 +2898,9 @@ focus_tree = {
 		relative_position_id = generic_navy_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 			modifier = {
-				factor = 2
+				factor = 3
 				num_of_naval_factories > 10
 			}
 		}
@@ -1949,10 +2927,10 @@ focus_tree = {
 		relative_position_id = generic_navy_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 5
 			modifier = {
-				factor = 2
-				num_of_naval_factories > 10
+				factor = 3
+				num_of_naval_factories > 15
 			}
 		}
 
@@ -1979,10 +2957,10 @@ focus_tree = {
 		relative_position_id = generic_navy_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
 			modifier = {
-				factor = 2
-				num_of_naval_factories > 10
+				factor = 10
+				num_of_naval_factories > 15
 			}
 		}
 
@@ -2011,7 +2989,11 @@ focus_tree = {
 		relative_position_id = generic_cruiser_effort
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
+			modifier = {
+				factor = 10
+				num_of_naval_factories > 15
+			}
 		}
 
 		#bypass = {}
@@ -2062,7 +3044,11 @@ focus_tree = {
 		relative_position_id = generic_improved_nav_doctrine
 
 		ai_will_do = { 
-			factor = 1
+			factor = 2
+			modifier = {
+				factor = 10
+				num_of_naval_factories > 15
+			}
 		}
 
 		#bypass = {}
@@ -2084,7 +3070,12 @@ focus_tree = {
 
 		ai_will_do = { 
 			factor = 1
+			modifier = {
+				factor = 10
+				num_of_naval_factories > 15
+			}
 		}
+
 
 		available = {
 			any_owned_state = {
@@ -2173,882 +3164,657 @@ focus_tree = {
 		}
 	}
 
+
 	#############################################
 	## Political Section
 	############################################
 
 	focus = {
 		id = generic_political_effort
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		icon = GFX_focus_generic_improve_the_administration  
+		#prerequisite = { focus = }
+		
 		cost = 10
-		x = 15
+		x = 24
 		y = 0
 		#relative_position_id = 
-		#ai_will_do = { 
-		#	factor = 5
-		#}
+
+		ai_will_do = { 
+			factor = 40   # always good to get political power 
+		}
+
 		#bypass = {}
-		#available = {}
+
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
-
+		
 	focus = {
-		id = generic_democracy
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		id = generic_democracy_focus
+		icon = GFX_focus_generic_election  #goal_generic_support_democracy
 		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_authoritarian }
-		mutually_exclusive = { focus = generic_proto_fascism }
-		mutually_exclusive = { focus = generic_revolutionary_socialism }
+		mutually_exclusive = { focus=generic_populism_focus }
+		mutually_exclusive = { focus=generic_authoritarianism_focus }
+		
 		cost = 10
-		x = -11
+		x = -4
 		y = 1
 		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
+
+		ai_will_do = { 
+			factor = 25 
+		}
+
+		available = {
+			has_government = democratic
+		}
+
 		completion_reward = { 
+			add_popularity = {
+				ideology = democratic
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_democratric_growth_idea
+			}
+			custom_effect_tooltip = unlocks_democratic_advisor_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_consumer_protections_focus
+		icon = GFX_goal_generic_consumer_goods
+		prerequisite = { focus = generic_democracy_focus }
+		mutually_exclusive = { focus=generic_free_market_ideals_focus  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_democracy_focus
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_consumer_protections_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_welfare_state_focus
+		icon = GFX_focus_generic_welfare
+		prerequisite = { focus = generic_consumer_protections_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_consumer_protections_focus
+
+		ai_will_do = { 
+			factor = 5 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_wellfare_state_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_free_market_ideals_focus
+		icon = GFX_focus_RAJ_special_economic_zones  #focus_generic_currency_reforms
+		prerequisite = { focus = generic_democracy_focus }
+		mutually_exclusive = { focus=generic_consumer_protections_focus  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_democracy_focus
+
+		ai_will_do = { 
+			factor = 20 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_free_market_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_land_of_opportunity_focus
+		icon = GFX_focus_generic_industrialists
+		prerequisite = { focus = generic_free_market_ideals_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_free_market_ideals_focus
+
+		ai_will_do = { 
+			factor = 10 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_land_of_opportunity_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_threat_abroad_focus
+		icon = GFX_focus_generic_strike_at_democracy2
+		prerequisite = { focus=generic_consumer_protections_focus focus=generic_free_market_ideals_focus  }
+		
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = generic_free_market_ideals_focus
+
+		ai_will_do = { 
+			factor = 25
+			modifier = {
+				factor = 2
+				threat > 0.5
+			}
+		}
+
+		available = {
+			has_government = democratic
+			threat > 0.3
+		}
+
+		completion_reward = { 
+			add_war_support = 0.1
+			add_political_power = 75
+		}
+	}
+
+		
+	focus = {
+		id = generic_armed_neutrality_focus
+		icon = GFX_goal_generic_construct_military  #goal_generic_military_sphere
+		prerequisite = { focus = generic_threat_abroad_focus }
+		mutually_exclusive = { focus = generic_interventionism_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_threat_abroad_focus
+
+		ai_will_do = { 
+			factor = 25
+			modifier = {
+				factor = 2
+				OR = {
+					threat > 0.5
+					has_war = yes
+				}
+			}
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_armed_neutrality_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_interventionism_focus
+		icon = GFX_focus_generic_democratic_europe
+		prerequisite = { focus = generic_threat_abroad_focus }
+		mutually_exclusive = { focus = generic_armed_neutrality_focus }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_threat_abroad_focus
+
+		ai_will_do = { 
+			factor = 0   # AI doesnt do this branch, mainly for players
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			set_rule = { can_send_volunteers = yes } 
+		}
+	}
+
+		
+	focus = {
+		id = generic_volunteer_corps_focus
+		icon = GFX_goal_generic_military_sphere  #goal_generic_allies_build_infantry  
+		prerequisite = { focus = generic_interventionism_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_interventionism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_volunteer_corps_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_why_we_fight_focus
+		icon = GFX_focus_generic_fight_for_democracy
+		prerequisite = { focus = generic_armed_neutrality_focus focus=generic_volunteer_corps_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_volunteer_corps_focus
+
+		ai_will_do = { 
+			factor = 10 
+			modifier = {
+				factor = 5
+				has_war = yes
+			}
+		}
+
+		available = { has_government = democratic }
+
+		completion_reward = { 
+			add_ideas = generic_why_we_fight_idea
+			add_war_support = 0.1
 		}
 	}
 
 
+	## TODO --
 	focus = {
-		id = generic_authoritarian
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		id = generic_authoritarianism_focus
+		icon = GFX_focus_hun_elect_a_king
 		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_proto_fascism }
-		mutually_exclusive = { focus = generic_revolutionary_socialism }
+		mutually_exclusive = { focus=generic_democracy_focus }
+		mutually_exclusive = { focus=generic_populism_focus }
+
 		cost = 10
-		x = -3
+		x = 0
 		y = 1
 		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
+
+		ai_will_do = { 
+			factor = 25 
+		}
+
+		available = {
+			has_government = neutrality
+		}
+
 		completion_reward = { 
+			add_popularity = {
+				ideology = neutrality
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_neutrality_growth_idea
+			}
+			custom_effect_tooltip = unlocks_neutrality_advisor_tt
 		}
 	}
 
 
 	focus = {
-		id = generic_proto_fascism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
+		id = generic_populism_focus
+		icon = GFX_goal_generic_national_unity
 		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_proto-generic_authoritarian }
-		mutually_exclusive = { focus = generic_revolutionary_socialism }
+		mutually_exclusive = { focus=generic_democracy_focus }
+		mutually_exclusive = { focus=generic_authoritarianism_focus }
+
 		cost = 10
 		x = 4
 		y = 1
 		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
+
+		ai_will_do = { 
+			factor = 0  # AI isnt suppose to do this branch (mainly for players)
+		}
+
 		completion_reward = { 
+			add_popularity = {
+				ideology = democratic
+				popularity = -0.05
+			}
+			add_popularity = {
+				ideology = neutrality
+				popularity = -0.05
+			}
 		}
 	}
 
-
-	focus = {
-		id = generic_revolutionary_socialism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_political_effort }
-		mutually_exclusive = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_proto-generic_authoritarian }
-		mutually_exclusive = { focus = generic_proto_fascism }
-		cost = 10
-		x = 10		y = 1
-		relative_position_id = generic_political_effort
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_expanded_social_programs
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_free_market_ideals }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_democracy
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = generic_fight_the_corporations
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_expanded_social_programs }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_expanded_social_programs
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_tax_the_rich
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_fight_the_corporations }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_fight_the_corporations
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_welfare_state
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_expanded_social_programs }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_expanded_social_programs
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_free_market_ideals
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_democracy }
-		mutually_exclusive = { focus = generic_expanded_social_programs }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_democracy
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_market_with_regulation
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_free_market_ideals }
-		mutually_exclusive = { focus = generic_unfettered_capitalism }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_free_market_ideals
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_unfettered_capitalism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_free_market_ideals }
-		mutually_exclusive = { focus = generic_market_with_regulation }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_free_market_ideals
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_corporate-owned_state
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_unfettered_capitalism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_unfettered_capitalism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_ideological_defense
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_welfare_state  focus = generic_market_with_regulation focus = generic_unfettered_capitalism }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_market_with_regulation
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_deterrence
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_ideological_defense }
-		mutually_exclusive = { focus = generic_volunteer_corps }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_ideological_defense
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_volunteer_corps
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_ideological_defense }
-		mutually_exclusive = { focus = generic_deterrence }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_ideological_defense
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_crusader_of_democracy
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_volunteer_corps }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_volunteer_corps
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_oppressive_rule
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_authoritarian }
-		mutually_exclusive = { focus = generic_enlightened_governance }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_authoritarian
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_suppress_opposition
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_oppressive_rule }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_oppressive_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_crony_networks
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_oppressive_rule }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_oppressive_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_neo_serfdom
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_suppress_opposition }
-		prerequisite = { focus = generic_crony_networks }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_suppress_opposition
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_enlightened_governance
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_authoritarian }
-		mutually_exclusive = { focus = generic_oppressive_rule }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_authoritarian
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_limited_suffrage
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_enlightened_governance }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_enlightened_governance
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = generic_meritocratic_reform
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_enlightened_governance }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_enlightened_governance
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_national_pride
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_limited_suffrage }
-		prerequisite = { focus = generic_meritocratic_reform }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_meritocratic_reform
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_personal_enrichment
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_neo_serfdom }
-		mutually_exclusive = { focus = generic_expansionist_ambitions }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_neo_serfdom
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	# focus = {
-	# 	id = generic_a_new_dynasty
-	# 	#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-	# 	prerequisite = { focus = generic_personal_enrichment }
-	# 	cost = 10
-	# 	x = 0
-	# 	y = 1
-	# 	relative_position_id = generic_personal_enrichment
-	# 	#ai_will_do = { 
-	# 	#	factor = 5
-	# 	#}
-	# 	#bypass = {}
-	# 	#available = {}
-	# 	completion_reward = { 
-	# 	}
-	# }
-
-
-	focus = {
-		id = generic_expansionist_ambitions
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_national_pride  focus = generic_neo_serfdom }
-		mutually_exclusive = { focus = generic_personal_enrichment }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_national_pride
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_for_king_and_country
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_expansionist_ambitions }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_expansionist_ambitions
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_street_politics
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_proto_fascism }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_proto_fascism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_nationalist_agitation
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_proto_fascism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_proto_fascism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_paramilitary_groups
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_proto_fascism }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_proto_fascism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_fascist_revolution
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_nationalist_agitation }
-		prerequisite = { focus = generic_street_politics }
-		prerequisite = { focus = generic_paramilitary_groups }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_nationalist_agitation
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_consolidate_fascist_rule
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_fascist_revolution }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_fascist_revolution
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_pursue_territorial_ambitions
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_fascist_rule }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_consolidate_fascist_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_militarism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_fascist_rule }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_consolidate_fascist_rule
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = generic_territorial_claims
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_pursue_territorial_ambitions  focus = generic_expansionist_ambitions }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_pursue_territorial_ambitions
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_greater_country_name
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_territorial_claims }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_territorial_claims
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	###
-
-
-	focus = {
-		id = generic_underground_networks
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_revolutionary_socialism }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = generic_revolutionary_socialism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_workers_councils
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_revolutionary_socialism }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_revolutionary_socialism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_industrial_strikes
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_revolutionary_socialism }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_revolutionary_socialism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-	
-	focus = {
-		id = generic_peoples_revolution
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_workers_councils }
-		prerequisite = { focus = generic_underground_networks }
-		prerequisite = { focus = generic_industrial_strikes }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_workers_councils
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_consolidate_soviet_power
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_peoples_revolution }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_peoples_revolution
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_export_revolution
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_soviet_power }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = generic_consolidate_soviet_power
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_collectivization
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_consolidate_soviet_power }
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = generic_consolidate_soviet_power
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_state-controlled_industry
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_collectivization }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = generic_collectivization
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = generic_ideological_fanaticism
-		#icon = GFX_focus_FIN_funds_from_kalevala_koru_oy
-		prerequisite = { focus = generic_militarism focus = generic_export_revolution }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = generic_militarism
-		#ai_will_do = { 
-		#	factor = 5
-		#}
-		#bypass = {}
-		#available = {}
-		completion_reward = { 
-		}
-	}
 		
+	focus = {
+		id = generic_fascism_focus
+		icon = GFX_goal_generic_propaganda
+		prerequisite = { focus = generic_populism_focus }
+		mutually_exclusive = { focus=generic_communism_focus  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_populism_focus
+
+		ai_will_do = { 
+			factor = 0   
+		}
+
+		bypass = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_fascism_growth_idea
+			}
+			custom_effect_tooltip = unlocks_fascism_advisor_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_communism_focus
+		icon = GFX_focus_generic_red_flags  #focus_generic_workers #GFX_goal_support_communism
+		prerequisite = { focus = generic_populism_focus }
+		mutually_exclusive = { focus=generic_fascism_focus  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_populism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_popularity = {
+				ideology = communism
+				popularity = 0.05
+			}
+			add_timed_idea = {
+				days = 720
+				idea = generic_communism_growth_idea
+			}
+			custom_effect_tooltip = unlocks_communism_advisor_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_paramilitarism_focus
+		icon = GFX_focus_ITA_generic_fascist_workers
+		prerequisite = { focus = generic_fascism_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_fascism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_paramilitarism_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_worker_councils_focus
+		icon = GFX_focus_YUG_pan_slavic_congress  #GFX_focus_generic_worker_administration
+		prerequisite = { focus = generic_communism_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_communism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		bypass = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_worker_council_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_consolidate_new_regime
+		icon = GFX_goal_generic_political_pressure
+		prerequisite = { focus = generic_paramilitarism_focus focus=generic_worker_councils_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_paramilitarism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_civil_war = no
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			if = {
+				limit = { has_idea = generic_paramilitarism_idea }
+				remove_ideas = generic_paramilitarism_idea
+			}
+			if = {
+				limit = { has_idea = generic_worker_council_idea }
+				remove_ideas = generic_worker_council_idea
+			}
+			set_country_flag = politic_allow_suppress_opposition
+			custom_effect_tooltip = unlocks_political_repression_decisions_tt
+		}
+	}
+
+		
+	focus = {
+		id = generic_militarism_focus
+		icon = GFX_focus_generic_fascist_troops
+		prerequisite = { focus = generic_consolidate_new_regime }
+		mutually_exclusive = { focus=generic_collectivization_focus  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = generic_consolidate_new_regime
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_militarism_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_expansionism_focus
+		icon = GFX_goal_generic_territory_or_war
+		prerequisite = { focus = generic_militarism_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = generic_militarism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = fascism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_expansionism_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_collectivization_focus
+		icon = GFX_focus_generic_communist_industry
+		prerequisite = { focus = generic_consolidate_new_regime }
+		mutually_exclusive = { focus=generic_militarism_focus  }
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_consolidate_new_regime
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_collectivization_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_socialism_one_country_focus
+		icon = GFX_focus_SWE_refuge_for_revolutionaries
+		prerequisite = { focus = generic_collectivization_focus }
+		mutually_exclusive = { focus = generic_global_revolution_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = generic_collectivization_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_socialism_one_country_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_global_revolution_focus
+		icon = GFX_focus_generic_spur_communist_revolutions
+		prerequisite = { focus = generic_collectivization_focus }
+		mutually_exclusive = { focus = generic_socialism_one_country_focus }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = generic_collectivization_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_government = communism
+		}
+
+		completion_reward = { 
+			add_ideas = generic_global_revolution_idea
+		}
+	}
+
+		
+	focus = {
+		id = generic_ideological_fanaticism_focus
+		icon = GFX_focus_generic_ideological_fanaticism
+		prerequisite = { focus=generic_expansionism_focus  focus=generic_socialism_one_country_focus  focus=generic_global_revolution_focus }
+		#mutually_exclusive = { focus = }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = generic_expansionism_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			OR = {
+				has_government = fascism
+				has_government = communism
+			}
+		}
+
+		completion_reward = {
+			add_ideas = generic_ideological_fanaticism_idea 
+		}
+	}
 }
-	
+
+
+
 
 
