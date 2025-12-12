@@ -3,6 +3,43 @@ wsv_great_war_decisions = {
 
 	### --------------- Salonika Front ----------------- ###
 
+	## dummy decision which when howevered over show # of divisions and men you've committed to Macedonia
+	macedonia_commitment_overview = {
+		icon = generic_operation
+		priority = 10
+
+		allowed = {
+			always = yes
+		} 
+		available = {
+			always = no
+		}
+		visible = {
+			has_global_flag = allied_army_orient_formed
+			custom_trigger_tooltip = {
+				tooltip = has_troops_in_salonika_tt
+				check_variable = { ROOT.num_orient_divisions > 0 }
+			}
+		}
+
+		state_target = yes
+		on_map_mode = decision_view_only
+		target_trigger  = { 
+			# FROM = {
+			# 	is_owned_by = var:global.ARMY_ORIENT_ACTUAL
+			# }
+			FROM = {
+				state = 855
+			}
+		}
+
+		cost = 0
+		days_remove = 0
+
+		complete_effect = {}
+	}
+
+
 	# Fix supply lines in Greece cause AI wont
 	build_ports_in_salonika = {
 		icon = generic_construction
@@ -63,7 +100,6 @@ wsv_great_war_decisions = {
 			always = yes
 		} 
 		available = {
-			always = yes
 			var:global.ARMY_ORIENT_ACTUAL = {
 				controls_state = 855   # thessalonkia
 			}
@@ -106,6 +142,12 @@ wsv_great_war_decisions = {
 
 		remove_effect = {
 			var:global.ARMY_ORIENT_ACTUAL = { spawn_3_orient_infantry_divisions = yes }
+			hidden_effect = {
+				if = {
+					limit = { NOT = { tag = var:global.ARMY_ORIENT_OVERLORD } }
+					var:global.ARMY_ORIENT_OVERLORD = { country_event = wsv_armyorient.2 }
+				}
+			}
 		}
 
 		ai_will_do = {
@@ -131,7 +173,7 @@ wsv_great_war_decisions = {
 			always = yes
 		} 
 		available = {
-			always = yes
+			tag = var:global.ARMY_ORIENT_OVERLORD
 			var:global.ARMY_ORIENT_ACTUAL = {
 				controls_state = 855   # thessalonkia
 				OR = {
@@ -143,10 +185,16 @@ wsv_great_war_decisions = {
 				}
 			}
 		}
-		visible = {
+		visible = {  # everyone can see it, only overlord can trigger it
 			has_global_flag = allied_army_orient_formed
 			is_major = yes
-			tag = var:global.ARMY_ORIENT_OVERLORD
+			OR = {
+				tag = var:global.ARMY_ORIENT_OVERLORD
+				is_in_faction_with = var:global.ARMY_ORIENT_OVERLORD
+				capital_scope = {
+					is_on_continent = europe
+				}
+			}
 			OR = {
 				has_war_with = BUL
 				has_war_with = AUH
@@ -159,7 +207,7 @@ wsv_great_war_decisions = {
 		custom_cost_text = decision_cost_open_macedonia_front_theatre
 
 		fire_only_once = yes
-		days_remove = 5
+		days_remove = 30
 
 		complete_effect = {
 			add_command_power = -25
@@ -176,7 +224,14 @@ wsv_great_war_decisions = {
 					if = {
 						limit = { has_war_with = ROOT }
 						transfer_state = 184
+						country_event = wsv_armyorient.4
 					}
+				}
+				AUH = {
+					if = {
+						limit = { has_war_with = ROOT }
+					}
+					country_event = wsv_armyorient.4
 				}
 			}
 		}
@@ -185,6 +240,14 @@ wsv_great_war_decisions = {
 		war_with_on_remove = BUL
 
 		remove_effect = {  
+			# add to faction
+			puppet = var:global.ARMY_ORIENT_ACTUAL
+			set_autonomy = {
+				target = var:global.ARMY_ORIENT_ACTUAL
+				autonomous_state = autonomy_puppet
+			}
+			add_to_faction = var:global.ARMY_ORIENT_ACTUAL
+			# add to wars
 			if = {
 				limit = { has_war_with = BUL }
 				var:global.ARMY_ORIENT_ACTUAL = {

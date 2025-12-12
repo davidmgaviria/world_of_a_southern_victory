@@ -33,18 +33,21 @@ news_event = {
 			}
 			# determine based off overlord
 			var:global.ARMY_ORIENT_ACTUAL = {
-				var:global.ARMY_ORIENT_OVERLORD = {
-					puppet = PREV
-					set_autonomy = {
-						target = PREV
-						autonomous_state = autonomy_protectorate
-					}
-				}
+				# switch states
 				every_state = {
 					limit = { is_owned_by = var:global.ARMY_ORIENT_OVERLORD	 }
 					remove_claim_by = PREV
 					remove_core_of = PREV
 				}
+				# international stuff
+				var:global.ARMY_ORIENT_OVERLORD = { 
+					give_guarantee = PREV 
+					diplomatic_relation = { country = PREV relation = docking_rights  active = yes } # not working
+				}
+				give_military_access = var:global.ARMY_ORIENT_OVERLORD
+				# politics
+				set_stability = 0.85
+				set_war_support = 0.7
 				set_politics = {
 					ruling_party = democratic
 					elections_allowed = no
@@ -55,6 +58,8 @@ news_event = {
 					fascism = 0
 					communism = 0
 				}
+				load_focus_tree = "blank_tree"
+				add_ideas = AdO_expeditionary_force_idea
 				# set cosmetic tag
 				if = { 
 					limit = { check_variable = { global.ARMY_ORIENT_OVERLORD = FRA.id } }
@@ -70,6 +75,7 @@ news_event = {
 				spawn_3_orient_infantry_divisions = yes
 				country_event = { id = wsv_armyorient.100  days = 1 }  # start logistic event
 			}
+
 			# Greece gets event of what happened
 			GRE = { country_event = { id = wsv_greece.53   days = 1 } }
 		}
@@ -93,6 +99,7 @@ news_event = {
 			}
 			NOT = { tag = GRE }
 		}
+		custom_effect_tooltip = unlocks_macedonia_front_decisions_tt
 	}
 
 	option = {
@@ -104,7 +111,67 @@ news_event = {
 }
 
 
-## TODO - needs event marking opening of Salonika Front
+# Country event informing ARMY_ORIENT_OVERLORD (ROOT) that an ally (FROM) sent troops to Salonika
+country_event = {
+	id = wsv_armyorient.2
+	title = wsv_armyorient.2.t
+	desc = wsv_armyorient.2.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_armyorient.2.a
+	}
+}
+
+
+# Serbian army reformed at Macedonia front (event for ARMY_ORIENT_OVERLORD)
+country_event = {
+	id = wsv_armyorient.3
+	title = wsv_armyorient.3.t
+	desc = wsv_armyorient.3.d
+
+	trigger = {
+		has_global_flag = allied_army_orient_formed
+		tag = var:global.ARMY_ORIENT_OVERLORD
+		is_in_faction_with = SER
+		SER = { has_capitulated = yes }
+		NOT = { has_global_flag = serbian_army_rebuilt_in_macedonia }
+	}
+	mean_time_to_happen = { days = 250 }   # historically took a long time
+
+	immediate = {
+		set_global_flag = serbian_army_rebuilt_in_macedonia
+	}
+
+	option = {
+		name = wsv_armyorient.3.a
+		var:global.ARMY_ORIENT_ACTUAL = {
+			spawn_3_orient_infantry_divisions = yes
+			spawn_3_orient_infantry_divisions = yes
+			spawn_3_orient_infantry_divisions = yes
+			add_manpower = 300000
+			add_equipment_to_stockpile = { type = infantry_equipment  amount = 15000  producer = ROOT }
+			add_equipment_to_stockpile = { type = artillery_equipment  amount = 200  producer = ROOT }
+			add_equipment_to_stockpile = { type = support_equipment  amount = 100 producer = ROOT }
+		}
+	}
+}
+
+
+# Bulgaria / AUH informed that Macedonia front is about to open
+country_event = {
+	id = wsv_armyorient.4
+	title = wsv_armyorient.4.t
+	desc = wsv_armyorient.4.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_armyorient.4.a
+	}
+}
+
 
 ## TODO - needs event to clean up 'Salonika front' and return land / divisions once war is over
 
