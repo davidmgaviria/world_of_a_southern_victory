@@ -1,0 +1,41 @@
+
+# ---------------------------------- NATIONAL MORALE ---------------------------------- #
+# These decisions are used to display & reflect the national morale of different 
+# countries during the Great War.
+# ------------------------------------------------------------------------------------- #
+
+wsv_great_war_decisions = {
+
+	# Generic morale display for country
+	COUNTRY_national_morale_overview = {
+		icon = generic_civil_support
+		priority = 500
+
+		allowed = {
+			OR = {
+				tag = GER
+				tag = FRA
+				tag = AUH
+				tag = RUS
+			}
+		} 
+		available = {
+			always = no
+		}
+		visible = {
+			always = yes
+		}
+
+		state_target = yes
+		on_map_mode = decision_view_only
+		target_trigger  = { 
+			FROM = {
+				is_capital = yes
+				is_owned_by = ROOT
+			}
+		}
+
+		cost = 0
+		days_remove = 0
+	}
+}
