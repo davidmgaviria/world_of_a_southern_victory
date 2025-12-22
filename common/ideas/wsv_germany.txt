@@ -16,22 +16,31 @@ ideas = {
 
 		GER_ohl_idea = {
 			allowed = { always = yes}
-			allowed_civil_war = { always = no }
+			allowed_civil_war = { 
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+			}
 			removal_cost = -1
 			picture = GER_general_staff
 
 			modifier={ 
-				political_power_gain = -0.1
-				planning_speed = 0.15
+				planning_speed = 0.1
 				max_planning = 0.25
-				army_org = 25
-				land_doctrine_cost_factor = -0.15
+				army_org = 20
+				land_doctrine_cost_factor = -0.1
 			}
 		}
 
 		GER_prussian_militarism = {
 			allowed = { always = yes}
-			allowed_civil_war = { always = yes }
+			allowed_civil_war = { 
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+			}
 			removal_cost = -1
 			picture = GFX_idea_GER_prussian_militarism
 
@@ -41,11 +50,101 @@ ideas = {
 			}
 		}
 
+
+		GER_naval_law_1908 = {
+			allowed = { always = yes}
+			removal_cost = -1
+			picture= generic_navy_bonus
+
+			cancel = {
+				OR = {
+					is_puppet = yes
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+
+			on_remove = {
+				country_event = wsv_germany.2
+			}
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+                	build_cost_ic = -0.2 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.25
+				production_speed_dockyard_factor  = 0.1
+				naval_doctrine_cost_factor = -0.1
+			}
+		}
+
+
+		GER_army_law_1912 = {
+			allowed = { always = yes}
+			removal_cost = -1
+			picture= generic_navy_bonus
+
+			cancel = {
+				OR = {
+					is_puppet = yes
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+
+			equipment_bonus = {
+				infantry_equipment = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            	artillery_equipment = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.25
+				production_speed_arms_factory_factor  = 0.1
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+		GER_naval_law_1912 = {
+			allowed = { always = yes}
+			removal_cost = -1
+			picture= generic_navy_bonus
+
+			cancel = {
+				OR = {
+					is_puppet = yes
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+                	build_cost_ic = -0.2 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.25
+				production_speed_dockyard_factor  = 0.1
+				naval_doctrine_cost_factor = -0.1
+			}
+		}
+
+
 		############################################
 
 		GER_prussian_militarism_2 = {
 			allowed = { always = yes}
-			allowed_civil_war = { always = yes }
+			allowed_civil_war = { 
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+			}
 			removal_cost = -1
 			picture = GFX_idea_GER_prussian_militarism
 
@@ -55,6 +154,49 @@ ideas = {
 				training_time_factor = -0.1
 			}
 		}
+
+		GER_ohl_idea2 = {
+			allowed = { always = yes}
+			allowed_civil_war = { 
+				OR = {
+					has_government = fascism
+					has_government = neutrality
+				}
+			}
+			removal_cost = -1
+			picture = GER_general_staff
+
+			modifier={ 
+				political_power_gain = -0.1
+				planning_speed = 0.1
+				max_planning = 0.25
+				army_org = 20
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+		# GER_ohl_idea3 = {
+		# 	allowed = { always = yes}
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost = -1
+		# 	picture = GER_general_staff
+
+		# 	modifier={ 
+		# 		planning_speed = 0.15
+		# 		max_planning = 0.25
+		# 		army_org = 20
+		# 		land_doctrine_cost_factor = -0.15
+
+		# 		political_power_gain = -0.3
+		# 		production_speed_arms_factory_factor = 0.1
+		# 		industrial_capacity_factory = 0.1
+		# 		consumer_goods_factor = -0.1
+		# 	}
+		# }
+
+
+
+
 
 		GER_german_industry_loans = {
 			allowed={ always = yes }
@@ -68,7 +210,7 @@ ideas = {
 				production_speed_infrastructure_factor = 0.1  
 			}
 		}
-
+		
 
 		GER_german_controlled_planning = {
 			allowed={ always = yes }
@@ -109,43 +251,6 @@ ideas = {
 			}
 		}
 
-		GER_ohl_idea2 = {
-			allowed = { always = yes}
-			allowed_civil_war = { always = no }
-			removal_cost = -1
-			picture = GER_general_staff
-
-			modifier={ 
-				planning_speed = 0.15
-				max_planning = 0.25
-				army_org = 20
-				land_doctrine_cost_factor = -0.15
-
-				political_power_gain = -0.3
-				production_speed_arms_factory_factor = 0.1
-				industrial_capacity_factory = 0.1
-				consumer_goods_factor = -0.1
-			}
-		}
-
-		GER_ohl_idea3 = {
-			allowed = { always = yes}
-			allowed_civil_war = { always = no }
-			removal_cost = -1
-			picture = GER_general_staff
-
-			modifier={ 
-				planning_speed = 0.15
-				max_planning = 0.25
-				army_org = 20
-				land_doctrine_cost_factor = -0.15
-
-				political_power_gain = -0.5
-				production_speed_arms_factory_factor = 0.25
-				industrial_capacity_factory = 0.25
-				consumer_goods_factor = -0.15
-			}
-		}
 
 		GER_schlieffen_plan = {
 			allowed = { always = yes}

@@ -1000,7 +1000,7 @@ focus_tree = {
 		
 	focus = {
 		id = GER_establish_the_army_league
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_german_war_games }
 
 		cost = 10
@@ -1015,13 +1015,23 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = GER_ohl_idea
+				add_idea = GER_ohl_idea2
+			}
+			
+			country_event = wsv_germany.1
+			add_popularity = {
+				ideology = fascism
+				popularity = 0.1
+			}
 		}
 	}
 
 		
 	focus = {
 		id = GER_weltpolitik
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_ger_return_of_the_kaiser
 	
 		cost = 10
 		x = 8
@@ -1035,13 +1045,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 100
 		}
 	}
 
 		
 	focus = {
 		id = GER_look_east
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_position_armies
 		prerequisite = { focus = GER_weltpolitik }
 
 		cost = 10
@@ -1056,13 +1067,25 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_war_support = 0.1
+			hidden_effect = {
+				every_state = {
+					limit = { 
+						OR = { is_core_of = POL  is_core_of = LIT }
+						NOT = { is_owned_by = ROOT }
+					}
+					add_claim_by = GER
+				}
+			}
+			custom_effect_tooltip = GER_claim_polish_land_tt
+			custom_effect_tooltip = GER_claim_lithuanian_land_tt
 		}
 	}
 
 		
 	focus = {
 		id = GER_eastern_logistics
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_look_east }
 
 		cost = 10
@@ -1077,13 +1100,37 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			5 = {
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					instant_build = yes
+					province = 6375
+				}
+			}
+			763 = {
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					instant_build = yes
+					province = 3384
+				}
+			}
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 9496 537 6236 9387 9252 11260 11288 334 389 362 }
+				start_province = 9496
+				target_province = 362
+			}
 		}
 	}
 
 		
 	focus = {
 		id = GER_challenge_anglo_french_alliance
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_weltpolitik }
 
 		cost = 10
@@ -1098,13 +1145,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_war_support = 0.1
+			custom_effect_tooltip = GER_allow_intervention_in_agadir_tt
 		}
 	}
 
 		
 	focus = {
 		id = GER_funding_bill_1912
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_establish_the_army_league }
 		prerequisite = { focus = GER_eastern_logistics }
 		prerequisite = { focus = GER_challenge_anglo_french_alliance }
@@ -1121,6 +1170,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			country_event = wsv_germany.3
 		}
 	}
 
@@ -1640,7 +1690,7 @@ focus_tree = {
 
 		cost = 10
 		x = 0
-		y = 6
+		y = 5
 		relative_position_id = GER_challenge_anglo_french_alliance
 
 		ai_will_do = { 
