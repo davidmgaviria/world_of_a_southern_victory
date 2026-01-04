@@ -1179,9 +1179,9 @@ focus_tree = {
 		
 	focus = {
 		id = GER_army_bill_1913
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_review_1908_naval_law }
-		mutually_exclusive = { focus=GER_naval_bill_1913  }
+		mutually_exclusive = { focus=GER_naval_program_1913  }
 		cost = 10
 		x = -1
 		y = 1
@@ -1191,16 +1191,26 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			date > 1913.1.1
+			has_country_flag = GER_reduced_naval_spending_flag
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			news_event = wsv_germany.4
+			add_timed_idea = {
+				idea = GER_army_law_1913
+				days = 360
+			}
 		}
 	}
 
 		
 	focus = {
-		id = GER_naval_bill_1913
-		#icon = GFX_focus_chi_legislative_yuan
+		id = GER_naval_program_1913
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_review_1908_naval_law }
 		mutually_exclusive = { focus=GER_army_bill_1913  }
 		cost = 10
@@ -1213,6 +1223,8 @@ focus_tree = {
 		}
 
 		available = {
+			date > 1913.1.1
+			NOT = { has_country_flag = GER_reduced_naval_spending_flag }
 			any_owned_state = {
 				is_coastal = yes
 				is_core_of = ROOT
@@ -1220,33 +1232,45 @@ focus_tree = {
 			}
 		}
 
-		completion_reward = { 
-
-			add_equipment_production = { equipment = { type = battleship_1910 creator = "GER"  }  requested_factories = 1  progress = 0.1  amount = 1 }
-			add_equipment_production = { equipment = { type = battleship_1910 creator = "GER"  }  requested_factories = 1  progress = 0.1  amount = 1 }
-			add_equipment_production = { equipment = { type = battleship_1910 creator = "GER"  }  requested_factories = 1  progress = 0.1  amount = 1 }
-
+		completion_reward = {
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = bc_tech
+			}
 			random_owned_controlled_state = {
 				limit = { 
 					is_core_of = ROOT
 					is_coastal = yes
 				}
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 1
 				add_building_construction = {
 					type = dockyard
-					level = 2
+					level = 1
 				}
 			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = GER_outreach_turkey
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_eastern_logistics }
 
-		cost = 10
+		cost = 5
 		x = 0
 		y = 3
 		relative_position_id = GER_eastern_logistics
@@ -1255,19 +1279,125 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_global_flag = firstbalkan_war_over
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			TUR = { country_event =  wsv_germany.5 }
+			custom_effect_tooltip = turkey_must_accept_outreach_tt
+		}
+	}
+
+
+	focus = {
+		id = GER_military_mission_turkey
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_outreach_turkey }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = GER_outreach_turkey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			TUR = { has_country_flag = TUR_moved_closer_to_germany }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			effect_tooltip = {
+				TUR = {
+					add_timed_idea = {
+						idea = GER_military_mission_turkey_idea
+						days = 720
+					}
+				}
+			}
+			hidden_effect = {
+				TUR = { country_event = wsv_germany.8 }  # what actually adds the effect
+			}
+		}
+	}
+
+
+	focus = {
+		id = GER_turkish_rearmament_program
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_outreach_turkey }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_outreach_turkey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			TUR = { has_country_flag = TUR_moved_closer_to_germany }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			effect_tooltip = {
+				TUR = {
+					add_timed_idea = {
+						idea = GER_loan_for_turkish_rearmament
+						days = 720
+					}
+				}
+			}
+			hidden_effect = {
+				TUR = { country_event = wsv_germany.9 }  # what actually adds the effect
+			}
+		}
+	}
+
+
+	focus = {
+		id = GER_protector_of_turkey
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_military_mission_turkey }
+		prerequisite = { focus = GER_turkish_rearmament_program }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = GER_military_mission_turkey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			TUR = { has_country_flag = TUR_moved_closer_to_germany }
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			TUR = { country_event =  wsv_germany.10 }
+			custom_effect_tooltip = turkey_secret_treaty_conditions_tt
 		}
 	}
 
 		
 	focus = {
 		id = GER_colonial_ambitions
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_challenge_anglo_french_alliance }
 
-		cost = 10
+		cost = 5
 		x = 4
 		y = 1
 		relative_position_id = GER_challenge_anglo_french_alliance
@@ -1279,12 +1409,13 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_political_power = 75
 		}
 	}
 
 		
 	focus = {
-		id = GER_invest_german_africa
+		id = GER_afrika_schutztruppe
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_colonial_ambitions }
 
@@ -1305,14 +1436,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = GER_africa_focus_2
+		id = GER_invest_cameroon
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_invest_german_africa }
+		prerequisite = { focus = GER_afrika_schutztruppe }
 
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = GER_invest_german_africa
+		relative_position_id = GER_afrika_schutztruppe
 
 		ai_will_do = { 
 			factor = 0 
@@ -1326,14 +1457,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = GER_africa_focus_3
+		id = GER_invest_east_africa
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_invest_german_africa }
+		prerequisite = { focus = GER_afrika_schutztruppe }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = GER_invest_german_africa
+		relative_position_id = GER_afrika_schutztruppe
 
 		ai_will_do = { 
 			factor = 0 
@@ -1348,13 +1479,13 @@ focus_tree = {
 		
 	focus = {
 		id = GER_designs_congo
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus=GER_africa_focus_2 focus=GER_africa_focus_3  }
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=GER_invest_cameroon focus=GER_invest_east_africa  }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = GER_africa_focus_2
+		relative_position_id = GER_invest_cameroon
 
 		ai_will_do = { 
 			factor = 0 
@@ -1363,27 +1494,11 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = GER_proclaim_mittleafrika
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_designs_congo }
-
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = GER_designs_congo
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
+			add_state_claim = 755
+			add_state_claim = 772
+			add_state_claim = 538
+			add_state_claim = 718
+			add_state_claim = 295
 		}
 	}
 
@@ -1431,7 +1546,7 @@ focus_tree = {
 
 		
 	focus = {
-		id = GER_militaru_mission_china
+		id = GER_military_mission_china
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_outreach_china }
 
@@ -1475,13 +1590,13 @@ focus_tree = {
 	focus = {
 		id = GER_sino_german_cooperation
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_militaru_mission_china }
+		prerequisite = { focus = GER_military_mission_china }
 		prerequisite = { focus = GER_invest_in_china }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = GER_militaru_mission_china
+		relative_position_id = GER_military_mission_china
 
 		ai_will_do = { 
 			factor = 0 
@@ -1714,30 +1829,8 @@ focus_tree = {
 
 		cost = 10
 		x = 0
-		y = 5
+		y = 6
 		relative_position_id = GER_challenge_anglo_french_alliance
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = GER_ottomsn_german_alliance
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_the_great_war }
-		prerequisite = { focus = GER_outreach_turkey }
-
-		cost = 10
-		x = 0
-		y = 3
-		relative_position_id = GER_outreach_turkey
 
 		ai_will_do = { 
 			factor = 0 
@@ -1753,15 +1846,20 @@ focus_tree = {
 	focus = {
 		id = GER_berlin_baghdad_railway
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_ottomsn_german_alliance }
+		prerequisite = { focus = GER_septemberprogramm }
+		prerequisite = { focus = GER_protector_of_turkey }
 
 		cost = 10
-		x = 0
+		x = -4
 		y = 1
-		relative_position_id = GER_ottomsn_german_alliance
+		relative_position_id = GER_septemberprogramm
 
 		ai_will_do = { 
 			factor = 0 
+		}
+
+		available = {
+			is_in_faction_with = TUR
 		}
 
 		#bypass = {}

@@ -7,7 +7,9 @@
 #  Events 200 - 299 = post war events
 
 
-## ------------------------------------- DOMESTIC EVENTS -------------------------------------- ##
+## ------------------------------------------------------------------------------------------------ ##
+## ---------------------------------------- DOMESTIC EVENTS --------------------------------------- ##
+## ------------------------------------------------------------------------------------------------ ##
 
 # Army League established in Germany (at behest of the Kaiser)
 country_event = {
@@ -28,78 +30,271 @@ country_event = {
 country_event = {
 	id = wsv_germany.2
 	title = wsv_germany.2.t
-	desc = wsv_germany.1.d
+	desc = wsv_germany.2.d
 
 	is_triggered_only = yes
 	fire_only_once = yes
 
-	# End the naval arms race
+	# Reduce naval spending
 	option = {
 		name = wsv_germany.2.a
-		remove_ideas = GER_naval_law_1908
+		swap_ideas = {
+			remove_idea = GER_naval_law_1908
+			add_idea = GER_naval_law_1912_low
+		}
+		set_country_flag = GER_reduced_naval_spending_flag
+		custom_effect_tooltip = will_lock_focuses_tt
+		ai_chance = { factor = 100 }
 	}
-
-	# Reduce spending a bit
+	
+	# Mantain funding levels
 	option = {
 		name = wsv_germany.2.b
-		add_political_power = -25
+		add_political_power = -50
+		custom_effect_tooltip = will_lock_focuses_tt
+		ai_chance = { 
+			factor = 0 
+			modifier = {
+				add = 70
+				has_war_with = ENG
+			}
+			factor = 0 
+			modifier = {
+				add = 40
+				is_historical_focus_on = no
+			}
+		}
 	}
 
-	# Mantain current spending	
+	# More ships for the navy!
 	option = {
 		name = wsv_germany.2.c
 		add_political_power = -75
+		swap_ideas = {
+			remove_idea = GER_naval_law_1908
+			add_idea = GER_naval_law_1912_high
+		}
+		custom_effect_tooltip = will_lock_focuses_tt
+		ai_chance = { factor = 0 }
 	}
 }
 
 
-# # Funding bill of 1912
-# country_event = {
-# 	id = wsv_germany.3
-# 	title = wsv_germany.3.t
-# 	desc = wsv_germany.3.d
 
-# 	is_triggered_only = yes
-# 	fire_only_once = yes
-
-# 	# Fund the army
-# 	option = {
-# 		name = wsv_germany.3.a
-# 		ai_chance = { base = 100 }
-# 	}
-
-# 	# Fund the navy
-# 	option = {
-# 		name = wsv_germany.3.b
-# 		ai_chance = { 
-# 			base = 0
-# 			modifier = { 
-# 				add = 40  
-# 				is_historical_focus_on = no
-# 			}
-# 			modifier = { 
-# 				add = 40  
-# 				has_war_with = ENG
-# 			}
-# 		}
-# 	}
-# }
+# news event of further German naval funding
 
 
+# News event of Germany army bill of 1913
+news_event = {
+	id = wsv_germany.4
+	title = wsv_germany.4.t
+	desc = wsv_germany.4.d
+	picture = news_event_wsv_kaiser_views_troops
 
-# decision on what to finance next
+	is_triggered_only = yes
+	major = yes
 
-# new event on german spending? (army/naval)
+	immediate = {
+		set_global_flag = germany_boosts_military_spending_1913
+		hidden_effect = {
+			add_threat = 2
+		}
+	}
+
+	option = {
+		name = wsv_germany.4.a
+		trigger = {
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_germany.4.b
+		trigger = {
+			OR = { tag = FRA   is_in_faction_with = FRA }
+		}
+	}
+
+	option = {
+		name = wsv_germany.4.c
+		trigger = {
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = FRA   is_in_faction_with = FRA }
+		}
+	}
+}
 
 
 
 
 
+## ------------------------ Germany and Turkey ------------------------ ##
+
+# German overtures to Turkey
+country_event = {
+	id = wsv_germany.5
+	title = wsv_germany.5.t
+	desc = wsv_germany.5.d
+
+	is_triggered_only = yes
+
+	# Lets work closer together
+	option = {
+		name = wsv_germany.5.a
+		GER = { 
+			country_event = { id = wsv_germany.6  days = 2 } 
+			add_opinion_modifier = {
+				target = TUR
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+		}
+		# on turkey
+		set_country_flag = TUR_moved_closer_to_germany	 	# flag set on turkey
+		add_opinion_modifier = {
+			target = GER
+			modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+		}
+		ai_chance = { factor = 100 }
+	}
+	
+	# Go away
+	option = {
+		name = wsv_germany.5.b
+		GER = { country_event = { id = wsv_germany.7  days = 2 } }
+		ai_chance = { factor = 0 }
+	}
+}
 
 
+# Turkey said yes
+country_event = {
+	id = wsv_germany.6
+	title = wsv_germany.6.t
+	desc = wsv_germany.6.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.6.a
+	}
+}
 
 
+# Turkey said no
+country_event = {
+	id = wsv_germany.7
+	title = wsv_germany.7.t
+	desc = wsv_germany.7.d
 
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.7.a
+	}
+}
+
+
+# Turkey informed of German military mission
+country_event = {
+	id = wsv_germany.8
+	title = wsv_germany.8.t
+	desc = wsv_germany.8.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.8.a
+		add_timed_idea = {
+			idea = GER_military_mission_turkey_idea
+			days = 720
+		}
+	}
+}
+
+
+# Turkey informed of German rearmament financing
+country_event = {
+	id = wsv_germany.9
+	title = wsv_germany.9.t
+	desc = wsv_germany.9.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.9.a
+		add_timed_idea = {
+			idea = GER_loan_for_turkish_rearmament
+			days = 720
+		}
+	}
+}
+
+
+# German asks for 'secret treaty' with Turkey (aka let us defend you)
+country_event = {
+	id = wsv_germany.10
+	title = wsv_germany.10.t
+	desc = wsv_germany.10.d
+
+	is_triggered_only = yes
+
+	# Fine
+	option = {
+		name = wsv_germany.10.a
+		GER ={
+			give_guarantee = ROOT
+			country_event = { id = wsv_germany.11  days = 2 } 
+		}
+		# on turkey
+		diplomatic_relation = {
+			country = GER
+			relation = non_aggression_pact
+		}
+		set_country_flag = TUR_accepted_german_protection
+	}
+	
+	# I bet theres strings attached
+	option = {
+		name = wsv_germany.10.b
+		GER ={
+			country_event = { id = wsv_germany.12  days = 2 } 
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_dislikes_country
+			}
+		}
+		remove_ideas = GER_military_mission_turkey_idea
+		remove_ideas = GER_loan_for_turkish_rearmament
+	}
+}
+
+
+# Turkey said yes
+country_event = {
+	id = wsv_germany.11
+	title = wsv_germany.11.t
+	desc = wsv_germany.11.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.11.a
+	}
+}
+
+
+# Turkey said no
+country_event = {
+	id = wsv_germany.12
+	title = wsv_germany.12.t
+	desc = wsv_germany.12.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.12.a
+	}
+}
 
 
 

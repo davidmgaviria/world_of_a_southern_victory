@@ -45,8 +45,8 @@ ideas = {
 			picture = GFX_idea_GER_prussian_militarism
 
 			modifier={ 
-				conscription = 0.02
-				mobilization_speed = 0.01
+				conscription = 0.01
+				mobilization_speed = 0.02
 			}
 		}
 
@@ -54,7 +54,7 @@ ideas = {
 		GER_naval_law_1908 = {
 			allowed = { always = yes}
 			removal_cost = -1
-			picture= generic_navy_bonus
+			picture= generic_naval_spending_moderate
 
 			cancel = {
 				OR = {
@@ -70,17 +70,66 @@ ideas = {
             }
 
 			modifier = {
-				political_power_gain = -0.25
-				production_speed_dockyard_factor  = 0.1
+				political_power_gain = -0.35
+				production_speed_dockyard_factor = 0.1
 				naval_doctrine_cost_factor = -0.1
 			}
 		}
 
+		GER_naval_law_1912_low = {
+			allowed = { always = yes}
+			removal_cost = -1
+			picture= generic_naval_spending_low
+
+			cancel = {
+				OR = {
+					is_puppet = yes
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.15
+				production_speed_dockyard_factor  = 0.05
+				naval_doctrine_cost_factor = -0.05
+			}
+		}
+
+		GER_naval_law_1912_high = {
+			allowed = { always = yes}
+			removal_cost = -1
+			picture= generic_naval_spending_high
+
+			cancel = {
+				OR = {
+					is_puppet = yes
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+                	build_cost_ic = -0.33 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.5
+				production_speed_dockyard_factor  = 0.15
+				naval_doctrine_cost_factor = -0.15
+			}
+		}
 
 		GER_army_law_1913 = {
 			allowed = { always = yes}
 			removal_cost = -1
-			picture= generic_navy_bonus
+			picture= GER_army_spending_icon
 
 			cancel = {
 				OR = {
@@ -99,7 +148,7 @@ ideas = {
             }
 
 			modifier = {
-				political_power_gain = -0.25
+				political_power_gain = -0.35
 				production_speed_arms_factory_factor  = 0.1
 				land_doctrine_cost_factor = -0.1
 			}
@@ -145,8 +194,8 @@ ideas = {
 			picture = GFX_idea_GER_prussian_militarism
 
 			modifier={ 
-				conscription = 0.05
-				mobilization_speed = 0.02
+				conscription = 0.035
+				mobilization_speed = 0.025
 				training_time_factor = -0.1
 			}
 		}
@@ -191,7 +240,38 @@ ideas = {
 		# }
 
 
+		GER_military_mission_turkey_idea = {
+			allowed={ always = yes }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foriegn_army_advisor_icon
 
+			modifier = {
+				experience_gain_army = 0.04
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+		GER_loan_for_turkish_rearmament = {
+			allowed={ always = yes }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foreign_capital
+
+			equipment_bonus = {
+				infantry_equipment = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            	artillery_equipment = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+
+			modifier = {
+				consumer_goods_factor = -0.07
+				production_speed_arms_factory_factor = 0.1
+			}
+		}
 
 
 		GER_german_industry_loans = {
