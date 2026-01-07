@@ -949,10 +949,30 @@ focus_tree = {
 		id = FRA_balkan_policy
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_russian_alliance }
-		cost = 10
-		x = 1
+		cost = 2
+		x = 2
 		y = 1
 		relative_position_id = FRA_franco_russian_alliance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_outreach_greece
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_balkan_policy }
+		cost = 5
+		x = -2
+		y = 1
+		relative_position_id = FRA_balkan_policy
 
 		ai_will_do = { 
 			factor = 0 
@@ -969,8 +989,8 @@ focus_tree = {
 		id = FRA_outreach_serbia
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_balkan_policy }
-		cost = 10
-		x = -1
+		cost = 5
+		x = 0
 		y = 1
 		relative_position_id = FRA_balkan_policy
 
@@ -989,8 +1009,8 @@ focus_tree = {
 		id = FRA_outreach_romania
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_balkan_policy }
-		cost = 10
-		x = 1
+		cost = 5
+		x = 2
 		y = 1
 		relative_position_id = FRA_balkan_policy
 
@@ -1032,7 +1052,7 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_union_sacree
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_the_great_war }
 		cost = 10
 		x = -1
@@ -1046,6 +1066,10 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = FRA_unstable_domestic_politics
+				add_idea = FRA_union_sacree_idea
+			}
 		}
 	}
 
@@ -1127,7 +1151,7 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_designs_on_middle_east
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_the_great_war }
 		cost = 10
 		x = 1
@@ -1141,6 +1165,38 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_state_claim = 349
+			add_state_claim = 344
+			add_state_claim = 350
+			add_state_claim = 677
+			add_state_claim = 680
+			add_state_claim = 554
+			add_state_claim = 553
+			add_state_claim = 454  # pretend claim on holy land to have Britian and France later work together
+			add_state_claim = 455  # pretend claim on holy land to have Britian and France later work together
 		}
 	}
+
+
+	focus = {
+		id = FRA_occupy_morocco
+		icon = GFX_focus_generic_africa_liberation  #Focus_generic_annex_country
+		cost = 10
+		x = 29
+		y = 0
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			date > 1911.1.1
+			has_war = no
+			MOR = { is_puppet_of = FRA }
+		}
+
+		completion_reward = { 
+			news_event = wsv_agadir.1
+			custom_effect_tooltip = germany_responds_negatively_tt
+		}
+	}
+
 }

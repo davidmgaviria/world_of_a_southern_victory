@@ -17,7 +17,7 @@ ideas = {
 				political_power_gain = -0.35
 				party_popularity_stability_factor = -0.25
 				drift_defence_factor = -0.25
-				war_support_factor = -0.2
+				war_support_factor = -0.15
             }
         }
 
@@ -63,6 +63,26 @@ ideas = {
 		}
 
 		# - Later ideas
+		FRA_union_sacree_idea = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+			#picture =  
+
+			cancel = {
+				has_war_with_major = no
+			}
+
+			on_remove = {
+				add_ideas = FRA_unstable_domestic_politics  # when removed swap back for this
+			}
+
+			modifier = {
+				political_power_gain = -0.1
+				party_popularity_stability_factor = 0.15
+				war_support_factor = 0.05
+            }
+        }
 
 		FRA_republican_control_of_army = {
 			allowed={ always=no }
@@ -214,8 +234,6 @@ ideas = {
             }
 		}
 
-		######################  -- old ideas ---
-
 		FRA_conscript_colonials_idea = {
 			allowed={ always=no }
 			allowed_civil_war = { always = no }
@@ -256,6 +274,7 @@ ideas = {
 			}
 		}
 
+		## old ideas
 
 		FRA_french_industry_loans = {
 			allowed={ always=no }

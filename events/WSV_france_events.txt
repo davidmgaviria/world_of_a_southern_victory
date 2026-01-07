@@ -81,6 +81,89 @@ country_event = {
 }
 
 
+## Railroad strikes (brief)
+country_event = {
+	id = wsv_france.5
+	title = wsv_france.5.t
+	desc = wsv_france.5.d
+
+	trigger = {
+		tag = FRA
+		has_war = no
+		has_completed_focus = FRA_expand_french_railways  # focus
+		NOT = { has_global_flag = FRA_early_game_railroad_strikes }
+	}
+
+	mean_time_to_happen = { days = 25 }
+
+	immediate = {
+		set_global_flag = FRA_early_game_railroad_strikes
+	}
+
+	option = {
+		name = wsv_france.5.a
+		add_stability = -0.03
+	}
+}
+
+
+## 1913 Presidential Election
+country_event = {
+	id = wsv_france.6
+	title = wsv_france.6.t
+	desc = wsv_france.6.d
+
+	fire_only_once = yes
+
+    trigger = {
+		original_tag = FRA
+		date > 1913.1.16   	# election occured on Jan 17, 1913
+		NOT = { has_global_flag = FRA_1913_presidential_election }
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	immediate = {
+		set_global_flag = FRA_1913_presidential_election
+	}
+
+	option = {
+		name = wsv_france.6.a
+		retire_country_leader = yes
+		promote_character = FRA_raymond_poincare
+	}
+}
+
+
+## Jean Jaures assassination
+country_event = {
+	id = wsv_france.7
+	title = wsv_france.7.t
+	desc = wsv_france.7.d
+
+	fire_only_once = yes
+
+    trigger = {
+		original_tag = FRA
+		has_war_with_major = yes
+		NOT = { has_global_flag = FRA_jean_jaures_assassinated }
+	}
+
+	mean_time_to_happen = { days = 3 }  # 3 days after outbreak of WW1
+
+	immediate = {
+		set_global_flag = FRA_jean_jaures_assassinated
+	}
+
+	option = {
+		name = wsv_france.7.a
+		add_war_support = 0.07
+		add_popularity = {
+			ideology = communism
+			popularity = -0.03
+		}
+	}
+}
 
 
 
