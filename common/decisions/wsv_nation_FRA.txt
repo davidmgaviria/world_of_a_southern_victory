@@ -2,34 +2,34 @@
 wsv_great_war_decisions = {
 
 	# Notice of impending army revolt
-	france_failing_army_morale = {
-		icon = generic_independence 	#decision_revolt
-		priority = 10
+	# france_failing_army_morale = {
+	# 	icon = generic_independence 	#decision_revolt
+	# 	priority = 10
 
-		allowed = {
-			tag = FRA
-		}
-		activation = {
-			NOT = { has_global_flag =  french_army_mutinies }
-			has_war = yes
-			casualties > 800000
-			longest_war_length > 30  # 2.5 years
-		}
-		available = {
-			has_war = no   # condition for event to cancel
-		}
+	# 	allowed = {
+	# 		tag = FRA
+	# 	}
+	# 	activation = {
+	# 		NOT = { has_global_flag =  french_army_mutinies }
+	# 		has_war = yes
+	# 		casualties > 800000
+	# 		longest_war_length > 30  # 2.5 years
+	# 	}
+	# 	available = {
+	# 		has_war = no   # condition for event to cancel
+	# 	}
 
-		days_mission_timeout = 80
-		is_good = no
+	# 	days_mission_timeout = 80
+	# 	is_good = no
 
-		timeout_effect = {
-			news_event = wsv_france.10
-		}
+	# 	timeout_effect = {
+	# 		news_event = wsv_france.10
+	# 	}
 
-		ai_will_do = {
-			factor = 0
-		}
-	}
+	# 	ai_will_do = {
+	# 		factor = 0
+	# 	}
+	# }
 	
 
 	# France throws in the towel
@@ -137,6 +137,51 @@ wsv_great_war_decisions = {
 
 				add = surrender_chance  # value to modifier
 			}
+		}
+	}
+}
+
+
+
+
+## ------------------ Unrest in Morocco ------------------ ##
+
+FRA_unrest_in_morocco = {
+
+	FRA_ongoing_revolt_in_morocco = {
+		icon = revolt
+		priority = 25
+
+		allowed = {
+			tag = FRA
+		}
+		activation = {
+			MOR = { is_puppet_of = FRA }
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_global_flag = france_occupies_morocco
+				custom_trigger_tooltip = {
+					tooltip = morocco_is_free_or_fake_tt
+					MOR = {	is_puppet = no }
+					MOR = {	exists = no }
+				}
+			}
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 540   # late 1911
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			## TODO - event
+			add_political_power = -75
+			news_event = wsv_agadir.0
+			custom_effect_tooltip = failure_in_morocco_effect_tt
 		}
 	}
 }

@@ -938,6 +938,13 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			OR = {
+				has_completed_focus = FRA_plan_fifteen
+				has_completed_focus = FRA_plan_seventeen
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
@@ -1188,9 +1195,10 @@ focus_tree = {
 		ai_will_do = { factor = 1 }
 
 		available = {
-			date > 1911.1.1
-			has_war = no
+			NOT = { has_idea = FRA_legacy_of_dreyfus_affair }
 			MOR = { is_puppet_of = FRA }
+			has_active_mission = FRA_ongoing_revolt_in_morocco
+			has_war = no
 		}
 
 		completion_reward = { 
