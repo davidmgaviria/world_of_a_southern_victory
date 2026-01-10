@@ -26,7 +26,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 2.25
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 
 		folder = {
 			name = land_doctrine_folder
@@ -38,17 +38,12 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50
+			factor = 100 
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
-			}
-			# important during war
-			modifier = {
-				factor = 2
-				has_war = yes
 			}
 		}
 	}
@@ -59,8 +54,7 @@ technologies = {
 			ww1_centralized_command
 		}
 
-		army_org_regain = 0.05
-		army_speed_factor = 0.05
+		initiative_factor = 0.04
 
 		path = {
 			leads_to_tech = ww1_trench_warfare
@@ -68,9 +62,8 @@ technologies = {
 		}
 
 		doctrine = yes	
-		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -82,22 +75,21 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50
+			factor = 0			# most countries chose centralized
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
-			# important during war
+			# these nations prefer delegated command
 			modifier = {
-				factor = 2
-				has_war = yes
-			}
-			# only germany does delegated command
-			modifier = {
-				factor = 0
-				NOT = { original_tag = GER }
+				add = 100
+				OR = { 
+					original_tag = GER 
+					original_tag = ENG 
+					original_tag = CSA
+				}
 			}
 		}
 	}
@@ -108,7 +100,8 @@ technologies = {
 			ww1_delegated_command
 		}
 
-		max_planning_factor = 0.15
+		max_planning_factor = 0.1
+		initiative_factor = -0.02
 		
 		path = {
 			leads_to_tech = ww1_trench_warfare
@@ -116,9 +109,8 @@ technologies = {
 		}
 
 		doctrine = yes	
-		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -130,22 +122,21 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50
+			factor = 100
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
-			# important during war
-			modifier = {
-				factor = 2
-				has_war = yes
-			}
-			# only germany does delegated command
+			# these nations prefer delegated command
 			modifier = {
 				factor = 0
-				original_tag = GER
+				OR = { 
+					original_tag = GER 
+					original_tag = ENG 
+					original_tag = CSA
+				}
 			}
 		}
 	}
@@ -153,8 +144,8 @@ technologies = {
 	
 	ww1_trench_warfare = {
 
-		max_dig_in = 20 	#20
-		dig_in_speed_factor = 0.5
+		max_dig_in = 10 	#20
+		dig_in_speed_factor = 0.25
 
 		path = {
 			leads_to_tech = ww1_preliminary_bombardment
@@ -162,9 +153,8 @@ technologies = {
 		}
 
 		doctrine = yes	
-		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -176,17 +166,12 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50
+			factor = 100
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
-			}
-			# important during war
-			modifier = {
-				factor = 2
-				has_war = yes
 			}
 		}
 	}
@@ -194,22 +179,21 @@ technologies = {
 	ww1_preliminary_bombardment = {
 
 		category_artillery = {
-			soft_attack = 0.1
+			soft_attack = 0.15
 		}
 
 		path = {
-			leads_to_tech = ww1_bite_and_hold
+			leads_to_tech = ww1_creeping_barrage
 			research_cost_coeff = 1
 		}
 		path = {
-			leads_to_tech = ww1_defense_in_depth
+			leads_to_tech = ww1_defensive_artillery
 			research_cost_coeff = 1
 		}
 
 		doctrine = yes	
-		#research_cost = 3.0
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -221,9 +205,9 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50
+			factor = 100
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
@@ -231,28 +215,28 @@ technologies = {
 		}
 	}
 
-
-	ww1_bite_and_hold = {
+	## -- 'OFFENSIVE' fork
+	ww1_creeping_barrage = {
 		xor={
-			ww1_defense_in_depth
+			ww1_defensive_artillery
 		}
 		
-
-		category_light_infantry = {
-			breakthrough = 0.1
-			soft_attack = 0.1
+		category_line_artillery = {
+			default_morale = 0.2
+			breakthrough = 0.15
 		}
-		org_loss_when_moving = 0.1
+
+		enable_tactic = tactic_barrage
 
 		path = {
-			leads_to_tech = ww1_creeping_barrage
+			leads_to_tech = ww1_grand_offensive
 			research_cost_coeff = 1
 		}
 		
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -264,49 +248,108 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50 
+			factor = 20   # base chance is low; countries should wait before deciding
+
+			# Lower chance if army is inexperienced
 			modifier = {
-				not = {
-					has_army_experience > 120
-				}
+				NOT = { has_army_experience > 120 }
 				factor = 0.8
 			}
-			# these countries are on the defensive
+			# These countries historically favoured large offensives
 			modifier = {
-				factor = 0
+				factor = 5
 				OR = {
-					original_tag = GER
-					original_tag = FRA
-					original_tag = CSA
-					original_tag = CAN
-					surrender_progress > 0.15
+					tag = USA
+					tag = ENG
+					tag = FRA
+					tag = RUS
+				}
+			}
+			# Regular countries -- more likely to pick if beating enemies
+			modifier = {
+				factor = 4
+				has_war = yes
+				NOT = {		# all enemies that I am directly bordering (ie are my neighbors) are at > 0.15 surrender
+					any_enemy_country = {		
+						is_neighbor_of = ROOT
+						surrender_progress < 0.15
+					}
+				}
+			}
+			# Minor countries generally defensive if fighting a major on their continent
+			modifier = {
+				factor = 0.5
+				is_major = no
+				any_enemy_country = {
+					is_major = yes
+					is_on_same_continent_as = ROOT   # Hoi4 uses capital state when a tag is given
 				}
 			}
 		}
 	}
 
 
-	ww1_defense_in_depth = {
+	ww1_grand_offensive = {
 		xor={
-			ww1_bite_and_hold
+			ww1_defensive_artillery
+		}
+		
+		category_light_infantry = {
+			max_organisation = 10
+		}
+		enable_tactic = tactic_planned_attack  
+
+		path = {
+			leads_to_tech = ww1_night_assault
+			research_cost_coeff = 1
+		}
+		
+		doctrine = yes	
+		research_cost = 5
+		xp_research_type = army
+		xp_unlock_cost = 100   #250 before
+		
+		categories = {
+			land_doctrine
 		}
 
-		max_dig_in = 5
-		category_light_infantry = {
-			defense = 0.1
+		folder = {
+			name = land_doctrine_folder
+			position = { x = -2 y = 10 }
 		}
+		
+		ai_will_do = {
+			factor = 100 
+			modifier = {
+				NOT = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+		}
+	}
+
+	## -- 'DEFENSIVE' fork
+	ww1_defensive_artillery = {
+		xor={
+			ww1_creeping_barrage
+		}
+
 		category_artillery = {
+			soft_attack = 0.05
 			defense = 0.1
 		}
+		enable_tactic = tactic_overwhelming_fire
+
 		path = {
-			leads_to_tech = ww1_creeping_barrage
+			leads_to_tech = ww1_defense_in_depth
 			research_cost_coeff = 1
 		}
 
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -318,83 +361,74 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 0 	 # this is an offensive era, countries dont take this usually
+			factor = 20 			# lower chance cause countries should wait a bit before deciding
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
-			# these countries are on the defensive
+			# conditions under which a country will prioritize defensive
 			modifier = {
-				add = 50
+				factor = 2
+				has_war = yes
+				any_enemy_country = {
+					is_neighbor_of = ROOT
+					strength_ratio = { tag = ROOT   ratio > 1 }
+				}
+			}
+			# conditions under which a country will prioritize defensive
+			modifier = {
+				factor = 3
+				has_war = yes
+				surrender_progress > 0.1
+			}
+			# Germany prioritizes defensive if two front war
+			modifier = {
+				factor = 5
+				tag = GER
+				has_war_with = FRA
+				has_war_with = RUS
+				is_historical_focus_on = yes
+			}
+			# France cares less if with a powerful ally
+			modifier = {
+				factor = 0.25
+				tag = FRA
 				OR = {
-					original_tag = GER
-					original_tag = FRA
-					original_tag = CSA
-					original_tag = CAN
-					surrender_progress > 0.15
+					is_in_faction_with = RUS
+					is_in_faction_with = ENG
+				}
+			}
+			# These countries historically favoured large offensives
+			modifier = {
+				factor = 0.5
+				OR = {
+					tag = USA
+					tag = ENG
+					tag = RUS
 				}
 			}
 		}
 	}
 
 
-	# ww1_counterattack = {
+	ww1_defense_in_depth = {
 
-	# 	land_reinforce_rate = 0.02
-	# 	enable_tactic = tactic_tactical_withdrawal
-	# 	#army_org_regain = 0.05
-	# 	#enable_tactic = tactic_elastic_defense
-
-	# 	path = {
-	# 		leads_to_tech = ww1_night
-	# 		research_cost_coeff = 1
-	# 	}
-		
-	# 	doctrine = yes	
-	# 	research_cost = 5
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 200   #250 before
-		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
-
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = 2 y = 10 }
-	# 	}
-		
-	# 	ai_will_do = {
-	# 		factor = 50
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 	}
-	# }
-
-	
-	ww1_creeping_barrage = {
-		
-		category_artillery = {
-			breakthrough = 0.15
-			soft_attack = 0.1
+		category_light_infantry = {
+			defense = 0.15
+			max_organisation = 5
 		}
-		enable_tactic = tactic_barrage
 
 		path = {
-			leads_to_tech = ww1_stormtrooper_tactics
+			leads_to_tech = ww1_night_assault
 			research_cost_coeff = 1
 		}
-		
+
 		doctrine = yes	
 		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -402,13 +436,13 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 10 }
+			position = { x = 2 y = 10 }
 		}
 		
 		ai_will_do = {
-			factor = 50 
+			factor = 100 
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
@@ -416,34 +450,24 @@ technologies = {
 		}
 	}
 
+	
+	ww1_night_assault = {
 
-	ww1_stormtrooper_tactics = {
+		land_night_attack = 0.25 	# negates 1/2 base penalty
 
-		category_light_infantry = {
-			breakthrough = 0.1
-			soft_attack = 0.1
-		}
-
-		enable_tactic = tactic_infantry_charge
-
-		enable_subunits = {
-			stormtrooper_support
-		}
-		
 		path = {
-			leads_to_tech = ww1_antibarrel_warfare
+			leads_to_tech = ww1_bite_and_hold
 			research_cost_coeff = 1
 		}
-
 		path = {
-			leads_to_tech = ww1_tank
+			leads_to_tech = ww1_elastic_defense
 			research_cost_coeff = 1
 		}
 
 		doctrine = yes	
-		research_cost = 4.5
+		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -455,9 +479,9 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 50 
+			factor = 100 
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
@@ -466,77 +490,23 @@ technologies = {
 	}
 
 
-	ww1_antibarrel_warfare = {
-		xor = { ww1_tank }
+	ww1_elastic_defense = {
+		xor={
+			ww1_bite_and_hold
+		}
 
-		category_all_infantry = {
-			hard_attack = 0.1
-			soft_attack = 0.1
-		}
-		category_line_artillery = {
-			hard_attack = 0.1
-			soft_attack = 0.1
-		}
+		land_reinforce_rate = 0.02
+		enable_tactic = tactic_elastic_defense
 
 		path = {
-			leads_to_tech = ww1_hurricane_barrage
+			leads_to_tech = ww1_war_of_material
 			research_cost_coeff = 1
 		}
-		
+
 		doctrine = yes	
-		research_cost = 4.5
+		research_cost = 5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
-		
-		categories = {
-			land_doctrine
-		}
-
-		folder = {
-			name = land_doctrine_folder
-			position = { x = -2 y = 14 }
-		}
-		
-		ai_will_do = {
-			factor = 50 
-			modifier = {
-				not = {
-					has_army_experience > 120
-				}
-				factor = 0.8
-			}
-			# USA and England pick tank support
-			modifier = {
-				factor = 0
-				OR = {
-					original_tag = ENG
-					original_tag = USA
-				}
-			}
-		}
-	}
-
-
-	ww1_tank = {
-		dependencies = { 
-			ww1_heavy_tank = 1
-		}
-		xor = { ww1_antibarrel_warfare }
-
-		category_all_armor = {
-			soft_attack = 0.10
-			breakthrough = 0.25
-		}
-
-		path = {
-			leads_to_tech = ww1_hurricane_barrage
-			research_cost_coeff = 1
-		}
-		
-		doctrine = yes	
-		research_cost = 4.5
-		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -548,19 +518,190 @@ technologies = {
 		}
 		
 		ai_will_do = {
-			factor = 0 
+			factor = 10 
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
-			# USA and England pick tank support
+			# increased chance if took previous 'defensive' doctrine
 			modifier = {
-				add = 50
+				add = 30
+				has_tech = ww1_defensive_artillery
+			}
+			# more likely to do if losing
+			modifier = {
+				factor = 2
+				surrender_progress > 0.1
+			}
+			modifier = {
+				factor = 4
+				surrender_progress > 0.2
+			}
+			modifier = {
+				factor = 2
+				surrender_progress > 0.3
+			}
+			# Germany prioritizes defensive if two front war
+			modifier = {
+				factor = 4
+				tag = GER
+				has_war_with = FRA
+				has_war_with = RUS
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+
+	ww1_bite_and_hold = {
+		xor={
+			ww1_elastic_defense
+		}
+		
+		category_light_infantry = {
+			breakthrough = 0.1
+			soft_attack = 0.1
+		}
+
+		path = {
+			leads_to_tech = ww1_war_of_material
+			research_cost_coeff = 1
+		}
+		
+		doctrine = yes	
+		research_cost = 5
+		xp_research_type = army
+		xp_unlock_cost = 100   #250 before
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = -2 y = 14 }
+		}
+		
+		ai_will_do = {
+			factor = 10 
+			modifier = {
+				NOT = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# higher chance if war
+			modifier = {
+				factor = 2
+				has_war = yes
+			}
+			# increased chance if took previous 'offensive' doctrine
+			modifier = {
+				add = 40
+				has_tech = ww1_creeping_barrage
+			}
+		}
+	}
+
+
+	ww1_war_of_material = {
+
+		supply_consumption_factor = -0.10
+
+		path = {
+			leads_to_tech = ww1_stormtrooper_tactics
+			research_cost_coeff = 1
+		}
+		path = {
+			leads_to_tech = ww1_tank_support
+			research_cost_coeff = 1
+		}
+		
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 100   #250 before
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 0 y = 16 }
+		}
+		
+		ai_will_do = {
+			factor = 100 
+			modifier = {
+				NOT = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+		}
+	}
+
+
+	ww1_stormtrooper_tactics = {
+		xor = { ww1_tank_support }
+
+		category_light_infantry = {
+			breakthrough = 0.10
+			max_organisation = 10
+		}
+		enable_tactic = tactic_infantry_charge
+
+		enable_subunits = {
+			stormtrooper_support
+		}
+		
+		path = {
+			leads_to_tech = ww1_hurricane_barrage
+			research_cost_coeff = 1
+		}
+
+		path = {
+			leads_to_tech = ww1_tank
+			research_cost_coeff = 1
+		}
+
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 100   #250 before
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 2 y = 18 }
+		}
+		
+		ai_will_do = {
+			factor = 100 
+			modifier = {
+				NOT = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+			# if we have mils make tanks
+			modifier = {
+				factor = 0
+				num_of_military_factories > 84   ## TODO - correct way to do this would be 'factories per manpower' but
+			}
+			# historically these countries focused on tanks
+			modifier = {
+				factor = 0
 				OR = {
-					original_tag = ENG
-					original_tag = USA
+					tag = USA
+					tag = ENG
+					tag = FRA
 				}
 			}
 		}
@@ -573,6 +714,43 @@ technologies = {
 			soft_attack = 0.1
 			breakthrough = 0.2
 		}
+		
+		doctrine = yes	
+		research_cost = 4.5
+		xp_research_type = army
+		xp_unlock_cost = 100   #250 before
+		
+		categories = {
+			land_doctrine
+		}
+
+		folder = {
+			name = land_doctrine_folder
+			position = { x = 2 y = 20 }
+		}
+		
+		ai_will_do = {
+			factor = 100 
+			modifier = {
+				NOT = {
+					has_army_experience > 120
+				}
+				factor = 0.8
+			}
+		}
+	}
+
+
+	ww1_tank_support = {
+		dependencies = { 
+			ww1_heavy_tank = 1
+		}
+		xor = { ww1_stormtrooper_tactics }
+
+		category_all_armor = {
+			soft_attack = 0.10
+			max_organisation = 2
+		}
 
 		path = {
 			leads_to_tech = ww1_combined_arms
@@ -582,7 +760,7 @@ technologies = {
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -590,16 +768,36 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 16 }
+			position = { x = -2 y = 18 }
 		}
 		
 		ai_will_do = {
-			factor = 50 
+			factor = 100 
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
+			}
+			# dont make tanks if we dont have tons of mils
+			modifier = {
+				factor = 0
+				num_of_military_factories < 84   ## TODO - correct way to do this would be 'factories per manpower' but
+			}
+			# historically these countries focused on tanks
+			modifier = {
+				add = 100
+				OR = {
+					tag = USA
+					tag = ENG
+					tag = FRA
+				}
+			}
+			# historically germany focused on stormtroopers
+			modifier = {
+				factor = 0
+				tag = GER
+				is_historical_focus_on = yes
 			}
 		}
 	}
@@ -607,24 +805,21 @@ technologies = {
 
 	ww1_combined_arms = {
 		
-
 		category_light_infantry = {
 			soft_attack = 0.1
 			breakthrough = 0.1
-			max_organisation = 10
 		}
 		category_all_armor = {
+			soft_attack = 0.1
 			default_morale = 0.2
-			max_organisation = 5
 		}
-		org_loss_when_moving = -0.2
 		
 		enable_tactic = tactic_breakthrough
 		
 		doctrine = yes	
 		research_cost = 4.5
 		xp_research_type = army
-		xp_unlock_cost = 200   #250 before
+		xp_unlock_cost = 100   #250 before
 		
 		categories = {
 			land_doctrine
@@ -632,183 +827,19 @@ technologies = {
 
 		folder = {
 			name = land_doctrine_folder
-			position = { x = 0 y = 18 }
+			position = { x = -2 y = 20 }
 		}
 		
 		ai_will_do = {
-			factor = 50 
+			factor = 100 
 			modifier = {
-				not = {
+				NOT = {
 					has_army_experience > 120
 				}
 				factor = 0.8
 			}
 		}
 	}
-
-
-	
-
-	# ww1_desperate_defense = {
-	# 	xor = { ww1_antibarrel_warfare ww1_tank }
-
-	# 	conscription = 0.02
-	# 	minimum_training_level = -0.1	
-
-	# 	path = {
-	# 		leads_to_tech = ww1_guerrila_warfare
-	# 		research_cost_coeff = 1
-	# 	}
-		
-	# 	doctrine = yes	
-	# 	research_cost = 4.5
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 200   #250 before
-		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
-
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = 0 y = 15 }
-	# 	}
-		
-	# 	ai_will_do = {
-	# 		factor = 40 
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 		# Want to pick if war is not going well
-	# 		modifier = {
-	# 			factor = 2
-	# 			surrender_progress > 0.34
-	# 		}
-	# 		# Less likely to pick if not on the brink of collapse
-	# 		modifier = {
-	# 			factor = 0.25
-	# 			surrender_progress < 0.2
-	# 		}
-	# 		modifier = {
-	# 			factor = 0
-	# 			surrender_progress < 0.1
-	# 		}
-	# 	}
-	# }
-
-
-	# ww1_guerrila_warfare = {
-
-	# 	army_core_defence_factor = 0.1
-	# 	resistance_damage_to_garrison_on_our_occupied_states = 0.2
-	# 	enable_tactic = tactic_guerrilla_tactics
-		
-	# 	doctrine = yes	
-	# 	research_cost = 4.5
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 200   #250 before
-		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
-
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = 0 y = 17 }
-	# 	}
-		
-	# 	ai_will_do = {
-	# 		factor = 40 
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 	}
-	# }
-
-
-		# ww1_night = {
-
-	# 	land_night_attack = 0.20 
-
-	# 	path = {
-	# 		leads_to_tech = ww1_antibarrel_warfare
-	# 		research_cost_coeff = 1
-	# 	}
-	# 	path = {
-	# 		leads_to_tech = ww1_desperate_defense
-	# 		research_cost_coeff = 1
-	# 	}
-	# 	path = {
-	# 		leads_to_tech = ww1_tank
-	# 		research_cost_coeff = 1
-	# 	}
-		
-	# 	doctrine = yes	
-	# 	research_cost = 4.5
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 200   #250 before
-		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
-		
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = 0 y = 12 }
-	# 	}
-		
-	# 	ai_will_do = {
-	# 		factor = 50 
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 	}	
-	# }
-
-
-	# ww1_war_of_movement = {
-
-	# 	category_all_armor = {
-	# 		breakthrough = 0.2
-	# 	}
-	# 	army_speed_factor = 0.1
-	# 	org_loss_when_moving = -0.1
-
-	# 	enable_tactic = tactic_breakthrough
-		
-	# 	doctrine = yes	
-	# 	research_cost = 4.5
-	# 	xp_research_type = army
-	# 	xp_unlock_cost = 200   #250 before
-		
-	# 	categories = {
-	# 		land_doctrine
-	# 	}
-
-	# 	folder = {
-	# 		name = land_doctrine_folder
-	# 		position = { x = 2 y = 14 }
-	# 	}
-		
-	# 	ai_will_do = {
-	# 		factor = 50 
-	# 		modifier = {
-	# 			not = {
-	# 				has_army_experience > 120
-	# 			}
-	# 			factor = 0.8
-	# 		}
-	# 	}
-	# }
 
 
 

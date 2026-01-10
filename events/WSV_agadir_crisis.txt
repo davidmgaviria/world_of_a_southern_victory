@@ -7,6 +7,61 @@
 #####################################################################
 
 
+## Alt hist - Morocco breaks free from France
+news_event = {
+	id = wsv_agadir.0
+	title = wsv_agadir.0.t
+	desc = wsv_agadir.0.d
+	#picture =  news_event_france_occupies_morroco
+
+	major = yes
+    is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = morocco_broke_free_of_france
+			FRA = {
+				release = MOR
+				add_opinion_modifier = {
+					target = MOR
+					modifier = wsv_dislikes_country
+				}
+				add_state_claim = 461
+				add_state_claim = 462
+			}
+			MOR = {
+				drop_cosmetic_tag = yes
+			}
+			GER = { give_guarantee = MOR }
+			ENG = { give_guarantee = MOR }
+			# TODO - MOR .. load stuff
+		}
+	}
+
+	option = {
+		name = wsv_agadir.0.a
+		trigger = {
+			tag = FRA
+		}
+	}
+
+	option = {
+		name = wsv_agadir.0.b
+		trigger = {
+			tag = MOR
+		}
+	}
+
+	option = {
+		name = wsv_agadir.0.c
+		trigger = {
+			NOT = { tag = FRA }
+			NOT = { tag = MOR }
+		}
+	}
+}
+
+
 ## French troops occupy Morocco
 news_event = {
 	id = wsv_agadir.1

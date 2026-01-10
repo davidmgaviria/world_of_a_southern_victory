@@ -6,14 +6,18 @@ ideas = {
 		# -- Great War
 		###################################################### 
 
-		FRA_disjointed_government = {
+		FRA_unstable_domestic_politics = {
             allowed={ always=no }
 			allowed_civil_war = { always = no }
             removal_cost = -1 
-			picture = generic_disjointed_gov 
+			picture = FRA_unstable_politics_icon
 
 			modifier = {
-                political_power_gain = -0.3
+				political_advisor_cost_factor = 0.25
+				political_power_gain = -0.35
+				party_popularity_stability_factor = -0.25
+				drift_defence_factor = -0.25
+				war_support_factor = -0.15
             }
         }
 
@@ -22,41 +26,255 @@ ideas = {
 			allowed_civil_war = { always = no }
 			removal_cost=-1
 
-			picture = SOV_organize_wreckers
+			picture = ARG_construction_guilds  #SOV_organize_wreckers
 			modifier = {
-				industrial_capacity_factory = -0.25
-				production_factory_max_efficiency_factor = -0.1
+				industrial_capacity_factory = -0.15
+				production_factory_efficiency_gain_factor = -0.25
+				consumer_goods_factor = 0.07
 			}
 		}
-
-		FRA_memories_of_1871 = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-
-			picture = idea_FRA_memories_of_1871
-			modifier = {
-				surrender_limit = -0.25
-				conscription_factor = -0.2
-				mobilization_speed = -0.05
-				army_morale_factor = -0.1
-			}
-		}
-
-		# - Later ideas
 
 		FRA_french_revanchism = {
 			allowed={ always=no }
 			allowed_civil_war = { always = no }
 			removal_cost=-1
-			picture = generic_victors_of_ww1
+			picture = FRA_revanchism_icon
 
             modifier = {
-                conscription = 0.01
-                army_attack_factor = 0.1
-				justify_war_goal_time = -0.1
+                conscription = 0.005
+                mobilization_speed = 0.01
+				offensive_war_stability_factor = 0.1
             }
 		}
+
+		FRA_legacy_of_dreyfus_affair = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = FRA_legacy_of_dreyfus_icon
+
+            modifier = {
+				conscription_factor = -0.1
+				army_org = -10
+                army_morale_factor = -0.15
+				army_leader_cost_factor = 0.25
+				stability_factor = -0.1
+            }
+		}
+
+		# - Later ideas
+		FRA_union_sacree_idea = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+			picture = FRA_union_sacree_icon
+
+			cancel = {
+				has_war_with_major = no
+			}
+
+			on_remove = {
+				add_ideas = FRA_unstable_domestic_politics  # when removed swap back for this
+			}
+
+			modifier = {
+				political_power_gain = -0.1
+				party_popularity_stability_factor = 0.15
+				war_support_factor = 0.05
+            }
+        }
+
+		FRA_republican_control_of_army = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = FRA_republican_army_icon
+
+            modifier = {
+				army_leader_cost_factor = 0.25
+				land_doctrine_cost_factor = 0.15
+				command_power_gain_mult = -0.1
+				experience_gain_army_mult = 0.1
+            }
+		}
+
+
+		FRA_french_revanchism_2 = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = FRA_revanchism_icon
+
+            modifier = {
+                conscription = 0.015
+                mobilization_speed = 0.01
+				offensive_war_stability_factor = 0.2
+				war_support_factor = 0.1
+            }
+		}
+
+		FRA_french_elan_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_elan_icon
+
+            modifier = {
+				infantry_attack_factor = 0.05
+				army_morale_factor = 0.1
+                tactic_assault_preferred_weight_factor = 0.25
+            }
+		}
+
+		FRA_rifle_production = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_rifles
+
+			equipment_bonus = {
+				infantry_equipment = { instant = yes build_cost_ic = -0.1 }
+			}
+		}
+
+		FRA_light_arty_production = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_artillery
+
+			equipment_bonus = {
+				artillery_equipment = { instant = yes build_cost_ic = -0.1 }
+			}
+		}
+
+		FRA_mg_production = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_mg_icon
+
+			equipment_bonus = {
+				heavy_weapons_equipment = { instant = yes build_cost_ic = -0.1 }
+			}
+		}
+
+		FRA_chauchat_production = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_mg_icon
+
+			equipment_bonus = {
+				heavy_weapons_equipment = { instant = yes build_cost_ic = -0.07 }
+				heavy_weapons_equipment = { instant = yes soft_attack = -0.1 }
+			}
+		}
+
+		FRA_renault_production = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_tank_production_icon
+
+			equipment_bonus = {
+				early_light_tank_chassis = { instant = yes build_cost_ic = -0.15 }
+			}
+		}
+
+
+		FRA_champagne_riots_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = FRA_champagne_riots_icon
+
+			modifier = {
+				consumer_goods_factor = 0.1
+				production_factory_efficiency_gain_factor = -0.1
+				stability_factor = -0.1
+				political_power_gain = -0.15
+			}
+		}
+
+
+		FRA_modernizing_industries = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+
+			picture = ARG_public_works_investment
+			modifier = {
+				industrial_capacity_factory = -0.1
+				production_factory_efficiency_gain_factor = -0.15
+				consumer_goods_factor = 0.04
+			}
+		}
+
+		FRA_build_more_railways = {  
+			allowed={ always=no }
+			allowed_civil_war = { always=yes }
+			removal_cost=-1
+			picture= generic_build_infrastructure
+            modifier = {
+				production_speed_rail_way_factor = 0.1
+				production_speed_infrastructure_factor = 0.05
+            }
+		}
+
+		FRA_income_tax_idea = {  
+			allowed={ always=no }
+			allowed_civil_war = { always=yes }
+			removal_cost=-1
+			picture= generic_income_tax_icon
+            modifier = {
+				political_power_gain = 0.15
+				consumer_goods_factor = -0.05
+				stability_factor = -0.05
+            }
+		}
+
+		FRA_conscript_colonials_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = { has_war = no }
+			picture = por_colonial_army
+
+			modifier = {
+				non_core_manpower = 0.02
+				army_org_factor = -0.05
+			}
+		}
+
+		FRA_boost_war_effort_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = { has_war = no }
+			picture = SOV_fourth_five_year_plan
+
+			modifier = {
+				consumer_goods_factor = -0.1
+				industrial_capacity_factory = 0.1
+				production_speed_arms_factory_factor = 0.1
+			}
+		}
+
+		FRA_they_shall_not_pass_idea = {
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			cancel = { has_war = no }
+			picture = FRA_defend_france
+
+			modifier = {
+				army_core_defence_factor = 0.1
+				army_morale_factor = 0.1
+			}
+		}
+
+		## old ideas
 
 		FRA_french_industry_loans = {
 			allowed={ always=no }
@@ -83,46 +301,6 @@ ideas = {
 				lend_lease_tension = -0.35
 				send_volunteers_tension = -0.25
 				send_volunteer_size = 1
-			}
-		}
-
-		FRA_conscript_colonials_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			cancel = { has_war = no }
-			picture = por_colonial_army
-
-			modifier = {
-				non_core_manpower = 0.02
-				army_org_factor = -0.05
-			}
-		}
-
-		FRA_boost_war_effort_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			cancel = { has_war = no }
-			picture = SOV_fourth_five_year_plan
-
-			modifier = {
-				consumer_goods_factor = -0.1
-				industrial_capacity_factory = 0.1
-				production_speed_arms_factory_factor = 0.15
-			}
-		}
-
-		FRA_they_shall_not_pass_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			cancel = { has_war = no }
-			picture = FRA_defend_france
-
-			modifier = {
-				army_core_defence_factor = 0.1
-				army_morale_factor = 0.1
 			}
 		}
 

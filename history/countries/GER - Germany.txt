@@ -4,20 +4,24 @@
 #					GENERIC VALUES
 #-------------------------------------------------------
 set_fuel_ratio = 0.5
-set_research_slots = 4   # testing 4 slots 
+set_research_slots = 4 
 set_stability = 0.7
-set_war_support = 0.5
+set_war_support = 0.35
 set_convoys = 400
 set_major = yes		#gotta make sure its a major
-
-
 
 
 
 1910.1.1 = {
 	oob = "GER_1910"
 	load_focus_tree = germany_focus
-	#set_research_slots = 5
+
+	# National Morale
+	set_variable = { 
+		var = national_morale
+		value = 6   # stable
+	}
+
 
 	#---------------- GEOPOLITICS ----------------#
 	#add_opinion_modifier = {  target = USA   modifier = WSV_american-german_alliance }
@@ -109,8 +113,8 @@ set_major = yes		#gotta make sure its a major
 	   	democratic = 15
 		demsocialism = 20
 		communism = 1
-	    fascism = 16
-	    neutrality = 48
+	    fascism = 12
+	    neutrality = 52
 	}
 
 	add_ideas = {
@@ -118,10 +122,10 @@ set_major = yes		#gotta make sure its a major
 		GER_north_german_confederation
 		GER_ohl_idea
 		GER_prussian_militarism
-		generic_dreadnought_arms_race
+		GER_naval_law_1908
 		limited_exports
 		limited_conscription
-		low_economic_mobilisation
+		civilian_economy
 	}
 
 	#--------------- EQUIPMENT ----------------#

@@ -1,0 +1,321 @@
+
+wsv_great_war_decisions = {
+
+	# Notice of impending army revolt
+	# france_failing_army_morale = {
+	# 	icon = generic_independence 	#decision_revolt
+	# 	priority = 10
+
+	# 	allowed = {
+	# 		tag = FRA
+	# 	}
+	# 	activation = {
+	# 		NOT = { has_global_flag =  french_army_mutinies }
+	# 		has_war = yes
+	# 		casualties > 800000
+	# 		longest_war_length > 30  # 2.5 years
+	# 	}
+	# 	available = {
+	# 		has_war = no   # condition for event to cancel
+	# 	}
+
+	# 	days_mission_timeout = 80
+	# 	is_good = no
+
+	# 	timeout_effect = {
+	# 		news_event = wsv_france.10
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 0
+	# 	}
+	# }
+	
+
+	# France throws in the towel
+	greatwar_france_peace_with_germany = {
+		icon = generic_form_nation
+
+		available = {
+			OR = {
+				casualties > 500000
+				surrender_progress > 0.5
+			}
+		}
+
+		visible = {
+			tag = FRA
+			has_war_with = GER
+			has_start_date < 1937.1.1
+		}
+
+		days_remove = 5
+		days_re_enable = 90
+
+		remove_effect = {
+			GER = { country_event = { id = wsv_peace_treaty.10  days = 1 } }
+			custom_effect_tooltip = second_frankfurt_treaty_tt
+		}
+
+
+		# PREVENT FALLING DURING WW1
+		ai_will_do = {
+			base = 0  # Need positive value to surrender
+
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
+			modifier = {
+				set_temp_variable = { surrender_chance = 0 }
+
+				## --- Negatives
+				# Dont abandon Russia (as long as they're not collapsing already)
+				if = {
+					limit = { 
+						is_in_faction_with = RUS 
+						NOT = { has_global_flag = tsar_of_russia_abdicated }
+					}
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# England makes us happy
+				if = {
+					limit = { has_war_together_with = ENG }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Hold out for Americans! (OTL)
+				if = {
+					limit = { has_war_together_with = USA }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.15 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				if = {
+					limit = { surrender_progress < 0.3 }
+					subtract_from_temp_variable = { surrender_chance = 2 }
+				}
+				
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 1000000 }
+					add_to_temp_variable = { surrender_chance = 1 } 
+				}
+				if = {
+					limit = { casualties > 2500000 }
+					add_to_temp_variable = { surrender_chance = 1 } 
+				}
+				# Sucking at war makes us sad :(
+				if = {
+					limit = { 
+						has_war_with = GER
+						war_length_with = { tag = GER   months > 24 }
+						GER = { surrender_progress < 0.1 }
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Low stability is bad
+				if = {
+					limit = { has_stability < 0.25 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Having mutinies or being unable to launch offensives is bad
+				if = {
+					limit = { 
+						OR = {
+							has_idea = FRA_army_mutinies
+							has_idea = FRA_halt_army_offensives
+						}
+					}
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
+			}
+		}
+	}
+}
+
+
+
+
+## ------------------ Unrest in Morocco ------------------ ##
+
+FRA_unrest_in_morocco = {
+
+	FRA_ongoing_revolt_in_morocco = {
+		icon = revolt
+		priority = 25
+
+		allowed = {
+			tag = FRA
+		}
+		activation = {
+			MOR = { is_puppet_of = FRA }
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_global_flag = france_occupies_morocco
+				custom_trigger_tooltip = {
+					tooltip = morocco_is_free_or_fake_tt
+					MOR = {	is_puppet = no }
+					MOR = {	exists = no }
+				}
+			}
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 540   # late 1911
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			## TODO - event
+			add_political_power = -75
+			news_event = wsv_agadir.0
+			custom_effect_tooltip = failure_in_morocco_effect_tt
+		}
+	}
+}
+
+
+
+
+######################################################################
+#########################  WORLD WAR 2  ##############################
+######################################################################
+
+
+wsv_ww2_decisions = {
+	
+	french_plebicites = {
+
+		icon = generic_civil_support
+
+		allowed = {
+			original_tag = FRA
+			
+		}
+
+		visible = {
+			has_government = fascism
+			NOT = { has_war_with = GER }
+			NOT = { is_in_faction_with = GER }
+			GER = {
+				owns_state = 828
+				owns_state = 28
+			}
+            OR = {
+            	has_completed_focus = FRA2_french_plebicites
+            	has_global_flag = kaiser_wilhelm_ii_dead
+            }
+		}
+
+		days_remove = 4
+
+		fire_only_once = yes
+
+		remove_effect = {
+			news_event = wsv_ww2_france.3
+			custom_effect_tooltip = french_plebicite_or_war_tt
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# France must decide
+	france_must_decide = {
+
+		icon = generic_decision
+
+		allowed = {
+			tag = FRA
+		}
+
+		visible = {
+			has_global_flag = french_plebicites_rejected
+		}
+
+		fire_only_once = yes
+
+		days_remove = 30
+
+		days_re_enable = 0
+
+		remove_effect = {
+			set_country_flag = french_ultimatum_expired
+			add_stability = -0.2
+			add_war_support = -0.25
+			add_political_power = -100
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# France attack germany
+	france_attack_germany = {
+
+		icon = infiltrate_state
+
+		allowed = {
+			tag = FRA
+		}
+
+		available = {
+			NOT = { is_in_faction_with = GER }
+		}
+
+		visible = {
+			has_global_flag = french_plebicites_rejected
+			NOT = { has_country_flag = french_ultimatum_expired }
+		}
+
+		fire_only_once = yes
+
+		days_remove = 5
+
+		days_re_enable = 0
+
+		remove_effect = {
+			declare_war_on = {
+			    target = GER
+			    type = take_core_state
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = BEL } }
+				declare_war_on = {
+				    target = BEL
+				    type = take_claimed_state
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = HOL } }
+				declare_war_on = {
+				    target = HOL
+				    type = take_claimed_state
+				}
+			}
+			hidden_effect = {
+				remove_decision = france_must_decide
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
