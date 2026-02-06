@@ -38,7 +38,7 @@ agadir_crisis_cat = {
 			} 
 		}
 
-		days_mission_timeout = 100
+		days_mission_timeout = 150
 		fire_only_once = yes
 		is_good = no
 
@@ -52,7 +52,7 @@ agadir_crisis_cat = {
 	}
 
 
-	# # Germany sends demands to France
+	## Germany sends demands to France
 	agadir_germany_send_gunboat = {
 		priority = 20
 		icon = generic_naval
@@ -65,15 +65,16 @@ agadir_crisis_cat = {
 		available = {
 			has_active_mission = agadir_relevance_of_morocco_occupation
 			has_completed_focus = GER_challenge_anglo_french_alliance
+			has_country_flag = time_for_action_in_agadir  # France has ignored our inital request for compensation
 			has_war = no
 		}
 
 		fire_only_once = yes
-		days_remove = 7
+		days_remove = 4
 		cost = 25
 
 		remove_effect = {
-			news_event = wsv_agadir.2
+			news_event = wsv_agadir.7
 		}
 
 		ai_will_do = {
@@ -83,7 +84,7 @@ agadir_crisis_cat = {
 
 	### ------------------ Negotiations ------------------ ####
 	
-	## Germany sends demands to France
+	# Inital harsh German demands
 	agadir_germany_demands_compensation = {
 		icon = generic_operation
 		priority = 15
@@ -98,105 +99,35 @@ agadir_crisis_cat = {
 		}
 
 		fire_only_once = yes
-		days_remove = 3
+		days_remove = 7
 		cost = 0
 
 		complete_effect = {
-			hidden_effect = {
+			effect_tooltip = {
 				add_days_mission_timeout = {
 					mission = agadir_relevance_of_morocco_occupation
-					days = 140
+					days = 30
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = { has_active_mission = agadir_relevance_of_morocco_occupation }
+					add_days_mission_timeout = {
+						mission = agadir_relevance_of_morocco_occupation
+						days = 30
+					}
 				}
 			}
 		}
 
 		remove_effect = {
 			set_global_flag = agadir_negotiations_ongoing
-			FRA = { country_event = wsv_agadir.8 }
+			FRA = { country_event = wsv_agadir.12 }
 			custom_effect_tooltip = agadir_negoitations_begin_tt
 		}
 
 		ai_will_do = {
 			factor = 50
-		}
-	}
-
-
-	# negotiations ongoing timer
-	agadir_negotiation_timeout_mission = {
-		priority = 23
-		icon = generic_political_discourse
-
-		visible = {
-			OR = {
-				tag = GER
-				tag = FRA
-				is_in_faction_with = GER
-				is_in_faction_with = FRA
-				AND = {
-					tag = ENG
-					has_global_flag = britain_backs_france_in_agadir
-				}
-			}
-		}
-		available = {  
-			always = no
-		}
-		activation = {
-			has_global_flag = agadir_negotiations_ongoing
-		}
-		cancel_trigger = {
-			has_global_flag = agadir_crisis_over  
-		}
-		cancel_effect = {
-			clr_global_flag = agadir_negotiations_ongoing
-		}
-
-		days_mission_timeout = 120
-		fire_only_once = yes
-
-		timeout_effect = {
-			news_event = wsv_agadir.20
-			clr_global_flag = agadir_negotiations_ongoing
-			custom_effect_tooltip = end_of_negotiations_is_bad_tt
-		}
-	}
-
-	# agreement implementation delay
-	agadir_compromise_implementation_delay_mission = {
-		priority = 24
-		icon = generic_operation
-
-		visible = {
-			OR = {
-				tag = GER
-				tag = FRA
-				is_in_faction_with = GER
-				is_in_faction_with = FRA
-				AND = {
-					tag = ENG
-					has_global_flag = britain_backs_france_in_agadir
-				}
-			}
-		}
-		activation = {
-			has_global_flag = agadir_crisis_compromise_reached
-		}
-		available = {  
-			always = no
-		}
-		cancel_trigger = {
-			FRA = { has_war_with = GER }
-		}
-
-		days_mission_timeout = 100
-		fire_only_once = yes
-
-		timeout_effect = {
-			if = {
-				limit = { NOT = { has_global_flag = agadir_territorial_transfer } }
-				news_event = wsv_agadir.21
-			}
 		}
 	}
 

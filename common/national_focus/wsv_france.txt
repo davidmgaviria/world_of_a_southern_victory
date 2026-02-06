@@ -1207,4 +1207,132 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = FRA_reaffirm_ties_britain
+		icon = GFX_focus_chi_british_cooperation
+		prerequisite = { focus = FRA_occupy_morocco }
+		mutually_exclusive = { focus=FRA_franco_british_split  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = FRA_occupy_morocco
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			# has_global_flag = britain_backs_france_in_agadir
+			# NOT = {
+			# 	has_war_with = ENG
+			# }
+			ENG = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			#add_political_power = 50
+			# ENG = {
+			# 	add_opinion_modifier = {
+			# 		target = FRA
+			# 		modifier = wsv_improve_relations
+			# 	}
+			# }
+			# hidden_effect = {
+			# 	add_opinion_modifier = {
+			# 		target = ENG
+			# 		modifier = wsv_improve_relations
+			# 	}
+			# }
+		}
+	}
+	
+
+
+	focus = {
+		id = FRA_franco_british_split
+		icon = GFX_focus_ARG_cut_ties_with_britain
+		prerequisite = { focus = FRA_occupy_morocco }
+		mutually_exclusive = { focus=FRA_reaffirm_ties_britain  }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = FRA_occupy_morocco
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_global_flag = britain_abandoned_france_in_agadir
+			NOT = { is_in_faction_with = ENG }
+		}
+
+		bypass = {
+			NOT = { has_non_aggression_pact_with = ENG }
+		}
+
+		completion_reward = { 
+			# diplomatic_relation = {
+			# 	country = ENG
+			# 	relation = non_aggression_pact
+			# 	active = no
+			# }
+			# ENG = { country_event = wsv_france.50 }
+		}
+	}
+
+	
+	
+	focus = {
+		id = FRA_secret_defense_pact_with_britain
+		#icon = GFX_focus_chi_british_cooperation
+		prerequisite = { focus = FRA_reaffirm_ties_britain }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_reaffirm_ties_britain
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+		
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			
+		}
+	}
+
+
+	focus = {
+		id = FRA_joint_western_front_command
+		#icon = GFX_focus_chi_british_cooperation
+		prerequisite = { focus = FRA_secret_defense_pact_with_britain }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_secret_defense_pact_with_britain
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			war_length_with = {  tag = GER   months > 18 }
+			ENG = {
+				war_length_with = {  tag = GER   months > 18 }
+			}
+			is_in_faction_with = ENG
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			
+		}
+	}
+
+
 }
