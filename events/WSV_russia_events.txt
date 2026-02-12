@@ -1,6 +1,126 @@
 ﻿add_namespace = wsv_russia
 
 
+#############################################################################
+## -- Pre-War Domestic Events
+#############################################################################
+
+
+### --- Zmestvo Bill and effects
+
+# Zmestvo bill debate begins
+country_event = {
+	id = wsv_russia.1
+	title = wsv_russia.1.t
+	desc = wsv_russia.1.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.1.b
+		hidden_effect = {
+			country_event = { id = wsv_russia.2  days = 120 }
+		}
+		custom_effect_tooltip = zmestvo_debate_length
+	}
+}
+
+
+# Zmestvo bill debate ended
+country_event = {
+	id = wsv_russia.2
+	title = wsv_russia.2.t
+	desc = wsv_russia.2.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.2.b
+	}
+}
+
+
+# Compromised with the Durma to pass bill
+country_event = {
+	id = wsv_russia.3
+	title = wsv_russia.3.t
+	desc = wsv_russia.3.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.3.b
+	}
+}
+
+
+# Durma temporarily dissolved to ram through bill
+country_event = {
+	id = wsv_russia.4
+	title = wsv_russia.4.t
+	desc = wsv_russia.4.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.4.b
+	}
+}
+
+
+# Stolypin assassinated
+country_event = {
+	id = wsv_russia.5
+	title = wsv_russia.5.t
+	desc = wsv_russia.5.d
+
+	immediate = {
+		set_country_flag = stolypin_assassination_occured
+	}
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = { 
+		name = wsv_russia.5.b
+	}
+}
+
+### -------------------- ###
+
+# Lena massacre
+country_event = {
+	id = wsv_russia.6
+	title = wsv_russia.6.t
+	desc = wsv_russia.6.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_country_flag = lena_massacre_occured
+	}
+
+	option = { 
+		name = wsv_russia.6.b
+		add_stability = -0.05
+		add_popularity = {
+			ideology = communism
+			popularity = 0.05
+		}
+		add_popularity = {
+			ideology = neutrality
+			popularity = -0.05
+		}
+	}
+}
+
+
+
 
 
 #############################################################################
@@ -8,115 +128,116 @@
 #############################################################################
 
 
-## Russia informs us they are protecting us (ROOT is Serbia or Bulgaria)
-country_event = {
-	id = wsv_russia.20
-	title = wsv_russia.20.t
-	desc = wsv_russia.20.d
+# ## Russia informs us they are protecting us (ROOT is Serbia or Bulgaria)
+# country_event = {
+# 	id = wsv_russia.20
+# 	title = wsv_russia.20.t
+# 	desc = wsv_russia.20.d
 
-	fire_only_once = yes
-	is_triggered_only = yes
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
 
-	option = { 
-		name = wsv_russia.20.b
-	}
-}
-
-
-## Our patron Serbia was attacked by AUH
-country_event = {
-	id = wsv_russia.21
-	title = wsv_russia.21.t
-	desc = wsv_russia.21.d
-
-	trigger = {
-		tag = RUS
-		has_country_flag = patron_of_serbia
-		SER = {
-			has_defensive_war_with = AUH
-		}
-		# bypass if at war with AUH already or in faction/guaranteeing Serbia
-		NOT = {
-			 has_war_with = AUH
-			 is_in_faction_with = SER 
-			 has_guaranteed = SER
-		}
-	}
-
-	mean_time_to_happen = { days = 2 }  #cant be days=1 or will cause error
-
-	## Help Serbia
-	option = { 
-		name = wsv_russia.21.a
-		AUH = { country_event = wsv_russia.22 }
-		ai_chance = { factor = 100 }
-	}
-
-	## Abandon Serbia
-	option = { 
-		name = wsv_russia.21.b
-		SER = { add_opinion_modifier = { target = ROOT   modifier = faction_traitor } }
-		clr_country_flag = patron_of_serbia
-		ai_chance = { factor = 0 }
-	}
-}
+# 	option = { 
+# 		name = wsv_russia.20.b
+# 	}
+# }
 
 
-## AUH informed to back off (ROOT is antagonist)
-country_event = {
-	id = wsv_russia.22
-	title = wsv_russia.22.t
-	desc = wsv_russia.22.d
+# ## Our patron Serbia was attacked by AUH
+# country_event = {
+# 	id = wsv_russia.21
+# 	title = wsv_russia.21.t
+# 	desc = wsv_russia.21.d
 
-	is_triggered_only = yes
-	timeout_days = 5
+# 	trigger = {
+# 		tag = RUS
+# 		has_country_flag = patron_of_serbia
+# 		SER = {
+# 			has_defensive_war_with = AUH
+# 		}
+# 		# bypass if at war with AUH already or in faction/guaranteeing Serbia
+# 		NOT = {
+# 			 has_war_with = AUH
+# 			 is_in_faction_with = SER 
+# 			 has_guaranteed = SER
+# 		}
+# 	}
 
-	# Country agrees
-	option = { 
-		name = wsv_russia.22.a
-		white_peace = SER
-		RUS = { country_event = wsv_russia.23 }
-	}
+# 	mean_time_to_happen = { days = 2 }  #cant be days=1 or will cause error
 
-	# Coutry refuses
-	option = { 
-		name = wsv_russia.22.b
-		RUS = { country_event = wsv_russia.24 }
-	}
-}
+# 	## Help Serbia
+# 	option = { 
+# 		name = wsv_russia.21.a
+# 		AUH = { country_event = wsv_russia.22 }
+# 		ai_chance = { factor = 100 }
+# 	}
 
-## AUH agreed to back off
-country_event = {
-	id = wsv_russia.23
-	title = wsv_russia.23.t
-	desc = wsv_russia.23.d
-
-	is_triggered_only = yes
-
-	option = { 
-		name = wsv_russia.23.a
-	}
-}
-
-
-## AUH refused to back off
-country_event = {
-	id = wsv_russia.24
-	title = wsv_russia.24.t
-	desc = wsv_russia.24.d
-
-	is_triggered_only = yes
-
-	option = { 
-		name = wsv_russia.24.a
-		create_wargoal = {
-			target = FROM
-			type = topple_government
-		}
-	}
-}
+# 	## Abandon Serbia
+# 	option = { 
+# 		name = wsv_russia.21.b
+# 		SER = { add_opinion_modifier = { target = ROOT   modifier = faction_traitor } }
+# 		clr_country_flag = patron_of_serbia
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
 
+# ## AUH informed to back off (ROOT is antagonist)
+# country_event = {
+# 	id = wsv_russia.22
+# 	title = wsv_russia.22.t
+# 	desc = wsv_russia.22.d
+
+# 	is_triggered_only = yes
+# 	timeout_days = 5
+
+# 	# Country agrees
+# 	option = { 
+# 		name = wsv_russia.22.a
+# 		white_peace = SER
+# 		RUS = { country_event = wsv_russia.23 }
+# 	}
+
+# 	# Coutry refuses
+# 	option = { 
+# 		name = wsv_russia.22.b
+# 		RUS = { country_event = wsv_russia.24 }
+# 	}
+# }
+
+# ## AUH agreed to back off
+# country_event = {
+# 	id = wsv_russia.23
+# 	title = wsv_russia.23.t
+# 	desc = wsv_russia.23.d
+
+# 	is_triggered_only = yes
+
+# 	option = { 
+# 		name = wsv_russia.23.a
+# 	}
+# }
+
+
+# ## AUH refused to back off
+# country_event = {
+# 	id = wsv_russia.24
+# 	title = wsv_russia.24.t
+# 	desc = wsv_russia.24.d
+
+# 	is_triggered_only = yes
+
+# 	option = { 
+# 		name = wsv_russia.24.a
+# 		create_wargoal = {
+# 			target = FROM
+# 			type = topple_government
+# 		}
+# 	}
+# }
+
+
+## TODO - move wartime events to the 100s
 
 
 #############################################################################

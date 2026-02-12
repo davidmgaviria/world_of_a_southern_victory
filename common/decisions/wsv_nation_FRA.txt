@@ -139,6 +139,79 @@ wsv_great_war_decisions = {
 			}
 		}
 	}
+
+
+	FRA_warplan_17_decision = {
+		icon = generic_operation
+
+		available = {
+			tag = FRA
+			has_war_with = GER
+		}
+		visible = {
+			always = yes
+			has_completed_focus = FRA_plan_seventeen_focus
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		complete_effect = {
+			every_state = {
+				limit = { OR = { state=28  state=42  state=51 } }
+				add_dynamic_modifier = {
+					modifier = FRA_plan_17_attack_modif
+					scope = ROOT
+					days = 60
+				}
+			}
+			every_state = {
+				limit = { OR = { state=8  state=34  state=6 } }
+				add_dynamic_modifier = {
+					modifier = FRA_plan_17_defense_modif
+					scope = ROOT
+					days = 60
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	FRA_warplan_15_decision = {
+		icon = generic_operation
+
+		available = {
+			tag = FRA
+			has_war_with = GER
+		}
+		visible = {
+			has_completed_focus = FRA_plan_fifteen_focus
+		}
+
+		fire_only_once = yes
+		days_remove = 90
+		days_re_enable = 0
+
+		complete_effect = {
+			every_state = {
+				limit = { OR = { state=828  state=18  state=6  state=29  state=785 } }
+				add_dynamic_modifier = {
+					modifier = FRA_plan_15_defense_modif
+					scope = ROOT
+					days = 90
+				}
+			}
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
 }
 
 

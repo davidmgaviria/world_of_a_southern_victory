@@ -135,11 +135,53 @@ country_event = {
 }
 
 
+## Three Year service law
+news_event = {
+	id = wsv_france.10
+	title = wsv_france.10.t
+	desc = wsv_france.10.d
+	picture = news_event_1914_french_soldiers
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = FRA_three_year_law_passed
+		hidden_effect = {
+			FRA = {	
+				add_named_threat = {
+					threat = 2.5
+					name = "Three Year Service Law Passed"
+				} 
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.10.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+
+	option = {
+		name = wsv_france.10.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+
+	option = {
+		name = wsv_france.10.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
+
+
 ## Jean Jaures assassination
 country_event = {
-	id = wsv_france.7
-	title = wsv_france.7.t
-	desc = wsv_france.7.d
+	id = wsv_france.11
+	title = wsv_france.11.t
+	desc = wsv_france.11.d
 
 	fire_only_once = yes
 
@@ -156,7 +198,7 @@ country_event = {
 	}
 
 	option = {
-		name = wsv_france.7.a
+		name = wsv_france.11.a
 		add_war_support = 0.07
 		add_popularity = {
 			ideology = communism
@@ -164,6 +206,7 @@ country_event = {
 		}
 	}
 }
+
 
 
 
