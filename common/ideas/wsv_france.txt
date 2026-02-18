@@ -98,7 +98,6 @@ ideas = {
             }
 		}
 
-
 		FRA_french_revanchism_2 = {
 			allowed={ always=no }
 			allowed_civil_war = { always = no }
@@ -182,7 +181,6 @@ ideas = {
 			}
 		}
 
-
 		FRA_champagne_riots_idea = {
 			allowed={ always=no }
 			allowed_civil_war = { always = no }
@@ -196,7 +194,6 @@ ideas = {
 				political_power_gain = -0.15
 			}
 		}
-
 
 		FRA_modernizing_industries = {
 			allowed={ always=no }
@@ -232,6 +229,30 @@ ideas = {
 				consumer_goods_factor = -0.05
 				stability_factor = -0.05
             }
+		}
+
+		FRA_military_advisors_in_russia_idea = {   # specifically advisors sent to Russia
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foriegn_army_advisor_icon
+
+			modifier = {
+				experience_gain_army = 0.03
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+		FRA_loans_for_russia_rearm_idea = {   # loans sent to aid the Russian 'Great Military Program'
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foreign_capital
+
+			modifier = {
+				consumer_goods_factor = -0.05
+				political_power_gain = 0.15 
+			}
 		}
 
 		FRA_conscript_colonials_idea = {
@@ -274,95 +295,96 @@ ideas = {
 			}
 		}
 
+
 		## old ideas
 
-		FRA_french_industry_loans = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			picture = generic_foreign_capital
+		# FRA_french_industry_loans = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost=-1
+		# 	picture = generic_foreign_capital
 
-			modifier = {
-				consumer_goods_factor = -0.1
-				production_speed_industrial_complex_factor = 0.1
-				production_speed_infrastructure_factor = 0.1  
-			}
-		}
+		# 	modifier = {
+		# 		consumer_goods_factor = -0.1
+		# 		production_speed_industrial_complex_factor = 0.1
+		# 		production_speed_infrastructure_factor = 0.1  
+		# 	}
+		# }
 
-		FRA_champion_of_weak_idea = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			picture = YUG_federal_defense_council
+		# FRA_champion_of_weak_idea = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost=-1
+		# 	picture = YUG_federal_defense_council
 
-			modifier = {
-				guarantee_tension = -0.25
-				guarantee_cost = -0.5 
-				lend_lease_tension = -0.35
-				send_volunteers_tension = -0.25
-				send_volunteer_size = 1
-			}
-		}
+		# 	modifier = {
+		# 		guarantee_tension = -0.25
+		# 		guarantee_cost = -0.5 
+		# 		lend_lease_tension = -0.35
+		# 		send_volunteers_tension = -0.25
+		# 		send_volunteer_size = 1
+		# 	}
+		# }
 
-		FRA_army_mutinies = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			cancel = { has_war = no }
-			picture = generic_french_army_mutiny
+		# FRA_army_mutinies = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost=-1
+		# 	cancel = { has_war = no }
+		# 	picture = generic_french_army_mutiny
 
-			modifier = {
-				army_attack_factor = -0.5
-				army_defence_factor = -0.25
-				army_org_factor = -0.25
-				land_reinforce_rate = -0.02
-				war_support_factor = -0.1
-				weekly_manpower = -10000
-			}
-		}
+		# 	modifier = {
+		# 		army_attack_factor = -0.5
+		# 		army_defence_factor = -0.25
+		# 		army_org_factor = -0.25
+		# 		land_reinforce_rate = -0.02
+		# 		war_support_factor = -0.1
+		# 		weekly_manpower = -10000
+		# 	}
+		# }
 
-		FRA_exhausted_populace = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			cancel = { has_war = no }
-			picture = FRA_disgrace_of_ww1
+		# FRA_exhausted_populace = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost=-1
+		# 	cancel = { has_war = no }
+		# 	picture = FRA_disgrace_of_ww1
 
-			modifier = {
-				army_attack_factor = -0.2
-				army_defence_factor = -0.1
-				army_morale_factor = -0.1
-				war_support_weekly = -0.002
-				#stability_weekly = -0.001
-				conscription_factor = -0.1
-				surrender_limit = -0.35
-			}
-		}
+		# 	modifier = {
+		# 		army_attack_factor = -0.2
+		# 		army_defence_factor = -0.1
+		# 		army_morale_factor = -0.1
+		# 		war_support_weekly = -0.002
+		# 		#stability_weekly = -0.001
+		# 		conscription_factor = -0.1
+		# 		surrender_limit = -0.35
+		# 	}
+		# }
 
-		FRA_halt_army_offensives = {
-			allowed={ always=no }
-			allowed_civil_war = { always = no }
-			removal_cost=-1
-			cancel = { has_war = no }
-			picture = FRA_no_offensives
+		# FRA_halt_army_offensives = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost=-1
+		# 	cancel = { has_war = no }
+		# 	picture = FRA_no_offensives
 
-			modifier = {
-				army_attack_factor = -0.6
-				war_support_weekly = 0.001
-			}
-		}
+		# 	modifier = {
+		# 		army_attack_factor = -0.6
+		# 		war_support_weekly = 0.001
+		# 	}
+		# }
 
-		FRA_french_military_advisors = {
-			allowed = { always = yes }
-			allowed_civil_war = { always = no }
-			removal_cost = -1
-			picture = FRA_french_advisors
+		# FRA_french_military_advisors = {
+		# 	allowed = { always = yes }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost = -1
+		# 	picture = FRA_french_advisors
 
-			modifier={ 
-				army_attack_factor = 0.1
-				army_morale_factor = 0.1
-			}
-		}
+		# 	modifier={ 
+		# 		army_attack_factor = 0.1
+		# 		army_morale_factor = 0.1
+		# 	}
+		# }
 
 		######################################################
 		# -- WW2

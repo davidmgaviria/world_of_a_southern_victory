@@ -19,7 +19,7 @@ focus_tree = {
 	focus = {
 		id = FRA_young_republic
 		icon = GFX_focus_chi_legislative_yuan
-		cost = 5
+		cost = 10
 		x = 9
 		y = 0
 		#relative_position_id = 
@@ -31,7 +31,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_political_power = 75
+			add_political_power = 100
 		}
 	}
 
@@ -778,13 +778,61 @@ focus_tree = {
 	}
 
 		
+	# focus = {
+	# 	id = FRA_designs_on_middle_east
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = FRA_the_great_war }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = FRA_the_great_war
+
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_state_claim = 349
+	# 		add_state_claim = 344
+	# 		add_state_claim = 350
+	# 		add_state_claim = 677
+	# 		add_state_claim = 680
+	# 		add_state_claim = 554
+	# 		add_state_claim = 553
+	# 		add_state_claim = 454  # pretend claim on holy land to have Britian and France later work together
+	# 		add_state_claim = 455  # pretend claim on holy land to have Britian and France later work together
+	# 	}
+	# }
+
+
+	### ---- INTERNATIONAL SECTION ---- ###
+	focus = {
+		id = FRA_international_stage
+		icon = GFX_focus_chi_legislative_yuan
+
+		cost = 10
+		x = 28
+		y = 0
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_political_power = 75
+		}
+	}
+
+
 	focus = {
 		id = FRA_memories_of_1871
 		icon = GFX_focus_chi_legislative_yuan
-		cost = 5
-		x = 7
-		y = 0
-		relative_position_id = FRA_young_republic
+		prerequisite = { focus = FRA_international_stage }
+
+		cost = 10
+		x = -10
+		y = 1
+		relative_position_id = FRA_international_stage
 
 		ai_will_do = { 
 			factor = 0 
@@ -806,7 +854,7 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_memories_of_1871 }
 		cost = 10
-		x = -2
+		x = -3
 		y = 1
 		relative_position_id = FRA_memories_of_1871
 
@@ -831,9 +879,9 @@ focus_tree = {
 		prerequisite = { focus = FRA_boost_french_arms }
 		prerequisite = { focus = FRA_fan_french_revanchism }
 		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = FRA_boost_french_arms
+		x = 0
+		y = 2
+		relative_position_id = FRA_fan_french_revanchism
 
 		ai_will_do = { 
 			factor = 0 
@@ -861,8 +909,8 @@ focus_tree = {
 		id = FRA_franco_russian_alliance
 		icon = GFX_focus_FRA_franco_russian_alliance
 		prerequisite = { focus = FRA_memories_of_1871 }
-		cost = 10
-		x = 2
+		cost = 5
+		x = 0
 		y = 1
 		relative_position_id = FRA_memories_of_1871
 
@@ -889,10 +937,10 @@ focus_tree = {
 		
 	focus = {
 		id = FRA_military_mission_russia
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_russian_alliance }
 		cost = 10
-		x = -2
+		x = -1
 		y = 1
 		relative_position_id = FRA_franco_russian_alliance
 
@@ -903,13 +951,22 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			RUS = { 
+				country_event = wsv_france.50 
+				effect_tooltip = {
+					add_timed_idea = {
+						idea = FRA_military_advisors_in_russia_idea
+						days = 360
+					}
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = FRA_fund_russian_rearmament
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_military_mission_russia }
 		cost = 10
 		x = 0
@@ -920,16 +977,27 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
+		bypass = {
+			has_global_flag = france_financed_russian_rearmament
+		}
 
 		completion_reward = { 
+			RUS = { 
+				country_event = wsv_france.51 
+				effect_tooltip = {
+					add_timed_idea = {
+						idea = FRA_loans_for_russia_rearm_idea
+						days = 720
+					}
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = FRA_demand_alsace_lorraine
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_three_year_service_law }
 		prerequisite = { focus = FRA_fund_russian_rearmament }
 		cost = 10
@@ -942,24 +1010,32 @@ focus_tree = {
 		}
 
 		available = {
+			threat > 0.5   # TODO - is this good enough?
+			has_army_manpower = {
+				size > 14999999
+			}
 			OR = {
 				has_completed_focus = FRA_plan_fifteen_focus
 				has_completed_focus = FRA_plan_seventeen_focus
 			}
 		}
 
-		#bypass = {}
+		bypass = {
+			has_war_with = GER
+		}
 
 		completion_reward = { 
+			news_event = wsv_france.55
+			custom_effect_tooltip = likely_war_with_germany_tt
 		}
 	}
 
 		
 	focus = {
 		id = FRA_balkan_policy
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_franco_russian_alliance }
-		cost = 2
+		cost = 5
 		x = 2
 		y = 1
 		relative_position_id = FRA_franco_russian_alliance
@@ -971,36 +1047,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-		}
-	}
-
-
-	focus = {
-		id = FRA_outreach_greece
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_balkan_policy }
-		cost = 5
-		x = -2
-		y = 1
-		relative_position_id = FRA_balkan_policy
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
+			add_political_power = 50
 		}
 	}
 
 		
 	focus = {
 		id = FRA_outreach_serbia
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_balkan_policy }
-		cost = 5
-		x = 0
+		cost = 10
+		x = -1
 		y = 1
 		relative_position_id = FRA_balkan_policy
 
@@ -1011,37 +1068,828 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			SER = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+			}
+			add_opinion_modifier = {
+				target = SER
+				modifier = wsv_improve_relations
+			}
+			hidden_effect = { country_event = wsv_france.60 }
+		}
+	}
+
+
+		
+	focus = {
+		id = FRA_outreach_romania
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_balkan_policy }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_balkan_policy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			ROM = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+			}
+			add_opinion_modifier = {
+				target = ROM
+				modifier = wsv_improve_relations
+			}
+			hidden_effect = { country_event = wsv_france.60 }
+		}
+	}
+
+	focus = {
+		id = FRA_promise_romania_transylvania
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_outreach_romania }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_outreach_romania
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_arms_to_serbia
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_outreach_serbia }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_outreach_serbia
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_encircle_auh
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_arms_to_serbia }
+		prerequisite = { focus = FRA_promise_romania_transylvania }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_promise_romania_transylvania 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	# focus = {
+	# 	id = FRA_pressure_romania_to_ally
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = FRA_outreach_romania }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 2
+	# 	relative_position_id = FRA_outreach_romania
+
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+
+	focus = {
+		id = FRA_the_orient_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_international_stage }
+		cost = 5
+		x = -3
+		y = 1
+		relative_position_id = FRA_international_stage
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 50
+		}
+	}
+
+
+	focus = {
+		id = FRA_outreach_greece
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_the_orient_focus }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_the_orient_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			GRE = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+			}
+			add_opinion_modifier = {
+				target = GRE
+				modifier = wsv_improve_relations
+			}
+			hidden_effect = { country_event = wsv_france.60 }
+		}
+	}
+
+
+	focus = {
+		id = FRA_contact_with_venizelos
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_outreach_greece }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_outreach_greece
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_stir_republican_sentiment
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_contact_with_venizelos }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_contact_with_venizelos
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_improve_greek_army
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_outreach_greece }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_outreach_greece
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_overthrow_greek_king
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_improve_greek_army }
+		prerequisite = { focus = FRA_stir_republican_sentiment }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_stir_republican_sentiment
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			
+		}
+	}
+
+
+	focus = {
+		id = FRA_designs_on_ottomans
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_the_orient_focus }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_the_orient_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = TUR
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+
+
+	focus = {
+		id = FRA_occupy_morocco
+		icon = GFX_focus_generic_africa_liberation  #Focus_generic_annex_country
+		prerequisite = { focus = FRA_international_stage }
+		cost = 5
+		x = 4
+		y = 1
+		relative_position_id = FRA_international_stage
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			NOT = { has_idea = FRA_legacy_of_dreyfus_affair }
+			MOR = { is_puppet_of = FRA }
+			has_active_mission = FRA_ongoing_revolt_in_morocco
+			has_war = no
+		}
+
+		completion_reward = { 
+			news_event = wsv_agadir.1
+			custom_effect_tooltip = germany_responds_negatively_tt
+		}
+	}
+
+
+	focus = {
+		id = FRA_reaffirm_ties_britain
+		icon = GFX_focus_chi_british_cooperation
+		prerequisite = { focus = FRA_occupy_morocco }
+		mutually_exclusive = { focus=FRA_franco_british_split  }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = FRA_occupy_morocco
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			# has_global_flag = britain_backs_france_in_agadir
+			# NOT = {
+			# 	has_war_with = ENG
+			# }
+			ENG = {
+				exists = yes
+				NOT = { has_war_with = ROOT }
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			#add_political_power = 50
+			# ENG = {
+			# 	add_opinion_modifier = {
+			# 		target = FRA
+			# 		modifier = wsv_improve_relations
+			# 	}
+			# }
+			# hidden_effect = {
+			# 	add_opinion_modifier = {
+			# 		target = ENG
+			# 		modifier = wsv_improve_relations
+			# 	}
+			# }
+		}
+	}
+	
+	
+	focus = {
+		id = FRA_secret_defense_pact_with_britain
+		#icon = GFX_focus_chi_british_cooperation
+		prerequisite = { focus = FRA_reaffirm_ties_britain }
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_reaffirm_ties_britain
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+		
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			
+		}
+	}
+
+
+
+	focus = {
+		id = FRA_franco_british_split
+		icon = GFX_focus_ARG_cut_ties_with_britain
+		prerequisite = { focus = FRA_occupy_morocco }
+		mutually_exclusive = { focus=FRA_reaffirm_ties_britain  }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = FRA_occupy_morocco
+
+		ai_will_do = { factor = 1 }
+
+		available = {
+			has_global_flag = britain_abandoned_france_in_agadir
+			NOT = { is_in_faction_with = ENG }
+		}
+
+		bypass = {
+			NOT = { has_non_aggression_pact_with = ENG }
+		}
+
+		completion_reward = { 
+			# diplomatic_relation = {
+			# 	country = ENG
+			# 	relation = non_aggression_pact
+			# 	active = no
+			# }
+			# ENG = { country_event = wsv_france.50 }
+		}
+	}
+
+
+	focus = {
+		id = FRA_rebuild_coastal_defenses
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_franco_british_split }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_franco_british_split
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_rebuild_french_fleet
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_rebuild_coastal_defenses }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_rebuild_coastal_defenses
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_new_colonial_expansion
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_rebuild_french_fleet }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_rebuild_french_fleet
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_claim_british_africa
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_new_colonial_expansion }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_new_colonial_expansion
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_build_up_africa
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_new_colonial_expansion }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_new_colonial_expansion
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_second_fashoda_incident
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus =  FRA_claim_british_africa }
+		prerequisite = { focus =  FRA_build_up_africa }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_claim_british_africa
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	# focus = {
+	# 	id = FRA_claim_libya
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = FRA_new_colonial_expansion }
+	# 	prerequisite = { focus = FRA_block_italy_in_africa }
+		
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 4
+	# 	relative_position_id = FRA_block_italy_in_africa
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+
+	focus = {
+		id = FRA_new_euoprean_expansion
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_rebuild_french_fleet }
+		
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = FRA_rebuild_french_fleet
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_neutralize_belgium
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_new_euoprean_expansion }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_new_euoprean_expansion 
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_integrate_belgium
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_neutralize_belgium }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_neutralize_belgium
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_pressure_switzerland
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_integrate_belgium }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = FRA_integrate_belgium
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_our_natural_borders
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_integrate_belgium }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = FRA_integrate_belgium
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_outreach_to_spain
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_new_euoprean_expansion }
+		
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = FRA_new_euoprean_expansion
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_fund_spanish_rearmament
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_outreach_to_spain }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_outreach_to_spain
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_gibraltar_for_alliance
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus =  FRA_fund_spanish_rearmament }
+		
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = FRA_fund_spanish_rearmament
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_recognize_italian_threat
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus =  FRA_international_stage }
+		mutually_exclusive = { focus = FRA_support_italian_claims }
+
+		cost = 10
+		x = 10
+		y = 1
+		relative_position_id = FRA_international_stage
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = ITA
+				modifier = wsv_dislikes_country
+			}
 		}
 	}
 
 		
 	focus = {
-		id = FRA_outreach_romania
+		id = FRA_mountaineers_effort
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = FRA_balkan_policy }
-		cost = 5
-		x = 2
+		prerequisite = { focus = FRA_support_italian_claims  focus = FRA_recognize_italian_threat }
+
+		cost = 10
+		x = 1
 		y = 1
-		relative_position_id = FRA_balkan_policy
+		relative_position_id = FRA_support_italian_claims
 
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
 		}
 	}
 
+
+	focus = {
+		id = FRA_alpine_defenses
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_recognize_italian_threat }
 		
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = FRA_recognize_italian_threat 
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+	focus = {
+		id = FRA_attack_italy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_alpine_defenses }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_alpine_defenses
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = FRA_support_italian_claims
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_international_stage }
+		mutually_exclusive = { focus = FRA_recognize_italian_threat }
+
+		cost = 10
+		x = 2
+		y = 0
+		relative_position_id = FRA_recognize_italian_threat
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = ITA
+				modifier = wsv_improve_relations
+			}
+			AUH = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_dislikes_country
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = FRA_military_mission_italy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_support_italian_claims }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = FRA_support_italian_claims
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+
+	focus = {
+		id = FRA_concessions_for_ally_italy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_military_mission_italy }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_military_mission_italy
+
+		ai_will_do = { factor = 1 }
+
+		completion_reward = { 
+		}
+	}
+
+
+	# focus = {
+	# 	id = FRA_block_italy_in_africa
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = FRA_recognize_italian_threat }
+		
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = FRA_recognize_italian_threat
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+
+	### ----- GREAT WAR SECTION ----- ###
+			
 	focus = {
 		id = FRA_the_great_war
 		icon = GFX_focus_chi_legislative_yuan
 		cost = 0
 		x = 0
-		y = 2
-		relative_position_id = FRA_demand_alsace_lorraine
+		y = 6
+		relative_position_id = FRA_international_stage
 
 		ai_will_do = { 
 			factor = 0 
@@ -1065,7 +1913,7 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_the_great_war }
 		cost = 10
-		x = -1
+		x = 0
 		y = 1
 		relative_position_id = FRA_the_great_war
 
@@ -1158,13 +2006,14 @@ focus_tree = {
 		}
 	}
 
-		
+
 	focus = {
-		id = FRA_designs_on_middle_east
-		icon = GFX_focus_chi_legislative_yuan
+		id = FRA_allied_war_effort
+		#icon = GFX_focus_FRA_defend_france
 		prerequisite = { focus = FRA_the_great_war }
+		prerequisite = { focus = FRA_secret_defense_pact_with_britain }
 		cost = 10
-		x = 1
+		x = 2
 		y = 1
 		relative_position_id = FRA_the_great_war
 
@@ -1172,141 +2021,31 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
-
-		completion_reward = { 
-			add_state_claim = 349
-			add_state_claim = 344
-			add_state_claim = 350
-			add_state_claim = 677
-			add_state_claim = 680
-			add_state_claim = 554
-			add_state_claim = 553
-			add_state_claim = 454  # pretend claim on holy land to have Britian and France later work together
-			add_state_claim = 455  # pretend claim on holy land to have Britian and France later work together
-		}
-	}
-
-
-	focus = {
-		id = FRA_occupy_morocco
-		icon = GFX_focus_generic_africa_liberation  #Focus_generic_annex_country
-		cost = 10
-		x = 29
-		y = 0
-
-		ai_will_do = { factor = 1 }
-
 		available = {
-			NOT = { has_idea = FRA_legacy_of_dreyfus_affair }
-			MOR = { is_puppet_of = FRA }
-			has_active_mission = FRA_ongoing_revolt_in_morocco
-			has_war = no
-		}
-
-		completion_reward = { 
-			news_event = wsv_agadir.1
-			custom_effect_tooltip = germany_responds_negatively_tt
-		}
-	}
-
-	focus = {
-		id = FRA_reaffirm_ties_britain
-		icon = GFX_focus_chi_british_cooperation
-		prerequisite = { focus = FRA_occupy_morocco }
-		mutually_exclusive = { focus=FRA_franco_british_split  }
-		cost = 10
-		x = -2
-		y = 1
-		relative_position_id = FRA_occupy_morocco
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			# has_global_flag = britain_backs_france_in_agadir
-			# NOT = {
-			# 	has_war_with = ENG
-			# }
-			ENG = {
-				exists = yes
-				NOT = { has_war_with = ROOT }
-			}
+			has_war_with_major = yes
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			#add_political_power = 50
-			# ENG = {
-			# 	add_opinion_modifier = {
-			# 		target = FRA
-			# 		modifier = wsv_improve_relations
-			# 	}
-			# }
-			# hidden_effect = {
-			# 	add_opinion_modifier = {
-			# 		target = ENG
-			# 		modifier = wsv_improve_relations
-			# 	}
-			# }
-		}
-	}
-	
-
-
-	focus = {
-		id = FRA_franco_british_split
-		icon = GFX_focus_ARG_cut_ties_with_britain
-		prerequisite = { focus = FRA_occupy_morocco }
-		mutually_exclusive = { focus=FRA_reaffirm_ties_britain  }
-
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = FRA_occupy_morocco
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_global_flag = britain_abandoned_france_in_agadir
-			NOT = { is_in_faction_with = ENG }
-		}
-
-		bypass = {
-			NOT = { has_non_aggression_pact_with = ENG }
-		}
-
-		completion_reward = { 
-			# diplomatic_relation = {
-			# 	country = ENG
-			# 	relation = non_aggression_pact
-			# 	active = no
-			# }
-			# ENG = { country_event = wsv_france.50 }
+			add_war_support = 0.1
 		}
 	}
 
-	
-	
+
 	focus = {
-		id = FRA_secret_defense_pact_with_britain
-		#icon = GFX_focus_chi_british_cooperation
-		prerequisite = { focus = FRA_reaffirm_ties_britain }
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = FRA_reaffirm_ties_britain
-
-		ai_will_do = { factor = 1 }
-
-		available = {
+		id = FRA_tech_sharing_entente
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus =  FRA_allied_war_effort }
 		
-		}
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = FRA_allied_war_effort
 
-		#bypass = {}
+		ai_will_do = { factor = 1 }
 
 		completion_reward = { 
-			
 		}
 	}
 
@@ -1314,11 +2053,11 @@ focus_tree = {
 	focus = {
 		id = FRA_joint_western_front_command
 		#icon = GFX_focus_chi_british_cooperation
-		prerequisite = { focus = FRA_secret_defense_pact_with_britain }
+		prerequisite = { focus = FRA_tech_sharing_entente }
 		cost = 10
 		x = 0
-		y = 1
-		relative_position_id = FRA_secret_defense_pact_with_britain
+		y = 2
+		relative_position_id = FRA_tech_sharing_entente
 
 		ai_will_do = { factor = 1 }
 
@@ -1336,6 +2075,31 @@ focus_tree = {
 			
 		}
 	}
+
+
+	focus = {
+		id = FRA_partition_ottomans
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = FRA_the_great_war }
+		prerequisite = { focus = FRA_designs_on_ottomans }
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = FRA_the_great_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+
+
 
 
 }

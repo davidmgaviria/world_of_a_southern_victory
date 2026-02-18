@@ -3,7 +3,7 @@ add_namespace = wsv_france
 
 
 ## ------------------------------------------------------------------------------------------------ ##
-## ---------------------------------------- DOMESTIC EVENTS --------------------------------------- ##
+## ----------------------------		 PRE-WAR DOMESTIC EVENTS    ----------------------------------- ##
 ## ------------------------------------------------------------------------------------------------ ##
 
 ## Republican control of the Army ensured
@@ -208,15 +208,253 @@ country_event = {
 }
 
 
+## ------------------------------------------------------------------------------------------------ ##
+## --------------------------	  PRE-WAR INTERNATIONAL EVENTS    --------------------------------- ##
+## ------------------------------------------------------------------------------------------------ ##
+
+
+## ----------------------- Franco-Russian Alliance ------------------------ ##
+
+# France sends military mission to Russia (notice for Russia)
+country_event = {
+	id = wsv_france.50
+	title = wsv_france.50.t
+	desc = wsv_france.50.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# thank you
+	option = {
+		name = wsv_france.50.a
+		add_timed_idea = {
+			idea = FRA_military_advisors_in_russia_idea
+			days = 360
+		}
+	}
+}
+
+
+# France offers loan for rearmament  (notice for Russia)
+country_event = {
+	id = wsv_france.51
+	title = wsv_france.51.t
+	desc = wsv_france.51.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# we accept
+	option = {
+		name = wsv_france.51.a
+		FRA = { country_event = { id = wsv_france.52  days = 2 } }
+		add_timed_idea = {
+			idea = FRA_loans_for_russia_rearm_idea
+			days = 720
+		}
+	}
+}
+
+
+# Russia accepted loan
+country_event = {
+	id = wsv_france.52
+	title = wsv_france.52.t
+	desc = wsv_france.52.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {  # put here so focus bypass happens when event occurs
+		set_global_flag = france_financed_russian_rearmament
+	}
+
+	option = {
+		name = wsv_france.52.a
+	}
+}
 
 
 
+## ----------------------- France Demands Alsace-Lorraine ------------------------ ##
+
+# News of France demanding return of Alsace-Lorraine
+news_event = {
+	id = wsv_france.55
+	title = wsv_france.55.t
+	desc = wsv_france.55.d
+	# picture = # TODO - picture
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = france_demands_alsace_lorraine
+		hidden_effect = {
+			FRA = {
+				add_named_threat = {
+					threat = 10
+					name = "France Demands the Return of Alsace-Lorraine"
+				}
+			}
+			GER = { country_event = { id = wsv_france.56  days = 1 } }
+			# mobilization flags (for ai strategies)
+			every_country = {
+				limit = { is_in_faction_with = FRA }
+				set_country_flag = mobilize_against_centralpowers
+			}
+			every_country = {
+				limit = { is_in_faction_with = GER }
+				set_country_flag = mobilize_against_entente
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.55.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+	option = {
+		name = wsv_france.55.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+	option = {
+		name = wsv_france.55.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
+
+
+# Country event for Germany - respond to France's demand to return land
+country_event = {
+	id = wsv_france.56
+	title = wsv_france.56.t
+	desc = wsv_france.56.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	timeout_days = 5
+
+	# Hell no
+	option = {
+		name = wsv_france.56.a
+		news_event = { id = wsv_france.58  days = 5 }
+		add_war_support = 0.1
+		ai_chance = { factor = 100 }
+	}
+
+	# Fine
+	option = {
+		name = wsv_france.56.b
+		news_event = { id = wsv_france.57  days = 5 }
+		add_political_power = -150
+		add_war_support = -0.15
+		add_stability = -0.1
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+# News of Germany agreeing to return Alsace-Lorraine
+news_event = {
+	id = wsv_france.57
+	title = wsv_france.57.t
+	desc = wsv_france.57.d
+	# picture = # TODO
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = germany_returns_alsace_lorraine
+		hidden_effect = {
+			# clr mobilization flags (for ai strategies)
+			every_country = {
+				limit = { is_in_faction_with = FRA }
+				clr_country_flag = mobilize_against_centralpowers
+			}
+			every_country = {
+				limit = { is_in_faction_with = GER }
+				clr_country_flag = mobilize_against_entente
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.57.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+	option = {
+		name = wsv_france.57.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+	option = {
+		name = wsv_france.57.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
 
 
 
+# News of Germany refusing to return Alsace-Lorraine
+news_event = {
+	id = wsv_france.58
+	title = wsv_france.58.t
+	desc = wsv_france.58.d
+	# picture = # TODO
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = germany_keeps_alsace_lorraine
+		hidden_effect = {
+			FRA = { country_event = { id = wsv_france.59  days = 2 } }
+		}
+	}
+
+	option = {
+		name = wsv_france.58.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+	option = {
+		name = wsv_france.58.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+	option = {
+		name = wsv_france.58.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
 
 
+# Wargoal event for France
+country_event = {
+	id = wsv_france.59
+	title = wsv_france.59.t
+	desc = wsv_france.59.d
 
+	is_triggered_only = yes
+	timeout_days = 3
+
+	option = {
+		name = wsv_france.59.a
+		declare_war_on = {
+			target = GER
+			type = take_claimed_state
+		}
+	}
+}
 
 
 
