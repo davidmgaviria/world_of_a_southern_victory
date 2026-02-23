@@ -1,6 +1,31 @@
 ﻿add_namespace = wsv_italy
 
 
+
+#######################################################################
+# -- Pre-War Domestic Events
+#######################################################################
+
+# Messina Earthquake reconstruction complete
+country_event = {
+	id = wsv_italy.1
+	title = wsv_italy.1.t
+	desc = wsv_italy.1.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italy.1.a
+		add_stability = 0.05
+		effect_tooltip = {
+			remove_ideas = ITA_messina_earthquake_aftermath_reduced
+		}
+	}
+}
+
+
+
+
 #######################################################################
 # -- Italo-Turkish War
 #######################################################################
@@ -8,9 +33,9 @@
 
 # Italian invasion of Libya - Global News
 news_event = {
-	id = wsv_italy.2
-	title = wsv_italy.2.t
-	desc = wsv_italy.2.d
+	id = wsv_italy.25
+	title = wsv_italy.25.t
+	desc = wsv_italy.25.d
 	picture = EVENT_hoi4tgw_italo_turkish_war
 
 	major = yes
@@ -49,15 +74,15 @@ news_event = {
 	}
 		
 	option = {
-		name = wsv_italy.2.a
+		name = wsv_italy.25.a
 		trigger = { TAG = ITA }
 	}
 	option = {
-		name = wsv_italy.2.b
+		name = wsv_italy.25.b
 		trigger = { TAG = TUR }
 	}
 	option = {
-		name = wsv_italy.2.c
+		name = wsv_italy.25.c
 		trigger = { 
 			NOT = { TAG = ITA }
 			NOT = { TAG = TUR }
@@ -68,9 +93,9 @@ news_event = {
 
 # Italy informed of inital successes and trench warfare phase
 country_event = {
-	id = wsv_italy.3
-	title = wsv_italy.3.t
-	desc = wsv_italy.3.d
+	id = wsv_italy.26
+	title = wsv_italy.26.t
+	desc = wsv_italy.26.d
 	
 	trigger = {
 		tag = ITA
@@ -86,36 +111,36 @@ country_event = {
 	fire_only_once = yes
 
 	option = {
-		name = wsv_italy.3.a
+		name = wsv_italy.26.a
 	}
 }
 
 
 # Expedition went on longer than expected
 country_event = {
-	id = wsv_italy.4
-	title = wsv_italy.4.t
-	desc = wsv_italy.4.d
+	id = wsv_italy.27
+	title = wsv_italy.27.t
+	desc = wsv_italy.27.d
 	
 	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
-		name = wsv_italy.4.a
+		name = wsv_italy.27.a
 	}
 }
 
 # Italy siezes the Dodecanese
 country_event = {
-	id = wsv_italy.5
-	title = wsv_italy.5.t
-	desc = wsv_italy.5.d
+	id = wsv_italy.28
+	title = wsv_italy.28.t
+	desc = wsv_italy.28.d
 	
 	is_triggered_only = yes
 	fire_only_once = yes
 
 	option = {
-		name = wsv_italy.5.a
+		name = wsv_italy.28.a
 		add_political_power = -75
 		add_stability = -0.05
 	}
@@ -124,9 +149,9 @@ country_event = {
 
 # Italy is pushed out, loses the war
 country_event = {
-	id = wsv_italy.6
-	title = wsv_italy.6.t
-	desc = wsv_italy.6.d
+	id = wsv_italy.29
+	title = wsv_italy.29.t
+	desc = wsv_italy.29.d
 	
 	fire_only_once = yes
 	trigger = {
@@ -143,17 +168,17 @@ country_event = {
 	mean_time_to_happen = { days = 5 }
 
 	option = {
-		name = wsv_italy.6.a
-		news_event = wsv_italy.11
+		name = wsv_italy.29.a
+		news_event = wsv_italy.34
 	}
 }
 
 
 # Turkish event - Italy takes all of Libya OR First Balkan erupts
 country_event = {
-	id = wsv_italy.7
-	title = wsv_italy.7.t
-	desc = wsv_italy.7.d
+	id = wsv_italy.30
+	title = wsv_italy.30.t
+	desc = wsv_italy.30.d
 	
 	fire_only_once = yes
 	trigger = {
@@ -179,48 +204,48 @@ country_event = {
 	mean_time_to_happen = { days = 5 }  
 
 	option = {
-		name = wsv_italy.7.a
-		ITA = { country_event = { id = wsv_italy.8   days = 2 } }
+		name = wsv_italy.30.a
+		ITA = { country_event = { id = wsv_italy.31   days = 2 } }
 	}
 }
 
 
 # Italy told Turkey surrenders Libya
 country_event = {
-	id = wsv_italy.8
-	title = wsv_italy.8.t
-	desc = wsv_italy.8.d
+	id = wsv_italy.31
+	title = wsv_italy.31.t
+	desc = wsv_italy.31.d
 	
 	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_italy.8.a
-		news_event = wsv_italy.10
+		name = wsv_italy.31.a
+		news_event = wsv_italy.33
 	}
 }
 
 
 # Italy/Turkey informed of Great Powers stepping in to mediate
 country_event = {
-	id = wsv_italy.9
-	title = wsv_italy.9.t
-	desc = wsv_italy.9.d
+	id = wsv_italy.32
+	title = wsv_italy.32.t
+	desc = wsv_italy.32.d
 	
 	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_italy.9.a
+		name = wsv_italy.32.a
 	}
 }
 
 
 # Italo-Turkish War - Italy Wins (Global News)
 news_event = {
-	id = wsv_italy.10
-	title = wsv_italy.10.t
-	desc = wsv_italy.10.d
+	id = wsv_italy.33
+	title = wsv_italy.33.t
+	desc = wsv_italy.33.d
 	picture = GFX_news_event_generic_sign_treaty2
 	
 	major = yes
@@ -248,20 +273,20 @@ news_event = {
 	}
 		
 	option = {
-		name = wsv_italy.10.a
+		name = wsv_italy.33.a
 		trigger = { 
 			NOT = { TAG = ITA }
 			NOT = { TAG = TUR }
 		}
 	}
 	option = {
-		name = wsv_italy.10.b
+		name = wsv_italy.33.b
 		trigger = { 
 			TAG = ITA
 		}
 	}
 	option = {
-		name = wsv_italy.10.c
+		name = wsv_italy.33.c
 		trigger = { 
 			TAG = TUR
 		}
@@ -271,9 +296,9 @@ news_event = {
 
 # Italo-turkish War - Italy Looses  (Global News)
 news_event = {
-	id = wsv_italy.11
-	title = wsv_italy.11.t
-	desc = wsv_italy.11.d
+	id = wsv_italy.34
+	title = wsv_italy.34.t
+	desc = wsv_italy.34.d
 	picture = GFX_news_event_generic_sign_treaty2
 	
 	major = yes
@@ -301,20 +326,20 @@ news_event = {
 	}
 		
 	option = {
-		name = wsv_italy.11.a
+		name = wsv_italy.34.a
 		trigger = { 
 			NOT = { TAG = ITA }
 			NOT = { TAG = TUR }
 		}
 	}
 	option = {
-		name = wsv_italy.11.b
+		name = wsv_italy.34.b
 		trigger = { 
 			TAG = ITA
 		}
 	}
 	option = {
-		name = wsv_italy.11.c
+		name = wsv_italy.34.c
 		trigger = { 
 			TAG = TUR
 		}
@@ -324,9 +349,9 @@ news_event = {
 
 # Italo-turkish War - Great Powwer mediation brings an end
 news_event = {
-	id = wsv_italy.12
-	title = wsv_italy.12.t
-	desc = wsv_italy.12.d
+	id = wsv_italy.35
+	title = wsv_italy.35.t
+	desc = wsv_italy.35.d
 	picture = GFX_news_event_generic_sign_treaty2
 	
 	major = yes
@@ -355,20 +380,20 @@ news_event = {
 	}
 		
 	option = {
-		name = wsv_italy.12.a
+		name = wsv_italy.35.a
 		trigger = { 
 			NOT = { TAG = ITA }
 			NOT = { TAG = TUR }
 		}
 	}
 	option = {
-		name = wsv_italy.12.b
+		name = wsv_italy.35.b
 		trigger = { 
 			TAG = ITA
 		}
 	}
 	option = {
-		name = wsv_italy.12.c
+		name = wsv_italy.35.c
 		trigger = { 
 			TAG = TUR
 		}

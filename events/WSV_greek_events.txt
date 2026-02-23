@@ -1,5 +1,37 @@
 ﻿add_namespace = wsv_greece
 
+# George I is assassinated (March 18, 1913)
+country_event = {
+	id = wsv_greece.1
+	title = wsv_greece.1.t
+	desc = wsv_greece.1.d
+
+	fire_only_once = yes
+
+    trigger = {
+		tag = GRE
+		has_country_leader = { character = GRE_george_i  ruling_only = yes }
+		date > 1913.3.18
+		NOT = { has_global_flag = king_geroge_i_of_greece_assassinated }
+	}
+	
+	mean_time_to_happen = { days = 0 }
+
+	immediate = {
+		set_global_flag = king_geroge_i_of_greece_assassinated
+		hidden_effect = {
+			kill_country_leader = yes
+			promote_character = GRE_constantine_i
+		}
+	}
+
+	option = {
+		name = wsv_greece.1.a
+		effect_tooltip = {
+			promote_character = GRE_constantine_i
+		}
+	}
+}
 
 
 # ## TODO: Greek King decides to remain neutral in WW1
