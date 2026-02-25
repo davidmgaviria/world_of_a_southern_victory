@@ -824,7 +824,7 @@ focus_tree = {
 
 	focus = {
 		id = ITA_army_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		#prerequisite = { focus = }
 		#mutually_exclusive = { focus = }
 
@@ -840,13 +840,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_expand_alpine_corps
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -862,13 +869,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = ITA_mountaineer_bonus_idea
+			add_tech_bonus = {
+				name = generic_special_forces_bonus 
+				bonus = 2.0
+				uses = 1
+				category = mountaineers_tech
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_modernize_artillery
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -884,13 +898,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_infantry_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -906,13 +925,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = generic_rifle_production
 		}
 	}
 
 		
 	focus = {
 		id = ITA_new_military_doctrine
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_infantry_effort }
 		prerequisite = { focus = ITA_modernize_artillery }
 		#mutually_exclusive = { focus = }
@@ -929,6 +949,13 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
 		}
 	}
 
@@ -958,7 +985,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_military_logistics_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_new_military_doctrine }
 		#mutually_exclusive = { focus = }
 
@@ -974,13 +1001,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_timed_idea = {
+				idea = ITA_mil_logistics_idea
+				days = 720
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_mg_production_efforft
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_new_military_doctrine }
 		#mutually_exclusive = { focus = }
 
@@ -996,13 +1027,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = generic_mg_production
 		}
 	}
 
 		
 	focus = {
 		id = ITA_mass_mobilization_focus
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_military_logistics_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1018,13 +1050,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = ITA_mass_mobilization_idea
 		}
 	}
 
 		
 	focus = {
 		id = ITA_trench_warfare_focus
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_construction2
 		prerequisite = { focus = ITA_military_logistics_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1039,7 +1072,19 @@ focus_tree = {
 
 		#bypass = {}
 
-		completion_reward = { 
+		completion_reward = {
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = chemical_weapons
+			} 
 		}
 	}
 
@@ -1091,7 +1136,7 @@ focus_tree = {
 		
 	focus = {
 		id = ITA_support_equipment_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_trench_warfare_focus }
 		#mutually_exclusive = { focus = }
 
@@ -1107,6 +1152,11 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = support_tech
+			}
 		}
 	}
 
@@ -1130,13 +1180,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = special_forces
 		}
 	}
 
 		
 	focus = {
 		id = ITA_air_experiments
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_army_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1149,16 +1200,25 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
+		bypass = {
+			has_tech = ww1_scout
+			has_tech = ww1_scout_2
+		}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3.0
+				uses = 1
+				technology = ww1_scout
+				technology = ww1_scout_2
+			} 
 		}
 	}
 
 		
 	focus = {
 		id = ITA_air_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_build_airforce
 		prerequisite = { focus = ITA_air_experiments }
 		#mutually_exclusive = { focus = }
 
@@ -1171,16 +1231,41 @@ focus_tree = {
 			factor = 0 
 		}
 
+		ai_will_do = { 
+			factor = 10
+			modifier = {
+				factor = 0.1
+				num_of_military_factories < 15
+			}
+			modifier = {
+				factor = 3
+				num_of_military_factories > 25
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { is_capital = yes }
+				add_building_construction = {
+					type = air_base
+					level = 2
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_fighter_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_air_fighter
 		prerequisite = { focus = ITA_air_effort }
 		#mutually_exclusive = { focus = }
 
@@ -1193,16 +1278,30 @@ focus_tree = {
 			factor = 0 
 		}
 
+		ai_will_do = { 
+			factor = 5
+			modifier = {
+				factor = 3
+				num_of_military_factories > 25
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = light_fighter
+				category = cat_scout_plane
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_light_bomber_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ITA_fighter_effort }
 		mutually_exclusive = { focus=ITA_heavy_bomber_effort  }
 		cost = 10
@@ -1214,16 +1313,29 @@ focus_tree = {
 			factor = 0 
 		}
 
+		ai_will_do = { 
+			factor = 1
+			modifier = {
+				factor = 20
+				num_of_military_factories > 40
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = tactical_bomber
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ITA_heavy_bomber_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_goal_generic_air_bomber
 		prerequisite = { focus = ITA_fighter_effort }
 		mutually_exclusive = { focus=ITA_light_bomber_effort  }
 		cost = 10
@@ -1235,9 +1347,22 @@ focus_tree = {
 			factor = 0 
 		}
 
+		ai_will_do = { 
+			factor = 1
+			modifier = {
+				factor = 20
+				num_of_military_factories > 40
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = cat_strategic_bomber
+			}
 		}
 	}
 

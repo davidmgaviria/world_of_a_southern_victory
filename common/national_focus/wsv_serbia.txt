@@ -17,181 +17,1302 @@ focus_tree = {
 	continuous_focus_position = { x = 50 y = 2200 }
 
 
-	####################################
-	## -- Colonial Efforts
-	####################################
-
-
 	focus = {
-		id = SER_national_aspirations
+		id = SER_modernization_effort
 		icon = GFX_focus_chi_legislative_yuan
-
+		
 		cost = 10
-		x = 8
+		x = 3
 		y = 0
 		#relative_position_id = 
 
-		ai_will_do = { factor = 1 }
+		ai_will_do = { 
+			factor = 0 
+		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			add_war_support = 0.2
 		}
 	}
 
-
+		
 	focus = {
-		id = SER_propose_the_balkan_league
+		id = SER_civ_factories_1
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = SER_national_aspirations }
+		prerequisite = { focus = SER_modernization_effort }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_modernization_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_civ_factories_2
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_modernization_effort }
+		
 		cost = 10
 		x = 1
-		y = 1
-		relative_position_id = SER_national_aspirations
+		y =  1
+		relative_position_id = SER_modernization_effort
 
-		ai_will_do = { factor = 10 }
-	
-		available = {
-			date > 1911.6.1
-			has_war = no
-			OR = {
-				country_exists = BUL
-				country_exists = GRE
-			}
-		}
-		cancel = {
-			has_war = yes
-		}
-
-		completion_reward = { 
-			if = {
-				limit = { BUL = { exists = yes  NOT = { is_in_faction_with = TUR } } }
-				BUL = { country_event = { id =  wsv_firstbalkan.1  days = 2 } }
-			}
-			if = {
-				limit = { GRE = { exists = yes  NOT = { is_in_faction_with = TUR } } }
-				GRE = { country_event = { id =  wsv_firstbalkan.1  days = 2 } }
-			}
-		}
-	}
-
-	focus = {
-		id = SER_balkan_league_talks
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus=SER_propose_the_balkan_league  }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = SER_propose_the_balkan_league
-
-		cost = 2
-		
-		ai_will_do = { factor = 10 }
-
-		available = {
-			has_war = no
-			custom_trigger_tooltip = {
-				tooltip = one_yes_to_balkan_league_tt
-				check_variable = { SER.num_major_league_members > 1 }
-			}
+		ai_will_do = { 
+			factor = 0 
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			every_country = {
-				limit = { has_country_flag = balkan_league_member }
-				country_event = wsv_firstbalkan.4
-			}
-			custom_effect_tooltip = league_begin_territorial_discussions_tt
 		}
 	}
 
-
+		
 	focus = {
-		id = SER_first_balkan_war
+		id = SER_infrastructure_effort
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = SER_balkan_league_talks }
-		cost = 5
-		x = 0
-		y = 1
-		relative_position_id = SER_balkan_league_talks
+		prerequisite = { focus = SER_civ_factories_1 }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_civ_factories_1
 
-		ai_will_do = { factor = 10 }
-
-		available = {
-			has_war = no
-			is_in_faction = yes
-			has_country_flag = balkan_league_member
-			has_global_flag = balkan_league_territorial_negotiations_over
+		ai_will_do = { 
+			factor = 0 
 		}
 
-		bypass = {
-			has_war_with = TUR
-		}
+		#bypass = {}
 
 		completion_reward = { 
-			news_event = wsv_firstbalkan.12
+		}
+	}
+
+			
+	focus = {
+		id = SER_improve_agriculture
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_civ_factories_1 }
+		prerequisite = { focus = SER_civ_factories_2 }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_civ_factories_1
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
 		}
 	}
 
 
 	focus = {
-		id = SER_dislike_auh
+		id = SER_bring_foriegn_experts
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = SER_national_aspirations }
+		prerequisite = { focus = SER_civ_factories_2 }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_civ_factories_2
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = SER_educate_peasantry
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_infrastructure_effort }
+		prerequisite = { focus = SER_improve_agriculture }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_improve_agriculture
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_diversify_the_economy
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_improve_agriculture }
+		prerequisite = { focus = SER_bring_foriegn_experts }
+		
+
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_improve_agriculture
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_research_effort_1
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_educate_peasantry }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_educate_peasantry
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_civ_factories_3
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_diversify_the_economy  focus = SER_educate_peasantry}
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_educate_peasantry
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_indigenous_arms_industry
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_diversify_the_economy }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_diversify_the_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_wartime_research_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_research_effort_1 }
+		prerequisite = { focus = SER_indigenous_arms_industry }
+		
+		cost = 10
+		x = 0
+		y =  1
+		relative_position_id = SER_civ_factories_3
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_army_effort
+		icon = GFX_focus_chi_legislative_yuan
+		
+		cost = 10
+		x = 11
+		y =  0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_foriegn_artillery_purchase
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_army_effort }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_infantry_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_army_effort }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_drill_the_troops
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_foriegn_artillery_purchase }
+		prerequisite = { focus = SER_infantry_effort }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_foriegn_artillery_purchase
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_invite_foriegn_military_advisors
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_drill_the_troops }
+		
+		cost = 10
+		x = -2
+		y =  1
+		relative_position_id = SER_drill_the_troops
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_air_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_invite_foriegn_military_advisors }
+		
+		cost = 10
+		x = 0
+		y =  2
+		relative_position_id = SER_invite_foriegn_military_advisors
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_native_plane_production
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_air_effort }
+		mutually_exclusive = { focus = SER_foriegn_plane_purchase }
+
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_foriegn_plane_purchase
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_air_effort }
+		mutually_exclusive = { focus = SER_native_plane_production }
+
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_air_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_trench_warfare
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_drill_the_troops }
+		
+		cost = 10
+		x = 0
+		y =  1
+		relative_position_id = SER_drill_the_troops
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_mg_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_trench_warfare }
+		prerequisite = { focus = SER_invite_foriegn_military_advisors }
+		
+		cost = 10
+		x = -1
+		y =  1
+		relative_position_id = SER_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_support_equipment_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_trench_warfare }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_doctinre_effort_3
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_mg_effort }
+		prerequisite = { focus = SER_support_equipment_effort }
+		
+		cost = 10
+		x = 1
+		y =  1
+		relative_position_id = SER_mg_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_mountaineers_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_drill_the_troops }
+		
+		cost = 10
+		x = 2
+		y =  1
+		relative_position_id = SER_drill_the_troops
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_formation_of_black_hand
+		icon = GFX_focus_chi_legislative_yuan
+		
+		cost = 10
+		x = 6
+		y = 2
+		relative_position_id = SER_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_weapons_training_black_hand
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_formation_of_black_hand }
+		prerequisite = { focus = SER_drill_the_troops }
+		
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = SER_national_aspirations
+		relative_position_id = SER_formation_of_black_hand
 
-		ai_will_do = { factor = 1 }
-
-		bypass = { has_war_with = AUH }
-
-		available = {
-			country_exists = AUH
-			NOT = { is_in_faction_with = AUH }
-		}
-
-		completion_reward = { 
-			add_opinion_modifier = {
-				target = AUH
-				modifier = wsv_dislikes_country
-			}
-		}
-	}
-
-
-	focus = {
-		id = SER_bosnian_ultimatum
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = SER_dislike_auh }
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = SER_dislike_auh
-
-		ai_will_do = { factor = 1 }
-
-		available = {
-			has_war = no
-			OR = {
-				has_army_manpower = { size > 499999 }
-				AUH = { has_war_with_major =  yes }
-			}
+		ai_will_do = { 
+			factor = 0 
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			##
 		}
 	}
+
 		
+	focus = {
+		id = SER_expand_national_defense
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_weapons_training_black_hand }
 		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_weapons_training_black_hand
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
 		
+	focus = {
+		id = SER_stoke_nationalist_sentiment
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_formation_of_black_hand }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_formation_of_black_hand
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_influence_of_black_hand
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_expand_national_defense }
+		
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = SER_expand_national_defense
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_conspire_against_black_hand
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_influence_of_black_hand }
+		mutually_exclusive = { focus=SER_empower_the_black_hand  }
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = SER_influence_of_black_hand
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_purge_the_black_hand
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_conspire_against_black_hand }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_conspire_against_black_hand
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_empower_the_black_hand
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_influence_of_black_hand }
+		mutually_exclusive = { focus=SER_conspire_against_black_hand  }
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_influence_of_black_hand
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_war_plan_p
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_expand_national_defense }
+		prerequisite = { focus = SER_stoke_nationalist_sentiment }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_expand_national_defense
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_time_of_crisis
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_war_plan_p }
+		
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = SER_war_plan_p
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
 
 
+	focus = {
+		id = SER_allied_military_aid
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_time_of_crisis }
+		
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = SER_time_of_crisis
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_total_mobilization_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_time_of_crisis }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_time_of_crisis
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = SER_government_in_exile
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_allied_military_aid }
+		prerequisite = { focus = SER_total_mobilization_focus }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_allied_military_aid
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = SER_rebuild_the_army
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_government_in_exile }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_government_in_exile
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = SER_national_resistance_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_total_mobilization_focus }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_total_mobilization_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = SER_corfu_declaration
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_total_mobilization_focus }
+		
+		cost = 10
+		x = 0
+		y = 3
+		relative_position_id = SER_total_mobilization_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_inflame_tensions_in_bosnia
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_expand_national_defense }
+		prerequisite = { focus = SER_stoke_nationalist_sentiment }
+		
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = SER_stoke_nationalist_sentiment
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_dreams_of_greater_serbia
+		icon = GFX_focus_chi_legislative_yuan
+		
+		cost = 10
+		x = 11
+		y = 0
+		relative_position_id = SER_army_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_outreach_bulgaria
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_dreams_of_greater_serbia }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_dreams_of_greater_serbia
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_balkan_league_negotiations
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_outreach_bulgaria }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_outreach_bulgaria
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_start_first_balkan_war
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_balkan_league_negotiations }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_balkan_league_negotiations
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_develop_southern_serbia
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_start_first_balkan_war }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = SER_start_first_balkan_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_bosnia_ultimatum_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_inflame_tensions_in_bosnia }
+		prerequisite = { focus = SER_develop_southern_serbia }
+		
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = SER_inflame_tensions_in_bosnia
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_adriatic_port_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_start_first_balkan_war }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = SER_start_first_balkan_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_develop_albania
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_adriatic_port_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_adriatic_port_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_navy_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_adriatic_port_focus }
+		
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = SER_adriatic_port_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_destroyer_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_navy_focus }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_navy_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = SER_cruiser_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = SER_destroyer_effort }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = SER_destroyer_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
 }
+	
+
+
+	# ####################################
+	# ## -- Colonial Efforts
+	# ####################################
+
+
+	# focus = {
+	# 	id = SER_national_aspirations
+	# 	icon = GFX_focus_chi_legislative_yuan
+
+	# 	cost = 10
+	# 	x = 8
+	# 	y = 0
+	# 	#relative_position_id = 
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		add_war_support = 0.2
+	# 	}
+	# }
+
+
+	# focus = {
+	# 	id = SER_propose_the_balkan_league
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = SER_national_aspirations }
+	# 	cost = 10
+	# 	x = 1
+	# 	y = 1
+	# 	relative_position_id = SER_national_aspirations
+
+	# 	ai_will_do = { factor = 10 }
+	
+	# 	available = {
+	# 		date > 1911.6.1
+	# 		has_war = no
+	# 		OR = {
+	# 			country_exists = BUL
+	# 			country_exists = GRE
+	# 		}
+	# 	}
+	# 	cancel = {
+	# 		has_war = yes
+	# 	}
+
+	# 	completion_reward = { 
+	# 		if = {
+	# 			limit = { BUL = { exists = yes  NOT = { is_in_faction_with = TUR } } }
+	# 			BUL = { country_event = { id =  wsv_firstbalkan.1  days = 2 } }
+	# 		}
+	# 		if = {
+	# 			limit = { GRE = { exists = yes  NOT = { is_in_faction_with = TUR } } }
+	# 			GRE = { country_event = { id =  wsv_firstbalkan.1  days = 2 } }
+	# 		}
+	# 	}
+	# }
+
+	# focus = {
+	# 	id = SER_balkan_league_talks
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus=SER_propose_the_balkan_league  }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = SER_propose_the_balkan_league
+
+	# 	cost = 2
+		
+	# 	ai_will_do = { factor = 10 }
+
+	# 	available = {
+	# 		has_war = no
+	# 		custom_trigger_tooltip = {
+	# 			tooltip = one_yes_to_balkan_league_tt
+	# 			check_variable = { SER.num_major_league_members > 1 }
+	# 		}
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		every_country = {
+	# 			limit = { has_country_flag = balkan_league_member }
+	# 			country_event = wsv_firstbalkan.4
+	# 		}
+	# 		custom_effect_tooltip = league_begin_territorial_discussions_tt
+	# 	}
+	# }
+
+
+	# focus = {
+	# 	id = SER_first_balkan_war
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = SER_balkan_league_talks }
+	# 	cost = 5
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = SER_balkan_league_talks
+
+	# 	ai_will_do = { factor = 10 }
+
+	# 	available = {
+	# 		has_war = no
+	# 		is_in_faction = yes
+	# 		has_country_flag = balkan_league_member
+	# 		has_global_flag = balkan_league_territorial_negotiations_over
+	# 	}
+
+	# 	bypass = {
+	# 		has_war_with = TUR
+	# 	}
+
+	# 	completion_reward = { 
+	# 		news_event = wsv_firstbalkan.12
+	# 	}
+	# }
+
+
+	# focus = {
+	# 	id = SER_dislike_auh
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = SER_national_aspirations }
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = SER_national_aspirations
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	bypass = { has_war_with = AUH }
+
+	# 	available = {
+	# 		country_exists = AUH
+	# 		NOT = { is_in_faction_with = AUH }
+	# 	}
+
+	# 	completion_reward = { 
+	# 		add_opinion_modifier = {
+	# 			target = AUH
+	# 			modifier = wsv_dislikes_country
+	# 		}
+	# 	}
+	# }
+
+
+	# focus = {
+	# 	id = SER_bosnian_ultimatum
+	# 	#icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = SER_dislike_auh }
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = SER_dislike_auh
+
+	# 	ai_will_do = { factor = 1 }
+
+	# 	available = {
+	# 		has_war = no
+	# 		OR = {
+	# 			has_army_manpower = { size > 499999 }
+	# 			AUH = { has_war_with_major =  yes }
+	# 		}
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 		##
+	# 	}
+	# }
