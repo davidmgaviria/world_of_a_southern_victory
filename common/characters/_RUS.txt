@@ -108,23 +108,57 @@ characters={
 
 
 	# CIVIL ADVISORS
+
+	RUS_pyotr_stolypin={
+		advisor={
+			slot = political_advisor
+			idea_token = RUS_pyotr_stolypin_advisor
+			allowed  = {
+				tag  = RUS
+			}
+			available = {
+				NOT = { has_idea_with_trait = captain_of_industry }
+				NOT = { has_idea_with_trait = silent_workhorse }
+			}
+			visible  = {
+				NOT = { has_country_flag = stolypin_no_longer_advisor }
+			}
+			traits  = {
+				silent_workhorse 	
+				captain_of_industry  
+			}
+			ai_will_do  = {
+				factor  = 1.000
+			}
+		}
+		name="Pyotr Stolypin"
+		portraits={
+			army={
+				small="GFX_idea_RUS_boris_sturmer"
+			}
+		}
+	}
+
+
 	RUS_boris_sturmer={
 		advisor={
 			slot = political_advisor
 			idea_token = RUS_boris_sturmer
 			allowed  = {
-					tag  = RUS
-				}
-				#visible  = {
-				#	has_start_date < 1937.1.1
-				#}
-				traits  = {
-					silent_workhorse 
-				}
-				ai_will_do  = {
-					factor  = 1.000
-				}
-				
+				tag  = RUS
+			}
+			#visible  = {
+			#	has_start_date < 1937.1.1
+			#}
+			available = {
+				NOT = { has_idea_with_trait = silent_workhorse }
+			}
+			traits  = {
+				silent_workhorse 
+			}
+			ai_will_do  = {
+				factor  = 1.000
+			}	
 		}
 		name="RUS_boris_sturmer"
 		portraits={
@@ -143,6 +177,9 @@ characters={
 				#visible  = {
 				#	has_start_date < 1937.1.1
 				#}
+				available = {
+					NOT = { has_idea_with_trait = captain_of_industry }
+				}
 				traits  = {
 					captain_of_industry 
 				}

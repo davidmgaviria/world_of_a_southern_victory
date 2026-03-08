@@ -21,7 +21,7 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 
 		cost = 10
-		x = 8
+		x = 7
 		y = 0
 		#relative_position_id = 
 
@@ -36,191 +36,14 @@ focus_tree = {
 		}
 	}
 
-		
-	focus = {
-		id = RUS_study_russo_japanese_defeat
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_rule_of_tsar }
-		
-		cost = 5
-		x = -3
-		y = 1
-		relative_position_id = RUS_rule_of_tsar
 
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 10
-		}
-	}
-
-		
-	focus = {
-		id = RUS_reform_officer_corps
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_study_russo_japanese_defeat }
-		
-		cost = 10
-		x = 0
-		y = 1
-		relative_position_id = RUS_study_russo_japanese_defeat
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-	focus = {
-		id = RUS_formulate_new_military_doctrine
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_reform_officer_corps }
-		
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = RUS_reform_officer_corps
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 20
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 1
-				uses = 1
-				category = land_doctrine
-			}
-		}
-	}
-
-
-	focus = {
-		id = RUS_maneuver_exercises
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_formulate_new_military_doctrine }
-		
-		cost = 10
-		x = -3
-		y = 1
-		relative_position_id = RUS_formulate_new_military_doctrine
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 10
-			add_war_support = 0.05
-		}
-	}
-
-
-	focus = {
-		id = RUS_trench_warfare
-		icon = GFX_goal_generic_construction2
-		prerequisite = { focus = RUS_maneuver_exercises }
-		
-		cost = 10
-		x = 0
-		y = 2
-		relative_position_id = RUS_maneuver_exercises
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 20
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 1
-				uses = 1
-				category = land_doctrine
-			}
-		}
-	}
-
-		
-	focus = {
-		id = RUS_pioneer_infiltration_tactics
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_trench_warfare }
-		
-		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = RUS_trench_warfare
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			army_experience = 10
-			add_doctrine_cost_reduction = {
-				name = land_doc_bonus
-				cost_reduction = 0.5
-				uses = 1
-				category = land_doctrine
-			}
-		}
-	}
-
-		
-	focus = {
-		id = RUS_increase_support_units
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_trench_warfare }
-		
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = RUS_trench_warfare
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				bonus = 0.5
-				uses = 2
-				category = support_tech
-			}
-			# cheaper support equipment production
-		}
-	}
-
-		
-	
 	focus = {
 		id = RUS_continue_stolpyin_reforms
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_rule_of_tsar }
 		
 		cost = 10
-		x = 3
+		x = -3
 		y = 1
 		relative_position_id = RUS_rule_of_tsar
 
@@ -231,25 +54,35 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_timed_idea = {
-				idea = RUS_stolypin_reforms_continued_idea
-				days = 720
-			}
 			add_tech_bonus = {
 				bonus = 0.5
 				uses = 2
 				category = industry
+			}
+			if ={
+				limit = {
+					amount_taken_ideas = {
+						amount < 3
+						slots = { political_advisor }
+					}
+					NOT = { has_idea_with_trait = captain_of_industry }
+					NOT = { has_idea_with_trait = silent_workhorse }
+					NOT = { has_country_flag = stolypin_no_longer_advisor }
+				}
+				activate_advisor = RUS_pyotr_stolypin_advisor  # note this is the 'token' not the name
+			} else = {
+				custom_effect_tooltip = stolpyin_cant_be_hired_tt
 			}
 		}
 	}
 
 
 	focus = {
-		id = RUS_st_petersburg_factories
-		icon = GFX_goal_generic_construct_civ_factory
+		id = RUS_consolidate_peasant_communes
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_continue_stolpyin_reforms }
 		
-		cost = 10
+		cost = 5
 		x = -2
 		y = 1
 		relative_position_id = RUS_continue_stolpyin_reforms
@@ -261,11 +94,83 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = RUS_land_reorganization_act_idea
+		}
+	}
+
+
+	focus = {
+		id = RUS_respond_to_lena_massacre
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_consolidate_peasant_communes }
+		
+		cost = 5
+		x = 0
+		y = 1
+		relative_position_id = RUS_consolidate_peasant_communes
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_country_flag = lena_massacre_occured
+			has_country_flag = protests_over_lena_massacre
+		}
+
+		bypass = {
+			has_country_flag = protests_over_lena_massacre
+			NOT = { has_idea = RUS_lena_massacre_fallout_idea }
+		}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = RUS_improve_agricultural_practices
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_respond_to_lena_massacre  }
+		
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_respond_to_lena_massacre
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = RUS_st_petersburg_factories
+		icon = GFX_goal_generic_construct_civ_factory
+		prerequisite = { focus = RUS_continue_stolpyin_reforms }
+		
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = RUS_continue_stolpyin_reforms
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
 			195 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 3
 				}
 			}
 		}
@@ -317,10 +222,10 @@ focus_tree = {
 
 		completion_reward = { 
 			219 = {
-				add_extra_state_shared_building_slots = 2
+				add_extra_state_shared_building_slots = 3
 				add_building_construction = {
 					type = industrial_complex
-					level = 2
+					level = 3
 				}
 			}
 		}
@@ -329,7 +234,7 @@ focus_tree = {
 
 	focus = {
 		id = RUS_coal_production_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_st_petersburg_factories }
 		
 		cost = 10
@@ -344,6 +249,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			226 = {
+				add_resource = {
+					type = coal
+					amount = 35
+				}
+			}
+			227 = {
+				add_resource = {
+					type = coal
+					amount = 35
+				}
+			}
 		}
 	}
 
@@ -378,16 +295,16 @@ focus_tree = {
 		}
 	}
 
-		
+
 	focus = {
-		id = RUS_debate_land_bill
+		id = RUS_develop_consumer_economy
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_continue_stolpyin_reforms }
-		
-		cost = 5
-		x = 2
+		prerequisite = { focus = RUS_growing_economy }
+		mutually_exclusive = { focus=RUS_great_military_program  }
+		cost = 10
+		x = -2
 		y = 1
-		relative_position_id = RUS_continue_stolpyin_reforms
+		relative_position_id = RUS_growing_economy
 
 		ai_will_do = { 
 			factor = 0 
@@ -396,68 +313,41 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			country_event =  wsv_russia.1
-		}
-	}
-
-
-	focus = {
-		id = RUS_abandon_land_bill
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_debate_land_bill }
-		mutually_exclusive = { focus=RUS_ram_through_land_bill  }
-		cost = 2
-		x = -1
-		y = 2
-		relative_position_id = RUS_debate_land_bill
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			country_event =  wsv_russia.3
 		}
 	}
 
 		
 	focus = {
-		id = RUS_ram_through_land_bill
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_debate_land_bill }
-		mutually_exclusive = { focus=RUS_abandon_land_bill  }
-		cost = 2
-		x = 1
-		y = 2
-		relative_position_id = RUS_debate_land_bill
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			country_event =  wsv_russia.3
-			effect_tooltip = {
-				add_ideas = RUS_land_bill_idea
-			}
-			## TODO - needs to be like an event
-		}
-	}
-
-		
-	focus = {
-		id = RUS_improve_agricultural_practices
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus=RUS_ram_through_land_bill focus=RUS_abandon_land_bill  }
+		id = RUS_invest_in_education
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_develop_consumer_economy }
 		
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = RUS_ram_through_land_bill
+		relative_position_id = RUS_develop_consumer_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_research_slot = 1
+		}
+	}
+
+		
+	focus = {
+		id = RUS_social_safety_net
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_invest_in_education }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_invest_in_education
 
 		ai_will_do = { 
 			factor = 0 
@@ -470,15 +360,135 @@ focus_tree = {
 	}
 
 		
+	focus = {
+		id = RUS_educate_the_peasants
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_invest_in_education }
+		prerequisite = { focus = RUS_improve_agricultural_practices }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_invest_in_education
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_prosperous_middle_class
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_social_safety_net }
+		prerequisite = { focus = RUS_educate_the_peasants }
+		#mutually_exclusive = { focus = 
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_social_safety_net
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+		
+	focus = {
+		id = RUS_study_russo_japanese_defeat
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_rule_of_tsar }
+		
+		cost = 5
+		x = 3
+		y = 1
+		relative_position_id = RUS_rule_of_tsar
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 10
+		}
+	}
+
+		
+	focus = {
+		id = RUS_reform_officer_corps
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_study_russo_japanese_defeat }
+		
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_study_russo_japanese_defeat
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = RUS_bloated_imperial_army
+				add_idea = RUS_bloated_imperial_army_2
+			}
+		}
+	}
+
+	focus = {
+		id = RUS_formulate_new_military_doctrine
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_reform_officer_corps }
+		
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_reform_officer_corps
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
 		
 	focus = {
 		id = RUS_great_military_program
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_formulate_new_military_doctrine }
 		prerequisite = { focus = RUS_growing_economy }
+		#prerequisite = { focus = RUS_seek_french_rearmament_loans }  
 		mutually_exclusive = { focus=RUS_develop_consumer_economy  }
 		cost = 10
-		x = 2
+		x = -2
 		y = 1
 		relative_position_id = RUS_formulate_new_military_doctrine
 
@@ -496,10 +506,12 @@ focus_tree = {
 		}
 	}
 
+
+	
 		
 	focus = {
-		id = RUS_infantry_effort
-		icon = GFX_goal_generic_small_arms
+		id = RUS_arms_factories_1
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_great_military_program }
 		
 		cost = 10
@@ -514,25 +526,35 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_tech_bonus = {
-				bonus = 1.0
-				uses = 2
-				category = infantry_weapons
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
 			}
-			# todo - make support equipment cheaper
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
 		}
 	}
 
 		
 	focus = {
-		id = RUS_tank_experiments
+		id = RUS_arms_factories_2
 		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_infantry_effort }
+		prerequisite = { focus = RUS_arms_factories_1 }
 		
 		cost = 10
-		x = -1
-		y = 1
-		relative_position_id = RUS_infantry_effort
+		x = 0
+		y = 2
+		relative_position_id = RUS_arms_factories_1
 
 		ai_will_do = { 
 			factor = 0 
@@ -541,40 +563,22 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_tech_bonus = {
-				bonus = 2
-				uses = 2
-				technology = tank_unlocker1
-				technology = tank_unlocker2
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
 			}
-		}
-	}
-
-		
-	focus = {
-		id = RUS_armor_effort
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_tank_experiments }
-		prerequisite = { focus = RUS_increase_support_units }
-		
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = RUS_increase_support_units
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_tech_bonus = {
-				bonus = 1
-				uses = 1
-				category = armor
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
 			}
-			#add_ideas = FRA_renault_production   # TODO: cheap russian tanks
 		}
 	}
 
@@ -604,6 +608,82 @@ focus_tree = {
 		}
 	}
 
+
+	focus = {
+		id = RUS_heavy_artillery_effort
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_artillery_effort }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_artillery_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+
+	focus = {
+		id = RUS_infantry_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = RUS_great_military_program }
+		
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = RUS_great_military_program
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+			}
+			# todo - make support equipment cheaper
+		}
+	}
+
+		
+	focus = {
+		id = RUS_tank_experiments
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_infantry_effort }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_infantry_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2
+				uses = 2
+				technology = tank_unlocker1
+				technology = tank_unlocker2
+			}
+		}
+	}
+
 		
 	focus = {
 		id = RUS_air_effort
@@ -612,7 +692,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_artillery_effort }
 		
 		cost = 10
-		x = -1
+		x = 1
 		y = 1
 		relative_position_id = RUS_artillery_effort
 
@@ -720,15 +800,16 @@ focus_tree = {
 	}
 
 		
+	
 	focus = {
-		id = RUS_heavy_artillery_effort
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_artillery_effort }
+		id = RUS_maneuver_exercises
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_formulate_new_military_doctrine }
 		
 		cost = 10
-		x = 1
+		x = 3
 		y = 1
-		relative_position_id = RUS_artillery_effort
+		relative_position_id = RUS_formulate_new_military_doctrine
 
 		ai_will_do = { 
 			factor = 0 
@@ -737,56 +818,21 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			army_experience = 10
+			add_war_support = 0.05
 		}
 	}
 
-		
+
 	focus = {
-		id = RUS_arms_factories_1
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_great_military_program }
-		
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = RUS_great_military_program
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			random_owned_controlled_state = {
-				limit = { is_in_home_area = yes }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-				}
-			}
-			random_owned_controlled_state = {
-				limit = { is_in_home_area = yes }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-				}
-			}
-		}
-	}
-
-		
-	focus = {
-		id = RUS_arms_factories_2
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_arms_factories_1 }
+		id = RUS_trench_warfare
+		icon = GFX_goal_generic_construction2
+		prerequisite = { focus = RUS_maneuver_exercises }
 		
 		cost = 10
 		x = 0
 		y = 2
-		relative_position_id = RUS_arms_factories_1
+		relative_position_id = RUS_maneuver_exercises
 
 		ai_will_do = { 
 			factor = 0 
@@ -795,78 +841,211 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			random_owned_controlled_state = {
-				limit = { is_in_home_area = yes }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-				}
-			}
-			random_owned_controlled_state = {
-				limit = { is_in_home_area = yes }
-				add_extra_state_shared_building_slots = 1
-				add_building_construction = {
-					type = arms_factory
-					level = 1
-				}
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
 			}
 		}
 	}
 
-		
+
 	focus = {
-		id = RUS_develop_consumer_economy
+		id = RUS_increase_support_units
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_growing_economy }
-		mutually_exclusive = { focus=RUS_great_military_program  }
-		cost = 10
-		x = 2
-		y = 1
-		relative_position_id = RUS_growing_economy
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = RUS_invest_in_education
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_develop_consumer_economy }
-		
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = RUS_develop_consumer_economy
-
-		ai_will_do = { 
-			factor = 0 
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-			add_research_slot = 1
-		}
-	}
-
-		
-	focus = {
-		id = RUS_social_safety_net
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_invest_in_education }
+		prerequisite = { focus = RUS_trench_warfare }
 		
 		cost = 10
 		x = -1
 		y = 1
-		relative_position_id = RUS_invest_in_education
+		relative_position_id = RUS_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = support_tech
+			}
+			# cheaper support equipment production
+		}
+	}
+
+
+	focus = {
+		id = RUS_armor_effort
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_tank_experiments }
+		prerequisite = { focus = RUS_increase_support_units }
+		
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_increase_support_units
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1
+				uses = 1
+				category = armor
+			}
+			#add_ideas = FRA_renault_production   # TODO: cheap russian tanks
+		}
+	}
+
+		
+	focus = {
+		id = RUS_pioneer_infiltration_tactics
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_trench_warfare }
+		
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_trench_warfare
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 10
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+	
+
+	#############################
+	### --- INTERNATIONAL --- ###
+	#############################
+	
+	focus = {
+		id = RUS_strains_of_empire
+		icon = GFX_focus_chi_legislative_yuan
+
+		cost = 10
+		x = 30
+		y = 0
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 100
+		}
+	}
+
+		
+	focus = {
+		id = RUS_affirm_franco_russian_alliance
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_strains_of_empire }
+
+		cost = 10
+		x = -6
+		y = 1
+		relative_position_id = RUS_strains_of_empire
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = FRA
+				modifier = wsv_improve_relations
+			}
+			FRA = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_improve_relations
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS_ambitions_in_balkans
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_affirm_franco_russian_alliance }
+
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = RUS_affirm_franco_russian_alliance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_opinion_modifier = {
+				target = AUH
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+
+
+	focus = {
+		id = RUS_prepare_against_germany
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_ambitions_in_balkans }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = RUS_ambitions_in_balkans
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = RUS_seek_french_rearmament_loans
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_prepare_against_germany }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_prepare_against_germany
 
 		ai_will_do = { 
 			factor = 0 
@@ -880,15 +1059,14 @@ focus_tree = {
 
 		
 	focus = {
-		id = RUS_educate_the_peasants
+		id = RUS_prepare_against_auh
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_invest_in_education }
-		prerequisite = { focus = RUS_improve_agricultural_practices }
-		
+		prerequisite = { focus = RUS_ambitions_in_balkans }
+
 		cost = 10
-		x = 1
+		x = 0
 		y = 1
-		relative_position_id = RUS_invest_in_education
+		relative_position_id = RUS_ambitions_in_balkans
 
 		ai_will_do = { 
 			factor = 0 
@@ -902,16 +1080,70 @@ focus_tree = {
 
 		
 	focus = {
-		id = RUS_prosperous_middle_class
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_social_safety_net }
-		prerequisite = { focus = RUS_educate_the_peasants }
-		#mutually_exclusive = { focus = 
+		id = RUS_claims_on_greater_poland
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_prepare_against_auh }
+		prerequisite = { focus = RUS_prepare_against_germany }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = RUS_social_safety_net
+		relative_position_id = RUS_prepare_against_germany
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			if = {
+				limit = { NOT = { is_in_faction_with = AUH } }
+				add_state_claim = 88
+				add_state_claim = 89
+				add_state_claim = 91
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = GER } }
+				add_state_claim = 85
+				add_state_claim = 86
+				add_state_claim = 762
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_raise_polish_troops
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_claims_on_greater_poland }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_claims_on_greater_poland
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_manpower = 80000
+		}
+	}
+
+			
+	focus = {
+		id = RUS_encourage_serb_bulgarian_friendship
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_ambitions_in_balkans }
+
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = RUS_ambitions_in_balkans
 
 		ai_will_do = { 
 			factor = 0 
@@ -922,5 +1154,706 @@ focus_tree = {
 		completion_reward = { 
 		}
 	}
+
+
+	focus = {
+		id = RUS_uphold_1907_agreement
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_affirm_franco_russian_alliance }
+		mutually_exclusive = { focus=RUS_revoke_the_1907_agreement  }
+
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = RUS_affirm_franco_russian_alliance
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_revoke_the_1907_agreement
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_affirm_franco_russian_alliance }
+		mutually_exclusive = { focus=RUS_affirm_franco_russian_alliance  }
+
+		cost = 10
+		x = 2
+		y = 0
+		relative_position_id = RUS_uphold_1907_agreement
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_increase_influence_in_persia
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=RUS_uphold_1907_agreement focus=RUS_revoke_the_1907_agreement  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_uphold_1907_agreement
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_central_asia_logistics
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_revoke_the_1907_agreement }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_revoke_the_1907_agreement
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			584 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			405 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+				add_building_construction = {
+					type = supply_node
+					level = 1
+					province = 12239
+				}
+			}
+			build_railway = {
+				level = 2
+				fallback = yes
+				path = {1459 11687 1919 1216 12722 12239}
+				start_province = 1459
+				target_province = 12239
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_attack_iran
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_increase_influence_in_persia }
+		prerequisite = { focus = RUS_central_asia_logistics }
+		prerequisite = { focus = RUS_mountain_training }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_increase_influence_in_persia
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = PER
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_attack_afghanistan
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_central_asia_logistics }
+		prerequisite = { focus = RUS_mountain_training }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_central_asia_logistics
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			create_wargoal = {
+				type = puppet_wargoal_focus
+				target = AFG
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_attack_india
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_attack_afghanistan }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_attack_afghanistan
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			create_wargoal = {
+				type = topple_government
+				target = RAJ
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_baku_oil_wells
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_cacucaus_infrastructure }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_cacucaus_infrastructure
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_resource = {
+				type = oil
+				amount = 35
+				state = 229
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_claims_on_constantinople
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_strains_of_empire }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = RUS_strains_of_empire
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_state_claim = 341
+			add_state_claim = 340
+			add_opinion_modifier = {
+				target = TUR
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_black_sea_fleet
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_claims_on_constantinople }
+		prerequisite = { focus = RUS_begin_rebulding_navy }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = RUS_claims_on_constantinople
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			navy_experience = 25
+			137 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+			234 = {
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_mountain_training
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_black_sea_fleet }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_black_sea_fleet
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				name = generic_special_forces_bonus 
+				bonus = 2.0
+				uses = 1
+				category = mountaineers_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_cacucaus_infrastructure
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_black_sea_fleet }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_black_sea_fleet
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			233 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			231 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			229 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			230 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+			843 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_attack_turkey
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_cacucaus_infrastructure }
+		prerequisite = { focus = RUS_mountain_training }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_cacucaus_infrastructure
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_state_claim = 354
+			create_wargoal = {
+				type = take_claimed_state
+				target = TUR
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_recruit_armenian_troops
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_attack_turkey }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_attack_turkey
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_manpower = 40000
+		}
+	}
+
+
+	focus = {
+		id = RUS_lessons_of_tsushima_defeat
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_strains_of_empire }
+
+		cost = 10
+		x = 8
+		y = 1
+		relative_position_id = RUS_strains_of_empire
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			navy_experience = 75
+			add_doctrine_cost_reduction = {
+				cost_reduction = 0.5
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_begin_rebulding_navy
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_lessons_of_tsushima_defeat }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_lessons_of_tsushima_defeat
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			swap_ideas = {
+				remove_idea = RUS_tsushima_humiliation
+				add_idea = RUS_tsushima_humiliation_reduced
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}  
+		}
+	}
+
+		
+	focus = {
+		id = RUS_destroyer_effort
+		icon = GFX_focus_generic_destroyer
+		prerequisite = { focus = RUS_begin_rebulding_navy }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_begin_rebulding_navy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = dd_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_cruiser_effort
+		icon = GFX_focus_generic_cruiser2
+		prerequisite = { focus = RUS_begin_rebulding_navy }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_begin_rebulding_navy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_pass_naval_rearmament_bill
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_destroyer_effort }
+		prerequisite = { focus = RUS_cruiser_effort }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_destroyer_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_timed_idea = {
+				idea = RUS_naval_rearmament_act_idea
+				days = 720
+			}
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 2
+				category = naval_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_submarine_effort
+		icon = GFX_goal_generic_navy_submarine
+		prerequisite = { focus = RUS_pass_naval_rearmament_bill }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = RUS_pass_naval_rearmament_bill
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = ss_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_expand_dockyards
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_pass_naval_rearmament_bill }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_pass_naval_rearmament_bill
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+					is_in_home_area = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+				}
+			}  
+		}
+	}
+
+		
+	focus = {
+		id = RUS_battleship_effort
+		icon = GFX_focus_generic_navy_battleship2
+		prerequisite = { focus = RUS_pass_naval_rearmament_bill }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = RUS_pass_naval_rearmament_bill
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = bb_tech
+				category = bc_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = RUS_erase_stain_of_tsushima
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_submarine_effort }
+		prerequisite = { focus = RUS_expand_dockyards }
+		prerequisite = { focus = RUS_battleship_effort }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_expand_dockyards
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			remove_ideas = RUS_tsushima_humiliation_reduced
+		}
+	}
+
+	
 }
 	
