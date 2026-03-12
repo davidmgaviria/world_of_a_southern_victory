@@ -16,6 +16,37 @@
 #	}
 #
 
+### ------------------ Italo-Turkish War Effects  -------------- ###
+
+# Effect for a state to become 'contested'
+italoturkish_set_contested = {
+	hidden_effect = {
+		set_state_flag = contested_libyan_state 
+		set_border_war = yes
+	}
+}
+
+# Effect for a state to become 'uncontested'
+italoturkish_remove_contested = {
+	hidden_effect = {
+		clr_state_flag = contested_libyan_state 
+		set_border_war = no
+	}
+}
+
+italoturkish_add_action_point = {
+	add_to_variable = { THIS.italoturkish_action_points = 1 }
+	custom_effect_tooltip = italoturkish_add_action_point_tt
+}
+
+italoturkish_remove_action_point = {
+	subtract_from_variable = { THIS.italoturkish_action_points = 1 }
+	custom_effect_tooltip = italoturkish_remove_action_point_tt
+}
+
+### ------------------------------------------------------ ###
+
+
 
 # Effect to safely dismantle a faction
 dismantle_faction_safely_effect = {

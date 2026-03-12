@@ -1,0 +1,286 @@
+###################################################
+# -- Forming Balkan League
+###################################################
+
+italoturkish_war_cat = {
+
+	# ## dummy decision which when howevered over show # of divisions and men you've committed to Macedonia
+	# italoturkish_stats_overview = {
+	# 	icon = generic_operation
+	# 	priority = 100
+
+	# 	allowed = {
+	# 		always = yes
+	# 	} 
+	# 	available = {
+	# 		always = no
+	# 	}
+	# 	visible = {
+	# 		has_global_flag = italoturkish_war
+	# 		NOT = { has_global_flag = italoturkish_war_over }
+	# 	}
+
+	# 	state_target = yes
+	# 	on_map_mode = decision_view_only
+	# 	target_trigger  = { 
+	# 		FROM = {
+	# 			is_capital = yes
+	# 			is_owned_by = ROOT
+	# 		}
+	# 	}
+
+	# 	cost = 0
+	# 	days_remove = 0
+
+	# 	complete_effect = {}
+	# }
+
+
+	# Attack
+	full_attack_libyan_state_x = {
+		icon = generic_prepare_civil_war
+	
+		allowed = {
+			OR = {
+				tag = ITA
+				tag = TUR
+			}
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { ROOT.italoturkish_action_points > 0 }
+				tooltip = has_action_points_available_tt
+			}
+			FROM = { NOT = { has_state_flag = ongoing_combat_action } }
+		}
+	
+		state_target = yes
+		targets = { 448 449 450 451 661 662 663 869 838 }  # libyan theatre
+	    target_trigger = {
+	        FROM = {
+				NOT = { is_owned_by = ROOT }  # the state we want to attack
+ 	        	any_neighbor_state = {  # the state we're launching an attack from (cannot be contested)
+					is_owned_by = ROOT 
+					NOT = { has_state_flag = contested_libyan_state }  
+				}
+	        }
+	    }
+	    on_map_mode = map_only
+
+	    custom_cost_trigger = {
+			command_power > 9.9
+		}
+		custom_cost_text = ITA_attack_libyan_state_cost
+		
+		fire_only_once = no
+		days_remove = 30
+		days_re_enable = 0
+
+		complete_effect = {
+			# get info for battle
+			ROOT = { save_event_target_as = attacker_TAG }
+			if = {
+				limit = { tag = ITA }
+				TUR = { save_event_target_as = opponent_TAG }
+			}
+			if = {
+				limit = { tag = TUR }
+				ITA = { save_event_target_as = opponent_TAG }
+			}
+			FROM = {
+				 save_event_target_as = battle_state 
+				 set_state_flag = ongoing_combat_action
+			}
+
+			# effect of battle
+			italoturkish_remove_action_point = yes
+			add_command_power = -5
+			random_list = {
+				# small success
+				55 = { 
+					modifier = {
+						factor = 0
+						FROM = { has_state_flag = contested_libyan_state }
+					}
+					ROOT = { country_event = { id =  wsv_italoturkish.100  days = 20  random_days = 8 } }
+				}
+				# decisive success
+				4 = { 
+					modifier = {
+						factor = 2
+						FROM = { has_state_flag = contested_libyan_state }
+					}
+					modifier = {
+						factor = 0   # cannot instantly take key states
+						FROM = {
+							has_state_flag = key_libyan_state 
+							NOT = { has_state_flag = contested_libyan_state }
+						}
+					}
+					ROOT = { country_event = { id =  wsv_italoturkish.101  days = 18  random_days = 8 } }
+					
+				}
+				# defeat
+				40 = {
+					modifier = {
+						factor = 2   # harder to take key states
+						FROM = { has_state_flag = key_libyan_state }
+					}
+					ROOT = { country_event = { id =  wsv_italoturkish.102  days = 18  random_days = 8 } }
+				}
+			}	
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+
+	# counter attack in one of our states that is now contested
+	counter_attack_libyan_state_x = {
+		icon = generic_prepare_civil_war
+	
+		allowed = {
+			OR = {
+				tag = ITA
+				tag = TUR
+			}
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			custom_trigger_tooltip = {
+				check_variable = { ROOT.italoturkish_action_points > 0 }
+				tooltip = has_action_points_available_tt
+			}
+			FROM = { NOT = { has_state_flag = ongoing_combat_action } }
+		}
+	
+		state_target = yes
+		targets = { 448 449 450 451 661 662 663 869 838 }  # libyan theatre
+	    target_trigger = {
+	        FROM = {
+				is_owned_by = ROOT 
+				has_state_flag = contested_libyan_state
+	        }
+	    }
+	   on_map_mode = map_and_decisions_view
+
+	    custom_cost_trigger = {
+			command_power > 9.9
+		}
+		custom_cost_text = ITA_attack_libyan_state_cost
+		
+		fire_only_once = no
+		days_remove = 20   # counter attacks can happen more frequently
+		days_re_enable = 0
+
+		complete_effect = {
+			# get info for battle
+			ROOT = { save_event_target_as = attacker_TAG }
+			if = {
+				limit = { tag = ITA }
+				TUR = { save_event_target_as = opponent_TAG }
+			}
+			if = {
+				limit = { tag = TUR }
+				ITA = { save_event_target_as = opponent_TAG }
+			}
+			FROM = {
+				 save_event_target_as = battle_state 
+				 set_state_flag = ongoing_combat_action
+			}
+
+			# effect of battle
+			italoturkish_remove_action_point = yes
+			add_command_power = -5
+			random_list = {
+				# push the enemy back (aka decisive success)
+				33 = { 
+					ROOT = { country_event = { id =  wsv_italoturkish.101  days = 8  random_days = 5 } }
+				}
+				# defeat
+				66 = {
+					ROOT = { country_event = { id =  wsv_italoturkish.102  days = 8  random_days = 5 } }
+				}
+			}	
+		}
+
+		ai_will_do = {
+			factor = 10
+		}
+	}
+
+
+	# #
+	# # Attack
+	# test_entity = {
+	# 	icon = generic_prepare_civil_war
+	
+	# 	allowed = {
+	# 		tag = ITA
+	# 	}
+	# 	visible = {
+	# 		has_global_flag = italoturkish_war
+	# 		NOT = { has_global_flag = italoturkish_war_over }
+	# 	}
+	# 	available = {
+	# 		always = yes
+	# 	}
+	
+	# 	state_target = yes
+	# 	targets = { 448 449 450 451 661 662 663 869 838 }  # libyan theatre
+	#     target_trigger = {
+	# 		always = yes
+	#     }
+	#     on_map_mode = map_only
+
+	# 	fire_only_once = yes
+	# 	days_remove = 0
+
+	# 	complete_effect = {
+	# 		FROM = { save_event_target_as = place_state }
+	# 		if = {
+	# 			limit = { tag = ITA }
+	# 			create_entity = {
+	# 				entity = ITA_infantry_entity
+	# 				var = test_dummy_1
+	# 				state = event_target:place_state
+	# 				rotation = 1.2
+	# 				scale = 1.5	
+	# 				min_zoom = 100.0
+	# 			}
+	# 		}
+	# 		if = {
+	# 			limit = { tag = TUR }
+	# 			create_entity = {
+	# 				entity = TUR_infantry_entity
+	# 				var = test_dummy_1
+	# 				state = event_target:place_state
+	# 				rotation = 1.2
+	# 				scale = 1	
+	# 				min_zoom = 150.0
+	# 			}
+	# 		}
+			
+	# 	}
+
+	# 	remove_effect = {
+			
+	# 	}
+
+	# 	ai_will_do = {
+	# 		factor = 10
+	# 	}
+	# }
+
+
+}
+

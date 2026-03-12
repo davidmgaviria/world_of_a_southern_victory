@@ -20,9 +20,18 @@ news_event = {
 					threat = 4
 					name = "Italo-Turkish War"
 				}
-				transfer_state = 869 # tobruk
-				transfer_state = 450 # benghasi
-				transfer_state = 448 # tripoli
+				869 = { # tobruk
+					transfer_state_to = ITA
+					set_state_flag = key_libyan_state
+				}
+				450 = { # benghasi
+					transfer_state_to = ITA
+					set_state_flag = key_libyan_state
+				}
+				448 = { # tripoli
+					transfer_state_to = ITA
+					set_state_flag = key_libyan_state
+				}
 				load_oob=ITA_italoturkish_inital_landing
         		activate_decision = italoturkish_expedition_first_deadline
 				add_ideas = ITA_conquest_of_libya
@@ -31,9 +40,17 @@ news_event = {
 					value = 1 
 					days = 210
 				}
+				# vars
+				set_variable = { italoturkish_action_points = 2 }
+				set_variable = { italoturkish_troops_active = 20000 }
+				set_variable = { italoturkish_casualties = 0 }
 	        }
 			TUR = {
 				load_oob=TUR_italoturkish_garrison
+				# vars
+				set_variable = { italoturkish_action_points = 1 }
+				set_variable = { italoturkish_troops_active = 8000 }
+				set_variable = { italoturkish_casualties = 0 }
 			}
 			# libyan theatre
 			every_state = {
@@ -376,7 +393,8 @@ news_event = {
 
 ## TESTING italo turkish border war
 
-# Attacker win fight
+
+# Attack established foothold
 country_event = {
 	id = wsv_italoturkish.100
 	title = wsv_italoturkish.100.t
@@ -384,16 +402,28 @@ country_event = {
 	
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = {
+			event_target:opponent_TAG = { country_event = wsv_italoturkish.103 }   # send alert to our opponent
+			event_target:battle_state = {
+				add_contested_owner = ROOT   # only the victory gets this event
+				italoturkish_set_contested = yes
+				clr_state_flag = ongoing_combat_action
+			}
+		}
+	}
+
 	option = {
 		name = wsv_italoturkish.100.a
-		add_manpower = -400
-		transfer_state = event_target:italoturkish_defender_state
-		clear_global_event_target = event_target:italoturkish_attacker_state
-		clear_global_event_target = event_target:italoturkish_defender_state
+		effect_tooltip = {
+			event_target:battle_state = { add_contested_owner = ROOT }  # only the victory gets this event
+		}
+		italoturkish_add_action_point = yes
 	}
 }
 
-# Attacker loses fight
+
+# Attack took state
 country_event = {
 	id = wsv_italoturkish.101
 	title = wsv_italoturkish.101.t
@@ -401,15 +431,27 @@ country_event = {
 	
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = {
+			event_target:opponent_TAG = { country_event = wsv_italoturkish.104 }   # send alert to our opponent
+			event_target:battle_state = {
+				transfer_state_to = ROOT  # only the victory gets this event
+				italoturkish_remove_contested = yes
+				clr_state_flag = ongoing_combat_action
+			}
+		}
+	}
+
 	option = {
 		name = wsv_italoturkish.101.a
-		add_manpower = -600
-		clear_global_event_target = event_target:italoturkish_attacker_state
-		clear_global_event_target = event_target:italoturkish_defender_state
+		effect_tooltip = {
+			event_target:battle_state = { transfer_state_to = ROOT }  # only the victory gets this event
+		}
+		italoturkish_add_action_point = yes
 	}
 }
 
-# Defender wins fight
+# Attack was beaten back
 country_event = {
 	id = wsv_italoturkish.102
 	title = wsv_italoturkish.102.t
@@ -417,15 +459,22 @@ country_event = {
 	
 	is_triggered_only = yes
 
+	immediate = {
+		hidden_effect = {
+			event_target:opponent_TAG = { country_event = wsv_italoturkish.105 }   # send alert to our opponent
+			event_target:battle_state = {
+				clr_state_flag = ongoing_combat_action
+			}
+		}
+	}
+
 	option = {
 		name = wsv_italoturkish.102.a
-		add_manpower = -300
-		clear_global_event_target = event_target:italoturkish_attacker_state
-		clear_global_event_target = event_target:italoturkish_defender_state
+		italoturkish_add_action_point = yes
 	}
 }
 
-# Defender loses fight
+# Defender suffered set back (state contested)
 country_event = {
 	id = wsv_italoturkish.103
 	title = wsv_italoturkish.103.t
@@ -435,25 +484,120 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.103.a
-		add_manpower = -600
-		clear_global_event_target = event_target:italoturkish_attacker_state
-		clear_global_event_target = event_target:italoturkish_defender_state
+		add_manpower = -400
 	}
 }
 
-# Draw
+# Defender forced to retreat (state lost)
 country_event = {
 	id = wsv_italoturkish.104
 	title = wsv_italoturkish.104.t
 	desc = wsv_italoturkish.104.d
 	
-	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
 		name = wsv_italoturkish.104.a
-		add_manpower = -250
-		clear_global_event_target = event_target:italoturkish_attacker_state
-		clear_global_event_target = event_target:italoturkish_defender_state
 	}
 }
+
+
+# Defender held (beat back attacker)
+country_event = {
+	id = wsv_italoturkish.105
+	title = wsv_italoturkish.105.t
+	desc = wsv_italoturkish.105.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_italoturkish.105.a
+	}
+}
+
+
+
+
+
+
+# # Attacker win fight
+# country_event = {
+# 	id = wsv_italoturkish.100
+# 	title = wsv_italoturkish.100.t
+# 	desc = wsv_italoturkish.100.d
+	
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_italoturkish.100.a
+# 		add_manpower = -400
+# 		transfer_state = event_target:italoturkish_defender_state
+# 		clear_global_event_target = event_target:italoturkish_attacker_state
+# 		clear_global_event_target = event_target:italoturkish_defender_state
+# 	}
+# }
+
+# # Attacker loses fight
+# country_event = {
+# 	id = wsv_italoturkish.101
+# 	title = wsv_italoturkish.101.t
+# 	desc = wsv_italoturkish.101.d
+	
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_italoturkish.101.a
+# 		add_manpower = -600
+# 		clear_global_event_target = event_target:italoturkish_attacker_state
+# 		clear_global_event_target = event_target:italoturkish_defender_state
+# 	}
+# }
+
+# # Defender wins fight
+# country_event = {
+# 	id = wsv_italoturkish.102
+# 	title = wsv_italoturkish.102.t
+# 	desc = wsv_italoturkish.102.d
+	
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_italoturkish.102.a
+# 		add_manpower = -300
+# 		clear_global_event_target = event_target:italoturkish_attacker_state
+# 		clear_global_event_target = event_target:italoturkish_defender_state
+# 	}
+# }
+
+# # Defender loses fight
+# country_event = {
+# 	id = wsv_italoturkish.103
+# 	title = wsv_italoturkish.103.t
+# 	desc = wsv_italoturkish.103.d
+	
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_italoturkish.103.a
+# 		add_manpower = -600
+# 		clear_global_event_target = event_target:italoturkish_attacker_state
+# 		clear_global_event_target = event_target:italoturkish_defender_state
+# 	}
+# }
+
+# # Draw
+# country_event = {
+# 	id = wsv_italoturkish.104
+# 	title = wsv_italoturkish.104.t
+# 	desc = wsv_italoturkish.104.d
+	
+# 	fire_only_once = yes
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_italoturkish.104.a
+# 		add_manpower = -250
+# 		clear_global_event_target = event_target:italoturkish_attacker_state
+# 		clear_global_event_target = event_target:italoturkish_defender_state
+# 	}
+# }
