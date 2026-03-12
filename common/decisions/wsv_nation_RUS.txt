@@ -147,6 +147,74 @@ wsv_great_war_decisions = {
 
 #################### Political struggle when Tsar abdicates ####################
 
+RUS_lena_massacre_aftermath_category = {
+
+	# Long investigation 
+	RUS_conduct_long_investigation = {		
+	 	icon = generic_decision
+		priority = 25
+
+		available = {
+			tag = RUS
+		}
+		visible = {
+			has_global_flag = lena_massacre_occured
+			NOT = { has_global_flag = started_lena_massacre_investigation }
+		}
+
+		cost = 50
+		fire_only_once = yes
+		days_remove = 100
+		days_re_enable = 0
+
+		complete_effect = {
+			set_global_flag = started_lena_massacre_investigation
+		}
+
+		remove_effect = {
+			country_event = wsv_russia.7
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	# Short investigation 
+	RUS_conduct_brief_investigation = {		
+	 	icon = generic_decision
+		priority = 20
+
+		available = {
+			tag = RUS
+		}
+		visible = {
+			has_global_flag = lena_massacre_occured
+			NOT = { has_global_flag = started_lena_massacre_investigation }
+		}
+
+		cost = 0
+		fire_only_once = yes
+		days_remove = 30
+		days_re_enable = 0
+
+		complete_effect = {
+			set_global_flag = started_lena_massacre_investigation
+		}
+
+		remove_effect = {
+			country_event = wsv_russia.6
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
+
+#################### Political struggle when Tsar abdicates ####################
+
 RUS_provisional_gov_category = {
 
 	# Bolshevik coup timeout mission

@@ -85,18 +85,19 @@ country_event = {
 	id = wsv_russia.5
 	title = wsv_russia.5.t
 	desc = wsv_russia.5.d
+	picture = report_event_RUS_lena_massacre
 
 	trigger = {
 		tag = RUS
 		has_government = neutrality			# needs to be tsarist
 		date > 1912.4.17					# occured April 17, 1912
-		NOT = { has_country_flag = lena_massacre_occured }
+		NOT = { has_global_flag = lena_massacre_occured }
 	}
 
 	mean_time_to_happen = { days = 0 }
 
 	immediate = {
-		set_country_flag = lena_massacre_occured
+		set_global_flag = lena_massacre_occured
 		hidden_effect = {
 			country_event = { id = wsv_russia.7    days = 7 }
 		}
@@ -104,12 +105,14 @@ country_event = {
 
 	option = { 
 		name = wsv_russia.5.a
-		add_stability = -0.05
+		add_stability = -0.08
+		add_ideas = RUS_lena_massacre_fallout_idea
+		custom_effect_tooltip = lena_massacre_investigations_available_tt
 	}
 }
 
 
-# Public reaction to the massacre
+# Outcome of short investigation
 country_event = {
 	id = wsv_russia.6
 	title = wsv_russia.6.t
@@ -118,34 +121,35 @@ country_event = {
 	fire_only_once = yes
 	is_triggered_only = yes
 
-	immediate = {
-		set_country_flag = protests_over_lena_massacre
-		hidden_effect = {  
-			add_timed_idea = {  # needs to be set immediately to prevent triggering 'bypass' in lena massacre focus
-				idea = RUS_lena_massacre_fallout_idea
-				days = 360    # can be cut brief by doing a focus
-			}
-		}
-	}
-	
-	# Not good
+	# Make vague excuses
 	option = { 
 		name = wsv_russia.6.a
-		add_popularity = {
-			ideology = communism
-			popularity = 0.05
+		hidden_effect = {
+			remove_ideas = RUS_lena_massacre_fallout_idea
 		}
-		add_popularity = {
-			ideology = neutrality
-			popularity = -0.05
+		add_stability = 0.03
+		add_timed_idea = {
+			idea = RUS_lena_massacre_fallout_idea
+			days = 180
 		}
-		# actual setting of idea is done above to not mess up the focus tree conditions
-		effect_tooltip = {
-			add_timed_idea = {
-				idea = RUS_lena_massacre_fallout_idea
-				days = 360  
-			}
-		}
+	}
+}
+
+
+# Outcome of long investigation
+country_event = {
+	id = wsv_russia.7
+	title = wsv_russia.7.t
+	desc = wsv_russia.7.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# Fire the captain, restructure the org
+	option = { 
+		name = wsv_russia.7.a
+		add_command_power = -10
+		remove_ideas = RUS_lena_massacre_fallout_idea
 	}
 }
 
