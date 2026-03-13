@@ -106,6 +106,14 @@ italoturkish_war_cat = {
 						factor = 0
 						FROM = { has_state_flag = contested_libyan_state }
 					}
+					modifier = {
+						factor = 1.5
+						check_variable = { ROOT.italoturkish_combat_ratio > 2 }
+					}
+					modifier = {
+						factor = 1.5
+						check_variable = { ROOT.italoturkish_combat_ratio > 3 }
+					}
 					ROOT = { country_event = { id =  wsv_italoturkish.100  days = 20  random_days = 8 } }
 				}
 				# decisive success
@@ -120,6 +128,14 @@ italoturkish_war_cat = {
 							has_state_flag = key_libyan_state 
 							NOT = { has_state_flag = contested_libyan_state }
 						}
+					}
+					modifier = {
+						factor = 1.5
+						check_variable = { ROOT.italoturkish_combat_ratio > 2 }
+					}
+					modifier = {
+						factor = 1.5
+						check_variable = { ROOT.italoturkish_combat_ratio > 3 }
 					}
 					ROOT = { country_event = { id =  wsv_italoturkish.101  days = 18  random_days = 8 } }
 					
@@ -136,7 +152,19 @@ italoturkish_war_cat = {
 		}
 
 		ai_will_do = {
-			factor = 10
+			factor = 4
+			modifier =  {
+				factor = 2
+				check_variable = { ROOT.italoturkish_combat_ratio > 1.5 }
+			}
+			modifier =  {
+				factor = 0.5
+				check_variable = { ROOT.italoturkish_combat_ratio < 1 }
+			}
+			modifier =  {
+				factor = 0.5
+				check_variable = { ROOT.italoturkish_combat_ratio < 0.5 }
+			}
 		}
 	}
 
@@ -197,24 +225,44 @@ italoturkish_war_cat = {
 				 save_event_target_as = battle_state 
 				 set_state_flag = ongoing_combat_action
 			}
-
+			
 			# effect of battle
 			italoturkish_remove_action_point = yes
 			add_command_power = -5
 			random_list = {
 				# push the enemy back (aka decisive success)
-				33 = { 
+				30 = { 
+					modifier = {
+						factor = 1.5
+						check_variable = { ROOT.italoturkish_combat_ratio > 2 }
+					}
+					modifier = {
+						factor = 1.5
+						check_variable = { ROOT.italoturkish_combat_ratio > 3 }
+					}
 					ROOT = { country_event = { id =  wsv_italoturkish.101  days = 8  random_days = 5 } }
 				}
 				# defeat
-				66 = {
+				70 = {
 					ROOT = { country_event = { id =  wsv_italoturkish.102  days = 8  random_days = 5 } }
 				}
 			}	
 		}
 
 		ai_will_do = {
-			factor = 10
+			factor = 6
+			modifier =  {
+				factor = 1.5
+				check_variable = { ROOT.italoturkish_combat_ratio > 2 }
+			}
+			modifier =  {
+				factor = 0.5
+				check_variable = { ROOT.italoturkish_combat_ratio < 1 }
+			}
+			modifier =  {
+				factor = 0.5
+				check_variable = { ROOT.italoturkish_combat_ratio < 0.5 }
+			}
 		}
 	}
 

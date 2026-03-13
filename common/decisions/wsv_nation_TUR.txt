@@ -27,36 +27,39 @@ italoturkish_war_cat = {
 		}
 		custom_cost_text = TUR_raise_libyan_troops_cost
 
-		fire_only_once = no
+		fire_only_once = yes
 		days_remove = 28
-		days_re_enable = 28
+		days_re_enable = 0
 
 		complete_effect = {
 			add_command_power = -25
 		}
 
-		remove_effect = {
-			random_owned_state = {
-				limit = { has_state_flag = libyan_theatre_state }
-				save_global_event_target_as = italoturkish_spawn_unit_state
-			}
-			division_template = {
-				name = "Arap Asiretciler"		
-				regiments = {
-					irregular_infantry = { x = 0 y = 0 }
-					irregular_infantry = { x = 0 y = 1 }
-					irregular_infantry = { x = 0 y = 2 }
-				}
-				is_locked = yes
-				priority = 0
-			}
-			event_target:italoturkish_spawn_unit_state = { #set up defenders
-				create_unit = {
-					division = "name = \"Arap Asiretciler 1b\" division_template = \"Arap Asiretciler\" start_experience_factor = 1"  
-					count = 2
-					owner = PREV
-				}
-			}
+		remove_effect = {  # add troops to battle
+			add_manpower = -20000
+			add_to_variable = { ROOT.italoturkish_troops_active = 20000 }
+			italoturkish_calculate_combat_ratios = yes
+			# random_owned_state = {
+			# 	limit = { has_state_flag = libyan_theatre_state }
+			# 	save_global_event_target_as = italoturkish_spawn_unit_state
+			# }
+			# division_template = {
+			# 	name = "Arap Asiretciler"		
+			# 	regiments = {
+			# 		irregular_infantry = { x = 0 y = 0 }
+			# 		irregular_infantry = { x = 0 y = 1 }
+			# 		irregular_infantry = { x = 0 y = 2 }
+			# 	}
+			# 	is_locked = yes
+			# 	priority = 0
+			# }
+			# event_target:italoturkish_spawn_unit_state = { #set up defenders
+			# 	create_unit = {
+			# 		division = "name = \"Arap Asiretciler 1b\" division_template = \"Arap Asiretciler\" start_experience_factor = 1"  
+			# 		count = 2
+			# 		owner = PREV
+			# 	}
+			# }
 		}
 
 		ai_will_do = {

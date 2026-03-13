@@ -44,6 +44,7 @@ news_event = {
 				set_variable = { italoturkish_action_points = 2 }
 				set_variable = { italoturkish_troops_active = 20000 }
 				set_variable = { italoturkish_casualties = 0 }
+				add_manpower = -20000
 	        }
 			TUR = {
 				load_oob=TUR_italoturkish_garrison
@@ -51,12 +52,14 @@ news_event = {
 				set_variable = { italoturkish_action_points = 1 }
 				set_variable = { italoturkish_troops_active = 8000 }
 				set_variable = { italoturkish_casualties = 0 }
+				add_manpower = -8000
 			}
-			# libyan theatre
-			every_state = {
-				limit = { OR = { state=448 state=449 state=450 state=451 state=869 state=838  state=661  state=662  state=663 } }
-				set_state_flag = libyan_theatre_state
-			}
+			italoturkish_calculate_combat_ratios = yes
+			# # libyan theatre
+			# every_state = {
+			# 	limit = { OR = { state=448 state=449 state=450 state=451 state=869 state=838  state=661  state=662  state=663 } }
+			# 	set_state_flag = libyan_theatre_state
+			# }
 	    }
 	}
 		
@@ -415,6 +418,7 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.100.a
+		italoturkish_generate_casualties = yes
 		effect_tooltip = {
 			event_target:battle_state = { add_contested_owner = ROOT }  # only the victory gets this event
 		}
@@ -444,6 +448,7 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.101.a
+		italoturkish_generate_casualties = yes
 		effect_tooltip = {
 			event_target:battle_state = { transfer_state_to = ROOT }  # only the victory gets this event
 		}
@@ -470,6 +475,7 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.102.a
+		italoturkish_generate_casualties = yes
 		italoturkish_add_action_point = yes
 	}
 }
@@ -484,7 +490,7 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.103.a
-		add_manpower = -400
+		italoturkish_generate_casualties = yes
 	}
 }
 
@@ -498,6 +504,7 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.104.a
+		italoturkish_generate_casualties = yes
 	}
 }
 
@@ -512,6 +519,7 @@ country_event = {
 
 	option = {
 		name = wsv_italoturkish.105.a
+		italoturkish_generate_casualties = yes
 	}
 }
 

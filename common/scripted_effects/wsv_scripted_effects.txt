@@ -44,6 +44,39 @@ italoturkish_remove_action_point = {
 	custom_effect_tooltip = italoturkish_remove_action_point_tt
 }
 
+italoturkish_generate_casualties = {
+	hidden_effect = {
+		set_temp_variable = { battle_dead = ROOT.italoturkish_troops_active }
+		random_list = {
+			25 = { multiply_temp_variable = { battle_dead = 0.004 } }
+			75 = { multiply_temp_variable = { battle_dead = 0.007 } }
+			75 = { multiply_temp_variable = { battle_dead = 0.012 } }
+			50 = { multiply_temp_variable = { battle_dead = 0.02 } }
+			25 = { multiply_temp_variable = { battle_dead = 0.027 } }
+			5 = { multiply_temp_variable = { battle_dead = 0.04 } }
+		}
+		subtract_from_variable = { ROOT.italoturkish_troops_active = battle_dead }
+		add_to_variable = { ROOT.italoturkish_casualties = battle_dead }
+		# for reporting
+		ROOT = { set_variable = { italoturkish_reported_dead = battle_dead } }
+		italoturkish_calculate_combat_ratios = yes
+	}
+	custom_effect_tooltip = italoturkish_report_battle_dead_tt
+}
+
+italoturkish_calculate_combat_ratios = {   # called upon at start of war, whenever the generate_casualties function is invoked, or ## need to update when troops reinforced
+	ITA = {
+		set_variable = { italoturkish_combat_ratio = ITA.italoturkish_troops_active }
+		divide_variable = { italoturkish_combat_ratio = TUR.italoturkish_troops_active }
+	}
+	TUR = {
+		set_variable = { italoturkish_combat_ratio = TUR.italoturkish_troops_active }
+		divide_variable = { italoturkish_combat_ratio = ITA.italoturkish_troops_active }
+	}
+}
+
+
+
 ### ------------------------------------------------------ ###
 
 
