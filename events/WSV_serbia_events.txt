@@ -1,0 +1,249 @@
+﻿add_namespace = wsv_serbia
+
+
+
+#######################################################################
+# -- Pre-War Domestic Events
+#######################################################################
+
+# Formation of the Black Hand
+country_event = {
+	id = wsv_serbia.1
+	title = wsv_serbia.1.t
+	desc = wsv_serbia.1.d
+	
+	trigger = {
+		tag = SER
+		date > 1911.5.9
+		NOT = { has_country_flag = SER_black_hand_society_formed }
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	immediate = {
+		set_country_flag = SER_black_hand_society_formed
+	}
+
+	option = {
+		name = wsv_serbia.1.a
+		add_ideas = SER_black_hand_org
+		complete_national_focus = SER_formation_of_black_hand
+	}
+}
+
+
+# Serbian government uncovers Black Hand goals
+country_event = {
+	id = wsv_serbia.2
+	title = wsv_serbia.2.t
+	desc = wsv_serbia.2.d
+	
+	fire_only_once = yes
+
+	trigger = {
+		tag = SER
+		has_country_flag = SER_black_hand_society_formed
+		NOT = { has_country_flag = SER_black_hand_goals_stated }
+		is_puppet = no
+		has_capitulated = no
+	}
+
+	mean_time_to_happen = { days = 35 }
+
+	immediate = {
+		set_country_flag = SER_black_hand_goals_stated
+		set_country_flag = {
+			flag = blackhand_second_goals_delay
+			value = 1
+			days = 600  # 20 months, so 1.6 years
+		}
+	}
+
+	option = {
+		name = wsv_serbia.2.a
+		activate_decision = blackhand_free_northern_slavs
+		activate_decision = blackhand_free_southern_slavs
+		activate_decision = blackhand_secure_adriatic_port
+	}
+}
+
+
+# Serbian government learns of more desired goals
+country_event = {
+	id = wsv_serbia.3
+	title = wsv_serbia.3.t
+	desc = wsv_serbia.3.d
+	
+	fire_only_once = yes
+
+	trigger = {
+		tag = SER
+		has_country_flag = SER_black_hand_society_formed
+		NOT = { has_country_flag = SER_black_hand_second_goals_stated }
+		NOT = { has_country_flag = blackhand_second_goals_delay }
+		is_puppet = no
+		has_capitulated = no
+	}
+
+	mean_time_to_happen = { days = 10 }
+
+	immediate = {
+		set_country_flag = SER_black_hand_second_goals_stated
+	}
+
+	option = {
+		name = wsv_serbia.3.a
+		activate_decision = blackhand_wants_weapon_training
+		activate_decision = blackhand_wants_to_expand_paramilitaries
+	}
+}
+
+
+# Simple country event stating black hand goal was met
+country_event = {
+	id = wsv_serbia.4
+	title = wsv_serbia.4.t
+	desc = wsv_serbia.4.d
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_serbia.4.a
+	}
+}
+
+
+# Simple country event stating black hand goal wasnt met
+country_event = {
+	id = wsv_serbia.5
+	title = wsv_serbia.5.t
+	desc = wsv_serbia.5.d
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_serbia.5.a
+	}
+}
+
+
+# Mission extension #1
+country_event = {
+	id = wsv_serbia.6
+	title = wsv_serbia.6.t
+	desc = wsv_serbia.6.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_serbia.6.a
+		if = {
+			limit = { has_active_mission = blackhand_free_northern_slavs }
+			add_days_mission_timeout = {
+				mission = blackhand_free_northern_slavs
+				days = 720
+			}
+		}
+		if = {
+			limit = { has_active_mission = blackhand_free_southern_slavs }
+			add_days_mission_timeout = {
+				mission = blackhand_free_southern_slavs
+				days = 720
+			}
+		}
+		if = {
+			limit = { has_active_mission = blackhand_secure_adriatic_port }
+			add_days_mission_timeout = {
+				mission = blackhand_secure_adriatic_port
+				days = 720
+			}
+		}
+	}
+}
+
+# Mission extension #2
+country_event = {
+	id = wsv_serbia.7
+	title = wsv_serbia.7.t
+	desc = wsv_serbia.7.d
+	
+	fire_only_once = yes
+	trigger = {
+		tag = SER
+		has_active_mission = blackhand_free_southern_slavs
+		OR = {
+			760 = { OWNER = { has_war_with = ROOT } }
+			106 = { OWNER = { has_war_with = ROOT } }
+			759 = { OWNER = { has_war_with = ROOT } }
+		}
+	}
+
+	option = {
+		name = wsv_serbia.7.a
+		add_days_mission_timeout = {
+			mission = blackhand_free_southern_slavs
+			days = 720
+		}
+	}
+}
+
+# Mission extension #3
+country_event = {
+	id = wsv_serbia.8
+	title = wsv_serbia.8.t
+	desc = wsv_serbia.8.d
+	
+	fire_only_once = yes
+	trigger = {
+		tag = SER
+		has_active_mission = blackhand_secure_adriatic_port
+		OR = {
+			44 = { OWNER = { has_war_with = ROOT } }
+			105 = { OWNER = { has_war_with = ROOT } }
+		}
+	}
+
+	option = {
+		name = wsv_serbia.8.a
+		add_days_mission_timeout = {
+			mission = blackhand_secure_adriatic_port
+			days = 720
+		}
+	}
+}
+
+# Mission extension when a goal is successfully completed
+country_event = {
+	id = wsv_serbia.9
+	title = wsv_serbia.9.t
+	desc = wsv_serbia.9.d
+	
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_serbia.9.a
+		if = {
+			limit = { has_active_mission = blackhand_free_northern_slavs }
+			add_days_mission_timeout = {
+				mission = blackhand_free_northern_slavs
+				days = 360
+			}
+		}
+		if = {
+			limit = { has_active_mission = blackhand_free_southern_slavs }
+			add_days_mission_timeout = {
+				mission = blackhand_free_southern_slavs
+				days = 360
+			}
+		}
+		if = {
+			limit = { has_active_mission = blackhand_secure_adriatic_port }
+			add_days_mission_timeout = {
+				mission = blackhand_secure_adriatic_port
+				days = 360
+			}
+		}
+	}
+}
