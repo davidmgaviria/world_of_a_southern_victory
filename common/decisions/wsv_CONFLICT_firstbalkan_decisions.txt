@@ -37,7 +37,7 @@ balkan_league_cat = {
 		days_mission_timeout = 210
 
 		timeout_effect = {
-			country_event = wsv_firstbalkan.10
+			country_event = wsv_firstbalkan.17
 		}
 	}
 
@@ -123,11 +123,11 @@ balkan_league_cat = {
 						has_country_flag = balkan_league_member  
 						FROM={ is_claimed_by=PREV }
 					}
-					country_event = { id = wsv_firstbalkan.5   days = 5   random_hours = 110 }
+					country_event = { id = wsv_firstbalkan.12   days = 5   random_hours = 110 }
 				}
 			} 
 			else = {
-				ROOT = { country_event = { id = wsv_firstbalkan.100  days = 5 } }  # undisputed claim if no one claims
+				ROOT = { country_event = { id = wsv_firstbalkan.11  days = 5 } }  # undisputed claim if no one claims
 			}
 		}
 
@@ -172,7 +172,7 @@ balkan_league_cat = {
 			# send to fellow league members + update their timers if needed
 			every_country = {
 				limit = { NOT= { tag = ROOT }  has_country_flag = balkan_league_member }
-				country_event =  wsv_firstbalkan.9
+				country_event =  wsv_firstbalkan.16
 				hidden_effect = {
 					set_temp_variable = { days_left_for_talks = days_mission_timeout@THIS.league_territorial_negotiations_timer }
 					if = {
@@ -240,15 +240,15 @@ firstbalkan_war_cat = {
 				# news event depends on victory
 				if = {
 					limit = { has_global_flag = firstbalkan_outcome_balkan_league_victory }
-					news_event = wsv_firstbalkan.20
+					news_event = wsv_firstbalkan.35
 				}
 				if = {
 					limit = { has_global_flag = firstbalkan_outcome_ottoman_victory }
-					news_event = wsv_firstbalkan.21
+					news_event = wsv_firstbalkan.36
 				}
 				if = {
 					limit = { has_global_flag = firstbalkan_outcome_stalemate }
-					news_event = wsv_firstbalkan.22
+					news_event = wsv_firstbalkan.37
 				}
 			}
 			set_global_flag = firstbalkan_war_over
