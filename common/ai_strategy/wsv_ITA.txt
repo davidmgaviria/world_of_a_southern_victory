@@ -1,0 +1,55 @@
+ITA_increase_army = {		# massively increase size
+	allowed = {
+		original_tag = ITA
+		has_start_date < 1912.1.1
+	}
+	enable = {
+		has_army_manpower = { size < 500000 }
+		has_war = no 
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 150
+	}
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -10 	# reduce while we build up in case of issues
+	}
+}
+
+
+ITA_dont_join_fra = {
+	enable = {
+		tag = ITA
+		NOT = { is_in_faction_with = FRA }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "FRA"			
+		value = -2000
+	}
+}
+
+
+ITA_dont_join_germany = {
+	enable = {
+		tag = ITA
+		NOT = { is_in_faction_with = GER }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = alliance
+		id = "GER"			
+		value = -2000
+	}
+}

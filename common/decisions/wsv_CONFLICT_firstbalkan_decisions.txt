@@ -26,15 +26,12 @@ balkan_league_cat = {
 		}
 		cancel_effect = {
 			set_global_flag = balkan_league_territorial_negotiations_over
-			every_country = {
-				limit = { has_country_flag = balkan_league_member }
-				clr_country_flag = balkan_league_member
-				subtract_from_variable = { SER.num_major_league_members = 1 }
-			}
+			clr_country_flag = balkan_league_member				# this will fire for everyone that has the mission
+			subtract_from_variable = { SER.num_major_league_members = 1 }
 		}
 
 		selectable_mission = no
-		days_mission_timeout = 210
+		days_mission_timeout = 150
 
 		timeout_effect = {
 			country_event = wsv_firstbalkan.17
@@ -97,8 +94,8 @@ balkan_league_cat = {
 			}
 		}
 
-		cost = 15
-		days_remove = 20
+		cost = 10
+		days_remove = 10
 		fire_only_once = yes
 
 		complete_effect = {
@@ -208,50 +205,52 @@ balkan_league_cat = {
 
 firstbalkan_war_cat = {
 
-	firstbalkan_peace_implementation_delay = {
+	## TODO - cancel condition?
+	firstbalkan_turkey_timer_to_retake_ottoman_europe = {
 		priority = 25
-		icon = generic_operation
+		icon = generic_nationalism
 
 		visible = {
-			OR = {
-				tag = FRA
-				tag = RUS
-				tag = GER
-				tag = ENG
-				has_country_flag = balkan_league_member
-			}
+			tag = TUR
 		}
 		activation = {
-			has_global_flag = firstbalkan_war_ceasefire
+			has_global_flag = firstbalkan_war
 			NOT = { has_global_flag = firstbalkan_war_over }
+			NOT = { has_global_flag = firstbalkan_great_powers_intervene }
+			# turkey conditions to trigger
+			has_war_with = SER
+			has_country_flag = TUR_raid_on_sublime_porte
+			NOT = { has_country_flag =  TUR_failed_to_retake_ottoman_europe }
 		}
 		available = {
-			always = no
+			controls_state = 788
+			controls_state = 757
+			controls_state = 184
+			controls_state = 855
+			controls_state = 731
+			controls_state = 759
+			controls_state = 871
+			controls_state = 106
 		}
 		cancel_trigger = {
-			SER = { has_war_with = TUR }
+			OR = {
+				has_global_flag = firstbalkan_war_over
+				has_global_flag = firstbalkan_great_powers_intervene
+			}
 		}
 
-		days_mission_timeout = 30
+		selectable_mission = no
+		is_good = no
+		days_mission_timeout = 200
+
+		complete_effect = {
+			## TODO - country event where ottomans offer peace to league
+		}
 
 		timeout_effect = {
-			if = {
-				limit = { NOT = { has_global_flag = firstbalkan_war_over } }
-				# news event depends on victory
-				if = {
-					limit = { has_global_flag = firstbalkan_outcome_balkan_league_victory }
-					news_event = wsv_firstbalkan.35
-				}
-				if = {
-					limit = { has_global_flag = firstbalkan_outcome_ottoman_victory }
-					news_event = wsv_firstbalkan.36
-				}
-				if = {
-					limit = { has_global_flag = firstbalkan_outcome_stalemate }
-					news_event = wsv_firstbalkan.37
-				}
-			}
-			set_global_flag = firstbalkan_war_over
+			set_country_flag = failed_to_retake_ottoman_europe
+			add_political_power = -100
+			country_event = wsv_firstbalkan.27
 		}
 	}
 }

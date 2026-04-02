@@ -1,0 +1,192 @@
+
+italoturkish_war_cat = {
+	
+	# Inital expected duration of the invasion
+	italoturkish_expedition_first_deadline = {
+		icon = generic_operation
+		priority = 25
+
+		allowed = {
+			tag = ITA
+		}
+		activation = {
+			has_global_flag = italoturkish_war
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 45
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			set_country_flag = italoturkish_long_war
+			country_event = wsv_italoturkish.3
+			effect_tooltip = {  # actual effect is in the event
+				add_ideas = ITA_prolonged_war_in_libya_debuff
+			}
+			hidden_effect = {
+				activate_mission = italoturkish_expedition_second_deadline
+			}
+		}
+	}
+
+
+	# Domestic pressure to end the war
+	italoturkish_expedition_second_deadline = {
+		icon = generic_political_discourse
+		priority = 23
+
+		allowed = {
+			tag = ITA
+		}
+		activation = {
+			always = no
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 455  # along with the original expedition, this marks 1.5 years of fighting
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			country_event = wsv_italoturkish.25   
+		}
+	}
+
+
+	# Italian offer of conditional peace (AI only does this with high casualties)
+	italy_offer_conditional_peace = {
+		icon = generic_nationalism
+		priority = 21
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+			has_country_flag = italoturkish_long_war
+		}
+		available = {
+			casualties > 25000
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		cost = 50
+		days_remove = 3
+		days_re_enable = 45
+
+		remove_effect = {
+			TUR = { country_event =  wsv_italoturkish.26 }
+			custom_effect_tooltip = italoturkish_compromise_peace_tt
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 10
+				casualties > 50000
+			}
+			modifier = {
+				factor = 0.5
+				italoturkish_controls_two_coastal_cities = yes
+			}
+		}
+	}
+
+
+	# Supply lines in Libya
+	italy_improve_logistics_libya = {
+		icon = GER_mefo_bills
+		priority = 15
+
+		allowed = {
+			tag = ITA
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+		}
+		available = {
+			has_country_flag = italoturkish_long_war
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		cost = 50
+
+		remove_effect = {
+			add_ideas = ITA_libyan_supply_lines_effort
+			hidden_effect = { country_event =  wsv_italoturkish.6 }
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+
+	### --------------------- OTTOMANS & ALLIES --------------------- ###
+
+	# Senusi ask Ottomans for rifles
+	senussi_request_more_rifles = {
+		icon = generic_industry
+		priority = 100
+
+		allowed = {
+			tag = LBA
+		}
+		visible = {
+			has_global_flag = italoturkish_war
+			NOT = { has_global_flag = italoturkish_war_over }
+			has_war_with = ITA
+		}
+		available = {
+			has_war_together_with = TUR
+			has_equipment = {
+				infantry_equipment_1 < 1000
+			}
+		}
+		cancel_trigger = {
+			has_global_flag = italoturkish_war_over  	# condition for event to cancel
+		}
+
+		days_re_enable = 35
+		days_remove = 7
+
+		remove_effect = {
+			TUR = { 
+				country_event = wsv_italoturkish.5
+				effect_tooltip = {
+					send_equipment  = {
+						equipment  = infantry_equipment
+						amount = 2700
+						target  = LBA
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}

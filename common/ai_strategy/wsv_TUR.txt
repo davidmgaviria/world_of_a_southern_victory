@@ -111,90 +111,6 @@ TUR_gw_modified_unit_production = {
 }
 
 
-TUR_libya_buffers = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		tag = TUR
-		controls_state = 448
-		controls_state = 450
-		controls_state = 451
-		has_war = no
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = put_unit_buffers
-				
-		states = { 
-			448
-			450
-			451
-		}
-
-		ratio = 0.05
-		subtract_invasions_from_need = yes
-	}	
-}
-
-
-TUR_italoturkish_war = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		has_global_flag = italoturkish_war
-		NOT = { has_global_flag = italoturkish_war_over }
-	}
-	abort_when_not_enabled = yes
-
-	# doesnt really do much other than keep units here
-	ai_strategy = {
-		type = front_unit_request
-		area = africa
-		value = 25
-	}
-}
-
-
-TUR_prepare_for_first_balkan = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		tag = TUR
-		has_global_flag = balkan_league_formed
-		NOT = { has_global_flag = firstbalkan_war_over }
-	}
-	abort_when_not_enabled = yes	
-
-	ai_strategy = {
-		type = prepare_for_war
-		id = "SER"			
-		value = 10
-	}
-	ai_strategy = {
-		type = prepare_for_war
-		id = "MNT"			
-		value = 10
-	}
-	ai_strategy = {
-		type = prepare_for_war
-		id = "BUL"			
-		value = 10
-	}	
-	ai_strategy = {
-		type = prepare_for_war
-		id = "GRE"			
-		value = 10
-	}
-}
-
-
 # # dont get encircled in west balkans
 # TUR_retreat_from_balkans = {
 # 	allowed = {
@@ -238,40 +154,40 @@ TUR_prepare_for_first_balkan = {
 
 
 
-# ## After the first balkan, turkey built up rapidly
-TUR_build_up_army = {
-	allowed = {
-		original_tag = TUR
-		has_start_date < 1937.1.1
-	}
-	enable = {
-		tag = TUR
-		has_global_flag = firstbalkan_war_over
-		has_war = no
-	}
-	abort_when_not_enabled = yes
+# # ## After the first balkan, turkey built up rapidly
+# TUR_build_up_army = {
+# 	allowed = {
+# 		original_tag = TUR
+# 		has_start_date < 1937.1.1
+# 	}
+# 	enable = {
+# 		tag = TUR
+# 		has_global_flag = firstbalkan_war_over
+# 		has_war = no
+# 	}
+# 	abort_when_not_enabled = yes
 	
-	ai_strategy = {
-	    type = build_army
-	    id = infantry
-	    value = 200
-	}
-	ai_strategy = {
-	    type = build_army
-	    id = garrison
-	    value = 10
-	}
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = infantry
+# 	    value = 200
+# 	}
+# 	ai_strategy = {
+# 	    type = build_army
+# 	    id = garrison
+# 	    value = 10
+# 	}
 
-	ai_strategy = {
-    	type = force_build_armies
-    	value = 100
-	}
+# 	ai_strategy = {
+#     	type = force_build_armies
+#     	value = 100
+# 	}
 	
-	ai_strategy = {
-		type = equipment_stockpile_surplus_ratio
-		value = -15 # reduce while we build up in case of issues
-	}
-}
+# 	ai_strategy = {
+# 		type = equipment_stockpile_surplus_ratio
+# 		value = -15 # reduce while we build up in case of issues
+# 	}
+# }
 
 
 TUR_focus_on_ourselves = {

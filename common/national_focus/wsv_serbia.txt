@@ -27,7 +27,7 @@ focus_tree = {
 		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 10 
 		}
 
 		#bypass = {}
@@ -53,10 +53,15 @@ focus_tree = {
 		relative_position_id = SER_modernization_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 7 
 		}
 
-		#bypass = {}
+		available = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_core_of = ROOT
+			}
+		}
 
 		completion_reward = { 
 			random_owned_controlled_state = {
@@ -83,10 +88,15 @@ focus_tree = {
 		relative_position_id = SER_modernization_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 7 
 		}
 
-		#bypass = {}
+		available = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_core_of = ROOT
+			}
+		}
 
 		completion_reward = { 
 			random_owned_controlled_state = {
@@ -113,7 +123,7 @@ focus_tree = {
 		relative_position_id = SER_civ_factories_1
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
 		}
 
 		#bypass = {}
@@ -139,7 +149,7 @@ focus_tree = {
 		relative_position_id = SER_civ_factories_1
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
 		}
 
 		#bypass = {}
@@ -164,7 +174,7 @@ focus_tree = {
 		relative_position_id = SER_civ_factories_2
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
 		}
 
 		#bypass = {}
@@ -193,7 +203,11 @@ focus_tree = {
 		relative_position_id = SER_improve_agriculture
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
+		}
+
+		available = {
+			date > 1913.1.1
 		}
 
 		#bypass = {}
@@ -210,15 +224,17 @@ focus_tree = {
 		prerequisite = { focus = SER_improve_agriculture }
 		prerequisite = { focus = SER_bring_foriegn_experts }
 		
-
-		
 		cost = 10
 		x = 1
 		y =  1
 		relative_position_id = SER_improve_agriculture
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
+		}
+
+		available = {
+			date > 1913.1.1
 		}
 
 		#bypass = {}
@@ -240,7 +256,7 @@ focus_tree = {
 		relative_position_id = SER_educate_peasantry
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
 		}
 
 		#bypass = {}
@@ -262,7 +278,14 @@ focus_tree = {
 		relative_position_id = SER_educate_peasantry
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
+		}
+
+		available = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_core_of = ROOT
+			}
 		}
 
 		#bypass = {}
@@ -301,7 +324,14 @@ focus_tree = {
 		relative_position_id = SER_diversify_the_economy
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
+		}
+
+		available = {
+			any_owned_state = {
+				is_controlled_by = ROOT
+				is_core_of = ROOT
+			}
 		}
 
 		#bypass = {}
@@ -341,7 +371,12 @@ focus_tree = {
 		relative_position_id = SER_civ_factories_3
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
+		}
+
+		available = {
+			has_war = yes
+			amount_research_slots < 5
 		}
 
 		#bypass = {}
@@ -359,10 +394,9 @@ focus_tree = {
 		cost = 10
 		x = 11
 		y =  0
-		#relative_position_id = 
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 8 
 		}
 
 		#bypass = {}
@@ -390,7 +424,7 @@ focus_tree = {
 		relative_position_id = SER_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 7 
 		}
 
 		#bypass = {}
@@ -398,7 +432,7 @@ focus_tree = {
 		completion_reward = { 
 			add_equipment_to_stockpile = {
 				type = light_field_gun_equipment_1
-				amount = 300
+				amount = 250
 				producer = FRA
 			}
 		}
@@ -416,17 +450,16 @@ focus_tree = {
 		relative_position_id = SER_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 7 
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
-			add_tech_bonus = {
-				bonus = 1.0
-				uses = 2
-				category = infantry_weapons
-				category = support_tech
+			add_equipment_to_stockpile = {
+				type = infantry_equipment_1
+				amount = 4000
+				producer = FRA
 			}
 		}
 	}
@@ -444,7 +477,7 @@ focus_tree = {
 		relative_position_id = SER_foriegn_artillery_purchase
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 7 
 		}
 
 		#bypass = {}
@@ -472,7 +505,7 @@ focus_tree = {
 		relative_position_id = SER_drill_the_troops
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -497,7 +530,7 @@ focus_tree = {
 		relative_position_id = SER_invite_foriegn_military_advisors
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		ai_will_do = { 
@@ -544,7 +577,11 @@ focus_tree = {
 		relative_position_id = SER_air_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			has_country_flag = focus_TODO
 		}
 
 		#bypass = {}
@@ -566,7 +603,11 @@ focus_tree = {
 		relative_position_id = SER_air_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			has_country_flag = focus_TODO
 		}
 
 		#bypass = {}
@@ -587,7 +628,7 @@ focus_tree = {
 		relative_position_id = SER_drill_the_troops
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
 		}
 
 		available = {
@@ -626,7 +667,7 @@ focus_tree = {
 		relative_position_id = SER_trench_warfare
  
 		ai_will_do = { 
-			factor = 0 
+			factor = 2 
 		}
 
 		#bypass = {}
@@ -652,7 +693,7 @@ focus_tree = {
 		relative_position_id = SER_trench_warfare
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 2 
 		}
 
 		#bypass = {}
@@ -679,7 +720,7 @@ focus_tree = {
 		relative_position_id = SER_mg_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
 		}
 
 		available = {
@@ -712,7 +753,7 @@ focus_tree = {
 		relative_position_id = SER_drill_the_troops
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 3 
 		}
 
 		#bypass = {}
@@ -739,7 +780,7 @@ focus_tree = {
 		relative_position_id = SER_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 100 
 		}
 
 		available = {
@@ -768,10 +809,16 @@ focus_tree = {
 		relative_position_id = SER_formation_of_black_hand
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 6 
 		}
 
-		#bypass = {}
+		available = {
+			has_active_mission = blackhand_wants_weapon_training
+		}
+
+		bypass = {
+			has_country_flag = failed_to_train_blackhand_volunteers
+		}
 
 		completion_reward = { 
 			add_equipment_to_stockpile = {
@@ -794,10 +841,16 @@ focus_tree = {
 		relative_position_id = SER_weapons_training_black_hand
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 6 
 		}
 
-		#bypass = {}
+		available = {
+			has_active_mission = blackhand_wants_to_expand_paramilitaries
+		}
+
+		bypass = {
+			has_country_flag = failed_to_expand_national_defense
+		}
 
 		completion_reward = { 
 			swap_ideas = {
@@ -820,12 +873,13 @@ focus_tree = {
 		relative_position_id = SER_formation_of_black_hand
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 10 
 		}
 
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = extensive_conscription
 			add_war_support = 0.1
 		}
 	}
@@ -842,7 +896,11 @@ focus_tree = {
 		relative_position_id = SER_expand_national_defense
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			has_country_flag = focus_TODO
 		}
 
 		#bypass = {}
@@ -863,7 +921,7 @@ focus_tree = {
 		relative_position_id = SER_influence_of_black_hand
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -884,7 +942,7 @@ focus_tree = {
 		relative_position_id = SER_conspire_against_black_hand
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -905,7 +963,7 @@ focus_tree = {
 		relative_position_id = SER_influence_of_black_hand
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -927,7 +985,7 @@ focus_tree = {
 		relative_position_id = SER_expand_national_defense
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -948,9 +1006,13 @@ focus_tree = {
 		relative_position_id = SER_war_plan_p
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
+
+		available = {
+			has_country_flag = focus_TODO
+		}
 		#bypass = {}
 
 		completion_reward = { 
@@ -969,7 +1031,7 @@ focus_tree = {
 		relative_position_id = SER_time_of_crisis
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -990,7 +1052,7 @@ focus_tree = {
 		relative_position_id = SER_time_of_crisis
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1012,7 +1074,7 @@ focus_tree = {
 		relative_position_id = SER_allied_military_aid
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1033,7 +1095,7 @@ focus_tree = {
 		relative_position_id = SER_government_in_exile
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1054,7 +1116,7 @@ focus_tree = {
 		relative_position_id = SER_total_mobilization_focus
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1075,7 +1137,7 @@ focus_tree = {
 		relative_position_id = SER_total_mobilization_focus
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1097,7 +1159,11 @@ focus_tree = {
 		relative_position_id = SER_stoke_nationalist_sentiment
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
+		}
+
+		available = {
+			has_country_flag = focus_TODO
 		}
 
 		#bypass = {}
@@ -1117,7 +1183,11 @@ focus_tree = {
 		relative_position_id = SER_army_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5
+			modifier = {
+				factor = 4
+				date > 1910.10.1
+			} 
 		}
 
 		#bypass = {}
@@ -1140,13 +1210,30 @@ focus_tree = {
 		relative_position_id = SER_dreams_of_greater_serbia
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
+			modifier = {
+				factor = 4
+				date > 1911.5.1
+			}
+		}
+
+		available = {
+			has_army_manpower = {
+				size > 189999
+			}
 		}
 
 		#bypass = {}
 
+		select_effect = { 
+			BUL = { country_event = { id = wsv_firstbalkan.1   days = 58 } }  # send it when the focus is nearing completion 
+		}
+
 		completion_reward = { 
-			BUL = { country_event = wsv_firstbalkan.1 }
+			effect_tooltip = {
+				BUL = { country_event = wsv_firstbalkan.1 }
+			}
+			custom_effect_tooltip = bulgaria_must_agree_to_negotiations_tt
 		}
 	}
 
@@ -1156,13 +1243,13 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = SER_outreach_bulgaria }
 		
-		cost = 10
+		cost = 2
 		x = 0
 		y = 1
 		relative_position_id = SER_outreach_bulgaria
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 100 
 		}
 
 		available = {
@@ -1200,16 +1287,30 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = SER_balkan_league_negotiations }
 		
-		cost = 10
+		cost = 5
 		x = 0
 		y = 1
 		relative_position_id = SER_balkan_league_negotiations
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 100 
 		}
 
-		#bypass = {}
+		available = {
+			has_global_flag = balkan_league_territorial_negotiations_over
+			has_country_flag = balkan_league_member
+			is_in_faction = yes
+			has_army_manpower = {
+				size > 264999
+			}
+		}
+
+		bypass = {
+			OR = {
+				has_war_with = TUR
+				has_global_flag = firstbalkan_war_over
+			}
+		}
 
 		completion_reward = { 
 			news_event = wsv_firstbalkan.25
@@ -1229,7 +1330,7 @@ focus_tree = {
 		relative_position_id = SER_start_first_balkan_war
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
 		}
 
 		available = {
@@ -1292,7 +1393,7 @@ focus_tree = {
 		relative_position_id = SER_inflame_tensions_in_bosnia
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}
@@ -1313,7 +1414,7 @@ focus_tree = {
 		relative_position_id = SER_start_first_balkan_war
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 5 
 		}
 
 		available = {
@@ -1375,7 +1476,7 @@ focus_tree = {
 		relative_position_id = SER_adriatic_port_focus
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 2 
 		}
 
 		available = {
@@ -1413,7 +1514,7 @@ focus_tree = {
 		relative_position_id = SER_adriatic_port_focus
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 2 
 		}
 
 		#bypass = {}
@@ -1460,7 +1561,7 @@ focus_tree = {
 		relative_position_id = SER_navy_focus
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1 
 		}
 
 		#bypass = {}
@@ -1486,7 +1587,7 @@ focus_tree = {
 		relative_position_id = SER_destroyer_effort
 
 		ai_will_do = { 
-			factor = 0 
+			factor = 1
 		}
 
 		#bypass = {}

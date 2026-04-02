@@ -22,6 +22,16 @@ country_event = {
 
 	immediate = {
 		set_country_flag = SER_black_hand_society_formed
+		set_country_flag = {
+			flag = blackhand_first_goals_delay
+			value = 1
+			days = 30  # 20 months, so 1.6 years
+		}
+		set_country_flag = {
+			flag = blackhand_second_goals_delay
+			value = 1
+			days = 600  # 20 months, so 1.6 years
+		}
 	}
 
 	option = {
@@ -43,20 +53,17 @@ country_event = {
 	trigger = {
 		tag = SER
 		has_country_flag = SER_black_hand_society_formed
+		NOT = { has_country_flag = blackhand_first_goals_delay }
 		NOT = { has_country_flag = SER_black_hand_goals_stated }
 		is_puppet = no
 		has_capitulated = no
 	}
 
-	mean_time_to_happen = { days = 35 }
+	mean_time_to_happen = { days = 5 }
 
 	immediate = {
 		set_country_flag = SER_black_hand_goals_stated
-		set_country_flag = {
-			flag = blackhand_second_goals_delay
-			value = 1
-			days = 600  # 20 months, so 1.6 years
-		}
+		
 	}
 
 	option = {
@@ -79,8 +86,9 @@ country_event = {
 	trigger = {
 		tag = SER
 		has_country_flag = SER_black_hand_society_formed
-		NOT = { has_country_flag = SER_black_hand_second_goals_stated }
+		has_country_flag = SER_black_hand_goals_stated
 		NOT = { has_country_flag = blackhand_second_goals_delay }
+		NOT = { has_country_flag = SER_black_hand_second_goals_stated }
 		is_puppet = no
 		has_capitulated = no
 	}
@@ -105,7 +113,6 @@ country_event = {
 	title = wsv_serbia.4.t
 	desc = wsv_serbia.4.d
 	
-	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
@@ -120,7 +127,6 @@ country_event = {
 	title = wsv_serbia.5.t
 	desc = wsv_serbia.5.d
 	
-	fire_only_once = yes
 	is_triggered_only = yes
 
 	option = {
