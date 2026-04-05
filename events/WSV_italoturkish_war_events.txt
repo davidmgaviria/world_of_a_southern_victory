@@ -217,11 +217,11 @@ country_event = {
 		}
 	}
 
-	mean_time_to_happen = { days = 4 }  
+	mean_time_to_happen = { days = 7 }  # soon after
 
 	option = {
 		name = wsv_italoturkish.16.a
-		ITA = { country_event = { id = wsv_italoturkish.16   days = 2 } }
+		ITA = { country_event = { id = wsv_italoturkish.16   days = 3 } }  # delay on outreach
 	}
 }
 
@@ -325,11 +325,11 @@ country_event = {
 			controls_state = 448 # tripoli
 		}
 	}
-	mean_time_to_happen = { days = 0 }
+	mean_time_to_happen = { days = 7 }
 
 	option = {
 		name = wsv_italoturkish.20.a
-		news_event = { id = wsv_italoturkish.21   days = 5 } # italy loses news event
+		news_event = { id = wsv_italoturkish.21   days = 3 } # italy loses news event
 	}
 }
 
@@ -458,7 +458,7 @@ country_event = {
 	option = {
 		name = wsv_italoturkish.27.b
 		trigger = { has_country_flag = italy_no_time_left_for_libya }
-		news_event = { id = wsv_italoturkish.21  days = 3 } 
+		news_event = { id = wsv_italoturkish.21  days = 5 } 
 	}
 }
 
@@ -476,24 +476,48 @@ news_event = {
 	immediate = {
 		set_global_flag = italoturkish_war_over
 		hidden_effect = {
+
 			ITA = {
-				set_country_flag = defeat_in_libya 
-				white_peace = TUR
+				white_peace = ITA
 				delete_unit_template_and_units = { division_template = "Libya Coloniali Troops" disband = no }
-				## TODO - create dynamic country of libya under Italy, and puppet
-			}
+			}	
 			TUR = {
-				set_country_flag = victory_in_libya
+				
 				dismantle_faction = yes
 				delete_unit_template_and_units = { division_template = "Düzenli Kuvvetler" disband = no }
 				delete_unit_template_and_units = { division_template = "Libya Milisleri" disband = no }
-				# TODO - give turkey military access to puppet
+				
 			}
 			LBA = {
 				transfer_state = 754
 				transfer_state = 872
 				delete_unit_template_and_units = { division_template = "Senusi Mücahitleri" disband = yes }
 			}
+
+			## create italian puppet
+			create_dynamic_country = {
+				original_tag = LBA
+				copy_tag = ITA
+
+				set_cosmetic_tag = LBA_italian_libya
+				every_state = {
+					limit = { is_owned_by = TUR  OR = { region = 225  state = 273 } }
+					transfer_state_to = PREV   
+				}
+				ITA = { 
+					set_autonomy = {
+						target = PREV
+						autonomous_state = autonomy_protectorate
+					}
+				}
+				TUR = { 
+					diplomatic_relation = {
+						country = PREV
+						relation = military_access
+						active = yes
+					}
+				}
+			}		
 		}
 	}
 		

@@ -10,7 +10,10 @@ italoturkish_war_cat = {
 			tag = ITA
 		}
 		activation = {
+			has_war_with = TUR
 			has_global_flag = italoturkish_war
+			NOT = { has_country_flag = italoturkish_long_war }
+			NOT = { has_global_flag = italoturkish_war_over }
 		}
 		available = {
 			always = no
@@ -46,7 +49,9 @@ italoturkish_war_cat = {
 			tag = ITA
 		}
 		activation = {
-			always = no
+			has_war_with = TUR
+			has_country_flag = italoturkish_long_war
+			NOT= { has_global_flag = italoturkish_war_over }
 		}
 		available = {
 			always = no
@@ -75,6 +80,7 @@ italoturkish_war_cat = {
 			tag = ITA
 		}
 		visible = {
+			has_war_with = TUR
 			has_global_flag = italoturkish_war
 			NOT = { has_global_flag = italoturkish_war_over }
 			has_country_flag = italoturkish_long_war
@@ -118,11 +124,16 @@ italoturkish_war_cat = {
 			tag = ITA
 		}
 		visible = {
+			has_war_with = TUR
 			has_global_flag = italoturkish_war
 			NOT = { has_global_flag = italoturkish_war_over }
 		}
 		available = {
 			has_country_flag = italoturkish_long_war
+			OR = {
+				controls_state = 450
+				controls_state = 448
+			}
 		}
 		cancel_trigger = {
 			has_global_flag = italoturkish_war_over  	# condition for event to cancel
@@ -155,9 +166,9 @@ italoturkish_war_cat = {
 			tag = LBA
 		}
 		visible = {
+			has_war_with = ITA
 			has_global_flag = italoturkish_war
 			NOT = { has_global_flag = italoturkish_war_over }
-			has_war_with = ITA
 		}
 		available = {
 			has_war_together_with = TUR
