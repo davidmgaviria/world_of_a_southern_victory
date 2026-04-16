@@ -46,6 +46,41 @@ increase_conscription_tier_effect = {
 }
 
 
+### ------------------------------------------------------------------------------- ###
+### -------------------------- 1912 War Scare & Albania --------------------------- ###
+### ------------------------------------------------------------------------------- ###
+
+
+# Birth of Albania
+create_albania_effect = {
+	ALB = {
+		transfer_state = 44
+		transfer_state = 803
+		transfer_state = 866
+		AUH = { give_guarantee = ALB }
+		ITA = { give_guarantee = ALB }
+		set_global_flag = birth_of_albania
+	}
+}
+
+
+# Set mobilization strain effect
+set_mobilization_strain_effect = {
+	add_ideas = generic_scare1912_mobilization_strain_1
+}
+
+# Remove mobilization strain effect
+remove_mobilization_strain_effect = {
+	if = {
+		limit = { has_idea =  generic_scare1912_mobilization_strain_1 }
+		remove_ideas = generic_scare1912_mobilization_strain_1
+	}
+	if = {
+		limit = { has_idea =  generic_scare1912_mobilization_strain_2 }
+		remove_ideas = generic_scare1912_mobilization_strain_2
+	}
+}
+
 
 ### ------------------------------------------------------------------------------- ###
 ### ---------------------------- Balkan League Effects ---------------------------- ###

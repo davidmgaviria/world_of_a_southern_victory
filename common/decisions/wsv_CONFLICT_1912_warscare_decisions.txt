@@ -4,23 +4,59 @@
 ###########  AGADIR CRISIS DECISIONS ##########
 ##################################################
 
-1912_warscare_crisis_cat = {
+warscare1912_crisis_cat = {
+
+	### ----------- Austria-Hungary ----------- ###
+
+	# Timer for action (triggered if Serbia annexes Albania)
+	scare1912_austria_timer_for_action = {
+		priority = 50
+		icon = generic_ignite_civil_war
+
+		visible = {
+			tag = AUH
+			has_global_flag = scare1912_austria_mobilized
+			NOT = { has_global_flag = scare1912_crisis_over }  
+		}
+		activation = {
+			SER = { has_full_control_of_state = 44 }  # Serbia owns and controls Albania
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {   # conditions that 'terminate' the mission
+			OR = {
+				has_war = yes
+				44 = { NOT = { is_owned_by = SER } }
+				## TODO - flag that austria issued ultimatum
+			} 
+		}
+
+		days_mission_timeout = 30
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			# if ultimatum is not issued before time expired, AUH backs down and takes the L
+		}
+	}
+
 
 	# Austria issues ultimatum to Serbia
-	1912ws_austria_issues_ultimatum = {
-		priority = 25
-		icon = 
+	scare1912_austria_issues_ultimatum = {
+		priority = 30
+		icon = generic_prepare_civil_war
 
 		visible = {
 			#has_active_mission = agadir_relevance_of_morocco_occupation
 			tag = AUH
-			has_global_flag = 1912_warscare_AUH_mobilized
-			NOT = { has_global_flag = 1912_warscare_crisis_over }
+			has_global_flag = scare1912_austria_mobilized
+			NOT = { has_global_flag = scare1912_crisis_over }  
 		}
 		available = {
 			has_war = no
 			OR = { 
-				has_global_flag = 1912_warscare_germans_gave_blank_check
+				has_global_flag = scare1912_germans_gave_blank_check
 				is_in_faction = no
 				is_faction_leader = yes
 			}
@@ -44,24 +80,23 @@
 
 
 	# Austria demands German support or will leave faction
-	1912ws_austria_demands_german_support = {
-		priority = 20
-		icon = 
+	scare1912_austria_demands_german_support = {
+		priority = 25
+		icon = generic_political_discourse
 
 		visible = {
 			#has_active_mission = agadir_relevance_of_morocco_occupation
 			tag = AUH
-			has_global_flag = 1912_warscare_AUH_mobilized
-			NOT = { has_global_flag = 1912_warscare_crisis_over }
-			NOT = { has_global_flag = 1912_warscare_germans_gave_blank_check }
+			has_global_flag = scare1912_austria_mobilized
+			NOT = { has_global_flag = scare1912_crisis_over }
+			NOT = { has_global_flag = scare1912_germans_gave_blank_check } 
 			# needs to be junior partner in faction with Germany 
 			is_in_faction_with = GER
 			is_faction_leader = no
 		}
 		available = {
 			has_war = no
-			has_global_flag = 1912_warscare_inital_german_response
-			## TODO - some other time condition?
+			has_global_flag = scare1912_inital_german_response
 		}
 
 		cancel_trigger = {
@@ -74,7 +109,7 @@
 
 		remove_effect = {
 			GER = { country_event = wsv_1912_warscare.8 }
-			custom_effect_tooltip = may_cause_leave_of_faction_tt
+			custom_effect_tooltip = auh_may_leave_central_powers_tt
 		}
 
 		ai_will_do = {
@@ -83,54 +118,42 @@
 	}
 
 
-	### ------------------ Negotiations ------------------ ####
+	### ----------- AUH / Russia ----------- ###
 
-# 	### ------------------ Escalation ------------------ ####
 
-		# # time limit for intervening mission (on timeout Germany fails)
-	# agadir_relevance_of_morocco_occupation = {
-	# 	priority = 25
-	# 	icon = generic_ignite_civil_war
+	## TODO - auh / russia back down
 
-	# 	visible = {
-	# 		OR = {
-	# 			tag = GER
-	# 			tag = FRA
-	# 			is_in_faction_with = GER
-	# 			is_in_faction_with = FRA
-	# 			AND = {
-	# 				tag = ENG
-	# 				has_global_flag = britain_backs_france_in_agadir
-	# 			}
-	# 		}
-	# 	}
-	# 	activation = {
-	# 		has_global_flag = france_occupies_morocco
-	# 		NOT = { has_global_flag = agadir_crisis_over }
-	# 	}
-	# 	available = {
-	# 		always = no
-	# 	}
-	# 	cancel_trigger = {   # conditions that 'terminate' the mission
-	# 		OR = {
-	# 			has_global_flag = agadir_crisis_over 
-	# 			FRA = { has_war_with = GER }
-	# 			FRA = { exists = no }
-	# 		} 
-	# 	}
 
-	# 	days_mission_timeout = 150
-	# 	fire_only_once = yes
-	# 	is_good = no
 
-	# 	timeout_effect = {
-	# 		set_global_flag = agadir_crisis_over
-	# 		if = {
-	# 			limit = { tag = GER }
-	# 			country_event = wsv_agadir.27
-	# 		}
-	# 	}
-	# }
+	### ----------- Serbia ----------- ### 
+
+	## Serbian decision to withdraw from Albania (AI WONT DO)
+	scare1912_serbia_withdraws_from_albania = {
+		priority = 25
+		icon = generic_political_discourse
+
+		visible = {
+			tag = SER
+			has_global_flag = scare1912_austria_mobilized
+			NOT = { has_global_flag = scare1912_crisis_over }
+		}
+		available = {
+			always = yes
+			# controls_state = 44
+		}
+
+		fire_only_once = yes
+		days_remove = 5
+		cost = 100   
+
+		remove_effect = {
+			## TODO - serbia leaves albania
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
 
 }
 

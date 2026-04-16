@@ -295,7 +295,7 @@ country_event = {
 				}
 				AND = {
 					tag = GRE
-					event_target:league_target_state = { state=803 }  # north epirus
+					event_target:league_target_state = { OR = { state=803 state=855 } }  # north epirus & thessalonika
 				}
 				AND = {
 					tag = BUL
@@ -568,13 +568,15 @@ news_event = {
 	immediate = {
 		set_global_flag = firstbalkan_war_over
 		hidden_effect = {
-			# transfer back occupied territory to Turkey first
-			every_state = {
-				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
-				clr_state_flag = firstbalkan_occupied_ottoman_state
-				transfer_state_to = TUR
+			## peace
+			every_country = {
+				limit = { 
+					has_country_flag = balkan_league_member
+					is_faction_leader = yes
+				}
+				white_peace = TUR
 			}
-
+			
 			## transfer states to Balkan victors
 			every_country = {
 			 	limit = { has_country_flag = balkan_league_member }
@@ -592,15 +594,8 @@ news_event = {
 
 			## form Albania if Serbia agreed to withdraw
 			if = {
-				limit = { SER = {  has_country_flag = SER_dropped_claims_on_albania } }
-				ALB = {
-					transfer_state = 44
-					transfer_state = 803
-					transfer_state = 866
-					AUH = { give_guarantee = ALB }
-					ITA = { give_guarantee = ALB }
-					set_global_flag = birth_of_albania
-				}
+				limit = { has_global_flag = serbia_dropped_claims_on_albania }
+				create_albania_effect = yes
 				# serbia takes Vadar Macedonia in response
 				SER = {
 					transfer_state = 759

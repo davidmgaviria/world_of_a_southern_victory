@@ -85,13 +85,13 @@ news_event = {
 	id = wsv_1912_warscare.3
 	title = wsv_1912_warscare.3.t
 	desc = wsv_1912_warscare.3.d
-	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
+	picture = news_event_1914_auh_soldiers_marching 
 
 	major = yes
 	is_triggered_only = yes
 
 	immediate = {
-		set_global_flag = 1912_warscare_AUH_mobilized
+		set_global_flag = scare1912_austria_mobilized
 		hidden_effect = {
 			if = {
 				limit = { tag = AUH }
@@ -99,7 +99,7 @@ news_event = {
 					threat = 5
 					name = "Austria-Hungary Mobilizes Over the Albanian Question"
 				}
-				## TODO - needs to add idea about mobilization cost
+				set_mobilization_strain_effect = yes
 			}
 		}
 	}
@@ -108,6 +108,7 @@ news_event = {
 	option = {
 		name = wsv_1912_warscare.3.a
 		trigger = { tag = AUH }
+		effect_tooltip = { set_mobilization_strain_effect = yes }
 	}
 
 	# Serbian response
@@ -140,14 +141,14 @@ news_event = {
 	id = wsv_1912_warscare.4
 	title = wsv_1912_warscare.4.t
 	desc = wsv_1912_warscare.4.d
-	picture = news_event_1914_russian_soldiers
+	picture = news_event_1914_russian_soldiers_marching
 
 	major = yes
 	is_triggered_only = yes
 
 	immediate = {
-		set_global_flag = 1912_warscare_RUS_mobilized
-		set_global_flag = 1912_warscare_crisis_began
+		set_global_flag = scare1912_russia_mobilized
+		set_global_flag = scare1912_crisis_began
 		hidden_effect = {
 			if = {
 				limit = { tag = RUS }
@@ -155,7 +156,7 @@ news_event = {
 					threat = 5
 					name = "Russia Mobilizes Over the Albanian Question"
 				}
-				## TODO - needs to add idea about mobilization cost
+				set_mobilization_strain_effect = yes
 			}
 		}
 	}
@@ -176,6 +177,7 @@ news_event = {
 	option = {
 		name = wsv_1912_warscare.4.c
 		trigger = { tag = RUS }
+		effect_tooltip = { set_mobilization_strain_effect = yes }
 	}
 
 	# Rest of the world response
@@ -208,9 +210,9 @@ country_event = {
 		tag = GER
 		is_in_faction_with = AUH
 		is_faction_leader = yes
-		has_global_flag = 1912_warscare_AUH_mobilized
-		has_global_flag = 1912_warscare_crisis_began
-		NOT = { has_global_flag = 1912_warscare_crisis_over }
+		has_global_flag = scare1912_austria_mobilized
+		has_global_flag = scare1912_crisis_began
+		NOT = { has_global_flag = scare1912_crisis_over }
 	}
 
 	mean_time_to_happen = { days=4 }
@@ -253,7 +255,7 @@ country_event = {
 
 	option = {
 		name = wsv_1912_warscare.6.a
-		set_global_flag = 1912_warscare_inital_german_response
+		set_global_flag = scare1912_inital_german_response
 	}
 }
 
@@ -267,7 +269,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		set_global_flag = 1912_warscare_germans_gave_blank_check
+		set_global_flag = scare1912_germans_gave_blank_check
 	}
 
 	option = {
@@ -320,6 +322,8 @@ country_event = {
 	id = wsv_1912_warscare.9
 	title = wsv_1912_warscare.9.t
 	desc = wsv_1912_warscare.9.d
+
+	is_triggered_only = yes
 	
 	option = {
 		name = wsv_1912_warscare.9.a
@@ -354,36 +358,36 @@ country_event = {
 				FRA = { is_guaranteed_by = ENG }
 			}
 		}
-		has_global_flag = 1912_warscare_RUS_mobilized
-		has_global_flag = 1912_warscare_crisis_began
-		NOT = { has_global_flag = 1912_warscare_crisis_over }
-		NOT = { has_country_flag = 1912_warscare_entente_nation_sent_response }
+		has_global_flag = scare1912_russia_mobilized
+		has_global_flag = scare1912_crisis_began
+		NOT = { has_global_flag = scare1912_crisis_over }
+		NOT = { has_country_flag = scare1912_entente_nation_sent_response }
 	}
 
 	mean_time_to_happen = { days=4 }
 
 	immediate = {
-		set_country_flag = 1912_warscare_entente_nation_sent_response
+		set_country_flag = scare1912_entente_nation_sent_response
 	}
 
 	# (France) We are not ready for war, urge moderation from RUS
 	option = {
 		name = wsv_1912_warscare.15.a
 		trigger = { tag = FRA }
-		set_global_flag = 1912_warscare_france_urged_moderation
+		set_global_flag = scare1912_france_urged_moderation
 	}
 
 	# (Britain) We will not support Russia
 	option = {
 		name = wsv_1912_warscare.15.b
 		trigger = { tag = ENG }
-		set_global_flag = 1912_warscare_britain_stepped_back
+		set_global_flag = scare1912_britain_stepped_back
 	}
 
 	# (Both) we will back
 	option = {
 		name = wsv_1912_warscare.15.c
-		set_country_flag = 1912_warscare_entente_nation_promised_support  ## COUNTRY FLAG!
+		set_country_flag = scare1912_entente_nation_promised_support  ## COUNTRY FLAG!
 		if = {
 			limit = { has_war_support < 0.7 }
 			add_war_support = -0.05
@@ -441,6 +445,344 @@ country_event = {
 	}
 }
 
+
+
+
+
+## ------------------------ De-escalation ------------------------ ##
+
+
+# ## Austria-Hungary backs down
+# news_event = {
+# 	id = wsv_1912_warscare.30
+# 	title = wsv_1912_warscare.30.t
+# 	desc = wsv_1912_warscare.30.d
+# 	#picture = news_event_1914_russian_soldiers_marching  ## TODO - picture
+
+# 	major = yes
+# 	is_triggered_only = yes
+
+# 	immediate = {
+# 		set_global_flag = scare1912_crisis_over
+# 		hidden_effect = {
+# 			## TODO - remove negative modifiers
+# 			AUH = { remove_mobilization_strain_effect = yes }
+# 			RUS = { remove_mobilization_strain_effect = yes }
+# 		}
+# 	}
+	
+# 	# Austrian response
+# 	option = {
+# 		name = wsv_1912_warscare.30.a
+# 		trigger = { tag = AUH }
+# 	}
+
+# 	# Serbian / Russian response
+# 	option = {
+# 		name = wsv_1912_warscare.30.b
+# 		trigger = { 
+# 			OR = {
+# 				tag = SER
+# 				tag = RUS
+# 			}
+# 		}
+# 	}
+
+# 	# Rest of the world response
+# 	option = {
+# 		name = wsv_1912_warscare.30.c
+# 		trigger = { 
+# 			NOT = { tag = AUH }
+# 			NOT = { tag = SER }
+# 			NOT = { tag = RUS }
+# 		}
+# 	}
+# }
+
+
+# ## TODO
+# ## Majors get report of Russia de-mobilizing troops quietly
+# country_event = {
+# 	id = wsv_1912_warscare.31
+# 	title = wsv_1912_warscare.31.t
+# 	desc = wsv_1912_warscare.31.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_1912_warscare.31.a
+# 	}
+# }
+
+
+# ## TODO
+# ## Serbia informed of Russian back down
+# country_event = {
+# 	id = wsv_1912_warscare.32
+# 	title = wsv_1912_warscare.32.t
+# 	desc = wsv_1912_warscare.32.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_1912_warscare.32.a
+# 	}
+# }
+
+
+# ## TODO
+# ## Serbia backs down
+# news_event = {
+# 	id = wsv_1912_warscare.33
+# 	title = wsv_1912_warscare.33.t
+# 	desc = wsv_1912_warscare.33.d
+# 	#picture = news_event_1914_russian_soldiers_marching  ## TODO - picture
+
+# 	major = yes
+# 	is_triggered_only = yes
+
+# 	immediate = {
+# 		set_global_flag = scare1912_crisis_over
+# 		set_global_flag = serbia_dropped_claims_on_albania  # set flag that Serbia wont claim Albania
+# 		hidden_effect = {
+# 			# demobilize
+# 			AUH = { remove_mobilization_strain_effect = yes }
+# 			RUS = { remove_mobilization_strain_effect = yes }
+# 			## force Serbia to cough up Albania if it had annexed it
+# 			if = { 
+# 				limit = { 44 = { is_owned_and_controlled_by = SER } }
+# 				create_albania_effect = yes
+# 			}
+# 		}
+# 	}
+	
+# 	# Austrian response
+# 	option = {
+# 		name = wsv_1912_warscare.33.a
+# 		trigger = { tag = AUH }
+# 	}
+
+# 	# Serbian / Russian response
+# 	option = {
+# 		name = wsv_1912_warscare.33.b
+# 		trigger = { 
+# 			OR = {
+# 				tag = SER
+# 				tag = RUS
+# 			}
+# 		}
+# 	}
+
+# 	# Rest of the world response
+# 	option = {
+# 		name = wsv_1912_warscare.33.c
+# 		trigger = { 
+# 			NOT = { tag = AUH }
+# 			NOT = { tag = SER }
+# 			NOT = { tag = RUS }
+# 		}
+# 	}
+# }
+
+
+
+
+## ------------------------ Escalation ------------------------ ##
+
+
+## Austria informed Serbia annexed Albania (fires only if Serbia owns Albania)
+country_event = {
+	id = wsv_1912_warscare.50
+	title = wsv_1912_warscare.50.t
+	desc = wsv_1912_warscare.50.d
+
+	trigger = {
+		tag = AUH
+		has_war = no
+		has_global_flag = scare1912_austria_mobilized
+		NOT = { has_global_flag = scare1912_crisis_over }
+		NOT = { has_global_flag = scare1912_austria_backed_down }
+		44 = { is_owned_and_controlled_by = SER }   # Albania annexed by Serbia
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	fire_only_once = yes
+
+	option = {
+		name = wsv_1912_warscare.50.a
+		## TODO - activate mission
+	}
+}
+
+
+## News event of Austrian ultimatum to Serbia
+news_event = {
+	id = wsv_1912_warscare.51
+	title = wsv_1912_warscare.51.t
+	desc = wsv_1912_warscare.51.d
+	#picture = news_event_1914_russian_soldiers_marching  ## TODO - picture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = scare1912_austria_issues_ultimatum
+		hidden_effect = {
+			AUH = {
+				add_named_threat = {
+					threat = 10
+					name = "Austria-Hungary Issues Ultimatum to Serbia Over Albania"
+				}
+			}
+			SER = { country_event = {id = wsv_1912_warscare.52  days = 2 } }
+		}
+	}
+	
+	# Austrian response
+	option = {
+		name = wsv_1912_warscare.51.a
+		trigger = { tag = AUH }
+	}
+
+	# Serbian / Russian response
+	option = {
+		name = wsv_1912_warscare.51.b
+		trigger = { 
+			OR = {
+				tag = SER
+				tag = RUS
+			}
+		}
+	}
+
+	# Rest of the world response
+	option = {
+		name = wsv_1912_warscare.51.c
+		trigger = { 
+			NOT = { tag = AUH }
+			NOT = { tag = SER }
+			NOT = { tag = RUS }
+		}
+	}
+}
+
+
+## Serbia informed of ultimatum -- must make decision
+country_event = {
+	id = wsv_1912_warscare.52
+	title = wsv_1912_warscare.52.t
+	desc = wsv_1912_warscare.52.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_1912_warscare.52.a
+		## TODO 
+	}
+
+	option = {
+		name = wsv_1912_warscare.52.b
+		## TODO 
+	}
+}
+
+
+## Serbia refuses to back down
+news_event = {
+	id = wsv_1912_warscare.53
+	title = wsv_1912_warscare.53.t
+	desc = wsv_1912_warscare.53.d
+	#picture = news_event_1914_russian_soldiers_marching  ## TODO - picture
+
+	major = yes
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			AUH = { country_event = {id = wsv_1912_warscare.54  days = 2 } }  # wargoal
+		}
+	}
+
+
+	# Austrian response
+	option = {
+		name = wsv_1912_warscare.53.a
+		trigger = { tag = AUH }
+	}
+
+	# Serbian / Russian response
+	option = {
+		name = wsv_1912_warscare.53.b
+		trigger = { 
+			OR = {
+				tag = SER
+				tag = RUS
+			}
+		}
+	}
+
+	# Rest of the world response
+	option = {
+		name = wsv_1912_warscare.53.c
+		trigger = { 
+			NOT = { tag = AUH }
+			NOT = { tag = SER }
+			NOT = { tag = RUS }
+		}
+	}
+}
+
+
+## AUH gets wargoal
+country_event = {
+	id = wsv_1912_warscare.54
+	title = wsv_1912_warscare.54.t
+	desc = wsv_1912_warscare.54.d
+
+	is_triggered_only = yes
+
+	timeout_days = 5
+	
+	option = {
+		name = wsv_1912_warscare.54.a
+
+		declare_war_on = {
+			target = SER
+			type = puppet_wargoal_Focus
+		}
+		hidden_effect = {
+			# who joins?
+			if = {
+				limit = { 
+					has_global_flag = scare1912_russia_mobilized 
+					NOT = { has_global_flag = scare1912_russia_backed_down }
+				}
+				# Russia defends serbia
+				RUS = { 
+					add_to_war = { 
+						targeted_alliance = SER   
+						enemy = AUH 
+					}
+				}
+				# England doesnt join if stepped back
+				if = {
+					limit = { 
+						FRA = { is_in_faction_with = RUS   is_guaranteed_by = ENG }
+						has_global_flag = scare1912_britain_stepped_back
+					}
+					ENG = {
+						diplomatic_relation = {
+							country = FRA
+							relation = guarantee
+							active = no
+						} 
+					}
+				}
+			}
+		}
+	}
+}
 
 
 
