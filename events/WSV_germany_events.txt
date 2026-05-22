@@ -8,7 +8,7 @@
 
 
 ## ------------------------------------------------------------------------------------------------ ##
-## ---------------------------------------- DOMESTIC EVENTS --------------------------------------- ##
+## --------------------------------- PRE-WAR DOMESTIC EVENTS -------------------------------------- ##
 ## ------------------------------------------------------------------------------------------------ ##
 
 # Army League established in Germany (at behest of the Kaiser)
@@ -43,7 +43,7 @@ country_event = {
 			add_idea = GER_naval_law_1912_low
 		}
 		set_country_flag = GER_reduced_naval_spending_flag
-		custom_effect_tooltip = will_lock_focuses_tt
+		custom_effect_tooltip = will_lock_naval_bill_1913_focus_tt
 		ai_chance = { factor = 100 }
 	}
 	
@@ -51,7 +51,6 @@ country_event = {
 	option = {
 		name = wsv_germany.2.b
 		add_political_power = -50
-		custom_effect_tooltip = will_lock_focuses_tt
 		ai_chance = { 
 			factor = 0 
 			modifier = {
@@ -67,16 +66,16 @@ country_event = {
 	}
 
 	# More ships for the navy!
-	option = {
-		name = wsv_germany.2.c
-		add_political_power = -75
-		swap_ideas = {
-			remove_idea = GER_naval_law_1908
-			add_idea = GER_naval_law_1912_high
-		}
-		custom_effect_tooltip = will_lock_focuses_tt
-		ai_chance = { factor = 0 }
-	}
+	# option = {
+	# 	name = wsv_germany.2.c
+	# 	add_political_power = -75
+	# 	swap_ideas = {
+	# 		remove_idea = GER_naval_law_1908
+	# 		add_idea = GER_naval_law_1912_high
+	# 	}
+	# 	custom_effect_tooltip = will_lock_focuses_tt
+	# 	ai_chance = { factor = 0 }
+	# }
 }
 
 
@@ -99,9 +98,15 @@ news_event = {
 		hidden_effect = {
 			GER = {	
 				add_named_threat = {
-					threat = 2.5
-					name = "Massive Military Spending Increase"
-				} 
+					threat = 4
+					name = "Army Expansion Program"
+				}
+				add_timed_idea = {
+					idea = GER_army_law_1913
+					days = 720
+				}
+				remove_ideas =  GER_naval_law_1908
+				remove_ideas =  GER_naval_law_1912_low
 			}
 		}
 	}
@@ -116,7 +121,7 @@ news_event = {
 	option = {
 		name = wsv_germany.4.b
 		trigger = {
-			OR = { tag = FRA   is_in_faction_with = FRA }
+			OR = { tag = FRA   tag = RUS }
 		}
 	}
 
@@ -124,10 +129,328 @@ news_event = {
 		name = wsv_germany.4.c
 		trigger = {
 			NOT = { tag = GER   is_in_faction_with = GER }
-			NOT = { tag = FRA   is_in_faction_with = FRA }
+			NOT = { tag = FRA   tag = RUS }
 		}
 	}
 }
+
+
+
+# News event of German Naval bill of 1913
+news_event = {
+	id = wsv_germany.6
+	title = wsv_germany.6.t
+	desc = wsv_germany.6.d
+	picture = news_event_german_high_seas_fleet   ## TODO - needs picture
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = GER_boosts_naval_spending_1913
+		hidden_effect = {
+			GER = {	
+				add_named_threat = {
+					threat = 4
+					name = "Naval Expansion Program"
+				} 
+				add_timed_idea = {
+					idea = GER_naval_law_1913
+					days = 720
+				}
+				remove_ideas =  GER_naval_law_1908
+				remove_ideas =  GER_naval_law_1912_low
+			}
+		}
+	}
+
+	option = {
+		name = wsv_germany.6.a
+		trigger = {
+			OR = { tag = GER   is_in_faction_with = GER }
+		}
+	}
+
+	option = {
+		name = wsv_germany.6.b
+		trigger = {
+			tag = ENG
+		}
+	}
+
+	option = {
+		name = wsv_germany.6.c
+		trigger = {
+			NOT = { tag = GER   is_in_faction_with = GER }
+			NOT = { tag = ENG }
+		}
+	}
+}
+
+
+
+
+
+## ------------------------------------------------------------------------------------------------ ##
+## ----------------------------------- INTERNATIONAL EVENTS --------------------------------------- ##
+## ------------------------------------------------------------------------------------------------ ##
+
+
+
+
+## --------------------- Germay Prepares Pretext for Eastern War --------------------- ##
+
+## Very first border clash -- (begins the other + the mission cooldown)
+country_event = {
+	id = wsv_germany.50
+	title = wsv_germany.50.t
+	desc = wsv_germany.50.d
+
+	is_triggered_only = yes
+
+	major = yes
+	show_major = {
+		OR = {
+			tag = GER
+			tag = RUS
+		}
+	}
+
+	option = {
+		name = wsv_germany.50.a
+		trigger = { tag = GER }
+	}
+
+	option = {
+		name = wsv_germany.50.b
+		trigger = { tag = RUS }
+	}
+}
+
+
+## Second border clash
+country_event = {
+	id = wsv_germany.51
+	title = wsv_germany.51.t
+	desc = wsv_germany.51.d
+
+	major = yes
+	show_major = {
+		OR = {
+			tag = GER
+			tag = RUS
+			tag = AUH
+			tag = FRA
+		}
+	}
+
+	option = {
+		name = wsv_germany.50.a
+		trigger = { 
+			OR = { tag = GER tag = AUH }
+		}
+	}
+
+	option = {
+		name = wsv_germany.50.b
+		trigger = { 
+			OR = { tag = RUS tag = FRA }
+		}
+	}
+}
+
+
+
+## Country event from Germany to AUH, telling them to be on heightened alert
+country_event = {
+	id = wsv_germany.53
+	title = wsv_germany.53.t
+	desc = wsv_germany.53.d
+
+	is_triggered_only = yes
+
+	major = yes
+	show_major = {
+		OR = {
+			tag = GER
+			tag = RUS
+			tag = AUH
+			tag = FRA
+		}
+	}
+
+	option = {
+		name = wsv_germany.53.a
+	}
+}
+
+
+
+
+## Third border clash (turns more violent)
+country_event = {
+	id = wsv_germany.54
+	title = wsv_germany.54.t
+	desc = wsv_germany.54.d
+
+	is_triggered_only = yes
+
+	major = yes
+	show_major = {
+		
+	}
+
+	option = {
+		name = wsv_germany.54.a
+		trigger = { 
+			OR = { tag = GER tag = AUH }
+		}
+	}
+
+	option = {
+		name = wsv_germany.54.b
+		trigger = { 
+			OR = { tag = RUS tag = FRA }
+		}
+	}
+}
+
+
+## global news event describing the esclation of clashes
+news_event = {
+	id = wsv_germany.53
+	title = wsv_germany.53.t
+	desc = wsv_germany.53.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_germany.53.a
+	}
+}
+
+
+# ## global news event describing the esclation of clashes 2
+# news_event = {
+# 	id = wsv_germany.50
+# 	title = wsv_germany.50.t
+# 	desc = wsv_germany.50.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_germany.50.a
+# 	}
+# }
+
+
+# Country event Germany sends to let AUH know to prepare
+country_event = {
+	id = wsv_germany.53
+	title = wsv_germany.53.t
+	desc = wsv_germany.53.d
+
+	is_triggered_only = yes
+
+	# Understood
+	option = {
+		name = wsv_germany.53.a
+	}
+}
+
+
+
+# country event letting us know we can now do the justification focus
+country_event = {
+	id = wsv_germany.53
+	title = wsv_germany.53.t
+	desc = wsv_germany.53.d
+
+	is_triggered_only = yes
+
+	# Understood
+	option = {
+		name = wsv_germany.53.a
+	}
+}
+
+
+
+
+## ------------------------ German Preemptive War ------------------------ ##
+
+
+## German kaiser issues 'public statement' on eastern situation
+
+# news_event = {
+# 	id = wsv_germany.55
+# 	title = wsv_germany.55.t
+# 	desc = wsv_germany.55.d
+# 	#picture =   ## TODO - needs picture
+
+# 	is_triggered_only = yes
+# 	major = yes
+
+# 	immediate = {
+# 		set_global_flag = GER_boosts_naval_spending_1913
+# 		hidden_effect = {
+# 			GER = {	
+# 				add_named_threat = {
+# 					threat = 4
+# 					name = "Naval Expansion Program"
+# 				} 
+# 			}
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_germany.6.a
+# 		trigger = {
+# 			OR = { tag = GER   is_in_faction_with = GER }
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_germany.6.b
+# 		trigger = {
+# 			tag = ENG
+# 		}
+# 	}
+
+# 	option = {
+# 		name = wsv_germany.6.c
+# 		trigger = {
+# 			NOT = { tag = GER   is_in_faction_with = GER }
+# 			NOT = { tag = ENG }
+# 		}
+# 	}
+# }
+
+
+## News event of German ultimatum
+
+
+
+
+
+# Russia gets country event of German demands
+
+
+# News event of Russia accepting demands
+		
+
+# News event of Russia refusing demands
+
+
+
+# German country event with declare war
+
+
+
+
+
+
+
 
 
 
@@ -137,17 +460,17 @@ news_event = {
 
 # German overtures to Turkey
 country_event = {
-	id = wsv_germany.5
-	title = wsv_germany.5.t
-	desc = wsv_germany.5.d
+	id = wsv_germany.80
+	title = wsv_germany.80.t
+	desc = wsv_germany.80.d
 
 	is_triggered_only = yes
 
 	# Lets work closer together
 	option = {
-		name = wsv_germany.5.a
+		name = wsv_germany.80.a
 		GER = { 
-			country_event = { id = wsv_germany.6  days = 2 } 
+			country_event = { id = wsv_germany.81  days = 2 } 
 			add_opinion_modifier = {
 				target = TUR
 				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
@@ -164,8 +487,8 @@ country_event = {
 	
 	# Go away
 	option = {
-		name = wsv_germany.5.b
-		GER = { country_event = { id = wsv_germany.7  days = 2 } }
+		name = wsv_germany.80.b
+		GER = { country_event = { id = wsv_germany.82  days = 2 } }
 		ai_chance = { factor = 0 }
 	}
 }
@@ -173,42 +496,42 @@ country_event = {
 
 # Turkey said yes
 country_event = {
-	id = wsv_germany.6
-	title = wsv_germany.6.t
-	desc = wsv_germany.6.d
+	id = wsv_germany.81
+	title = wsv_germany.81.t
+	desc = wsv_germany.81.d
 
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_germany.6.a
+		name = wsv_germany.81.a
 	}
 }
 
 
 # Turkey said no
 country_event = {
-	id = wsv_germany.7
-	title = wsv_germany.7.t
-	desc = wsv_germany.7.d
+	id = wsv_germany.82
+	title = wsv_germany.82.t
+	desc = wsv_germany.82.d
 
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_germany.7.a
+		name = wsv_germany.82.a
 	}
 }
 
 
 # Turkey informed of German military mission
 country_event = {
-	id = wsv_germany.8
-	title = wsv_germany.8.t
-	desc = wsv_germany.8.d
+	id = wsv_germany.83	
+	title = wsv_germany.83.t
+	desc = wsv_germany.83.d
 
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_germany.8.a
+		name = wsv_germany.83.a
 		add_timed_idea = {
 			idea = GER_military_mission_turkey_idea
 			days = 720
@@ -219,14 +542,14 @@ country_event = {
 
 # Turkey informed of German rearmament financing
 country_event = {
-	id = wsv_germany.9
-	title = wsv_germany.9.t
-	desc = wsv_germany.9.d
+	id = wsv_germany.84
+	title = wsv_germany.84.t
+	desc = wsv_germany.84.d
 
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_germany.9.a
+		name = wsv_germany.84.a
 		add_timed_idea = {
 			idea = GER_loan_for_turkish_rearmament
 			days = 720
@@ -237,18 +560,18 @@ country_event = {
 
 # German asks for 'secret treaty' with Turkey (aka let us defend you)
 country_event = {
-	id = wsv_germany.10
-	title = wsv_germany.10.t
-	desc = wsv_germany.10.d
+	id = wsv_germany.85
+	title = wsv_germany.85.t
+	desc = wsv_germany.85.d
 
 	is_triggered_only = yes
 
 	# Fine
 	option = {
-		name = wsv_germany.10.a
+		name = wsv_germany.85.a
 		GER ={
 			give_guarantee = ROOT
-			country_event = { id = wsv_germany.11  days = 2 } 
+			country_event = { id = wsv_germany.86  days = 2 } 
 		}
 		# on turkey
 		diplomatic_relation = {
@@ -260,9 +583,9 @@ country_event = {
 	
 	# I bet theres strings attached
 	option = {
-		name = wsv_germany.10.b
+		name = wsv_germany.85.b
 		GER ={
-			country_event = { id = wsv_germany.12  days = 2 } 
+			country_event = { id = wsv_germany.87  days = 2 } 
 			add_opinion_modifier = {
 				target = ROOT
 				modifier = wsv_dislikes_country
@@ -276,37 +599,30 @@ country_event = {
 
 # Turkey said yes
 country_event = {
-	id = wsv_germany.11
-	title = wsv_germany.11.t
-	desc = wsv_germany.11.d
+	id = wsv_germany.86
+	title = wsv_germany.86.t
+	desc = wsv_germany.86.d
 
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_germany.11.a
+		name = wsv_germany.86.a
 	}
 }
 
 
 # Turkey said no
 country_event = {
-	id = wsv_germany.12
-	title = wsv_germany.12.t
-	desc = wsv_germany.12.d
+	id = wsv_germany.87
+	title = wsv_germany.87.t
+	desc = wsv_germany.87.d
 
 	is_triggered_only = yes
 
 	option = {
-		name = wsv_germany.12.a
+		name = wsv_germany.87.a
 	}
 }
-
-
-
-
-
-
-
 
 
 
@@ -328,9 +644,9 @@ country_event = {
 
 # # Schliffen plan failed
 # country_event = {
-# 	id = wsv_germany.10
-# 	title = wsv_germany.10.t
-# 	desc = wsv_germany.10.d
+# 	id = wsv_germany.85
+# 	title = wsv_germany.85.t
+# 	desc = wsv_germany.85.d
 
 # 	trigger = {
 # 		tag = GER
@@ -346,7 +662,7 @@ country_event = {
 # 	}
  
 # 	option = {
-# 		name = wsv_germany.10.a
+# 		name = wsv_germany.85.a
 # 		add_war_support = -0.05
 # 	}
 # }
@@ -354,9 +670,9 @@ country_event = {
 
 # # Kaiserschlact failed
 # country_event = {
-# 	id = wsv_germany.11
-# 	title = wsv_germany.11.t
-# 	desc = wsv_germany.11.d
+# 	id = wsv_germany.86
+# 	title = wsv_germany.86.t
+# 	desc = wsv_germany.86.d
 
 # 	trigger = {
 # 		tag = GER
@@ -372,7 +688,7 @@ country_event = {
 # 	}
  
 # 	option = {
-# 		name = wsv_germany.11.a
+# 		name = wsv_germany.86.a
 # 		add_war_support = -0.15
 # 	}
 # }
