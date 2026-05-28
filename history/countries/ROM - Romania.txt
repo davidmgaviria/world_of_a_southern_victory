@@ -11,11 +11,15 @@ set_research_slots = 3
 1910.1.1 = {
 	oob = "ROM_1910"
 
-	
-	create_country_leader={ name = "Ferdinand I" desc=ROM_ferdinand_i_DESC picture="gfx/portraits/ROM/country_leaders/ROM_ferdinand_i.dds" expire="1935.1.1" ideology=despotism  traits={  } }
-	create_country_leader={ name = "Christian Rakovsky" desc=ROM_christian_rakovsky_DESC picture="gfx/portraits/ROM/country_leaders/ROM_christian_rakovsky.dds" expire="1935.1.1" ideology=leninism traits={  } }
-	create_country_leader={ name = "Carol I" desc=ROM_carol_i_DESC picture="gfx/portraits/ROM/country_leaders/ROM_carol_i.dds" expire="1935.1.1" ideology=conservatism traits={  } }
+	# Country leaders #
+	recruit_character = ROM_ferdinand_i
+	recruit_character = ROM_carol_i
+	recruit_character = ROM_christian_rakovsky
+	# Active leader
+	promote_character = ROM_carol_i
 
+
+	
 	create_corps_commander={
 		name = "Alexandru Averescu" id=92102
 		portrait_path="gfx/leaders/Europe/Portrait_Europe_Generic_land_3.dds"
@@ -31,16 +35,16 @@ set_research_slots = 3
 	}
 
 	set_politics = {
-	    ruling_party = democratic
-	    last_election = "1907.1.1"
-	    election_frequency = 48
-	    elections_allowed = yes
+		ruling_party = neutrality
+		last_election = "1907.6.1"
+		election_frequency = 48
+		elections_allowed = yes
 	}
 	set_popularities = {
-	    democratic = 85
-	    fascism = 3
-	    communism = 2
-	    neutrality = 10
+		democratic = 45
+		fascism = 3
+		communism = 2
+		neutrality = 50
 	}
 
 	add_ideas = {
@@ -218,7 +222,7 @@ set_research_slots = 3
 
 	
 	### TECH ###
-	full_modernize_tech_effect = yes
+	# full_modernize_tech_effect = yes
 	set_technology = {
 		# Support
 		tech_support = 1

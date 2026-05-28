@@ -19,7 +19,7 @@ SER_increase_army = {
 		has_start_date < 1937.1.1
 	}
 	enable = {
-		has_army_manpower = { size < 200000 }
+		has_army_manpower = { size < 270000 }
 		has_war = no 
 	}
 	abort_when_not_enabled = yes
@@ -27,37 +27,17 @@ SER_increase_army = {
 	ai_strategy = {
 		type = build_army
 		id = infantry
-		value = 25
+		value = 100
+	}
+	ai_strategy = {
+    	type = force_build_armies
+    	value = 100
+	}
+	ai_strategy = {
+		type = equipment_stockpile_surplus_ratio
+		value = -20
 	}
 }
-
-SER_first_balkan = {
-	enable = {
-		tag = SER
-		has_country_flag = balkan_league_member
-		NOT = { has_global_flag = firstbalkan_war_over }
-		has_start_date < 1937.1.1
-	}
-	abort_when_not_enabled = yes
-	
-	ai_strategy = {
-		type = prepare_for_war
-		id = "TUR"			
-		value = 75
-	}	
-	ai_strategy = {
-		type = conquer
-		id = "TUR"			
-		value = 20
-	}
-
-	ai_strategy = {
-		type = consider_weak
-		id = TUR
-		value = 25  # consider Turkey easy prey
-	}
-}
-
 
 SER_never_ally_ottomans = {
 	enable = {

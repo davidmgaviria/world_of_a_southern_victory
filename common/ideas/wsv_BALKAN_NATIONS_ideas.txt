@@ -1,0 +1,76 @@
+ideas={
+	country ={
+		SER_pan_serbism = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			modifier = {
+				conscription = 0.05
+				mobilization_speed = 0.02
+				offensive_war_stability_factor = 0.1
+			}
+		}
+
+
+		BUL_balkan_prussia = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			picture = bul_balkan_prussia_icon
+
+			modifier = {
+				conscription = 0.075
+				mobilization_speed = 0.05
+				army_org = 10
+				offensive_war_stability_factor = 0.1
+			}
+		}
+
+		GRE_megali_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			#picture = bul_balkan_prussia_icon
+
+			modifier = {
+				conscription = 0.05
+				mobilization_speed = 0.02
+				production_speed_dockyard_factor  = 0.1
+				offensive_war_stability_factor = 0.1
+			}
+		}
+
+		GRE_national_schism_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			picture = generic_disjointed_gov
+
+			modifier = {
+				political_power_gain = -0.5
+				command_power_gain_mult = -0.25
+				stability_factor = -0.15
+				conscription_factor = -0.1
+			}
+		}
+
+		AdO_expeditionary_force_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+			picture = idea_ENG_special_air_service
+
+			on_add = {
+				set_rule = { can_join_factions = no }
+				set_rule = { can_not_declare_war = yes }
+				country_lock_all_division_template = yes
+				set_research_slots = 2
+			}
+
+			modifier = {
+				political_power_factor = -0.9
+			}
+		}
+	}
+}
+

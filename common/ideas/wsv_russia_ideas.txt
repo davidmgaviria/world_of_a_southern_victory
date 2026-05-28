@@ -1,0 +1,596 @@
+ideas = {
+
+	country = {
+
+		RUS_general_staff = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = russian_staff_icon
+
+			modifier={ 
+				coordination_bonus = -0.25  
+				planning_speed = -0.1
+				max_planning = -0.25
+				land_doctrine_cost_factor = 0.15
+			}
+		}
+
+
+		RUS_bloated_imperial_army = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = RUS_clay_army_icon2
+
+			modifier={ 
+				army_attack_factor = -0.3
+				army_morale_factor = -0.15
+				army_org = -15
+				training_time_army_factor = -0.15
+			}
+		}
+
+
+		RUS_agrarian_economy = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = generic_agrarian_society
+			modifier = {
+				production_speed_buildings_factor = -0.25
+				consumer_goods_factor = -0.1
+				global_building_slots_factor = -0.25
+				local_resources_factor = -0.15
+				research_speed_factor = -0.1
+				monthly_population = 0.25
+			}
+		}
+
+
+		RUS_threat_of_revolution = {
+			allowed = {
+				always = no
+			}
+			allowed_civil_war = {
+				always = no
+			}
+			removal_cost = -1
+			picture = generic_red_revolution
+			modifier = {
+				political_power_gain = -0.25
+				surrender_limit = -0.25   #around 0.32% is ideal (makes losing warsaw 15% capit), the decrease instability during the war will push effective surrender limit to around these numbers
+				drift_defence_factor = -0.25
+				communism_drift = 0.01
+				stability_factor = -0.15
+				conscription_factor = -0.25
+			}
+		}
+
+
+		RUS_tsushima_humiliation = {
+			allowed = {original_tag = RUS} 
+			allowed_civil_war = {always = yes} 
+			removal_cost = -1 
+
+			picture = RUS_tsushima_humiliation_icon
+		
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = 0.15 instant = yes
+				}
+				screen_ship = {
+					build_cost_ic = 0.25 instant = yes
+				}
+				submarine = {
+					build_cost_ic = 0.25 instant = yes
+				}
+				destroyer = {
+					build_cost_ic = 0.25 instant = yes
+				}
+			}
+
+			modifier = {
+				production_speed_dockyard_factor = -0.25
+				naval_doctrine_cost_factor = 0.5
+			}
+		}
+
+		### new ####
+
+		RUS_bloated_imperial_army_2 = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			#picture = russian_staff_icon
+
+			modifier={ 
+				army_attack_factor = -0.25
+				army_morale_factor = -0.1
+				army_org = -10
+				training_time_army_factor = -0.15
+			}
+		}
+
+		RUS_tsushima_humiliation_reduced = {
+			allowed = {original_tag = RUS} 
+			allowed_civil_war = {always = yes} 
+			removal_cost = -1 
+
+			picture = RUS_tsushima_humiliation_icon
+		
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = 0.15 instant = yes
+				}
+				screen_ship = {
+					build_cost_ic = 0.2 instant = yes
+				}
+				submarine = {
+					build_cost_ic = 0.2 instant = yes
+				}
+				destroyer = {
+					build_cost_ic = 0.2 instant = yes
+				}
+			}
+
+			modifier = {
+				production_speed_dockyard_factor = -0.15
+				naval_doctrine_cost_factor = 0.25
+			}
+		}
+
+		RUS_naval_rearmament_act_idea = {
+			allowed = {original_tag = RUS} 
+			allowed_civil_war = {always = yes} 
+			removal_cost = -1 
+
+			picture = generic_naval_spending_moderate
+		
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = -0.1 instant = yes
+				}
+				screen_ship = {
+					build_cost_ic = -0.15 instant = yes
+				}
+				submarine = {
+					build_cost_ic = -0.15 instant = yes
+				}
+				destroyer = {
+					build_cost_ic = -0.15 instant = yes
+				}
+			}
+
+			modifier = {
+				production_speed_dockyard_factor = 0.1
+				naval_doctrine_cost_factor = -0.1
+				political_power_gain = -0.25
+			}
+		}
+
+		RUS_land_reorganization_act_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = generic_agrarian_society
+			modifier = {
+				production_speed_buildings_factor = 0.05  
+				global_building_slots_factor = 0.1
+				monthly_population = -0.05
+			}
+		}
+
+		RUS_industralizing_economy = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			#picture = generic_agrarian_society
+			modifier = {
+				production_speed_buildings_factor = -0.15
+				consumer_goods_factor = -0.1
+				global_building_slots_factor = -0.25
+				local_resources_factor = -0.1
+				research_speed_factor = -0.1
+				monthly_population = 0.2
+			}
+		}
+
+
+		RUS_lena_massacre_fallout_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+
+			picture = generic_unrest_icon
+			modifier = {
+				consumer_goods_factor = 0.35
+				industrial_capacity_factory = -0.15
+				industrial_capacity_dockyard = -0.15
+				stability_weekly = -0.03
+				communism_drift = 0.02
+			}
+		}
+
+
+		RUS_great_military_program_idea = {
+			allowed = { always = yes}
+			removal_cost = -1
+			picture= GER_army_spending_icon
+
+			cancel = {
+				OR = {
+					is_puppet = yes
+					has_war_with_major = yes
+				}
+			}
+
+			equipment_bonus = {
+				infantry_equipment = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            	artillery_equipment = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.5
+				production_speed_arms_factory_factor  = 0.15
+				conversion_cost_civ_to_mil_factor = -0.25
+			}
+		}
+
+
+		RUS_warplan_germany_idea = {
+			allowed = { always = yes}
+			allowed_civil_war = { always = no }
+            picture = generic_battle_plan
+            removal_cost = -1 
+
+			targeted_modifier = {
+				tag = GER   
+				attack_bonus_against = 0.2
+				breakthrough_bonus_against = 0.15
+			}
+        }
+
+		
+		RUS_warplan_auh_idea = {
+			allowed = { always = yes}
+			allowed_civil_war = { always = no }
+            picture = generic_battle_plan
+            removal_cost = -1 
+
+			targeted_modifier = {
+				tag = AUH   
+				attack_bonus_against = 0.2
+				breakthrough_bonus_against = 0.15
+			}
+        }
+
+
+
+
+		################################################ OLD ################################################
+
+		RUS_tsushima_humiliation_2 = {
+			allowed = {original_tag = RUS} 
+			allowed_civil_war = {always = yes} 
+			removal_cost = -1 
+
+			picture = RUS_tsushima_humiliation_icon
+		
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = 0.1 instant = yes
+				}
+				screen_ship = {
+					build_cost_ic = 0.05 instant = yes
+				}
+				submarine = {
+					build_cost_ic = 0.05 instant = yes
+				}
+				destroyer = {
+					build_cost_ic = 0.05 instant = yes
+				}
+			}
+
+			modifier = {
+				production_speed_dockyard_factor = -0.1
+				naval_doctrine_cost_factor = 0.25
+			}
+		}
+
+		RUS_stolpyin_plan_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = { has_war = yes }
+			picture = SOV_fourth_five_year_plan
+			
+			modifier = {
+				political_power_gain = -0.1
+				consumer_goods_factor = -0.1
+				production_speed_industrial_complex_factor = 0.1
+				production_speed_arms_factory_factor = 0.1
+			}
+		}
+
+		RUS_improved_resources = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = ARG_resource_extration_focus
+
+			modifier = {
+				local_resources_factor = 0.15
+			}
+		}
+
+		RUS_improved_literacy = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = BRA_dasp
+
+			modifier = {
+				research_speed_factor = 0.1
+			}
+		}
+
+		RUS_improve_railways = {
+			allowed = { always = no }
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = ARG_invest_in_railways  #Generic_build_infrastructure
+
+			modifier = {
+				production_speed_infrastructure_factor = 0.1
+				production_speed_rail_way_factor = 0.1
+			}
+		}
+
+		RUS_restricted_press_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			picture = generic_democracy_banned
+			
+			modifier = {
+				drift_defence_factor = 0.25
+				stability_factor = -0.05
+			}
+		}
+
+		RUS_social_reforms_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = { has_war = yes }
+			picture = ARG_social_welfare_fund_ns
+			
+			modifier = {
+				consumer_goods_factor = -0.15
+				stability_weekly = 0.002
+			}
+		}
+
+
+		### Wartime ideas
+
+		RUS_prioritize_army_supplies = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = {
+				has_war_with_major = no
+			}
+			picture = generic_supply_depot
+			
+			modifier = {
+				consumer_goods_factor = -0.1
+				stability_factor = -0.07
+				war_support_factor = -0.07
+			}
+		}
+
+		RUS_prioritize_civilian_supplies = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = {
+				has_war_with_major = no
+			}
+			picture = generic_supply_depot
+			
+			modifier = {
+				army_morale_factor = -0.1
+				army_attack_factor = -0.1
+				stability_factor = 0.07
+			}
+		}
+
+		RUS_great_retreat_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+			cancel = {
+				has_war_with_major = no
+			}
+			picture = generic_army_problem
+			
+			targeted_modifier = {
+				tag = GER
+				army_defence_factor = -0.25
+			}
+			targeted_modifier = {
+				tag = AUH
+				army_defence_factor = -0.25
+			}
+
+			modifier = {
+				army_org_factor = -0.15
+				army_morale_factor = -0.1
+			}
+		}
+
+		RUS_dual_power_system = {		# stacks onto 'threat of revolution'
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+	
+			picture = generic_disjointed_gov
+
+			modifier = {
+				political_power_gain = -0.5
+				conscription_factor = -0.1
+				communism_drift = 0.01
+			}
+		}
+
+		RUS_order_no_1_idea = {
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+	
+			picture = SOV_war_heroes
+
+			modifier = {
+				army_attack_factor = -0.5
+				army_org_factor = -0.25
+				army_morale_factor = -0.1
+				command_power_gain_mult = -0.5
+			}
+		}
+
+		RUS_kerensky_offensive_idea = {
+			allowed={ has_government = democratic  }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = FRA_national_mobilization_focus
+			
+			modifier = {
+				army_attack_against_major_factor = 0.15
+				army_morale_factor = 0.1
+				army_org = 10
+				war_support_factor = 0.1
+			}
+		}
+
+
+		RUS_workers_revolution = {
+			allowed={ has_government = communism  }
+			cancel = { has_war = no }
+			removal_cost=-1
+			picture = home_of_revolution
+			
+			modifier = {
+				army_attack_factor = 0.1
+				army_morale_factor = 0.1
+				army_org_factor = -0.2
+				conscription_factor = 0.1
+				surrender_limit = 0.25
+				communism_drift = 0.01
+			}
+		}
+
+		# RUS_unstable_white_alliance = {  # replaces 'Threat of Revolution' and 'Unstable Political Situation'
+ 		# 	allowed = { always = no }
+		# 	allowed_civil_war = { always = no }
+		# 	removal_cost = -1
+		# 	picture = generic_disjointed_gov
+			
+		# 	modifier = {
+		# 		political_power_gain = -0.35
+		# 		command_power_gain_mult = -0.3
+		# 		army_attack_factor = -0.1
+		# 		army_org_factor = -0.1
+		# 		army_org_regain = -0.25
+		# 		conscription_factor = -0.25
+		# 	}
+		# }
+		
+		# RUS_lenin_returns = {
+		# 	allowed={ always=no }
+		# 	allowed_civil_war={ always = no }
+		# 	cancel = { OR = { has_war = no   has_government = communism   country_exists = SOV } }
+		# 	removal_cost=-1
+		# 	picture = socialist_science_focus
+			
+		# 	modifier = {
+		# 		communism_drift = 0.3
+		# 	}
+		# }
+
+
+
+		#####################################
+		######## SECOND GREAT WAR  ##########
+		#####################################
+		RUS_slavic_unrest = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = {
+				NOT = {
+					controls_state = 102
+					controls_state = 103
+					controls_state = 109
+					controls_state = 104
+					controls_state = 105
+					controls_state = 761
+				}
+			}
+			removal_cost=-1
+			picture = generic_unrest_icon
+			
+			modifier = {
+				resistance_damage_to_garrison = 0.1
+				political_power_gain = -0.1
+			}
+		}
+
+		RUS_romanian_unrest = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			cancel = {
+				NOT = {
+					controls_state = 79
+					controls_state = 46
+					controls_state = 81
+					controls_state = 80
+				}
+			}
+			removal_cost=-1
+			picture = generic_unrest_icon
+			
+			modifier = {
+				resistance_damage_to_garrison = 0.1
+				political_power_gain = -0.1
+			}
+		}
+
+
+		RUS_influence_country = {
+			allowed={ always=no }
+			allowed_civil_war={ always = no }
+			removal_cost=-1
+			picture = FRA_national_mobilization_focus
+			
+			modifier = {
+				fascism_drift = 0.05
+				war_support_weekly = 0.003
+			}
+		}
+
+
+		RUS_railways_project_idea = {
+			allowed_civil_war = { always = yes }
+			removal_cost = -1
+			picture = generic_production_bonus
+			modifier = {
+				production_speed_infrastructure_factor = 0.1
+			}
+		}
+	}
+}

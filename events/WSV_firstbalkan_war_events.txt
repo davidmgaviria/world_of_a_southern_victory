@@ -1,10 +1,16 @@
 ﻿add_namespace = wsv_firstbalkan
 
+
+### ======================================================================================================== ###
+###	------------------------------------ BALKAN LEAGUE FORMATION ------------------------------------------  ###
+### ======================================================================================================== ###
+
+
 #######################################################################
-## Pre-Balkan League
+## Talk with Bulgaria
 #######################################################################
 
-# Serbia asks country if they want to partake in Balkan League territorial negotiations
+# Serbia contacts Bulgaria about forming an alliance against Turkey (FROM is Serbia, ROOT is Bulgaria)
 country_event = {
 	id = wsv_firstbalkan.1
 	title = wsv_firstbalkan.1.t
@@ -12,14 +18,124 @@ country_event = {
 
 	is_triggered_only = yes
 	
-	# Yes (FROM is Serbia, ROOT is country)
+	# Yes -- with conditions (Bulgaria wants assurances to part of Macedonia)
 	option = {
 		name = wsv_firstbalkan.1.a
-		set_country_flag = balkan_league_member
-		add_to_variable = { SER.num_major_league_members = 1 }
-		SER = { 
-			country_event = { id = wsv_firstbalkan.2  days = 1  random_hours = 125 }  # about 5 days randomized
+		SER = { country_event = { id = wsv_firstbalkan.3  days = 3 } }
+		ai_chance = { 
+			base = 100 
+			modifier={
+				factor = 0 
+				has_war = yes
+			}
 		}
+	}
+
+	# No we wont ally with you
+	option = {
+		name = wsv_firstbalkan.1.b
+		if = {
+			limit = { has_war = no } # nationalist will be angered if we refuse for no reason
+			add_war_support = -0.1   
+			add_political_power = -75
+		}
+		SER = { 
+			country_event = { id = wsv_firstbalkan.2  days = 3 } 
+			effect_tooltip = {
+				add_opinion_modifier = {
+					target = BUL
+					modifier = wsv_dislikes_country
+				}
+			}
+		}
+		ai_chance = { 
+			base = 0 
+			modifier={
+				add = 1 
+				has_war = yes
+			}
+		}
+	}
+}
+
+
+# Bulgaria refused
+country_event = {
+	id = wsv_firstbalkan.2
+	title = wsv_firstbalkan.2.t
+	desc = wsv_firstbalkan.2.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.2.a
+		effect_tooltip = {
+			add_opinion_modifier = {
+				target = BUL
+				modifier = wsv_dislikes_country
+			}
+		}
+	}
+}
+
+
+# Bulgaria agrees with conditions
+country_event = {
+	id = wsv_firstbalkan.3
+	title = wsv_firstbalkan.3.t
+	desc = wsv_firstbalkan.3.d
+
+	is_triggered_only = yes
+	
+	# Agree to partition Macedonia
+	option = {
+		name = wsv_firstbalkan.3.a
+		# mark Serbia as in the Balkan League
+		mark_as_balkan_league_member_effect = yes 
+		# Mark Bulgaria as in the Balkan League
+		BUL = { 
+			mark_as_balkan_league_member_effect = yes
+			country_event = { id = wsv_firstbalkan.4  days = 3 } 
+		}
+	}
+}
+
+
+
+# Serbia agrees to partition Macedonia -- core of Balkan League established
+country_event = {
+	id = wsv_firstbalkan.4
+	title = wsv_firstbalkan.4.t
+	desc = wsv_firstbalkan.4.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.4.a
+	}
+}
+
+
+
+#######################################################################
+## Invite Greece / Montengro
+#######################################################################
+
+
+## Serbia invites Greece / Montenegro to alliance
+country_event = {
+	id = wsv_firstbalkan.6
+	title = wsv_firstbalkan.6.t
+	desc = wsv_firstbalkan.6.d
+
+	is_triggered_only = yes
+	
+	# Yes (FROM is Serbia, ROOT is country)
+	option = {
+		name = wsv_firstbalkan.6.a
+		mark_as_balkan_league_member_effect = yes
+		SER = { country_event = { id = wsv_firstbalkan.7  days = 1  random_hours = 72 } }
+
 		ai_chance = { 
 			base = 100 
 			modifier={
@@ -31,84 +147,123 @@ country_event = {
 
 	# No (FROM is Serbia, ROOT is country)
 	option = {
-		name = wsv_firstbalkan.1.b
+		name = wsv_firstbalkan.6.b
 		SER = {
-			country_event = { id = wsv_firstbalkan.3  days = 1  random_hours = 125 } # about 5 days randomized
+			country_event = { id = wsv_firstbalkan.8  days = 1  random_hours = 72 }
+			effect_tooltip = {
+				add_opinion_modifier = {
+					target = ROOT
+					modifier = wsv_dislikes_country
+				}
+			}
+		}
+		ai_chance = { 
+			base = 0 
+			modifier={
+				add = 1 
+				has_war = yes
+			}
 		}
 	}
 }
 
 # Country agreed
 country_event = {
-	id = wsv_firstbalkan.2
-	title = wsv_firstbalkan.2.t
-	desc = wsv_firstbalkan.2.d
+	id = wsv_firstbalkan.7
+	title = wsv_firstbalkan.7.t
+	desc = wsv_firstbalkan.7.d
 
 	is_triggered_only = yes
 
 	# Country agreed
 	option = {
-		name = wsv_firstbalkan.2.a
-		if = {
-			limit = { NOT = { has_country_flag = balkan_league_member } }
-			set_country_flag = balkan_league_member
-			add_to_variable = { SER.num_major_league_members = 1 }
-			MNT = {
-				if = {
-					limit = { exists = yes  is_guaranteed_by = SER } 
-					set_country_flag = balkan_league_member
-				}
+		name = wsv_firstbalkan.7.a
+	}
+}
+
+
+# Country refused
+country_event = {
+	id = wsv_firstbalkan.8
+	title = wsv_firstbalkan.8.t
+	desc = wsv_firstbalkan.8.d
+
+	is_triggered_only = yes
+	
+	option = {
+		name = wsv_firstbalkan.8.a
+		effect_tooltip = {
+			add_opinion_modifier = {
+				target = FROM
+				modifier = wsv_dislikes_country
 			}
 		}
 	}
 }
 
-# Country refused
-country_event = {
-	id = wsv_firstbalkan.3
-	title = wsv_firstbalkan.3.t
-	desc = wsv_firstbalkan.3.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.3.a
-	}
-}
 
 
 #######################################################################
 ## Pre-Balkan League -- Territorial Negotiations
 #######################################################################
 
-## Negotiations opened
+## Time to start negotiations
 country_event = {
-	id = wsv_firstbalkan.4
-	title = wsv_firstbalkan.4.t
-	desc = wsv_firstbalkan.4.d
+	id = wsv_firstbalkan.9
+	title = wsv_firstbalkan.9.t
+	desc = wsv_firstbalkan.9.d
 
 	is_triggered_only = yes
 
 	immediate = {
 		set_global_flag = balkan_league_territorial_negotiations
+		set_country_flag = informed_league_negotiaitons_started
 	}
 	
 	option = {
-		name = wsv_firstbalkan.4.a
+		name = wsv_firstbalkan.9.a
+		custom_effect_tooltip = league_negotiation_decisions_available_tt
+	}
+}
+
+
+
+## Negotiations opened
+country_event = {
+	id = wsv_firstbalkan.10
+	title = wsv_firstbalkan.10.t
+	desc = wsv_firstbalkan.10.d
+
+	trigger = {
+		has_global_flag = balkan_league_territorial_negotiations
+		has_country_flag = balkan_league_member
+		NOT = { has_country_flag = informed_league_negotiaitons_started } 
+	}
+
+	mean_time_to_happen = { days = 0 }
+
+	immediate = {
+		set_country_flag = informed_league_negotiaitons_started
+	}
+	
+	
+	option = {
+		name = wsv_firstbalkan.10.a
+		custom_effect_tooltip = league_negotiation_decisions_available_tt
 	}
 }
 
 
 # Claim went undisputed
 country_event = {
-	id = wsv_firstbalkan.100
-	title = wsv_firstbalkan.100.t
-	desc = wsv_firstbalkan.100.d
+	id = wsv_firstbalkan.11
+	title = wsv_firstbalkan.11.t
+	desc = wsv_firstbalkan.11.d
 
 	is_triggered_only = yes
 	
 	option = {
-		name = wsv_firstbalkan.100.a
+		name = wsv_firstbalkan.11.a
 		add_to_array = {
 			array = ROOT.claimed_balkan_states
 			value = event_target:league_target_state.id
@@ -119,15 +274,15 @@ country_event = {
 
 # Country claims x state which we also want
 country_event = {
-	id = wsv_firstbalkan.5
-	title = wsv_firstbalkan.5.t
-	desc = wsv_firstbalkan.5.d
+	id = wsv_firstbalkan.12
+	title = wsv_firstbalkan.12.t
+	desc = wsv_firstbalkan.12.d
 
 	is_triggered_only = yes
 
 	# No that land is ours
 	option = {
-		name = wsv_firstbalkan.5.a
+		name = wsv_firstbalkan.12.a
 		trigger = {
 			OR = {
 				AND = {
@@ -140,11 +295,11 @@ country_event = {
 				}
 				AND = {
 					tag = GRE
-					event_target:league_target_state = { state=803 }  # north epirus
+					event_target:league_target_state = { OR = { state=803 state=855 } }  # north epirus & thessalonika
 				}
 				AND = {
 					tag = BUL
-					event_target:league_target_state = { OR = { state=184  state=756  state=757  state=759 } }  # thrace & vadar macedonia
+					event_target:league_target_state = { OR = { state=871 state=184  state=756  state=757  state=759 } }  # thrace & vadar/pirin macedonia
 				}
 			}
 		}
@@ -153,19 +308,19 @@ country_event = {
 			array = ROOT.claimed_balkan_states
 			value = event_target:league_target_state.id
 		}
-		FROM = { country_event = { id = wsv_firstbalkan.7  days = 2   random_hours = 110  } }
+		FROM = { country_event = { id = wsv_firstbalkan.14  days = 2   random_hours = 110  } }
 		ai_chance = { factor = 100 }
 	}
 
 	# Fine let them have it
 	option = {
-		name = wsv_firstbalkan.5.b
+		name = wsv_firstbalkan.12.b
 		FROM = { 
 			add_to_array = {
 				array = THIS.claimed_balkan_states
 				value = event_target:league_target_state.id
 			}
-			country_event = { id = wsv_firstbalkan.6  days = 2   random_hours = 110  } 
+			country_event = { id = wsv_firstbalkan.13  days = 2   random_hours = 110  } 
 		}
 		ai_chance = { factor = 0 }
 	}
@@ -173,27 +328,27 @@ country_event = {
 
 # Other country agrees
 country_event = {
-	id = wsv_firstbalkan.6
-	title = wsv_firstbalkan.6.t
-	desc = wsv_firstbalkan.6.d
+	id = wsv_firstbalkan.13
+	title = wsv_firstbalkan.13.t
+	desc = wsv_firstbalkan.13.d
 
 	is_triggered_only = yes
 	
 	option = {
-		name = wsv_firstbalkan.6.a
+		name = wsv_firstbalkan.13.a
 	}
 }
 
 # Other country insists land is theirs
 country_event = {
-	id = wsv_firstbalkan.7
-	title = wsv_firstbalkan.7.t
-	desc = wsv_firstbalkan.7.d
+	id = wsv_firstbalkan.14
+	title = wsv_firstbalkan.14.t
+	desc = wsv_firstbalkan.14.d
 
 	is_triggered_only = yes
 	
 	option = {
-		name = wsv_firstbalkan.7.a
+		name = wsv_firstbalkan.14.a
 		add_political_power = 10 # give back a little PP for losing state
 	}
 }
@@ -201,9 +356,9 @@ country_event = {
 
 # Country gets notif that has to withdraw from talks
 country_event = {
-	id = wsv_firstbalkan.8
-	title = wsv_firstbalkan.8.t
-	desc = wsv_firstbalkan.8.d
+	id = wsv_firstbalkan.15
+	title = wsv_firstbalkan.15.t
+	desc = wsv_firstbalkan.15.d
 
 	trigger ={
 		has_country_flag = balkan_league_member
@@ -214,85 +369,93 @@ country_event = {
 	mean_time_to_happen = { days=0 }
 	
 	option = {
-		name = wsv_firstbalkan.8.a
+		name = wsv_firstbalkan.15.a
 		activate_decision = league_withdraw_from_conference
 	}
 }
 
 # Rest of members told that x country left talks
 country_event = {
-	id = wsv_firstbalkan.9
-	title = wsv_firstbalkan.9.t
-	desc = wsv_firstbalkan.9.d
+	id = wsv_firstbalkan.16
+	title = wsv_firstbalkan.16.t
+	desc = wsv_firstbalkan.16.d
 
 	is_triggered_only = yes
 	
 	option = {
-		name = wsv_firstbalkan.9.a
+		name = wsv_firstbalkan.16.a
 	}
 }
 
 
 # Negotiations ended -- formation of the Balkan League
 country_event = {
-	id = wsv_firstbalkan.10
-	title = wsv_firstbalkan.10.t
-	desc = wsv_firstbalkan.10.d
+	id = wsv_firstbalkan.17
+	title = wsv_firstbalkan.17.t
+	desc = wsv_firstbalkan.17.d
 
 	is_triggered_only = yes
 
 	immediate = {
 		set_global_flag = balkan_league_territorial_negotiations_over
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_global_flag = balkan_league_formed } }
+				set_global_flag = balkan_league_formed
+				# serbia create faction and add members
+				SER = { create_faction = "Balkan League" }
+				every_country = {
+					limit = {
+						has_country_flag = balkan_league_member
+						is_in_faction = no    
+					}
+					save_event_target_as = country_joining_league
+					SER = { add_to_faction = event_target:country_joining_league }  
+				}
+				# notify other parties
+				TUR = { country_event = wsv_firstbalkan.18 }
+				AUH = { country_event = wsv_firstbalkan.18 }
+				RUS = { country_event = wsv_firstbalkan.18 }
+			}
+		}
 	}
 	
 	option = {
-		name = wsv_firstbalkan.10.a
-		if = {
-			limit = { SER = { is_in_faction = no  has_war = no } }
-			create_faction = "Balkan League"
-			every_country = {
-				limit = { NOT={ tag=SER }  is_in_faction=no   has_country_flag=balkan_league_member }
-				SER = { add_to_faction = THIS }   # root is the current country
-			}
-		}
-		hidden_effect = {
-			TUR = { country_event = wsv_firstbalkan.11 }
-			AUH = { country_event = wsv_firstbalkan.11 }
-			RUS = { country_event = wsv_firstbalkan.11 }
-		}
+		name = wsv_firstbalkan.17.a
 	}
 }
 
 
 # Turkey / AUH / Russia informed of Balkan League creation
 country_event = {
-	id = wsv_firstbalkan.11
-	title = wsv_firstbalkan.11.t
-	desc = wsv_firstbalkan.11.d
+	id = wsv_firstbalkan.18
+	title = wsv_firstbalkan.18.t
+	desc = wsv_firstbalkan.18.d
 
 	is_triggered_only = yes
 	
 	option = {
 		trigger = { NOT = {  tag = RUS } }
-		name = wsv_firstbalkan.11.a
+		name = wsv_firstbalkan.18.a
 	}
 
 	option = {
 		trigger= { tag = RUS }
-		name = wsv_firstbalkan.11.b
+		name = wsv_firstbalkan.18.b
 	}
 }
 
 
-# ####################################################################
-# # -- First Balkan War
-# ####################################################################
+### ======================================================================================================== ###
+###	---------------------------------------- FIRST BALKAN WAR ---------------------------------------------  ###
+### ======================================================================================================== ###
+
 
 # First Balkan War Starts
 news_event = {
-	id = wsv_firstbalkan.12
-	title = wsv_firstbalkan.12.t
-	desc = wsv_firstbalkan.12.d
+	id = wsv_firstbalkan.25
+	title = wsv_firstbalkan.25.t
+	desc = wsv_firstbalkan.25.d
 	picture = EVENT_hoi4tgw_first_balkan_war
 
 	major = yes
@@ -303,7 +466,7 @@ news_event = {
 		hidden_effect = {
 			SER = {
 				add_named_threat = {
-					threat = 5
+					threat = 8
 					name = "First Balkan War"
 				}
 				declare_war_on = {
@@ -313,7 +476,7 @@ news_event = {
 			}
 			every_country = {
 				limit = { has_country_flag=balkan_league_member  is_in_faction_with=SER }
-				add_ideas = generic_liberation_of_balkans
+				#add_ideas = generic_liberation_of_balkans
 				add_to_war = {
 					targeted_alliance = SER
 					enemy = TUR
@@ -323,231 +486,80 @@ news_event = {
 	}
 	
 	option = {
-		name = wsv_firstbalkan.12.a
+		name = wsv_firstbalkan.25.a
 	}
 }
 
 
-# Turkey (notif) informed that war is lost
+
+# Outcome 1a - Ottomans immediately surrenders if Constantinople is lost / losing horribly
 country_event = {
-	id = wsv_firstbalkan.13
-	title = wsv_firstbalkan.13.t
-	desc = wsv_firstbalkan.13.d
+	id = wsv_firstbalkan.26
+	title = wsv_firstbalkan.26.t
+	desc = wsv_firstbalkan.26.d
 
 	trigger = {
-		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
-		NOT = { has_global_flag = firstbalkan_war_over  }
+		tag = TUR
 		has_war_with = SER
+		has_global_flag = firstbalkan_war
+		NOT = { has_global_flag = firstbalkan_war_over  }
 		OR = {
-			surrender_progress > 0.35
+			surrender_progress > 0.55
 			NOT = { controls_state = 341 }  # if we lose Istnabul its joeover
-			AND = {
-				NOT = { controls_state = 756 } # eastern thrace
-				NOT = { controls_state = 788 } # rumelia
-				NOT = { controls_state = 184 } # thrace
-				NOT = { controls_state = 855 } # thessalonika
-				NOT = { controls_state = 759 } # vardar macedonia
-				NOT = { controls_state = 106 } # north macedonia
-				NOT = { controls_state = 731 } # central macedonia
-				NOT = { controls_state = 867 } # aegean macedonia
-				NOT = { controls_state = 758 } # central epirus
-				NOT = { controls_state = 44  } # albania
-				NOT = { controls_state = 760 } # kosovo
-				NOT = { controls_state = 761 } # plav
-				NOT = { controls_state = 866 } # scutari
-			}
 		}
 	}
+
 	fire_only_once = yes
 	
 	option = {
-		name = wsv_firstbalkan.13.a
-		SER = { 
-			country_event = { id = wsv_firstbalkan.14  days = 3 }
-		}
+		name = wsv_firstbalkan.26.a
+		SER = { country_event = { id = wsv_firstbalkan.30  days = 3 } }
 	}
 }
+
+
+
+# Outcome 1b - Ottomans request Serbia for peace after CUP failed to win back territory (mission triggered)
+country_event = {
+	id = wsv_firstbalkan.27
+	title = wsv_firstbalkan.27.t
+	desc = wsv_firstbalkan.27.d
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = wsv_firstbalkan.27.a
+		SER = { country_event = { id = wsv_firstbalkan.30  days = 3 } }
+	}
+}
+
+
+
+### ------------------ Balkan League Victory ------------------ ###
 
 
 # Serbia informed Turkey wants peace
 country_event = {
-	id = wsv_firstbalkan.14
-	title = wsv_firstbalkan.14.t
-	desc = wsv_firstbalkan.14.d
+	id = wsv_firstbalkan.30
+	title = wsv_firstbalkan.30.t
+	desc = wsv_firstbalkan.30.d
 
 	is_triggered_only = yes
 	
 	option = {
-		name = wsv_firstbalkan.14.a
+		name = wsv_firstbalkan.30.a
 		set_global_flag = firstbalkan_outcome_balkan_league_victory
-		news_event = { id = wsv_firstbalkan.18  days = 1 }
+		news_event = { id = wsv_firstbalkan.31  days = 3 }
 	}
 }
 
-
-# Alt-hist -- Great Powers intervene in First Balkan (Balkan League losing)
-country_event = {
-	id = wsv_firstbalkan.15
-	title = wsv_firstbalkan.15.t
-	desc = wsv_firstbalkan.15.d
-
-	trigger = {
-		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
-		NOT = { has_global_flag = firstbalkan_war_over  }
-		NOT  = { has_global_flag = firstbalkan_great_powers_intervene }
-		OR = {
-			tag = RUS
-			tag = FRA
-			tag = ENG
-			tag = GER
-		}
-		# Balkan League losing (1 member near capitulation, another getting pushed back (or war has gone on long ))
-		any_country = {
-			OR = { tag=SER  tag=BUL  tag=GRE }
-			has_country_flag = balkan_league_member 
-			surrender_progress > 0.5
-			OR = {
-				any_country = {
-					AND = {
-						OR = { tag=SER  tag=BUL  tag=GRE }
-						NOT = { tag = PREV }
-						has_country_flag = balkan_league_member 
-						surrender_progress > 0.5
-					}
-				}
-				TUR = { war_length_with = { tag = SER   months > 12 } }
-			}
-		}
-	}
-	mean_time_to_happen = { days=0 }
-	
-	option = {
-		name = wsv_firstbalkan.15.a
-		if = {
-			limit = { NOT = { has_global_flag = firstbalkan_great_powers_intervene } }
-			set_global_flag = firstbalkan_great_powers_intervene
-			set_global_flag = firstbalkan_outcome_ottoman_victory
-			hidden_effect = {
-				every_country = {
-					limit = { OR = { tag=TUR  has_country_flag=balkan_league_memeber } }
-					country_event = wsv_firstbalkan.17
-				}
-				news_event = { id = wsv_firstbalkan.18  days = 3 }
-			}
-		}
-	}
-}
-
-
-# Alt-hist -- Great Powers intervene in First Balkan (stalemate)
-country_event = {
-	id = wsv_firstbalkan.16
-	title = wsv_firstbalkan.16.t
-	desc = wsv_firstbalkan.16.d
-
-	trigger = {
-		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
-		NOT = { has_global_flag = firstbalkan_war_over  }
-		NOT  = { has_global_flag = firstbalkan_great_powers_intervene }
-		OR = {
-			tag = RUS
-			tag = FRA
-			tag = ENG
-			tag = GER
-		}
-		# War over a year and a half and Turkey controls Thessalonika, no one in the league is losing
-		TUR = { controls_state = 855 }
-		TUR = { war_length_with = { tag = SER   months > 12 } }
-	}
-	mean_time_to_happen = { days=0 }
-	
-	option = {
-		name = wsv_firstbalkan.16.a
-		if = {
-			limit = { NOT = { has_global_flag = firstbalkan_great_powers_intervene } }
-			set_global_flag = firstbalkan_great_powers_intervene
-			set_global_flag = firstbalkan_outcome_stalemate
-			hidden_effect = {
-				every_country = {
-					limit = { OR = { tag=TUR  has_country_flag=balkan_league_memeber } }
-					country_event = wsv_firstbalkan.17
-				}
-				news_event = { id = wsv_firstbalkan.18  days = 3 }
-			}
-		}
-	}
-}
-
-
-# Turkey / Balkan League informed of Great Power intervention to stop war
-country_event = {
-	id = wsv_firstbalkan.17
-	title = wsv_firstbalkan.17.t
-	desc = wsv_firstbalkan.17.d
-
-	is_triggered_only = yes
-	fire_only_once = yes
-	
-	option = {
-		name = wsv_firstbalkan.17.a
-	}
-}
-
-
-# Ceasefire in First Balkan War 
-news_event = {
-	id = wsv_firstbalkan.18
-	title = wsv_firstbalkan.18.t
-	desc = wsv_firstbalkan.18.d
-	picture = EVENT_hoi4tgw_first_balkan_war_end
-
-	major = yes
-	is_triggered_only = yes
-
-	immediate = {
-		set_global_flag = firstbalkan_war_ceasefire
-		hidden_effect = {
-			# Balkan Leagues occupy controlled territory if war wasnt a loss
-			if = {
-				limit = { NOT = { has_global_flag = firstbalkan_outcome_ottoman_victory } }
-				every_country = {
-					limit = { has_country_flag=balkan_league_member }
-					every_controlled_state = {
-						limit = {
-							OR = { region=24  region=25  region=26 }
-							NOT = { state=341 }  # do not occupy Constantinople
-							is_owned_by=TUR
-						}
-						transfer_state_to = PREV
-						set_state_flag = firstbalkan_occupied_ottoman_state
-					}
-				}
-			}
-			# peace out
-			every_country = {
-				limit = {
-					has_war_with = TUR
-					has_country_flag = balkan_league_member
-					is_faction_leader = yes
-				}
-				white_peace = TUR			# peaces out everyone
-			}
-		}
-	}
-	
-	option = {
-		name = wsv_firstbalkan.18.a
-	}
-}
 
 # End of First Balkan War (Balkan League victory)
 news_event = {
-	id = wsv_firstbalkan.20
-	title = wsv_firstbalkan.20.t
-	desc = wsv_firstbalkan.20.d
+	id = wsv_firstbalkan.31
+	title = wsv_firstbalkan.31.t
+	desc = wsv_firstbalkan.31.d
 	picture = EVENT_hoi4tgw_first_balkan_war_end
 
 	major = yes
@@ -556,13 +568,15 @@ news_event = {
 	immediate = {
 		set_global_flag = firstbalkan_war_over
 		hidden_effect = {
-			# transfer back occupied territory to Turkey first
-			every_state = {
-				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
-				clr_state_flag = firstbalkan_occupied_ottoman_state
-				transfer_state_to = TUR
+			## peace
+			every_country = {
+				limit = { 
+					has_country_flag = balkan_league_member
+					is_faction_leader = yes
+				}
+				white_peace = TUR
 			}
-
+			
 			## transfer states to Balkan victors
 			every_country = {
 			 	limit = { has_country_flag = balkan_league_member }
@@ -580,15 +594,8 @@ news_event = {
 
 			## form Albania if Serbia agreed to withdraw
 			if = {
-				limit = { SER = {  has_country_flag = SER_dropped_claims_on_albania } }
-				ALB = {
-					transfer_state = 44
-					transfer_state = 803
-					transfer_state = 866
-					AUH = { give_guarantee = ALB }
-					ITA = { give_guarantee = ALB }
-					set_global_flag = birth_of_albania
-				}
+				limit = { has_global_flag = serbia_dropped_claims_on_albania }
+				create_albania_effect = yes
 				# serbia takes Vadar Macedonia in response
 				SER = {
 					transfer_state = 759
@@ -612,868 +619,313 @@ news_event = {
 	}
 	
 	option = {
-		name = wsv_firstbalkan.20.a
+		name = wsv_firstbalkan.31.a
 	}
 }
 
 
-# End of First Balkan War (Turkish victory)
-news_event = {
-	id = wsv_firstbalkan.21
-	title = wsv_firstbalkan.21.t
-	desc = wsv_firstbalkan.21.d
-	picture = EVENT_hoi4tgw_first_balkan_war_end
 
-	major = yes
-	is_triggered_only = yes
+### TODO --- Russian intevention  --- ##
 
-	immediate = {
-		set_global_flag = firstbalkan_war_over
-		hidden_effect = {
-			TUR= {
-				add_timed_idea = {
-					idea = TUR_victory_in_firstbalkan_war
-					days = 1080
-				}
-			}
-			# clear flags
-			every_state = {
-				limit = { has_state_flag = state_claimed_by_balkan_member }
-				clr_state_flag = state_claimed_by_balkan_member
-			}
-			# dismantle balkan league
-			every_country = {
-				limit = { has_country_flag = balkan_league_member }
-				remove_ideas = generic_liberation_of_balkans
-				add_timed_idea = {
-					idea = generic_balkan_war_league_lost_idea
-					days = 1080 
-				}
-				diplomatic_relation = {
-					country = TUR
-					relation = non_aggression_pact
-					active = yes
-				}
-				leave_balkan_league_effect = yes
-			}
-			random_country = {
-				limit = {
-					has_country_flag = balkan_league_member
-					is_faction_leader = yes
-				}
-				dismantle_faction = yes
-			}
-		}
-	}
+
+
+# ### -------- Turkish Victory ---------- ###
+
+
+# # Alt-hist -- Great Powers intervene in First Balkan (Balkan League losing)
+# country_event = {
+# 	id = wsv_firstbalkan.35
+# 	title = wsv_firstbalkan.35.t
+# 	desc = wsv_firstbalkan.35.d
+
+# 	trigger = {
+# 		has_global_flag = firstbalkan_war
+# 		NOT = { has_global_flag = firstbalkan_war_over  }
+# 		NOT  = { has_global_flag = firstbalkan_great_powers_intervene }
+# 		OR = {
+# 			tag = RUS
+# 			tag = FRA
+# 			tag = ENG
+# 			tag = GER
+# 		}
+# 		# Balkan League losing (1 member near capitulation, another getting pushed back (or war has gone on long ))
+# 		any_country = {
+# 			OR = { tag=SER  tag=BUL  tag=GRE }
+# 			has_country_flag = balkan_league_member 
+# 			surrender_progress > 0.5
+# 			OR = {
+# 				any_country = {
+# 					AND = {
+# 						OR = { tag=SER  tag=BUL  tag=GRE }
+# 						NOT = { tag = PREV }
+# 						has_country_flag = balkan_league_member 
+# 						surrender_progress > 0.5
+# 					}
+# 				}
+# 				TUR = { war_length_with = { tag = SER   months > 12 } }
+# 			}
+# 		}
+# 	}
+# 	mean_time_to_happen = { days=0 }
 	
-	option = {
-		name = wsv_firstbalkan.21.a
-	}
-}
+# 	option = {
+# 		name = wsv_firstbalkan.35.a
+# 		if = {
+# 			limit = { NOT = { has_global_flag = firstbalkan_great_powers_intervene } }
+# 			set_global_flag = firstbalkan_great_powers_intervene
+# 			set_global_flag = firstbalkan_outcome_ottoman_victory
+# 			hidden_effect = {
+# 				every_country = {
+# 					limit = { OR = { tag=TUR  has_country_flag=balkan_league_memeber } }
+# 					country_event = wsv_firstbalkan.36
+# 				}
+# 				news_event = { id = wsv_firstbalkan.31  days = 3 }
+# 			}
+# 		}
+# 	}
+# }
 
 
-# End of First Balkan War (Stalemate)
-news_event = {
-	id = wsv_firstbalkan.22
-	title = wsv_firstbalkan.22.t
-	desc = wsv_firstbalkan.22.d
-	picture = EVENT_hoi4tgw_first_balkan_war_end
+# # Turkey / Balkan League countries informed of Great Power intervention to stop war
+# country_event = {
+# 	id = wsv_firstbalkan.36
+# 	title = wsv_firstbalkan.36.t
+# 	desc = wsv_firstbalkan.36.d
 
-	major = yes
-	is_triggered_only = yes
+# 	is_triggered_only = yes
+# 	fire_only_once = yes
+	
+# 	option = {
+# 		name = wsv_firstbalkan.36.a
+# 	}
+# }
 
-	immediate = {
-		set_global_flag = firstbalkan_war_over
-		hidden_effect = {
-			## transfer some states to Balkan victors (cores and occupied macedonia)
-			every_country = {
-			 	limit = { has_country_flag = balkan_league_member }
-				for_each_scope_loop = {
-					array = THIS.claimed_balkan_states
-					if = {
-						limit = { 
-							OR = { 
-								is_core_of=PREV 
-								AND = {
-									has_state_flag = firstbalkan_occupied_ottoman_state
-									OR = { state=206  state=759  state=731  state=761 }
-								}
-							} 
-						}  
-						transfer_state_to = PREV  # the country this loop was running in
-						clr_country_flag = firstbalkan_occupied_ottoman_state
-					}
-				}
-			}
-			every_state = {
-				limit = { has_state_flag = state_claimed_by_balkan_member }
-				clr_state_flag = state_claimed_by_balkan_member
-			}
-			every_state = {
-				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
-				clr_state_flag = firstbalkan_occupied_ottoman_state
-				transfer_state_to = TUR
-			}
+
+# # End of First Balkan War (Turkish victory)
+# news_event = {
+# 	id = wsv_firstbalkan.37
+# 	title = wsv_firstbalkan.37.t
+# 	desc = wsv_firstbalkan.37.d
+# 	picture = EVENT_hoi4tgw_first_balkan_war_end
+
+# 	major = yes
+# 	is_triggered_only = yes
+
+# 	immediate = {
+# 		set_global_flag = firstbalkan_war_over
+# 		hidden_effect = {
+# 			TUR= {
+# 				add_timed_idea = {
+# 					idea = TUR_victory_in_firstbalkan_war
+# 					days = 1080
+# 				}
+# 			}
+# 			# clear flags
+# 			every_state = {
+# 				limit = { has_state_flag = state_claimed_by_balkan_member }
+# 				clr_state_flag = state_claimed_by_balkan_member
+# 			}
+# 			# dismantle balkan league
+# 			every_country = {
+# 				limit = { has_country_flag = balkan_league_member }
+# 				remove_ideas = generic_liberation_of_balkans
+# 				add_timed_idea = {
+# 					idea = generic_balkan_war_league_lost_idea
+# 					days = 1080 
+# 				}
+# 				diplomatic_relation = {
+# 					country = TUR
+# 					relation = non_aggression_pact
+# 					active = yes
+# 				}
+# 				leave_balkan_league_effect = yes
+# 			}
+# 			random_country = {
+# 				limit = {
+# 					has_country_flag = balkan_league_member
+# 					is_faction_leader = yes
+# 				}
+# 				dismantle_faction = yes
+# 			}
+# 		}
+# 	}
+	
+# 	option = {
+# 		name = wsv_firstbalkan.37.a
+# 	}
+# }
+
+
+
+# ### -------- Balkan War Stalemate ---------- ###
+
+# # Alt-hist -- Great Powers intervene in First Balkan (stalemate)
+# country_event = {
+# 	id = wsv_firstbalkan.40
+# 	title = wsv_firstbalkan.40.t
+# 	desc = wsv_firstbalkan.40.d
+
+# 	trigger = {
+# 		has_global_flag = firstbalkan_war
+# 		NOT = { has_global_flag = firstbalkan_war_ceasefire  }
+# 		NOT = { has_global_flag = firstbalkan_war_over  }
+# 		NOT  = { has_global_flag = firstbalkan_great_powers_intervene }
+# 		OR = {
+# 			tag = RUS
+# 			tag = FRA
+# 			tag = ENG
+# 			tag = GER
+# 		}
+# 		# War over a year and a half and Turkey controls Thessalonika, no one in the league is losing
+# 		TUR = { controls_state = 855 }
+# 		TUR = { war_length_with = { tag = SER   months > 12 } }
+# 	}
+# 	mean_time_to_happen = { days=0 }
+	
+# 	option = {
+# 		name = wsv_firstbalkan.40.a
+# 		if = {
+# 			limit = { NOT = { has_global_flag = firstbalkan_great_powers_intervene } }
+# 			set_global_flag = firstbalkan_great_powers_intervene
+# 			set_global_flag = firstbalkan_outcome_stalemate
+# 			hidden_effect = {
+# 				every_country = {
+# 					limit = { OR = { tag=TUR  has_country_flag=balkan_league_memeber } }
+# 					country_event = wsv_firstbalkan.36
+# 				}
+# 				news_event = { id = wsv_firstbalkan.31  days = 3 }
+# 			}
+# 		}
+# 	}
+# }
+
+
+# # End of First Balkan War (Stalemate)
+# news_event = {
+# 	id = wsv_firstbalkan.41
+# 	title = wsv_firstbalkan.41.t
+# 	desc = wsv_firstbalkan.41.d
+# 	picture = EVENT_hoi4tgw_first_balkan_war_end
+
+# 	major = yes
+# 	is_triggered_only = yes
+
+# 	immediate = {
+# 		set_global_flag = firstbalkan_war_over
+# 		hidden_effect = {
+# 			## transfer some states to Balkan victors (cores and occupied macedonia)
+# 			every_country = {
+# 			 	limit = { has_country_flag = balkan_league_member }
+# 				for_each_scope_loop = {
+# 					array = THIS.claimed_balkan_states
+# 					if = {
+# 						limit = { 
+# 							OR = { 
+# 								is_core_of=PREV 
+# 								AND = {
+# 									has_state_flag = firstbalkan_occupied_ottoman_state
+# 									OR = { state=206  state=759  state=731  state=761 }
+# 								}
+# 							} 
+# 						}  
+# 						transfer_state_to = PREV  # the country this loop was running in
+# 						clr_country_flag = firstbalkan_occupied_ottoman_state
+# 					}
+# 				}
+# 			}
+# 			every_state = {
+# 				limit = { has_state_flag = state_claimed_by_balkan_member }
+# 				clr_state_flag = state_claimed_by_balkan_member
+# 			}
+# 			every_state = {
+# 				limit = { has_state_flag = firstbalkan_occupied_ottoman_state }
+# 				clr_state_flag = firstbalkan_occupied_ottoman_state
+# 				transfer_state_to = TUR
+# 			}
 			
-			## Great Powers push for an independent Albania
-			ALB = {
-				transfer_state = 44
-				transfer_state = 803
-				transfer_state = 866
-				AUH = { give_guarantee = ALB }
-				ITA = { give_guarantee = ALB }
-				set_global_flag = birth_of_albania
-			}
+# 			## Great Powers push for an independent Albania
+# 			ALB = {
+# 				transfer_state = 44
+# 				transfer_state = 803
+# 				transfer_state = 866
+# 				AUH = { give_guarantee = ALB }
+# 				ITA = { give_guarantee = ALB }
+# 				set_global_flag = birth_of_albania
+# 			}
 
-			# last step - dismantle faction
-			every_country = {
-				limit = { has_country_flag = balkan_league_member }
-				remove_ideas = generic_liberation_of_balkans
-				diplomatic_relation = {
-					country = TUR
-					relation = non_aggression_pact
-					active = yes
-				}
-				leave_balkan_league_effect = yes
-			}
-			random_country = {
-				limit = {
-					has_country_flag = balkan_league_member
-					is_faction_leader = yes
-				}
-				dismantle_faction = yes
-			}
-		}
-	}
+# 			# last step - dismantle faction
+# 			every_country = {
+# 				limit = { has_country_flag = balkan_league_member }
+# 				remove_ideas = generic_liberation_of_balkans
+# 				diplomatic_relation = {
+# 					country = TUR
+# 					relation = non_aggression_pact
+# 					active = yes
+# 				}
+# 				leave_balkan_league_effect = yes
+# 			}
+# 			random_country = {
+# 				limit = {
+# 					has_country_flag = balkan_league_member
+# 					is_faction_leader = yes
+# 				}
+# 				dismantle_faction = yes
+# 			}
+# 		}
+# 	}
 	
-	option = {
-		name = wsv_firstbalkan.22.a
-	}
-}
+# 	option = {
+# 		name = wsv_firstbalkan.41.a
+# 	}
+# }
 
 
-#####################################################################
-# -- Albania War Scare
-#####################################################################
+###########
 
-## Serbia occupies Albania (border fixing event)
-country_event = {
-	id = wsv_firstbalkan.25
-	title = wsv_firstbalkan.25.t
-	desc = wsv_firstbalkan.25.d
 
-	trigger = {
-		tag = SER
-		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = firstbalkan_war_over }
-		has_war_with = TUR
-		any_country = {
-			is_in_faction_with = SER 
-			has_full_control_of_state = 44
-		}
-	}
 
-	mean_time_to_happen = { days=0 }
+# # Ceasefire in First Balkan War 
+# news_event = {
+# 	id = wsv_firstbalkan.31
+# 	title = wsv_firstbalkan.31.t
+# 	desc = wsv_firstbalkan.31.d
+# 	picture = EVENT_hoi4tgw_first_balkan_war_end
+
+# 	major = yes
+# 	is_triggered_only = yes
+
+# 	immediate = {
+# 		set_global_flag = firstbalkan_war_ceasefire
+# 		hidden_effect = {
+# 			# Balkan Leagues occupy controlled territory if war wasnt a loss
+# 			if = {
+# 				limit = { NOT = { has_global_flag = firstbalkan_outcome_ottoman_victory } }
+# 				every_country = {
+# 					limit = { has_country_flag=balkan_league_member }
+# 					every_controlled_state = {
+# 						limit = {
+# 							OR = { region=24  region=25  region=26 }
+# 							NOT = { state=341 }  # do not occupy Constantinople
+# 							is_owned_by=TUR
+# 						}
+# 						transfer_state_to = PREV
+# 						set_state_flag = firstbalkan_occupied_ottoman_state
+# 					}
+# 				}
+# 			}
+# 			# peace out
+# 			every_country = {
+# 				limit = {
+# 					has_war_with = TUR
+# 					has_country_flag = balkan_league_member
+# 					is_faction_leader = yes
+# 				}
+# 				white_peace = TUR			# peaces out everyone
+# 			}
+# 		}
+# 	}
 	
-	option = {
-		name = wsv_firstbalkan.25.a
-		44 = { set_state_controller_to = SER }
-		if = {
-			limit = { 
-				MNT = { is_in_faction_with = SER } 
-				any_country = {
-					is_in_faction_with = SER 
-					has_full_control_of_state = 866
-				}
-			}
-			866 = { set_state_controller_to = MNT }
-		}
-	}
-}
-
-
-## Austria gets notif of Serbian encroachment in Albania
-country_event = {
-	id = wsv_firstbalkan.26
-	title = wsv_firstbalkan.26.t
-	desc = wsv_firstbalkan.26.d
-
-	fire_only_once = yes
-
-	trigger = {
-		tag = AUH
-		has_war = no
-		has_global_flag = firstbalkan_war
-		NOT = { has_global_flag = AUH_opposes_serbian_occupation_of_albania }
-		SER = { 
-			controls_state = 44 
-			NOT = { owns_state = 44 }
-			NOT = { is_guaranteed_by = AUH }
-			NOT = { is_in_faction_with = AUH }
-		}
-	}
-	mean_time_to_happen = { days = 3 }
-	
-	# Send warning to serbia
-	option = {
-		name = wsv_firstbalkan.26.a
-		set_global_flag = AUH_opposes_serbian_occupation_of_albania
-		SER = {
-			country_event = { id = wsv_firstbalkan.27  days = 1 }
-		}
-		hidden_effect = { 
-			# entente notifs
-			if = {
-				limit = { RUS = { exists=yes  has_war=no  NOT={is_in_faction_with=AUH} } }
-				country_event = { id = wsv_firstbalkan.28  days = 3 }
-				if = {
-					limit = { FRA = { exists=yes  has_war=no  is_in_faction_with=RUS } }
-					country_event = { id = wsv_firstbalkan.28  days = 3 }
-					if = {
-						limit = { ENG = { exists=yes  has_war=no  FRA={is_guaranteed_by=ENG} } }
-						country_event = { id = wsv_firstbalkan.28  days = 3 }
-					}
-				}
-				# global news event -- if at least someone responded
-				news_event = { id = wsv_firstbalkan.29  days = 7 } 
-			}
-			# germany notifs
-			if = {
-				limit = { GER = { exists=yes  has_war=no  is_in_faction_with=AUH } }
-				country_event = { id = wsv_firstbalkan.28  days = 3 }
-			}
-		}
-	}
-}
-
-
-## Serbia warned by AUH to leave Serbia
-country_event = {
-	id = wsv_firstbalkan.27
-	title = wsv_firstbalkan.27.t
-	desc = wsv_firstbalkan.27.d
-
-	fire_only_once = yes
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.27.a
-		add_war_support = 0.05
-	}
-}
-
-
-## Other Great Powers warned about Austria's moves
-country_event = {
-	id = wsv_firstbalkan.28
-	title = wsv_firstbalkan.28.t
-	desc = wsv_firstbalkan.28.d
-
-	is_triggered_only = yes
-	
-	# Act resolutely
-	option = {
-		name = wsv_firstbalkan.28.a
-	}
-}
-
-
-## War Scare Over Albania (end of 1912 OTL)
-news_event = {
-	id = wsv_firstbalkan.29
-	title = wsv_firstbalkan.29.t
-	desc = wsv_firstbalkan.29.d
-	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
-
-	major = yes
-	is_triggered_only = yes
-
-	immediate = {
-		set_global_flag = albania_war_scare
-		hidden_effect = {
-			if = {
-				limit = { tag = AUH }
-				add_named_threat = {
-					threat = 5
-					name = "War Scare Over Albania"
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = wsv_firstbalkan.29.a
-	}
-}
-
-
-
-#####################################################################
-# -- Decision on Albania (during First Balkan peace negotiations)
-#####################################################################
-
-## Britain / France / Germany -- should we restrain or support our ally?
-country_event = {
-	id = wsv_firstbalkan.40
-	title = wsv_firstbalkan.40.t
-	desc = wsv_firstbalkan.40.d
-
-	trigger = {
-		OR = {
-			AND = { tag = FRA   is_in_faction_with = RUS }
-			AND = { tag = ENG
-				FRA = {
-					NOT = { has_war_with = ENG }
-					is_guaranteed_by = ENG
-					is_in_faction_with = RUS
-				}
-			}
-			AND = { tag = GER   is_in_faction_with = AUH }
-		}
-		has_global_flag = firstbalkan_war_ceasefire
-		has_global_flag = albania_war_scare
-		NOT = { has_country_flag = took_decision_on_albania_question }
-		has_war = no
-	}
-	mean_time_to_happen = { days = 4 }
-
-	immediate = {
-		set_country_flag = took_decision_on_albania_question
-	}
-	
-	# Restrain ally
-	option = {
-		name = wsv_firstbalkan.40.a
-		set_country_flag = albania_question_urged_restraint
-		if = {
-			limit = { OR = { tag = ENG  tag = FRA } }
-			RUS = { country_event = { id = wsv_firstbalkan.41  days = 2 } }
-		}
-		if = {
-			limit = { tag = GER }
-			AUH = { country_event = { id = wsv_firstbalkan.41  days = 2 } }
-		}
-		ai_chance = { factor = 100 }
-	}
-
-	# Encourrage ally
-	option = {
-		name = wsv_firstbalkan.40.a
-		set_country_flag = albania_question_encouraged_aggression
-		if = {
-			limit = { OR = { tag = ENG  tag = FRA } }
-			RUS = { country_event = { id = wsv_firstbalkan.42  days = 2 } }
-		}
-		if = {
-			limit = { tag = GER }
-			AUH = { country_event = { id = wsv_firstbalkan.42  days = 2 } }
-		}
-		custom_effect_tooltip = may_lead_to_a_diplomatic_crisis_tt
-		ai_chance = { 
-			factor = 20
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
-	}
-}
-
-
-## Ally gets notif of restraint
-country_event = {
-	id = wsv_firstbalkan.41
-	title = wsv_firstbalkan.41.t
-	desc = wsv_firstbalkan.41.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.41.a
-	}
-}
-
-
-## Ally gets notif of encouragement
-country_event = {
-	id = wsv_firstbalkan.42
-	title = wsv_firstbalkan.42.t
-	desc = wsv_firstbalkan.42.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.42.a
-	}
-}
-
-
-## Russia has to take decision
-country_event = {
-	id = wsv_firstbalkan.43
-	title = wsv_firstbalkan.43.t
-	desc = wsv_firstbalkan.43.d
-
-	mean_time_to_happen = { days = 4 }
-
-	trigger = {
-		tag = RUS
-		has_global_flag = firstbalkan_war_ceasefire
-		has_global_flag = albania_war_scare
-		NOT = { has_country_flag = took_decision_on_albania_question }
-		has_war = no
-		# state of France
-		OR = {
-			is_in_faction = no
-			FRA = { has_country_flag = albania_question_urged_restraint }
-			FRA = { has_country_flag = albania_question_encouraged_aggression }
-		}
-	}
-
-	immediate = {
-		set_country_flag = took_decision_on_albania_question
-	}
-	
-	# Be aggressive
-	option = {
-		name = wsv_firstbalkan.43.a
-		trigger = {
-			OR = {
-				is_in_faction = no
-				FRA = { has_country_flag = albania_question_encouraged_aggression }
-			}
-			NOT = { is_in_faction_with = AUH }
-		}
-		set_country_flag = albania_question_encouraged_aggression
-		SER = { country_event = { id = wsv_firstbalkan.44   days = 2 } }
-		custom_effect_tooltip = may_lead_to_a_diplomatic_crisis_tt
-		ai_chance = { 
-			factor = 60 
-			modifier = {
-				factor = 0 
-				is_historical_focus_on = yes
-			}
-		}
-	}
-
-	# Show restraint
-	option = {
-		name = wsv_firstbalkan.43.a
-		set_country_flag = albania_question_urged_restraint
-		SER = { country_event = { id = wsv_firstbalkan.45   days = 2 } }
-		ai_chance = { factor = 30 }
-	}
-}
-
-
-## Serbia gets notif of support -- now must decide (keep Albania)
-country_event = {
-	id = wsv_firstbalkan.44
-	title = wsv_firstbalkan.44.t
-	desc = wsv_firstbalkan.44.d
-
-	is_triggered_only = yes
-	
-	# Keep Albania
-	option = {
-		name = wsv_firstbalkan.44.a
-		trigger = {
-			has_war = no
-			NOT = { is_in_faction_with = AUH }
-		}
-		set_country_flag = SER_pressed_claims_on_albania
-		custom_effect_tooltip = may_lead_to_war_with_auh_tt
-		ai_chance = { base = 100 }
-	}
-
-	# Dont risk war
-	option = {
-		name = wsv_firstbalkan.44.b
-		set_country_flag = SER_dropped_claims_on_albania
-		44 = { remove_claim_by = SER }
-		866 = { remove_claim_by = SER }
-	}
-}
-
-
-## Serbia gets notif of restraint (drop Albania)
-country_event = {
-	id = wsv_firstbalkan.45
-	title = wsv_firstbalkan.45.t
-	desc = wsv_firstbalkan.45.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.45.a
-		set_country_flag = SER_dropped_claims_on_albania
-		44 = { remove_claim_by = SER }
-		866 = { remove_claim_by = SER }
-	}
-}
-
-
-## Austria gets notif that Serbia dropped Albania (crisis ends)
-country_event = {
-	id = wsv_firstbalkan.46
-	title = wsv_firstbalkan.46.t
-	desc = wsv_firstbalkan.46.d
-
-	fire_only_once = yes
-	trigger = {
-		tag = AUH
-		has_global_flag = albania_war_scare
-		SER = { has_country_flag = SER_dropped_claims_on_albania }
-	}
-	mean_time_to_happen = { days = 3 }
-	
-	option = {
-		name = wsv_firstbalkan.46.a
-	}
-}
-
-
-## Austria gets notif that Serbia will keep Albania
-country_event = {
-	id = wsv_firstbalkan.47
-	title = wsv_firstbalkan.47.t
-	desc = wsv_firstbalkan.47.d
-
-	fire_only_once = yes
-	trigger = {
-		tag = AUH
-		has_war = no
-		has_global_flag = albania_war_scare
-		SER = { 
-			has_country_flag = SER_pressed_claims_on_albania 
-			NOT = { is_in_faction_with = AUH }
-		}
-	}
-	mean_time_to_happen = { days = 3 }
-	
-	# Prepare ultimatum (crisis deepens)
-	option = {
-		name = wsv_firstbalkan.47.a
-		set_country_flag = AUH_prepares_to_act_over_albania
-		add_war_support = 0.1
-		custom_effect_tooltip = AUH_prepares_ultimatum_over_albania_tt
-		trigger = {
-			OR = {
-				is_in_faction = no
-				AND = {
-					is_in_faction_with = GER
-					GER ={ has_country_flag = albania_question_encouraged_aggression }
-				}
-			}
-		}
-		ai_chance = { factor = 60 }
-	}
-
-	# Quietly drop the issue
-	option = {
-		name = wsv_firstbalkan.47.b
-		ai_chance = { factor = 15 }
-	}
-}
-
-
-## Little country event of Albania forming
-country_event = {
-	id = wsv_firstbalkan.48
-	title = wsv_firstbalkan.48.t
-	desc = wsv_firstbalkan.48.d
-
-	trigger = {
-		NOT = { tag = ALB }
-		SER = { has_country_flag = SER_dropped_claims_on_albania }
-		any_owned_state = {
-			OR = { state=44  state=866  state = 803 } 
-		}
-		has_global_flag = firstbalkan_war_over
-		NOT = { has_global_flag = birth_of_albania }
-	}
-	mean_time_to_happen = { days = 2 }
-
-	immediate = {
-		set_global_flag = birth_of_albania
-		hidden_effect = {
-			ALB = {
-				transfer_state = 44
-				transfer_state = 803
-				transfer_state = 866
-				AUH = { give_guarantee = ALB }
-				ITA = { give_guarantee = ALB }
-			}
-		}
-	}
-
-	option = {
-		name = wsv_firstbalkan.48.a
-	}
-}
-
-
-#######################################################################
-## - Crisis Over Albania
-#######################################################################
-
-## AUH gets notice to send ultimatum
-country_event = {
-	id = wsv_firstbalkan.50
-	title = wsv_firstbalkan.50.t
-	desc = wsv_firstbalkan.50.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.50.a
-	}
-}
-
-
-## Ultimatum news event
-news_event = {
-	id = wsv_firstbalkan.51
-	title = wsv_firstbalkan.51.t
-	desc = wsv_firstbalkan.51.d
-	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
-
-	major = yes
-	is_triggered_only = yes
-
-	immediate = {
-		set_global_flag = austria_ultimatum_over_albania
-		hidden_effect = {
-			AUH = {
-				add_named_threat = {
-					threat = 10
-					name = "Ultimatum to Serbia Over Albania"
-				}
-			}
-			SER = { country_event = { id = wsv_firstbalkan.52   days = 2 } }
-			ENG = {
-				if = {
-					limit = {
-						has_war = no
-						FRA = {
-							is_guaranteed_by = ENG
-							is_in_faction_with = RUS
-						}
-					}
-				}
-				country_event = { id = wsv_firstbalkan.52   days = 1 }
-			}
-		}
-	}
-	
-	option = {
-		name = wsv_firstbalkan.51.a
-	}
-}
-
-## Britain can choose to withdraw or stand with France / Russia
-country_event = {
-	id = wsv_firstbalkan.52
-	title = wsv_firstbalkan.52.t
-	desc = wsv_firstbalkan.52.d
-
-	is_triggered_only = yes
-	
-	# Stand and fight
-	option = {
-		name = wsv_firstbalkan.52.a
-		set_country_flag = ENG_stands_with_entente_over_albania
-		FRA = { country_event = wsv_firstbalkan.53 }
-		RUS = { country_event = wsv_firstbalkan.53 }
-		ai_chance = { 
-			factor = 20 
-			modifier = {
-				factor = 5
-				has_country_flag = albania_question_encouraged_aggression  
-			}
-		}
-	}
-
-	# Back down
-	option = {
-		name = wsv_firstbalkan.52.b
-		FRA = { country_event = wsv_firstbalkan.54 }
-		RUS = { country_event = wsv_firstbalkan.54 }
-		ai_chance = { 
-			factor = 10 
-			modifier = {
-				factor = 4
-				has_country_flag = albania_question_urged_restraint
-			}
-		}
-	}
-}
-
-
-## Britain stands with us (France, Russia)
-country_event = {
-	id = wsv_firstbalkan.53
-	title = wsv_firstbalkan.53.t
-	desc = wsv_firstbalkan.53.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.53.a
-	}
-}
-
-## Britain flinches (France / Russia)
-country_event = {
-	id = wsv_firstbalkan.54
-	title = wsv_firstbalkan.54.t
-	desc = wsv_firstbalkan.54.d
-
-	is_triggered_only = yes
-	
-	option = {
-		name = wsv_firstbalkan.54.a
-	}
-}
-
-
-## Serbia has to make decision
-country_event = {
-	id = wsv_firstbalkan.55
-	title = wsv_firstbalkan.55.t
-	desc = wsv_firstbalkan.55.d
-
-	is_triggered_only = yes
-	timeout_days = 5
-	
-	# Stand firm
-	option = {
-		name = wsv_firstbalkan.55.a
-		news_event = { id = wsv_firstbalkan.57  days = 1 }
-		ai_chance = { 
-			factor = 100 
-			modifier = {
-				factor = 0
-				has_war = yes
-			}
-		}
-	}
-
-	# Backdown
-	option = {
-		name = wsv_firstbalkan.55.b
-		news_event = { id = wsv_firstbalkan.56  days = 1 }
-		ai_chance = { 
-			factor = 0 
-			modifier = {
-				add = 10
-				has_war = yes
-			}
-		}
-	}
-}
-
-
-## Serbia backs down - news event
-news_event = {
-	id = wsv_firstbalkan.56
-	title = wsv_firstbalkan.56.t
-	desc = wsv_firstbalkan.56.d
-	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
-
-	major = yes
-	is_triggered_only = yes
-
-	immediate = {
-		hidden_effect = {
-			SER = {
-				set_country_flag = SER_dropped_claims_on_albania  # use to trigger 'birth of albania' event
-			}
-		}
-	}
-	
-	option = {
-		name = wsv_firstbalkan.56.a
-		trigger = { not = { tag = SER } }
-	}
-
-	option = {
-		name = wsv_firstbalkan.56.b
-		trigger = { tag = SER }
-	}
-}
-
-
-## Serbia defiant - news event
-news_event = {
-	id = wsv_firstbalkan.57
-	title = wsv_firstbalkan.57.t
-	desc = wsv_firstbalkan.57.d
-	#picture = EVENT_hoi4tgw_first_balkan_war_end  ## TODO - needs picture
-
-	major = yes
-	is_triggered_only = yes
-
-	immediate = {
-		set_global_flag = albania_crisis_goes_hot
-		hidden_effect = {
-			AUH = {
-				country_event = { id = wsv_firstbalkan.58  days = 1 }
-			}
-			ENG = {
-				if = { 
-					limit = { NOT = { has_country_flag = ENG_stands_with_entente_over_albania } }
-					diplomatic_relation = {
-						country = FRA
-						relation = guarantee
-						active = no
-					} 
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = wsv_firstbalkan.57.a
-	}
-}
-
-
-## Austria gets event to declare war
-country_event = {
-	id = wsv_firstbalkan.58
-	title = wsv_firstbalkan.58.t
-	desc = wsv_firstbalkan.58.d
-
-	is_triggered_only = yes
-	timeout_days = 5
-	
-	option = {
-		name = wsv_firstbalkan.58.a
-
-		declare_war_on = {
-			target = SER
-			type = topple_government
-		}
-		hidden_effect = {
-			RUS = { 
-				if = {
-					limit = { has_country_flag = albania_question_encouraged_aggression }
-					add_to_war = { targeted_alliance = SER   enemy = AUH } 
-					FRA = {
-						if = { 
-							limit = { is_in_faction_with = RUS } 
-							add_to_war = { targeted_alliance = SER   enemy = AUH } 
-							ENG = {
-								if = {
-									limit = { has_country_flag = ENG_stands_with_entente_over_albania }
-									add_to_war = { targeted_alliance = SER   enemy = AUH }
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
+# 	option = {
+# 		name = wsv_firstbalkan.31.a
+# 	}
+# }

@@ -1,0 +1,261 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+italy_prepare_libyan_naval_invasion = {
+	allowed = {
+		original_tag = ITA
+	}
+	enable = {
+		focus_progress = {
+			focus = ITA_invade_libya_focus
+			progress > 0.01
+		}
+		NOT = { has_global_flag = italoturkish_war_over }
+	}
+	abort = {
+		OR = {
+			has_global_flag = italoturkish_war_over
+			AND = {
+				controls_state = 450
+				controls_state = 448
+			}
+		}
+	}
+
+	ai_strategy = {
+		type = prepare_for_war
+		id = TUR
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_control
+		state = 450  # Bhengasi
+		state = 448  # Tripoli
+		ratio = 0.1
+		ordertype = front
+		execution_type = balanced
+		manual_attack = yes
+	}
+
+	ai_strategy = {
+		type = naval_invasion_focus
+		value = 100
+	}
+
+}
+
+
+italian_role_italoturkish_war = {
+	allowed = {
+		original_tag = ITA
+	}
+	enable = {
+		#has_global_flag = italoturkish_war
+		focus_progress = {
+			focus = ITA_invade_libya_focus
+			progress > 0.01
+		}
+		NOT = { has_global_flag = italoturkish_war_over }
+	}
+	abort_when_not_enabled = yes
+
+	ai_strategy = {
+		type = conquer
+		id = TUR
+		value = 15
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = africa
+		value = 25
+	}
+
+	ai_strategy = {
+		type = area_priority
+		id = mediterranean_sea
+		value = 50
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = 25
+	}
+
+	# do not send troops to the Balkans or Anatolia
+	ai_strategy = {
+		type = invasion_unit_request
+		strategic_region = 24 #western balkans
+		strategic_region = 25 #greece
+		strategic_region = 28 #middle east
+		strategic_region = 129  #asia minor
+		strategic_region = 196  #middle east
+		value = -1000
+	}
+
+	ai_strategy = {
+		type = alliance
+		id = "SER"			
+		value = -1000			#do not join serbia	
+	}
+	
+	ai_strategy = {
+		type = alliance
+		id = "BUL"			
+		value = -1000			#do not join bulgaria	
+	}
+}
+
+
+
+# The Ottomans didnt send many troops to Libya during the war
+italy_slowdown_italoturkish_war = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_global_flag = italoturkish_war
+		has_war_with = TUR
+		casualties > 4000
+		NOT = { has_global_flag = italoturkish_war_over }
+	}
+	abort_when_not_enabled = yes
+
+	# be cautious
+	ai_strategy = {
+		type = front_control
+		state_trigger = {
+			OR = {
+				is_controlled_by = TUR
+				is_controlled_by = LBA
+			}
+			is_on_continent = africa
+		}
+		priority = 100
+		ratio = 0.9  
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}	
+}
+
+
+### ------------------------- OTTOMANS ------------------------- ####
+
+
+# The Ottomans didnt send many troops to Libya during the war
+ottoman_role_italoturkish_war = {
+	allowed = {
+		original_tag = TUR
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_global_flag = italoturkish_war
+		NOT = { has_global_flag = italoturkish_war_over }
+	}
+	abort_when_not_enabled = yes
+
+	# dont send units to Libya, we dont want our soldiers drowning
+	ai_strategy = {
+		type = front_unit_request
+		area = africa
+		value = -100
+	}
+
+	# be cautious
+	ai_strategy = {
+		type = front_control
+		tag = ITA
+		priority = 100
+		ratio = 0.7  
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}	
+
+	# avoid naval battles
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 69
+		value = 100
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 29
+		value = 100
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 168
+		value = 100
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 169
+		value = 100
+	}
+	ai_strategy = {
+		type = naval_avoid_region
+		id = 68
+		value = 100
+	}
+}
+
+
+## Senussi did the brunt of the fighting
+senussi_role_italoturkish_war = {
+	allowed = {
+		original_tag = LBA
+		has_start_date < 1937.1.1
+	}
+	enable = {
+		has_global_flag = italoturkish_war
+		NOT = { has_global_flag = italoturkish_war_over }
+	}
+	abort_when_not_enabled = yes
+
+	# doesnt really do much other than keep units here
+	ai_strategy = {
+		type = force_defend_ally_borders
+		id = TUR
+		value = 1000
+	}
+
+	ai_strategy = {
+		type = front_unit_request
+		tag = ITA
+		value = 100
+	}
+
+	ai_strategy = {
+    	type = spare_unit_factor
+    	value = 1000  ## all the units	
+	}
+
+	ai_strategy = {
+		type = front_control
+		tag = ITA
+		priority = 100
+		ratio = 0.7  
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}	
+}

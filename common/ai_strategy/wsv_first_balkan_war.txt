@@ -1,0 +1,185 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# contain
+# area_priority
+
+
+# All league members prepare for war against Turkey
+league_prepare_for_first_balkan = {
+	enable = {
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "TUR"			
+		value = 500
+	}	
+
+	ai_strategy = {
+		type = conquer
+		id = "TUR"			
+		value = 100
+	}	
+
+	ai_strategy = {
+		type = front_unit_request
+		id = "TUR"			
+		value = 250
+	}
+
+	ai_strategy = {
+	    type = build_army
+	    id = infantry
+	    value = 50
+	}
+}
+
+
+ottomans_prepare_for_war_against_balkans = {
+	enable = {
+		tag = TUR
+		#has_global_flag = balkan_league_formed
+		NOT = { has_global_flag = firstbalkan_war_over }
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "SER"			
+		value = 700
+	}	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "BUL"			
+		value = 700
+	}	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "GRE"			
+		value = 700
+	}	
+	ai_strategy = {
+		type = prepare_for_war
+		id = "MNT"			
+		value = 700
+	}	
+}
+
+
+
+# # Turkey prepares for war against every Balkan League member
+# ottomans_prepare_for_war_against_balkans = {
+#     allowed = {
+#         NOT = { original_tag = TUR }
+#     }
+#     enable = {
+#         has_country_flag = balkan_league_member
+#     }
+#     enable_reverse = {
+#         TUR = { has_global_flag = balkan_league_formed }
+#     }
+#     reversed = yes
+#     abort_when_not_enabled = yes
+
+#     ai_strategy = {
+#         type = prepare_for_war
+#         id = TUR
+#         value = 200
+#     }
+# }
+
+
+## League states should press hard against Turks in states they claim -- as long as casulaties arent rough
+league_opening_aggressive_moves = {
+	enable = {
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
+	}
+	abort = {
+		has_war_with = TUR
+		casualties > 20000
+	}
+
+	ai_strategy = {
+		type = front_control
+		state_trigger = {
+			is_controlled_by = TUR
+			OR = {
+				is_claimed_by = ROOT
+				is_core_of = ROOT
+			}
+			NOT = { state = 341 }  # dont rush constantinople, its a bottle neck
+		}
+		priority = 100
+		ratio = 0.4
+		ordertype = front
+		execution_type = rush_weak
+		manual_attack = yes
+	}
+}
+
+
+# League members should fight more cautiously in states they dont claim
+league_careful_attacks = {
+	enable = {
+		has_country_flag = balkan_league_member
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+		
+	ai_strategy = {
+		type = front_control
+		tag = TUR
+		priority = 25
+		ratio = 0.6
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = no
+	}	
+}
+
+
+# Turkey should fight mainly defensively -- particularly cause its army is trash
+ottomans_defensive_posture = {
+	allowed = {
+		original_tag = TUR
+	}
+	enable = {
+		has_war = yes
+		has_global_flag = firstbalkan_war
+		NOT = { has_global_flag = firstbalkan_war_over }
+		has_start_date < 1937.1.1
+	}
+	abort_when_not_enabled = yes
+		
+	ai_strategy = {
+		type = front_control
+		country_trigger ={
+			has_country_flag = balkan_league_member
+			has_war_with = TUR
+		}
+		priority = 100
+		ratio = 0.8  
+		ordertype = front
+		execution_type = careful
+		execute_order = yes
+		manual_attack = yes
+	}	
+}
+
+

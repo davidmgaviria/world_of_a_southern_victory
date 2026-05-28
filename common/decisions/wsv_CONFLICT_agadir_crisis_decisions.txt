@@ -71,7 +71,7 @@ agadir_crisis_cat = {
 
 		fire_only_once = yes
 		days_remove = 4
-		cost = 25
+		cost = 30
 
 		remove_effect = {
 			news_event = wsv_agadir.7
@@ -103,6 +103,7 @@ agadir_crisis_cat = {
 		cost = 0
 
 		complete_effect = {
+			set_global_flag = agadir_negotiations_ongoing
 			effect_tooltip = {
 				add_days_mission_timeout = {
 					mission = agadir_relevance_of_morocco_occupation
@@ -121,7 +122,6 @@ agadir_crisis_cat = {
 		}
 
 		remove_effect = {
-			set_global_flag = agadir_negotiations_ongoing
 			FRA = { country_event = wsv_agadir.12 }
 			custom_effect_tooltip = agadir_negoitations_begin_tt
 		}
@@ -130,6 +130,55 @@ agadir_crisis_cat = {
 			factor = 50
 		}
 	}
+
+
+	# Inital harsh German demands
+	agadir_germany_retry_demands_compensation = {
+		icon = generic_operation
+		priority = 12
+
+		visible = {
+			has_active_mission = agadir_relevance_of_morocco_occupation
+			has_global_flag = agadir_crisis
+			tag = GER
+			has_global_flag = agadir_france_rejected_inital_german_demands
+		}
+		available = {
+			always = yes
+		}
+
+		fire_only_once = yes
+		days_remove = 7
+		cost = 25
+
+		complete_effect = {
+			set_global_flag = agadir_negotiations_ongoing
+			effect_tooltip = {
+				add_days_mission_timeout = {
+					mission = agadir_relevance_of_morocco_occupation
+					days = 30
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = { has_active_mission = agadir_relevance_of_morocco_occupation }
+					add_days_mission_timeout = {
+						mission = agadir_relevance_of_morocco_occupation
+						days = 30
+					}
+				}
+			}
+		}
+
+		remove_effect = {
+			FRA = { country_event = wsv_agadir.16 }   # delay in sending next one
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+	}
+
 
 
 
@@ -161,6 +210,18 @@ agadir_crisis_cat = {
 
 		ai_will_do = {
 			factor = 0
+			# unhistorical modifiers
+			modifier = {
+				add = 5
+				is_historical_focus_on = no
+				has_global_flag = agadir_france_rejected_inital_german_demands
+			}
+			modifier = {
+				add = 5
+				is_historical_focus_on = no
+				has_global_flag = britain_abandoned_france_in_agadir
+			}
+			# if negotiations completely fail...
 			modifier = {
 				add = 100
 				has_global_flag = agadir_negotations_failed

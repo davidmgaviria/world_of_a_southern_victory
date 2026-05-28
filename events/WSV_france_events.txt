@@ -3,7 +3,7 @@ add_namespace = wsv_france
 
 
 ## ------------------------------------------------------------------------------------------------ ##
-## ---------------------------------------- DOMESTIC EVENTS --------------------------------------- ##
+## ----------------------------		 PRE-WAR DOMESTIC EVENTS    ----------------------------------- ##
 ## ------------------------------------------------------------------------------------------------ ##
 
 ## Republican control of the Army ensured
@@ -58,9 +58,12 @@ country_event = {
 
     is_triggered_only = yes
 
+	immediate = {
+		set_global_flag = FRA_champagne_riots_inital_response_ineffective
+	}
+
 	option = {
 		name = wsv_france.3.a
-		add_political_power = -50
 	}
 }
 
@@ -135,11 +138,53 @@ country_event = {
 }
 
 
+## Three Year service law
+news_event = {
+	id = wsv_france.10
+	title = wsv_france.10.t
+	desc = wsv_france.10.d
+	picture = news_event_1914_french_soldiers_marching
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = FRA_three_year_law_passed
+		hidden_effect = {
+			FRA = {	
+				add_named_threat = {
+					threat = 2.5
+					name = "Three Year Service Law Passed"
+				} 
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.10.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+
+	option = {
+		name = wsv_france.10.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+
+	option = {
+		name = wsv_france.10.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
+
+
 ## Jean Jaures assassination
 country_event = {
-	id = wsv_france.7
-	title = wsv_france.7.t
-	desc = wsv_france.7.d
+	id = wsv_france.11
+	title = wsv_france.11.t
+	desc = wsv_france.11.d
 
 	fire_only_once = yes
 
@@ -156,7 +201,7 @@ country_event = {
 	}
 
 	option = {
-		name = wsv_france.7.a
+		name = wsv_france.11.a
 		add_war_support = 0.07
 		add_popularity = {
 			ideology = communism
@@ -166,10 +211,462 @@ country_event = {
 }
 
 
+## ------------------------------------------------------------------------------------------------ ##
+## --------------------------	  PRE-WAR INTERNATIONAL EVENTS    --------------------------------- ##
+## ------------------------------------------------------------------------------------------------ ##
+
+
+## ----------------------- Franco-Russian Alliance ------------------------ ##
+
+# France sends military mission to Russia (notice for Russia)
+country_event = {
+	id = wsv_france.50
+	title = wsv_france.50.t
+	desc = wsv_france.50.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# thank you
+	option = {
+		name = wsv_france.50.a
+		add_timed_idea = {
+			idea = FRA_military_advisors_in_russia_idea
+			days = 360
+		}
+	}
+}
+
+
+# France offers loan for rearmament  (notice for Russia)
+country_event = {
+	id = wsv_france.51
+	title = wsv_france.51.t
+	desc = wsv_france.51.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# we accept
+	option = {
+		name = wsv_france.51.a
+		FRA = { country_event = { id = wsv_france.52  days = 2 } }
+		add_timed_idea = {
+			idea = FRA_loans_for_russia_rearm_idea
+			days = 720
+		}
+	}
+}
+
+
+# Russia accepted loan
+country_event = {
+	id = wsv_france.52
+	title = wsv_france.52.t
+	desc = wsv_france.52.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {  # put here so focus bypass happens when event occurs
+		set_global_flag = france_financed_russian_rearmament
+	}
+
+	option = {
+		name = wsv_france.52.a
+	}
+}
 
 
 
+## ----------------------- France Demands Alsace-Lorraine ------------------------ ##
 
+# News of France demanding return of Alsace-Lorraine
+news_event = {
+	id = wsv_france.55
+	title = wsv_france.55.t
+	desc = wsv_france.55.d
+	# picture = # TODO - picture
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = france_demands_alsace_lorraine
+		hidden_effect = {
+			FRA = {
+				add_named_threat = {
+					threat = 10
+					name = "France Demands the Return of Alsace-Lorraine"
+				}
+			}
+			GER = { country_event = { id = wsv_france.56  days = 1 } }
+			# mobilization flags (for ai strategies)
+			every_country = {
+				limit = { is_in_faction_with = FRA }
+				set_country_flag = mobilize_against_centralpowers
+			}
+			every_country = {
+				limit = { is_in_faction_with = GER }
+				set_country_flag = mobilize_against_entente
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.55.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+	option = {
+		name = wsv_france.55.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+	option = {
+		name = wsv_france.55.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
+
+
+# Country event for Germany - respond to France's demand to return land
+country_event = {
+	id = wsv_france.56
+	title = wsv_france.56.t
+	desc = wsv_france.56.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	timeout_days = 5
+
+	# Hell no
+	option = {
+		name = wsv_france.56.a
+		news_event = { id = wsv_france.58  days = 5 }
+		add_war_support = 0.1
+		ai_chance = { factor = 100 }
+	}
+
+	# Fine
+	option = {
+		name = wsv_france.56.b
+		news_event = { id = wsv_france.57  days = 5 }
+		add_political_power = -150
+		add_war_support = -0.15
+		add_stability = -0.1
+		ai_chance = { factor = 0 }
+	}
+}
+
+
+# News of Germany agreeing to return Alsace-Lorraine
+news_event = {
+	id = wsv_france.57
+	title = wsv_france.57.t
+	desc = wsv_france.57.d
+	# picture = # TODO
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = germany_returns_alsace_lorraine
+		hidden_effect = {
+			# clr mobilization flags (for ai strategies)
+			every_country = {
+				limit = { is_in_faction_with = FRA }
+				clr_country_flag = mobilize_against_centralpowers
+			}
+			every_country = {
+				limit = { is_in_faction_with = GER }
+				clr_country_flag = mobilize_against_entente
+			}
+		}
+	}
+
+	option = {
+		name = wsv_france.57.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+	option = {
+		name = wsv_france.57.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+	option = {
+		name = wsv_france.57.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
+
+
+
+# News of Germany refusing to return Alsace-Lorraine
+news_event = {
+	id = wsv_france.58
+	title = wsv_france.58.t
+	desc = wsv_france.58.d
+	# picture = # TODO
+
+	is_triggered_only = yes
+	major = yes
+
+	immediate = {
+		set_global_flag = germany_keeps_alsace_lorraine
+		hidden_effect = {
+			FRA = { country_event = { id = wsv_france.59  days = 2 } }
+		}
+	}
+
+	option = {
+		name = wsv_france.58.a
+		trigger = { OR = { tag = FRA  is_in_faction_with = FRA } }
+	}
+	option = {
+		name = wsv_france.58.b
+		trigger = { OR = { tag = GER  is_in_faction_with = GER } }
+	}
+	option = {
+		name = wsv_france.58.c
+		trigger = { 
+			NOT = { tag = FRA  is_in_faction_with = FRA } 
+			NOT = { tag = GER  is_in_faction_with = GER } 
+		}
+	}
+}
+
+
+# Wargoal event for France
+country_event = {
+	id = wsv_france.59
+	title = wsv_france.59.t
+	desc = wsv_france.59.d
+
+	is_triggered_only = yes
+	timeout_days = 3
+
+	option = {
+		name = wsv_france.59.a
+		declare_war_on = {
+			target = GER
+			type = take_claimed_state
+		}
+	}
+}
+
+
+## ----------------------- Serbia Outreach Events ------------------------ ##
+
+# Country recieves diplomats from France (Serbia/Romania/Greece)
+country_event = {
+	id = wsv_france.60
+	title = wsv_france.60.t
+	desc = wsv_france.60.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_france.60.a
+	}
+}
+
+
+# France sends guns to Serbia
+country_event = {
+	id = wsv_france.61
+	title = wsv_france.61.t
+	desc = wsv_france.61.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_france.61.a
+		FROM = {
+			send_equipment = {
+				equipment = infantry_equipment
+				amount = 5000
+				target = SER
+			}
+			send_equipment = {
+				equipment = artillery_equipment
+				amount = 300
+				target = SER
+			}
+		}
+	}
+}
+
+
+## ----------------------- Romania Outreach Events ------------------------ ##
+
+
+# [PEACE TIME] France floats idea of alliance with Romania against AUH
+country_event = {
+	id = wsv_france.62
+	title = wsv_france.62.t
+	desc = wsv_france.62.d
+
+	is_triggered_only = yes
+
+	# No
+	option = {
+		name = wsv_france.62.a
+		FRA = { 
+			country_event = { id = wsv_france.64  days = 3 }
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_dislikes_country
+			}
+			set_global_flag = romania_rejects_working_with_entente
+		}
+		ai_chance = { 
+			factor = 10 
+			modifier = {
+				factor = 0
+				is_historical_focus_on = yes
+			}
+		}
+	}
+
+	# Express interest but no commitment
+	option = {
+		name = wsv_france.62.b
+		add_war_support = 0.1
+		FRA = { country_event = { id = wsv_france.65  days = 3 }}
+		set_global_flag = romania_shows_interest_in_entente
+		ai_chance = { factor = 50 }
+	}
+
+	# Yes we are ready to fight 
+	option = {
+		name = wsv_france.62.c
+		add_war_support = 0.15
+		FRA = { 
+			country_event = { id = wsv_france.66  days = 3 }
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_small_improve_relations
+			}
+		}
+		hidden_effect = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = wsv_small_improve_relations
+			}
+		}
+		set_global_flag = romania_ready_to_join_entente
+		ai_chance = { factor = 20 }
+	}
+}
+
+
+# [WAR TIME] France tells Romania it will support claims in Transylvania if it joins WW1
+country_event = {
+	id = wsv_france.63
+	title = wsv_france.63.t
+	desc = wsv_france.63.d
+
+	is_triggered_only = yes
+
+	# No
+	option = {
+		name = wsv_france.62.a
+		FRA = { 
+			country_event = { id = wsv_france.64  days = 3 }
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_dislikes_country
+			}
+			set_global_flag = romania_rejects_working_with_entente
+		}
+		ai_chance = {
+			factor = 60
+		}
+	}
+
+	# Express interest
+	option = {
+		name = wsv_france.62.b
+		add_war_support = 0.1
+		FRA = { 
+			country_event = { id = wsv_france.65  days = 3 }
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = wsv_small_improve_relations
+			}
+		}
+		hidden_effect = {
+			add_opinion_modifier = {
+				target = FRA
+				modifier = wsv_small_improve_relations
+			}
+		}
+		set_global_flag = romania_shows_interest_in_entente
+
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				RUS = { has_war_with = AUH }
+			}
+			modifier = {
+				factor = 2
+				RUS = { surrender_progress < 0.1  }
+			}
+			modifier = {
+				factor = 2
+				AUH = { surrender_progress > 0.15  }
+			}
+		}
+	}
+}
+
+
+# Romania said no
+country_event = {
+	id = wsv_france.64
+	title = wsv_france.64.t
+	desc = wsv_france.64.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_france.64.a
+	}
+}
+
+# Romania expressed some interest
+country_event = {
+	id = wsv_france.65
+	title = wsv_france.65.t
+	desc = wsv_france.65.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_france.65.a
+		custom_effect_tooltip = romania_more_likely_ally_tt
+	}
+}
+
+# Romania read to join
+country_event = {
+	id = wsv_france.66
+	title = wsv_france.66.t
+	desc = wsv_france.66.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_france.66.a
+		custom_effect_tooltip = romania_more_likely_ally_tt
+	}
+}
 
 
 
@@ -432,7 +929,7 @@ country_event = {
 # 	id = wsv_france.51
 # 	title = wsv_france.51.t
 # 	desc = wsv_france.51.d
-# 	picture =  news_event_gw_french_soldiers
+# 	picture =  news_event_gw_adrian_helm_french_soldiers
 
 # 	is_triggered_only = yes
 # 	major = yes

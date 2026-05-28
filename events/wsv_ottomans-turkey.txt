@@ -1,0 +1,61 @@
+add_namespace = wsv_ottomans
+
+
+# CUP coup (Raid on the Sublime Porte) -- Turkish country event
+country_event = {
+	id = wsv_ottomans.50
+	title = wsv_ottomans.50.t
+	desc = wsv_ottomans.50.d
+
+	trigger = {
+		tag = TUR
+		has_global_flag = firstbalkan_war
+		NOT = { has_global_flag = firstbalkan_war_over  }
+		NOT = { has_country_flag = TUR_raid_on_sublime_porte }
+		## Turkey doesnt control any Ottoman Europe state
+		has_war_with = SER
+		NOT = { any_controlled_state = { has_state_flag = ottoman_europe_state } }
+	}
+	
+	mean_time_to_happen = { days = 14 }
+
+	fire_only_once = yes
+
+	immediate = {
+		set_country_flag = TUR_raid_on_sublime_porte
+	}
+	
+	option = {
+		name = wsv_ottomans.50.a
+		activate_mission = firstbalkan_turkey_timer_to_retake_ottoman_europe
+		hidden_effect = { news_event = wsv_ottomans.51 }
+
+		## TODO - actual political changes
+	}
+}
+
+
+# Global news event about Raid on the Sublime Porte
+news_event = {
+	id = wsv_ottomans.51
+	title = wsv_ottomans.51.t
+	desc = wsv_ottomans.51.d
+
+	is_triggered_only = yes
+	fire_for_sender = no
+	major = yes
+	
+	option = {
+		name = wsv_ottomans.51.a
+		trigger = {
+			NOT = { tag = TUR }
+		}
+	}
+
+	option = {
+		name = wsv_ottomans.51.b
+		trigger = {
+			tag = TUR
+		}
+	}
+}

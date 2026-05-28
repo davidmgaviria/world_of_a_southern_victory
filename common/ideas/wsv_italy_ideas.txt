@@ -1,0 +1,218 @@
+ideas = {
+	
+	country = {
+
+		######################################################
+		# -- Great War
+		###################################################### 
+
+		# ITA_italian_irrendentalism = {
+        #     allowed={ always=no }
+		# 	allowed_civil_war = { always = no }
+        #     removal_cost = -1 
+
+		# 	#picture =  
+
+		# 	modifier = {
+		# 		offensive_war_stability_factor = 0.2
+		# 		mobilization_speed = 0.02
+		# 		army_morale_factor = 0.1
+		# 		war_support_factor = 0.2
+        #     }
+        # }
+
+		ITA_fragile_unification = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			#picture =  
+
+			modifier = {
+				army_morale_factor = -0.1
+				army_org = -10
+				conscription_factor = -0.15
+				political_power_gain = -0.25
+				surrender_limit = -0.25
+            }
+        }
+
+		ITA_sluggish_industralization = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture =  ARG_economic_reactivation
+
+			modifier = {
+				industrial_capacity_factory = -0.1
+				industrial_capacity_dockyard = -0.1
+				production_speed_buildings_factor = -0.2
+				research_speed_factor = -0.05
+            }
+        }
+
+		ITA_messina_earthquake_aftermath = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture = generic_recovering_from_civil_war_icon
+
+			modifier = {
+				political_power_gain = -0.4
+				consumer_goods_factor = 0.2
+            }
+        }
+
+
+		ITA_fake_alliance = {   # italy cant join other factions cause 'stuck' in faction with germany and auh
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture = ITA_triple_alliance_constraint_icon
+
+			rule = {
+				can_join_factions = no
+				can_join_factions_not_allowed_diplomacy = no
+			}
+	
+			modifier = {
+				ai_join_ally_desire_factor = -100
+            }
+        }
+
+
+		## -- During game ##
+
+		ITA_messina_earthquake_aftermath_reduced = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture = generic_recovering_from_civil_war_icon
+
+			modifier = {
+				political_power_gain = -0.2
+				consumer_goods_factor = 0.1
+            }
+        }
+
+
+		ITA_propaganda_effort_libya_war = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			cancel = {
+				has_global_flag = italoturkish_war_over
+			}
+
+			picture = generic_propaganda_icon 
+
+			modifier = {
+				war_support_weekly = 0.008
+				offensive_war_stability_factor = 0.1
+            }
+        }
+
+		ITA_amphibious_war_effort = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			cancel = {
+				has_global_flag = italoturkish_war_over
+			}
+
+			picture = escort_effort_focus 
+
+			modifier = {
+				naval_invasion_prep_speed = 0.5
+				naval_invasion_penalty = -0.25
+				naval_invasion_capacity = 6
+            }
+        }
+		
+		ITA_prolonged_war_in_libya_debuff = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			cancel = {
+				has_global_flag = italoturkish_war_over
+			}
+
+			picture = generic_economic_crisis 
+
+			modifier = {
+				political_power_gain = -0.25
+				consumer_goods_factor = -0.1
+				war_support_weekly = -0.002
+            }
+        }
+
+		ITA_libyan_supply_lines_effort = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			cancel = {
+				has_global_flag = italoturkish_war_over
+			}
+
+			picture = generic_supply_lines 
+
+			modifier = {
+				supply_node_range = 0.5
+                out_of_supply_factor = -0.25
+				attrition = -0.25
+            }
+        }
+
+		ITA_mountaineer_bonus_idea = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture = generic_mountain_warfare
+
+			modifier = {
+				special_forces_cap = 0.01
+				mountaineers_special_forces_contribution_factor = -0.33
+            }
+        }
+
+		ITA_mass_mobilization_idea = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture = generic_manpower_bonus
+
+			modifier = {
+				conscription = 0.01
+				mobilization_speed = 0.02
+				training_time_army_factor = -0.1
+            }
+        }
+
+		ITA_mil_logistics_idea = {
+            allowed={ always=no }
+			allowed_civil_war = { always = no }
+            removal_cost = -1 
+
+			picture = generic_supply_lines
+
+			equipment_bonus = {
+				train_equipment = { instant = yes build_cost_ic = -0.1 }
+			}
+
+			modifier = {
+				production_speed_rail_way_factor = 0.1 
+				production_speed_supply_node_factor = 0.15
+            }
+        }
+	}
+}

@@ -17,105 +17,105 @@
 #
 
 
-# Effect to safely dismantle a faction
-dismantle_faction_safely_effect = {
-	every_other_country = {
-		limit = { 
-			is_in_faction_with = PREV  
-		}
-		leave_faction = yes
+### ------------------------------------------------------------------------------- ###
+### ---------------------------- Generic Effects ---------------------------------- ###
+### ------------------------------------------------------------------------------- ###
+
+# Increases level of conscription (written backwards to prevent chain effect)
+increase_conscription_tier_effect = {
+	if = {
+		limit = { has_idea = all_adults_serve }
+		add_ideas = scraping_the_barrel 
 	}
-	dismantle_faction = yes
-}
-
-
-## Great War loser ##
-greatwar_loser_effect = {
-	set_rule = { can_join_factions = no }
-	set_rule = { can_not_declare_war = yes }
-	add_ideas = { disarmed_nation   civilian_economy }
-}
-
-
-
-## Entente collapses (ROOT is leader)
-collapse_entente_effect = {
-	## determine action for entente countries
-	every_country = {
-		limit = { 
-			has_country_flag = entente_member
-			is_faction_leader = no
-		}
-		# kick other majors and none european countries (so they dont peace out)
-		if = {
-			limit = { 
-				OR = {
-					NOT = { capital_scope = { is_on_continent = europe } }
-					is_major = yes
-					tag = ITA   # has seperate peace
-				}
-			}
-			set_country_flag = former_entente_member
-			leave_faction = yes
-		}
-		# countries remaining also leave, but are added to an array of 'losers'
-		else = {
-			add_to_array = {
-				array = global.entente_loser_members
-				value = THIS.id
-			}
-			leave_faction = yes
-			white_peace = event_target:centralpowers_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
-			greatwar_loser_effect = yes
-		}
+	if = {
+		limit = { has_idea = service_by_requirement }
+		add_ideas = all_adults_serve 
 	}
-	## news event of entente collapse (delayed to let current peace treaty take effect)
-	dismantle_faction = yes
-	set_global_flag = collapse_of_entente
-	news_event = { id = wsv_peace_treaty.12  days = 1 }
-}
-
-
-
-## Central Powers collapses (ROOT is leader)
-collapse_centralpowers_effect = {
-	## determine action for entente countries
-	every_country = {
-		limit = { 
-			has_country_flag = centralpowers_member
-			is_faction_leader = no
-		}
-		# kick other majors and none european countries (so they dont peace out)
-		if = {
-			limit = { 
-				OR = {
-					NOT = { capital_scope = { is_on_continent = europe } }
-					is_major = yes
-					tag = ITA   # has seperate peace
-					tag = BUL   # has seperate peace
-					tag = TUR   # has seperate peace
-				}
-			}
-			set_country_flag = former_centralpowers_member
-			leave_faction = yes
-		}
-		# countries remaining also leave, but peace out and are added to an array of 'losers'
-		else = {
-			add_to_array = {
-				array = global.centralpowers_loser_members
-				value = THIS.id
-			}
-			leave_faction = yes
-			white_peace = event_target:entente_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
-			greatwar_loser_effect = yes
-		}
+	if = {
+		limit = { has_idea = extensive_conscription }
+		add_ideas = service_by_requirement
 	}
-	## news event of Central powers collapse (delayed to let current peace treaty take effect)
-	dismantle_faction = yes
-	set_global_flag = collapse_of_centralpowers
-	news_event = { id = wsv_peace_treaty.52  days = 1 }
+	if = {
+		limit = { has_idea = limited_conscription }
+		add_ideas = extensive_conscription
+	}
+	if = {
+		limit = { OR = { has_idea = volunteer_only  has_idea = disarmed_nation } }
+		add_ideas = limited_conscription
+	}
 }
 
+
+### ------------------------------------------------------------------------------- ###
+### -------------------------- 1912 War Scare & Albania --------------------------- ###
+### ------------------------------------------------------------------------------- ###
+
+
+# Birth of Albania
+create_albania_effect = {
+	ALB = {
+		transfer_state = 44
+		transfer_state = 803
+		transfer_state = 866
+		AUH = { give_guarantee = ALB }
+		ITA = { give_guarantee = ALB }
+		set_global_flag = birth_of_albania
+	}
+}
+
+
+# Set mobilization strain effect
+set_mobilization_strain_effect = {
+	add_ideas = generic_scare1912_mobilization_strain_1
+}
+
+# Remove mobilization strain effect
+remove_mobilization_strain_effect = {
+	if = {
+		limit = { has_idea =  generic_scare1912_mobilization_strain_1 }
+		remove_ideas = generic_scare1912_mobilization_strain_1
+	}
+	if = {
+		limit = { has_idea =  generic_scare1912_mobilization_strain_2 }
+		remove_ideas = generic_scare1912_mobilization_strain_2
+	}
+}
+
+
+### ------------------------------------------------------------------------------- ###
+### ---------------------------- Balkan League Effects ---------------------------- ###
+### ------------------------------------------------------------------------------- ###
+
+
+# Marks a country as a Balkan League member in Serbia's metadata -- ROOT is the country joining the league
+mark_as_balkan_league_member_effect =  {
+	set_country_flag = balkan_league_member
+	add_to_variable = { SER.num_major_league_members = 1 }
+}
+
+
+# Leave Balkan league
+leave_balkan_league_effect =  {
+	# clear our flag and state claims
+	clr_country_flag = balkan_league_member
+	for_each_scope_loop = {
+		array = THIS.claimed_balkan_states
+		clr_state_flag = state_claimed_by_balkan_member
+	}
+	clear_array = THIS.claimed_balkan_states
+	# reduce member count for serbia
+	if = {
+		limit = { NOT = { tag = MNT } }
+		subtract_from_variable = { SER.num_major_league_members = 1 }
+	}
+}
+
+
+
+
+### ------------------------------------------------------------------------------- ###
+### --------------------------- Special Pacts Effects ----------------------------- ###
+### ------------------------------------------------------------------------------- ###
 
 # End American-German Pact
 end_american_german_pact = {
@@ -171,23 +171,163 @@ end_confederate_canadian_british_pact = {
 
 
 
-# Leave Balkan league
-leave_balkan_league_effect =  {
-	# clear our flag and state claims
-	clr_country_flag = balkan_league_member
-	for_each_scope_loop = {
-		array = THIS.claimed_balkan_states
-		clr_state_flag = state_claimed_by_balkan_member
+
+### ------------------------------------------------------------------------------- ###
+### ----------------------------- Great War Effects ------------------------------- ###
+### ------------------------------------------------------------------------------- ###
+
+# Effect to safely dismantle a faction
+dismantle_faction_safely_effect = {
+	every_other_country = {
+		limit = { 
+			is_in_faction_with = PREV  
+		}
+		leave_faction = yes
 	}
-	clear_array = THIS.claimed_balkan_states
-	# reduce member count for serbia
+	dismantle_faction = yes
+}
+
+
+## Great War loser ##
+greatwar_loser_effect = {
+	set_rule = { can_join_factions = no }
+	set_rule = { can_not_declare_war = yes }
+	add_ideas = { disarmed_nation   civilian_economy }
+}
+
+
+## Entente collapses (ROOT is leader)
+collapse_entente_effect = {
+	## determine action for entente countries
+	every_country = {
+		limit = { 
+			has_country_flag = entente_member
+			is_faction_leader = no
+		}
+		# kick other majors and none european countries (so they dont peace out)
+		if = {
+			limit = { 
+				OR = {
+					NOT = { capital_scope = { is_on_continent = europe } }
+					is_major = yes
+					tag = ITA   # has seperate peace
+				}
+			}
+			set_country_flag = former_entente_member
+			leave_faction = yes
+		}
+		# countries remaining also leave, but are added to an array of 'losers'
+		else = {
+			add_to_array = {
+				array = global.entente_loser_members
+				value = THIS.id
+			}
+			leave_faction = yes
+			white_peace = event_target:centralpowers_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
+			greatwar_loser_effect = yes
+		}
+	}
+	## news event of entente collapse (delayed to let current peace treaty take effect)
+	dismantle_faction = yes
+	set_global_flag = collapse_of_entente
+	news_event = { id = wsv_peace_treaty.12  days = 1 }
+}
+
+
+## Central Powers collapses (ROOT is leader)
+collapse_centralpowers_effect = {
+	## determine action for entente countries
+	every_country = {
+		limit = { 
+			has_country_flag = centralpowers_member
+			is_faction_leader = no
+		}
+		# kick other majors and none european countries (so they dont peace out)
+		if = {
+			limit = { 
+				OR = {
+					NOT = { capital_scope = { is_on_continent = europe } }
+					is_major = yes
+					tag = ITA   # has seperate peace
+					tag = BUL   # has seperate peace
+					tag = TUR   # has seperate peace
+				}
+			}
+			set_country_flag = former_centralpowers_member
+			leave_faction = yes
+		}
+		# countries remaining also leave, but peace out and are added to an array of 'losers'
+		else = {
+			add_to_array = {
+				array = global.centralpowers_loser_members
+				value = THIS.id
+			}
+			leave_faction = yes
+			white_peace = event_target:entente_leader   ## TODO - eh this works but could lead to issues if not historical.. oh well
+			greatwar_loser_effect = yes
+		}
+	}
+	## news event of Central powers collapse (delayed to let current peace treaty take effect)
+	dismantle_faction = yes
+	set_global_flag = collapse_of_centralpowers
+	news_event = { id = wsv_peace_treaty.52  days = 1 }
+}
+
+
+
+### ------------------------------------------------------------------------------- ###
+### -------------------------- Army of the Orient Effects ------------------------- ###
+### ------------------------------------------------------------------------------- ###
+
+send_3_divisions_to_army_orient = {
+	add_manpower = -40500
+	add_equipment_to_stockpile = { type = infantry_equipment  amount = -3750  producer = ROOT }
+	add_equipment_to_stockpile = { type = artillery_equipment  amount = -108  producer = ROOT }
+	add_equipment_to_stockpile = { type = support_equipment  amount = -90  producer = ROOT }
 	if = {
-		limit = { NOT = { tag = MNT } }
-		subtract_from_variable = { SER.num_major_league_members = 1 }
+		limit = { NOT = { has_variable = THIS.num_orient_divisions } }
+		set_variable = { THIS.num_orient_divisions = 0 }
+	}
+	add_to_variable = { THIS.num_orient_divisions = 3 }
+	if = {
+		limit = { NOT = { has_variable = THIS.manpower_sent_to_orient } }
+		set_variable = { THIS.manpower_sent_to_orient = 0 }
+	}
+	add_to_variable = { THIS.manpower_sent_to_orient = 40500 }
+}
+
+spawn_3_orient_infantry_divisions = {
+	division_template = {
+		name = "Allied Oriental Division"
+		is_locked = yes
+		regiments = {
+			infantry = { x = 0 y = 0 } infantry = { x = 0 y = 1 } infantry = { x = 0 y = 2 }
+			infantry = { x = 1 y = 0 } infantry = { x = 1 y = 1 } infantry = { x = 1 y = 2 }
+			infantry = { x = 2 y = 0 } infantry = { x = 2 y = 1 } infantry = { x = 2 y = 2 }
+			infantry = { x = 3 y = 0 } infantry = { x = 3 y = 1 } infantry = { x = 3 y = 2 }
+			artillery_brigade = { x = 4 y = 0 }
+		}
+		support = {
+			engineer = { x = 0 y = 0 }
+			artillery = { x = 0 y = 1 }
+			mg_company = { x = 0 y = 2 }
+		}
+	}
+	random_owned_state = {
+		create_unit = {
+			division = "division_template = \"Allied Oriental Division\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
+			owner = PREV
+			count = 3
+		}
 	}
 }
 
 
+
+
+### ------------------------------------------------------------------------------- ###
+### ------------------------ Country-Specific Effects ----------------------------- ###
+### ------------------------------------------------------------------------------- ###
 
 # Turkish military reforms (written backwards to prevent chain effect)
 improve_turkish_military_effect = {
@@ -211,32 +351,6 @@ improve_turkish_military_effect = {
 		custom_effect_tooltip = cant_improve_turkish_military_tt
 	}
 }
-
-
-# Increases level of conscription (written backwards to prevent chain effect)
-increase_conscription_tier_effect = {
-	if = {
-		limit = { has_idea = all_adults_serve }
-		add_ideas = scraping_the_barrel 
-	}
-	if = {
-		limit = { has_idea = service_by_requirement }
-		add_ideas = all_adults_serve 
-	}
-	if = {
-		limit = { has_idea = extensive_conscription }
-		add_ideas = service_by_requirement
-	}
-	if = {
-		limit = { has_idea = limited_conscription }
-		add_ideas = extensive_conscription
-	}
-	if = {
-		limit = { OR = { has_idea = volunteer_only  has_idea = disarmed_nation } }
-		add_ideas = limited_conscription
-	}
-}
-
 
 ########### LATAM Influence ############
 
@@ -311,57 +425,6 @@ decrease_militancy_by_10_effect = {
 		set_variable = { USA.usa_socialist_militancy = 0 }
 		custom_effect_tooltip = set_militancy_at_0_tt
 	}
-}
-
-
-
-########## Army of the Orient ####################
-
-send_3_divisions_to_army_orient = {
-	add_manpower = -40500
-	add_equipment_to_stockpile = { type = infantry_equipment  amount = -3750  producer = ROOT }
-	add_equipment_to_stockpile = { type = artillery_equipment  amount = -108  producer = ROOT }
-	add_equipment_to_stockpile = { type = support_equipment  amount = -90  producer = ROOT }
-	if = {
-		limit = { NOT = { has_variable = THIS.num_orient_divisions } }
-		set_variable = { THIS.num_orient_divisions = 0 }
-	}
-	add_to_variable = { THIS.num_orient_divisions = 3 }
-	if = {
-		limit = { NOT = { has_variable = THIS.manpower_sent_to_orient } }
-		set_variable = { THIS.manpower_sent_to_orient = 0 }
-	}
-	add_to_variable = { THIS.manpower_sent_to_orient = 40500 }
-}
-
-spawn_3_orient_infantry_divisions = {
-	division_template = {
-		name = "Allied Oriental Division"
-		is_locked = yes
-		regiments = {
-			infantry = { x = 0 y = 0 } infantry = { x = 0 y = 1 } infantry = { x = 0 y = 2 }
-			infantry = { x = 1 y = 0 } infantry = { x = 1 y = 1 } infantry = { x = 1 y = 2 }
-			infantry = { x = 2 y = 0 } infantry = { x = 2 y = 1 } infantry = { x = 2 y = 2 }
-			infantry = { x = 3 y = 0 } infantry = { x = 3 y = 1 } infantry = { x = 3 y = 2 }
-			artillery_brigade = { x = 4 y = 0 }
-		}
-		support = {
-			engineer = { x = 0 y = 0 }
-			artillery = { x = 0 y = 1 }
-			mg_company = { x = 0 y = 2 }
-		}
-	}
-	random_owned_state = {
-		create_unit = {
-			division = "division_template = \"Allied Oriental Division\" start_experience_factor = 0.1 start_equipment_factor = 1 start_manpower_factor = 1"
-			owner = PREV
-			count = 3
-		}
-	}
-}
-
-
-
 
 
 ########### Russian Political Crisis ############ 
@@ -420,8 +483,6 @@ spawn_3_orient_infantry_divisions = {
 
 ##############################################################
 
-
-
 ### Red Rebellion ###
 
 # scope is state
@@ -472,153 +533,6 @@ spawn_3_orient_infantry_divisions = {
 # 	}
 # }
 
-
-
-
-
-# Effect to update country tech to ww2 levels
-full_modernize_tech_effect = {
-	# set_technology = {
-	# 	#Infantry
-	# 	infantry_weapons = 1
-	# 	ww1infantry_weapons1 = 1
-	# 	ww1_infantry_equip1 = 1
-	# 	ww1infantry_weapons2 = 1
-	# 	ww1_helmet_equip = 1
-	# 	ww1_infantry_equip2 = 1
-	# 	ww1infantry_weapons3 = 1
-	# 	ww1_infantry_equip3 = 1
-	# 	support_weapons = 1
-	# 	support_weapons2 = 1
-	# 	infantry_ww1_mortar1 = 1
-	# 	support_weapons3 = 1
-	# 	infantry_ww1_mortar2 = 1
-	# 	#infantry_binoculars = 1
-	# 	#infantry_grenade = 1
-	# 	#infantry_gasmask = 1
-	# 	infantry_at_rifle = 1
-	# 	infantry_flamethrower1 = 1
-	# 	motorised_infantry = 1
-
-	# 	#Artillery
-	# 	light_field_gun1 = 1
-	# 	bonus_artillery1 = 1
-	# 	light_field_gun2 = 1
-	# 	bonus_artillery2 = 1
-	# 	bonus_artillery3 = 1
-	# 	light_field_gun3 = 1
-	# 	#standard_artillery = 1
-	# 	heavy_field_gun1 = 1
-	# 	bonus_bertha1 = 1
-	# 	heavy_field_gun2 = 1
-	# 	bonus_bertha2 = 1
-	# 	bonus_bertha3 = 1
-	# 	ww1_antiair = 1
-	# 	ww1_antiair_upgrade1 = 1
-	# 	ww1_antiair_upgrade2 = 1
-	# 	ww1_antitank = 1
-	# 	ww1_antitank_ugrade1 = 1
-
-	# 	#Armor 
-	# 	gwtank = 1 # 1910 Armored Car
-	# 	ww1_armored_car_2 = 1
-	# 	ww1_armored_car_3 = 1
-	# 	ww1_armored_car_4 = 1
-	# 	tank_unlocker2 = 1
-	# 	ww1_light_tank = 1
-	# 	ww1_heavy_tank = 1
-	# 	ww1_heavy_tank_2 = 1
-	# 	ww1_super_heavy_tank = 1
-
-	# 	#Naval
-	# 	ww1_destroyer1 = 1
-	# 	ww1_destroyer2 = 1
-	# 	ww1_destroyer3 = 1
-	# 	#ww1_destroyer4 = 1
-	# 	#ww1_destroyer5 = 1
-	# 	ww1_smoke_generator = 1
-	# 	ww1_light_cruiser1 = 1
-	# 	ww1_light_cruiser2 = 1
-	# 	ww1_light_cruiser3 = 1
-	# 	#ww1_light_cruiser4 = 1
-	# 	ww1_heavy_cruiser1 = 1
-	# 	ww1_battlecruiser0 = 1
-	# 	ww1_battlecruiser1 = 1
-	# 	#ww1_battlecruiser2 = 1
-	# 	ww1_battleship1 = 1
-	# 	ww1_battleship2 = 1
-	# 	ww1_battleship3 = 1
-	# 	#ww1_battleship4 = 1
-	# 	#ww1_battleship5 = 1
-	# 	ww1_submarine1 = 1
-	# 	ww1_submarine2 = 1
-	# 	#ww1_submarine3 = 1
-	# 	#ww1_submarine4 = 1
-	# 	transport = 1
-
-	# 	#Air
-	# 	ww1_scout = 1
-	# 	ww1_fighter1 = 1
-	# 	ww1_fighter2 = 1
-	# 	ww1_triplane1 = 1
-	# 	ww1_fighter3 = 1
-	# 	ww1_triplane2 = 1
-	# 	ww1_cas1 = 1
-	# 	ww1_cas2 = 1
-	# 	ww1_seaplane1 = 1
-	# 	ww1_seaplane2 = 1
-	# 	ww1_bomber1 = 1
-	# 	ww1_bomber2 = 1
-	# 	ww1_zeppelin1 = 1
-	# 	ww1_zeppelin2 = 1
-
-	# 	#Electronics
-	# 	electronic_mechanical_engineering = 1
-	# 	communications1 = 1
-	# 	communications2 = 1
-	# 	supertech3 = 1
-	# 	mechanical_computing = 1
-	# 	hoi4tgw_decryption = 1
-	# 	hoi4tgw_encryption = 1
-	# 	mechanical_computing2 = 1
-	# 	hoi4tgw_decryption2 = 1
-	# 	hoi4tgw_encryption2 = 1
-	# 	combustion_engine1 = 1
-	# 	combustion_engine2 = 1
-	# 	chemical_research = 1
-	# 	chemical_research2 = 1
-	# 	chemical_research3 = 1
-	# 	mechanical_computing3 = 1  # remove for generic ww2
-	# 	hoi4tgw_decryption3 = 1  # remove for generic ww2
-	# 	hoi4tgw_encryption3 = 1  # remove for generic ww2
-
-	# 	#Industry
-	# 	ww1_tools1 = 1
-	# 	ww1_tools2 = 1
-	# 	ww1_tools3 = 1
-	# 	ww1_industry1 = 1
-	# 	ww1_industry2 = 1
-	# 	ww1_industry3 = 1
-	# 	ww1_construction1 = 1
-	# 	ww1_construction2 = 1
-	# 	ww1_mining1 = 1
-	# 	ww1_mining2 = 1
-	# 	#ww1_mining3 = 1
-	# 	ww1_oil1 = 1
-	# 	ww1_oil2 = 1
-	# 	#ww1_oil3 = 1
-	# 	ww1_bergiusprocess = 1
-	# 	ww1_fortification1 = 1
-	# 	ww1_fortification2 = 1
-	# 	#ww1_airdefense1 = 1
-	# 	ww1_industry4 = 1  # remove for generic ww2
-	# 	construction1 = 1  # remove for generic ww2
-	# 	construction2 = 1  # remove for generic ww2
-	# 	excavation1 = 1   # remove for generic ww2
-	# 	excavation2 = 1   # remove for generic ww2
-	# 	fuel_refining = 1  # remove for generic ww2
-	# 	fuel_refining2 = 1  # remove for generic ww2
-	# }
 }
 
 

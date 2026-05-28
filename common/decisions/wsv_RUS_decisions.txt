@@ -1,0 +1,598 @@
+
+
+
+#################### Great War capitulation ####################
+
+
+wsv_great_war_decisions = {
+
+	# Russia throws in the towel
+	greatwar_russia_peace_with_germany = {
+		icon = generic_form_nation
+		priority = 500
+
+		available = {
+			OR = {
+				casualties > 500000
+				surrender_progress > 0.5
+			}
+		}
+
+		visible = {
+			tag = RUS
+			OR = {
+				has_war_with = GER
+				has_war_with = AUH
+			}
+			has_start_date < 1937.1.1
+		}
+
+		days_re_enable = 90
+		days_remove = 4
+
+		remove_effect = {
+			random_country = {
+				limit = {
+					OR = { tag = GER  tag = AUH }
+					is_faction_leader = yes
+				}
+				country_event = { id = wsv_peace_treaty.10  days = 1 }
+			}
+			custom_effect_tooltip = brest_litvosk_treaty_tt
+		}
+
+		ai_will_do = {
+			base = 0  # Need positive value to surrender
+
+			# This horrendously clunky system was required cause negatives on ai_factor doesnt work
+			modifier = {
+				set_temp_variable = { surrender_chance = 0 }
+				
+				## --- Negatives
+				# Not losing ground is good
+				if = {
+					limit = { surrender_progress < 0.25 }
+					subtract_from_temp_variable = { surrender_chance = 1 }
+				}
+				# DONT ABANDON FRANCE!!
+				if = {
+					limit = { is_in_faction_with = FRA }
+					subtract_from_temp_variable = { surrender_chance = 2 }
+				}
+
+				## --- Positives
+				# Extreme casualties are bad
+				if = {
+					limit = { casualties > 2000000 }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				# Less will to fight with provisional gov
+				if = {
+					limit = { has_cosmetic_tag = RUS_provisional_gov }
+					add_to_temp_variable = { surrender_chance = 1 }
+				}
+				## - Note: we dont need bolsheviks here cause theres an event that makes them sue for peace
+				# If we're completey losing, give up
+				if = {
+					limit = { surrender_progress > 0.55 }
+					add_to_temp_variable = { surrender_chance = 10 }
+				}
+
+				add = surrender_chance  # value to modifier
+			}
+		}
+	}
+
+	RUS_war_plan_germany_decision = {
+		icon = generic_operation
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with = GER
+		}
+		visible = {
+			always = yes
+			#has_completed_focus = FRA_plan_seventeen_focus
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		complete_effect = {
+			add_ideas = RUS_warplan_germany_idea
+		}
+
+		remove_effect = {
+			remove_ideas = RUS_warplan_germany_idea
+		}
+		
+		ai_will_do = {
+			factor = 100   ## TODO - dont take if has war plan against AUH
+		}
+	}
+
+
+	RUS_war_plan_auh_decision = {
+		icon = generic_operation
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with = AUH
+		}
+		visible = {
+			always = yes
+			#has_completed_focus = FRA_plan_seventeen_focus
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		complete_effect = {
+			add_ideas = RUS_warplan_auh_idea
+		}
+
+		remove_effect = {
+			remove_ideas = RUS_warplan_auh_idea
+		}
+		
+		ai_will_do = {
+			factor = 100   ## TODO - dont take if has war plan against AUH
+		}
+	}
+}
+
+
+
+#################### Political struggle when Tsar abdicates ####################
+
+RUS_lena_massacre_aftermath_category = {
+
+	# Long investigation 
+	RUS_conduct_long_investigation = {		
+	 	icon = generic_decision
+		priority = 25
+
+		available = {
+			tag = RUS
+		}
+		visible = {
+			has_global_flag = lena_massacre_occured
+			NOT = { has_global_flag = started_lena_massacre_investigation }
+		}
+
+		cost = 50
+		fire_only_once = yes
+		days_remove = 100
+		days_re_enable = 0
+
+		complete_effect = {
+			set_global_flag = started_lena_massacre_investigation
+		}
+
+		remove_effect = {
+			country_event = wsv_russia.7
+		}
+		
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	# Short investigation 
+	RUS_conduct_brief_investigation = {		
+	 	icon = generic_decision
+		priority = 20
+
+		available = {
+			tag = RUS
+		}
+		visible = {
+			has_global_flag = lena_massacre_occured
+			NOT = { has_global_flag = started_lena_massacre_investigation }
+		}
+
+		cost = 0
+		fire_only_once = yes
+		days_remove = 30
+		days_re_enable = 0
+
+		complete_effect = {
+			set_global_flag = started_lena_massacre_investigation
+		}
+
+		remove_effect = {
+			country_event = wsv_russia.6
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+
+
+#################### Political struggle when Tsar abdicates ####################
+
+RUS_provisional_gov_category = {
+
+	# Bolshevik coup timeout mission
+	RUS_october_revolution = {		
+	 	icon = revolt
+		priority = 100
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			always = no
+		}
+		cancel_trigger = {
+			OR = {
+				has_government = communism
+				has_war = no   #TODO - temporary cancel trigger if provisionals win war, remove late
+			}
+		}
+
+		selectable_mission = no
+		days_mission_timeout = 215	# 215 after Lenin returns to Russia  
+		is_good = no
+		
+		timeout_effect = {
+			news_event = wsv_russia.150
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	RUS_distribute_grain = {
+		icon = ger_mefo_bills
+		priority = 50
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_stability < 0.7
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+		}
+
+		cost = 40
+		days_remove = 7
+		days_re_enable = 21
+
+		complete_effect = {
+			add_stability = 0.05
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 10
+				has_stability  < 0.5
+			}
+			modifier = {
+				add = 10
+				has_stability  < 0.3
+			}
+			modifier = {
+				factor = 0.5
+				has_political_power < 75
+			}
+		}
+	}
+
+
+	RUS_patriotic_speeches = {
+		icon = generic_civil_support
+		priority = 50
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_support < 0.7
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+		}
+
+		cost = 25
+		days_remove = 7
+		days_re_enable = 21
+
+		complete_effect = {
+			add_war_support = 0.05
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 10
+				has_war_support  < 0.5
+			}
+			modifier = {
+				add = 10
+				has_war_support  < 0.3
+			}
+			modifier = {
+				factor = 0.5
+				has_stability < 0.5   # prioritize stability
+			}
+			modifier = {
+				factor = 0.5
+				has_political_power < 75
+			}
+		}
+	}
+
+
+	RUS_prepare_kerensky_offensive = {
+		icon = infiltrate_state
+		priority = 25
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with_major = yes
+			has_war_support > 0.15
+			has_army_manpower = { size > 999999 }
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+		}
+
+		fire_only_once = yes
+
+		custom_cost_trigger = {
+			command_power > 24.9
+		}
+		custom_cost_text = RUS_decision_cost_prepare_keresky_off
+
+		days_remove = 90
+
+		complete_effect = {
+			add_command_power = -25
+			set_country_flag = RUS_prepared_keresenky_offensive
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+	}
+
+
+	RUS_launch_kerensky_offensive = {
+		icon = generic_prepare_civil_war
+		priority = 25
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with_major = yes
+			has_war_support > 0.15
+			has_army_manpower = { size > 999999 }
+		}
+		visible = {
+			has_cosmetic_tag = RUS_provisional_gov
+			has_country_flag = RUS_prepared_keresenky_offensive
+		}
+
+		custom_cost_trigger = {
+			command_power > 9.9
+		}
+		custom_cost_text = RUS_decision_cost_start_keresky_off
+
+		fire_only_once = yes
+		
+		complete_effect = {
+			add_command_power = -10
+			set_country_flag = RUS_started_kerensky_offensive
+			add_timed_idea = {
+				idea = RUS_kerensky_offensive_idea
+				days = 30  # not quite the full 30 days lol
+			}
+		}
+
+		days_remove = 30
+
+		cancel_trigger = {
+			has_war_with_major = no
+		}
+		cancel_effect = {
+			remove_ideas = RUS_kerensky_offensive_idea
+		}
+
+		remove_effect = {
+			if = {
+				# on removal, if still at war and losing, bad effects
+				limit = { 
+					has_war = yes 
+					surrender_progress > 0.04
+				}    
+				country_event = wsv_russia.137
+			}
+			# if the offensive is successful (aka pushes enemy out of russia or ends war), we get pp and bolshevik coup is delayed
+			else = {
+				country_event = wsv_russia.138
+			}
+		}
+
+		ai_will_do = {
+			factor = 50
+		}
+	}
+}
+
+
+######################################################################
+#########################  WORLD WAR 2  ##############################
+######################################################################
+
+
+wsv_ww2_decisions = {
+	
+	eastern_plebicites = {
+
+		icon = generic_civil_support
+
+		allowed = {
+			original_tag = RUS
+		}
+
+		visible = {
+			has_government = fascism
+			NOT = { has_war_with = GER }
+			NOT = { is_in_faction_with = GER }
+			GER = {
+				is_in_faction_with = UBD
+				is_in_faction_with = LIT
+				is_in_faction_with = UKR
+			}
+            OR = {
+            	has_completed_focus = RUS2_demand_eastern_plebicites
+            	has_global_flag = kaiser_wilhelm_ii_dead
+            }
+		}
+
+		days_remove = 5
+
+		fire_only_once = yes
+
+		remove_effect = {
+			news_event = wsv_ww2_russia.4 
+			custom_effect_tooltip = eastern_plebicite_or_war_tt
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				GER = { has_war_with = FRA } 
+			}
+			modifier = {
+				add = 1
+				date > 1942.1.1
+			}
+			modifier = {
+				add = 1
+				strength_ratio = {
+				    tag = GER
+				    ratio > 1.7  # number felt right idk lol
+				}
+			}
+		}
+	}
+
+
+	# Russia must decide
+	russia_must_decide = {
+
+		icon = generic_decision
+
+		allowed = {
+			tag = RUS
+		}
+
+		visible = {
+			has_global_flag = eastern_plebicites_rejected
+		}
+
+		fire_only_once = yes
+
+		days_remove = 30
+
+		days_re_enable = 0
+
+		remove_effect = {
+			set_country_flag = russian_ultimatum_expired
+			add_stability = -0.2
+			add_war_support = -0.25
+			add_political_power = -100
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# Russia attack germany
+	russia_attack_germany = {
+
+		icon = infiltrate_state
+
+		allowed = {
+			tag = RUS
+		}
+
+		available = {
+			NOT = { is_in_faction_with = GER }
+		}
+
+		visible = {
+			has_global_flag = eastern_plebicites_rejected
+			NOT = { has_country_flag = russian_ultimatum_expired }
+		}
+
+		fire_only_once = yes
+
+		days_remove = 7
+
+		days_re_enable = 0
+
+		remove_effect = {
+			declare_war_on = {
+			    target = GER
+			    type = topple_government
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = UBD } }
+				declare_war_on = {
+				    target = UBD
+				    type = annex_everything
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = LIT } }
+				declare_war_on = {
+				    target = LIT
+				    type = annex_everything
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = POL } }
+				declare_war_on = {
+				    target = POL
+				    type = annex_everything
+				}
+			}
+			if = {
+				limit = { NOT = { is_in_faction_with = UKR } }
+				declare_war_on = {
+				    target = UKR
+				    type = annex_everything
+				}
+			}
+			hidden_effect = {
+				remove_decision = russia_must_decide
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

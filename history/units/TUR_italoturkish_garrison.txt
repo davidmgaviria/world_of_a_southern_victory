@@ -1,5 +1,6 @@
-﻿division_template = {
-	name = "Libya Milisleri"		# Special
+﻿
+division_template = {
+	name = "Düzenli Kuvvetler"		# Ottoman Regulars
 	regiments = {
 		infantry = { x = 0 y = 0 }
 		infantry = { x = 0 y = 1 }
@@ -9,66 +10,60 @@
 	is_locked = yes
 }
 
+
 division_template = {
-	name = "Arap Asiretciler"		
+	name = "Libya Milisleri"		# Libyan Militia
 	regiments = {
-		irregular_infantry = { x = 0 y = 0 }
-		irregular_infantry = { x = 0 y = 1 }
-		irregular_infantry = { x = 0 y = 2 }
+		militia = { x = 0 y = 0 }
+		militia = { x = 0 y = 1 }
+		militia = { x = 0 y = 2 }
 	}
 	is_locked = yes
 	priority = 0
 }
 
 
-
 units = {
-	## Eastern defences
-	division= { 
+
+	## Ottoman Regulars — professional core
+	division = {
+		name = "1. Düzenli Kuvvetler"
+		location = 7082 # Derna
+		division_template = "Düzenli Kuvvetler"
+		start_experience_factor = 0.1
+	}
+	division = {
+		name = "2. Düzenli Kuvvetler"
+		location = 1118 # Khoms
+		division_template = "Düzenli Kuvvetler"
+		start_experience_factor = 0.1
+	}
+
+
+	## Libyan Militia — coastal garrisons and interior filler
+	division = {
 		name = "1. Libya Milisleri"
 		location = 7082 # Derna
-		division_template="Libya Milisleri"
-		start_experience_factor=0.1
+		division_template = "Libya Milisleri"
+		start_experience_factor = 0.05
 	}
-	division= { 
-		name = "1. Arap Asiretciler"
-		location = 7082 # Derna
-		division_template="Arap Asiretciler"
-		start_experience_factor=0.1
-	}
-
-	## Central refences
-	division= { 
-		name = "2. Arap Asiretciler"
-		location = 10046   # El Agheila 
-		division_template="Arap Asiretciler"
-		start_experience_factor=0.1
-	}
-	division= { 
-		name = "3. Arap Asiretciler"
-		location = 10046   # El Agheila 
-		division_template="Arap Asiretciler"
-		start_experience_factor=0.1
-	}
-
-	## Western defenses
-	division= { 
+	division = {
 		name = "2. Libya Milisleri"
-		location = 7209  #Khoms
-		division_template="Libya Milisleri"
-		start_experience_factor=0.1
+		location = 7082 # Derna
+		division_template = "Libya Milisleri"
+		start_experience_factor = 0.05
 	}
-	division= { 
-		name = "4. Arap Asiretciler"
-		location = 7209 #Khoms
-		division_template="Arap Asiretciler"
-		start_experience_factor=0.1
+	division = {
+		name = "3. Libya Milisleri"
+		location = 1130  # Tobruk
+		division_template = "Libya Milisleri"
+		start_experience_factor = 0.05
 	}
-	division= { 
-		name = "5. Arap Asiretciler"
-		location = 7209 #Khoms
-		division_template="Arap Asiretciler"
-		start_experience_factor=0.1
+	division = {
+		name = "4. Libya Milisleri"
+		location = 1118 # Khoms
+		division_template = "Libya Milisleri"
+		start_experience_factor = 0.05
 	}
 }
 
