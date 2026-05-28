@@ -23,7 +23,7 @@ news_event = {
 		hidden_effect = {
 			set_global_flag = france_occupies_morocco
 			FRA = {
-				add_named_threat = { threat = 3  name = "France Occupies Morocco" }
+				add_named_threat = { threat = 2  name = "France Occupies Morocco" }
 				annex_country = {
 					target = MOR
 					transfer_troops = no
@@ -89,7 +89,7 @@ news_event = {
 		hidden_effect = {
 			SPR = {
 				transfer_state = 290
-				add_named_threat = { threat = 1  name = "Spain Occupies North Morocco" }
+				#add_named_threat = { threat = 1  name = "Spain Occupies North Morocco" }
 			}
 		}
 	}
@@ -130,7 +130,7 @@ country_event = {
 			days = 30
 			value = 1
 		}
-		FRA = { country_event = { id = wsv_agadir.5  days = 1 } }
+		FRA = { country_event = { id = wsv_agadir.5  days = 2 } }
 	}
 }
 
@@ -143,8 +143,11 @@ country_event = {
 
     is_triggered_only = yes
 
+	timeout_days = 7
+
 	option = {
 		name = wsv_agadir.5.a
+		GER = { country_event = { id = wsv_agadir.6  days = 5   random_days = 5 } }
 	}
 }
 
@@ -156,12 +159,7 @@ country_event = {
 	desc = wsv_agadir.6.d
 
 	fire_only_once = yes
-	trigger = {
-		tag = GER
-		has_war = no
-		has_country_flag = requested_compensation_over_agadir
-		NOT = { has_country_flag = waiting_french_repsonse }
-	}
+	is_triggered_only = yes
 
 	option = {
 		name = wsv_agadir.6.a
@@ -188,7 +186,7 @@ news_event = {
 		hidden_effect = {
 			GER = {
 				set_country_flag = sent_gunboat_to_agadir
-				add_named_threat = { threat = 7  name = "Germany Intervenes in Morocco" }
+				add_named_threat = { threat = 8  name = "Germany Intervenes in Morocco" }
 			}
 			ENG = {
 				country_event = { id = wsv_agadir.8  days = 2 }
@@ -272,11 +270,11 @@ news_event = {
 	immediate = {
 		set_global_flag = britain_backs_france_in_agadir
 		set_global_flag = britain_response_to_agadir
-		hidden_effect = {
-			ENG = {
-				add_named_threat = { threat = 3  name = "Britain Intervenes in Morocco" }
-			}
-		}
+		# hidden_effect = {
+		# 	ENG = {
+		# 		add_named_threat = { threat = 3  name = "Britain Intervenes in Morocco" }
+		# 	}
+		# }
 	}
 
 	option = {
@@ -445,49 +443,13 @@ country_event = {
 
     is_triggered_only = yes
 
-	# Soften demands
-	option = {
-		name = wsv_agadir.15.a
-		FRA = { country_event = { id = wsv_agadir.16   days = 14 } }   # delay in sending next one
-		# extend timer
-		effect_tooltip = {
-			add_days_mission_timeout = {
-				mission = agadir_relevance_of_morocco_occupation
-				days = 30
-			}
-		}
-		hidden_effect = {
-			every_country = {
-				limit = { has_active_mission = agadir_relevance_of_morocco_occupation }
-				add_days_mission_timeout = {
-					mission = agadir_relevance_of_morocco_occupation
-					days = 30
-				}
-			}
-		}
-		ai_chance = {
-			base = 140
-		}
+	immediate = {
+		set_global_flag = agadir_france_rejected_inital_german_demands
+		clr_global_flag = agadir_negotiations_ongoing   # clears to allow player to escalate crsis if they wish
 	}
 
-	# Break off negotiations
 	option = {
-		name = wsv_agadir.15.b
-		clr_global_flag = agadir_negotiations_ongoing
-		set_global_flag = agadir_negotations_failed
-		news_event = wsv_agadir.20
-		custom_effect_tooltip = agadir_negotiations_will_end_tt
-		ai_chance = {
-			base = 10
-			modifier = {
-				factor = 2
-				has_global_flag = britain_abandoned_france_in_agadir
-			}
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-		}
+		name = wsv_agadir.15.a
 	}
 }
 
@@ -504,7 +466,7 @@ country_event = {
 	# Reject demands (Britain will cease to support us)  
 	option = {
 		name = wsv_agadir.16.a
-		GER = { country_event = { id = wsv_agadir.17   days = 3 } }
+		GER = { country_event = { id = wsv_agadir.17   days = 5 } }
 		# will Britain back us?
 		if = {
 			limit = { has_global_flag = britain_backs_france_in_agadir }
@@ -533,7 +495,7 @@ country_event = {
 	# Agree to demands
 	option = {
 		name = wsv_agadir.16.b
-		GER = { country_event = { id = wsv_agadir.18   days = 3 } }  # France agrees to terms
+		GER = { country_event = { id = wsv_agadir.18   days = 5 } }  # France agrees to terms
 		set_global_flag = agadir_small_reward_to_germany
 		custom_effect_tooltip = give_germany_part_of_congo_tt
 		
