@@ -1,231 +1,7 @@
 
 wsv_great_war_decisions = {
 
-	# Schliffen plan
-	germany_schliffen_plan = {
-		icon = generic_pickelhaube
-		priority = 150
-
-		allowed = {
-			tag = GER
-		}
-
-		available = {
-			has_war_with = FRA
-			OR = {
-				NOT = { has_war_with = BEL }
-				NOT = { has_war_with = LUX }
-			}
-			
-		}
-
-		visible = {
-			NOT = { is_in_faction_with = FRA }
-			NOT = { is_in_faction_with = BEL }
-			NOT = { is_in_faction_with = LUX }
-		}
-
-		fire_only_once = yes
-		days_remove = 4
-
-		remove_effect = {
-			set_country_flag = schliffen_plan_began
-			add_timed_idea = {	idea = GER_schlieffen_plan	days = 60 }
-			declare_war_on = {
-			    target = BEL
-			    type = puppet_wargoal_focus
-			}
-			declare_war_on = {
-			    target = LUX
-			    type = annex_everything
-			}
-			hidden_effect = {
-				if = {
-					limit = {
-						FRA = { is_faction_leader = yes }
-						BEL = { is_in_faction = no   is_guaranteed_by = FRA }
-					}
-					FRA = { add_to_faction = BEL }
-				}
-				if = {
-					limit = {
-						FRA = { is_faction_leader = yes }
-						LUX = { is_in_faction = no   is_guaranteed_by = FRA }
-					}
-					FRA = { add_to_faction = LUX }
-				}
-			}
-			if = {
-				limit = { ENG = { has_guaranteed = BEL } }
-				custom_effect_tooltip = war_with_england_tt
-			}
-		}
-
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-
-	# Fix supply lines in Belgium cause AI wont
-	germany_build_supply_in_belgium = {
-		icon = generic_construction
-		priority = 145
-
-		allowed = {
-			tag = GER
-		}
-
-		available = {
-			controls_province = 3547
-			controls_province = 3488
-			controls_province = 6537
-			controls_province = 11519
-		}
-
-		visible = {
-			has_war_with = FRA
-		}
-
-		fire_only_once = yes
-		days_remove = 30
-
-		custom_cost_trigger = {
-			num_of_civilian_factories > 3
-			command_power > 25
-		}
-
-		modifier = {
-			civilian_factory_use = 3
-		}
-
-		complete_effect = {
-			add_command_power = -25
-		}
-
-		remove_effect = {
-			build_railway = {
-				level = 2
-				build_only_on_allied = yes
-				fallback = yes
-				path = { 3547 3488 6537 11519 }
-				start_province = 3547
-				target_province = 11519
-			}
-		}
-
-		ai_will_do = {
-			factor = 100
-		}
-	}
-
-
-	# Blockade effect - Germany begins rationing
-	germany_effects_of_blockade = {
-		icon = ger_mefo_bills
-		priority = 190
-
-		allowed = {
-			tag = GER
-		}
-		activation = {
-			has_war_with = ENG
-		}
-		available = {   
-			# cancels if any of these conditions are true
-			OR = {		
-				NOT = { has_war_with = ENG }  # cancel if at peace
-				AND = {
-					controls_state = 126
-					controls_state = 125
-					controls_state = 127
-					controls_state = 123
-					controls_state = 338
-				}	
-				# naval_strength_comparison = {
-				# 	other = ENG
-				# 	#tooltip = my_loc_key_tt
-				# 	ratio > 1
-				# 	sub_unit_def_weights = {
-				# 		battleship = 2
-				# 		battle_cruiser = 2
-				# 		heavy_cruiser = 1
-				# 		light_cruiser = 1
-				# 		destroyer = 1
-				# 		# submarine = 1
-				# 	}
-				# }
-			}
-		}
-
-		days_mission_timeout = 360
-		fire_only_once = yes
-		is_good = no
-
-		timeout_effect = {
-			set_country_flag = germany_began_rationing
-			add_war_support = -0.1
-			add_stability = -0.1
-			add_ideas = GER_implement_rationing
-			country_event = wsv_germany.87
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-	}
-
-
-	# Blockade effect - Germany runs out of food countdown
-	germany_ran_out_of_food = {
-		icon = decision_revolt
-		priority = 190
-
-		allowed = {
-			tag = GER
-		}
-		activation = {
-			has_war_with = ENG
-			has_country_flag = germany_began_rationing
-		}
-		available = {   
-			# cancels if our navy is stronger
-			OR = {		
-				NOT = { has_war_with = ENG }			
-				naval_strength_comparison = {
-					other = ENG
-					#tooltip = my_loc_key_tt
-					ratio > 1
-					sub_unit_def_weights = {
-						battleship = 2
-						battle_cruiser = 2
-						heavy_cruiser = 1
-						light_cruiser = 1
-						destroyer = 1
-						# submarine = 1
-					}
-				}
-			}
-		}
-
-		days_mission_timeout = 1080
-		fire_only_once = yes
-
-		timeout_effect = {
-			add_war_support = -0.3
-			add_stability = -0.25
-			add_ideas = GER_blockade_effects
-			hidden_effect = {
-				remove_ideas = GER_implement_rationing
-			}
-			country_event = wsv_germany.13
-		}
-
-		ai_will_do = {
-			factor = 0
-		}
-	}
-
+	### ---------- Germany Surrenders ---------- ###
 	
 	# Germany throws in the towel
 	greatwar_germany_offers_peace = {
@@ -332,6 +108,437 @@ wsv_great_war_decisions = {
 			}
 		}
 	}
+
+
+	### ---------- Schliffen Plan ---------- ###
+
+	germany_schliffen_plan = {
+		icon = generic_pickelhaube
+		priority = 150
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			has_war_with = FRA
+			OR = {
+				NOT = { has_war_with = BEL }
+				NOT = { has_war_with = LUX }
+			}
+			
+		}
+
+		visible = {
+			NOT = { is_in_faction_with = FRA }
+			NOT = { is_in_faction_with = BEL }
+			NOT = { is_in_faction_with = LUX }
+		}
+
+		fire_only_once = yes
+		days_remove = 4
+
+		remove_effect = {
+			set_country_flag = schliffen_plan_began
+			add_timed_idea = {	idea = GER_schlieffen_plan	days = 60 }
+			declare_war_on = {
+			    target = BEL
+			    type = puppet_wargoal_focus
+			}
+			declare_war_on = {
+			    target = LUX
+			    type = annex_everything
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						BEL = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = BEL }
+				}
+				if = {
+					limit = {
+						FRA = { is_faction_leader = yes }
+						LUX = { is_in_faction = no   is_guaranteed_by = FRA }
+					}
+					FRA = { add_to_faction = LUX }
+				}
+			}
+			if = {
+				limit = { ENG = { has_guaranteed = BEL } }
+				custom_effect_tooltip = war_with_england_tt
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	# Fix supply lines in Belgium cause AI wont
+	germany_build_supply_in_belgium = {
+		icon = generic_construction
+		priority = 145
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			controls_province = 3587
+			controls_province = 3488
+			controls_province = 6537
+			controls_province = 11519
+		}
+
+		visible = {
+			has_war_with = FRA
+		}
+
+		fire_only_once = yes
+		days_remove = 30
+
+		custom_cost_trigger = {
+			num_of_civilian_factories > 3
+			command_power > 25
+		}
+		custom_cost_text = germany_build_supply_in_belgium
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			add_command_power = -25
+		}
+
+		remove_effect = {
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 3547 3488 6537 11519 }
+				start_province = 3547
+				target_province = 11519
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	
+
+	### ---------- Blockade Stuff ---------- ###
+
+	# Blockade effect - Germany begins rationing
+	germany_effects_of_blockade = {
+		icon = ger_mefo_bills
+		priority = 190
+
+		allowed = {
+			tag = GER
+		}
+		activation = {
+			has_war_with = ENG
+		}
+		available = {   
+			# cancels if any of these conditions are true
+			OR = {		
+				NOT = { has_war_with = ENG }  # cancel if at peace
+				AND = {
+					controls_state = 126
+					controls_state = 125
+					controls_state = 127
+					controls_state = 123
+					controls_state = 338
+				}	
+				# naval_strength_comparison = {
+				# 	other = ENG
+				# 	#tooltip = my_loc_key_tt
+				# 	ratio > 1
+				# 	sub_unit_def_weights = {
+				# 		battleship = 2
+				# 		battle_cruiser = 2
+				# 		heavy_cruiser = 1
+				# 		light_cruiser = 1
+				# 		destroyer = 1
+				# 		# submarine = 1
+				# 	}
+				# }
+			}
+		}
+
+		days_mission_timeout = 360
+		fire_only_once = yes
+		is_good = no
+
+		timeout_effect = {
+			set_country_flag = germany_began_rationing
+			add_war_support = -0.1
+			add_stability = -0.1
+			add_ideas = GER_implement_rationing
+			country_event = wsv_germany.47
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	# Blockade effect - Germany runs out of food countdown
+	germany_ran_out_of_food = {
+		icon = decision_revolt
+		priority = 190
+
+		allowed = {
+			tag = GER
+		}
+		activation = {
+			has_war_with = ENG
+			has_country_flag = germany_began_rationing
+		}
+		available = {   
+			# cancels if our navy is stronger
+			OR = {		
+				NOT = { has_war_with = ENG }			
+				naval_strength_comparison = {
+					other = ENG
+					#tooltip = my_loc_key_tt
+					ratio > 1
+					sub_unit_def_weights = {
+						battleship = 2
+						battle_cruiser = 2
+						heavy_cruiser = 1
+						light_cruiser = 1
+						destroyer = 1
+						# submarine = 1
+					}
+				}
+			}
+		}
+
+		days_mission_timeout = 1080
+		fire_only_once = yes
+
+		timeout_effect = {
+			add_war_support = -0.3
+			add_stability = -0.25
+			add_ideas = GER_blockade_effects
+			hidden_effect = {
+				remove_ideas = GER_implement_rationing
+			}
+			country_event = wsv_germany.13
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+
+	### ---------- Pressure Denmark ---------- ###
+	
+	# Fix supply lines in Belgium cause AI wont
+	germany_demand_denmark_mine_straits = {
+		icon = generic_naval_mine
+		priority = 140
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			has_completed_focus = GER_plans_on_denmark
+			NOT = { has_guaranteed = DEN }
+			OR = {
+				has_war_with = ENG  # england scares us
+				AND = {
+					has_war_with = RUS
+					has_war_with = FRA
+				}
+			}
+		}
+
+		visible = {
+			NOT = { has_war_with = DEN }
+			NOT = { is_in_faction_with = DEN }
+			DEN = {
+				has_full_control_of_state = 37
+				has_full_control_of_state = 99
+			}
+			#NOT = { has_global_flag = DANISH_BELTS_BLOCKED }
+		}
+
+		fire_only_once = yes
+		days_remove = 4
+
+		war_with_on_remove = DEN
+
+		remove_effect = {
+			DEN = {
+				country_event = wsv_germany.205
+			}
+			custom_effect_tooltip = may_lead_to_war_with_denmark_tt
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+	}
+}
+
+
+
+### ------------------------ Berlin Baghdad Railway ----------------------- ###
+
+GER_berlin_baghdad_railway_project_cat = {
+
+	# Build the northern stretch (Adana to Mosul)
+	GER_bbr_build_north_stretch = {
+		icon = generic_train
+		priority = 90
+
+		allowed = {
+			tag = GER
+		}
+
+		visible = {
+			has_completed_focus = GER_berlin_baghdad_railway_focus
+			is_in_faction_with = TUR
+		}
+
+		available = {
+			677 = {
+				CONTROLLER = {
+					OR = { tag = ROOT  is_in_faction_with = ROOT } 
+				}
+			}
+			680 = {
+				CONTROLLER = {
+					OR = { tag = ROOT  is_in_faction_with = ROOT } 
+				}
+			}
+			676 = {
+				CONTROLLER = {
+					OR = { tag = ROOT  is_in_faction_with = ROOT } 
+				}
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 250
+
+		custom_cost_trigger = {
+			num_of_civilian_factories > 4
+			command_power > 25
+		}
+		custom_cost_text = GER_bbr_build_north_stretch
+
+		modifier = {
+			civilian_factory_use = 4
+		}
+
+		complete_effect = {
+			add_command_power = -25
+		}
+
+		remove_effect = {
+			set_global_flag = bbr_north_stretch_completed
+			effect_tooltip = {
+				build_railway = {
+					level = 2
+					fallback = yes
+					start_province = 12473
+					target_province = 10106
+				}
+			}
+			hidden_effect = {
+				build_railway = {
+					level = 2
+					build_only_on_allied = yes
+					fallback = yes
+					path = { 12473 7671 6883 1634 1578 1549 10804 10106 }
+					start_province = 12473
+					target_province = 10106
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+
+	# Build the southern stretch (Basra to Mosul)
+	GER_bbr_build_south_stretch = {
+		icon = generic_train
+		priority = 90
+
+		allowed = {
+			tag = GER
+		}
+
+		visible = {
+			has_completed_focus = GER_berlin_baghdad_railway_focus
+			is_in_faction_with = TUR
+		}
+
+		available = {
+			291 = {
+				CONTROLLER = {
+					OR = { tag = ROOT  is_in_faction_with = ROOT } 
+				}
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 180
+
+		custom_cost_trigger = {
+			num_of_civilian_factories > 3
+			command_power > 25
+		}
+		custom_cost_text = GER_bbr_build_south_stretch
+
+		modifier = {
+			civilian_factory_use = 3
+		}
+
+		complete_effect = {
+			add_command_power = -25
+		}
+
+		remove_effect = {
+			set_global_flag = bbr_south_stretch_completed
+			build_railway = {
+				level = 2
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 2097 3795 1600 10106 }
+				start_province = 2097
+				target_province = 10106
+			}
+			build_railway = {
+				level = 1
+				build_only_on_allied = yes
+				fallback = yes
+				path = { 2089 8001 2004 7994 2097 }
+				start_province = 2089
+				target_province = 2097
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
 }
 
 

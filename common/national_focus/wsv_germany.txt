@@ -1139,7 +1139,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_division_of_poland
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_look_east }
 
 		cost = 10
@@ -1152,7 +1152,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			
+			country_event = wsv_germany.30  # country event
 		}
 	}
 
@@ -1209,7 +1209,7 @@ focus_tree = {
 
 
 	focus = {
-		id = GER_escalate_tensions_in_the_east
+		id = GER_plan_false_flag_in_east
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_division_of_poland }
 		#prerequisite = { focus = GER_eastern_logistics }
@@ -1224,10 +1224,7 @@ focus_tree = {
 		}
 
 		available = {
-			OR = {
-				threat > 0.5
-				date > 1915.1.1
-			}
+	
 		}
 
 		completion_reward = { 
@@ -1237,15 +1234,15 @@ focus_tree = {
 
 
 	focus = {
-		id = GER_preemptive_eastern_war
+		id = GER_trigger_eastern_war
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = GER_escalate_tensions_in_the_east }
+		prerequisite = { focus = GER_plan_false_flag_in_east }
 		prerequisite = { focus = GER_eastern_logistics }
 
 		cost = 10
 		x = 1
 		y = 1
-		relative_position_id = GER_escalate_tensions_in_the_east
+		relative_position_id = GER_plan_false_flag_in_east
 
 		ai_will_do = { 
 			factor = 0 # not assigned
@@ -1443,7 +1440,7 @@ focus_tree = {
 
 	focus = {
 		id = GER_plans_on_denmark
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_naval_program_1913   focus = GER_army_bill_1913 }
 
 		cost = 5
@@ -1460,6 +1457,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
+			custom_effect_tooltip = enabled_actions_with_denmark_in_gw_tt
 		}
 	}
 
@@ -1513,7 +1511,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
-			TUR = { country_event =  wsv_germany.80 }
+			TUR = { country_event =  wsv_germany.40 }
 			custom_effect_tooltip = turkey_must_accept_outreach_tt
 		}
 	}
@@ -1552,7 +1550,7 @@ focus_tree = {
 	# 			}
 	# 		}
 	# 		hidden_effect = {
-	# 			TUR = { country_event = wsv_germany.83}  # what actually adds the effect
+	# 			TUR = { country_event = wsv_germany.37}  # what actually adds the effect
 	# 		}
 	# 	}
 	# }
@@ -1591,7 +1589,7 @@ focus_tree = {
 				}
 			}
 			hidden_effect = {
-				TUR = { country_event = wsv_germany.84 }  # what actually adds the effect
+				TUR = { country_event = wsv_germany.44 }  # what actually adds the effect
 			}
 		}
 	}
@@ -1599,7 +1597,7 @@ focus_tree = {
 
 
 	focus = {
-		id = GER_defender_of_the_turks		## TODO - ? delete
+		id = GER_defender_of_the_turks		
 		icon = GFX_focus_chi_legislative_yuan_shine
 		prerequisite = { focus = GER_turkish_rearmament_program }
 
@@ -1627,15 +1625,15 @@ focus_tree = {
 
 
 		completion_reward = { 
-			TUR = { country_event =  wsv_germany.85 }
+			TUR = { country_event =  wsv_germany.45 }
 			custom_effect_tooltip = turkey_secret_treaty_conditions_tt
 		}
 	}
 
 
 	focus = {
-		id = GER_berlin_baghdad_railway		## TODO - ? delete
-		#icon = GFX_focus_chi_legislative_yuan_shine
+		id = GER_berlin_baghdad_railway_focus
+		icon = GFX_focus_chi_legislative_yuan_shine
 		prerequisite = { focus = GER_turkish_rearmament_program }
 
 		cost = 10
@@ -1654,8 +1652,8 @@ focus_tree = {
 		bypass = {
 		}
 
-
 		completion_reward = { 
+			custom_effect_tooltip = unlocks_bbr_project_decisions_tt
 		}
 	}
 
@@ -1666,7 +1664,7 @@ focus_tree = {
 		prerequisite = { focus = GER_challenge_anglo_french_alliance }
 
 		cost = 10
-		x = 9
+		x = 8
 		y = 1
 		relative_position_id = GER_challenge_anglo_french_alliance
 
@@ -1694,7 +1692,7 @@ focus_tree = {
 
 		cost = 10
 		x = 2
-		y = 2
+		y = 1
 		relative_position_id = GER_colonial_ambitions
 
 		ai_will_do = { 
@@ -1876,7 +1874,7 @@ focus_tree = {
 
 		cost = 10
 		x = -2
-		y = 2
+		y = 1
 		relative_position_id = GER_colonial_ambitions
 
 		ai_will_do = { 
@@ -2103,6 +2101,7 @@ focus_tree = {
 		}
 
 		completion_reward = { 
+			USA = { country_event = wsv_germany.50 }
 		}
 	}
 
@@ -2132,12 +2131,15 @@ focus_tree = {
 		prerequisite = { focus = GER_divison_of_americas }
 		#prerequisite = { focus = GER_colonial_ambitions }
 		prerequisite = { focus = GER_naval_program_1913 }
-		mutually_exclusive = { focus=GER_german_american_alliance  }
 
 		cost = 10
-		x = -1
+		x = -2
 		y = 1
 		relative_position_id = GER_divison_of_americas
+		
+		available = {
+			NOT = { has_global_flag = germany_recognized_usa_sphere_of_influence }
+		}
 
 		ai_will_do = { 
 			factor = 1
@@ -2229,9 +2231,8 @@ focus_tree = {
 		id = GER_german_american_alliance
 		#icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = GER_divison_of_americas }
-		mutually_exclusive = { focus=GER_carribean_launchpoint  }
 		cost = 10
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = GER_divison_of_americas
 
@@ -2239,9 +2240,14 @@ focus_tree = {
 			factor = 1
 		}
 
+		available = {
+			has_global_flag = germany_and_usa_plan_alliance
+		}
+
 		completion_reward = { 
 		}
 	}
+
 
 		
 	focus = {
@@ -2489,6 +2495,31 @@ focus_tree = {
 			}
 			set_country_flag = kaisers_battle_began
 			custom_effect_tooltip = failing_spring_offensive_warning_tt
+		}
+	}
+
+
+	focus = {
+		id = GER_german_american_wartime_tech_sharing
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = GER_the_great_war }
+		#prerequisite = { focus = GER_german_american_alliance }
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = GER_the_great_war
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			is_in_faction_with = USA
+			has_war_together_with = USA
+		}
+
+
+		completion_reward = { 
 		}
 	}
 
