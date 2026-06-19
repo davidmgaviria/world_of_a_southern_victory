@@ -371,7 +371,7 @@ wsv_great_war_decisions = {
 				has_full_control_of_state = 37
 				has_full_control_of_state = 99
 			}
-			#NOT = { has_global_flag = DANISH_BELTS_BLOCKED }
+			NOT = { has_global_flag = DANISH_BELTS_BLOCKED }
 		}
 
 		fire_only_once = yes
@@ -388,6 +388,62 @@ wsv_great_war_decisions = {
 
 		ai_will_do = {
 			factor = 100
+		}
+	}
+
+
+	# Fix supply lines in Belgium cause AI wont
+	germany_occupy_denmark_decision = {
+		icon = hol_draw_up_staff_plans
+		priority = 130
+
+		allowed = {
+			tag = GER
+		}
+
+		available = {
+			has_completed_focus = GER_plans_on_denmark
+			NOT = { has_guaranteed = DEN }
+			OR = {
+				has_war_with = ENG  # england scares us
+				AND = {
+					has_war_with = RUS
+					has_war_with = FRA
+				}
+			}
+			longest_war_length > 24  # Germany historically considered in August 1916
+		}
+
+		visible = {
+			NOT = { has_war_with = DEN }
+			NOT = { is_in_faction_with = DEN }
+			DEN = {
+				has_full_control_of_state = 37
+				has_full_control_of_state = 99
+			}
+		}
+
+		fire_only_once = yes
+		days_remove = 14
+
+		war_with_on_remove = DEN
+
+		remove_effect = {
+			add_state_claim = 99
+			add_state_claim = 37
+			declare_war_on = {
+				target = DEN
+				type = annex_everything
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				add = 1
+				is_historical_focus_on = no
+				surrender_progress < 0
+			} 
 		}
 	}
 }
