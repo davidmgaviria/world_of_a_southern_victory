@@ -1,0 +1,183 @@
+﻿# This doc is for events regarding the Franco-Russian alliance.  It includes events from 'shared' focuses (such as outreach focuses
+# or the French loan focus) as well as other alliance related events that consist of interactions between the two nations.
+
+
+add_namespace = wsv_frarus_ally
+
+
+
+## -------------------------------------------------------------- ##
+##  Reaffirming the Alliance (started by either Frnace or Russia 
+## -------------------------------------------------------------- ##
+
+# Country A reaffirms Franco - Russian Alliance  (started by either France OR Russia, other country is ROOT, FROM is who started it)
+country_event = {
+	id = wsv_frarus_ally.1
+	title = wsv_frarus_ally.1.t
+	desc = wsv_frarus_ally.1.d
+
+	is_triggered_only = yes
+
+	immediate = {
+		set_global_flag = franco_russian_alliance_reaffirmed
+	}
+
+	# thank you partner
+	option = {
+		name = wsv_frarus_ally.1.a
+		effect_tooltip = {
+			add_opinion_modifier = {
+				target = FROM
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+		}
+		FROM = {
+			country_event = { id = wsv_frarus_ally.2   days = 3 }
+			add_opinion_modifier = {
+				target = ROOT
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+		}
+	}
+}
+
+
+# Country B sends their thanks (opposite country from who initated chain is ROOT)
+country_event = {
+	id = wsv_frarus_ally.2
+	title = wsv_frarus_ally.2.t
+	desc = wsv_frarus_ally.2.d
+
+	is_triggered_only = yes
+
+	option = {
+		name = wsv_frarus_ally.2.a
+		effect_tooltip = {
+			add_opinion_modifier = {
+				target = FROM
+				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
+			}
+		}
+	}
+}
+
+
+## -------------------------------------------------------------- ##
+##  French Military Mission 
+## -------------------------------------------------------------- ##
+
+# France sends military mission to Russia (ONLY started by France, Russia is ROOT)
+country_event = {
+	id = wsv_frarus_ally.3
+	title = wsv_frarus_ally.3.t
+	desc = wsv_frarus_ally.3.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	# thank you
+	option = {
+		name = wsv_frarus_ally.3.a
+		add_timed_idea = {
+			idea = RUS_french_military_advisors_in_russia_idea
+			days = 360
+		}
+	}
+}
+
+
+
+## -------------------------------------------------------------- ##
+##  French Rearmament Loan 
+## -------------------------------------------------------------- ##
+
+# Start A:  France offers loan for rearmament (ONLY started by France, Russia is ROOT)
+country_event = {
+	id = wsv_frarus_ally.5
+	title = wsv_frarus_ally.5.t
+	desc = wsv_frarus_ally.5.d
+
+	is_triggered_only = yes
+
+	# we'll accept the loan
+	option = {
+		name = wsv_frarus_ally.5.a
+		FRA = { 
+			country_event = { id = wsv_frarus_ally.7  days = 3  random_days = 5 } 
+		}
+		custom_effect_tooltip = will_reduce_cost_of_great_military_program_tt
+	}
+	## todo - would be cool to be able to discuss loan rates, but thats fluff
+}
+
+
+# Start B:  Russia requests loan for rearmament (ONLY started by Russia, France is ROOT)
+country_event = {
+	id = wsv_frarus_ally.6
+	title = wsv_frarus_ally.6.t
+	desc = wsv_frarus_ally.6.d
+
+	is_triggered_only = yes
+
+	# we'll provide the loan
+	option = {
+		name = wsv_frarus_ally.5.a
+		RUS = { 
+			country_event = { id = wsv_frarus_ally.7  days = 3  random_days = 5 } 
+		}
+		custom_effect_tooltip = will_reduce_cost_of_great_military_program_tt
+	}
+	## todo - would be cool to be able to discuss loan rates, but thats fluff
+}
+
+
+
+# Russia accepts the loan (ROOT is either France or Russia, whoever did not start the chain)
+country_event = {
+	id = wsv_frarus_ally.7
+	title = wsv_frarus_ally.7.t
+	desc = wsv_frarus_ally.7.d
+
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	immediate = {  # put here so focus bypass happens when event occurs
+		set_global_flag = france_financed_russian_armament_program
+	}
+
+	option = {  # what France reads
+		trigger = { tag = FRA }
+		name = wsv_frarus_ally.7.a
+	}
+
+	option = {  # what Russia reads
+		trigger = { tag = RUS }
+		name = wsv_frarus_ally.7.b
+	}
+}
+
+
+# French military loans activate (event for Russia)
+country_event = {
+	id = wsv_frarus_ally.8
+	title = wsv_frarus_ally.8.t
+	desc = wsv_frarus_ally.8.d
+
+	trigger = {
+		tag = RUS
+		has_global_flag = france_financed_russian_armament_program
+		has_idea = RUS_great_military_program_idea
+		is_in_faction_with = FRA
+		NOT = { has_global_flag = french_loans_for_russia_rearm_activated }
+	}
+
+	immediate = {  
+		set_global_flag = french_loans_for_russia_rearm_activated
+	}
+
+	option = {  
+		name = wsv_frarus_ally.8.b
+		add_ideas = RUS_french_loans_for_russia_rearm_idea
+	}
+}
+

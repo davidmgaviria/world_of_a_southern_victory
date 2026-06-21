@@ -883,7 +883,7 @@ focus_tree = {
 		relative_position_id = FRA_memories_of_1871
 
 		ai_will_do = { 
-			factor = 5 
+			factor = 10 
 		}
 
 		available = {
@@ -891,12 +891,13 @@ focus_tree = {
 			is_in_faction_with = RUS
 		}
 
+		bypass = {
+			has_global_flag = franco_russian_alliance_reaffirmed
+		}
+
 		completion_reward = { 
-			add_opinion_modifier = { 
-				target = RUS
-				modifier = HOI4TGW_Opinion_improved_diplomatic_relations
-			}
 			RUS = {
+				country_event = wsv_frarus_ally.1
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
@@ -926,10 +927,10 @@ focus_tree = {
 
 		completion_reward = { 
 			RUS = { 
-				country_event = wsv_france.50 
+				country_event = wsv_frarus_ally.3
 				effect_tooltip = {
 					add_timed_idea = {
-						idea = FRA_military_advisors_in_russia_idea
+						idea = RUS_french_military_advisors_in_russia_idea
 						days = 360
 					}
 				}
@@ -952,25 +953,21 @@ focus_tree = {
 		}
 
 		available = {
+			has_war = no
 			country_exists = RUS
 			is_in_faction_with = RUS
 			is_puppet = no
 		}
 
 		bypass = {
-			has_global_flag = france_financed_russian_rearmament
+			has_global_flag = france_financed_russian_armament_program
 		}
 
 		completion_reward = { 
 			RUS = { 
-				country_event = wsv_france.51 
-				effect_tooltip = {
-					add_timed_idea = {
-						idea = FRA_loans_for_russia_rearm_idea
-						days = 720
-					}
-				}
+				country_event =  wsv_frarus_ally.5
 			}
+			custom_effect_tooltip = will_reduce_cost_of_great_military_program_tt
 		}
 	}
 
@@ -979,9 +976,9 @@ focus_tree = {
 		id = FRA_demand_alsace_lorraine
 		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = FRA_three_year_service_law }
-		prerequisite = { focus = FRA_fund_russian_rearmament }
+		#prerequisite = { focus = FRA_fund_russian_rearmament }
 		cost = 10
-		x = 1
+		x = 0
 		y = 1
 		relative_position_id = FRA_three_year_service_law
 

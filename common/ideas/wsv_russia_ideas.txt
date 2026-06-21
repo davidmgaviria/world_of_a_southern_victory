@@ -139,6 +139,7 @@ ideas = {
 				naval_doctrine_cost_factor = 0.25
 			}
 		}
+		
 
 		RUS_naval_rearmament_act_idea = {
 			allowed = {original_tag = RUS} 
@@ -209,6 +210,42 @@ ideas = {
 				industrial_capacity_dockyard = -0.15
 				stability_weekly = -0.03
 				communism_drift = 0.02
+			}
+		}
+
+		
+		RUS_french_military_advisors_in_russia_idea = {   # specifically advisors sent to Russia
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foriegn_army_advisor_icon
+
+			cancel = {
+				NOT = { is_in_faction_with = FRA }
+			}
+
+			modifier = {
+				experience_gain_army = 0.03
+				land_doctrine_cost_factor = -0.1
+			}
+		}
+
+
+		RUS_french_loans_for_russia_rearm_idea = {   # loans sent to aid the Russian 'Great Military Program'
+			allowed={ always=no }
+			allowed_civil_war = { always = no }
+			removal_cost=-1
+			picture = generic_foreign_capital
+
+			cancel = {
+				OR = {
+					NOT = { has_idea = RUS_great_military_program_idea }
+					NOT = { is_in_faction_with = FRA }
+				}
+			}
+
+			modifier = {
+				political_power_gain = 0.25 
 			}
 		}
 

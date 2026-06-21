@@ -561,6 +561,14 @@ focus_tree = {
 					level = 1
 				}
 			}
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
 		}
 	}
 
@@ -582,6 +590,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
 			random_owned_controlled_state = {
 				limit = { is_in_home_area = yes }
 				add_extra_state_shared_building_slots = 1
@@ -964,7 +980,7 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 
 		cost = 10
-		x = 30
+		x = 33
 		y = 0
 
 		ai_will_do = { 
@@ -1005,17 +1021,21 @@ focus_tree = {
 			}
 		}
 
-		#bypass = {}
+		available = {
+			country_exists = FRA
+			is_in_faction_with = FRA
+		}
+
+		bypass = {
+			has_global_flag = franco_russian_alliance_reaffirmed
+		}
 
 		completion_reward = { 
-			add_opinion_modifier = {
-				target = FRA
-				modifier = wsv_improve_relations
-			}
 			FRA = {
+				country_event = wsv_frarus_ally.1
 				add_opinion_modifier = {
 					target = ROOT
-					modifier = wsv_improve_relations
+					modifier = HOI4TGW_Opinion_improved_diplomatic_relations
 				}
 			}
 		}
@@ -1023,12 +1043,12 @@ focus_tree = {
 
 
 	focus = {
-		id = RUS_ambitions_in_balkans
-		#icon = GFX_focus_chi_legislative_yuan
+		id = RUS_prepare_against_germany
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_affirm_franco_russian_alliance }
 
 		cost = 10
-		x = -4
+		x = 0
 		y = 1
 		relative_position_id = RUS_affirm_franco_russian_alliance
 
@@ -1040,37 +1060,67 @@ focus_tree = {
 
 		completion_reward = { 
 			add_opinion_modifier = {
-				target = AUH
+				target = GER
 				modifier = wsv_dislikes_country
+			}
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { is_in_home_area = yes }
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+				}
 			}
 		}
 	}
 
 
 	focus = {
-		id = RUS_prepare_against_germany
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_ambitions_in_balkans }
+		id = RUS_seek_french_rearmament_loans
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_prepare_against_germany }
 
 		cost = 10
-		x = -2
+		x = 1
 		y = 1
-		relative_position_id = RUS_ambitions_in_balkans
+		relative_position_id = RUS_prepare_against_germany
 
 		ai_will_do = { 
 			factor = 1
 		}
+		
+		available = {
+			has_war = no
+			country_exists = FRA
+			is_in_faction_with = FRA
+			is_puppet = no
+		}
 
-		#bypass = {}
+		bypass = {
+			has_global_flag = france_financed_russian_armament_program
+		}
 
 		completion_reward = { 
+			FRA = { 
+				country_event =  wsv_frarus_ally.6
+			}
+			custom_effect_tooltip = will_reduce_cost_of_great_military_program_tt
 		}
 	}
 
-
+		
 	focus = {
-		id = RUS_seek_french_rearmament_loans
+		id = RUS_determine_western_battleplans_focus
 		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_ambitions_in_balkans }
 		prerequisite = { focus = RUS_prepare_against_germany }
 
 		cost = 10
@@ -1090,36 +1140,15 @@ focus_tree = {
 
 		
 	focus = {
-		id = RUS_prepare_against_auh
-		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_ambitions_in_balkans }
+		id = RUS_claims_on_greater_poland
+		icon = GFX_focus_chi_legislative_yuan
+		#prerequisite = { focus = RUS_prepare_against_auh }
+		prerequisite = { focus = RUS_determine_western_battleplans_focus }
 
 		cost = 10
 		x = 0
 		y = 1
-		relative_position_id = RUS_ambitions_in_balkans
-
-		ai_will_do = { 
-			factor = 1
-		}
-
-		#bypass = {}
-
-		completion_reward = { 
-		}
-	}
-
-		
-	focus = {
-		id = RUS_claims_on_greater_poland
-		icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_prepare_against_auh }
-		prerequisite = { focus = RUS_prepare_against_germany }
-
-		cost = 10
-		x = 1
-		y = 1
-		relative_position_id = RUS_prepare_against_germany
+		relative_position_id = RUS_determine_western_battleplans_focus
 
 		ai_will_do = { 
 			factor = 1
@@ -1150,7 +1179,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_claims_on_greater_poland }
 
 		cost = 10
-		x = 0
+		x = -1
 		y = 1
 		relative_position_id = RUS_claims_on_greater_poland
 
@@ -1161,20 +1190,46 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_manpower = 80000
+			add_manpower = 125000
 		}
 	}
 
-			
+
 	focus = {
-		id = RUS_encourage_serb_bulgarian_friendship
+		id = RUS_question_of_polish_autonomy
 		#icon = GFX_focus_chi_legislative_yuan
-		prerequisite = { focus = RUS_ambitions_in_balkans }
+		prerequisite = { focus = RUS_claims_on_greater_poland }
 
 		cost = 10
-		x = 3
+		x = 1
 		y = 1
-		relative_position_id = RUS_ambitions_in_balkans
+		relative_position_id = RUS_claims_on_greater_poland
+
+		ai_will_do = { 
+			factor = 1
+		}
+
+		available = {
+			has_country_flag = focus_TODO
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+
+		}
+	}
+
+
+	focus = {
+		id = RUS_ambitions_in_balkans
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_affirm_franco_russian_alliance }
+
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = RUS_affirm_franco_russian_alliance
 
 		ai_will_do = { 
 			factor = 1
@@ -1183,8 +1238,282 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_opinion_modifier = {   # we dislike auh, AUH will have its own reasons
+				target = AUH
+				modifier = wsv_dislikes_country
+			}   
 		}
 	}
+
+
+	focus = {
+		id = RUS_panslavic_sentiment_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_ambitions_in_balkans }
+
+		cost = 10
+		x = -3
+		y = 1
+		relative_position_id = RUS_ambitions_in_balkans
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_serbo_bulgarian_split_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_panslavic_sentiment_focus }
+		mutually_exclusive = { focus=RUS_settle_macedonia_dispute_focus  }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_panslavic_sentiment_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_country_flag = focus_TODO
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_align_with_serbia
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_serbo_bulgarian_split_focus }
+		mutually_exclusive = { focus=RUS_align_with_bulgaria  }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_serbo_bulgarian_split_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_align_with_bulgaria
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_serbo_bulgarian_split_focus }
+		mutually_exclusive = { focus=RUS_align_with_serbia  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_serbo_bulgarian_split_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_arm_balkan_allies
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=RUS_align_with_serbia focus=RUS_align_with_bulgaria  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_align_with_serbia
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_invite_serbia_to_entente_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_align_with_serbia }
+		prerequisite = { focus = RUS_arm_balkan_allies }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = RUS_arm_balkan_allies
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_constaninople_question_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_align_with_bulgaria }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_align_with_bulgaria
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_pact_of_two_tsars_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_constaninople_question_focus }
+		prerequisite = { focus = RUS_arm_balkan_allies }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = RUS_arm_balkan_allies
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_settle_macedonia_dispute_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_panslavic_sentiment_focus }
+		mutually_exclusive = { focus=RUS_serbo_bulgarian_split_focus  }
+
+		cost = 10
+		x = -3
+		y = 1
+		relative_position_id = RUS_panslavic_sentiment_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_country_flag = focus_TODO
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = RUS_approach_romania_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = RUS_ambitions_in_balkans }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = RUS_ambitions_in_balkans
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	# focus = {
+	# 	id = RUS_sway_romania_to_our_side
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = RUS_approach_romania_focus }
+
+	# 	cost = 10
+	# 	x = 0
+	# 	y = 1
+	# 	relative_position_id = RUS_approach_romania_focus
+
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+		
+	# focus = {
+	# 	id = RUS_united_balkan_front
+	# 	icon = GFX_focus_chi_legislative_yuan
+	# 	prerequisite = { focus = RUS_sway_romania_to_our_side }
+
+	# 	cost = 10
+	# 	x = -1
+	# 	y = 1
+	# 	relative_position_id = RUS_sway_romania_to_our_side
+
+	# 	ai_will_do = { 
+	# 		factor = 0 
+	# 	}
+
+	# 	#bypass = {}
+
+	# 	completion_reward = { 
+	# 	}
+	# }
+
+
+
+	### Britian & Russia ###
 
 
 	focus = {
@@ -1407,7 +1736,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_strains_of_empire }
 
 		cost = 10
-		x = 2
+		x = 3
 		y = 1
 		relative_position_id = RUS_strains_of_empire
 
@@ -1598,7 +1927,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_strains_of_empire }
 
 		cost = 10
-		x = 8
+		x = 9
 		y = 1
 		relative_position_id = RUS_strains_of_empire
 

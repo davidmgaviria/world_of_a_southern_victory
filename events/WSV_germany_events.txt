@@ -500,312 +500,312 @@ news_event = {
 
 
 
-## -------------------------------------------------------------- ##
-## ------------------------ US & Germany ------------------------ ##
-## -------------------------------------------------------------- ##
-
-# Event for US of German interest in cooperation
-country_event = {
-	id = wsv_germany.50
-	title = wsv_germany.50.t
-	desc = wsv_germany.50.d
-
-	is_triggered_only = yes
-
-	# We are open to it
-	option = {
-		name = wsv_germany.50.a
-		add_opinion_modifier = {
-			target = GER
-			modifier = wsv_improve_relations
-		}
-		GER = { 
-			country_event = { id = wsv_germany.51  days = 3  random_days = 7 } 
-			effect_tooltip = {
-				add_opinion_modifier = {
-					target = USA
-					modifier = wsv_improve_relations
-				}
-			}
-		}
-	}
-
-	# Go away
-	option = {
-		name = wsv_germany.50.a
-		GER = { 
-			country_event = { id = wsv_germany.52  days = 3  random_days = 7 } 
-			effect_tooltip = {
-				diplomatic_relation = {
-					country = USA
-					relation = non_aggression_pact
-					active = no
-				}
-			}
-		}
-	}
-}
-
-
-# US interest in partnership
-country_event = {
-	id = wsv_germany.51
-	title = wsv_germany.51.t
-	desc = wsv_germany.51.d
-
-	is_triggered_only = yes
-
-	# Agree
-	option = {
-		name = wsv_germany.51.a
-		add_opinion_modifier = {
-			target = USA
-			modifier = wsv_improve_relations
-		}
-	}
-}
-
-
-# US uninterested in partnership
-country_event = {
-	id = wsv_germany.52
-	title = wsv_germany.52.t
-	desc = wsv_germany.52.d
-
-	is_triggered_only = yes
-
-	# Agree
-	option = {
-		name = wsv_germany.52.a
-		diplomatic_relation = {
-			country = USA
-			relation = non_aggression_pact
-			active = no
-		}
-		unlock_national_focus = GER_divison_of_americas
-	}
-}
-
-
-
-## ------ Negotiations over Division of New World ------ ##
-
-## First phase ##
-
-# US informed Germany wants a partnership, but need to discuss division of West
-country_event = {
-	id = wsv_germany.53
-	title = wsv_germany.53.t
-	desc = wsv_germany.53.d
-
-	is_triggered_only = yes
-
-	# The West will be dominated by the US
-	option = {
-		name = wsv_germany.53.a
-		GER = {
-			country_event = { id = wsv_germany.54  days = 2 } 
-		}
-	}
-
-	# What does Germany desire
-	option = {
-		name = wsv_germany.53.b
-		GER = { country_event = { id = wsv_germany.55  days = 2 } }
-	}
-}
-
-
-# Germany informed US wont accept any German claims
-country_event = {
-	id = wsv_germany.54
-	title = wsv_germany.54.t
-	desc = wsv_germany.54.d
-
-	is_triggered_only = yes
-
-	# Ok fine, we will drop claims for a partnership
-	option = {
-		name = wsv_germany.54.a
-		USA = { country_event = { id = wsv_germany.61  days = 2 } }
-	}
-
-	# Refuse (no partnership)
-	option = {
-		name = wsv_germany.54.a
-		USA = { country_event = { id = wsv_germany.63  days = 2 } }
-	}
-}
-
-
-## Second phase ##
-
-# Germany is asked what their claims are
-country_event = {
-	id = wsv_germany.55
-	title = wsv_germany.55.t
-	desc = wsv_germany.55.d
-
-	is_triggered_only = yes
-
-	# We want only a little
-	option = {
-		name = wsv_germany.55.a
-		USA = { country_event = { id = wsv_germany.56  days = 2 } }
-	}
-
-	# We want a lot
-	option = {
-		name = wsv_germany.55.a
-		set_country_flag = GER_extensive_claims_in_americas
-		USA = { 
-			country_event = { id = wsv_germany.56  days = 2 } 
-		}
-	}
-}
-
-
-# US informed of German claims
-country_event = {
-	id = wsv_germany.56
-	title = wsv_germany.56.t
-	desc = wsv_germany.56.d
-
-	is_triggered_only = yes
-
-	# We accept
-	option = {
-		name = wsv_germany.56.a
-		GER = { country_event = { id = wsv_germany.59  days = 2 } }
-	}
-
-	# That is excessive, what about less?
-	option = {
-		name = wsv_germany.56.a
-		trigger = { GER = { has_country_flag = GER_extensive_claims_in_americas } }
-		GER = {
-			country_event = { id = wsv_germany.58  days = 2 } 
-		}
-	}
-
-	# We refuse
-	option = {
-		name = wsv_germany.56.a
-		GER = { country_event = { id = wsv_germany.57  days = 2 } }
-	}
-}
-
-
-
-# US rejects german claims
-country_event = {
-	id = wsv_germany.57
-	title = wsv_germany.57.t
-	desc = wsv_germany.57.d
-
-	is_triggered_only = yes
-
-	# Then we part
-	option = {
-		name = wsv_germany.57.a
-		USA = { country_event = { id = wsv_germany.63  days = 2 } }
-	}
-
-	# Ok fine, accept partnership with no claims
-	option = {
-		name = wsv_germany.57.a
-		USA = { country_event = { id = wsv_germany.62  days = 2 } }
-	}
-}
-
-
-# US counter offer
-country_event = {
-	id = wsv_germany.58
-	title = wsv_germany.58.t
-	desc = wsv_germany.58.d
-
-	is_triggered_only = yes
-
-	# Ok fine
-	option = {
-		name = wsv_germany.58.a
-		USA = {
-			country_event = { id = wsv_germany.61  days = 2 } 
-		}
-	}
-
-	# Then we part
-	option = {
-		name = wsv_germany.58.a
-		USA = {
-			country_event = { id = wsv_germany.63  days = 2 } 
-		}
-	}
-}
-
-
-## Third phase ##
-
-# US accepts inital german claims for partnership
-country_event = {
-	id = wsv_germany.59
-	title = wsv_germany.59.t
-	desc = wsv_germany.59.d
-
-	is_triggered_only = yes
-
-	# Cool
-	option = {
-		name = wsv_germany.59.a
-		set_global_flag = germany_and_usa_plan_alliance   # germany & usa agree to form alliance later
-	}
-}
-
-
-# Germany accepts no claims + partnership 
-country_event = {
-	id = wsv_germany.60
-	title = wsv_germany.60.t
-	desc = wsv_germany.60.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_germany.60.a
-		set_global_flag = germany_and_usa_plan_alliance   # germany & usa agree to form alliance later
-		set_global_flag = germany_recognized_usa_sphere_of_influence
-	}
-}
-
-
-# Germany accepts limited claims + partnership
-country_event = {
-	id = wsv_germany.61
-	title = wsv_germany.61.t
-	desc = wsv_germany.61.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_germany.61.a
-		set_global_flag = germany_and_usa_plan_alliance   # germany & usa agree to form alliance later
-	}
-}
-
-
-# Germany refused partnership
-country_event = {
-	id = wsv_germany.62
-	title = wsv_germany.62.t
-	desc = wsv_germany.62.d
-
-	is_triggered_only = yes
-
-	option = {
-		name = wsv_germany.62.a
-	}
-}
+# ## -------------------------------------------------------------- ##
+# ## ------------------------ US & Germany ------------------------ ##
+# ## -------------------------------------------------------------- ##
+
+# # Event for US of German interest in cooperation
+# country_event = {
+# 	id = wsv_germany.50
+# 	title = wsv_germany.50.t
+# 	desc = wsv_germany.50.d
+
+# 	is_triggered_only = yes
+
+# 	# We are open to it
+# 	option = {
+# 		name = wsv_germany.50.a
+# 		add_opinion_modifier = {
+# 			target = GER
+# 			modifier = wsv_improve_relations
+# 		}
+# 		GER = { 
+# 			country_event = { id = wsv_germany.51  days = 3  random_days = 7 } 
+# 			effect_tooltip = {
+# 				add_opinion_modifier = {
+# 					target = USA
+# 					modifier = wsv_improve_relations
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 	# Go away
+# 	option = {
+# 		name = wsv_germany.50.a
+# 		GER = { 
+# 			country_event = { id = wsv_germany.52  days = 3  random_days = 7 } 
+# 			effect_tooltip = {
+# 				diplomatic_relation = {
+# 					country = USA
+# 					relation = non_aggression_pact
+# 					active = no
+# 				}
+# 			}
+# 		}
+# 	}
+# }
+
+
+# # US interest in partnership
+# country_event = {
+# 	id = wsv_germany.51
+# 	title = wsv_germany.51.t
+# 	desc = wsv_germany.51.d
+
+# 	is_triggered_only = yes
+
+# 	# Agree
+# 	option = {
+# 		name = wsv_germany.51.a
+# 		add_opinion_modifier = {
+# 			target = USA
+# 			modifier = wsv_improve_relations
+# 		}
+# 	}
+# }
+
+
+# # US uninterested in partnership
+# country_event = {
+# 	id = wsv_germany.52
+# 	title = wsv_germany.52.t
+# 	desc = wsv_germany.52.d
+
+# 	is_triggered_only = yes
+
+# 	# Agree
+# 	option = {
+# 		name = wsv_germany.52.a
+# 		diplomatic_relation = {
+# 			country = USA
+# 			relation = non_aggression_pact
+# 			active = no
+# 		}
+# 		unlock_national_focus = GER_divison_of_americas
+# 	}
+# }
+
+
+
+# ## ------ Negotiations over Division of New World ------ ##
+
+# ## First phase ##
+
+# # US informed Germany wants a partnership, but need to discuss division of West
+# country_event = {
+# 	id = wsv_germany.53
+# 	title = wsv_germany.53.t
+# 	desc = wsv_germany.53.d
+
+# 	is_triggered_only = yes
+
+# 	# The West will be dominated by the US
+# 	option = {
+# 		name = wsv_germany.53.a
+# 		GER = {
+# 			country_event = { id = wsv_germany.54  days = 2 } 
+# 		}
+# 	}
+
+# 	# What does Germany desire
+# 	option = {
+# 		name = wsv_germany.53.b
+# 		GER = { country_event = { id = wsv_germany.55  days = 2 } }
+# 	}
+# }
+
+
+# # Germany informed US wont accept any German claims
+# country_event = {
+# 	id = wsv_germany.54
+# 	title = wsv_germany.54.t
+# 	desc = wsv_germany.54.d
+
+# 	is_triggered_only = yes
+
+# 	# Ok fine, we will drop claims for a partnership
+# 	option = {
+# 		name = wsv_germany.54.a
+# 		USA = { country_event = { id = wsv_germany.61  days = 2 } }
+# 	}
+
+# 	# Refuse (no partnership)
+# 	option = {
+# 		name = wsv_germany.54.a
+# 		USA = { country_event = { id = wsv_germany.63  days = 2 } }
+# 	}
+# }
+
+
+# ## Second phase ##
+
+# # Germany is asked what their claims are
+# country_event = {
+# 	id = wsv_germany.55
+# 	title = wsv_germany.55.t
+# 	desc = wsv_germany.55.d
+
+# 	is_triggered_only = yes
+
+# 	# We want only a little
+# 	option = {
+# 		name = wsv_germany.55.a
+# 		USA = { country_event = { id = wsv_germany.56  days = 2 } }
+# 	}
+
+# 	# We want a lot
+# 	option = {
+# 		name = wsv_germany.55.a
+# 		set_country_flag = GER_extensive_claims_in_americas
+# 		USA = { 
+# 			country_event = { id = wsv_germany.56  days = 2 } 
+# 		}
+# 	}
+# }
+
+
+# # US informed of German claims
+# country_event = {
+# 	id = wsv_germany.56
+# 	title = wsv_germany.56.t
+# 	desc = wsv_germany.56.d
+
+# 	is_triggered_only = yes
+
+# 	# We accept
+# 	option = {
+# 		name = wsv_germany.56.a
+# 		GER = { country_event = { id = wsv_germany.59  days = 2 } }
+# 	}
+
+# 	# That is excessive, what about less?
+# 	option = {
+# 		name = wsv_germany.56.a
+# 		trigger = { GER = { has_country_flag = GER_extensive_claims_in_americas } }
+# 		GER = {
+# 			country_event = { id = wsv_germany.58  days = 2 } 
+# 		}
+# 	}
+
+# 	# We refuse
+# 	option = {
+# 		name = wsv_germany.56.a
+# 		GER = { country_event = { id = wsv_germany.57  days = 2 } }
+# 	}
+# }
+
+
+
+# # US rejects german claims
+# country_event = {
+# 	id = wsv_germany.57
+# 	title = wsv_germany.57.t
+# 	desc = wsv_germany.57.d
+
+# 	is_triggered_only = yes
+
+# 	# Then we part
+# 	option = {
+# 		name = wsv_germany.57.a
+# 		USA = { country_event = { id = wsv_germany.63  days = 2 } }
+# 	}
+
+# 	# Ok fine, accept partnership with no claims
+# 	option = {
+# 		name = wsv_germany.57.a
+# 		USA = { country_event = { id = wsv_germany.62  days = 2 } }
+# 	}
+# }
+
+
+# # US counter offer
+# country_event = {
+# 	id = wsv_germany.58
+# 	title = wsv_germany.58.t
+# 	desc = wsv_germany.58.d
+
+# 	is_triggered_only = yes
+
+# 	# Ok fine
+# 	option = {
+# 		name = wsv_germany.58.a
+# 		USA = {
+# 			country_event = { id = wsv_germany.61  days = 2 } 
+# 		}
+# 	}
+
+# 	# Then we part
+# 	option = {
+# 		name = wsv_germany.58.a
+# 		USA = {
+# 			country_event = { id = wsv_germany.63  days = 2 } 
+# 		}
+# 	}
+# }
+
+
+# ## Third phase ##
+
+# # US accepts inital german claims for partnership
+# country_event = {
+# 	id = wsv_germany.59
+# 	title = wsv_germany.59.t
+# 	desc = wsv_germany.59.d
+
+# 	is_triggered_only = yes
+
+# 	# Cool
+# 	option = {
+# 		name = wsv_germany.59.a
+# 		set_global_flag = germany_and_usa_plan_alliance   # germany & usa agree to form alliance later
+# 	}
+# }
+
+
+# # Germany accepts no claims + partnership 
+# country_event = {
+# 	id = wsv_germany.60
+# 	title = wsv_germany.60.t
+# 	desc = wsv_germany.60.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_germany.60.a
+# 		set_global_flag = germany_and_usa_plan_alliance   # germany & usa agree to form alliance later
+# 		set_global_flag = germany_recognized_usa_sphere_of_influence
+# 	}
+# }
+
+
+# # Germany accepts limited claims + partnership
+# country_event = {
+# 	id = wsv_germany.61
+# 	title = wsv_germany.61.t
+# 	desc = wsv_germany.61.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_germany.61.a
+# 		set_global_flag = germany_and_usa_plan_alliance   # germany & usa agree to form alliance later
+# 	}
+# }
+
+
+# # Germany refused partnership
+# country_event = {
+# 	id = wsv_germany.62
+# 	title = wsv_germany.62.t
+# 	desc = wsv_germany.62.d
+
+# 	is_triggered_only = yes
+
+# 	option = {
+# 		name = wsv_germany.62.a
+# 	}
+# }
 
 
 
@@ -975,7 +975,7 @@ news_event = {
 	major = yes
 
 	immediate = {
-		set_global_flag = denmark_closed_belts_due_to_german_pressure
+		set_global_flag = denmark_closed_straits_due_to_german_pressure
 		set_global_flag = DANISH_BELTS_BLOCKED  # actua	lly closes the straits
 	}
 

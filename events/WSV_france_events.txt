@@ -216,68 +216,6 @@ country_event = {
 ## ------------------------------------------------------------------------------------------------ ##
 
 
-## ----------------------- Franco-Russian Alliance ------------------------ ##
-
-# France sends military mission to Russia (notice for Russia)
-country_event = {
-	id = wsv_france.50
-	title = wsv_france.50.t
-	desc = wsv_france.50.d
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	# thank you
-	option = {
-		name = wsv_france.50.a
-		add_timed_idea = {
-			idea = FRA_military_advisors_in_russia_idea
-			days = 360
-		}
-	}
-}
-
-
-# France offers loan for rearmament  (notice for Russia)
-country_event = {
-	id = wsv_france.51
-	title = wsv_france.51.t
-	desc = wsv_france.51.d
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	# we accept
-	option = {
-		name = wsv_france.51.a
-		FRA = { country_event = { id = wsv_france.52  days = 2 } }
-		add_timed_idea = {
-			idea = FRA_loans_for_russia_rearm_idea
-			days = 720
-		}
-	}
-}
-
-
-# Russia accepted loan
-country_event = {
-	id = wsv_france.52
-	title = wsv_france.52.t
-	desc = wsv_france.52.d
-
-	fire_only_once = yes
-	is_triggered_only = yes
-
-	immediate = {  # put here so focus bypass happens when event occurs
-		set_global_flag = france_financed_russian_rearmament
-	}
-
-	option = {
-		name = wsv_france.52.a
-	}
-}
-
-
 
 ## ----------------------- France Demands Alsace-Lorraine ------------------------ ##
 
