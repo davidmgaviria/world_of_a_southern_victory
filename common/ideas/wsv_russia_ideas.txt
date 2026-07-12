@@ -307,6 +307,53 @@ ideas = {
         }
 
 
+		RUS_increase_ties_between_slavs = { 
+			removal_cost = -1
+			#picture = generic_license_production 
+			allowed = {
+				always = no
+			}
+			cancel = {
+				OR = {
+					has_war_with = RUS
+					AND = {
+						is_subject = yes
+						NOT = { is_subject_of = RUS }
+					}
+				}
+			}
+
+			on_add = {
+				add_opinion_modifier = {
+					target = RUS
+					modifier = wsv_RUS_slavic_trading_partner
+				}
+			}
+
+			on_remove = {
+				if = {
+					limit = {
+						has_opinion_modifier = wsv_RUS_slavic_trading_partner
+					}
+					remove_opinion_modifier = {
+						target = GER
+						modifier = wsv_RUS_slavic_trading_partner
+					}
+				}
+			}
+
+			targeted_modifier = { 
+				tag = RUS
+				opinion_gain_monthly_factor = 0.25
+				# license_purchase_cost = -0.5
+				# license_production_speed = 0.25
+				# license_tech_difference_speed = 0.25
+				trade_cost_for_target_factor = -0.3
+				trade_opinion_factor = 0.25
+			}
+		}
+
+
 
 
 		################################################ OLD ################################################

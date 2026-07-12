@@ -83,7 +83,8 @@ wsv_great_war_decisions = {
 		}
 	}
 
-	RUS_war_plan_germany_decision = {
+
+	RUS_war_plan_split_focus_decision = {
 		icon = generic_operation
 
 		allowed = {
@@ -91,10 +92,28 @@ wsv_great_war_decisions = {
 		}
 		available = {
 			has_war_with = GER
+			has_war_with = AUH
 		}
 		visible = {
 			always = yes
-			#has_completed_focus = FRA_plan_seventeen_focus
+			has_country_flag = RUS_split_focus_battleplan
+		}
+
+		cancel_trigger = { 
+			NOT = { has_war_with = GER }
+			NOT = { has_war_with = AUH }
+		}
+
+		targeted_modifier = {
+		    tag = GER
+		    attack_bonus_against = 0.15
+			defense_bonus_against = -0.1
+		}
+
+		targeted_modifier = {
+		    tag = AUH
+		    attack_bonus_against = 0.15
+			defense_bonus_against = -0.1
 		}
 
 		fire_only_once = yes
@@ -102,11 +121,7 @@ wsv_great_war_decisions = {
 		days_re_enable = 0
 
 		complete_effect = {
-			add_ideas = RUS_warplan_germany_idea
-		}
-
-		remove_effect = {
-			remove_ideas = RUS_warplan_germany_idea
+			add_war_support = 0.1
 		}
 		
 		ai_will_do = {
@@ -115,7 +130,7 @@ wsv_great_war_decisions = {
 	}
 
 
-	RUS_war_plan_auh_decision = {
+	RUS_war_plan_focus_austria_decision = {
 		icon = generic_operation
 
 		allowed = {
@@ -125,8 +140,23 @@ wsv_great_war_decisions = {
 			has_war_with = AUH
 		}
 		visible = {
-			always = yes
-			#has_completed_focus = FRA_plan_seventeen_focus
+			has_country_flag = RUS_prioritize_austria_battleplan
+		}
+
+		cancel_trigger = { 
+			NOT = { has_war_with = AUH }
+		}
+
+		targeted_modifier = {
+		    tag = AUH
+		    attack_bonus_against = 0.3
+			breakthrough_bonus_against = 0.15
+		}
+
+		targeted_modifier = {
+		    tag = GER
+		    attack_bonus_against = -0.1
+			defense_bonus_against = 0.1
 		}
 
 		fire_only_once = yes
@@ -134,17 +164,57 @@ wsv_great_war_decisions = {
 		days_re_enable = 0
 
 		complete_effect = {
-			add_ideas = RUS_warplan_auh_idea
-		}
-
-		remove_effect = {
-			remove_ideas = RUS_warplan_auh_idea
+			add_war_support = 0.1
 		}
 		
 		ai_will_do = {
 			factor = 100   ## TODO - dont take if has war plan against AUH
 		}
 	}
+
+
+	RUS_war_plan_focus_germany_decision = {
+		icon = generic_operation
+
+		allowed = {
+			tag = RUS
+		}
+		available = {
+			has_war_with = GER
+		}
+		visible = {
+			has_country_flag = RUS_prioritize_germany_battleplan
+		}
+
+		cancel_trigger = { 
+			NOT = { has_war_with = GER }
+		}
+
+		targeted_modifier = {
+		    tag = GER
+		    attack_bonus_against = 0.3
+			breakthrough_bonus_against = 0.15
+		}
+
+		targeted_modifier = {
+		    tag = AUH
+		    attack_bonus_against = -0.1
+			defense_bonus_against = 0.1
+		}
+
+		fire_only_once = yes
+		days_remove = 60
+		days_re_enable = 0
+
+		complete_effect = {
+			add_war_support = 0.1
+		}
+
+		ai_will_do = {
+			factor = 100   ## TODO - dont take if has war plan against AUH
+		}
+	}
+
 }
 
 

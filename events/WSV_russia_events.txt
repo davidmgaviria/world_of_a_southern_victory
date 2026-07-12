@@ -162,6 +162,77 @@ country_event = {
 #############################################################################
 
 
+## Russia debates war plan
+country_event = {
+	id = wsv_russia.30
+	title = wsv_russia.30.t
+	desc = wsv_russia.30.d
+
+	is_triggered_only = yes
+
+	# Split our forces
+	option = { 
+		name = wsv_russia.30.a
+		set_country_flag = RUS_split_focus_battleplan
+		unlock_decision_tooltip = {
+			decision = RUS_war_plan_split_focus_decision
+			show_effect_tooltip = yes
+			show_modifiers = yes
+		}
+		
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0.5
+				is_historical_focus_on = no
+			}
+		}
+	}
+
+	# Focus on AUH
+	option = { 
+		name = wsv_russia.30.b
+		set_country_flag = RUS_prioritize_austria_battleplan
+		unlock_decision_tooltip = {
+			decision = RUS_war_plan_focus_austria_decision
+			show_effect_tooltip = yes
+			show_modifiers = yes
+		}
+
+		ai_chance = {
+			factor = 0
+			modifier = {
+				add = 35
+				is_historical_focus_on = no
+			}
+		}
+	}
+
+	# Focus on Germany
+	option = { 
+		name = wsv_russia.30.c
+		set_country_flag = RUS_prioritize_germany_battleplan
+		unlock_decision_tooltip = {
+			decision = RUS_war_plan_focus_germany_decision
+			show_effect_tooltip = yes
+			show_modifiers = yes
+		}
+
+		ai_chance = {
+			factor = 0
+			modifier = {
+				add = 25
+				is_historical_focus_on = no
+			}
+		}
+	}
+}
+
+
+
+
+
+
 # ## Russia informs us they are protecting us (ROOT is Serbia or Bulgaria)
 # country_event = {
 # 	id = wsv_russia.20

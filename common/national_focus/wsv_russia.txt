@@ -638,7 +638,7 @@ focus_tree = {
 			add_tech_bonus = {
 				bonus = 2.0
 				uses = 1
-				category = artillery
+				category = cat_light_artillery
 			}
 		}
 	}
@@ -646,7 +646,7 @@ focus_tree = {
 
 	focus = {
 		id = RUS_heavy_artillery_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_artillery_effort }
 		
 		cost = 10
@@ -661,6 +661,20 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 1
+				bonus = 2.0
+				uses = 1
+				technology = heavy_field_gun1
+				technology = heavy_field_gun2
+			}
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				technology = bonus_bertha1
+				technology = bonus_bertha2
+				technology = bonus_bertha3
+			}
 		}
 	}
 
@@ -980,7 +994,7 @@ focus_tree = {
 		icon = GFX_focus_chi_legislative_yuan
 
 		cost = 10
-		x = 33
+		x = 26
 		y = 0
 
 		ai_will_do = { 
@@ -1009,7 +1023,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_strains_of_empire }
 
 		cost = 10
-		x = -6
+		x = 0
 		y = 1
 		relative_position_id = RUS_strains_of_empire
 
@@ -1119,7 +1133,7 @@ focus_tree = {
 		
 	focus = {
 		id = RUS_determine_western_battleplans_focus
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_ambitions_in_balkans }
 		prerequisite = { focus = RUS_prepare_against_germany }
 
@@ -1135,6 +1149,8 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			country_event = wsv_russia.30
+			custom_effect_tooltip = russia_choose_western_warplan_tt
 		}
 	}
 
@@ -1248,7 +1264,7 @@ focus_tree = {
 
 	focus = {
 		id = RUS_panslavic_sentiment_focus
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = RUS_ambitions_in_balkans }
 
 		cost = 10
@@ -1263,6 +1279,19 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			every_country = {
+				limit = {
+					OR = { tag = SER  tag = BUL  tag = MNT }
+					exists = yes  
+					or = { is_puppet = no  is_puppet_of = RUS }
+					NOT = { has_war_with = RUS }
+				}
+				add_opinion_modifier = {
+					target = RUS
+					modifier = wsv_small_improve_relations
+				}
+				add_ideas = RUS_increase_ties_between_slavs
+			}
 		}
 	}
 
@@ -1736,7 +1765,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_strains_of_empire }
 
 		cost = 10
-		x = 3
+		x = 9
 		y = 1
 		relative_position_id = RUS_strains_of_empire
 
@@ -1927,7 +1956,7 @@ focus_tree = {
 		prerequisite = { focus = RUS_strains_of_empire }
 
 		cost = 10
-		x = 9
+		x = 15
 		y = 1
 		relative_position_id = RUS_strains_of_empire
 

@@ -1,0 +1,1598 @@
+
+focus_tree = {
+	id = commonwealth_focus
+	default=no
+
+	country={ 
+		factor=0 
+		modifier={ 
+			add=50 
+			OR = {
+				original_tag = AST 
+				original_tag = NZL
+				original_tag = SAF
+				original_tag = RAJ
+			}
+			has_start_date < 1936.1.1
+		} 
+	}
+	continuous_focus_position = { x = 50 y = 2100 }
+
+	focus = {
+		id = CMWL_a_growing_economy
+		#icon = GFX_focus_chi_legislative_yuan
+
+		cost = 10
+		x = 4
+		y = 0 
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_light_industry_effort
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_a_growing_economy }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_a_growing_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_heavy_industry_effort
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_a_growing_economy }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_a_growing_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_the_modernizing_push
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_heavy_industry_effort }
+		prerequisite = { focus = CMWL_light_industry_effort }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_light_industry_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_maintain_agricultural_economy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_modernizing_push }
+		mutually_exclusive = { focus=CMWL_aggressive_land_development  }
+
+		cost = 10
+		x = -3
+		y = 1
+		relative_position_id = CMWL_the_modernizing_push
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_aggressive_land_development
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_modernizing_push }
+		mutually_exclusive = { focus=CMWL_maintain_agricultural_economy  }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_the_modernizing_push
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_resource_extraction_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_maintain_agricultural_economy }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_maintain_agricultural_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_civ_factories_1
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=CMWL_maintain_agricultural_economy focus=CMWL_aggressive_land_development  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_maintain_agricultural_economy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_export_economy_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_resource_extraction_focus }
+		prerequisite = { focus = CMWL_civ_factories_1 }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_resource_extraction_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_infrastructure_effort
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_aggressive_land_development }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_aggressive_land_development
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_civ_factories_2
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_infrastructure_effort }
+		prerequisite = { focus = CMWL_civ_factories_1 }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_infrastructure_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_establish_arms_factories
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_modernizing_push }
+
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = CMWL_the_modernizing_push
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_copy_british_equipment_designs
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_establish_arms_factories }
+		mutually_exclusive = { focus=CMWL_indigenous_weapons_development  }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_establish_arms_factories
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_indigenous_weapons_development
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_establish_arms_factories }
+		mutually_exclusive = { focus=CMWL_copy_british_equipment_designs  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_establish_arms_factories
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_specialize_our_weapons
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_indigenous_weapons_development }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_indigenous_weapons_development
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_more_arms_factories
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_infrastructure_effort }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_infrastructure_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_military_research_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_more_arms_factories }
+		prerequisite = { focus = CMWL_civ_factories_2 }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_more_arms_factories
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_mass_production_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_copy_british_equipment_designs }
+		prerequisite = { focus = CMWL_specialize_our_weapons }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_specialize_our_weapons
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_our_place_in_empire
+		icon = GFX_focus_chi_legislative_yuan
+
+		cost = 10
+		x = 15
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_political_power = 100
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_proud_crown_subjects
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_our_place_in_empire }
+		mutually_exclusive = { focus=CMWL_embers_of_national_identity  }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = CMWL_our_place_in_empire
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_in_service_to_the_crown
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_proud_crown_subjects }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_proud_crown_subjects
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_send_elites_to_london
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_in_service_to_the_crown }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = CMWL_in_service_to_the_crown
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_embers_of_national_identity
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_our_place_in_empire }
+		mutually_exclusive = { focus=CMWL_proud_crown_subjects  }
+
+		cost = 10
+		x = 2
+		y = 1
+		relative_position_id = CMWL_our_place_in_empire
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = CMWL_organize_street_rallies
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_embers_of_national_identity }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_embers_of_national_identity
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_stability = -0.07
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_distribute_anti_colonial_literature
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_embers_of_national_identity }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_embers_of_national_identity
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_stability = -0.07
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_growing_nationalist_movement
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_organize_street_rallies }
+		prerequisite = { focus = CMWL_distribute_anti_colonial_literature }
+		
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_organize_street_rallies
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_underground_resistance_cells
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_distribute_anti_colonial_literature }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_distribute_anti_colonial_literature
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_the_great_war
+		icon = GFX_focus_chi_legislative_yuan
+
+		cost = 0
+		x = 0
+		y = 4
+		relative_position_id = CMWL_our_place_in_empire
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			has_war_with_major = yes
+		}
+
+		bypass = {
+			has_war_with_major = yes
+		}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_commonwealth_research_sharing_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_great_war }
+		prerequisite = { focus = CMWL_send_elites_to_london }
+
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = CMWL_the_great_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_answer_the_call
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_great_war }
+		prerequisite = { focus = CMWL_in_service_to_the_crown }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = CMWL_the_great_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_answer_the_call_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_expeditionary_force_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_answer_the_call }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_answer_the_call
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_expeditionary_force_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_wartime_powers_act
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_great_war }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_the_great_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_conscription_act_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_wartime_powers_act }
+		prerequisite = { focus = CMWL_expeditionary_force_focus }
+
+		cost = 10
+		x = 0
+		y = 2
+		relative_position_id = CMWL_wartime_powers_act
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_war_as_an_opportunity
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_the_great_war }
+		prerequisite = { focus = CMWL_growing_nationalist_movement }
+		prerequisite = { focus = CMWL_underground_resistance_cells }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = CMWL_growing_nationalist_movement
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_war_as_opportunity_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_demand_greater_autonomy
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_war_as_an_opportunity }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_war_as_an_opportunity
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_contribute_to_imperial_defense
+		icon = GFX_focus_chi_legislative_yuan
+
+		cost = 10
+		x = 30
+		y = 0
+		#relative_position_id = 
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_war_support = 0.1
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = arms_factory
+					level = 1
+					instant_build = yes
+				}
+			} 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_state_of_the_army
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_contribute_to_imperial_defense }
+
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = CMWL_contribute_to_imperial_defense
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 0.5
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_national_defense_act
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_state_of_the_army }
+		mutually_exclusive = { focus=CMWL_legacy_of_boer_war_focus  }
+		mutually_exclusive = { focus=CMWL_continue_kitchener_reforms  }
+
+		cost = 10
+		x = -4
+		y = 1
+		relative_position_id = CMWL_state_of_the_army
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			OR = {
+				original_tag = AST 
+				original_tag = NZL
+			}
+		}
+
+		completion_reward = { 
+			add_ideas = CMWL_national_defence_act_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_hold_civilian_drills
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_national_defense_act }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_national_defense_act
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 10
+			add_manpower = 15000
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_legacy_of_boer_war_focus
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_state_of_the_army }
+		mutually_exclusive = { focus=CMWL_national_defense_act  }
+		mutually_exclusive = { focus=CMWL_continue_kitchener_reforms  }
+
+		cost = 10
+		x = -2
+		y = 1
+		relative_position_id = CMWL_state_of_the_army
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			original_tag = SAF
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_establish_union_defence_force
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_legacy_of_boer_war_focus }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_legacy_of_boer_war_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_create_officer_corps_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=CMWL_hold_civilian_drills focus=CMWL_establish_union_defence_force  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_hold_civilian_drills
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_officer_corps_idea
+		}
+	}
+
+		
+		
+	focus = {
+		id = CMWL_continue_kitchener_reforms
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_state_of_the_army }
+		mutually_exclusive = { focus=CMWL_national_defense_act  }
+		mutually_exclusive = { focus=CMWL_legacy_of_boer_war_focus  }
+
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = CMWL_state_of_the_army
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			original_tag = RAJ
+			is_puppet_of = ENG
+		}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_standardize_equipment_usage
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_continue_kitchener_reforms }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_continue_kitchener_reforms
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_implement_regimental_rotation
+		#icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_standardize_equipment_usage }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_standardize_equipment_usage
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+		}
+	}
+
+
+	focus = {
+		id = CMWL_purchase_british_equipment_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus=CMWL_national_defense_act  focus=CMWL_legacy_of_boer_war_focus  focus=CMWL_continue_kitchener_reforms  }
+
+		cost = 10
+		x = 2
+		y = 2
+		relative_position_id = CMWL_legacy_of_boer_war_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			if = {
+				limit = { 
+					OR = { tag=AST  tag=NZL  tag=SAF }
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 6000
+					producer = ENG
+				}
+				add_equipment_to_stockpile = {
+					type = heavy_weapons_equipment
+					amount = 75
+					producer = ENG
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 100
+					producer = ENG
+				}
+			}
+			if = {
+				limit = { 
+					tag = RAJ
+				}
+				add_equipment_to_stockpile = {
+					type = infantry_equipment
+					amount = 10000
+					producer = ENG
+				}
+				add_equipment_to_stockpile = {
+					type = heavy_weapons_equipment
+					amount = 100
+					producer = ENG
+				}
+				add_equipment_to_stockpile = {
+					type = artillery_equipment
+					amount = 200
+					producer = ENG
+				}
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_infantry_equipment_effort
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = CMWL_purchase_british_equipment_focus }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_purchase_british_equipment_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 1.0
+				uses = 2
+				category = infantry_weapons
+				category = support_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_artilley_effort
+		icon = GFX_goal_generic_army_artillery2
+		prerequisite = { focus = CMWL_purchase_british_equipment_focus }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_purchase_british_equipment_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 2.0
+				uses = 1
+				category = artillery
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_demands_of_total_war
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_artilley_effort }
+		prerequisite = { focus = CMWL_infantry_equipment_effort }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_infantry_equipment_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 20
+			add_doctrine_cost_reduction = {
+				name = land_doc_bonus
+				cost_reduction = 1
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_special_forces_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_demands_of_total_war }
+		prerequisite = { focus = CMWL_create_officer_corps_focus }
+
+		cost = 10
+		x = 1
+		y = 3
+		relative_position_id = CMWL_create_officer_corps_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = special_forces
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_form_a_general_staff_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_create_officer_corps_focus }
+		prerequisite = { focus = CMWL_demands_of_total_war }
+
+		cost = 10
+		x = -1
+		y = 3
+		relative_position_id = CMWL_create_officer_corps_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_general_staff_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_air_effort
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = CMWL_demands_of_total_war }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_demands_of_total_war
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			air_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = air_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { is_capital = yes }
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+		}
+	}
+
+
+	focus = {
+		id = CMWL_mountain_warfare_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_implement_regimental_rotation }
+		prerequisite = { focus = CMWL_artilley_effort }
+
+		cost = 10
+		x = -1
+		y = 2
+		relative_position_id = CMWL_implement_regimental_rotation
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			army_experience = 10
+			add_tech_bonus = {
+				bonus = 3
+				uses = 1.0
+				technology = tech_mountaineers
+				technology = tech_mountaineers2
+				technology = tech_mountaineers3
+				technology = tech_mountaineers4
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_logistics_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_implement_regimental_rotation }
+
+		cost = 10
+		x = 1
+		y = 2
+		relative_position_id = CMWL_implement_regimental_rotation
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_logistics_focus_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_state_of_the_navy
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = CMWL_contribute_to_imperial_defense }
+
+		cost = 10
+		x = 3
+		y = 1
+		relative_position_id = CMWL_contribute_to_imperial_defense
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		completion_reward = {
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = naval_doctrine
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}  
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_destroyer_effort
+		icon = GFX_focus_generic_destroyer
+		prerequisite = { focus = CMWL_state_of_the_navy }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_state_of_the_navy
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = dd_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_coastal_defense_focus
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_destroyer_effort }
+		mutually_exclusive = { focus=CMWL_proper_navy_focus  }
+
+		cost = 10
+		x = -1
+		y = 1
+		relative_position_id = CMWL_destroyer_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_coastal_defense_effort_idea
+		}
+	}
+
+
+	focus = {
+		id = CMWL_amphibious_invasion_defence_drills
+		icon = GFX_focus_chi_legislative_yuan
+		prerequisite = { focus = CMWL_coastal_defense_focus }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_coastal_defense_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			add_ideas = CMWL_amphibious_invasion_drills_idea
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_proper_navy_focus
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = CMWL_destroyer_effort }
+		mutually_exclusive = { focus=CMWL_coastal_defense_focus  }
+
+		cost = 10
+		x = 1
+		y = 1
+		relative_position_id = CMWL_destroyer_effort
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			navy_experience = 50
+			add_doctrine_cost_reduction = {
+				cost_reduction = 1
+				uses = 1
+				category = naval_doctrine
+			}
+			add_tech_bonus = {
+				ahead_reduction = 2.0
+				uses = 1.0
+				category = cl_tech
+				category = ca_tech
+			}
+		}
+	}
+
+		
+	focus = {
+		id = CMWL_expanded_dockyards
+		icon = GFX_focus_generic_refit_civilian_ships
+		prerequisite = { focus = CMWL_proper_navy_focus }
+
+		cost = 10
+		x = 0
+		y = 1
+		relative_position_id = CMWL_proper_navy_focus
+
+		ai_will_do = { 
+			factor = 0 
+		}
+
+		available = {
+			any_owned_state = {
+				is_coastal = yes
+				is_core_of = ROOT
+				is_controlled_by = ROOT
+			}
+		}
+
+		#bypass = {}
+
+		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+					is_coastal = yes
+				}
+				add_extra_state_shared_building_slots = 1
+				add_building_construction = {
+					type = dockyard
+					level = 1
+					instant_build = yes
+				}
+			}  
+		}
+	}
+
+		
+}
+	
