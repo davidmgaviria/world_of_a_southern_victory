@@ -16,7 +16,7 @@ ideas = {
 
 			#picture = AUH_hungarian_opposition
 
-			modifier={ 
+			modifier={  
 				supply_consumption_factor = -0.04
 				out_of_supply_factor = -0.1
 				heat_attrition_factor = -0.2
@@ -34,6 +34,24 @@ ideas = {
 				stability_factor = 0.1
 				drift_defence_factor = 0.25
 				monthly_population = -0.25
+			}
+		}
+
+		CMWL_free_military_service_ideals = {  # longer desc, historical aussie policy
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			cancel = {
+				has_any_conscription = yes
+			}
+			
+			#picture = AUH_hungarian_opposition
+
+			modifier={ 
+				army_org = 5
+				army_morale_factor = 0.1
+				conscription = 0.005
 			}
 		}
 
@@ -106,6 +124,85 @@ ideas = {
 		#  Focus Ideas
 		###############################
 
+
+		CMWL_land_development_push_idea = {  # short desc aussie / kiwi defence bills to train civies in 1909-1911
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			#picture = AUH_hungarian_opposition
+
+			modifier = { 
+				local_building_slots_factor = 0.25
+				production_speed_buildings_factor = 0.7
+				production_speed_infrastructure_factor = 0.07
+			}
+		}
+
+
+		CMWL_servants_of_empire_idea = { 
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			#picture = AUH_hungarian_opposition
+
+
+			modifier = { 
+				overlord_trade_cost_factor = -0.15
+				license_subject_master_purchase_cost = -0.1
+				mobilization_speed = 0.01
+				conscription_factor = 0.07
+			}
+		}
+
+
+		CMWL_elites_to_london_idea = {  
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			#picture = AUH_hungarian_opposition
+
+			modifier = { 
+				autonomy_gain_global_factor = -0.2
+				research_speed_factor = 0.1
+				political_power_gain = 0.15
+			}
+		}
+
+
+		CMWL_growing_nationalist_movement_idea = {  
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			#picture = AUH_hungarian_opposition
+
+			modifier = { 
+				autonomy_gain = 0.2
+				autonomy_gain_global_factor = 0.1
+				drift_defence_factor = -0.1
+				democratic_drift = 0.01
+			}
+		}
+
+
+		CMWL_underground_resistance_cells_idea = {  
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			#picture = AUH_hungarian_opposition
+
+			modifier = { 
+				stability_weekly = -0.001
+				autonomy_gain = 0.5
+				democratic_drift = 0.01
+			}
+		}
+
+
 		CMWL_national_defence_act_idea = {  # short desc aussie / kiwi defence bills to train civies in 1909-1911
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
@@ -120,6 +217,7 @@ ideas = {
 			}
 		}
 		
+
 		CMWL_officer_corps_idea = {   # short desc, anzac & saf establish preliminary officer corps (pre war)
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
@@ -152,6 +250,26 @@ ideas = {
 		}
 
 
+		CMWL_wartime_powers_act_idea = {  
+			allowed = { always = no }
+			allowed_civil_war = { always = no }
+			removal_cost = -1
+
+			cancel = {
+				has_war_with_major = no
+			}
+
+			#picture = AUH_hungarian_opposition
+
+			modifier = { 
+				consumer_goods_factor = -0.07
+				conversion_cost_civ_to_mil_factor = -0.2
+				production_speed_arms_factory_factor = 0.1
+				industrial_capacity_factory = 0.1
+			}
+		}
+
+
 		CMWL_answer_the_call_idea = {  # short desc, anzac volunteer to fight for the crown
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
@@ -166,6 +284,7 @@ ideas = {
 			}
 		}
 
+
 		CMWL_expeditionary_force_idea = {   # short desc, we fight overseas
 			allowed = { always = no }
 			allowed_civil_war = { always = no }
@@ -179,6 +298,7 @@ ideas = {
 				ai_join_ally_desire_factor = 50
 			}
 		}
+
 
 		CMWL_general_staff_idea = {   # short desc, experienced generals form a general staff
 			allowed = { always = no }
@@ -204,6 +324,7 @@ ideas = {
 			#picture = AUH_hungarian_opposition
 
 			modifier = { 
+				autonomy_gain = 0.1
 				war_support_factor = 0.1
 				mobilization_speed = 0.01
 				autonomy_gain_global_factor = 0.15

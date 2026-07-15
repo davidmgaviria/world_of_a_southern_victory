@@ -20,12 +20,11 @@ focus_tree = {
 
 	focus = {
 		id = CMWL_a_growing_economy
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 
 		cost = 10
 		x = 4
 		y = 0 
-		#relative_position_id = 
 
 		ai_will_do = { 
 			factor = 0 
@@ -34,13 +33,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 0.5
+				uses = 2
+				category = industry
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_light_industry_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_a_growing_economy }
 
 		cost = 10
@@ -55,13 +59,35 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			} 
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_heavy_industry_effort
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_a_growing_economy }
 
 		cost = 10
@@ -76,13 +102,24 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = industrial_complex
+					level = 2
+					instant_build = yes
+				}
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_the_modernizing_push
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_heavy_industry_effort }
 		prerequisite = { focus = CMWL_light_industry_effort }
 
@@ -98,6 +135,24 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_tech_bonus = {
+				bonus = 3
+				uses = 1
+				category = industry
+				category = electronics
+			}
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+			} 
+			random_owned_controlled_state = {
+				limit = { 
+					is_core_of = ROOT
+				}
+				add_extra_state_shared_building_slots = 1
+			} 
 		}
 	}
 
@@ -120,6 +175,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CMWL_land_development_push_idea
 		}
 	}
 
@@ -142,6 +198,7 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CMWL_land_development_push_idea
 		}
 	}
 
@@ -460,7 +517,7 @@ focus_tree = {
 		
 	focus = {
 		id = CMWL_proud_crown_subjects
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_our_place_in_empire }
 		mutually_exclusive = { focus=CMWL_embers_of_national_identity  }
 
@@ -476,14 +533,18 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			
+			add_political_power = 75
+			add_war_support = 0.1
+			add_autonomy_score = {
+				value = -100
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_in_service_to_the_crown
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_proud_crown_subjects }
 
 		cost = 10
@@ -498,13 +559,15 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CMWL_servants_of_empire_idea
+			
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_send_elites_to_london
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_in_service_to_the_crown }
 
 		cost = 10
@@ -519,13 +582,17 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_timed_idea = {
+				idea = CMWL_elites_to_london_idea
+				days = 900
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_embers_of_national_identity
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_our_place_in_empire }
 		mutually_exclusive = { focus=CMWL_proud_crown_subjects  }
 
@@ -541,13 +608,16 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_autonomy_score = {
+    			value = 75
+			}
 		}
 	}
 
 
 	focus = {
 		id = CMWL_organize_street_rallies
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_embers_of_national_identity }
 
 		cost = 10
@@ -562,14 +632,24 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_stability = -0.07
+			add_stability = -0.05
+			if = {
+				limit = { NOT = { has_government = democratic } }
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.05
+				}
+			}
+			add_autonomy_score = {
+    			value = 50
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_distribute_anti_colonial_literature
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_embers_of_national_identity }
 
 		cost = 10
@@ -584,14 +664,24 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
-			add_stability = -0.07
+			add_stability = -0.05
+			if = {
+				limit = { NOT = { has_government = democratic } }
+				add_popularity = {
+					ideology = democratic
+					popularity = 0.05
+				}
+			}
+			add_autonomy_score = {
+    			value = 50
+			}
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_growing_nationalist_movement
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_organize_street_rallies }
 		prerequisite = { focus = CMWL_distribute_anti_colonial_literature }
 		
@@ -608,13 +698,14 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CMWL_growing_nationalist_movement_idea
 		}
 	}
 
 		
 	focus = {
 		id = CMWL_underground_resistance_cells
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_distribute_anti_colonial_literature }
 
 		cost = 10
@@ -629,6 +720,10 @@ focus_tree = {
 		#bypass = {}
 
 		completion_reward = { 
+			add_timed_idea = {
+				idea = CMWL_underground_resistance_cells_idea
+				days = 900
+			}
 		}
 	}
 
@@ -728,7 +823,7 @@ focus_tree = {
 		
 	focus = {
 		id = CMWL_wartime_powers_act
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = CMWL_the_great_war }
 
 		cost = 10
@@ -740,9 +835,14 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_war_with_major = yes
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = CMWL_wartime_powers_act_idea
 		}
 	}
 
