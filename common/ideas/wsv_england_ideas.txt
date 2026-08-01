@@ -2,46 +2,30 @@ ideas = {
 
 	country = {
 
-		ENG_dense_urban_country = {
+		ENG_home_of_industrial_revolution = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			picture = generic_central_management
+
+			picture = ARG_economic_reactivation
 			
 			modifier = {
-				global_building_slots_factor = 0.2
+				production_factory_start_efficiency_factor = 0.1
+				production_factory_max_efficiency_factor = 0.1
+				production_factory_efficiency_gain_factor = 0.15
+				global_building_slots_factor = 0.25
 				local_resources_factor = 0.1
 			}
 		}
 
-		ENG_professional_army = {
+		ENG_entente_cordiale_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always = yes }
 			removal_cost=-1
-			cancel = { 
-				has_any_conscription = yes 
-			}
-			picture = british_regulars_icon
+			
+			#picture = generic_central_management
 			
 			modifier = {
-				army_infantry_attack_factor = 0.05
-				army_infantry_defence_factor = 0.05
-				army_org = 10
-				training_time_factor = 0.15
-				conscription_factor = -0.15
-			}
-		}
-
-		ENG_imperial_overextension = {
-			allowed={ always=no }
-			allowed_civil_war={ always = yes }
-			removal_cost=-1
-			picture = ENG_the_sun_never_sets
-			
-			modifier = {
-				political_power_gain = -0.1
-				conscription = 0.005
-				non_core_manpower = 0.01
 			}
 		}
 
@@ -53,9 +37,76 @@ ideas = {
 			
 			modifier = {
 				political_power_gain = -0.5
-				stability_factor = -0.1
 			}
 		}
+
+
+		ENG_volunteer_military_ideals = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+
+			cancel = {
+				has_any_conscription = yes
+			}
+			
+			picture = generic_manpower_bonus
+			
+			modifier = {
+				mobilization_speed = 0.01
+				training_time_factor = 0.1
+				army_org = 10
+				army_org_regain = 0.1
+			}
+		}
+
+
+		ENG_rising_unions_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			
+			#picture = generic_central_management
+			
+			modifier = {
+				political_power_gain = -0.1
+				stability_factor = -0.1
+				drift_defence_factor = -0.25
+				communism_drift = 0.01
+			}
+		}
+
+
+		ENG_two_power_standard_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+			
+			picture = generic_naval_spending_moderate
+			
+			cancel = {
+				OR = {
+					is_puppet = yes
+					NOT = { any_owned_state = { is_coastal = yes } }
+				}
+			}
+
+			equipment_bonus = {
+            	ship_hull_heavy = {
+                	build_cost_ic = -0.1 instant = yes
+                }
+            }
+
+			modifier = {
+				political_power_gain = -0.2
+				production_speed_dockyard_factor = 0.1
+				naval_doctrine_cost_factor = -0.1
+			}
+		}
+
+
+		#####
+
 
 		ENG_usual_business_idea = {
 			allowed={ always=no }
