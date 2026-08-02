@@ -16,7 +16,8 @@ replace_path="common/country_tags"
 replace_path="common/decisions"
 replace_path="common/decisions/categories"
 replace_path="common/dynamic_modifiers"
-replace_path="gfx/loadingscreens"
+replace_path="common/factions/goals"
+replace_path="commom/focus_inlay_windows"
 replace_path="common/ideas"
 replace_path="common/ideologies"
 replace_path="common/national_focus"
@@ -48,8 +49,11 @@ replace_path="events"
 replace_path="history/countries"
 replace_path="history/general"
 replace_path="history/states"
+replace_path="gfx/loadingscreens"
 replace_path="map/strategicregions"
 replace_path="map"
+
+
 tags={
 	"Alternative History"
 	"Events"
@@ -63,5 +67,5 @@ tags={
 }
 version="2.0.1"
 picture="thumbnail.png"
-supported_version="1.16.*"
+supported_version="1.19.*"
 remote_file_id="2126619761"
