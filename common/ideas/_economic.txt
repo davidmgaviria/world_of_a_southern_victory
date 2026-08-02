@@ -93,7 +93,7 @@ ideas = {
 		
 		low_economic_mobilisation = {
 			available = {
-				has_war_support > 0.35
+				has_war_support > 0.25
 			}
 			
 			cost = 150
@@ -125,11 +125,14 @@ ideas = {
 
 		partial_economic_mobilisation = {
 			available = {
-				has_war_support > 0.5
+				has_war_support > 0.4
 				OR = {
-					NOT = { tag = USA }
-					NOT = { has_idea = USA_throttled_military_spending }		# dont let US switch originally
+					has_war = yes
+					threat > 0.2
+					has_government = fascism
+					has_government = communism 
 				}
+				NOT = { has_idea = USA_throttled_military_spending }		# dont let US switch originally
 			}
 
 			cost = 150
@@ -186,6 +189,7 @@ ideas = {
 						}
 					}
 				}	
+				NOT = { has_idea = ENG_business_as_usual_idea }	
 			}
 		
 			cost = 150
@@ -241,6 +245,7 @@ ideas = {
 						ratio > 0.5
 					}
 				}
+				NOT = { has_idea = ENG_business_as_usual_idea }	
 			}
 
 			cost = 150

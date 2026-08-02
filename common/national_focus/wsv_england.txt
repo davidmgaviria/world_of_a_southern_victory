@@ -690,7 +690,7 @@ focus_tree = {
 		
 	focus = {
 		id = ENG_ministry_of_munitions
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ENG_the_great_war }
 		cost = 10
 		x = -2
@@ -701,9 +701,16 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_war = yes
+			has_idea = ENG_shell_crisis_idea
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			add_ideas = ENG_ministry_of_munitions_idea
+			remove_ideas = ENG_shell_crisis_idea
 		}
 	}
 
@@ -730,7 +737,7 @@ focus_tree = {
 		
 	focus = {
 		id = ENG_enact_conscription
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ENG_ministry_of_munitions }
 		cost = 10
 		x = 0
@@ -741,16 +748,42 @@ focus_tree = {
 			factor = 0 
 		}
 
+		available = {
+			has_war_with_major = yes
+			OR = {
+				surrender_progress > 0
+				AND = {
+					longest_war_length > 12
+					casualties > 500000
+				}
+			}
+		}
+
 		#bypass = {}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = ENG_volunteer_military_ideals
+				add_idea = extensive_conscription
+			} 
+			if = {
+				limit = { has_idea = ENG_kitcheners_army_idea }
+				remove_ideas = ENG_kitcheners_army_idea
+			}
+			if = {
+				limit = { has_idea = ENG_kitcheners_army_reduced_idea }
+				remove_ideas = ENG_kitcheners_army_reduced_idea
+			}
+			hidden_effect = {
+				news_event =  wsv_england.104
+			}
 		}
 	}
 
 		
 	focus = {
 		id = ENG_total_war_focus
-		#icon = GFX_focus_chi_legislative_yuan
+		icon = GFX_focus_chi_legislative_yuan
 		prerequisite = { focus = ENG_enact_conscription }
 		cost = 10
 		x = 0
@@ -761,9 +794,25 @@ focus_tree = {
 			factor = 0 
 		}
 
-		#bypass = {}
+		available = {
+			has_war_with_major = yes
+			has_idea = ENG_business_as_usual_idea
+			OR = {
+				surrender_progress > 0
+				longest_war_length > 24
+			}
+		}
+
+		bypass = {
+			has_idea = war_economy
+			has_completed_focus = ENG_enact_conscription  # dont bypass till we finish the top one first
+		}
 
 		completion_reward = { 
+			swap_ideas = {
+				remove_idea = ENG_business_as_usual_idea
+				add_idea = war_economy
+			}
 		}
 	}
 

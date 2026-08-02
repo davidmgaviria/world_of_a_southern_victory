@@ -105,20 +105,108 @@ ideas = {
 		}
 
 
-		#####
+		#####  DURING GAME ####
+
+		ENG_kitcheners_army_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+
+			cancel = {
+				OR = {
+					has_any_conscription = yes
+					has_war = no
+				}
+			}
+			
+			#picture = generic_manpower_bonus
+			
+			modifier = {
+				mobilization_speed = 0.1  # rushed mobilization for the first 6 months
+				conscription = 0.03
+			}
+		}
 
 
-		ENG_usual_business_idea = {
+		ENG_kitcheners_army_reduced_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always = yes }
+			removal_cost=-1
+
+			cancel = {
+				OR = {
+					has_any_conscription = yes
+					has_war = no
+				}
+			}
+	
+			#picture = generic_manpower_bonus
+			
+			modifier = {
+				conscription = 0.03
+			}
+		}
+
+
+		ENG_business_as_usual_idea = {
 			allowed={ always=no }
 			allowed_civil_war={ always=no }
 			removal_cost=-1
+
 			cancel = {
 				has_war = no
 			}
+			
 			picture = POL_succesful_four_year_plan
 			
 			modifier = {
-				consumer_goods_factor = -0.2
+				consumer_goods_factor = -0.07
+				stability_factor = 0.1
+			}
+		}
+
+
+		ENG_shell_crisis_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+
+			cancel = {
+				has_war = no
+			}
+			
+			picture = FRA_factory_strikes
+			
+			modifier = {
+				army_artillery_attack_factor = -0.4
+				army_artillery_defence_factor = -0.25
+				army_attack_factor = -0.1
+				stability_factor = -0.1
+			}
+		}
+
+
+		ENG_ministry_of_munitions_idea = {
+			allowed={ always=no }
+			allowed_civil_war={ always=no }
+			removal_cost=-1
+
+			cancel = {
+				has_war = no
+			}
+			
+			picture = SOV_third_five_year_plan_military
+
+			equipment_bonus = {
+            	artillery_equipment = {
+                	build_cost_ic = -0.05 instant = yes
+                }
+            }
+			
+			modifier = {
+				industrial_capacity_factory = 0.1
+				production_speed_arms_factory_factor = 0.1
+				conversion_cost_civ_to_mil_factor = -0.15
 			}
 		}
 
