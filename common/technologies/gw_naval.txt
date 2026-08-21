@@ -17,12 +17,9 @@ technologies = {
 		enable_equipments = {
 			destroyer_1900
 		}
-
-		# enable_equipment_modules = {
-	 # 		light_ship_engine_1
-	 # 		ship_torpedo_1
-	 # 		ship_light_battery_1
-	 # 	}
+		enable_equipment_modules = {
+	 		light_gw_ship_engine_1
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_destroyer2
@@ -63,6 +60,9 @@ technologies = {
 		enable_equipments = { 
 			destroyer_1910
 		}
+		enable_equipment_modules = {
+	 		light_gw_ship_engine_2
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_destroyer3
@@ -140,6 +140,9 @@ technologies = {
 		enable_equipments = { 
 			destroyer_1916	
 		}
+		enable_equipment_modules = {
+	 		light_gw_ship_engine_3
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_destroyer4
@@ -186,6 +189,10 @@ technologies = {
 
 
 	ww1_depth_charge1 = {
+
+		enable_equipment_modules = {
+			ship_gw_depth_charge_1
+		}
 		
 		research_cost = 1.0
 
@@ -218,6 +225,10 @@ technologies = {
 
 
 	ww1_sonar1 = {
+
+		enable_equipment_modules = {
+			ship_gw_sonar_1
+		}
 
 		research_cost = 1.0
 
@@ -254,6 +265,9 @@ technologies = {
 		enable_equipments = { 
 			destroyer_1920				
 		}
+		enable_equipment_modules = {
+			light_gw_ship_engine_4
+		}
 		
 		research_cost = 2
 		
@@ -287,6 +301,10 @@ technologies = {
 
 
 	ww1_depth_charge2 = {
+
+		enable_equipment_modules = {
+			ship_gw_depth_charge_2
+		}
 		
 		research_cost = 1.0
 
@@ -314,6 +332,10 @@ technologies = {
 
 
 	ww1_sonar2 = {
+
+		enable_equipment_modules = {
+			ship_gw_sonar_2
+		}
 		
 		research_cost = 1.0
 
@@ -349,12 +371,10 @@ technologies = {
 		enable_equipments = { 
 			light_cruiser_1900
 		}
+		enable_equipment_modules = {
+	 		cruiser_gw_ship_engine_1
+	 	}
 
-		# enable_equipment_modules = {
-	 # 		light_ship_engine_1
-	 # 		ship_light_battery_1
-	 # 	}
-		
 		path = {
 			leads_to_tech = ww1_cruiser2
 			research_cost_coeff = 1
@@ -394,6 +414,9 @@ technologies = {
 		enable_equipments = { 
 			light_cruiser_1910
 		}
+		enable_equipment_modules = {
+	 		cruiser_gw_ship_engine_2
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_cruiser3
@@ -435,6 +458,9 @@ technologies = {
 		enable_equipments = { 
 			light_cruiser_1916
 		}
+		enable_equipment_modules = {
+	 		cruiser_gw_ship_engine_3
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_cruiser4
@@ -475,9 +501,9 @@ technologies = {
 		enable_equipments = { 
 			light_cruiser_1920
 		}
-		#enable_equipment_modules = { 
-		#	ship_depth_charge_1
-		#}
+		enable_equipment_modules = {
+	 		cruiser_gw_ship_engine_4
+	 	}
 		
 		path = {
 			leads_to_tech = early_light_cruiser
@@ -518,6 +544,128 @@ technologies = {
 	}
 
 
+	############################
+	## Armor Schemes (Battleships, Battlecruisers, Cruisers)
+	############################
+
+	ww1_ship_armor1 = {
+
+		enable_equipment_modules = {
+	 		ship_gw_armor_cruiser_1
+			ship_gw_armor_bb_1
+	 	}
+		
+		path = {
+			leads_to_tech = ww1_ship_armor2
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1
+		start_year = 1895
+		
+		folder = {
+			name = gw_naval_folder
+			position = { x = 0 y = @1895 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			naval_equipment
+		}
+	}
+
+
+	ww1_ship_armor2 = {
+
+		enable_equipment_modules = {
+			ship_gw_armor_bc_1
+			ship_gw_armor_bb_2
+	 	}
+		
+		path = {
+			leads_to_tech = ww1_ship_armor3
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1
+		start_year = 1905
+		
+		folder = {
+			name = gw_naval_folder
+			position = { x = 0 y = @1905 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			naval_equipment
+		}
+	}
+
+
+	ww1_ship_armor3 = {
+
+		enable_equipment_modules = {
+	 		ship_gw_armor_cruiser_2
+			ship_gw_armor_bc_2
+			ship_gw_armor_bb_2
+	 	}
+		
+		path = {
+			leads_to_tech = ww1_ship_armor4
+			research_cost_coeff = 1
+		}
+
+		research_cost = 1
+		start_year = 1910
+		
+		folder = {
+			name = gw_naval_folder
+			position = { x = 0 y = @1910 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			naval_equipment
+		}
+	}
+
+
+	## Predreadnought
+	ww1_ship_armor4 = {
+
+		enable_equipment_modules = {
+	 		#ship_armor_cruiser_3  # armored crusiers fell out of use during the war
+			ship_gw_armor_bc_3
+			ship_gw_armor_bb_3
+	 	}
+
+		research_cost = 1
+		start_year = 1915
+		
+		folder = {
+			name = gw_naval_folder
+			position = { x = 0 y = @1915 }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+		
+		categories = {
+			naval_equipment
+		}
+	}
+
+
 
 	############################
 	## Heavy Ships (Battelships + Battlecruisers)
@@ -529,11 +677,8 @@ technologies = {
 		enable_equipments = { 
 			battleship_1900
 		}
-
-		enable_equipment_modules = { 
-	 		ship_heavy_battery_1
-			ship_twin_heavy_battery_1
-			ship_twin_medium_battery_1
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_1
 	 	}
 		
 		path = {
@@ -575,6 +720,9 @@ technologies = {
 		enable_equipments = { 
 			battleship_1906
 		}
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_2
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_battleship3
@@ -619,6 +767,10 @@ technologies = {
 		enable_equipments = { 
 			battleship_1910
 		}
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_3
+			ship_gw_seaplane_system_1
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_battleship4
@@ -657,9 +809,9 @@ technologies = {
 		enable_equipments = { 
 			battleship_1916
 		}
-		# enable_equipment_modules = { 
-		# 	ship_airplane_launcher_1
-		# }
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_4
+	 	}
 
 		path = {
 			leads_to_tech = ww1_battlecruiser2
@@ -703,9 +855,10 @@ technologies = {
 		enable_equipments = { 
 			battleship_1920
 		}
-		# enable_equipment_modules = { 
-		# 	ship_airplane_launcher_1
-		# }
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_5
+			ship_gw_seaplane_system_2
+	 	}
 		
 		research_cost = 2.3
 		start_year = 1918
@@ -744,10 +897,10 @@ technologies = {
 		enable_equipments = { 
 			carrier_1910
 		}
-
-		# enable_equipment_modules = { 
-		# 	ship_airplane_launcher_1
-		# }
+		enable_equipment_modules = {
+	 		carrier_gw_ship_engine_1
+			ship_gw_deck_space
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_carrier2 
@@ -790,6 +943,9 @@ technologies = {
 		enable_equipments = { 
 			carrier_1916
 		}
+		enable_equipment_modules = {
+	 		carrier_gw_ship_engine_2
+	 	}
 
 		path = {
 			leads_to_tech = ww1_carrier3
@@ -839,6 +995,9 @@ technologies = {
 		enable_equipments = { 
 			submarine_1900
 		}
+		enable_equipment_modules = {
+	 		sub_gw_ship_engine_1
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_submarine2 
@@ -879,6 +1038,9 @@ technologies = {
 		enable_equipments = { 
 			submarine_1910
 		}
+		enable_equipment_modules = {
+	 		sub_gw_ship_engine_2
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_submarine3 
@@ -919,6 +1081,9 @@ technologies = {
 		enable_equipments = { 
 			submarine_1916
 		}
+		enable_equipment_modules = {
+	 		sub_gw_ship_engine_3
+	 	}
 		
 		path = {
 			leads_to_tech = ww1_submarine4 
@@ -959,6 +1124,9 @@ technologies = {
 		enable_equipments = { 
 			submarine_1920
 		}
+		enable_equipment_modules = {
+	 		sub_gw_ship_engine_4
+	 	}
 		
 		path = {
 			leads_to_tech = early_submarine 

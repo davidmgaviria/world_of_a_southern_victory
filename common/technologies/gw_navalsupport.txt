@@ -2,9 +2,9 @@ technologies = {
 
 	@1895 = 1
 	@1905 = 4
-	@1912 = 7
-	@1916 = 10
-	@1919 = 13
+	@1910 = 7  	# use to be 1912
+	@1915 = 10	# use to be 1915	
+	@1918 = 13	# use to be 1918
 	
 
 	###############################
@@ -22,18 +22,20 @@ technologies = {
 		}
 
 		enable_equipment_modules = {
-			# ship_light_battery_1
-			# ship_medium_battery_1
-			# ship_light_medium_battery_1
-			# ship_heavy_battery_1
-			# ship_secondaries_1
+			ship_gw_light_battery_1
+			ship_gw_light_medium_battery_1
+			ship_gw_secondaries_1
+			ship_gw_medium_battery_1
+			ship_gw_twin_medium_battery_1
+			ship_gw_heavy_battery_1
+			ship_gw_twin_heavy_battery_1
 		}
 
 		start_year = 1895
 		research_cost = 1
 		
 		path = {
-			leads_to_tech = ww1_light_battery_basic
+			leads_to_tech = ww1_light_battery_improved  #ww1_light_battery_basic
 			research_cost_coeff = 1
 		}
 
@@ -72,38 +74,45 @@ technologies = {
 
 	#### Light Batteries  
 
-	ww1_light_battery_basic = {   # light battery 1 is in 'basic battery'
+	# ww1_light_battery_basic = {   # light battery 1 is in 'basic battery'
 
-		enable_equipment_modules = {
-			ship_gw_secondaries_2
-		}
+	# 	enable_equipment_modules = {
+	# 		ship_gw_secondaries_2
+	# 	}
 
-		start_year = 1905
-		research_cost = 1
+	# 	start_year = 1905
+	# 	research_cost = 1
 		
-		path = {
-			leads_to_tech = ww1_light_battery_improved
-			research_cost_coeff = 1
-		}
+	# 	path = {
+	# 		leads_to_tech = ww1_light_battery_improved
+	# 		research_cost_coeff = 1
+	# 	}
 
 
-		folder = {
-			name = gw_navalsupport_folder
-			position = { x = -2 y = @1905 }
-		}
+	# 	folder = {
+	# 		name = gw_navalsupport_folder
+	# 		position = { x = -2 y = @1905 }
+	# 	}
 
-		categories = {
-			#naval_artillery
-			#naval_equipment
-			#ship_modules_tech
-			#cat_ship_light_battery
-		}
-	}
+	# 	categories = {
+	# 		#naval_artillery
+	# 		#naval_equipment
+	# 		#ship_modules_tech
+	# 		#cat_ship_light_battery
+	# 	}
+	# }
 
 
 	ww1_light_battery_improved = {
 
-		start_year = 1912
+		enable_equipment_modules = {
+			ship_gw_light_battery_2
+			ship_gw_light_medium_battery_2
+			ship_gw_secondaries_2
+			ship_gw_sub_deck_battery
+		}
+
+		start_year = 1910
 		research_cost = 1
 		
 		path = {
@@ -113,7 +122,7 @@ technologies = {
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = -2 y = @1912 }
+			position = { x = -2 y = @1910 }
 		}
 
 		categories = {
@@ -128,7 +137,8 @@ technologies = {
 	ww1_light_battery_advanced = {  
 
 		enable_equipment_modules = {
-			ship_gw_secondaries_3
+			ship_gw_light_battery_3
+			ship_gw_light_medium_battery_3
 		}
 
 		path = {
@@ -141,12 +151,12 @@ technologies = {
 			research_cost_coeff = 1
 		}
 
-		start_year = 1916
+		start_year = 1915
 		research_cost = 1
 		
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = -2 y = @1916 }
+			position = { x = -2 y = @1915 }
 		}
 
 		categories = {
@@ -162,9 +172,10 @@ technologies = {
 
 		enable_equipment_modules = {
 			dp_ship_gw_secondaries_1
+			# no dual purpose destroyer turrets yet
 		}
 
-		start_year = 1916
+		start_year = 1915
 		research_cost = 1
 		
 		path = {
@@ -174,7 +185,7 @@ technologies = {
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1915 }
 		}
 
 		categories = {
@@ -188,8 +199,13 @@ technologies = {
 
 	ww1_light_battery_modern = {  
 
+		enable_equipment_modules = {
+			ship_gw_light_battery_4
+			ship_gw_light_medium_battery_4
+			ship_gw_secondaries_3
+		}
 
-		start_year = 1919
+		start_year = 1918
 		research_cost = 1
 
 		path = {
@@ -199,7 +215,7 @@ technologies = {
 		
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = -2 y = @1919 }
+			position = { x = -2 y = @1918 }
 		}
 
 		categories = {
@@ -214,15 +230,16 @@ technologies = {
 	ww1_dp_light_battery_improved = {  ## dual purpose light battery
 
 		enable_equipment_modules = {
-			dp_ship_gw_secondaries_1
+			dp_ship_gw_secondaries_2
+			# no dual purpose destroyer turrets yet
 		}
 
-		start_year = 1919
+		start_year = 1918
 		research_cost = 1
 	
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1919 }
+			position = { x = 0 y = @1918 }
 		}
 
 		categories = {
@@ -278,7 +295,7 @@ technologies = {
 			# medium battery skips one
 		}
 
-		start_year = 1912
+		start_year = 1910
 		research_cost = 1
 		
 		path = {
@@ -288,7 +305,7 @@ technologies = {
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 2 y = @1912 }
+			position = { x = 2 y = @1910 }
 		}
 
 		categories = {
@@ -309,7 +326,7 @@ technologies = {
 			ship_gw_twin_medium_battery_3
 		}
 
-		start_year = 1916
+		start_year = 1915
 		research_cost = 1
 
 		path = {
@@ -320,7 +337,7 @@ technologies = {
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 2 y = @1916 }
+			position = { x = 2 y = @1915 }
 		}
 
 		categories = {
@@ -339,13 +356,13 @@ technologies = {
 			ship_gw_twin_heavy_battery_5
 		}
 
-		start_year = 1919
+		start_year = 1918
 		research_cost = 1
 		
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 2 y = @1919 }
+			position = { x = 2 y = @1918 }
 		}
 
 		categories = {
@@ -396,12 +413,12 @@ technologies = {
 			ship_gw_torpedo_sub_2
 		}
 
-		start_year = 1916			
+		start_year = 1915			
 		research_cost = 1
 		
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1915 }
 		}
 
 		categories = {
@@ -450,7 +467,7 @@ technologies = {
 			ship_gw_fire_control_system_1
 		}
 
-		start_year = 1912
+		start_year = 1910
 		research_cost = 1
 		
 		path = {
@@ -460,7 +477,7 @@ technologies = {
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1912 }
+			position = { x = 0 y = @1910 }
 		}
 
 		categories = {
@@ -477,12 +494,12 @@ technologies = {
 			ship_gw_fire_control_system_2
 		}
 
-		start_year = 1916
+		start_year = 1915
 		research_cost = 1
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1915 }
 		}
 
 		categories = {
@@ -523,7 +540,7 @@ technologies = {
 	# 'strict' ship compartimentalization 
 	ww1_improved_damage_control = {  
 
-		start_year = 1912		
+		start_year = 1910		
 		research_cost = 1
 		
 		path = {
@@ -533,7 +550,7 @@ technologies = {
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1912 }
+			position = { x = 0 y = @1910 }
 		}
 
 		categories = {
@@ -546,13 +563,13 @@ technologies = {
 	# improved ammo storage
 	ww1_advanced_damage_control = { 
 
-		start_year = 1916
+		start_year = 1915
 		research_cost = 1
 
 
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1915 }
 		}
 
 		categories = {
@@ -613,7 +630,7 @@ technologies = {
 		naval_invasion_capacity = 4
 		
 		research_cost = 1
-		start_year = 1916
+		start_year = 1915
 
 		path = {
 			leads_to_tech = ww1_transport3
@@ -622,7 +639,7 @@ technologies = {
 		
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1915 }
 		}
 		
 		ai_will_do = {
@@ -653,11 +670,11 @@ technologies = {
 		naval_invasion_capacity = 6
 		
 		research_cost = 1
-		start_year = 1916
+		start_year = 1915
 		
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1919 }
+			position = { x = 0 y = @1918 }
 		}
 
 		
@@ -725,11 +742,11 @@ technologies = {
 		}
 
 		research_cost = 1
-		start_year = 1916
+		start_year = 1915
 		
 		folder = {
 			name = gw_navalsupport_folder
-			position = { x = 0 y = @1916 }
+			position = { x = 0 y = @1915 }
 		}
 
 		
