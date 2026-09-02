@@ -1334,9 +1334,9 @@ equipment_modules = {
 	# Seaplane Tenders & Catapults (rolled into 1, only for capital ships in WW1)
 	##################################
 
-	ship_gw_seaplane_system_1 = {   # seaplane tender
+	ship_gw_seaplane_support = {   # seaplane tender
 		abbreviation = "sfa"
-		category = ship_seaplane_tender
+		category = ship_seaplane_support
 		gfx = ship_seaplane_tender_1
 
 		add_stats = {
@@ -1349,25 +1349,6 @@ equipment_modules = {
 			naval_speed = -0.03
 		}
 
-	}
-
-	ship_gw_seaplane_system_2 = {   # seaplane catapult + more sapce
-		abbreviation = "sfb"
-		category = ship_seaplane_tender
-		gfx = ship_seaplane_tender_2
-
-		add_stats = {
-			surface_detection = 3
-			sub_detection = 7
-			build_cost_ic = 75
-		}
-		can_convert_from = {
-			module_category = ship_seaplane_tender
-			convert_cost_ic = 30
-		}
-		multiply_stats = {
-			naval_speed = -0.03
-		}
 	}
 
 
@@ -1887,7 +1868,7 @@ equipment_modules = {
 
 
 	## Battleship Engines (these have 5)
-	heavy_gw_ship_engine_1 = {
+	heavy_gw_ship_engine_0 = {   # start at 0 to line up with other ships
 		abbreviation = "sbz"
 		category = heavy_ship_engine
 		sfx = sfx_ui_sd_module_engine
@@ -1910,10 +1891,10 @@ equipment_modules = {
 		}
 	}
 
-	heavy_gw_ship_engine_2 = {
+	heavy_gw_ship_engine_1 = {
 		abbreviation = "sca"
 		category = heavy_ship_engine
-		parent = heavy_gw_ship_engine_1
+		parent = heavy_gw_ship_engine_0
 		sfx = sfx_ui_sd_module_engine
 
 		
@@ -1934,15 +1915,15 @@ equipment_modules = {
 		}
 		
 		can_convert_from = {
-			module = heavy_gw_ship_engine_1
+			module = heavy_gw_ship_engine_0
 			convert_cost_ic = 4800
 		}
 	}
 
-	heavy_gw_ship_engine_3 = {
+	heavy_gw_ship_engine_2 = {
 		abbreviation = "scb"
 		category = heavy_ship_engine
-		parent = heavy_gw_ship_engine_2
+		parent = heavy_gw_ship_engine_1
 		sfx = sfx_ui_sd_module_engine
 
 		
@@ -1955,6 +1936,37 @@ equipment_modules = {
 		multiply_stats = {
 			naval_speed = 0.45
 			build_cost_ic = 0.175
+			
+		}
+		
+		can_convert_from = {
+			module_category = heavy_ship_engine
+			convert_cost_ic = 5000
+		}
+		
+		can_convert_from = {
+			module = heavy_gw_ship_engine_1
+			convert_cost_ic = 4800
+		}
+	}
+
+	heavy_gw_ship_engine_3 = {
+		abbreviation = "scc"
+		category = heavy_ship_engine
+		parent = heavy_gw_ship_engine_2
+		sfx = sfx_ui_sd_module_engine
+
+		
+		add_stats = {
+			#naval_speed = 12
+			fuel_consumption = 40
+			#build_cost_ic = 3200
+		}
+		
+		multiply_stats = {
+			naval_speed = 0.55
+			build_cost_ic = 0.2
+			
 			
 		}
 		
@@ -1995,38 +2007,7 @@ equipment_modules = {
 		}
 		
 		can_convert_from = {
-			module = heavy_gw_ship_engine_3
-			convert_cost_ic = 4800
-		}
-	}
-
-	heavy_gw_ship_engine_5 = {
-		abbreviation = "scc"
-		category = heavy_ship_engine
-		parent = heavy_gw_ship_engine_4
-		sfx = sfx_ui_sd_module_engine
-
-		
-		add_stats = {
-			#naval_speed = 12
-			fuel_consumption = 40
-			#build_cost_ic = 3200
-		}
-		
-		multiply_stats = {
-			naval_speed = 0.55
-			build_cost_ic = 0.2
-			
-			
-		}
-		
-		can_convert_from = {
-			module_category = heavy_ship_engine
-			convert_cost_ic = 5000
-		}
-		
-		can_convert_from = {
-			module = heavy_gw_ship_engine_3
+			module = heavy_gw_ship_engine_2
 			convert_cost_ic = 4800
 		}
 	}
