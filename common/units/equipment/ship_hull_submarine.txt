@@ -1,0 +1,289 @@
+equipments = {
+
+	ship_hull_submarine = {
+		year = 1900
+		is_archetype = yes
+		is_buildable = no
+		type = submarine
+		group_by = archetype
+		priority = 2500
+		
+		upgrades = {
+			ship_reliability_upgrade
+			sub_engine_upgrade
+			sub_stealth_upgrade
+			sub_torpedo_upgrade
+		}
+		
+		interface_category = interface_category_other_ships
+
+		module_slots = {
+			fixed_ship_torpedo_slot = {
+				required = yes
+				allowed_module_categories = { ship_torpedo_sub }
+			}
+			fixed_ship_engine_slot = {
+				required = yes
+				allowed_module_categories = { sub_ship_engine }
+			}
+			rear_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_torpedo_sub
+					ship_mine_layer_sub
+				}
+			}
+		}
+		
+		module_count_limit = {
+			category = ship_radar
+			count < 2
+		}
+		
+		default_modules = {
+			fixed_ship_torpedo_slot = empty
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+		
+		# class-wide stats
+		surface_detection = 20
+		sub_detection = 0
+		surface_visibility = 1
+		sub_visibility = 25
+
+		naval_supremacy_factor = 0.8
+		naval_weather_penalty_factor = 1 #this value gets -1 before its used so 1.5 will increase the effects of weather penalties by 0.5. this is base value is required for MIO stat modifiers
+		#MIO stat modifers will factory by the unmodified stat value so here a 0.5 mio stat modifier would make this ships naval_weather_penalty_factor stat 1.5.
+		# change this from 1 at your own risk
+	}
+
+
+	# early coastal subs - poor reliability, attack, and range
+	ship_gw_hull_coastal_sub_1 = {
+		year = 1900
+		archetype = ship_hull_submarine
+		priority = 2500
+		visual_level = 0
+	
+		interface_category = interface_category_other_ships
+
+		module_slots = {
+			fixed_ship_torpedo_slot = {
+				required = yes
+				allowed_module_categories = { ship_torpedo_sub }
+			}
+			fixed_ship_engine_slot = {
+				required = yes
+				allowed_module_categories = { sub_ship_engine }
+			}
+			front_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_deck_gun_sub
+					ship_torpedo_sub
+				}
+			}
+		}
+		
+		default_modules = {
+			fixed_ship_torpedo_slot = empty
+			fixed_ship_engine_slot = sub_ship_engine_1
+			front_1_custom_slot = empty
+		}
+
+		# stats
+		naval_range = 1000
+		naval_speed = 10
+		fuel_consumption = 1 
+
+		reliability = 0.55
+		max_strength = 8
+		manpower = 40
+		
+		resources = {
+			steel = 1
+		}
+		build_cost_ic = 165
+	}
+
+
+	# first 'sea-faring' submarines
+	ship_gw_hull_fleet_sub_1 = {
+		year = 1910
+		archetype = ship_hull_submarine
+		priority = 2500
+		visual_level = 0
+	
+		interface_category = interface_category_other_ships
+
+		module_slots = {
+			fixed_ship_torpedo_slot = {
+				required = yes
+				allowed_module_categories = { ship_torpedo_sub }
+			}
+			fixed_ship_engine_slot = {
+				required = yes
+				allowed_module_categories = { sub_ship_engine }
+			}
+			# modules
+			front_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_deck_gun_sub
+					ship_torpedo_sub
+				}
+			}
+			rear_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_torpedo_sub
+					ship_mine_layer_sub
+				}
+			}
+		}
+		
+		default_modules = {
+			fixed_ship_torpedo_slot = empty
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+
+		# stats
+		naval_range = 2500   #
+		naval_speed = 10
+		fuel_consumption = 1 
+
+		reliability = 0.60
+		max_strength = 10
+		manpower = 40
+		
+		resources = {
+			steel = 1
+		}
+		build_cost_ic = 200
+	}
+
+
+	# Wartime improved submarines, can travel farther ranger
+	ship_gw_hull_fleet_sub_2 = {
+		year = 1916
+		archetype = ship_hull_submarine
+		priority = 2500
+		parent = ship_gw_hull_fleet_sub_1
+		visual_level = 1
+	
+		interface_category = interface_category_other_ships
+
+		module_slots = {
+			fixed_ship_torpedo_slot = {
+				required = yes
+				allowed_module_categories = { ship_torpedo_sub }
+			}
+			fixed_ship_engine_slot = {
+				required = yes
+				allowed_module_categories = { sub_ship_engine }
+			}
+			# modules
+			front_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_deck_gun_sub
+					ship_torpedo_sub
+				}
+			}
+			rear_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_torpedo_sub
+					ship_mine_layer_sub
+				}
+			}
+		}
+		
+		default_modules = {
+			fixed_ship_torpedo_slot = empty
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+
+		# stats
+		naval_range = 4000   #
+		naval_speed = 12
+		fuel_consumption = 1 
+
+		reliability = 0.65
+		max_strength = 10
+		manpower = 50
+		
+		resources = {
+			steel = 1
+		}
+		build_cost_ic = 225
+	}
+
+
+	# Cruiser subs have more modules & longer range
+	ship_gw_hull_cruiser_sub_1 = {
+		year = 1916
+		archetype = ship_hull_submarine
+		priority = 2500
+		visual_level = 0
+	
+		interface_category = interface_category_other_ships
+
+		module_slots = {
+			fixed_ship_torpedo_slot = {
+				required = yes
+				allowed_module_categories = { ship_torpedo_sub }
+			}
+			fixed_ship_engine_slot = {
+				required = yes
+				allowed_module_categories = { sub_ship_engine }
+			}
+			# modules
+			front_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_deck_gun_sub
+					ship_torpedo_sub
+				}
+			}
+			mid_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_torpedo_sub
+					ship_mine_layer_sub
+				}
+			}
+			rear_1_custom_slot = {
+				required = no
+				allowed_module_categories = {
+					ship_torpedo_sub
+					ship_mine_layer_sub
+				}
+			}
+		}
+		
+		default_modules = {
+			fixed_ship_torpedo_slot = empty
+			fixed_ship_engine_slot = sub_ship_engine_1
+			rear_1_custom_slot = empty
+		}
+
+		# stats
+		naval_range = 6500   #
+		naval_speed = 12
+		fuel_consumption = 1 
+
+		reliability = 0.70
+		max_strength = 12
+		manpower = 60
+		
+		resources = {
+			steel = 1
+		}
+		build_cost_ic = 340
+	}
+
+}
