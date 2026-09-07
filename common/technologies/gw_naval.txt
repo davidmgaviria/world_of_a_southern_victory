@@ -374,7 +374,7 @@ technologies = {
 
 		enable_equipments = { 
 			#light_cruiser_1900
-			ship_gw_hul_cruiser_1
+			ship_gw_hull_cruiser_1
 		}
 		enable_equipment_modules = {
 	 		cruiser_gw_ship_engine_1
@@ -555,7 +555,8 @@ technologies = {
 
 		enable_equipment_modules = {
 	 		ship_gw_armor_cruiser_1
-			ship_gw_armor_bb_1
+			ship_gw_armor_bc_1  # battlecruiser
+			ship_gw_armor_bb_1  # battleship
 	 	}
 		
 		path = {
@@ -584,8 +585,7 @@ technologies = {
 	ww1_ship_armor2 = {
 
 		enable_equipment_modules = {
-			ship_gw_armor_bc_1
-			ship_gw_armor_bb_2
+			ship_gw_armor_bb_2  # battleship
 	 	}
 		
 		path = {
@@ -594,7 +594,7 @@ technologies = {
 		}
 
 		research_cost = 1
-		start_year = 1905
+		start_year = 1910
 		
 		folder = {
 			name = gw_naval_folder
@@ -614,9 +614,8 @@ technologies = {
 	ww1_ship_armor3 = {
 
 		enable_equipment_modules = {
-	 		ship_gw_armor_cruiser_2
-			ship_gw_armor_bc_2
-			ship_gw_armor_bb_2
+			ship_gw_armor_bb_3   # battleship
+			ship_gw_armor_bc_2   # battlecruiser
 	 	}
 		
 		path = {
@@ -641,14 +640,12 @@ technologies = {
 		}
 	}
 
-
-	## Predreadnought
 	ww1_ship_armor4 = {
 
 		enable_equipment_modules = {
-	 		#ship_armor_cruiser_3  # armored crusiers fell out of use during the war
-			ship_gw_armor_bc_3
-			ship_gw_armor_bb_3
+			ship_gw_armor_cruiser_2   # cruiser  (although an anachronism, i want to give players the ability to improve heavy cruisers)
+			ship_gw_armor_bc_3   # battlecruiser
+			ship_gw_armor_bb_4   # battleship
 	 	}
 
 		research_cost = 1
@@ -682,7 +679,7 @@ technologies = {
 			ship_gw_hull_heavy_1
 		}
 		enable_equipment_modules = {
-	 		heavy_gw_ship_engine_0
+			heavy_gw_ship_engine_0
 			heavy_gw_ship_engine_1
 	 	}
 		
@@ -770,9 +767,9 @@ technologies = {
 
 	ww1_better_heavy_engine = {
 
-		# enable_equipment_modules = {
-	 	# 	# oil engine
-	 	# }
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_3
+	 	}
 		
 		research_cost = 1
 		start_year = 1913
@@ -798,6 +795,9 @@ technologies = {
 		enable_equipments = { 
 			ship_gw_hull_heavy_3
 		}
+		enable_equipment_modules = {
+	 		heavy_gw_ship_engine_4
+	 	}
 		
 		research_cost = 2.3
 		start_year = 1916
@@ -1065,11 +1065,6 @@ technologies = {
 			leads_to_tech = ww1_submarine3 
 			research_cost_coeff = 1
 		}
-
-		path = {
-			leads_to_tech = ww1_better_submarine_engine
-			research_cost_coeff = 1
-		}
 		
 		research_cost = 2
 		start_year = 1910
@@ -1099,31 +1094,7 @@ technologies = {
 		}
 	}
 
-
-	ww1_better_submarine_engine = {
-
-		# enable_equipment_modules = {
-	 	# 	# disel engine
-	 	# }
-		
-		research_cost = 1
-		start_year = 1913
-		
-		folder = {
-			name = gw_naval_folder
-			position = { x = 1 y = @1913 }
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-		
-		categories = {
-			naval_equipment
-		}
-	}
-
-
+	
 	ww1_submarine3 = {
 
 		enable_equipments = { 
